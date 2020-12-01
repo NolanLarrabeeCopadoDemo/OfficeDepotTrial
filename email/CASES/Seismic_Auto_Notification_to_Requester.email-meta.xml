@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Seismic Template to be used for most emails responses to internal requests</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Seismic Auto Notification to Requester</name>
+    <style>freeForm</style>
+    <subject>Case# {!Case.CaseNumber} - {!Case.Account} - {!Case.ACCT_Account_Number__c} - Status: {!Case.Status}</subject>
+    <textOnly>Dear {!Case.Support_Requester__c},
+
+
+We have received your email. The below case has been created for your reference.
+
+Support Details:
+Support Case: {!Case.CaseNumber}
+Support Subject: {!Case.Subject}
+Status: {!Case.Status}
+
+
+For more details, please click the link below while logged onto the network:
+https://officedepot.my.salesforce.com/{!Case.Id}
+
+Thank you,
+
+Seismic Support
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Customer Maintenance: General Account Maintenance</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Request for Usage Report</name>
+    <style>formalLetter</style>
+    <subject>Request Usage Report on Account {!Account.AOPS_Cust_Id__c} - {!Account.Name}</subject>
+    <textOnly>&lt;Please send this to Field-WorkRequests@officedepot.com and remove this section.  Also, put your email in the CC section.&gt; 
+
+Team, 
+Please send me a usage report for the following account:
+
+Account # {!Account.AOPS_Cust_Id__c} 
+Customer Name: {!Account.Name}
+Time Frame: MM/DD/YEAR thru MM/DD/YEAR
+
+Regards,
+{!User.Name}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

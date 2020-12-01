@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification that gets sent to Acct Maint letting them know of Request Approval</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Acct Maint Approval Notification</name>
+    <style>freeForm</style>
+    <subject>Acct Maint Request has been Approved:  {!Case.Account} - Support # {!Case.CaseNumber}</subject>
+    <textOnly>The following Account Maintenance Request has been Approved:
+
+Support ID:  {!Case.CaseNumber}
+Account:  {!Case.Account}
+
+
+Link to Support:
+{!Case.Link}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

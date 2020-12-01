@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>Account.AOPS_Seq_ID__c</field>
+    </columns>
+    <columns>
+        <field>Account.AOPS_Cust_Id__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Account.First_Order_Date__c</field>
+    </columns>
+    <columns>
+        <field>Account.Total_TY_Sales_to_Date__c</field>
+    </columns>
+    <description>New accounts created YTD Adams - Markovic</description>
+    <filter>
+        <criteriaItems>
+            <column>USERS.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Teresa Adams,Timmy Adele,Christa Ansley,Anthony Ayala,Laurence Baker,Lisa Baker,Robert Baldasty,Tim Barcus,Teresa Bartek,John Beaty,Molly Berna,Kevin Biederman,Sharod Blizzard,Matthew Bourke,Brian Bram,Stephanie Burton,Lesly Busch,Jonathan Bush,Brooke Cable,Cara Caine,Thomas Cannon,Brian Clark,Christopher Cody,James Cosgrove,Alex Coules,Dean D&apos;Aconti,Larry Davis,Rafael De Madalengoitia,Ronald DeArman,Kevin Delesk,Vance Demoran,Michael Deneane,Brian Doherty,Wendy Durepos,Mark Dwyer,Edward Ecker,Thomas Ficker,Christopher Foster,Tonya Foster,Michael Gallagher,Marguerite Garrison,Stuart Gluck,Christopher Grobe,Christopher Halloran,Damon Harris,Jeffrey Haus,Kevin Herr,Alan Herscott,Brenda Hickey,Trevor Hirschi,Patricia Holland,Tina Horne,Merry Hunt,Michael Jacks,Kelly Jarvis,Sheri Joyner,Mary Kansier,Jeffrey King,Glen Kochaney,Alireza Ladbon,Anthony Lascola,Stephen Laspina,Thomas Laut,Brenton Lee,Erick Lindstrand,Anthony Liquori,Sheri Lundquist,Brandon Madden,Kenneth Marciano,Alen Markovic</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>BDM Account Creation 1</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

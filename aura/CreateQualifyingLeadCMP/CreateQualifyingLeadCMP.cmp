@@ -1,0 +1,155 @@
+<aura:component implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:attribute name="Id" type="String"/>
+    <aura:attribute name="AccName" type="String"/>
+    <aura:attribute name="newLeadError" type="String"/>
+    <aura:attribute name="SiteName" type="String" default="null"/>
+    <aura:attribute name="isSite" type="String"/>
+    <aura:attribute name="ProfileLoggedIn" type="String"/>
+    <aura:attribute name="isClassic" type="String" default="No"/>
+    
+
+    <aura:attribute name="accountRecord" type="Object"/>
+    <aura:attribute name="recordLoadError" type="String"/>
+    <aura:attribute name="recId" type="String" access="Global" />
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="leadRecordTypeId" type="String"/>
+    <aura:attribute name="fields" type="Object"/>
+    <aura:attribute name="recordError" type="String"/>
+    <aura:attribute name="RelatedAccountId" type="String"/>
+    <aura:attribute name="currentUser" type="User"/>
+
+    <aura:attribute name="isGTUser" type="Boolean" default="false"/>
+    <lightning:navigation aura:id="navigationService"/>
+
+    <force:recordData aura:id="recordLoader"
+      recordId="{!v.recordId}"
+      layoutType="FULL"
+      targetFields="{!v.fields}"
+      fields="Name,Related_Account__r.Name"
+      targetError="{!v.recordError}"
+      recordUpdated="{!c.handleRecordUpdated}"
+      />
+    
+    
+	<force:recordData 
+                      aura:id="recordLoader" 
+                      recordId="{!$SObjectType.CurrentUser.Id}"  
+                      fields="Profile.Name" 
+                      targetFields="{!v.currentUser}"
+                      recordUpdated="{!c.doInit}"/>
+    
+    
+    
+    <force:recordData aura:id="forceRecordCmp"
+                      recordId="{!v.Id}"
+                      layoutType="FULL"
+                      fields="Name,RecordType"
+                      mode="EDIT"
+                      targetFields="{!v.fields}"/>
+    
+    <div id="ToastMessage" class="demo-only" style="height:4rem;display:none;">
+        <div class="slds-notify_container slds-is-relative" style="position:fixed;">
+            <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small ">Qualifying deal created successfully.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="ToastErrorMessage" class="demo-only" style="height:4rem;display:none;">
+        <div class="slds-notify_container slds-is-relative" style="position:fixed;">
+            <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small ">Error Occurred.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="spinnerDiv" class="slds-spinner_container" style="position: fixed;display:block;">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    
+    <!-- Updated by Rajendra for NAIT-141988 - 02988308 - G&T: Qualifying Deal Primary Competitor-->
+    <!-- added recordTypeId="{!v.leadRecordTypeId}" in lightning:recordEditForm line 80 to pass current lead recordtype id -->
+    <lightning:recordEditForm aura:id="myForm11" recordTypeId="{!v.leadRecordTypeId}" objectApiName="Lead" onload="{!c.recordLoaded}" onsubmit="{!c.onRecordSubmit}" onerror="{!c.handleError}" onsuccess="{!c.handleSuccess}">
+         <div class="slds-col modal-header slds-modal__header">
+            <h2 class="title slds-text-heading--medium">Qualifying Deal</h2>
+        </div>
+        <lightning:card iconName="action:new_contact" title="Create Lead">
+            <div class="slds-p-horizontal--small">
+                <!--<div class="slds-grid slds-gutters">-->
+                    <!--<div class="slds-col" style="padding-right: 20.75rem;padding-left: 5.75rem;">-->
+                        <span><lightning:inputField aura:Id="LeadName" fieldName="Name"/></span>
+                         <!--<br/>
+                            <aura:if isTrue="{!v.ProfileLoggedIn == 'System Administrator'}">
+                                <span><lightning:inputField aura:id="SystemLeadSource" fieldName="SystemLeadSource__c"/></span>
+                            </aura:if> 
+                        <br/> -->
+                    <!--</div>-->
+                   <!--<div class="slds-col" style="padding-right: 7.75rem">--> 
+                        <span><lightning:inputField aura:id="Company" fieldName="Company"/></span>
+                        <span><lightning:inputField aura:id="LeadStatus" fieldName="Status"/></span>
+                        <span><lightning:inputField aura:Id="AccountId" variant="label-inline" fieldName="Account__c" required="true"/></span>
+                        <span><lightning:inputField aura:id="RelatedSite" fieldName="Related_Site__c"/></span>
+                        <!--<span><lightning:inputField aura:id="LeadContact" fieldName="Contact__c"/></span>-->
+                        <span><lightning:inputField aura:id="RepLeadSource" fieldName="Rep_Lead_Source__c"/></span>
+                        <aura:if isTrue="{!!v.isGTUser}">
+                            <span><lightning:inputField aura:id="SalesPlay" fieldName="od_sales_play__c"/></span>
+                        </aura:if>
+                        
+                    <!--</div> -->
+                <!--</div>-->
+            </div>
+        </lightning:card>
+        
+        
+        <lightning:card iconName="action:new_contact" title="Additional Information">
+            <div class="slds-p-horizontal--small">
+                <!--NAIT-135938 Sandesh Ganjare-->
+                <!--<lightning:inputField aura:Id="LeadProduct" fieldName="Product__c"/>
+                <lightning:inputField aura:Id="LeadProductSubType" fieldName="ProductSubtype__c"/>-->
+                <lightning:inputField aura:Id="LeadCurrentSupplier" variant="label-inline" fieldName="Current_Supplier__c"/>
+                <aura:if isTrue="{!v.isGTUser}">
+                    <lightning:inputField aura:id="LeadOppAmountCAD" fieldName="Amount_CAD__c"/>
+                    <aura:set attribute="else">
+                        <lightning:inputField aura:id="LeadOppAmount" fieldName="Amount__c"/>
+                    </aura:set>
+                </aura:if>
+               
+                <aura:if isTrue="{!v.isGTUser}">
+                    <lightning:inputField aura:id="LeadLifeCycle" fieldName="LeadLifecycle__c"/>
+                    <aura:set attribute="else">
+                        <lightning:inputField aura:id="LeadLifeCycle" fieldName="LeadLifecycle__c" required="true"/>
+                    </aura:set>
+                </aura:if>
+                
+                <!--<lightning:inputField aura:id="LeadCurrentProvider" fieldName="Amount_CAD__c"/>
+                <lightning:inputField aura:id="LeadStore" fieldName="Store__c"/>-->
+                <lightning:inputField aura:id="LeadNotes" fieldName="Notes__c"/>
+                <!--<lightning:inputField aura:id="LeadProductsandServices" fieldName="Products_Services_Buying__c"/>-->
+                <lightning:inputField aura:id="LeadPrimaryCompetitor" fieldName="PrimaryCompetitor__c"/>
+                <lightning:inputField aura:id="LeadEstimatedClosedDate" fieldName="Estimated_Close_Date__c" required="true"/>
+                <!--<lightning:inputField aura:id="LeadInitiatives" fieldName="Initiatives__c"/>-->
+                <lightning:inputField aura:id="LeadProjectOngoing" fieldName="ProjectOngoing__c"/>
+                <lightning:inputField aura:id="LeadNextStep" fieldName="NextStep__c"/>
+            </div>
+            <lightning:messages />
+            
+           
+        </lightning:card>
+        <div align="center">           
+            <lightning:button aura:id="Close" class="slds-m-top_small slds-button_brand" onclick="{!c.ClosePage}" label="Cancel" />   
+            <lightning:button aura:id="Save" class="slds-m-top_small slds-button_brand" type="submit" label="Save" />     
+        </div>    
+         
+    </lightning:recordEditForm>
+    
+   
+    
+</aura:component>

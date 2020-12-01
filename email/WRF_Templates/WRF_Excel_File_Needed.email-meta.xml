@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Email to notify the field that item list must be in Excel format</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Excel File Needed</name>
+    <style>freeForm</style>
+    <subject>WRF Excel File Needed: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+Thank you for your Work Request submission for {!Case.Account}.  We appreciate the opportunity to work with you.
+
+In order for us to price a bid or work request, you will need to provide an item list file in an Excel format that contains a column with one of the following:
+
+
+· OD,
+
+· Manufacturer, or
+
+· Major competitor item numbers (at a minimum).
+
+
+If the item list you have is not in an Excel format, please submit a Field Work Request to HCL using the following link:
+
+
+http://sp.na.odcorp.net/sites/BSG/FWR/default.aspx
+
+
+Select the Excel Bid List Request Type and attach the file and template for HCL to key the item #&apos;s into.  If you only have hard copies, they can be faxed to HCL at 408-962-1117.
+
+
+Once you have received the Excel file, please reply to this email with your attachment.
+
+
+Thank you,
+
+
+BSD BIDS</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

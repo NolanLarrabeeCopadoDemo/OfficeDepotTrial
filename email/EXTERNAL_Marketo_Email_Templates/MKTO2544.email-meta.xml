@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>2020.04.09 - Backorder Cancel Email.Backorder Cancel</name>
+    <style>none</style>
+    <subject>Update To Your Order</subject>
+    <textOnly>Dear {{lead.First Name:default=Valued Customer}},
+Thank you for your recent order. Due to an increase in demand for Safety &amp; Security, Cleaning Chemicals, Personal Hygiene and Office Products, we are experiencing a vendor supply interruption and many of these items are temporarily unavailable.
+With uncertainty around when products will be in stock again and priority given to essential services and front-line workers (including healthcare and government), we have unfortunately had to cancel your items on backorder. Rest assured that you have not been charged for these items. If you have any further inquiries, please contact Customer Care.
+We apologize for any inconvenience this may cause. In the meantime, please check grandandtoy.com &lt;[[https://www.grandandtoy.com/?cmp=EBBACKORDEREMAIL20EN&amp;utm_source={{my.UTM Source}}&amp;utm_medium={{my.UTM Medium}}&amp;utm_content={{my.UTM Content}}&amp;utm_campaign={{my.UTM Campaign}}]]&gt; for related products and inventory status.
+Thank you for your business.
+Free Shipping
+In Stock
+Clearance
+Deal Centre
+Customer Service &lt;[[https://www.grandandtoy.com/en/sites/core/contact-us.aspx]]&gt;
+Terms &amp; Conditions &lt;[[https://www.grandandtoy.com/en/sites/core/terms-and-conditions.aspx]]&gt;
+Privacy Policy &lt;[[https://www.grandandtoy.com/en/sites/core/privacy-policy.aspx]]&gt;
+View in 
+Web Browser &lt;[[{{system.viewAsWebpageLink}}]]&gt;
+Grand &amp; Toy  |  200 Aviva Park Drive, Vaughan, ON L4L9C7  |   1 866 391‑8111
+© 2020 Grand &amp; Toy Limited
+${customBodyHtml1}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

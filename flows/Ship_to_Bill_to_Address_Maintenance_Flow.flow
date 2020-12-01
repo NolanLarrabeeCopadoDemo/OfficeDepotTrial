@@ -1,0 +1,1881 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <choices>
+        <name>Add_Choice</name>
+        <choiceText>Add</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Add</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Add_Single_Address_Choice</name>
+        <choiceText>Add</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Add</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AddChangeInactivateanAddress</name>
+        <choiceText>Add/Change/Inactivate/Reactivate an Address</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Add/Change/Inactivate/Reactivate an Address</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Change_Single_Address_Choice</name>
+        <choiceText>Change</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Change</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ChangeAccountBusinessName</name>
+        <choiceText>Change Account Business Name</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Change Account Business Name</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Inactivate_Choice</name>
+        <choiceText>Inactivate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inactivate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Inactivate_Single_Address_Business_Name_Choice</name>
+        <choiceText>Inactivate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inactivate Single Address/Business Name</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Multiple</name>
+        <choiceText>Multiple</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Multiple</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>No</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Reactivate</name>
+        <choiceText>Reactivate</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Reactivate</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Single</name>
+        <choiceText>Single</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Single</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Yes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>choice_screen</name>
+        <label>choice screen</label>
+        <locationX>546</locationX>
+        <locationY>50</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Add_Change_Inactivate</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_a_Ship_to_Bill_to_Address_Maintenance_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>AddChangeInactivateanAddress</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Ship_to_Bill_to_Address_Maintenance_Screen</targetReference>
+            </connector>
+            <label>Add/Change/Inactivate</label>
+        </rules>
+        <rules>
+            <name>Change_Account_Business_Name</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_a_Ship_to_Bill_to_Address_Maintenance_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>ChangeAccountBusinessName</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Change_Account_Business_Name_Screen</targetReference>
+            </connector>
+            <label>Change Account Business Name</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Decison_Business_name</name>
+        <label>Decison Business name</label>
+        <locationX>403</locationX>
+        <locationY>348</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_All_Seq</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Do_you_want_to_update_the_Business_Name_on_all_sequences</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Yes</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Case_Change_Business_Name</targetReference>
+            </connector>
+            <label>Yes - All Seq</label>
+        </rules>
+        <rules>
+            <name>No_only_single1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Do_you_want_to_update_the_Business_Name_on_all_sequences</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>No</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>No_only_single</targetReference>
+            </connector>
+            <label>No - only single</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Ship_to_Bill_to_Address_Maintenance_Decision</name>
+        <label>Ship to/Bill to Address Maintenance Decision</label>
+        <locationX>750</locationX>
+        <locationY>153</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Add_Change_Single_Address_Business_Name_Redirect</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_an_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Add_Choice</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>mulit_single_choice</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Single</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Single_Address_Business_Name</targetReference>
+            </connector>
+            <label>Add Single Address/Business Name</label>
+        </rules>
+        <rules>
+            <name>Add_Multiple_Address_Business_Name_Redirect</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_an_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Add_Choice</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>mulit_single_choice</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Multiple</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Multiple_Address_Business_Name_Screen</targetReference>
+            </connector>
+            <label>Add Multiple Address/Business Name</label>
+        </rules>
+        <rules>
+            <name>Inactivate_Single</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_an_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Inactivate_Choice</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>mulit_single_choice</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Single</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Single_Address_Business_Name_Screen</targetReference>
+            </connector>
+            <label>Inactivate Single</label>
+        </rules>
+        <rules>
+            <name>Inactivate_Multiple</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_an_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Inactivate_Choice</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>mulit_single_choice</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Multiple</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Multiple_Address_Screen_inactive</targetReference>
+            </connector>
+            <label>Inactivate Multiple</label>
+        </rules>
+        <rules>
+            <name>Change_Single_Address_Business_Name</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_an_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Change_Single_Address_Choice</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>mulit_single_choice</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Single</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Change_Single_Address_Business_Name_0</targetReference>
+            </connector>
+            <label>Change Single Address/Business Name</label>
+        </rules>
+        <rules>
+            <name>Change_Multiple_Address_Business_Name</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_an_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Change_Single_Address_Choice</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>mulit_single_choice</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Multiple</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Multiple_Address_Business_Name_Screen_0</targetReference>
+            </connector>
+            <label>Change Multiple Address/Business Name</label>
+        </rules>
+        <rules>
+            <name>Reactivating_Single</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_an_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Reactivate</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>mulit_single_choice</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Single</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reactivating_Address_Business_Name_Screen_0</targetReference>
+            </connector>
+            <label>Reactivating Single</label>
+        </rules>
+        <rules>
+            <name>Reactivating_Multiple</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_an_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Reactivate</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>mulit_single_choice</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Multiple</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Multiple_Address_Business_Name_Screen</targetReference>
+            </connector>
+            <label>Reactivating Multiple</label>
+        </rules>
+    </decisions>
+    <dynamicChoiceSets>
+        <name>Change_Single_Address_Business_Name_Sequence_ID_Record_Choice_Set</name>
+        <dataType>String</dataType>
+        <displayField>AOPS_Seq_ID__c</displayField>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AOPS_Seq_ID__c</field>
+            <operator>Contains</operator>
+            <value>
+                <elementReference>Change_Single_Address_Business_Name_Sequence_ID</elementReference>
+            </value>
+        </filters>
+        <limit>10</limit>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>Change_Single_Address_Business_Name_Sequence_ID_Variable</assignToReference>
+            <field>AOPS_Seq_ID__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>Change_Single_Address_Business_Name_Sequence_ID_Street_Address_Variable</assignToReference>
+            <field>Address1__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>Change_Single_Address_Business_Name_Sequence_ID_City_Variable</assignToReference>
+            <field>City__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>Change_Single_Address_Business_Name_Sequence_ID_State_Variable</assignToReference>
+            <field>State__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>Change_Single_Address_Business_Name_Sequence_ID_PostalCode_Variable</assignToReference>
+            <field>Zip__c</field>
+        </outputAssignments>
+        <valueField>AOPS_Seq_ID__c</valueField>
+    </dynamicChoiceSets>
+    <interviewLabel>Ship to/Bill to {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Ship to/Bill to Address Maintenance V3.2</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Case_Change_Business_Name</name>
+        <label>Create Case Change Business Name</label>
+        <locationX>195</locationX>
+        <locationY>421</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>na</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>ChangeAccountBusinessNameAllSeqtemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtype</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Change Account Business Name</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Account Upload</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_Change_Business_Name_0</name>
+        <label>Create Case Change Business Name</label>
+        <locationX>585</locationX>
+        <locationY>361</locationY>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>na</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>Addsingletemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>HCLQueue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtype</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Add/Change/Inactivate/Reactivate an Address</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Ship to/Bill to Address Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_Change_Business_Name_0_0</name>
+        <label>Create Case Change Business Name</label>
+        <locationX>778</locationX>
+        <locationY>497</locationY>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>na</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>inactivateSingleaddress</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>HCLQueue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtype</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Add/Change/Inactivate/Reactivate an Address</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Ship to/Bill to Address Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_Change_Business_Name_0_0_0</name>
+        <label>Create Case Change Business Name</label>
+        <locationX>993</locationX>
+        <locationY>405</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <connector>
+            <targetReference>Upload</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>na</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtype</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Add/Change/Inactivate Multiple Addresses</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Account Upload</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_Change_Business_Name_0_0_0_0</name>
+        <label>Create Case Change Business Name</label>
+        <locationX>1222</locationX>
+        <locationY>189</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <connector>
+            <targetReference>Upload</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>na</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtype</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Add/Change/Inactivate Multiple Addresses</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Account Upload</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_Change_Business_Name_0_0_0_0_0</name>
+        <label>Create Case Change Business Name</label>
+        <locationX>1120</locationX>
+        <locationY>360</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <connector>
+            <targetReference>Upload</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>na</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtype</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Add/Change/Inactivate Multiple Addresses</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Account Upload</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_Change_Business_Name_0_0_0_0_0_0</name>
+        <label>Create Case Change Business Name</label>
+        <locationX>687</locationX>
+        <locationY>428</locationY>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>na</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>ChangeSingletemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>HCLQueue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtype</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Add/Change/Inactivate/Reactivate an Address</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Ship to/Bill to Address Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_Change_Business_Name_0_0_0_0_0_0_0</name>
+        <label>Create Case Change Business Name</label>
+        <locationX>408</locationX>
+        <locationY>622</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>na</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>Changebusinessnameonsingletemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtype</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Change Account Business Name</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Ship to/Bill to Address Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_Change_Business_Name_0_0_0_0_0_0_0_0</name>
+        <label>Create Case Change Business Name</label>
+        <locationX>871</locationX>
+        <locationY>455</locationY>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>na</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>reactivatingaddress</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>HCLQueue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtype</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Add/Change/Inactivate/Reactivate an Address</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Ship to/Bill to Address Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <screens>
+        <name>Add_Single_Address_Business_Name</name>
+        <label>Add Single Address/Business Name</label>
+        <locationX>577</locationX>
+        <locationY>208</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Case_Change_Business_Name_0</targetReference>
+        </connector>
+        <fields>
+            <name>Address_ID</name>
+            <dataType>String</dataType>
+            <fieldText>Address ID</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 20&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Address_ID}) &lt;= 20</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Business_Name</name>
+            <dataType>String</dataType>
+            <fieldText>Business Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 30&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Business_Name}) &lt;= 30</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Address_Line_1</name>
+            <dataType>String</dataType>
+            <fieldText>Address Line 1</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 25&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Address_Line_1}) &lt;= 25</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Address_Line_2</name>
+            <dataType>String</dataType>
+            <fieldText>Address Line 2</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 25&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Address_Line_2}) &lt;= 25</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>City</name>
+            <dataType>String</dataType>
+            <fieldText>City</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 25&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!City}) &lt;= 25</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>State</name>
+            <dataType>String</dataType>
+            <fieldText>State</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 2&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!State}) &lt;= 2</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Zip</name>
+            <dataType>String</dataType>
+            <fieldText>Zip</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 9&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Zip}) &lt;= 9</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Add_Single_Address_Business_Name_Screen</name>
+        <label>Inactive Single Address/Business Name</label>
+        <locationX>778</locationX>
+        <locationY>287</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Case_Change_Business_Name_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>Address_Seq_Inactivating</name>
+            <dataType>String</dataType>
+            <fieldText>Address Seq Inactivating</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Change_Account_Business_Name_Screen</name>
+        <label>Change Account Business Name Screen</label>
+        <locationX>409</locationX>
+        <locationY>233</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Decison_Business_name</targetReference>
+        </connector>
+        <fields>
+            <name>Do_you_want_to_update_the_Business_Name_on_all_sequences</name>
+            <choiceReferences>Yes</choiceReferences>
+            <choiceReferences>No</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Do you want to update the Business Name on all sequences?</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Old_Business_Name</name>
+            <dataType>String</dataType>
+            <fieldText>Old Business Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 30&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Old_Business_Name}) &lt;= 30</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>New_Business_Name</name>
+            <dataType>String</dataType>
+            <fieldText>New Business Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 30&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!New_Business_Name}) &lt;= 30</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Change_Single_Address_Business_Name_0</name>
+        <label>Change Single Address/Business Name</label>
+        <locationX>673</locationX>
+        <locationY>285</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Case_Change_Business_Name_0_0_0_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>Address_ID_0</name>
+            <dataType>String</dataType>
+            <fieldText>Address ID</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Character Limit 20&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Address_ID_0}) &lt;= 20</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Address_Seq</name>
+            <dataType>String</dataType>
+            <fieldText>Address Seq Being Changed</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Business_Name_0</name>
+            <dataType>String</dataType>
+            <fieldText>Business Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 30&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Business_Name_0}) &lt;= 30</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Address_Line_1_0</name>
+            <dataType>String</dataType>
+            <fieldText>Address Line 1</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 25&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Address_Line_1_0}) &lt;= 25</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Address_Line_2_0</name>
+            <dataType>String</dataType>
+            <fieldText>Address Line 2</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 25&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Address_Line_2_0}) &lt;= 25</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>City_0</name>
+            <dataType>String</dataType>
+            <fieldText>City</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 25&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!City_0}) &lt;= 25</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>State_0</name>
+            <dataType>String</dataType>
+            <fieldText>State</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 2&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!State_0}) &lt;= 2</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>Zip_0</name>
+            <dataType>String</dataType>
+            <fieldText>Zip</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 9&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Zip_0}) &lt;= 9</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Change_Single_Address_Business_Name_Screen</name>
+        <label>Change Single Address/Business Name</label>
+        <locationX>180</locationX>
+        <locationY>2010</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Breadcrumb_DisplayText2</name>
+            <fieldText>&lt;ul&gt;&lt;li&gt;Ship to/Bill to Address Maintenance&lt;ul&gt;&lt;li&gt;Add/Change Single Address/Business Name&lt;ul&gt;&lt;li&gt;Change Single Address/Business Name&lt;ul&gt;&lt;li&gt;Matching Sequence IDs&lt;ul&gt;&lt;li&gt;&lt;b&gt;Enter New Address&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Selected_Sequence_ID_DisplayText</name>
+            <fieldText>&lt;p&gt;Selected Sequence ID: {!Change_Single_Address_Business_Name_Sequence_ID_Variable}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Current_Address_DisplayText</name>
+            <fieldText>&lt;p&gt;Current Address: {!Change_Single_Address_Business_Name_Sequence_ID_Street_Address_Variable}, {!Change_Single_Address_Business_Name_Sequence_ID_City_Variable}, {!Change_Single_Address_Business_Name_Sequence_ID_State_Variable} - {!Change_Single_Address_Business_Name_Sequence_ID_PostalCode_Variable}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Enter_New_Address_DisplayText</name>
+            <fieldText>&lt;p&gt;Enter New Address:&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Street_Address</name>
+            <dataType>String</dataType>
+            <fieldText>Street Address</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_City</name>
+            <dataType>String</dataType>
+            <fieldText>City</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_State</name>
+            <dataType>String</dataType>
+            <fieldText>State</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Postal_Code</name>
+            <dataType>String</dataType>
+            <fieldText>Postal Code</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Change_Single_Address_Business_Name_Sequence_ID_Results_Screen</name>
+        <label>Matching Sequence IDs</label>
+        <locationX>326</locationX>
+        <locationY>2004</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Change_Single_Address_Business_Name_Screen</targetReference>
+        </connector>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Sequence_ID_Results_Breadcrumb_DisplayText</name>
+            <fieldText>&lt;ul&gt;&lt;li&gt;Ship to/Bill to Address Maintenance&lt;ul&gt;&lt;li&gt;Add/Change Single Address/Business Name&lt;ul&gt;&lt;li&gt;Change Single Address/Business Name&lt;ul&gt;&lt;li&gt;&lt;b&gt;Matching Sequence IDs&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Sequence_ID_Results_RadioButtons</name>
+            <choiceReferences>Change_Single_Address_Business_Name_Sequence_ID_Record_Choice_Set</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Please select the desired Sequence ID</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Change_Single_Address_Business_Name_Sequence_ID_Screen</name>
+        <label>Change Single Address/Business Name Sequence ID</label>
+        <locationX>256</locationX>
+        <locationY>2055</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Change_Single_Address_Business_Name_Sequence_ID_Results_Screen</targetReference>
+        </connector>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Breadcrumb_DisplayText</name>
+            <fieldText>&lt;ul&gt;&lt;li&gt;Ship to/Bill to Address Maintenance&lt;ul&gt;&lt;li&gt;Add/Change Single Address/Business Name&lt;ul&gt;&lt;li&gt;&lt;b&gt;Change Single Address/Business Name&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Sequence_ID_Account_ID_DisplayText</name>
+            <fieldText>&lt;p&gt;Account ID: {!$Flow.CurrentRecord}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Change_Single_Address_Business_Name_Sequence_ID</name>
+            <dataType>String</dataType>
+            <fieldText>Sequence ID</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Choices</name>
+        <label>Choices</label>
+        <locationX>264</locationX>
+        <locationY>53</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>choice_screen</targetReference>
+        </connector>
+        <fields>
+            <name>Please_select_a_Ship_to_Bill_to_Address_Maintenance_option</name>
+            <choiceReferences>AddChangeInactivateanAddress</choiceReferences>
+            <choiceReferences>ChangeAccountBusinessName</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Please select a Ship to/Bill to Address Maintenance option:</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Inactivate_Single_Address_Business_Name_Sequence_ID_Entry_Screen</name>
+        <label>Inactivate Single Address/Business Name</label>
+        <locationX>330</locationX>
+        <locationY>1886</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Inactivate_Single_Address_Business_Name_Sequence_ID_Results_Screen</targetReference>
+        </connector>
+        <fields>
+            <name>Inactivate_Single_Address_Business_Name_Sequence_ID_Entry_Breadcrumb</name>
+            <fieldText>&lt;ul&gt;&lt;li&gt;Ship to/Bill to Address Maintenance&lt;ul&gt;&lt;li&gt;&lt;b&gt;Inactivate Single Address/Business Name&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Inactivate_Single_Address_Business_Name_Sequence_ID_Entry_Sequence_ID</name>
+            <dataType>String</dataType>
+            <fieldText>Sequence ID</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>InactiveComments</name>
+            <fieldText>Comments</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Inactivate_Single_Address_Business_Name_Sequence_ID_Results_Screen</name>
+        <label>Matching Sequence IDs</label>
+        <locationX>207</locationX>
+        <locationY>1910</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Inactivate_Single_Address_Business_Name_Sequence_Results_Breadcrumb</name>
+            <fieldText>&lt;ul&gt;&lt;li&gt;Ship to/Bill to Address Maintenance&lt;ul&gt;&lt;li&gt;Add/Change Single Address/Business Name&lt;ul&gt;&lt;li&gt;Inactivate Single Address/Business Name&lt;ul&gt;&lt;li&gt;&lt;b&gt;Matching Sequence IDs&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Inactivate_Single_Address_Business_Name_Sequence_ID_Results_RadioButtons_0</name>
+            <choiceReferences>Change_Single_Address_Business_Name_Sequence_ID_Record_Choice_Set</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Please select the desired Sequence ID</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Multiple_Address_Business_Name_Screen</name>
+        <label>Multiple Address/Business Name</label>
+        <locationX>1095</locationX>
+        <locationY>100</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Case_Change_Business_Name_0_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>LinktoForm</name>
+            <fieldText>&lt;p&gt;{!Link}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>text02</name>
+            <fieldText>&lt;p&gt;Please upload all attachments on the next screen.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Multiple_Address_Business_Name_Screen_0</name>
+        <label>Multiple Address/Business Name</label>
+        <locationX>1107</locationX>
+        <locationY>207</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Case_Change_Business_Name_0_0_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>LinktoForm_0_0</name>
+            <fieldText>&lt;p&gt;{!Link}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>text01</name>
+            <fieldText>&lt;p&gt;Please upload all attachments on the next screen.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Multiple_Address_Screen_inactive</name>
+        <label>Multiple Address/Business Name</label>
+        <locationX>993</locationX>
+        <locationY>240</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Case_Change_Business_Name_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>LinktoForm_0</name>
+            <fieldText>&lt;p&gt;{!Link}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>text0</name>
+            <fieldText>&lt;p&gt;Please upload all attachments on the next screen.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>No_only_single</name>
+        <label>No only single</label>
+        <locationX>421</locationX>
+        <locationY>479</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Create_Case_Change_Business_Name_0_0_0_0_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>Sequence</name>
+            <dataType>String</dataType>
+            <fieldText>Sequence</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Old_Business_Name1</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>Old_Business_Name</elementReference>
+            </defaultValue>
+            <fieldText>Old Business Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 30&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Old_Business_Name1}) &lt;= 30</formulaExpression>
+            </validationRule>
+        </fields>
+        <fields>
+            <name>New_Business_Name1</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>New_Business_Name</elementReference>
+            </defaultValue>
+            <fieldText>New Business Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Character Limit 30&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!New_Business_Name1}) &lt;= 30</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Reactivating_Address_Business_Name_Screen_0</name>
+        <label>Reactivating Single Address/Business Name</label>
+        <locationX>864</locationX>
+        <locationY>317</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Case_Change_Business_Name_0_0_0_0_0_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>Address_Seq_Reactivating</name>
+            <dataType>String</dataType>
+            <fieldText>Address Seq Reactivating</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Ship_to_Bill_to_Address_Maintenance_Screen</name>
+        <label>Ship to/Bill to Address Maintenance</label>
+        <locationX>802</locationX>
+        <locationY>42</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Ship_to_Bill_to_Address_Maintenance_Decision</targetReference>
+        </connector>
+        <fields>
+            <name>Please_select_an_option</name>
+            <choiceReferences>Add_Choice</choiceReferences>
+            <choiceReferences>Change_Single_Address_Choice</choiceReferences>
+            <choiceReferences>Inactivate_Choice</choiceReferences>
+            <choiceReferences>Reactivate</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Please select an option:</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>mulit_single_choice</name>
+            <choiceReferences>Multiple</choiceReferences>
+            <choiceReferences>Single</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Is this a single or multiple address change?</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Upload</name>
+        <label>Upload Attachment(s)</label>
+        <locationX>695</locationX>
+        <locationY>761</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Fileupload</name>
+            <extensionName>forceContent:fileUpload</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>upload</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>recid</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>multiple</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <startElementReference>Choices</startElementReference>
+    <status>Active</status>
+    <textTemplates>
+        <name>Addsingletemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Please add new address:
+
+Address ID: {!Address_ID}
+
+Business Name: {!Business_Name}
+
+Address Line 1: {!Address_Line_1}
+
+Address Line 2: {!Address_Line_2}
+
+City: {!City}
+
+State: {!State}
+
+Zip: {!Zip}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ChangeAccountBusinessNameAllSeqtemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Account Level: {!Do_you_want_to_update_the_Business_Name_on_all_sequences}
+
+Old Business Name: {!Old_Business_Name1}
+
+New Business Name: {!New_Business_Name}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Changebusinessnameonsingletemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Account Level: {!Do_you_want_to_update_the_Business_Name_on_all_sequences}
+
+Sequence: {!Sequence}
+
+Old Business Name: {!Old_Business_Name1}
+
+New Business Name: {!New_Business_Name1}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ChangeSingletemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Please change address:
+
+Address ID: {!Address_ID_0}
+
+Address Seq Being Changed: {!Address_Seq}
+
+Business Name: {!Business_Name_0}
+
+Address Line 1: {!Address_Line_1_0}
+
+Address Line 2: {!Address_Line_2_0}
+
+City: {!City_0}
+
+State: {!State_0}
+
+Zip: {!Zip_0}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>inactivateSingleaddress</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Address Seq Inactivating: {!Address_Seq_Inactivating}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Link</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;*****Please download, complete, and attach the &lt;A HREF=&quot;https://officedepot.my.salesforce.com/sfc/p/#E0000000J4oS/a/4400000098Qh/KWxDfRIc5DfrQGZ5ID1CsQ9NTDKVjNarSFp0Et60Hqo&quot; TARGET=&quot;_blank&quot;&gt;&lt;B&gt;&lt;U&gt; Ship To Upload Form &lt;/U&gt;&lt;/B&gt;&lt;/A&gt; to this request. &lt;/FONT&gt;&lt;/DIV&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>reactivatingaddress</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Please reactivate address seq: {!Address_Seq_Reactivating}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Subject</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>{!Please_select_a_Ship_to_Bill_to_Address_Maintenance_option} - {!acctnm}</text>
+    </textTemplates>
+    <variables>
+        <name>acctid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>acctnm</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>Change_Single_Address_Business_Name_Sequence_ID_City_Variable</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Change_Single_Address_Business_Name_Sequence_ID_PostalCode_Variable</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Change_Single_Address_Business_Name_Sequence_ID_State_Variable</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Change_Single_Address_Business_Name_Sequence_ID_Street_Address_Variable</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Change_Single_Address_Business_Name_Sequence_ID_Variable</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ChangeAccountBusinessRequesttype</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Add/Change Ship To Address(es)</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>custid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>CustomerBusinessNameChange</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Customer Business Name Change</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>HCLQueue</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>00GE0000003josn</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>Queue</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>00GE0000000uSf2</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>recid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>recordtype</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>01244000000fR7l</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>uploadrequesttype</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Account Upload</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>userid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

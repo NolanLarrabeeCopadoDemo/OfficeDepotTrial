@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Cynthia Test.sign_up_welcome_email_en</name>
+    <style>none</style>
+    <subject>Welcome {{lead.First Name:default=Valued Customer}}</subject>
+    <textOnly>Dear {{lead.First Name:default=Friend}},
+
+Welcome</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

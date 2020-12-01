@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification that gets sent out to approvers for review</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Acct Maint Approval Request 2</name>
+    <style>freeForm</style>
+    <subject>Account Maintenance Approval  - {!Case.Account} - {!Case.CaseNumber}</subject>
+    <textOnly>Your approval is needed to process this Account Maintenance request.  Please click the link below to view the request.
+
+
+{!Case.Link}
+
+
+You may approve either directly from the Salesforce.com request (support case) or from the below link.
+
+
+Approve/Reject.  Click for details and instructions:
+
+
+
+_______________________________________________</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

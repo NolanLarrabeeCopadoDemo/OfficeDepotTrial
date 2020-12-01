@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>notification to bsd.customerrebates@officedepot.com when ticket assigned to rebate queue</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Acct Maint - Rebate Auto Notification</name>
+    <style>freeForm</style>
+    <subject>New Rebate Request - {!Case.CaseNumber}</subject>
+    <textOnly>There is a new request in the rebate queue.  Please click the link below to action it appropriately.
+
+Link to Support Case: Click Here
+
+Account Name:  {!Case.Account}
+Request Type:  {!Case.WRF_Request_Type__c}
+Requester Name:  {!Case.WRF_Requestor_Name__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

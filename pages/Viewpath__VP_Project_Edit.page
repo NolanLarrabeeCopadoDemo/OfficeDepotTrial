@@ -1,0 +1,2051 @@
+<apex:page showHeader="true" StandardController="Viewpath__VP_Project__c" extensions="Viewpath.VP_Project_Extension">
+    <!-- Hidden fields; required to prevent shitty "SObject row was retrieved via SOQL without querying..." bug -->
+    <!-- IDSI.DG: Suspicion is that even though the panel isn't be rendered specifically, the fields themselves could be suspects... -->
+    <!-- Link to Salesforce community: https://success.salesforce.com/issues_view?id=a1p30000000Sw8tAAC -->
+    <!-- Keeping original code block just in case -->
+
+    
+
+    <!--
+        <apex:outputpanel rendered="false">
+        {!Viewpath__VP_Project__c.Name}
+        {!Viewpath__VP_Project__c.Viewpath__Account__c}
+        {!Viewpath__VP_Project__c.Viewpath__Opportunity__c}
+        {!Viewpath__VP_Project__c.Viewpath__Start__c}    
+        {!Viewpath__VP_Project__c.Viewpath__Finish__c}    
+        {!Viewpath__VP_Project__c.Viewpath__ChatterEnabled__c}
+        {!Viewpath__VP_Project__c.Viewpath__ChatterGroupId__c}
+        {!Viewpath__VP_Project__c.Owner}
+        {!Viewpath__VP_Project__c.Owner.Email}
+        {!Viewpath__VP_Project__c.Owner.FirstName}
+        {!Viewpath__VP_Project__c.Owner.LastName}
+        {!Viewpath__VP_Project__c.Owner.Name}
+        </apex:outputpanel>
+        -->
+   <!--End Hidden Fields-->
+
+   <!-- Start of actual correction 1.13.2014 IDSI.DG -->
+   <apex:form >
+       <apex:inputhidden value="{!Viewpath__VP_Project__c.Name}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Viewpath__Account__c}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Viewpath__Opportunity__c}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Viewpath__Start__c}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Viewpath__Finish__c}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Viewpath__ChatterEnabled__c}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Viewpath__ChatterGroupId__c}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Owner}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Owner.Email}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Owner.FirstName}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Owner.LastName}"/>
+       <apex:inputHidden value="{!Viewpath__VP_Project__c.Owner.Name}"/>
+
+       <apex:inputhidden value="{!Project.Name}"/>
+       <apex:inputHidden value="{!Project.Viewpath__Account__c}"/>
+       <apex:inputHidden value="{!Project.Viewpath__Opportunity__c}"/>
+       <apex:inputHidden value="{!Project.Viewpath__Start__c}"/>
+       <apex:inputHidden value="{!Project.Viewpath__Finish__c}"/>
+       <apex:inputHidden value="{!Project.Viewpath__ChatterEnabled__c}"/>
+       <apex:inputHidden value="{!Project.Viewpath__ChatterGroupId__c}"/>
+       <apex:inputHidden value="{!Project.Owner}"/>
+       <apex:inputHidden value="{!Project.Owner.Email}"/>
+       <apex:inputHidden value="{!Project.Owner.FirstName}"/>
+       <apex:inputHidden value="{!Project.Owner.LastName}"/>
+       <apex:inputHidden value="{!Project.Owner.Name}"/>
+   </apex:form>
+   
+       
+   
+   
+    <!--<link rel="Stylesheet" type="text/css" href="{!$Resource.ExtJS}/resources/css/ext-all.css" />
+    <link rel="Stylesheet" type="text/css" href="{!$Resource.ExtJS}/resources/css/xtheme-gray.css" />-->
+    <script type="text/javascript" src="{!$Resource.ExtJS}/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="{!$Resource.ExtJS}/ext-all-debug.js"></script>   
+    
+    <link rel="Stylesheet" type="text/css" href="{!$Resource.ExtJS}/resources/css/ext-all.css" />
+    <link rel="Stylesheet" type="text/css" href="{!$Resource.ExtJS}/resources/css/xtheme-gray.css" />
+    <!--<script type="text/javascript" src="{!$Resource.ExtJS34}/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="{!$Resource.ExtJS34}/ext-all-debug.js"></script>   -->
+    <script type="text/javascript" src="{!$Resource.VP_Resources}/js/plugins/Ext.ux.plugins.FitToParent.js"></script>     
+    <script src="../../soap/ajax/29.0/connection.js" type="text/javascript"></script>
+   <style>
+
+    .bDetailBlock {
+        display:none;
+    }
+    table#ProjectSummaryTable {
+        width:98%;
+    }
+    
+    .ProjectSummary{
+       font-size:1em;
+       clear:both;
+   }
+   .ProjectSummary tr {
+   }
+   
+   .ProjectSummary td {
+       padding:5px 0 1px;
+   }
+   
+   .ProjectSummary .key{
+       width:80px;
+       text-align:left;
+       font-weight:bold;
+   }
+   .ProjectSummary .value{
+       text-align:left;
+       padding-right:15px;
+       padding-left:10px;
+   }
+    
+    .ProjectButton {
+       /*display:inline;*/
+       float:left;
+       margin-bottom:3px;
+       margin-left:0;
+       margin-top:3px;
+   }    
+   
+   .x-btn-mc .x-btn-text.addAccountContacts {
+        background-image: url(/img/sprites/master.png) !important;
+        background-position:0 -82px;
+        background-repeat:no-repeat;
+   }
+   
+   div#ProjectInfo {
+        min-height:110px;
+        min-width:520px;
+        padding:12px 370px 0 12px;
+   }
+   
+   a#NextTip {
+       position:absolute;
+       bottom:12px;
+       right:16px;
+       color:#b67904;
+   }
+   
+   .ptBody div.content h2.pageDescription {
+       background:transparent url({!$Resource.VP_Resources}/images/icons/Pencil.png) no-repeat;   
+       background-position:right 3px;
+       padding-right:20px;
+       margin-left:0px;
+       display:inline;
+   }
+   
+   h3#ProjectName{
+       display:inline;
+       font-size:1.3em;
+       color:#555;
+       text-shadow:1px 1px 0 #fff;
+       background:transparent url({!$Resource.VP_Resources}/images/icons/Pencil.png) no-repeat;
+       background-position:right top;
+       margin-bottom:5px;
+       padding-right:25px; 
+   }
+   
+   h3#ProjectName:hover{
+       cursor:pointer;
+   }
+   .TitleEditor {
+       color:#444;
+       font-size:1.1em;
+   }
+    ul.x-tab-strip {
+        width:auto; //prevents the tabs from being 5000px
+    }
+    .addResource {
+        background-image: url({!$Resource.VP_Resources}/images/icons/Resource16.png) !important;
+    }
+    .addByEmail {
+        background-image: url({!$Resource.VP_Resources}/images/icons/Contact16.png) !important;
+    }
+    .x-grid3-dirty-cell {
+        background-image:none;
+    }
+    .x-grid3-hd-row .x-grid3-td-milestoneCol div{
+        display:none;
+    }
+    .x-menu-list-item { margin-left:0; }
+
+    .ViewpathTips{
+        background-image:url('{!$Resource.VP_Resources}/images/TipBox.png');
+        color:#444444;
+        /*float:right;*/
+        font-weight:bold;
+        height:92px;
+        line-height:1.6em;
+        padding:10px 20px 18px 15px;
+        position:absolute;
+        right:0;
+        top:5px;
+        width:360px;
+    }
+    
+    .pbBody {
+        position:relative;
+    }
+    
+    .ViewpathTips .tip {
+        padding:10px 0;
+        font-weight:normal;
+        font-size:1.1em;
+    }
+    
+    .ViewpathTips h3 {
+        font-size:1.2em;
+    }
+    
+    input.btn-refresh, input.btn-launch-viewpath {
+      padding: 7px !important;
+      padding-left: 24px !important;
+      background-repeat: no-repeat;
+      background-position: 5px;
+      padding: 7px;
+    }
+
+    input.btn-refresh {
+      background: url({!$Resource.ExtJS}/resources/images/default/grid/refresh.gif) 5px no-repeat, -moz-linear-gradient(top,  #fcfcfc 47%, #e8e8e8 94%); /* FF3.6+ */
+      background: url({!$Resource.ExtJS}/resources/images/default/grid/refresh.gif) 5px no-repeat, -webkit-gradient(linear, left top, left bottom, color-stop(47%,#fcfcfc), color-stop(94%,#e8e8e8)); /* Chrome,Safari4+ */
+      background: url({!$Resource.ExtJS}/resources/images/default/grid/refresh.gif) 5px no-repeat, -webkit-linear-gradient(top,  #fcfcfc 47%,#e8e8e8 94%); /* Chrome10+,Safari5.1+ */
+      background: url({!$Resource.ExtJS}/resources/images/default/grid/refresh.gif) 5px no-repeat, -o-linear-gradient(top,  #fcfcfc 47%,#e8e8e8 94%); /* Opera 11.10+ */
+      background: url({!$Resource.ExtJS}/resources/images/default/grid/refresh.gif) 5px no-repeat, -ms-linear-gradient(top,  #fcfcfc 47%,#e8e8e8 94%); /* IE10+ */
+      background: url({!$Resource.ExtJS}/resources/images/default/grid/refresh.gif) 5px no-repeat, linear-gradient(to bottom,  #fcfcfc 47%,#e8e8e8 94%); /* W3C */
+    }
+    input.btn-launch-viewpath {
+      background: url({!$Resource.ExtJS}/resources/images/icons/LaunchApp16.png) 5px no-repeat, -moz-linear-gradient(top,  #fcfcfc 47%, #e8e8e8 94%); /* FF3.6+ */
+      background: url({!$Resource.ExtJS}/resources/images/icons/LaunchApp16.png) 5px no-repeat, -webkit-gradient(linear, left top, left bottom, color-stop(47%,#fcfcfc), color-stop(94%,#e8e8e8)); /* Chrome,Safari4+ */
+      background: url({!$Resource.ExtJS}/resources/images/icons/LaunchApp16.png) 5px no-repeat, -webkit-linear-gradient(top,  #fcfcfc 47%,#e8e8e8 94%); /* Chrome10+,Safari5.1+ */
+      background: url({!$Resource.ExtJS}/resources/images/icons/LaunchApp16.png) 5px no-repeat, -o-linear-gradient(top,  #fcfcfc 47%,#e8e8e8 94%); /* Opera 11.10+ */
+      background: url({!$Resource.ExtJS}/resources/images/icons/LaunchApp16.png) 5px no-repeat, -ms-linear-gradient(top,  #fcfcfc 47%,#e8e8e8 94%); /* IE10+ */
+      background: url({!$Resource.ExtJS}/resources/images/icons/LaunchApp16.png) 5px no-repeat, linear-gradient(to bottom,  #fcfcfc 47%,#e8e8e8 94%); /* W3C */
+
+    }
+    
+    .ProjectButtons {
+      margin-top: 8px;
+    }
+   </style>
+   
+  <script type="text/javascript">  
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Extensions, Global, Utilty
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        var __sfdcSessionId = '{!GETSESSIONID()}';
+
+    
+        //Extensions
+        Ext.override(Ext.data.Store, {  
+            filter : function(property, value, anyMatch, caseSensitive, exactMatch){
+                var fn;
+                //we can accept an array of filter objects, or a single filter object - normalize them here
+                if (Ext.isObject(property)) {
+                    property = [property];
+                }
+                
+                if (Ext.isArray(property)) {
+                    var filters = [];
+                
+                    //normalize the filters passed into an array of filter functions
+                    for (var i=0, j = property.length; i < j; i++) {
+                        var filter = property[i],
+                            func   = filter.fn,
+                            scope  = filter.scope || this;
+                
+                        //if we werent given a filter function, construct one now
+                        if (!Ext.isFunction(func)) {
+                            func = this.createFilterFn(filter.property, filter.value, filter.anyMatch, filter.caseSensitive, filter.exactMatch);
+                        }
+                
+                        filters.push({fn: func, scope: scope});
+                    }
+                
+                    fn = this.createMultipleFilterFn(filters);
+                } else {
+                    //classic single property filter
+                    fn = this.createFilterFn(property, value, anyMatch, caseSensitive, exactMatch);
+                }
+                
+                return fn ? this.filterBy(fn) : this.clearFilter();
+            },
+            filterBy : function(fn, scope){
+                this.snapshot = this.snapshot || this.data;
+                this.data = this.queryBy(fn, scope || this);
+                this.fireEvent('datachanged', this);
+            },
+            createFilterFn : function(property, value, anyMatch, caseSensitive, exactMatch){
+                if(Ext.isEmpty(value, false)){
+                    return false;
+                }
+                value = this.data.createValueMatcher(value, anyMatch, caseSensitive, exactMatch);
+                return function(r) {
+                    return value.test(r.data[property]);
+                };
+            },
+            
+            createMultipleFilterFn: function(filters) {
+                return function(record) {
+                    var isMatch = true;
+                
+                    for (var i=0, j = filters.length; i < j; i++) {
+                        var filter = filters[i],
+                            fn     = filter.fn,
+                            scope  = filter.scope;
+                
+                        isMatch = isMatch && fn.call(scope, record);
+                    }
+                
+                    return isMatch;
+                };
+            }
+        });
+        
+        
+        // We are using EXT JS 3.4 in this solution
+        //   Docs are found at: http://extjs.cachefly.net/ext-3.4.0/docs/
+        
+        
+        //Wordwrap for textarea extensions
+        Ext.override(Ext.form.TextArea, {
+            initComponent: Ext.form.TextArea.prototype.initComponent.createSequence(function() {
+                Ext.applyIf(this, {wordWrap: true});
+            }),
+            
+            onRender: Ext.form.TextArea.prototype.onRender.createSequence(function(ct, position){ 
+                this.el.setOverflow('auto');
+                if (this.wordWrap === false) {
+                    if (!Ext.isIE) {
+                        this.el.set({wrap:'off'});
+                    } else {
+                        this.el.dom.wrap = 'off';
+                    }
+                }
+                if (this.preventScrollbars === true) {
+                    this.el.setStyle('overflow', 'hidden');
+                }                   
+            })
+        });
+        
+        //Alias for body
+        var bd = Ext.getBody();
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Renderers
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        taskNameRenderer = function (v,p,r) {
+            var indentLevel = r.data["Wbs"];
+            indentLevel = indentLevel.match(/\./g);
+            if (indentLevel !== null){
+                for (i = 1; i <= indentLevel.length; i++) {
+                    v = "&nbsp;&nbsp;" + v;
+                }
+            }
+            return v;
+        };
+        
+        percentageRenderer = function (v,p,r) {
+            if (v === null || v == 0) {
+                return "";
+            } else {
+                return v + "%";
+            }
+        };
+        
+        milestoneRenderer = function (v,p,r) {
+            if (v) {
+                return "<span qtip=\"Milestone\"><img src=\"{!$Resource.VPImages}/milestone.png\" alt=\"Milestone\" /></span>";
+            } else {
+                return "";
+            }
+        };
+        
+        workRenderer = function (v,p,r) {
+            if (v === null || v == 0) {
+                return "";
+            } else {
+                return (v > 1) ? roundNumber(v,2) + " Hours" : roundNumber(v,2) + " Hour";
+            }
+        };
+        
+        accessRenderer = function(v,p,r) {
+            AccessRights = {
+                "-1" : "None",
+                "0" : "Guest",
+                "1" : "Observer",
+                "2" : "Editor",
+                "2.5" : "Manager",
+                "3" : "Owner"
+            }
+           //AccessRights = ['None','Guest','Observer','Editor','Owner'];
+           //return AccessRights[v+1]; //v+1 causes a shift to match Kriss need for a -1 index for 'None'.
+           return AccessRights[v+'']; 
+        }
+        
+        assignmentRenderer = function(v,p,r) {
+            //if (typeof(v) !== undefined){
+            if (v === null) {
+               return "";
+            } else {
+               return (v.join(", "));
+            }
+        }
+        
+        durationRenderer = function(v,p,r) {
+            var returnVal;
+            var unit = parseInt(r.data["DurationUnit"]);
+            var durationUnits = [];//new Array();
+            durationUnits[1]="Minute";   // DurationUnits defined in C:\Projects\VP3_App\JavaScript\ViewpathDataModel.js under TimeUnit
+            durationUnits[2]="Hour";
+            durationUnits[3]="Day"; 
+            durationUnits[4]="Week";     // 1/2/14 RW Added Week as fix for issue VP-1413 : Weeks showing as undefined
+            durationUnits[5]="eMinute";  // 1/2/14 RW Added the following 4 new values for Elapsed Minutes - Weeks
+            durationUnits[6]="eHour";
+            durationUnits[7]="eDay";
+            durationUnits[8]="eWeek";
+                                    
+            if (v === null || v == 0) {
+                return "";
+            } else { 
+                returnVal = roundNumber(v,2) + " " + durationUnits[unit];
+                if (v > 1) { returnVal = returnVal + "s"; }
+             
+                return returnVal;
+            }
+        };
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //End Renderers
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        
+        function log(text){
+            if (window.console && window.console.debug)
+            {
+            window.console.log(text);           //  mozilla
+            }
+            else if (window.console && window.console.log)
+            {
+            window.console.log(text);           //  safari
+            }
+            else if (window.opera && opera.postError)
+            {
+            opera.postError(text);              //  opera
+            }
+            else
+            {
+            //    alert(text);                  //  ie
+            }
+        };
+
+        function roundNumber(num, dec) {
+           var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+           return result;
+        }
+        
+        function popUp(URL) {
+          day = new Date();
+          id = day.getTime();
+          eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=1024,height=600');");
+        }
+        
+ 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Project vars/urls from Apex
+        ////////////////////////////////////////////////////////////////////////////////////////////////////   
+        ViewpathApiUrl = '<apex:outputText value="{!ViewpathAPIUrl}"/>';
+        LocalApiUrl = '<apex:outputText value="{!LocalAPIUrl}"/>';
+        ViewpathProjectId = '<apex:outputText value="{!Viewpath__VP_Project__c.Viewpath__ProjectId__c}"/>';
+        AccessLevel = <apex:outputText value="{!AccessLevel}"/>;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //End Project Vars
+        ////////////////////////////////////////////////////////////////////////////////////////////////////   
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //End Global/Utility
+        ////////////////////////////////////////////////////////////////////////////////////////////////////   
+    </script>
+    
+       <apex:outputPanel rendered="{!((AccountActivated) && (AccessLevel > -1))}">
+   <script>
+    Ext.onReady(function(){
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Today Tab
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //Filters
+        var hideCompleted = {
+           fn : function(rec){ return rec.data.Complete < 100; },
+           scope: this,
+           labelText: 'Hide completed tasks'
+        };
+        
+        var hideOtherProjects = {
+           fn : function(rec) { return rec.data.Project == ViewpathProjectId; },
+           scope: this,
+           labelText:'Show only this project'
+        };
+        
+       //Set default filter state by adding filters to the array.
+       var todayGridFilters = [hideCompleted, hideOtherProjects];
+       
+       todayFilterGrid = function(item) { 
+            if (!item.checked) {
+                todayGridFilters.remove(item.filterFn);                        
+            } else {
+                for (var i=0; i < todayGridFilters.length; i++) {
+                    var exists = false;
+                    if (todayGridFilters[i] === item.filterFn) {
+                       exists = true;
+                    }
+                }
+                if (!exists)
+                    todayGridFilters.push(item.filterFn);
+            }
+            
+            todayStore.filter(todayGridFilters);
+            //this.ownerCt.ownerCt.setText(todayFilterLabel(todayGridFilters));
+        };
+        
+        var todayFilterMenuItems = [
+            {
+                text: 'Hide completed tasks',
+                checked: true,
+                filterFn: hideCompleted,       
+                checkHandler: todayFilterGrid
+            },
+            {
+                text: 'Show only this project',
+                checked: true,
+                filterFn: hideOtherProjects,       
+                checkHandler: todayFilterGrid
+            }
+        ];
+        
+        var todayFilterLabel = function(filterItems){
+            var aLabel = [];;
+            for (var i = 0; i<filterItems.length; i++){
+                aLabel.push(filterItems[i].labelText);
+            }
+            return aLabel.join(',');
+        }
+        
+        var todayFilterMenu = new Ext.menu.Menu({
+            id: 'todayFilterMenu',
+            width: 160,
+            items: todayFilterMenuItems
+        });
+        
+        var todayFilterBar = {
+            text: 'Filters',
+            //tooltip: 'Choose a filter setting',
+            icon: '{!$Resource.Viewpath__VPImages}/find.png',
+            //width: 150,
+            cls: 'x-btn-text-icon btn-search-icon',
+            menu: todayFilterMenu,
+            id: 'todayFilterBarBtn'
+        };
+        
+   
+        var todayStore = new Ext.data.JsonStore({  
+            totalProperty: 'total', // total data, see json output  
+            root: 'values',    // see json output  
+            autoLoad: true,
+            url: ViewpathApiUrl + '?method=getAssignedTasks',  
+            filters: [hideCompleted],
+            fields: [
+                {name:'Wbs', sortType:function(v){           
+                    var vArr = v.split('.');
+                        for (x=0; x < 6 ; x++) {
+                            if (vArr[x] == undefined) {vArr[x] = "0"; }
+                                for  (i = vArr[x].length; i < 5; i++) {
+                                    vArr[x] = "0" + vArr[x];
+                            }
+                        }
+                    v = vArr.join().replace(',','');
+                    return v; //extract to proper sort function.
+                }},  
+                'Id', 
+                'Milestone',
+                'Name',
+                'Complete',
+                {name:'Start', type:'date'},
+                {name:'Finish',type:'date'},
+                'Work',
+                'Duration',
+                'DurationUnit',
+                'Parent',
+                'ProjectName',
+                'Project', //Project Id
+                'Description'
+            ]  
+        });
+
+        var todayFirstLoad = function(){
+            todayStore.filter(todayGridFilters);
+            todayStore.un('load', hideCompleted);
+        }
+        todayStore.on('load', todayFirstLoad);
+        
+        todayGrid = new Ext.grid.EditorGridPanel({  
+            forceFit: true,
+            height:250,
+            afterEdit: function(e) {
+                if ((e.field == "Complete") && e.record.data[e.field] == "") { 
+                    e.record.data[e.field] = "0";
+                    taskGrid.getView().refreshRow(e.record);
+                } 
+                rd = e.record.data;
+                var params = {
+                    "method": "updateTask",
+                    "taskId": rd.Id,
+                    "taskComplete": (rd.Complete == null || rd.Complete == "") ? "0" : rd.Complete
+                };
+                log(params);
+                Ext.Ajax.request({
+                    url: ViewpathApiUrl,
+                    success: function(e) { //log('Entry Updated');
+                    },
+                    failure: function(e) { //log('Entry Updated');
+                        alert('Failed to update entry; please contact tech support');
+                    },
+                    params: params
+                });
+            },
+            clicksToEdit: 1,
+            store: todayStore,  
+            stripeRows: true,
+            sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
+            //plugins:[new Ext.ux.plugins.FitWidthToParent('container')],            
+            columns: [  
+                {header: "MS", width: 30, dataIndex: 'Milestone', sortable: true, renderer: milestoneRenderer},
+                {header: "WBS", width: 50, dataIndex: 'Wbs', sortable: true},  
+                {header: "Project Name", width: 110, dataIndex: 'ProjectName', sortable: true},  
+                {header: "Name", width: 200, dataIndex: 'Name', sortable: true},  
+                {header: "Complete", width: 60, dataIndex: 'Complete', sortable: true, renderer:Ext.util.Format.numberRenderer('0%'),
+                    editor: new Ext.form.TextField({
+                        allowBlank: true,
+                        maxLength: 3,
+                        maskRe: /[0-9]/,
+                        validator: function(v) {
+                            if (/[0-9]{0,3}/.test(v)){
+                                return ( (parseInt(v) <= 100 && parseInt(v) >= 0) || v == "") ? true : 'Please enter a valid number'; //Valid int between 0 & 100
+                            }   
+                        }
+                    })
+                },  
+                {header: "Start", width: 60, dataIndex: 'Start', sortable: true, renderer:Ext.util.Format.dateRenderer('m/d/Y')     },  
+                {header: "Finish", width: 60, dataIndex: 'Finish', sortable: true, renderer:Ext.util.Format.dateRenderer('m/d/Y')     },  
+                {header: "Work", width: 60, dataIndex: 'Work', sortable: true, renderer:workRenderer},  
+                {header: "Duration", width: 60, dataIndex: 'Duration', sortable: true, renderer:durationRenderer},  
+                {header: "Predecessor", width: 150, dataIndex: 'Parent', sortable: true, hidden:true},
+                {header: "Description", width: 160, dataIndex: 'Description', sortable: true}                                                               
+            ],  
+            autoHeight:true,
+            viewConfig:{forceFit:true},
+            loadMask: true,  
+            tbar: [
+                {
+                    text: 'Refresh Tasks',
+                    icon: '{!$Resource.Viewpath__ExtJS}/resources/images/default/grid/refresh.gif',
+                    id: 'taskRefresh',
+                    handler: function(){
+                            todayStore.reload();
+                        }
+                },
+                '-',
+                todayFilterBar
+            ],
+            bbar: new Ext.Toolbar({})
+        });  
+        todayGrid.on('afteredit', todayGrid.afterEdit, this, true);
+    });
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    //End Today Tab
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    </script>
+    </apex:outputPanel>
+    
+    
+    
+ 
+    <apex:outputPanel rendered="{!((AccountActivated) && (AccessLevel > 0))}">
+    <script type="text/javascript">
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Tasks Tab
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    Ext.onReady(function(){
+    
+     var hideExistingResources = {
+            fn : function(rec) {
+                //loop through resource store and see if we get a match on the email field.
+                var records = resourcesStore.data.items;
+                
+                for(var i=0; i < records.length; i++){
+                    if (rec.data.Email == records[i].data.Email)
+                        return false;
+                }
+                
+                return true;
+            },
+            scope:this,
+            labelText: 'Hide existing resources'
+        }
+        
+        
+        
+         var store = new Ext.data.JsonStore({  
+             totalProperty: 'total', // total data, see json output  
+             root: 'values',    // see json output  
+             url: ViewpathApiUrl + '?method=getTasks&ProjectId=' + ViewpathProjectId,  
+             fields: [
+                {name:'Wbs', sortType:function(v){           
+                    var vArr = v.split('.');
+                    //for (x=0; x < vArr.length; x++) {
+                    for (x=0; x < 6 ; x++) {
+                        if (vArr[x] == undefined) {vArr[x] = "0"; }
+                        for  (i = vArr[x].length; i < 5; i++) {
+                                vArr[x] = "0" + vArr[x];
+                        }
+                    }
+                    v = vArr.join().replace(',','');
+                    //v =  parseInt(vArr.join());
+                    return v;
+                }} ,  
+                'Id', 
+                'Milestone',
+                'Name',
+                'Complete',
+                {name:'Start', type:'date'},
+                {name:'Finish',type:'date'},
+                'Work',
+                'Duration',
+                'DurationUnit',
+                'Parent',
+                'AssignmentEmails',
+                'Description'                
+                
+             ]  
+         });
+         store.setDefaultSort('Wbs', 'asc');
+         
+         
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //End Task Tab      The tab is found later around line # 1144
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Resources Tab
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        var resourcesStore = new Ext.data.JsonStore({  
+            totalProperty: 'total', // total data, see json output  
+            root: 'values',    // see json output  
+            url: ViewpathApiUrl + '?Method=getResources&ProjectId=' + ViewpathProjectId,  
+            fields: [  
+                'Id', 
+                'Name',
+                'Email',
+                'Access',
+                'Comments',
+                {name: 'Availability', mapping: 'Percent'}
+            ]  
+        });  
+        
+        
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //SF Team Members
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        //Set default filter state by adding filters to the array.
+        var sfUserGridFilters = [hideExistingResources];
+        
+        var sfUserStore = new Ext.data.JsonStore({  
+            totalProperty: 'total', // total data, see json output  
+            root: 'values',    // see json output  
+            url: ViewpathApiUrl + '?Method=getSFUsers',  
+            fields: [  
+               'Id', 
+               'Name',
+               'Email',
+               'Department'
+            ]  
+        });  
+        sfUserStore.setDefaultSort('Name', 'asc');
+         
+        var sfUserSM = new Ext.grid.CheckboxSelectionModel();
+
+        var sfUserGrid = new Ext.grid.GridPanel({  
+        height: 200,
+            store: sfUserStore,         
+            columns: [  
+                {header: "Id", width: 150, dataIndex: 'Id', sortable: true, hidden: true},  
+                sfUserSM,
+                {header: "Name", dataIndex: 'Name', sortable: true},  
+                {header: "Email", dataIndex: 'Email', sortable: true},  
+                {header: "Department", dataIndex: 'Department', sortable: true, hidden:true}  
+            ],  
+           sm:sfUserSM,
+           layout:'fit',
+           autoWidth:true,
+           viewConfig:{
+                forceFit:true,
+                emptyText: "There are no team members available",
+                deferEmptyText: false
+           }, 
+           loadMask: true
+         }); 
+
+        
+        sfUserStore.setDefaultSort('Name', 'asc');
+        
+        //Handlers for Win functions
+        var addSalesForceUsers = function(btn) {
+            sfUserWin.showMask();
+            addResourcesFromGridSelection(sfUserGrid, function() {
+                sfUserGrid.getSelectionModel().clearSelections();                    
+                sfUserWin.hideMask();
+                sfUserWin.hide();
+            });    
+        };
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //End SF Team Members
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        
+        if ({!(Viewpath__VP_Project__c.Viewpath__Account__c != null)}){
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Account Contacts
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        
+        //Set default filter state by adding filters to the array.
+        var accountContactGridFilters = [hideExistingResources];
+       
+        var accountContactStore = new Ext.data.JsonStore({  
+            totalProperty: 'total', // total data, see json output  
+            root: 'values',    // see json output  
+            url: ViewpathApiUrl + '?Method=getAccountContacts&accId={!JSENCODE(Viewpath__VP_Project__c.Viewpath__Account__c)}',  
+            fields: [  
+               'Id', 
+               'Name',
+               'Email',
+               'AccountName'
+            ]
+        });  
+        
+        accountContactStore.setDefaultSort('Name', 'asc');
+        var accountContactsSm = new Ext.grid.CheckboxSelectionModel();
+
+        var accountContactGrid = new Ext.grid.GridPanel({  
+            height: 200,
+            store: accountContactStore,        
+            columns: [  
+                {header: "Id", width: 150, dataIndex: 'Id', sortable: true, hidden: true},  
+                accountContactsSm,
+                {header: "Name", dataIndex: 'Name', sortable: true},  
+                {header: "Email", dataIndex: 'Email', sortable: true},  
+                {header: "Account", dataIndex: 'AccountName', sortable: true }  
+            ],  
+            sm:accountContactsSm,
+            layout:'fit',
+            autoWidth:true,
+            viewConfig:{
+                forceFit:true,
+                emptyText: "There are no account contacts available",
+                deferEmptyText: false
+            }, 
+            loadMask: true
+        });
+        
+        function openaccountContactWin(btn){
+            
+            accountContactStore.filter(accountContactGridFilters); //on open win, filter against existing resources
+            if(!accountContactWin){
+                accountContactWin = new Ext.Window({
+                    showMask:function(msg){
+                    if(!this.pMask){
+                        this.pMask = new Ext.LoadMask(accountContactWin.body, {
+                            msg: 'Adding Resources'
+                        });
+                    }            
+                    if(msg){
+                        this.pMask.msg = msg;
+                        }
+                        this.pMask.show();
+                        accountContactWin.buttons[0].disable();
+                    },
+                    
+                    hideMask:function(){
+                        this.pMask.hide();
+                        accountContactWin.buttons[0].enable();
+                    },
+                    title:'Add Resource : Account Contact',
+                    renderto:bd,
+                    layout:'fit',
+                    width:600,
+                    autoHeight: true,
+                    maxHeight:400,
+                    closeAction:'hide',
+                   items:[accountContactGrid],
+                   buttons: [{
+                        text:'Add Selected Contacts',
+                        handler: addAccountContacts
+                    },{
+                        text: 'Close',
+                        handler: function(){
+                            accountContactWin.hide();
+                        }
+                    }] 
+             });      
+            }
+            accountContactWin.show(btn);
+        }
+        
+        //Handlers for Win functions
+        var addAccountContacts = function(btn) {
+            accountContactWin.showMask();
+            addResourcesFromGridSelection(accountContactGrid, function(){
+                accountContactGrid.getSelectionModel().clearSelections();                    
+                accountContactWin.hideMask();
+                accountContactWin.hide();
+            });    
+        };
+        accountContactStore.load({params:{start:0, limit:100}});
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //End Account Contacts
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        }    //End if accounts != null
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Resources Tab
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        //Declare Resource Windows
+        var emailWin,sfUserWin,accountContactWin;
+        
+        var tbarItems = [];
+        tbarItems.push(
+            {
+                text: 'Refresh Resources',
+                icon: '{!$Resource.Viewpath__ExtJS}/resources/images/default/grid/refresh.gif',
+                id: 'resRefresh',
+                handler: function(){
+                    resourcesStore.reload();
+                }
+            }
+        );
+        
+        //If manager or better, give them the dialogue for adding resources.
+        if (AccessLevel > 2) {
+            tbarItems.push('-');
+            tbarItems.push({text:'Add Salesforce Team Members', iconCls: 'addResource', handler:openSFUserWin, tooltip: 'Add resources from your current Salesforce team'});
+            
+            if ({!(Viewpath__VP_Project__c.Viewpath__Account__c != null)}){
+                tbarItems.push({text:'Add Account Contacts', iconCls: 'addAccountContacts', handler:openaccountContactWin, tooltip: 'Add resources from your current Salesforce team'});
+            }
+            
+            tbarItems.push({text:'Add External User', iconCls: 'addByEmail', handler:openUserEmailWin, tooltip: 'Add a resource from outside your Salesforce team'});
+        }
+        resourceGrid = new Ext.grid.GridPanel({
+        store: resourcesStore,  
+           columns: [  
+            {header: "Id",  dataIndex: 'Id', sortable: true, hidden: true},  
+            {header: "Name",  width:120, dataIndex: 'Name', sortable: true},  
+            {header: "Email", width:200, id: "colEmail", dataIndex: 'Email', sortable: true }, 
+            {header: "Access",width:70, id: "colAccess", dataIndex: "Access", sortable: true, renderer:accessRenderer},
+            {header: "Availability", width: 90, id: "colAvailability", dataIndex: "Availability", sortable: true, renderer:percentageRenderer},
+            {header: "Comments", width:300, id: "colComments", dataIndex: 'Comments', sortable: true }                                
+        ],  
+        autoHeight:true,
+        viewConfig:{forceFit:true},
+        //width:480,  
+        loadMask: true,  
+        tbar: new Ext.Toolbar(tbarItems),
+        bbar: new Ext.Toolbar({})
+        /*
+        bbar: new Ext.PagingToolbar({  
+            //plugins:[new Ext.ux.plugins.FitWidthToParent('container')],
+            pageSize: 10,  
+            store: resourcesStore,  
+            displayInfo: true,  
+            displayMsg: 'Displaying {0} - {1} of {2}',  
+            emptyMsg: "No Resources Attached to Project"  
+        })*/
+        //view: {forceFit: true}
+        //layout: 'fit'           
+        
+        });
+
+        var emailForm = new Ext.FormPanel({
+            //applyTo: 'hello-tabs',
+            labelWidth: 75, // label settings here cascade unless overridden
+            url:'save-form.php',
+            frame:true,
+            autoHeight:true,
+            items:[{
+                xtype:'fieldset', 
+                defaultType: 'textfield', 
+                defaults:{width:240},
+                items :[
+                    {
+                        fieldLabel: 'Name',
+                        name: 'name',
+                        allowBlank:false
+                    },{
+                        fieldLabel: 'Email',
+                        name: 'email',
+                        vtype:'email'
+                    },{
+                        fieldLabel: 'Comments',
+                        name: 'comments',
+                        xtype:'textarea',
+                        height:80,
+                        wordWrap:true
+                    }
+                ]
+            }],
+            deferredRender:false,
+            border:false
+            });
+            
+        function openUserEmailWin(btn) {
+            if(!emailWin){
+                emailWin = new Ext.Window({
+                    //applyTo:'hello-win',
+                    showMask:function(msg){
+                    if(!this.pMask){
+                        this.pMask = new Ext.LoadMask(emailWin.body, {
+                            msg: 'Adding Resource'
+                        });
+                    }            
+                    if(msg){
+                        this.pMask.msg = msg;
+                        }
+                        this.pMask.show();
+                        emailWin.buttons[0].disable();
+                    },
+                    
+                    hideMask:function(){
+                        this.pMask.hide();
+                        emailWin.buttons[0].enable();
+                    },
+                    title:'Add Resource : External User',
+                    renderto:bd,
+                    layout:'fit',
+                    width:400,
+                    //height:350,
+                    //maxHeight:280,
+                    autoHeight:true,
+                    closeAction:'hide',
+                    //plain: true,
+    
+                    items: emailForm,
+                    buttons: [{
+                        text:'Add External User',
+                        handler: addEmail
+                    },{
+                        text: 'Close',
+                        handler: function(){
+                            emailWin.hide();
+                        }
+
+                    }]
+                });
+            }
+            emailWin.show(btn);
+        }
+        
+        function openSFUserWin(btn){
+            sfUserStore.filter(sfUserGridFilters); //on open win, filter against existing resources
+            if(!sfUserWin){
+                sfUserWin = new Ext.Window({
+                    //applyTo:'hello-win',
+                    showMask:function(msg){
+                    if(!this.pMask){
+                        this.pMask = new Ext.LoadMask(sfUserWin.body, {
+                            msg: 'Adding Resources'
+                        });
+                    }            
+                    if(msg){
+                        this.pMask.msg = msg;
+                        }
+                        this.pMask.show();
+                        sfUserWin.buttons[0].disable();
+                    },
+                    
+                    hideMask:function(){
+                        this.pMask.hide();
+                        sfUserWin.buttons[0].enable();
+                    },
+                    title:'Add Resource : Salesforce Team Members',
+                    renderto:bd,
+                    layout:'fit',
+                    width:600,
+                    autoHeight: true,
+                    maxHeight:400,
+                    closeAction:'hide',
+                    //plain: true,
+                   items:[sfUserGrid],
+                   buttons: [{
+                        text:'Add Selected Team Members',
+                        handler: addSalesForceUsers
+                    },{
+                        text: 'Close',
+                        handler: function(){
+                            sfUserWin.hide();
+                        }
+                    }] 
+             });      
+            }
+            sfUserWin.show(btn);
+        }
+   
+       
+   
+        var addEmail = function(btn) {
+            emailWin.showMask();
+            
+            var values = emailForm.getForm().getFieldValues();
+            //log(values);
+            //log('testing email button');
+            var jsonString = '{Resources: [{';
+            jsonString += '"Name": "' + values.name + '", ';
+            jsonString += '"Comments": "' + values.comments + '", ';
+            jsonString += '"Email": "' + values.email + '"}]} ';
+            
+            var conn = new Ext.data.Connection();
+            conn.request({
+                url: ViewpathApiUrl + '?Method=addResources',
+                method: 'POST',
+                params: {"resources":jsonString, projectId: ViewpathProjectId},
+                success: function(responseObject) {
+                    //log(responseObject.responseText);
+                    emailForm.getForm().reset();
+                    emailWin.hideMask();
+                    emailWin.hide();
+                    resourcesStore.load({params:{start:0, limit:10}});
+                },
+                failure: function() {
+                    Ext.Msg.alert('Fail', 'Could not add resources at this time.');
+                    //log(responseObject.responseText);                    
+                }
+            });
+        };
+        
+        
+ 
+        var addResourcesFromGridSelection = function(grid, callback){
+            var selected = grid.getSelectionModel().getSelections();            
+            if (selected.length < 1) return; //kill if no resources to add
+            
+            var jsonString = '{Resources: [';
+            //Loop through, build JSON
+            for (var i = 0; i < selected.length; i++) {
+              var r = selected[i];
+                  
+              jsonString += '{';
+              jsonString += '"Name": "' + r.get('Name') + '", ';
+              jsonString += '"Email": "' + r.get('Email') + '"}, ';
+            }
+            
+            jsonString = jsonString.substring(0,(jsonString.length-2)); //Remove comma. This would be better enforced by created objects and using json2 serializer. 
+            jsonString = jsonString + ']}';
+
+            var conn = new Ext.data.Connection();
+            conn.request({
+                url: ViewpathApiUrl + '?Method=addResources',
+                method: 'POST',
+                params: {"resources":jsonString, projectId: ViewpathProjectId},
+                success: function(responseObject) {
+                    //log(responseObject.responseText);
+                    if (callback != null && Ext.isFunction(callback)) callback();
+                    resourcesStore.load({params:{start:0, limit:10}});
+                },
+                failure: function() {
+                    Ext.Msg.alert('Fail', 'Could not add resources at this time.');
+                    if (callback != null && Ext.isFunction(callback)) callback();
+                    //log(responseObject.responseText);                    
+                }
+            });
+        
+        }
+   
+
+        
+        filterGrid = function(item) { 
+            //var filterByMilestone = (item.id == "milestones") ? "true" : "false"; 
+            if (item.id == "milestones") {
+                store.filter("Milestone",true);
+            } else {
+                store.filter();
+            }
+            taskGrid.getTopToolbar().items.get('filterBarBtn').setText('Show ' + item.text);
+        };
+        
+        var filterMenuItems = [
+            new Ext.menu.CheckItem({ 
+                text: 'All Tasks', 
+                checked: true, 
+                group: 'filter',
+                id: 'all',
+                checkHandler: filterGrid
+            }),
+            new Ext.menu.CheckItem({ 
+                text: 'Milestones Only', 
+                checked: false, 
+                group: 'filter',
+                id: 'milestones',
+                checkHandler: filterGrid    
+            })
+        ];
+        
+        var filterMenu = new Ext.menu.Menu({
+            id: 'filterMenu',
+            items: filterMenuItems
+        });
+        
+        var filterBar = {
+            text: 'Show All Tasks ',
+            //tooltip: 'Choose a filter setting',
+            icon: '{!$Resource.Viewpath__VPImages}/find.png',
+            cls: 'x-btn-text-icon btn-search-icon',
+            menu: filterMenu,
+            id: 'filterBarBtn'
+         };
+        
+       // Task grid is here:
+               
+         //taskGrid = new Ext.grid.GridPanel({  
+         /*Editable Grid code*/
+         taskGrid = new Ext.grid.EditorGridPanel({  
+         afterEdit: function(e) {
+             if ((e.field == "Complete") && e.record.data[e.field] == "") { 
+                e.record.data[e.field] = "0";
+                taskGrid.getView().refreshRow(e.record);
+             } 
+             rd = e.record.data;
+             var params = {
+                 "method": "updateTask",
+                 "taskId": rd.Id,
+                 //"taskName": rd.Name,
+                 "taskComplete": (rd.Complete == null || rd.Complete == "") ? "0" : rd.Complete
+             };
+        
+            //alert(params);
+            /*
+            Ext.Ajax.request({
+                url: ViewpathApiUrl,
+                success: function(e) { //log('Entry Updated');
+                },
+                failure: function(e) { //log('Entry Updated');
+                    alert('Failed to update entry; please contact tech support');
+                },
+                params: params
+            });
+            */
+         },
+         //clicksToEdit: 1,
+             
+         /*End Editable*/
+             store: store,  
+             //plugins:[new Ext.ux.plugins.FitWidthToParent('container')],            
+             columns: [  
+                 {header: "MS", width: 30, dataIndex: 'Milestone', sortable: true, renderer: milestoneRenderer},
+                 {header: "WBS", width: 55, dataIndex: 'Wbs', sortable: true},  
+                 {header: "Name", width: 200, dataIndex: 'Name', sortable: true, renderer:taskNameRenderer},  
+                 {header: "Complete", width: 60, dataIndex: 'Complete', sortable: true, renderer:Ext.util.Format.numberRenderer('0%')
+                 /*Editabe Grid code*/
+                 /*
+                 ,editor: new Ext.form.TextField({
+                     allowBlank: true,
+                     maxLength: 3,
+                     maskRe: /[0-9]/,
+                     validator: function(v) {
+                     if (/[0-9]{0,3}/.test(v)){
+                         return ( (parseInt(v) <= 100 && parseInt(v) >= 0) || v == "") ? true : 'Please enter a valid number';
+                     }
+                         
+                     }
+
+                 })
+                 */
+                 /*End Editable Grid Code*/
+                 },  
+                 {header: "Start", width: 60, dataIndex: 'Start', sortable: true, renderer:Ext.util.Format.dateRenderer('m/d/Y')     },  
+                 {header: "Finish", width: 60, dataIndex: 'Finish', sortable: true, renderer:Ext.util.Format.dateRenderer('m/d/Y')     },  
+                 {header: "Work", width: 60, dataIndex: 'Work', sortable: true, renderer:workRenderer},  
+                 {header: "Duration", width: 60, dataIndex: 'Duration', sortable: true, renderer:durationRenderer},  
+                 {header: "Predecessor", width: 150, dataIndex: 'Parent', sortable: true, hidden:true},                              
+                 {header: "Assignments", width: 150, dataIndex: 'AssignmentEmails', sortable: true, hidden:false, renderer:assignmentRenderer},
+                 {header: "Description", width: 160, dataIndex: 'Description', sortable: true, hidden:false}                                                                    
+             ],  
+           autoHeight:true,
+           viewConfig:{forceFit:true},
+            //width:580,  
+            //height:300,  
+            loadMask: true,  
+            //bbar: pagingBar,
+            tbar: [
+                {
+                    text: 'Refresh Tasks',
+                    //cls: 'x-tbar-loading',
+                    icon: '{!$Resource.Viewpath__ExtJS}/resources/images/default/grid/refresh.gif',
+                    id: 'taskRefresh',
+                    handler: function(){
+                            store.reload();
+                        }
+                },
+                '-',
+                filterBar
+            ],
+            bbar: new Ext.Toolbar({})
+         });  
+   
+           store.on("load", function(){
+               //log("data loaded, results below");
+               //    log(this);
+        });
+        taskGrid.on('afteredit', taskGrid.afterEdit, this, true);
+        store.proxy.getConnection().on('requestcomplete', jsonErrorResponseHandler);
+        
+        function jsonErrorResponseHandler(conn, r, options) {
+            
+            try{
+                var response = eval('('+r.responseText+')');
+                if (response && response.status == "error") {
+                    // your error handling code goes here
+                    Ext.MessageBox.alert("Error", response.message);
+                    window.location = 'login.html';
+                }
+            } catch(err) {
+                
+            }
+        }
+        
+        
+        store.load({params:{start:0, limit:10}});  
+        resourcesStore.load({params:{start:0, limit:10}}); 
+        sfUserStore.load({params:{start:0, limit:10}}); 
+        
+        
+        
+        try {
+        tabs = new Ext.TabPanel({
+            activeTab: 1,
+            //plugins:[new Ext.ux.plugins.FitWidthToParent('container')],
+            renderTo:"container",
+            //width:1043,
+            //width:"99%",
+            //width:'auto',
+            //layout:"fit",
+            border:false,            
+            frame:false,
+            plain:true,
+            defaults:{autoScroll: true,autoHeight:true},
+            autoHeight:true,
+//            autoWidth:true,
+            items:[
+                {ContentEl:'tabToday', title: 'Today', items: todayGrid},   
+                {ContentEl:'tabTasks', title: 'Tasks', items: taskGrid},
+                {ContentEl:'tabResources', title: 'Resources', items:resourceGrid}
+                //,{contentEl:'tabMilestones', title: 'Issues'}
+            ]
+        });
+        } catch(e) {
+            if (console != null && console.debug != null && typeof console.debug == "function") console.log(e);
+            //alert('No Panels present; abort tab panel');
+        }
+//log(sfUserStore);
+//log(sfUserGrid);
+//log(sfUserSM);
+
+       
+
+         /*ChatterGroup*/
+         var chatterGroupStore = new Ext.data.JsonStore({  
+            totalProperty: 'total', // total data, see json output  
+            root: 'values',    // see json output  
+            url: ViewpathApiUrl + '?Method=getChatterGroups',  
+            fields: [  
+               'Id', 
+               'Name',
+               'Description',
+               'CollaborationType',
+               'OwnerId'
+            ]  
+        });  
+        chatterGroupStore.setDefaultSort('Name', 'asc');
+
+        var chatterGroupSm = new Ext.grid.CheckboxSelectionModel({singleSelect:true});
+        //var chatterGroupSm = new Ext.grid.RowSelectionModel({singleSelect:true});
+        var chatterGroupGrid = new Ext.grid.GridPanel({  
+        height: 200,
+            store: chatterGroupStore,  
+            columns: [  
+                {header: "Id", width: 150, sortable: true, hidden: true},  
+                chatterGroupSm,
+                {header: "Name", dataIndex: 'Name', sortable: true},  
+                {header: "Description", dataIndex: 'Description', sortable: true},  
+                {header: "Collaboration Type", dataIndex: 'CollaborationType', sortable: true}
+            ],  
+           sm:chatterGroupSm,
+           layout:'fit',
+           autoWidth:true,
+           viewConfig:{forceFit:true}, 
+           loadMask: true
+         }); 
+         
+         var chatterGroupWin;
+         openChatterGroupWin = function(btn){
+            if(!chatterGroupWin){
+                chatterGroupWin = new Ext.Window({
+                    showMask:function(msg){
+                    if(!this.pMask){
+                        this.pMask = new Ext.LoadMask(chatterGroupWin.body, {
+                            msg: 'Saving Group Selection'
+                        });
+                    }            
+                    if(msg){
+                        this.pMask.msg = msg;
+                        }
+                        this.pMask.show();
+                        chatterGroupWin.buttons[0].disable();
+                    },
+                    
+                    hideMask:function(){
+                        this.pMask.hide();
+                        chatterGroupWin.buttons[0].enable();
+                    },
+                    title:'Select Chatter Group',
+                    renderto:bd,
+                    layout:'fit',
+                    width:600,
+                    autoHeight: true,
+                    maxHeight:400,
+                    closeAction:'hide',
+                   items:[chatterGroupGrid],
+                   buttons: [{
+                        text:'Select Group',
+                        handler: selectGroup
+                    },{
+                        text: 'Close',
+                        handler: function(){
+                            chatterGroupWin.hide();
+                        }
+                    }] 
+             });      
+            }
+            chatterGroupWin.show();
+        }
+        
+        function selectGroup() {
+            var selected = chatterGroupGrid.getSelectionModel().getSelections();
+            
+            if (selected.length > 0) {
+                var r = selected[0];
+                var groupId = r.get('Id');
+                chatterGroupWin.showMask();
+                var conn = new Ext.data.Connection();
+                conn.request({
+                    url: ViewpathApiUrl,
+                    method: 'POST',
+                    params: {
+                        Method : 'SelectChatterGroup',
+                        groupId : groupId, 
+                        projectId: ViewpathProjectId
+                    },
+                    success: function(responseObject) {
+                        var jsonData = Ext.util.JSON.decode(responseObject.responseText);
+                        setChatterGroup(jsonData);
+                        chatterGroupWin.hideMask();
+                        chatterGroupWin.hide();
+                    },
+                    failure: function() {
+                        Ext.Msg.alert('Fail', 'Could not select a group at this time.');
+                    }
+                });
+            } else {
+                alert('You must select a group');
+                return false;
+            }
+        }
+         
+         function setChatterGroup(jsonObject){
+            var records = chatterGroupStore.getRange();
+            for (var i = 0; i < records.length; i++) {
+                if (records[i].data["Id"] == jsonObject.groupId) {
+                    Ext.get("ChatterGroup").update(records[i].data["Name"]);
+                }
+            }
+        
+            //alert(responseObject);
+         }
+         /*End ChatterGroup*/
+
+
+
+
+
+
+
+Ext.QuickTips.init();
+
+    /*Project buttons*/
+    //var ProjectName = Ext.get('ProjectName');
+    ProjectName = Ext.select('.pageDescription');
+    var ProjectComplete = Ext.get('ProjectComplete');
+    var ProjectStart = Ext.get('ProjectStart');
+    var ProjectFinish = Ext.get('ProjectFinish');
+    var ProjectSummaryPanel = Ext.get('ProjectSummaryPanel');
+    var ProjectSummaryTable = Ext.get('ProjectSummaryTable');
+    
+    var ProjectSummaryMask = new Ext.LoadMask(ProjectSummaryPanel, {msg: 'Loading Project Summary'});
+    var RefreshProjectSummary = function() {
+    ProjectSummaryMask.show();
+         Ext.Ajax.request({
+                       url: LocalApiUrl,
+                       success: function(response){
+                           var project;
+                           try{
+                               response = eval('('+response.responseText+')'); //log(x);
+                               if (response.success) {
+                                   var updatesummary = function(el,val) {
+                                       if (val == null || val == 'null') val = '';
+                                       if (val == 'null%') val = '0%';
+                                       el.update(val);
+                                   }
+                               
+                                   project = response.Project;
+                                   updatesummary(ProjectName,VP_Project__c.Name);
+                                   updatesummary(ProjectComplete,VP_Project__c.Complete + '%');
+                                   updatesummary(ProjectStart,VP_Project__c.Start);
+                                   updatesummary(ProjectFinish,VP_Project__c.Finish);
+                                   
+                               } else {
+                                   alert(response.message);
+                               }   
+                           } catch(e) {
+                               
+                               alert('Could not load project summary. Please try again');
+                           }         
+                           ProjectSummaryMask.hide();
+                       },
+                       failure: function(){
+                           alert('Could not load project summary. Please try again');
+                           ProjectSummaryMask.hide();
+                       },
+                       params: { 
+                           method: 'GetProject',
+                           projectId: ViewpathProjectId
+                       }
+                    });
+    }
+
+    // LaunchButton = new Ext.Button(
+    // {
+    //     renderTo:'ProjectButtonLaunch',
+    //     text:'Launch Viewpath',
+    //     cls: 'ProjectButton',
+    //     //icon: '{!$Resource.Viewpath__ExtJS}/resources/images/icons/LaunchApp16.png',
+    //     handler: function(){
+    //         popUp('{!ViewpathLaunchAppUrl}?Method=LaunchApplication&ProjectId={!JSENCODE(Viewpath__VP_Project__c.Viewpath__ProjectId__c)}');
+    //         return false;
+    //     }
+    // });
+
+    // RefreshButton = new Ext.Button(
+    // {
+    //     renderTo: 'ProjectButtonRefresh',
+    //     text: 'Refresh Project Summary',
+    //     cls: 'ProjectButton',
+    //     icon: '{!$Resource.Viewpath__ExtJS}/resources/images/default/grid/refresh.gif',
+    //     id: 'ProjectRefresh',
+    //     handler: RefreshProjectSummary
+    // })  
+    // if(ViewpathProjectId != '') {
+    //     RefreshProjectSummary();
+    // } else {
+    //     RefreshButton.hide();
+    //     ProjectSummaryTable.hide();
+    // }
+    
+    
+ /*
+    FollowButton = new Ext.Button(
+    {
+        renderTo:'ProjectButtonFollow',
+        text:'{!ChatterButtonLabel}',
+        cls: 'ProjectButton',
+        icon: '{!$Resource.Viewpath__ExtJS}/resources/images/icons/LaunchApp16.png',
+        handler: function(){
+            FollowProject();
+            //return false;
+        }
+    });
+    
+    
+   
+    ChatterGroupButton = new Ext.Button(
+    {
+        renderTo:'ProjectButtonChatterGroup',
+        text:'Select Chatter Group',
+        cls: 'ProjectButton',
+        icon: '{!$Resource.Viewpath__ExtJS}/resources/images/icons/LaunchApp16.png',
+        handler: function(){
+            openChatterGroupWin();
+            //return false;
+        }
+    });*/
+    ProjectIsChatterEnabled = {!IsChatterEnabled};
+    var followProjectCallback = function(){
+        ProjectSummaryMask.hide();
+        ProjectIsChatterEnabled = !(eval(result.responseText));
+        method = ProjectIsChatterEnabled ? "DisableChatterNotifications" : "EnableChatterNotifications";
+        //FollowButton.setText(ProjectIsChatterEnabled ? "Disable Chatter Notifications" : "Enable Chatter Notifications");
+        if (ProjectIsChatterEnabled) {
+            Ext.get("btnProjectChatterToggle_unfollow").setStyle('display','inline-block');  //show
+            Ext.get("btnProjectChatterToggle_follow").setStyle('display','none');      //hide
+        } else {
+            Ext.get("btnProjectChatterToggle_unfollow").setStyle('display','none');    //hide
+            Ext.get("btnProjectChatterToggle_follow").setStyle('display','inline-block');    //show
+        }
+    }
+    FollowProject = function(){
+        method = ProjectIsChatterEnabled ? "DisableChatterNotifications" : "EnableChatterNotifications"
+        ProjectSummaryMask.show();
+        Ext.Ajax.request({
+           url: LocalApiUrl,
+           success: function(result, request){
+               //If the call is successful, then use the sforce ajax toolkit for the update portion. Stupid.
+               var proj = new sforce.SObject("Viewpath__VP_Project__c")
+               proj.id = ViewpathProjectId;
+               proj.ChatterEnabled__c = !ProjectIsChatterEnabled;
+               sforce.connection.update([proj],followProjectCallback);
+               
+               //alert(result.responseText);
+           },
+           failure: function(result, request){
+               alert('Unable to enable chatter notifications at this time. Please try again.');
+               ProjectSummaryMask.hide();
+           },
+           params: { 
+               method: method,
+               projectId: ViewpathProjectId
+           }
+        });
+    }
+    
+    if ({!IsOrgChatterEnabled} && {!isSfProjectOwner}) {
+        var chatterBar = Ext.select("div.chatterFollowUnfollow").first();
+        var el = Ext.get("btnProjectChatterToggle_unfollow");        
+        var el2 = Ext.get("btnProjectChatterToggle_follow");     
+        // 10/4/13 RW Bug Fix VP-933:  Null Check on Chatter UI elements, fixes script exception, that caused Tips to not work.   
+        if (chatterBar !=null && el != null) { 
+            chatterBar.appendChild(el); 
+        }
+        if (chatterBar !=null && el2 != null) { 
+            chatterBar.appendChild(el2);
+        }
+    }
+    
+    /*End Project buttons*/
+
+
+    /*Viewpath tips box*/
+    var tips = [];
+    
+    //Get AJAX tips
+    var tipsEl = Ext.get('ViewpathTips');
+    var tipsContainer = Ext.get('ViewpathTipsContainer');
+    var totalTips = tips.length;
+    var tipsIndex = 0;
+ 
+    TipsMask = new Ext.LoadMask(tipsContainer, {msg: 'Loading Tips'});
+    TipsMask.show();
+    Ext.Ajax.request({
+                       url: ViewpathApiUrl,
+                       success: function(response){
+                           try{
+                               tips = eval('('+response.responseText+')'); //log(x);
+                               totalTips = tips.length;
+                               //alert("tips.length: " + totalTips);
+                               log(totalTips + " tips loaded");
+                               tipsEl.update(tips[tipsIndex].tip);
+                           } catch(e) {
+                               //alert("Execption in Try of Tips");
+                               tipsEl.update('<b>Tips failed to load</b>');
+                           }
+                           TipsMask.hide();
+                           //log(this);
+                       },
+                       failure: function(){
+                           tipsEl.update('<b>Tips failed to load</b>');
+                           //alert("Tips failed to load");                           
+                           TipsMask.hide();
+                       },
+                       params: { 
+                           method: 'GetTips'
+                       }
+                    });
+    
+    //var SetTip = function(tipIndex) {
+    //    tipsEl.update(tips[tipsIndex].tip);
+    //}
+    
+    var NextTip = function() {
+        tipsIndex++;
+        if (tipsIndex >= totalTips) {
+            tipsIndex=0;
+        }
+        tipsEl.update(tips[tipsIndex].tip);
+    }
+    
+    //SetTip(tipsIndex);
+    
+    Ext.select('a#NextTip').on('click', function(event) {
+          //alert("You clicked: " + Ext.get(event.target).dom.innerHTML);
+          NextTip();
+      },
+      this,
+      {stopEvent: true}
+    );
+    
+
+    /*End Viewpath Tips*/
+    
+    
+    /*Inline editable project name*/
+        //projectname defined in buttons section
+        ProjectName.on('click', function() {
+            editor.startEdit(this);
+        });
+       
+        var editor = new Ext.Editor({
+            field: {
+                xtype: 'textfield',
+                cls: 'TitleEditor'
+            },
+            autoSize: true,
+            updateEl: true,
+            cancelOnEsc: true,
+            completeOnEnter: true,
+            listeners: {
+                startedit: function(boundEl, value) {
+                    this.boundEl = boundEl;
+                },
+                complete: function(editor, value, startValue) {
+                    if (value === startValue) return;
+                    
+                    
+                    Ext.Ajax.request({
+                       url: LocalApiUrl,
+                       success: function(){
+                           //May as well be silent
+                       },
+                       failure: function(){
+                           //revert to old value, throw 'failed' message
+                       },
+                       params: { 
+                           method: 'UpdateProject',
+                           projectId: ViewpathProjectId,
+                           projectName: value
+                       }
+                    });
+                    
+                }
+            }
+        });
+        /*End inline editable project name*/
+      
+    });
+    
+    
+    
+       
+   </script>
+   </apex:outputPanel>
+   
+ 
+ 
+
+   <apex:outputPanel rendered="{!((AccountActivated) && (AccessLevel == 0))}">
+   <script>       
+   Ext.onReady(function(){
+       todayStore = new Ext.data.JsonStore({  
+             totalProperty: 'total', // total data, see json output  
+             root: 'values',    // see json output  
+             autoLoad: true,
+             url: ViewpathApiUrl + '?method=getAssignedTasks',  
+             fields: [
+                {name:'Wbs', sortType:function(v){           
+                    var vArr = v.split('.');
+                    //for (x=0; x < vArr.length; x++) {
+                    for (x=0; x < 6 ; x++) {
+                        if (vArr[x] == undefined) {vArr[x] = "0"; }
+                        for  (i = vArr[x].length; i < 5; i++) {
+                                vArr[x] = "0" + vArr[x];
+                        }
+                    }
+                    v = vArr.join().replace(',','');
+                    //v =  parseInt(vArr.join());
+                    return v;
+                }} ,  
+                'Id', 
+                'Milestone',
+                'Name',
+                'Complete',
+                {name:'Start', type:'date'},
+                {name:'Finish',type:'date'},
+                'Work',
+                'Duration',
+                'DurationUnit',
+                'Parent',
+                'ProjectName'
+             ]  
+         });
+        
+   
+       todayGrid = new Ext.grid.GridPanel({  
+         afterEdit: function(e) {
+             if ((e.field == "Complete") && e.record.data[e.field] == "") { 
+                e.record.data[e.field] = "0";
+                taskGrid.getView().refreshRow(e.record);
+             } 
+             rd = e.record.data;
+             var params = {
+                 "method": "updateTask",
+                 "taskId": rd.Id,
+                 //"taskName": rd.Name,
+                 "taskComplete": (rd.Complete == null || rd.Complete == "") ? "0" : rd.Complete
+             };
+        
+            //alert(params);
+            /*
+            Ext.Ajax.request({
+                url: ViewpathApiUrl,
+                success: function(e) { //console.log('Entry Updated');
+                },
+                failure: function(e) { //console.log('Entry Updated');
+                    alert('Failed to update entry; please contact tech support');
+                },
+                params: params
+            });
+            */
+         },
+         //clicksToEdit: 1,
+             
+         /*End Editable*/
+             store: todayStore,  
+             stripeRows: true,
+             sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
+             plugins:[new Ext.ux.plugins.FitWidthToParent('container')],            
+             columns: [  
+                 {header: "MS", width: 30, dataIndex: 'Milestone', sortable: true, renderer: milestoneRenderer},
+                 {header: "WBS", width: 55, dataIndex: 'Wbs', sortable: true},  
+                 {header: "Project Name", width: 110, dataIndex: 'ProjectName', sortable: true},  
+                 {header: "Name", width: 200, dataIndex: 'Name', sortable: true},  
+                 {header: "Complete", width: 60, dataIndex: 'Complete', sortable: true, renderer:Ext.util.Format.numberRenderer('0%')
+                 /*Editabe Grid code*/
+                 /*
+                 ,editor: new Ext.form.TextField({
+                     allowBlank: true,
+                     maxLength: 3,
+                     maskRe: /[0-9]/,
+                     validator: function(v) {
+                     if (/[0-9]{0,3}/.test(v)){
+                         return ( (parseInt(v) <= 100 && parseInt(v) >= 0) || v == "") ? true : 'Please enter a valid number';
+                     }
+                         
+                     }
+
+                 })
+                 */
+                 /*End Editable Grid Code*/
+                 },  
+                 {header: "Start", width: 60, dataIndex: 'Start', sortable: true, renderer:Ext.util.Format.dateRenderer('m/d/Y')     },  
+                 {header: "Finish", width: 60, dataIndex: 'Finish', sortable: true, renderer:Ext.util.Format.dateRenderer('m/d/Y')     },  
+                 {header: "Work", width: 60, dataIndex: 'Work', sortable: true, renderer:workRenderer},  
+                 {header: "Duration", width: 60, dataIndex: 'Duration', sortable: true, renderer:durationRenderer},  
+                 {header: "Predecessor", width: 150, dataIndex: 'Parent', sortable: true, hidden:true}                              
+             ],  
+           autoHeight:true,
+           viewConfig:{forceFit:true},
+            loadMask: true,  
+            tbar: [
+                {
+                    text: 'Refresh Tasks',
+                    //cls: 'x-tbar-loading',
+                    icon: '{!$Resource.Viewpath__ExtJS}/resources/images/default/grid/refresh.gif',
+                    id: 'taskRefresh',
+                    handler: function(){
+                            todayStore.reload();
+                        }
+                }
+            ],
+            bbar: new Ext.Toolbar({})
+         });  
+           
+        
+   });
+   </script>
+   </apex:outputPanel>
+   
+   <apex:outputPanel rendered="{!((AccountActivated) && (AccessLevel == 0))}">
+   <script>
+   Ext.onReady(function(){
+        tabs = new Ext.TabPanel({
+            activeTab: 0,
+            renderTo:"container",
+            border:false,            
+            frame:false,
+            plain:true,
+            defaults:{autoScroll: true,autoHeight:true},
+            autoHeight:true,
+            items:[
+                {ContentEl:'tabToday', title: 'Today', items: todayGrid}               
+            ]
+        });
+   });
+   </script>
+   </apex:outputPanel>
+   
+   
+   
+   <apex:outputPanel rendered="{!((AccountActivated) && (AccessLevel > 0))}">
+       <div id="ProjectSummaryPanel" >
+           <!--there is no way to only show the chatter heade, as far as I can tell; this shows a detail list which is hidden with css in the header-->
+           <apex:detail relatedList="false" showChatter="true" title="true" rendered="true" />
+           
+           <apex:outputPanel style="display:none" rendered="{!IsOrgChatterEnabled && IsSfProjectOwner}">
+                <span id="btnProjectChatterToggle_follow" class="followLink" style="display: {!displayFollowButton}">
+                    <a href="javascript: void(0);" onclick="FollowProject();">
+                        <img class="followicon" title="Enable Chatter notifications from Viewpath" alt="Enable Chatter notifications from Viewpath" src="/s.gif"/>
+                        <span class="linkText" title="Enable Chatter notifications from Viewpath">Enable Viewpath Notifications</span>
+                    </a>
+                </span>
+            
+                <span id="btnProjectChatterToggle_unfollow" class="unfollowLink" style="display: {!displayUnfollowButton}">
+                    <img class="unfollowicon" src="/s.gif" alt="Stop following this Viewpath Project to stop receiving updates in your Chatter feed." title="Stop following this Viewpath Project to stop receiving updates in your Chatter feed."/>
+                    <span class="linkText" onmouseout="" onmouseover="">Viewpath Notifications Enabled</span>
+                    <a onclick="FollowProject();" title="Stop following this Viewpath Project to stop receiving updates in your Chatter feed." href="javascript: void(0);">
+                        <img class="actionIcon" src="/s.gif" alt="Stop following this Viewpath Project to stop receiving updates in your Chatter feed."/>
+                    </a>
+                </span> 
+                
+            </apex:outputPanel>
+           <apex:form id="projectSettings">
+               <apex:pageBlock mode="Edit">
+                    <div id="ProjectInfo">
+                        <div>            
+                            <i>You <apex:outputLabel value="{!AccessLevelText}"/> this project</i>
+                        </div>
+                        <div class="ProjectButtons">
+                            <div id="ProjectButtonRefresh" class="ProjectButton"></div>
+                            <apex:commandButton action="{!UpdateProject}" reRender="ProjectSummary" styleClass="btn-refresh" value="Refresh Project Summary"></apex:commandButton>
+                            <apex:commandButton styleClass="btn-launch-viewpath " onClick="popUp('{!ViewpathLaunchAppUrl}?Method=LaunchApplication'); return false;" value="Launch Viewpath"/>
+                            
+                            <!-- <div id="ProjectButtonLaunch" class="ProjectButton"></div> -->
+                            <!-- <div id="ProjectButtonChatterGroup" class="ProjectButton"></div> -->
+                            <!-- <div id="ProjectButtonFollow" class="ProjectButton" style="display:{!displayFollowButton}" ></div> -->
+                        </div>
+                        
+                        <apex:outputPanel id="ProjectSummary">
+                         <table id="ProjectSummaryTable" class="detailList ProjectSummary"> <!-- 4 column, 4 k/v pairs-->
+                            <tr>
+                                <td class="key">Owner:</td>
+                                <td class="value"><span id="ProjectOwner">{!VPProject.Owner}</span></td>
+            
+                                <td class="key">Complete:</td>
+                                <td class="value"><span id="ProjectComplete_new">{!Project.Complete__c}%</span></td>
+                            </tr>
+                            <tr>
+                                <td class="key">Start:</td>
+                                <td class="value"><span id="ProjectStart_new">{!Project.Viewpath__Start__c}</span></td>
+                                
+                                <td class="key">Finish:</td>
+                                <td class="value"><span id="ProjectFinish_new">{!Project.Viewpath__Finish__c}</span></td>
+                            </tr>
+                                <!-- 
+                                <td class="labelCol">Chatter Group</td>
+                                <td class="dataCol">
+                                    <span id="ChatterGroup">{!ChatterGroup.Name}</span>
+                                    <a href="javascript:openChatterGroupWin();">
+                                        <img src="/s.gif" alt="Select a chatter group to send project notifications to" class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" title="Chatter Group Lookup (New Window)"/>
+                                    </a>
+                                </td>
+                                 -->
+                        </table>
+                        </apex:outputPanel>
+                        
+                    </div>
+
+                    <apex:outputPanel layout="none" id="pnlProjectTips" rendered="{!(Viewpath__VP_Project__c.Viewpath__ProjectId__c != null)}">
+                        <div id="ViewpathTipsContainer" class="ViewpathTips">
+                            <h3>Did you know...</h3>
+                            <div id="ViewpathTips" class="tip">
+                            </div><br/><br/>
+                            <a id="NextTip" href="#NextTip">next tip</a>
+                        </div>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="pnlProjectUnavailable" rendered="{!(Viewpath__VP_Project__c.Viewpath__ProjectId__c == null)}">
+                        <div class="ViewpathTips">
+                        This project has not been created in Viewpath yet. Please try again momentarily. If this takes more than a few minutes, delete this project and recreate it.
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlock>
+            </apex:form>
+            <apex:outputPanel id="pnlProjectEdit" rendered="{!(Viewpath__VP_Project__c.Viewpath__ProjectId__c != null)}">
+                <div id="container" style="width:auto; height:auto; overflow:hidden; position:relative;" >
+                    <div id="tabToday" class="x-hide-display">           
+                        <apex:pageBlock ></apex:pageBlock>
+                    </div>
+                    <div id="tabTasks" class="x-hide-display">      
+                        <apex:pageBlock >
+                        </apex:pageBlock>     
+                    </div>
+                    <div id="tabResources" class="x-hide-display">
+                        <apex:pageBlock >
+                        </apex:pageBlock>
+                    </div>
+               </div>
+            </apex:outputPanel>
+        </div>
+    </apex:outputPanel>
+    
+    <apex:outputLabel value="{!Viewpath__VP_Project__c.Owner}" rendered="false"></apex:outputLabel>
+    <!--Account Not Activated-->
+    <apex:pageBlock title="Not Activated" rendered="{!(!AccountActivated)}">
+        <p>It looks like your organization hasn't been activated yet. Please have your administrator go to the Viewpath Configuration tab and complete the activation process. Thanks!</p>
+        <div style="clear:both;"></div> 
+    </apex:pageBlock>
+    
+    <!--Guest Access-->
+    <apex:pageBlock title="{!Viewpath__VP_Project__c.Name}" rendered="{!(AccountActivated && (AccessLevel == 0))}">
+    <apex:outputLabel value="{!VPProject.Owner}" rendered="false"></apex:outputLabel>
+        <p>You are currently listed as a "Guest" on this VP_Project__c. Please launch Viewpath or contact the project owner (<a href="mailto:{!VPProject.Owner}">{!Project.Name}</a>) for more information.</p>
+        <br/>
+        <input type="button" class="btn" onClick="popUp('{!ViewpathLaunchAppUrl}?Method=LaunchApplication');" value="Launch Viewpath"/>
+    </apex:pageBlock>
+    
+    <apex:outputPanel rendered="{!(AccountActivated && (AccessLevel == 0))}">
+        <div id="container">
+            <div id="tabToday" class="x-hide-display">           
+            </div>
+        </div>
+    </apex:outputPanel>
+
+    <!--No Access  - or a Null returned from our service GetProject method will cause the following UI -->
+    <apex:pageBlock title="{!Viewpath__VP_Project__c.Name}" rendered="{!(AccountActivated && (AccessLevel == -1))}">
+        <p>You have not been granted access on this VP_Project__c. Please launch Viewpath to view your own projects or contact the project owner (<a href="mailto:{!Viewpath__VP_Project__c.Owner.Email}">{!Viewpath__VP_Project__c.Owner.Name}</a>) and request to be added as a resource.</p>
+        <br/>
+        <input type="button" class="btn" onClick="popUp('{!ViewpathLaunchAppUrl}?Method=LaunchApplication');" value="Launch Viewpath"/>
+    </apex:pageBlock>
+</apex:page>

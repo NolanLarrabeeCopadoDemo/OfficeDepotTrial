@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Custom object called &apos;Coaching&apos; to be used for Sales Rep Coaching which will be tied to the standard User object to track goals, coaching activities, tasks, events and notes.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Active__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Rep__r.IsActive</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Active</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Contacts_Expansion_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Attainment of Contacts Expansion Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Positive_Prism_Plays_Targe__c</fullName>
+        <externalId>false</externalId>
+        <label>Attainment of Positive Prism Plays Targe</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Propose_Event_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Attainment of Propose Event Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Propose_Target__c</fullName>
+        <description>Last weeks attainment of the Propose Target</description>
+        <externalId>false</externalId>
+        <label>Attainment of Propose Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Pursue_Event_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Attainment of Pursue Event Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Pursue_Target__c</fullName>
+        <description>The field contains the previous weeks attainment of the Pursue Opportunity 3XGoal</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The field contains the previous weeks attainment of the Pursue Opportunity 3XGoal</inlineHelpText>
+        <label>Attainment of Pursue Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Qualify_Event_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Attainment of Qualify Event Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Retention_Cadence_Task_Tar__c</fullName>
+        <externalId>false</externalId>
+        <label>Attainment of Retention Cadence Task Tar</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Sales_Advancing_Event_Targ__c</fullName>
+        <externalId>false</externalId>
+        <label>Attainment of Sales Advancing Even Targe</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attainment_of_Verbal_Win_Target__c</fullName>
+        <description>This field contains the attainment of the Verbal Win Target</description>
+        <externalId>false</externalId>
+        <label>Attainment of Verbal Win Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Close_Standard_Perf__c</fullName>
+        <externalId>false</externalId>
+        <label>Close Standard Perf.</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contacts_Expansion_Target__c</fullName>
+        <description>Contacts Expansion Target for Retention Targets
+INTEG - N || CODE - Y || WF - N || AP - N || VAL - N ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly  &apos;Contacts Expansion&apos; Event Target for Retention Reps</inlineHelpText>
+        <label>Contacts Expansion Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSM__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(Owner:User.Manager.Short_Title__c = &apos;DSM&apos;, Owner:User.Manager__c, 
+If(Owner:User.Manager.Manager.Short_Title__c = &apos;DSM&apos;, Owner:User.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Short_Title__c = &apos;DSM&apos;, Owner:User.Manager.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Manager.Short_Title__c = &apos;DSM&apos;, Owner:User.Manager.Manager.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Manager.Manager.Short_Title__c = &apos;DSM&apos;, Owner:User.Manager.Manager.Manager.Manager.Manager__c,&apos;&apos;)))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>District Sales Manager</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Goal_YTD__c</fullName>
+        <description>INTEG - N || CODE - Y || WF - N || AP - N || VAL - N || Case 995383||
+
+Goal YTD to support attainment calculations.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Goal Year to Date from Optymyze through close of last fiscal month. Updated monthly.</inlineHelpText>
+        <label>Goal QTD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>IsManagerOwner__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Owner:User.Manager.isManager__c==false,true,false)</formula>
+        <label>IsManagerOwner</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MD__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(Owner:User.Manager.Short_Title__c = &apos;MD&apos;, Owner:User.Manager__c, 
+If(Owner:User.Manager.Manager.Short_Title__c = &apos;MD&apos;, Owner:User.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Short_Title__c = &apos;MD&apos;, Owner:User.Manager.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Manager.Short_Title__c = &apos;MD&apos;, Owner:User.Manager.Manager.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Manager.Manager.Short_Title__c = &apos;MD&apos;, Owner:User.Manager.Manager.Manager.Manager.Manager__c,&apos;&apos;)))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Managing Director</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ManagerProfile__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Rep__r.Manager.Profile.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ManagerProfile</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_Annuity_Agreements__c</fullName>
+        <description>Used for OJF Rep targets
+INTEG - N || CODE - Y || WF - N || AP - N || VAL - N ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly &apos;Annuity Agreements&apos; Event Target, for Adjacency Reps.</inlineHelpText>
+        <label>Monthly Annuity Agreements</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_Customer_Appts__c</fullName>
+        <description>Fields for OJF Rep targets
+INTEG - N || CODE - Y || WF - N || AP - N || VAL - N ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly &apos;Customer Appointments&apos; Event Target, for Adjacency Reps.</inlineHelpText>
+        <label>Monthly Customer Appts.</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_Demo_Appts__c</fullName>
+        <description>OJF Reps targets
+
+INTEG - N || CODE - Y || WF - N || AP - N || VAL - N ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly &apos;Demo Appointments&apos; Event Target, for Adjacency Reps.</inlineHelpText>
+        <label>Monthly Demo Appts.</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MyRecord__c</fullName>
+        <description>Used in list view filters to filter data based on the user hierarchy.</description>
+        <externalId>false</externalId>
+        <formula>IF(OR(Sales_Rep__c = $User.Id, Sales_Rep__r.ManagerId =$User.Id,Sales_Rep__r.Manager.ManagerId=$User.Id,Sales_Rep__r.Manager.Manager.ManagerId=$User.Id),TRUE,FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>MyRecord</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OD_Employee_ID__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>OD Employee ID</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Coaching</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Positive_Prism_Plays_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Positive Sales prism Plays Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Print_Services_Event_Target__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly Print Services Event Target for Adjacency Reps</inlineHelpText>
+        <label>Print Services Event Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Print_Services_Task_Target__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly Print Services Task Target for Adjacency Reps</inlineHelpText>
+        <label>Print Services Task Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Profile__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Rep__r.Profile.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Profile</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proposal_Presentation_Monthly_Target__c</fullName>
+        <description>Qualify Monthly Target for Retention Reps - Used for Reporting 
+
+INTEG - N || CODE - Y || WF - N || AP - N || VAL - N ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly &apos;Propose&apos; Event Target for Acquisition Reps.</inlineHelpText>
+        <label>Propose Monthly Target</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Propose_Standard_Perf__c</fullName>
+        <externalId>false</externalId>
+        <label>Propose Standard Perf.</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pursue_Standard_Perf__c</fullName>
+        <externalId>false</externalId>
+        <label>Pursue Standard Perf.</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pursuit_Presentation_Monthly_Target__c</fullName>
+        <description>Pursue Monthly Target for Retention Reps - Used for Reporting
+
+INTEG - N || CODE - Y || WF - N || AP - N || VAL - N ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly &apos;Pursue&apos; Event Target for Acquisition Reps.</inlineHelpText>
+        <label>Pursue Monthly Target</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Qualify_Monthly_Target__c</fullName>
+        <description>Qualify Monthly Target for Retention Reps - Used for Reporting
+
+INTEG - N || CODE - Y || WF - N || AP - N || VAL - N ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly &apos;Qualify&apos; Event Target for Acquisition Reps.</inlineHelpText>
+        <label>Qualify Monthly Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reportees__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Rep__r.Reportees__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reportees</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Retention_Cadence_Task_Target__c</fullName>
+        <description>Monthly Retention Cadence Event Target for Retention Reps
+INTEG - N || CODE - Y || WF - N || AP - N || VAL - N ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly &apos;Retention Cadence Event&apos; Target for Retention Reps</inlineHelpText>
+        <label>Retention Cadence Task Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SVP__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(Owner:User.Manager.Short_Title__c = &apos;SVP&apos;, Owner:User.Manager__c, 
+If(Owner:User.Manager.Manager.Short_Title__c = &apos;SVP&apos;, Owner:User.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Short_Title__c = &apos;SVP&apos;, Owner:User.Manager.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Manager.Short_Title__c = &apos;SVP&apos;, Owner:User.Manager.Manager.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Manager.Manager.Short_Title__c = &apos;SVP&apos;, Owner:User.Manager.Manager.Manager.Manager.Manager__c,&apos;&apos;)))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Senior Vice President</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sales_Advancing_Event_Target__c</fullName>
+        <description>Used for Retention Reps
+INTEG - N || CODE - Y || WF - N || AP - N || VAL - N ||</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly &apos;Sales Advancing&apos; Conversation Event Target for Retention Reps</inlineHelpText>
+        <label>Sales Advancing Event Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sales_Rep__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Sales Rep</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Coachings</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Sales_YTD__c</fullName>
+        <description>INTEG - N || CODE - Y || WF - N || AP - N || VAL - N || Case 995383|| 
+Sales YTD to support attainment calculations</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sales Year to Date  from Optymyze through close of last fiscal month. Updated monthly.</inlineHelpText>
+        <label>Sales QTD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Short_Title__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Rep__r.Short_Title__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Short Title</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_Verbal_Wins__c</fullName>
+        <externalId>false</externalId>
+        <label>Target Verbal Wins</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_goal_vs_close__c</fullName>
+        <externalId>false</externalId>
+        <label>Target to close</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Rep__r.Title</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Title</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VP__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(Owner:User.Manager.Short_Title__c = &apos;VP&apos;, Owner:User.Manager__c, 
+If(Owner:User.Manager.Manager.Short_Title__c = &apos;VP&apos;, Owner:User.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Short_Title__c = &apos;VP&apos;, Owner:User.Manager.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Manager.Short_Title__c = &apos;VP&apos;, Owner:User.Manager.Manager.Manager.Manager__c, 
+If(Owner:User.Manager.Manager.Manager.Manager.Manager.Short_Title__c = &apos;VP&apos;, Owner:User.Manager.Manager.Manager.Manager.Manager__c,&apos;&apos;)))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Vice President</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Verbal_Win_Monthly_Target__c</fullName>
+        <externalId>false</externalId>
+        <label>Verbal Win Monthly Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Yearly_Goal__c</fullName>
+        <description>INTEG - N || CODE - Y || WF - N || AP - N || VAL - N || Case 995383|| 
+Yearly Goal to support attainment calculations</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Yearly Goal from Optymize. Updated Monthly.</inlineHelpText>
+        <label>Yearly Goal</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Coaching</label>
+    <listViews>
+        <fullName>All_Active_Coaching</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Short_Title__c</columns>
+        <columns>DSM__c</columns>
+        <columns>MD__c</columns>
+        <columns>VP__c</columns>
+        <columns>SVP__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>All Active Coaching</label>
+        <language>en_US</language>
+        <sharedTo>
+            <group>SalesEnablement</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_Coaching</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Short_Title__c</columns>
+        <columns>MD__c</columns>
+        <columns>VP__c</columns>
+        <columns>SVP__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>NAME</field>
+            <operation>notContain</operation>
+            <value>Mark Merlin</value>
+        </filters>
+        <label>All Coaching</label>
+        <language>en_US</language>
+        <sharedTo>
+            <group>SalesEnablement</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Inactive_Users_with_Coaching_Records</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>Inactive Users with Coaching Records</label>
+        <language>en_US</language>
+        <sharedTo>
+            <group>Admins</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>My_Team_s_Coaching_Records</fullName>
+        <columns>NAME</columns>
+        <columns>Sales_YTD__c</columns>
+        <columns>Goal_YTD__c</columns>
+        <columns>Yearly_Goal__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>MyRecord__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Active__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>My Team&apos;s Coaching Records</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Coaching</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Playbooks</fullName>
+        <availability>online</availability>
+        <description>Link to Playbooks in SAVO</description>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Playbooks</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>https://officedepot.gosavo.com/CustomPage/View.aspx?id=41629829</url>
+    </webLinks>
+</CustomObject>

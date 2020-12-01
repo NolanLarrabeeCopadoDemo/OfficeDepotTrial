@@ -1,0 +1,220 @@
+<template>
+	<template if:true={isLoading}>
+		<div class="slds-is-relative component-min-height">
+			<lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+		</div>
+	</template>
+	<template if:false={isLoading}>
+		<article class="slds-card slds-m-bottom_medium">
+			<div class="slds-page-header">
+				<div class="slds-page-header__row">
+					<div class="slds-page-header__col-title">
+						<div class="slds-media">
+							<div class="slds-media__figure">
+								<span class="slds-icon_container slds-icon-standard-opportunity">
+									<svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+										<use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#opportunity">
+										</use>
+									</svg>
+								</span>
+							</div>
+							<div class="slds-media__body">
+								<div class="slds-page-header__name">
+									<div class="slds-page-header__name-title">
+										<h1>
+											<span>ACE Customers Summary</span>
+											<span class="slds-page-header__title slds-truncate" title={batch}>{batch}</span>
+										</h1>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="slds-page-header__col-actions">
+						<div class="slds-page-header__controls">
+							<div class="slds-page-header__control">
+								<lightning-input type="search" name="searchInput" label="Search" variant="label-hidden" placeholder="Type to search..." value={searchValue} onchange={onSearchValueChange}>
+								</lightning-input>
+							</div>
+							<div class="slds-page-header__control">
+								<lightning-combobox name="ownership" label="Ownership" variant="label-hidden" value={ownership} placeholder="Choose Ownership" options={ownershipOptions} onchange={onOwnershipChange}>
+								</lightning-combobox>
+							</div>
+							<div class="slds-page-header__control">
+								<lightning-button-menu alternative-text="Show menu" menu-alignment="right" variant="border-filled">
+									<lightning-menu-item value="viewAllImpactedSKUs" label="View All Impacted SKUs" icon-name="utility:open" onclick={onViewAllImpactedSkusClick}>
+									</lightning-menu-item>
+									<lightning-menu-item value="viewAllImpactedCustomers" label="View All Impacted Customers" icon-name="utility:open" onclick={onViewAllImpactedCustomersClick}></lightning-menu-item>
+								</lightning-button-menu>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+		<lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+			<article class="slds-card">
+				<div class="slds-card-body">
+					<lightning-accordion-section name="approvalRequired" label="Customers: Approval Required">
+						<template if:true={approvalRequired.data.length}>
+							<div class="datatable-container">
+								<lightning-datatable data={approvalRequired.data} columns={approvalRequired.columns} key-field="customerId" hide-checkbox-column>
+								</lightning-datatable>
+							</div>
+						</template>
+						<template if:false={approvalRequired.data.length}>
+							<div class="slds-grid">
+								<div class="m-auto">
+									No data available for this section.
+								</div>
+							</div>
+						</template>
+					</lightning-accordion-section>
+					<template if:true={approvalRequired.summaryData}>
+						<div class="slds-box slds-theme_shade slds-m-around_small">
+							<div class="slds-grid">
+								<div class="slds-m-right_medium summary-container">
+									<div class="slds-text-color_weak summary-title" title="# of Customers"># of
+										Customers</div>
+									<div class="slds-text-align_right">
+										{approvalRequired.summaryData.customerCount}</div>
+								</div>
+								<div class="slds-m-right_medium summary-container" title="Estimated Total Annual Spend Change">
+									<div class="slds-text-color_weak summary-title">Estimated Total Annual Spend
+										Change</div>
+									<div class="slds-text-align_right">
+										${approvalRequired.summaryData.annualSpend}</div>
+								</div>
+								<div class="slds-m-right_medium summary-container" title="Estimated Average Annual Spend Impact">
+									<div class="slds-text-color_weak summary-title">Estimated Average Annual
+										Spend Impact</div>
+									<div class="slds-text-align_right">
+										{approvalRequired.summaryData.spendImpactPercent}%</div>
+								</div>
+								<div class="slds-m-right_medium summary-container" title="Average SKU Increase Amount">
+									<div class="slds-text-color_weak summary-title">Average SKU Increase Amount
+									</div>
+									<div class="slds-text-align_right">
+										{approvalRequired.summaryData.percentIncrease}%</div>
+								</div>
+								<div class="summary-container" title="Total SRM Impact">
+									<div class="slds-text-color_weak summary-title">Total SRM Impact</div>
+									<div class="slds-text-align_right">
+										${approvalRequired.summaryData.summaryTotal}</div>
+								</div>
+							</div>
+						</div>
+					</template>
+				</div>
+			</article>
+			<article class="slds-card">
+				<div class="slds-card-body">
+					<lightning-accordion-section name="notificationRequired" label="Customers: Notification Required per Written Agreement">
+						<template if:true={notificationRequired.data.length}>
+							<div class="datatable-container">
+								<lightning-datatable data={notificationRequired.data} columns={notificationRequired.columns} key-field="customerId" hide-checkbox-column>
+								</lightning-datatable>
+							</div>
+						</template>
+						<template if:false={notificationRequired.data.length}>
+							<div class="slds-grid">
+								<div class="m-auto">
+									No data available for this section.
+								</div>
+							</div>
+						</template>
+					</lightning-accordion-section>
+					<template if:true={notificationRequired.summaryData}>
+						<div class="slds-box slds-theme_shade slds-m-around_small">
+							<div class="slds-grid">
+								<div class="slds-m-right_medium summary-container">
+									<div class="slds-text-color_weak summary-title" title="# of Customers"># of
+										Customers</div>
+									<div class="slds-text-align_right">
+										{notificationRequired.summaryData.customerCount}</div>
+								</div>
+								<div class="slds-m-right_medium summary-container" title="Estimated Total Annual Spend Change">
+									<div class="slds-text-color_weak summary-title">Estimated Total Annual Spend
+										Change</div>
+									<div class="slds-text-align_right">
+										${notificationRequired.summaryData.annualSpend}</div>
+								</div>
+								<div class="slds-m-right_medium summary-container" title="Estimated Average Annual Spend Impact">
+									<div class="slds-text-color_weak summary-title">Estimated Average Annual
+										Spend Impact</div>
+									<div class="slds-text-align_right">
+										{notificationRequired.summaryData.spendImpactPercent}%</div>
+								</div>
+								<div class="slds-m-right_medium summary-container" title="Average SKU Increase Amount">
+									<div class="slds-text-color_weak summary-title">Average SKU Increase Amount
+									</div>
+									<div class="slds-text-align_right">
+										{notificationRequired.summaryData.percentIncrease}%</div>
+								</div>
+								<div class="summary-container" title="Total SRM Impact">
+									<div class="slds-text-color_weak summary-title">Total SRM Impact</div>
+									<div class="slds-text-align_right">
+										${notificationRequired.summaryData.summaryTotal}</div>
+								</div>
+							</div>
+						</div>
+					</template>
+				</div>
+			</article>
+			<article class="slds-card">
+				<div class="slds-card-body">
+					<lightning-accordion-section name="noRequirements" label="Customers: No Requirements">
+						<template if:true={noRequirements.data.length}>
+							<div class="datatable-container">
+								<lightning-datatable data={noRequirements.data} columns={noRequirements.columns} key-field="customerId" hide-checkbox-column>
+								</lightning-datatable>
+							</div>
+						</template>
+						<template if:false={noRequirements.data.length}>
+							<div class="slds-grid">
+								<div class="m-auto">
+									No data available for this section.
+								</div>
+							</div>
+						</template>
+					</lightning-accordion-section>
+					<template if:true={noRequirements.summaryData}>
+						<div class="slds-box slds-theme_shade slds-m-around_small">
+							<div class="slds-grid">
+								<div class="slds-m-right_medium summary-container">
+									<div class="slds-text-color_weak summary-title" title="# of Customers"># of
+										Customers</div>
+									<div class="slds-text-align_right">
+										{noRequirements.summaryData.customerCount}</div>
+								</div>
+								<div class="slds-m-right_medium summary-container" title="Estimated Total Annual Spend Change">
+									<div class="slds-text-color_weak summary-title">Estimated Total Annual Spend
+										Change</div>
+									<div class="slds-text-align_right">${noRequirements.summaryData.annualSpend}
+									</div>
+								</div>
+								<div class="slds-m-right_medium summary-container" title="Estimated Average Annual Spend Impact">
+									<div class="slds-text-color_weak summary-title">Estimated Average Annual
+										Spend Impact</div>
+									<div class="slds-text-align_right">
+										{noRequirements.summaryData.spendImpactPercent}%</div>
+								</div>
+								<div class="slds-m-right_medium summary-container" title="Average SKU Increase Amount">
+									<div class="slds-text-color_weak summary-title">Average SKU Increase Amount
+									</div>
+									<div class="slds-text-align_right">
+										{noRequirements.summaryData.percentIncrease}%</div>
+								</div>
+								<div class="summary-container" title="Total SRM Impact">
+									<div class="slds-text-color_weak summary-title">Total SRM Impact</div>
+									<div class="slds-text-align_right">
+										${noRequirements.summaryData.summaryTotal}</div>
+								</div>
+							</div>
+						</div>
+					</template>
+				</div>
+			</article>
+		</lightning-accordion>
+	</template>
+</template>

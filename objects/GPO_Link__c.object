@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Communities v2: For adding custom links to the page and changing form field names</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Controls the field&apos;s visibility</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Controls the field&apos;s visibility</inlineHelpText>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>GPO_Group__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>GPO Group</label>
+        <referenceTo>GPO_Group__c</referenceTo>
+        <relationshipName>GPO_Links</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Hide__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used to hide the: Extension field on Invoice Form &amp; Website Field and Notes Field on Registration Form</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to hide the: Extension field on Invoice Form &amp; Website Field and Notes Field on Registration Form</inlineHelpText>
+        <label>Hide</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Invoice_Form_Fields__c</fullName>
+        <description>Select to overwrite the label displayed for given field on the form.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select to overwrite the label displayed for given field on the form.</inlineHelpText>
+        <label>Invoice Form Fields</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Type__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Business Name</fullName>
+                    <default>false</default>
+                    <label>Business Name</label>
+                </value>
+                <value>
+                    <fullName>First Name</fullName>
+                    <default>false</default>
+                    <label>First Name</label>
+                </value>
+                <value>
+                    <fullName>Last Name</fullName>
+                    <default>false</default>
+                    <label>Last Name</label>
+                </value>
+                <value>
+                    <fullName>Business Street Address 1</fullName>
+                    <default>false</default>
+                    <label>Business Street Address 1</label>
+                </value>
+                <value>
+                    <fullName>Business Street Address 2</fullName>
+                    <default>false</default>
+                    <label>Business Street Address 2</label>
+                </value>
+                <value>
+                    <fullName>Business City</fullName>
+                    <default>false</default>
+                    <label>Business City</label>
+                </value>
+                <value>
+                    <fullName>Business State</fullName>
+                    <default>false</default>
+                    <label>Business State</label>
+                </value>
+                <value>
+                    <fullName>Business Zip Code</fullName>
+                    <default>false</default>
+                    <label>Business Zip Code</label>
+                </value>
+                <value>
+                    <fullName>Business Phone Number</fullName>
+                    <default>false</default>
+                    <label>Business Phone Number</label>
+                </value>
+                <value>
+                    <fullName>Business Extension</fullName>
+                    <default>false</default>
+                    <label>Business Extension</label>
+                </value>
+                <value>
+                    <fullName>Business Email Address</fullName>
+                    <default>false</default>
+                    <label>Business Email Address</label>
+                </value>
+                <value>
+                    <fullName>Billing Street Address 1</fullName>
+                    <default>false</default>
+                    <label>Billing Street Address 1</label>
+                </value>
+                <value>
+                    <fullName>Billing Street Address 2</fullName>
+                    <default>false</default>
+                    <label>Billing Street Address 2</label>
+                </value>
+                <value>
+                    <fullName>Billing City</fullName>
+                    <default>false</default>
+                    <label>Billing City</label>
+                </value>
+                <value>
+                    <fullName>Billing State</fullName>
+                    <default>false</default>
+                    <label>Billing State</label>
+                </value>
+                <value>
+                    <fullName>Billing Zip Code</fullName>
+                    <default>false</default>
+                    <label>Billing Zip Code</label>
+                </value>
+                <value>
+                    <fullName>Number of Employees</fullName>
+                    <default>false</default>
+                    <label>Number of Employees</label>
+                </value>
+                <value>
+                    <fullName>Annual Revenue</fullName>
+                    <default>false</default>
+                    <label>Annual Revenue</label>
+                </value>
+                <value>
+                    <fullName>I would prefer to pay by Credit Card</fullName>
+                    <default>false</default>
+                    <label>I would prefer to pay by Credit Card</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Business Name</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>First Name</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Last Name</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Business Street Address 1</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Business Street Address 2</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Business City</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Business State</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Business Zip Code</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Business Phone Number</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Business Extension</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Business Email Address</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Billing Street Address 1</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Billing Street Address 2</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Billing City</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Billing State</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Billing Zip Code</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Number of Employees</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>Annual Revenue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice Request Form Field</controllingFieldValue>
+                <valueName>I would prefer to pay by Credit Card</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Invoice_UserReg_Fields__c</fullName>
+        <externalId>false</externalId>
+        <label>Invoice &amp; UserReg Fields</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Type__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>PO Number</fullName>
+                    <default>false</default>
+                    <label>PO Number</label>
+                </value>
+                <value>
+                    <fullName>Cost Center</fullName>
+                    <default>false</default>
+                    <label>Cost Center</label>
+                </value>
+                <value>
+                    <fullName>Release</fullName>
+                    <default>false</default>
+                    <label>Release</label>
+                </value>
+                <value>
+                    <fullName>Desktop</fullName>
+                    <default>false</default>
+                    <label>Desktop</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Invoice_UserReg_Form_Field</controllingFieldValue>
+                <valueName>PO Number</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice_UserReg_Form_Field</controllingFieldValue>
+                <valueName>Cost Center</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice_UserReg_Form_Field</controllingFieldValue>
+                <valueName>Release</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Invoice_UserReg_Form_Field</controllingFieldValue>
+                <valueName>Desktop</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Label__c</fullName>
+        <description>Text Label displayed on the page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Text Label displayed on the page</inlineHelpText>
+        <label>Link or Label Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>This object can be a: 
+1. Link on the page. 
+2. A field label on the Invoice form. 
+3. A field label on the User Reg form.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This object can be a: 
+1. Link on the page. 
+2. Field label on the Invoice form. 
+3. Field label on the User Reg form.</inlineHelpText>
+        <label>Type</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Link</fullName>
+                    <default>false</default>
+                    <label>Link</label>
+                </value>
+                <value>
+                    <fullName>User Registration Field</fullName>
+                    <default>false</default>
+                    <label>User Registration Form Field</label>
+                </value>
+                <value>
+                    <fullName>Invoice Request Form Field</fullName>
+                    <default>false</default>
+                    <label>Invoice Request Form Field</label>
+                </value>
+                <value>
+                    <fullName>Invoice_UserReg_Form_Field</fullName>
+                    <default>false</default>
+                    <label>Invoice &amp; UserReg Form Field</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>URL_Address__c</fullName>
+        <description>Http address for web link.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>URL should be entered as &quot;http://www.officedepot.com&quot;</inlineHelpText>
+        <label>URL Address</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>User_Registration_Fields__c</fullName>
+        <description>Controls the labels for the User Registration Form fields.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Controls the labels for the User Registration Form fields.</inlineHelpText>
+        <label>User Registration Fields</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Type__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Login Name</fullName>
+                    <default>false</default>
+                    <label>Login Name</label>
+                </value>
+                <value>
+                    <fullName>Password</fullName>
+                    <default>false</default>
+                    <label>Password</label>
+                </value>
+                <value>
+                    <fullName>Confirm Password</fullName>
+                    <default>false</default>
+                    <label>Confirm Password</label>
+                </value>
+                <value>
+                    <fullName>First Name</fullName>
+                    <default>false</default>
+                    <label>First Name</label>
+                </value>
+                <value>
+                    <fullName>Last Name</fullName>
+                    <default>false</default>
+                    <label>Last Name</label>
+                </value>
+                <value>
+                    <fullName>Company Name</fullName>
+                    <default>false</default>
+                    <label>Company Name</label>
+                </value>
+                <value>
+                    <fullName>Phone</fullName>
+                    <default>false</default>
+                    <label>Phone</label>
+                </value>
+                <value>
+                    <fullName>Email Address</fullName>
+                    <default>false</default>
+                    <label>Email Address</label>
+                </value>
+                <value>
+                    <fullName>Website</fullName>
+                    <default>false</default>
+                    <label>Website</label>
+                </value>
+                <value>
+                    <fullName>Number of Employees</fullName>
+                    <default>false</default>
+                    <label>Number of Employees</label>
+                </value>
+                <value>
+                    <fullName>Notes</fullName>
+                    <default>false</default>
+                    <label>Notes</label>
+                </value>
+                <value>
+                    <fullName>Address 1</fullName>
+                    <default>false</default>
+                    <label>Address 1</label>
+                </value>
+                <value>
+                    <fullName>Address 2</fullName>
+                    <default>false</default>
+                    <label>Address 2</label>
+                </value>
+                <value>
+                    <fullName>City</fullName>
+                    <default>false</default>
+                    <label>City</label>
+                </value>
+                <value>
+                    <fullName>State</fullName>
+                    <default>false</default>
+                    <label>State</label>
+                </value>
+                <value>
+                    <fullName>Zip Code</fullName>
+                    <default>false</default>
+                    <label>Zip Code</label>
+                </value>
+                <value>
+                    <fullName>Multiple PO Numbers</fullName>
+                    <default>false</default>
+                    <label>Multiple PO Numbers</label>
+                </value>
+                <value>
+                    <fullName>Multiple Cost Centers</fullName>
+                    <default>false</default>
+                    <label>Multiple Cost Centers</label>
+                </value>
+                <value>
+                    <fullName>Multiple Releases</fullName>
+                    <default>false</default>
+                    <label>Multiple Releases</label>
+                </value>
+                <value>
+                    <fullName>Multiple Desktops</fullName>
+                    <default>false</default>
+                    <label>Multiple Desktops</label>
+                </value>
+                <value>
+                    <fullName>Multiple Ship To</fullName>
+                    <default>false</default>
+                    <label>Multiple Ship To</label>
+                </value>
+                <value>
+                    <fullName>SSO Id</fullName>
+                    <default>false</default>
+                    <label>SSO Id</label>
+                </value>
+                <value>
+                    <fullName>Custom Catalog Code</fullName>
+                    <default>false</default>
+                    <label>Custom Catalog Code</label>
+                </value>
+                <value>
+                    <fullName>Address Selection</fullName>
+                    <default>false</default>
+                    <label>Address Selection</label>
+                </value>
+                <value>
+                    <fullName>Account Selection</fullName>
+                    <default>false</default>
+                    <label>Account Selection</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Login Name</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Password</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Confirm Password</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>First Name</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Last Name</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Company Name</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Phone</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Email Address</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Website</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Number of Employees</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Notes</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Address 1</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Address 2</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>City</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>State</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Zip Code</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Multiple PO Numbers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Multiple Cost Centers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Multiple Releases</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Multiple Desktops</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Multiple Ship To</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>SSO Id</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Custom Catalog Code</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Address Selection</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>User Registration Field</controllingFieldValue>
+                <valueName>Account Selection</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <label>Links and Labels</label>
+    <nameField>
+        <displayFormat>L-{000000}</displayFormat>
+        <label>Link or Label ID</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Links and Labels</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Hide_Form_Fields_Validation</fullName>
+        <active>true</active>
+        <description>Communities v2.1 - Only some fields on the form can be hidden, this will block the rest.</description>
+        <errorConditionFormula>AND(Hide__c,
+NOT(OR(
+ AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Website&apos;)),
+ AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Notes&apos;)),
+AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Number of Employees&apos;)),
+AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Company Name&apos;)),
+ AND(ISPICKVAL(Type__c,&apos;Invoice Request Form Field&apos;),ISPICKVAL(Invoice_Form_Fields__c, &apos;Business Extension&apos;)),
+ AND(ISPICKVAL(Type__c,&apos;Invoice Request Form Field&apos;),ISPICKVAL(Invoice_Form_Fields__c, &apos;I would prefer to pay by Credit Card&apos;)),
+ AND(ISPICKVAL(Type__c,&apos;Invoice_UserReg_Form_Field&apos;),ISPICKVAL(Invoice_UserReg_Fields__c , &apos;PO Number&apos;)),
+ AND(ISPICKVAL(Type__c,&apos;Invoice_UserReg_Form_Field&apos;),ISPICKVAL(Invoice_UserReg_Fields__c , &apos;Cost Center&apos;)),
+ AND(ISPICKVAL(Type__c,&apos;Invoice_UserReg_Form_Field&apos;),ISPICKVAL(Invoice_UserReg_Fields__c , &apos;Release&apos;)),
+ AND(ISPICKVAL(Type__c,&apos;Invoice_UserReg_Form_Field&apos;),ISPICKVAL(Invoice_UserReg_Fields__c , &apos;Desktop&apos;)),
+AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Multiple PO Numbers&apos;)),
+AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Multiple Cost Centers&apos;)),
+AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Multiple Releases&apos;)),
+AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Multiple Desktops&apos;)),
+AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Multiple Ship To&apos;)),
+AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;SSO Id&apos;)),
+AND(ISPICKVAL(Type__c,&apos;User Registration Field&apos;),ISPICKVAL(User_Registration_Fields__c , &apos;Custom Catalog Code&apos;))
+)))</errorConditionFormula>
+        <errorMessage>This field cannot be hidden</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

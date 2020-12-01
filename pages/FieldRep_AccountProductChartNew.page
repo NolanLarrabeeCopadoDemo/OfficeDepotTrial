@@ -1,0 +1,164 @@
+<apex:page sidebar="false" showHeader="false"  Controller="FieldRep_AccountProductDataExtension">
+  <apex:stylesheet value="{!URLFOR($Resource.jqplot, '/dist/jquery.jqplot.css')}"/>
+ 
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/excanvas.js')}"/>
+ 
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/jquery.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/jquery.jqplot.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/plugins/jqplot.dateAxisRenderer.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/plugins/jqplot.barRenderer.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/plugins/jqplot.categoryAxisRenderer.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/plugins/jqplot.pointLabels.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/plugins/jqplot.highlighter.min.js')}"/> 
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/plugins/jqplot.canvasTextRenderer.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.jqplot, '/dist/plugins/jqplot.canvasAxisTickRenderer.min.js')}"/> 
+  <script type="text/javascript" language="javascript">
+  $(document).ready(function(){
+     
+    $('chart1').width($(document).width());  
+    var s1 = [{!siteAccount.CPD_LY}, {!siteAccount.Office_Essentials_LY}, {!siteAccount.Filing_Binding_LY}, {!siteAccount.Furniture_LY},{!siteAccount.Tech_LY},{!siteAccount.Labels_Forms_LY},{!siteAccount.CBS_LY},{!siteAccount.Paper_LY},{!siteAccount.MPS_LY},{!siteAccount.Miscellaneous_LY},{!siteAccount.Writing_Drafting_LY},{!siteAccount.Ink_Toner_LY}];
+    var s2 = [{!siteAccount.CPD_TY}, {!siteAccount.Office_Essentials_TY}, {!siteAccount.Filing_Binding_TY}, {!siteAccount.Furniture_TY},{!siteAccount.Tech_TY},{!siteAccount.Labels_Forms_TY},{!siteAccount.CBS_TY},{!siteAccount.Paper_TY},{!siteAccount.MPS_TY},{!siteAccount.Miscellaneous_TY},{!siteAccount.Writing_Drafting_TY},{!siteAccount.Ink_Toner_TY}];
+    var s3 = [{!siteAccount.CPD_Pot}, {!siteAccount.Office_Essentials_Pot}, {!siteAccount.Filing_Binding_Pot}, {!siteAccount.Furniture_Pot},{!siteAccount.Tech_Pot},{!siteAccount.Labels_Forms_Pot},{!siteAccount.CBS_Pot},{!siteAccount.Paper_Pot},{!siteAccount.MPS_Pot},{!siteAccount.Miscellaneous_Pot},{!siteAccount.Writing_Drafting_Pot},{!siteAccount.Ink_Toner_Pot}];
+    var s4 = [{!mpCategoryAmount['CPD'].Opportunity_Amt__c}, {!mpCategoryAmount['Office Essentials'].Opportunity_Amt__c}, {!mpCategoryAmount['Filing & Binding'].Opportunity_Amt__c}, {!mpCategoryAmount['Furniture'].Opportunity_Amt__c},{!mpCategoryAmount['Tech'].Opportunity_Amt__c},{!mpCategoryAmount['Labels & Forms'].Opportunity_Amt__c},{!mpCategoryAmount['CBS'].Opportunity_Amt__c},{!mpCategoryAmount['Paper'].Opportunity_Amt__c},{!mpCategoryAmount['MPS'].Opportunity_Amt__c},{!mpCategoryAmount['Miscellaneous'].Opportunity_Amt__c},{!mpCategoryAmount['Writing Drafting'].Opportunity_Amt__c},{!mpCategoryAmount['Ink Toner'].Opportunity_Amt__c}];
+    // Can specify a custom tick Array.
+    // Ticks should match up one for each y value (category) in the series.
+    var ticks = ['CPD', 'Office Essentials', 'Filing & Binding', 'Furniture', 'Tech', 'Labels & Forms', 'CBS', 'Paper', 'MPS', 'Miscellaneous', 'Writing Drafting','Ink Toner'];
+     
+    var plot1 = $.jqplot('chart1', [s1, s2, s3, s4],{
+        // The "seriesDefaults" option is an options object that will
+        // be applied to all series in the chart.
+        seriesDefaults:{            
+            renderer:$.jqplot.BarRenderer,
+            rendererOptions: {barWidth :8,highlightMouseOver : true,barMargin : 2,barPadding :1},
+            showMarker:true,
+        },
+        textColor:"#000000",
+        highlighter: {
+          show: true ,
+          tooltipFadeSpeed : "fast",
+          tooltipLocation: 'n',
+          showMarker: false,
+          showTooltip: true,
+           tooltipAxes: 'y',
+           tooltipFormatString : '%.5P',
+           useAxesFormatters : true,
+           sizeAdjust: 10
+        },
+        grid :{
+          drawGridlines : false,
+          background: "#FFFFFF",
+          borderWidth : 1,
+          shadow: false,
+        },
+        // Custom labels for the series are specified with the "label"
+        // option on the series option.  Here a series option object
+        // is specified for each series.
+        series:[
+            {label:'LY Sales',shadow: false,color:'#3366CC'},
+            {label:'TY Sales',shadow: false,color:'#DC3912'},
+            {label:'Potential',shadow: false,color:'#FF9900'},
+            {label:'Opportunity',shadow: false,color:'#109618'}
+        ],
+        // Show the legend and put it outside the grid, but inside the
+        // plot container, shrinking the grid to accomodate the legend.
+        // A value of "outside" would not shrink the grid and allow
+        // the legend to overflow the container.
+        legend: {
+            show: false
+             
+        },
+        axesDefaults: {
+        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+        tickOptions: {
+          angle: -30,
+          fontSize: '8pt',
+          textColor : '#000000'
+        }
+    },
+        axes: {
+            // Use a category axis on the x axis and use our custom ticks.
+            xaxis: {
+                renderer: $.jqplot.CategoryAxisRenderer,
+                ticks: ticks,
+                syncTicks: true,
+                
+            },
+            // Pad the y axis just a little so bars can get close to, but
+            // not touch, the grid boundaries.  1.2 is the default padding.
+            yaxis: {
+                pad: 1.05,
+                tickOptions: {formatString: '%d'},
+                min:0,   
+                max:{!tickInterval},                            
+                showGridline: true
+            }
+        }
+    });
+});
+
+  
+  </script>
+   <apex:pageBlock title="Product Category Trending">
+  <div id="chart1"  style="width:600px;margin-top:0px; margin-left:0px; height:350px;"></div>
+    <div  align="center" style="width:630px;margin-left:20px;">
+    <table class="jqplot-table-legend" style=" bottom: 0px; " cellspacing="4px">
+  <tbody>
+    <tr class="jqplot-table-legend">
+      <td class="jqplot-table-legend" style="text-align: center; padding-top: 0px; ">
+        <div>
+          <div class="jqplot-table-legend-swatch" style="background-color: rgb(51, 102, 204); border-top-color: rgb(51, 102, 204); border-right-color: rgb(51, 102, 204); border-bottom-color: rgb(51, 102, 204); border-left-color: rgb(51, 102, 204); ">
+          </div>
+        </div>
+      </td>
+          
+      <td class="jqplot-table-legend" style="font-size:1.3em;">LY Sales
+      </td>
+      
+    
+      <td class="jqplot-table-legend" style="text-align: center; ">
+        <div>
+          <div class="jqplot-table-legend-swatch" style="background-color: rgb(220, 57, 18); border-top-color: rgb(220, 57, 18); border-right-color: rgb(220, 57, 18); border-bottom-color: rgb(220, 57, 18); border-left-color: rgb(220, 57, 18); ">         
+          </div>
+        </div>
+       </td>
+       
+     <td class="jqplot-table-legend" style="font-size:1.3em;">TY Sales
+     </td>
+     
+  
+     <td class="jqplot-table-legend" style="text-align: center; ">
+     
+       <div>
+         <div class="jqplot-table-legend-swatch" style="background-color: rgb(255, 153, 0); border-top-color: rgb(255, 153, 0); border-right-color: rgb(255, 153, 0); border-bottom-color: rgb(255, 153, 0); border-left-color: rgb(255, 153, 0); ">
+         </div>
+       </div>
+     </td>
+    <td class="jqplot-table-legend" style="font-size:1.3em;">Potential
+    
+    </td>
+    
+   
+     <td class="jqplot-table-legend" style="text-align: center; ">
+       <div>
+         <div class="jqplot-table-legend-swatch" style="background-color: rgb(16, 150, 24); border-top-color: rgb(16, 150, 24); border-right-color: rgb(16, 150, 24); border-bottom-color: rgb(16, 150, 24); border-left-color: rgb(16, 150, 24); ">
+         </div>
+        </div>
+      </td>
+      <td class="jqplot-table-legend" style="font-size:1.3em;">Opportunity
+    
+      </td>
+      
+    </tr>
+    </tbody>
+    
+    </table>
+  </div>
+  
+  <apex:outputPanel rendered="false">
+  
+{!siteAccount.CPD_Diff}{!siteAccount.Filing_Binding_Diff}{!siteAccount.Office_Essentials_Diff}{!siteAccount.Furniture_Diff}
+{!siteAccount.Tech_Diff}{!siteAccount.Labels_Forms_Diff}{!siteAccount.CBS_Diff}{!siteAccount.Paper_Diff}
+{!siteAccount.Miscellaneous_Diff}{!siteAccount.Writing_Drafting_Diff}{!siteAccount.Ink_Toner_Diff}{!siteAccount.MPS_Diff}
+</apex:outputPanel>
+</apex:pageBlock>
+</apex:page>

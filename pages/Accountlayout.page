@@ -1,0 +1,25 @@
+<!--
+//------------------------------------------------------------//
+//Author        :   Appirio Offshore
+//Date          :   October 25, 2011
+//Desciption    :   Page shows the detail of the account
+//------------------------------------------------------------// 
+ -->
+<apex:page standardController="Account"  id="page1" sidebar="true" showHeader="true"  docType="html-5.0" >
+    <!-- <chatter:feed entityId="{!account.id}"/> -->
+    <script>
+
+
+ 
+ if( (typeof sforce != 'undefined') && (sforce != null) ) {
+sforce.one.navigateToURL("/{!account.Id}?nooverride=1");
+
+  
+          }
+       
+
+</script>
+    
+    <chatter:feedWithFollowers entityId="{!account.id}"/>
+    <apex:detail inlineEdit="true" relatedList="true" title="true"/>
+</apex:page>

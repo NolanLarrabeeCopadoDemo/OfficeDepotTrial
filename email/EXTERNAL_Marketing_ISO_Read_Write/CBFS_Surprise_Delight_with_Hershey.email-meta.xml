@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>CBFS- Surprise &amp; Delight with Hershey</name>
+    <style>freeForm</style>
+    <subject>Surprise &amp; Delight with Hershey&apos;s</subject>
+    <textOnly>Dear {!Contact.Name},
+
+Office Depot carries a great assortment of candy that could be a perfect fit for your candy dish or celebration! With Easter fast approaching, surprise and delight with Hershey’s candy favorites.
+
+I have attached a flier to provide you with excellent chocolate and non-chocolate options to choose from. Take a moment to review the great assortments and fan-favorites!
+
+If you have any questions, please feel free to reach out to me!
+
+{!User.Name}
+
+Business Account Manager |Inside Sales BSD
+
+9501 Amberglen Blvd., Building H, Suite 200, Austin, TX 78729
+
+Tel: 855-337-6811 Ext: {!User.ISO_Extension__c} | Fax: 561.438.9719 | {!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

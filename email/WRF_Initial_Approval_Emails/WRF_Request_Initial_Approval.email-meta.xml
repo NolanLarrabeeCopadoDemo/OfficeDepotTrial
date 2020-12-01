@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification that gets sent out to approvers for review for initial approval</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Request Initial Approval</name>
+    <style>freeForm</style>
+    <subject>WRF Approval  - {!Case.Subject} submitted by {!Case.WRF_Requestor__c} from {!Case.Region__c} region</subject>
+    <textOnly>{!Case.WRF_Requestor__c} has requested your approval on the following Work Request:
+
+
+Approval Requested on: {!Case.Approval_Start_time__c}
+Support ID: {!Case.CaseNumber}
+Account: {!Case.Account}
+Account Owner: {!Account.OwnerFullName}
+Account Owner Manager: {!Account.Account_Owner_Manager_Name__c}
+Request Type: {!Case.WRF_Request_Type__c}
+Subject: {!Case.Subject}
+Goals/Comments: {!Case.WRF_Proj_Goal_Cmnt__c}
+
+
+
+After reviewing the request, please approve or reject by:
+
+
+Clicking here to submit your response through Salesforce
+Replying to this email, without changing the To: field, and type Approve or Reject as the first word in the top line of the email. To add notes/comments simply leave a space (no colons or hyphens or any other punctuation), then type the comments.
+Example: Approve Comments will go here.
+
+***Please note: all work for this ticket is pending your review and will not be actioned until your response (approval / rejection) is received.
+
+
+
+
+Sincerely,
+
+
+Your Support Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

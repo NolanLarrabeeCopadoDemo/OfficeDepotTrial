@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Reassignment_Queue__c.Account__c</field>
+    </columns>
+    <columns>
+        <field>Reassignment_Queue__c.Requestor__c</field>
+    </columns>
+    <columns>
+        <field>Reassignment_Queue__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>Reassignment_Queue__c.Approver__c</field>
+    </columns>
+    <columns>
+        <field>Reassignment_Queue__c.Status_Message__c</field>
+    </columns>
+    <columns>
+        <field>Reassignment_Queue__c.New_Owner__c</field>
+    </columns>
+    <columns>
+        <field>Reassignment_Queue__c.Approve_Reject_Date__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Reassignment Queue Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Reassignment_Queue__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Reassignment_Queue__c.Approve_Reject_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

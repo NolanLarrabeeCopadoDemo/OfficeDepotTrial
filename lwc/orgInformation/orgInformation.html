@@ -1,0 +1,15 @@
+<template>
+    
+    <template for:each={mapData} for:item='mapKey'> 
+        <p class="slds-p-around_small" key={mapKey.key}>
+            <c-child-org-information key-item={mapKey.key} value-item={mapKey.value} onchildeventhandler={handleChildEvent} onspinnerevent={handleSpinnerEvent}></c-child-org-information>
+        </p>              
+    </template> 
+    
+    <template if:true={isLoaded} >
+        <lightning-spinner
+            alternative-text="Loading..." size="medium">
+        </lightning-spinner>
+    </template>
+
+</template>

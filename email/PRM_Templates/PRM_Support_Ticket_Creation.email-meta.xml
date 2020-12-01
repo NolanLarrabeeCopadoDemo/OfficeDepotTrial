@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Support Ticket Created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>PRM_Email_Letterhead</letterhead>
+    <name>PRM Support Ticket Creation</name>
+    <style>freeForm</style>
+    <subject>Support Ticket Submitted #{!Case.CaseNumber}</subject>
+    <textOnly>Hi {!Contact.Name},
+
+We have received your support ticket. You will be contacted by our customer support team. If you need immediate assistance, please contact your Channel Manager.
+
+Thanks,
+Channel Support.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

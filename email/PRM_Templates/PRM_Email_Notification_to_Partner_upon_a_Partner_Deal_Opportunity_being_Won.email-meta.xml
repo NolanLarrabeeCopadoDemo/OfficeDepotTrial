@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification to Partner upon a Partner Deal Opportunity being Won</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>PRM_Email_Letterhead</letterhead>
+    <name>PRM Email Notification to Partner upon a Partner Deal Opportunity being Won</name>
+    <style>freeForm</style>
+    <subject>{!Opportunity.Name}- Update : Congrats Closed</subject>
+    <textOnly>Hi {!Opportunity.Partner_Sub_Agent_Contact__c},
+
+Congratulations! Your opportunity {!Opportunity.Name} has Closed Won.
+Next steps: You will receive a signed copy of the executed contract.
+
+
+Thanks,
+Channel Support</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,10 @@
+<apex:page standardController="Ace_Customer_SKU_Changes__c" extensions="ACESKUComponentController" >               
+    <apex:form >	      
+         <apex:pageblock tabStyle="Ace_Customer_SKU_Changes__c" >           
+             <apex:pageBlockSection columns="2" >                 
+                 <apex:outputField label="SKU Alt Price" value="{!aceCustSKUChanges3.Approved_Proposed_Price__c}"/>
+                 <apex:outputField label="SKU Alt QPU" value="{!aceCustSKUChanges3.QPU__c}"/>            
+            </apex:pageBlockSection>                                        
+     	</apex:pageblock>     
+    </apex:form>
+</apex:page>

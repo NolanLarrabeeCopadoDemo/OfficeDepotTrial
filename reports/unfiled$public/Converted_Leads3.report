@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_91550618</developerName>
+        <masterLabel>Team</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>OWNER_ROLE</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Campaign 1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO-BDR Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - BDR Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - GPO Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Global 1 Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Healthcare Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - OMX - ODN 2 Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - OMX - ODN 3 Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 4 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 5 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Central Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Chamber Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - OMX - ODN 1 Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - OMX - ODN 5 Reps</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - NE Rep</sourceValue>
+            </sourceValues>
+            <value>ISO</value>
+        </values>
+        <values>
+            <value>WCW Assignment</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_8727457</developerName>
+        <masterLabel>WCW Assignment</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>Lead.WCW_Count__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>149</to>
+            </sourceValues>
+            <value>ISO Lead</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>149</from>
+            </sourceValues>
+            <value>Field Lead</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>Donut</chartType>
+        <enableHoverLabels>true</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>LEAD_SOURCE</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_TOP</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>true</showTotal>
+        <showValues>true</showValues>
+        <size>Small</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>LEAD_OWNER</field>
+    </columns>
+    <columns>
+        <field>LEAD_ID</field>
+    </columns>
+    <columns>
+        <field>OWNER_ROLE</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>COMPANY_ACCT</field>
+    </columns>
+    <columns>
+        <field>Lead.Lead_Page_Source__c</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <columns>
+        <field>CONVERTED_DATE</field>
+    </columns>
+    <columns>
+        <field>Lead.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>OPP_OWNER</field>
+    </columns>
+    <columns>
+        <field>OPP_NAME</field>
+    </columns>
+    <columns>
+        <field>OPP_ACCT_NAME</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <description>Converted Leads ISO and Field</description>
+    <filter>
+        <criteriaItems>
+            <column>LEAD_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>BSD NET,Web Lead,GPO Healthcare,ISO-Chamber,BSD Auto Account Setup</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>FiscalWeek</dateGranularity>
+        <field>CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_8727457</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LEAD_SOURCE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Converted Leads</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>OpportunityLead</reportType>
+    <scope>org</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CONVERTED_DATE</dateColumn>
+        <endDate>2018-04-28</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2017-12-31</startDate>
+    </timeFrameFilter>
+</Report>

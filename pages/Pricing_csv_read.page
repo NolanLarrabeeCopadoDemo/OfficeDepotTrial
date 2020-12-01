@@ -1,0 +1,32 @@
+<apex:page standardController="Opportunity" extensions="PricingMain">
+<apex:pageBlock >
+<apex:pagemessages id="msg_csv"></apex:pagemessages>
+<apex:sectionHeader title="Self Service Pricing (0 to 24k) - Step 1 (Optional)"/>
+<apex:pageBlock title="Opportunity Information">
+<apex:panelGrid columns="4" width="100%">
+  <b>Account Name: </b>
+  <apex:outputLink value="/{!Opportunity.Account.id}">{!Opportunity.Account.name}</apex:outputLink>
+  <b>Pricing Option: </b>
+  <apex:outputLabel value="{!Opportunity.Account.Pricing_Strategy_Option__c}"></apex:outputLabel>
+  <b>Opportunity Name: </b>
+  <apex:outputLink value="/{!Opportunity.id}">{!Opportunity.name}</apex:outputLink>
+  <b>Probability%: </b>
+  <apex:outputLabel value="{!Opportunity.Probability}"></apex:outputLabel>
+  <b>Amount: </b>
+  <apex:outputLabel value="{!Opportunity.amount}"></apex:outputLabel>
+  <b>Stage Name: </b>
+  <apex:outputLabel value="{!Opportunity.stagename}"></apex:outputLabel>
+  </apex:panelGrid>
+ </apex:pageBlock>
+  <br/>
+ <apex:pageBlock title="Customer SKU Upload">
+<apex:form > 
+   Choose a file (Optional)
+  <apex:inputFile value="{!contentFile}" filename="{!nameFile}" /> 
+  <br></br><br></br>
+  <apex:commandButton action="{!ReadFile}" value="Next" id="theButton"/>
+  <br></br><br></br> <i>This is an Optional Step, please click on Next if you do not have a file to upload</i> 
+ </apex:form>
+</apex:pageBlock>
+</apex:pageBlock>
+</apex:page>

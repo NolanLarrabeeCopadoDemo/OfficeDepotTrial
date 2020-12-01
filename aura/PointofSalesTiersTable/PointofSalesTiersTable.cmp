@@ -1,0 +1,113 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recId" type="String" access="Global" /> 
+     <aura:attribute name="isClone" type="Boolean" access="Global"/>
+    <div class="slds-truncate">Point of sales tiers</div>
+    <lightning:recordEditForm aura:id="myForm11" recordId="{!v.recId}" onsubmit="{!c.onRecordSubmit}" objectApiName="Contract">
+        <lightning:messages />
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="From ($)">From ($)</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="To ($)">To ($)</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Discount">Discount </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div  >
+                            <lightning:inputField aura:id="PointOfSalesFrom1" fieldName="Point_of_sales_tiers_Form1__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div >
+                            <lightning:inputField aura:id="PointOfSalesTo1" fieldName="Point_of_sales_tiers_To1__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div  >
+                            <lightning:inputField aura:id="PointOfSalesDiscount1" fieldName="Point_of_sales_tiers_Discount1__c" variant="label-hidden"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom2" fieldName="Point_of_sales_tiers_Form2__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo2" fieldName="Point_of_sales_tiers_To2__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount2" fieldName="Point_of_sales_tiers_Discount2__c" variant="label-hidden"  />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom3" fieldName="Point_of_sales_tiers_Form3__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo3" fieldName="Point_of_sales_tiers_To3__c" variant="label-hidden"  />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount3" fieldName="Point_of_sales_tiers_Discount3__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom4" fieldName="Point_of_sales_tiers_Form4__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo4" fieldName="Point_of_sales_tiers_To4__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount4" fieldName="Point_of_sales_tiers_Discount4__c" variant="label-hidden"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom5" fieldName="Point_of_sales_tiers_Form5__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo5" fieldName="Point_of_sales_tiers_To5__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount5" fieldName="Point_of_sales_tiers_Discount5__c" variant="label-hidden"/>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div align="center">
+            <lightning:button variant="brand" label="Save" type="submit" disabled="{!v.isClone}"/>
+        </div>
+    </lightning:recordEditForm>
+</aura:component>

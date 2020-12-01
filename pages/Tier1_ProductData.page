@@ -1,0 +1,224 @@
+<apex:page standardController="Partner__c"  readOnly="true">
+ 
+    <style>
+        .redText {
+        color :red;
+        }
+        .blackText {
+        color :black;
+        }
+        .nth-child {
+        background-color: #DBDFE0;
+        
+        }
+        .last-child{
+        background-color: #CFD3D4;
+        border-color: #000000;
+        }
+        
+    </style>
+    <apex:pageBlock rendered="{!IF(Partner__c.MTD_Sales_TY__c != null,true,false)}">
+        <apex:variable var="TY_Tot" value="{!0}" />
+        <apex:variable var="LY_Tot" value="{!0}" />
+        <table class="list" border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tbody>
+                
+                <tr class="headerRow">
+                    <th><apex:outputText value="Category" /></th>
+                    <th class="CurrencyElement"><apex:outputText value="TY Sales TD" /></th> 
+                    <th class="CurrencyElement"><apex:outputText value="LY Sales TD" /></th>
+                    <th class="CurrencyElement"><apex:outputtext value="Sales Difference" /></th> 
+                </tr>
+                
+                <tr class="dataRow odd">
+                    <td><b><apex:outputText value="Paper"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Paper_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.Paper_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Paper_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.Paper_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.Paper_TY__c - Partner__c.Paper_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.Paper_TY__c - Partner__c.Paper_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>        
+                </tr>
+                
+                <tr class="nth-child">
+                    <td><b><apex:outputText value="Ink Toner"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Ink_Toner_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.Ink_Toner_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Ink_Toner_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.Ink_Toner_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.Ink_Toner_TY__c - Partner__c.Ink_Toner_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.Ink_Toner_TY__c - Partner__c.Ink_Toner_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="dataRow odd">
+                    <td><b><apex:outputText value="Furniture"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Furniture_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.Furniture_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Furniture_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.Furniture_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.Furniture_TY__c - Partner__c.Furniture_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.Furniture_TY__c - Partner__c.Furniture_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="nth-child">
+                    <td><b><apex:outputText value="CBFS"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.CBS_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.CBS_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.CBS_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.CBS_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.CBS_TY__c - Partner__c.CBS_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.CBS_TY__c - Partner__c.CBS_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="dataRow odd">
+                    <td><b><apex:outputText value="CPD" /></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.CPD_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.CPD_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.CPD_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.CPD_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.CPD_TY__c - Partner__c.CPD_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.CPD_TY__c - Partner__c.CPD_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="nth-child">
+                    <td><b><apex:outputText value="Tech"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Tech_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.Tech_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Tech_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.Tech_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.Tech_TY__c - Partner__c.Tech_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.Tech_TY__c - Partner__c.Tech_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="dataRow odd">
+                    <td><b><apex:outputText value="Filing & Binding"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Filing_Binding_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.Filing_Binding_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Filing_Binding_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.Filing_Binding_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.Filing_Binding_TY__c - Partner__c.Filing_Binding_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.Filing_Binding_TY__c - Partner__c.Filing_Binding_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="nth-child">
+                    <td><b><apex:outputText value="Labels & Forms"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Labels_Forms_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.Labels_Forms_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Labels_Forms_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.Labels_Forms_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.Labels_Forms_TY__c - Partner__c.Labels_Forms_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.Labels_Forms_TY__c - Partner__c.Labels_Forms_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="dataRow odd">
+                    <td><b><apex:outputText value="Writing Drafting"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Writing_Drafting_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.Writing_Drafting_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Writing_Drafting_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.Writing_Drafting_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.Writing_Drafting_TY__c - Partner__c.Writing_Drafting_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.Writing_Drafting_TY__c - Partner__c.Writing_Drafting_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="nth-child">
+                    <td><b><apex:outputText value="Office Essentials"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Office_Essentials_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.Office_Essentials_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Office_Essentials_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.Office_Essentials_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.Office_Essentials_TY__c - Partner__c.Office_Essentials_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.Office_Essentials_TY__c - Partner__c.Office_Essentials_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="dataRow odd">
+                    <td><b><apex:outputText value="MPS"/></b></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.MPS_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.MPS_TY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.MPS_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.MPS_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.MPS_TY__c - Partner__c.MPS_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.MPS_TY__c - Partner__c.MPS_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="nth-child">
+                    <td style="border-bottom:1px solid #727272;"><b><apex:outputText value="Miscellaneous"/></b></td>
+                    <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Miscellaneous_TY__c}"/></td>
+                    <apex:variable var="TY_Tot" value="{!TY_Tot + Partner__c.Miscellaneous_TY__c}" />
+                    <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.Miscellaneous_LY__c}"/></td>
+                    <apex:variable var="LY_Tot" value="{!LY_Tot + Partner__c.Miscellaneous_LY__c}" />
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Partner__c.Miscellaneous_TY__c - Partner__c.Miscellaneous_LY__c < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!Partner__c.Miscellaneous_TY__c - Partner__c.Miscellaneous_LY__c}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+                
+                <tr class="last-child">
+                    <td><b><apex:outputText value="Total"/></b></td>
+                    <td class=" dataCell  CurrencyElement">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!TY_Tot}"/>
+                        </apex:outputText></td>
+                    <td class=" dataCell  CurrencyElement">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!LY_Tot}"/>
+                        </apex:outputText></td>
+                    <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(TY_Tot - LY_Tot < 0,'redText','blackText')}" layout="block">
+                        <apex:outputText value="{0,number,$#,###,###}">
+                            <apex:param value="{!TY_Tot - LY_Tot}" />
+                        </apex:outputText>
+                        </apex:outputPanel>
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+    </apex:pageBlock>
+    
+    <apex:outputPanel rendered="{!IF(Partner__c.MTD_Sales_TY__c = null,true,false)}">No Product Data to display</apex:outputPanel>
+    
+</apex:page>

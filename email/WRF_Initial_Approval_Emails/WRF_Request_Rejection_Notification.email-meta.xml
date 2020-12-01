@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification that gets sent to Sales Rep letting them know that their DSM/RSD has rejected their WRF Request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Request Rejection Notification</name>
+    <style>freeForm</style>
+    <subject>WRF Initial Approval Request has been Rejected:  {!Case.Account} - {!Case.Region__c}</subject>
+    <textOnly>The following Work Request has been Rejected by your Managing Director:
+
+Support Number:  {!Case.CaseNumber}
+Account:  {!Case.Account}
+Description:  {!Case.Description}
+Subject:  {!Case.Subject}
+
+This request has been cancelled. If you have any questions, please review with your Management Team. If you would like to submit a new request for this customer, please submit a new Work Request.
+Thank you,
+Your Support Team
+
+
+Click here to view the support request in Salesforce.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

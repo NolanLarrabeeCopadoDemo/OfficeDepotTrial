@@ -1,0 +1,138 @@
+<aura:component controller="CustomerSearchComponentCntroller" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="leadRecId" type="Id" access="global"/>
+    <!-- -Attribute to show/hide Serach form -->
+    <aura:attribute name="showAccSearch" type="Boolean"/>
+     
+    <!-- Account information to serach Org if nay and create a prospect Account-->
+    <aura:attribute name="accRec" type="Account" default="{'sobjectType': 'Account' }"/>
+    
+    <!-- In any required field information missed while seraching account Infor-->
+    <aura:attribute name="requiredError" type="boolean"/>
+     <aura:attribute name="AddressError" type="boolean" default="false" />
+    <aura:attribute name="errorMessage" type="String" />
+    
+    <!-- Country and State Picklist  Values-->
+    <aura:attribute name="accCountryList" type="String[]" />
+    <aura:attribute name="accStateList" type="String[]" />
+    <aura:attribute name="accStateActive" type="Boolean" default="false" />
+    <aura:attribute name="accStateRequired" type="Boolean" default="true" />
+    
+    <!-- Use the below two attributes when use component indipendently -->
+    <aura:attribute name="noRecsFound" type="boolean"/>
+    <aura:attribute name="orgRecList" type="Org__c"/>
+    
+    <!-- Account Record Types-->
+    <aura:attribute name="accRecordTypeOptions" type="List"/>
+    <aura:attribute name="selectedAccRT" type="String"/>
+    <aura:attribute name="defaultAccRecordType" type="String"/>
+    <aura:attribute name="inputError" type="boolean"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:registerEvent name="custSearchEvent" type="c:CustomerSearchEvent"/>
+    <aura:registerEvent name="processIndicatorEvent" type="c:ProcessIndicatorEvent"/>
+    
+    <!-- To get Selected Address from GoogleMap Auto Select Address-->
+    <aura:handler name="addressComponentEvent" event="c:AddressAutoCompleteEvent" action="{!c.handleAddressAutoCompleteEvent}"/>
+    <aura:handler event="c:ProspectBackToCustSearchEvent" action="{!c.handleProspectBackToCustSearch}"/>
+    <div style="margin: auto;width: 75%;">
+    <aura:if isTrue="{!v.inputError}">
+      <div class="recordError">
+        <ui:message title="Error" severity="error" closable="false">
+          {!v.errorMessage}
+        </ui:message>
+      </div>
+    </aura:if>
+  </div>
+    <!-- Org Search -->
+    <div style="margin: auto;width: 75%;">
+        <aura:if isTrue="{!v.showAccSearch}">
+            <fieldset class="slds-form--compound">
+                <legend class="slds-text-heading--small slds-p-vertical--medium">Customer Information</legend>
+                <div class="form-element__group">
+                    <aura:if isTrue="{!v.requiredError}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false">
+                                Required Fields are missing. {!v.requiredErrorField}
+                            </ui:message>
+                        </div>
+                    </aura:if>
+                     <aura:if isTrue="{!v.AddressError}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false">
+                                Address fields cannot be longer than 25 charaters.
+                            </ui:message>
+                        </div>
+                    </aura:if>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-1">
+                            <lightning:select aura:id="accRTId" name="accRTId" label="Record Type" value="{!v.selectedAccRT}" onchange="{!c.setAccRT}" disabled="true"><!---disabled="{!if(v.leadRecId == null,false,true)}"-->
+                                    <!--<option value="">choose one...</option>-->
+                                    <aura:iteration var="option" items="{!v.accRecordTypeOptions }">
+                                        <option value="{!option.value }" selected="{!if(v.selectedAccRT == option.label,'selected','')}">{!option.label}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-1">
+                            <lightning:input label="Prospect Name" maxlength="30"
+                                             value="{!v.accRec.Name}"
+                                             required="true" placeholder="Enter valid business name"/>
+                        </div>
+                    </div>
+                    <!-- Start: Added by Rajendra Shahane for NAIT-146087 - Implement SFDC Out of the Box Address Search for Prospects -->
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-1">
+                        <lightning:inputAddress required="true"
+                            aura:id="billingAddress"
+                            addressLabel="Address Search"
+                            streetLabel="Address1"
+                            cityLabel="City"
+                            countryLabel="Country"
+                            provinceLabel="State"
+                            postalCodeLabel="Zip"
+                            showAddressLookup="true"
+							
+                            onchange="{!c.assignAddress}"
+                            street="{!v.accRec.Address1__c}"
+                			city="{!v.accRec.City__c}"
+                			province="{!v.accRec.State__c}"
+                			country="{!v.accRec.Country__c}"
+                			postalCode="{!v.accRec.Zip__c}"
+                                                countryOptions="{!v.accCountryList}"
+							provinceOptions="{!v.accStateList}"
+                        />
+                        </div>
+                    </div>
+                    <!-- End: Added by Rajendra Shahane for NAIT-146087 - Implement SFDC Out of the Box Address Search for Prospects -->
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-1">
+                            <lightning:input label="Address2" maxlength="25"
+                                             value="{!v.accRec.Address2__c}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-1">
+                        <lightning:button label="Search Customer Data" 
+                                          class="slds-m-top--medium"
+                                          variant="brand"
+                                          onclick="{!c.searchCustData}"/>
+                    </div>
+                </div>
+            </fieldset>
+        </aura:if>
+    </div>
+    <!-- Ends Here -->
+    <!-- loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if> 
+    <!-- Loading spinner end --> 
+</aura:component>

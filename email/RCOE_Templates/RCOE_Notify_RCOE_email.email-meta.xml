@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to go to RCOE Email address notifying them of a new request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>RCOE Notify RCOE email</name>
+    <style>freeForm</style>
+    <subject>New Request - {!Case.Subject} - {!Case.CaseNumber}</subject>
+    <textOnly>There is a new RCOE Request.
+
+Requestor:   {!Case.WRF_Requestor_Name__c}
+Date/Time Received:  {!Case.CreatedDate}
+Request Details:  {!Case.Description}
+
+To access this case click the below link
+https://officedepot.my.salesforce.com/{!Case.Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,38 @@
+<apex:page controller="OppTrackingHistoryController" sidebar="false"  showHeader="false" applyBodyTag="false" renderAs="pdf" >
+    <head>
+        <style type = "text/css"> 
+            .colHeadr {
+                text-align: center; 
+                background-color: #99d6ff
+            }
+            
+            .tableClass tbody {
+                text-align: right;
+            }      
+            
+            @page {
+                size:A4 landscape;
+                font-family: 'Arial', 'Helvetica', sans-serif;
+                font-size: 10px;  
+            }
+        </style>
+    </head>
+   
+   
+    <apex:form >
+        <apex:pageBlock title="Watson Pipeline and Conversion">
+            <apex:outputLabel >Pipeline week:</apex:outputLabel>
+            <apex:outputLabel value="{!pipelineWeekPdf}"/>
+            <br /><br /><br /><br />
+            <apex:pageBlockTable value="{!stageList}" var="wrapper" width="100%" border="2" style="font-size:120%" cellpadding="5">
+                <apex:column value="{!wrapper.stageName}" headerValue="Stage" headerClass="colHeadr" style="font-size:120%;"/>
+                <apex:column value="{!wrapper.total}" headerValue="Total" headerClass="colHeadr" style="text-align:center;font-size:120%;"/>
+                <apex:column value="{!wrapper.remaining}" headerValue="Remaining" headerClass="colHeadr" style="text-align:center;font-size:120%;"/>
+                <apex:column value="{!wrapper.converted}" headerValue="Converted" headerClass="colHeadr" style="text-align:center;font-size:120%;"/>
+                <apex:column headerValue="Rate" headerClass="colHeadr" style="text-align:center;font-size:120%;"><apex:outputText value="{0,number,0}%"><apex:param value="{!wrapper.rate}"/></apex:outputText></apex:column>
+                <apex:column value="{!wrapper.notReady}" headerValue="Not Ready" headerClass="colHeadr" style="text-align:center;font-size:120%;"/>
+            </apex:pageBlockTable>
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="recordId" type="String" label="Record Id" description="Automatically bind the page's record id to the component variable" />
+            <property name="objectApiName" type="String" label="SObject Name" description="Automatically bind the page's records api name to the objectApiName variable" />
+            <property name="show_metrics" type="Boolean" label="(Removed)" description="(Removed)" default="true" />
+            <property name="show_account_details_metrics" type="Boolean" label="Show Account Detail Metrics" description="Should Account Detail Metrics be shown for the Account Sales Data?" default="true" />
+            <property name="show_account_retention_metrics" type="Boolean" label="Show Account Retention Metrics" description="Should Account Retention Metrics be shown for the Account Sales Data?" default="true" />
+            <property name="show_account_conversion_metrics" type="Boolean" label="Show Account Conversion Metrics" description="Should Account Conversion Metrics be shown for the Account Sales Data?" default="true" />
+            <property name="tab_name" type="String" label="Tab Name for the Component" description="What Tab name should be displayed for the component?" default="Sales History" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

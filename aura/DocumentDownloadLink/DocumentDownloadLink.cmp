@@ -1,0 +1,10 @@
+<aura:component controller="DocumentDownloadLink">
+	<aura:attribute type="String" name="documentName" description="Name of the document to download." default="" />
+	<aura:attribute type="String" name="linkText" description="The text to display the link." default="Link Text Here" />
+	<aura:attribute type="String" name="downloadLink" description="The link to download the file." default="#"/>
+	
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+
+	<a href="{!v.downloadLink}" target="_blank">{!v.linkText}</a>
+</aura:component>

@@ -1,0 +1,27 @@
+<apex:page standardController="Opportunity" >
+    <c:Savo_Header ></c:Savo_Header>
+    <div class="savoBody">
+        <c:Savo_Search ></c:Savo_Search>
+        <div class="wrapper">
+            <div class="left panel">
+                <h1 style="display: block;">Find Assets for {!Opportunity.Name}</h1>
+                <ul>
+                    <li><a href="#" onclick="window.open(Savo.Salesforce.redirectToUrl('/PROD/Search/Search.aspx?t={!Opportunity.StageName},{!Opportunity.Account.Industry}'));">Best Assets for the Opportunity</a></li>
+                    <li><a href="#" onclick="window.open(Savo.Salesforce.redirectToTarget('tag','{!Opportunity.StageName}'));">Sales Stage: {!Opportunity.StageName}</a></li> 
+                    <li><a href="#" onclick="window.open(Savo.Salesforce.redirectToTarget('tag','{!Opportunity.Account.Industry}'));">Industry: {!Opportunity.Account.Industry}</a></li> 
+                    <li><a href="#" onclick="window.open(Savo.Salesforce.redirectToUrl('/PROD/Search/Search.aspx?t={!Opportunity.Account.Industry}&amp;it=6'));">Find an Expert in {!Opportunity.Account.Industry}</a></li>
+                </ul>               
+            </div>
+            <div class="right panel">
+                <h1 style="display: block;">What do you want to do today?</h1>
+                <ul> 
+                    <li><a href="#" onclick="window.open(Savo.Salesforce.redirectToUrl('/PROD/Document/Document.aspx?id=XXXXXX'));">Prepare an Executive Briefing</a></li> 
+                    <li><a href="#" onclick="window.open(Savo.Salesforce.redirectToUrl('/PROD/Document/Document.aspx?id=XXXXXX'));">Find a Cross Sell</a></li> 
+                    <li><a href="#" onclick="window.open(Savo.Salesforce.redirectToUrl('/PROD/Document/Document.aspx?id=XXXXXX'));">Contribute to the Field</a></li> 
+                    <li><a href="#" onclick="window.open(Savo.Salesforce.redirectToTarget('search',document.getElementById('productList').value));">Find Product Information for:</a>&nbsp;&nbsp;&nbsp;<script>Savo.Salesforce.Opportunity.CreateProductDropDown('{!Opportunity.Id}','productList');</script></li>
+                </ul>                                       
+            </div>
+            <div style="clear: both;"></div>
+        </div> 
+    </div>
+</apex:page>

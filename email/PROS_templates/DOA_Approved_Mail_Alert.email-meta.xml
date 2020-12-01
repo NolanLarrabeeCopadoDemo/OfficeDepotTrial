@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>DOA Approved Mail Alert</name>
+    <style>freeForm</style>
+    <subject>Quote {!CameleonCPQ__QxQuote__c.Quote_Number__c} has received Full Internal Approval</subject>
+    <textOnly>The following Quote has been fully approved internally:
+
+
+•Quote ID: {!CameleonCPQ__QxQuote__c.Quote_Number__c}
+•CPM Account:{!CameleonCPQ__QxQuote__c.CameleonCPQ__AccountId__c}
+• Sales Rep Name: {!CameleonCPQ__QxQuote__c.Sales_Rep__c}
+• MD Name: {!CameleonCPQ__QxQuote__c.Managing_Director__c}
+• VP Name: {!CameleonCPQ__QxQuote__c.VP__c}
+• SVP Name: {!CameleonCPQ__QxQuote__c.SVP__c}
+• CDM Name: {!CameleonCPQ__QxQuote__c.00N1k000000Xpks}
+
+Please note: You may now send this Quote to the customer for approval/notification when ready. If any changes are made to this offer or construct of this deal, Sales will be required to clone, update and resubmit the quote for approvals.
+
+Link to :Quote</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

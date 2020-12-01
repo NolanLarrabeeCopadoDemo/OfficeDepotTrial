@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>SalesOps - Pricing Compliance Notification</name>
+    <style>freeForm</style>
+    <subject>SalesOps - Pricing Compliance Support - {!Case.CaseNumber}</subject>
+    <textOnly>Hello {!Case.AM_Assigned_To__c},
+
+You are receiving this notification because a support ticket has been assigned to you.
+
+
+Support # :  {!Case.CaseNumber}
+Requester: {!Case.IT_Created_By__c}
+Support Subject:  {!Case.Subject}
+Link to Support: Click Here</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

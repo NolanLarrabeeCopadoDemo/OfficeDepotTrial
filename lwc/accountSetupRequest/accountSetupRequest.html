@@ -1,0 +1,756 @@
+<template>
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                data={prospectJson}
+                columns={columns}
+                onrowaction={handleRowAction}
+                hide-checkbox-column>
+        </lightning-datatable>
+    </div>
+
+    <section
+    id="modal"
+    role="dialog"
+    tabindex="-1"
+    aria-labelledby="modal-heading-01"
+    aria-modal="true"
+    aria-describedby="modal-content-id-1"
+    class="slds-modal slds-fade-in-open slds-hide"
+    >
+    <div class="slds-modal__container">
+        <header class="slds-modal__header">
+            <lightning-button-icon
+                icon-name="utility:close"
+                variant="bare-inverse"
+                onclick={handleClick}
+                alternative-text="Close window"
+                class="slds-modal__close">
+            </lightning-button-icon>       
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                Account Setup Details                    
+            </h2>
+        </header>
+
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <lightning-layout class="c-container" > 
+                <lightning-card  title="Bill to Information">                                                   
+                <p class="slds-p-horizontal_small">
+                    <lightning-layout>
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input type="text" label="Account Name" value={accRec.BillTo_Name__c} required name="BillTo_Name__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="Street Address" value={accRec.Street_Address_Bill__c} required max-length="25" name="Street_Address_Bill__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="City" value={accRec.City_Bill__c} required name="City_Bill__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="Zip" value={accRec.Zip_Bill__c} required max-length="9" min-length="5" name="Zip_Bill__c" onchange={handleChange}></lightning-input>
+    
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6"  padding="around-small">
+                            <lightning-input type="tel"  label="Primary Phone" value={accRec.Account_Phone__c} required pattern="[0-9]{10}" pattern-mismatch="Phone number should be 10 digits" name="Account_Phone__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="Street Address 2" value={accRec.Street_Address_2_Bill__c} max-length="25" name="Street_Address_2_Bill__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="State" value={accRec.State_Bill__c} required max-length="2" name="State_Bill__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="Country" value={accRec.BILL_COUNTRY__c} required max-length="3" name="BILL_COUNTRY__c" onchange={handleChange}></lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </p> 
+                </lightning-card>                           
+            </lightning-layout>
+
+            <lightning-layout class="c-container">
+            <lightning-card  title="Ship to Information">                
+                <p class="slds-p-horizontal_small">                    
+                    <lightning-layout>
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input type="text" label="Street Address" value={accRec.Street_Address_Ship__c} required max-length="25" name="Street_Address_Ship__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="City" value={accRec.City_Ship__c} required name="City_Ship__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="Zip" value={accRec.Zip_Ship__c} required max-length="9" min-length="5" name="Zip_Ship__c" onchange={handleChange}></lightning-input>
+    
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input type="text" label="Street Address 2" value={accRec.Street_Address_2_Ship__c} max-length="25" name="Street_Address_2_Ship__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="State" value={accRec.State_Ship__c} required max-length="2" name="State_Ship__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="Country" value={accRec.SHIP_COUNTRY__c} required max-length="3" name="SHIP_COUNTRY__c" onchange={handleChange}></lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>                   
+                </p>                
+            </lightning-card>
+            </lightning-layout>
+
+            <lightning-layout class="c-container">
+                <lightning-card  title="Primary Contact Information">
+                    <p class="slds-p-horizontal_small">
+                        <lightning-layout>
+                            <lightning-layout-item size="6" padding="around-small">
+                                <lightning-input type="text" label="First Name" value={accRec.Primary_Contact_First_Name__c} required max-length="30" name="Primary_Contact_First_Name__c" onchange={handleChange}></lightning-input>
+                                <lightning-input type="tel" label="Phone" value={accRec.Primary_Contact_Phone__c} required  pattern="[0-9]{10}" pattern-mismatch="Phone number should be 10 digits" max-length="10" name="Primary_Contact_Phone__c" onchange={handleChange}></lightning-input>
+                                <lightning-input type="email" label="Email" value={accRec.Primary_Contact_Email__c} required name="Primary_Contact_Email__c" onchange={handleChange}
+                                message-when-pattern-mismatch="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                message-when-bad-input="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"	></lightning-input>
+        
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="around-small">
+                                <lightning-input type="text" label="Last Name" value={accRec.Primary_Contact_Last_Name__c} required max-length="30" name="Primary_Contact_Last_Name__c" onchange={handleChange}></lightning-input>
+                                <lightning-input type="text" label="Fax" value={accRec.Primary_Contact_Fax__c} name="Primary_Contact_Fax__c" onchange={handleChange}></lightning-input>                            
+                            </lightning-layout-item>
+                        </lightning-layout>
+                        <lightning-layout>
+                            <lightning-layout-item size="12" padding="around-small">
+                            <span style="font-size: medium"><u><strong>ORDERING&nbsp;PREFERENCES </strong></u></span>                             
+                            <lightning-combobox
+                                name=""
+                                label="Does your Customer have any ordering preferences?"
+                                value={accRec.Does_your_Customer_have_any_ordering_pr__c}
+                                options={options}
+                                required
+                                onchange={handlePOChange} ></lightning-combobox>
+                        </lightning-layout-item>
+                        </lightning-layout>
+
+                        <template if:true={togglePO}>
+                            <lightning-layout>
+                                <lightning-layout-item size="6" padding="around-small">                    
+                                    <lightning-combobox
+                                    name=""
+                                    label="Purchase Order Field during Order Entry?"
+                                    value={accRec.PO__c}
+                                    options={orderOptions}
+                                    onchange={handlePODChange} ></lightning-combobox>
+
+                                    <lightning-combobox
+                                    name=""
+                                    label="Desktop Field during Order Entry?"
+                                    value={accRec.Desktop__c}
+                                    options={orderOptions}
+                                    onchange={handlePODeskTopChange} ></lightning-combobox>
+                                <!-- <c-reusepicklistinlwc field-a-p-i-name="PO__c" obj-a-p-i-name="Account_Setup_Request__c" onprivateitemregister={handleIndustryChange}></c-reusepicklistinlwc>   -->
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6" padding="around-small">
+                                    
+                                <!--<c-reusepicklistinlwc field-a-p-i-name="Desktop__c" obj-a-p-i-name="Account_Setup_Request__c" onprivateitemregister={handleIndustryChange}></c-reusepicklistinlwc>  --> 
+                                <lightning-combobox
+                                name=""
+                                label="Cost Center or Department Field during Order Entry?"
+                                value={accRec.Cost_Center__c}
+                                options={orderOptions}
+                                onchange={handlePOCostChange} ></lightning-combobox>
+
+                                <lightning-combobox
+                                    name=""
+                                    label="Release Field during Order Entry?"
+                                    value={accRec.Release__c}
+                                    options={orderOptions}
+                                    onchange={handlePOReleaseChange} ></lightning-combobox>
+                                </lightning-layout-item>                         
+                            </lightning-layout>
+
+                            <span style="font-weight:bold;"><u>Rename the following Field labels for Order Entry
+                                &amp; Billing?</u></span>
+                            <lightning-layout> 
+                                                            
+                                <lightning-layout-item size="6" padding="around-small">
+                                    <template if:true={togglePOD}>
+                                        <lightning-input type="text" label="Purchase Order" value={accRec.Rename_Purchase_Order__c} placeholder="Limited to 7 Characters" max-length="7" name="Rename_Purchase_Order__c" onchange={handleChange}></lightning-input>
+                                    </template>                                    
+                                    <template if:true={togglePOCost}>
+                                        <lightning-input type="text" label="Cost Center" value={accRec.Rename_Cost_Center__c}  placeholder="Limited to 7 Characters" max-length="7" name="Rename_Cost_Center__c" onchange={handleChange}></lightning-input>
+                                    </template>                                    
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6" padding="around-small">
+                                    <template if:true={togglePODeskTop}>
+                                        <lightning-input type="text" label="Desktop" value={accRec.Rename_Desktop__c} placeholder="Limited to 7 Characters" max-length="7" name="Rename_Desktop__c" onchange={handleChange}></lightning-input>
+                                    </template>
+                                    <template if:true={togglePORelease}>
+                                        <lightning-input type="text" label="Release" value={accRec.Rename_Release__c} placeholder="Limited to 7 Characters" max-length="7" name="Rename_Release__c" onchange={handleChange}></lightning-input>
+                                    </template>                                                                       
+                                </lightning-layout-item> 
+                            </lightning-layout>
+                            
+                            <lightning-layout>
+                                <lightning-layout-item size="12" padding="around-small">
+                                    <lightning-input type="number" label="Minimum Order Value (MOV)" value={accRec.Minimum_Order_Value__c} format="###,###.00" max-length="8" name="Minimum_Order_Value__c" onchange={handleChange}></lightning-input>
+                                    Prevents orders from being submitted unless the MOV is met
+                                </lightning-layout-item>                            
+                            </lightning-layout>
+
+                            <template if:true={toggleBudgetsCcPo}>
+                                <lightning-layout>
+                                    <lightning-layout-item size="12" padding="around-small">
+                                        <lightning-combobox
+                                        name="Budgets_CC_PO__c"
+                                        label="Does the customer have budgets for each cost center or purchase order?"
+                                        value={accRec.Budgets_CC_PO__c}
+                                        options={options} onchange={handleChange}></lightning-combobox>                                
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </template>
+                        <!--togglePO-->
+                        </template>
+
+                        <lightning-layout>
+                            <lightning-layout-item size="12" padding="around-small">
+                                <lightning-combobox
+                                name=""
+                                label="Does your customer have any special Delivery Instructions?"
+                                value={accRec.Special_Delivery_Requirements__c}
+                                options={options}
+                                required
+                                onchange={handleDeliveryChange} ></lightning-combobox>
+                            </lightning-layout-item>
+                        </lightning-layout>
+
+                        <template if:true={toggleDelivery}>
+                            <lightning-layout>
+                                <lightning-layout-item size="12" padding="around-small">
+                                    <span style="font-size: medium"><u><strong>DELIVERY&nbsp;PREFERENCES </strong></u></span>
+                                    <lightning-combobox
+                                        name="Print_Invoice__c"
+                                        label="Does a copy of the invoice need to be included with the packing list?"
+                                        value={accRec.Print_Invoice__c}
+                                        options={options} onchange={handleChange}></lightning-combobox>
+                                </lightning-layout-item>   
+                                
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-layout-item size="12" padding="around-small">
+                                    <lightning-combobox
+                                    
+                                    label="Would you like to show the Purchase Order information on the packing list?"
+                                    value={accRec.Display_Purchase_Orders__c}
+                                    options={options} name="Display_Purchase_Orders__c" onchange={handleChange}></lightning-combobox>
+                                </lightning-layout-item>
+                                
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-layout-item size="12" padding="around-small">
+                                    <lightning-combobox                                
+                                    label="Would you like to show the Payment Method information on the packing list? "
+                                    value={accRec.Display_Payment_Method__c}
+                                    options={options} name="Display_Payment_Method__c" onchange={handleChange}></lightning-combobox>
+                                </lightning-layout-item>
+                                
+                            </lightning-layout>
+
+                            <lightning-layout>
+                                <lightning-layout-item size="6" padding="around-small">
+                                    <lightning-combobox
+                                        
+                                        label="Would you like to show Prices on the packing list? "
+                                        value={accRec.Display_Prices__c}
+                                        options={options} name="Display_Prices__c" onchange={handleChange}></lightning-combobox>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6" padding="around-small">
+                                    <lightning-combobox
+                                   
+                                    label="Would you like to show Backorders on the packing list? "
+                                    value={accRec.Backorders_displayed_on_packing_list__c}
+                                    options={options} name="Backorders_displayed_on_packing_list__c" onchange={handleChange}></lightning-combobox>
+                                </lightning-layout-item>
+                                
+                            </lightning-layout>
+
+                            <lightning-layout>
+                                <lightning-layout-item size="12" padding="around-small">
+                                    <lightning-combobox
+                                    
+                                    label="Rename PackList field on Delivery Doc"
+                                    value={accRec.Rename_Packlist__c}
+                                    options={options} name="Rename_Packlist__c" onchange={handleChange}></lightning-combobox>
+                                </lightning-layout-item>                           
+                            </lightning-layout>
+                        </template>
+                    </p>
+                </lightning-card>            
+            </lightning-layout>
+
+            <lightning-layout class="c-container">
+            <lightning-card  title="Billing Preferences">               
+                <p class="slds-p-horizontal_small">
+                    <lightning-layout>
+                        <lightning-combobox                        
+                        label="Does this account require EDI (External Interface) integration?"
+                        value={accRec.EDI_or_Punch_Out__c}
+                        options={options}
+                        required name="EDI_or_Punch_Out__c" onchange={handleChange}></lightning-combobox>
+                    </lightning-layout>
+                    
+                    <template if:true={accRec.Show_Net_20__c}>
+                        <lightning-layout>
+                         <span style="color: #ff0000;font-weight:bold;">Please
+                            Note: The following is our standard billing setup, unless noted otherwise</span>           
+                        </lightning-layout>
+                        <lightning-layout>
+                            <H2> Standard Billing Setup </H2>
+                        
+                            <table border="1"  style="width: 500px">
+                                <tbody>
+                                    <tr>
+                                        <td> <strong>Billing Frequency&nbsp; </strong> </td>
+                                        <td> <strong>Weekly </strong> </td>
+                                    </tr>
+                                    <tr>
+                                        <td> <strong>Media Type&nbsp; </strong> </td>
+                                        <td> <strong>ePDF(electronic billing) </strong> </td>
+                                    </tr>
+                                    <tr>
+                                        <td> <strong>Terms </strong> </td>
+                                        <td> <strong>20 Days&nbsp; </strong> </td>
+                                    </tr>
+                                    <tr>
+                                        <td> <strong>Bill type </strong> </td>
+                                        <td> <strong>One Invoice per order&nbsp; </strong> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </lightning-layout>    
+                        <lightning-layout>
+                            <!-- <H4> If you wish to deviate from any of these, please<a href="https://officedepot\-\-ODUAT.cs78.my.salesforce.com/sfc/p/1k0000008aqo/a/1k00000000X5/kzxk3xHMvnZVtCcRXeV_aaEugYnYdid1F_ml0MzeCSo"
+                                    target="_blank"> click here </a> for details on how to proceed. </H4> -->
+                            <p class="bold"> If you wish to deviate from any of these, please
+                                <a href="https://officedepot.my.salesforce.com/sfc/p/E0000000J4oS/a/44000000Q0T7/acpxd3qzQ2ddaSZ7iT9R_Ql3LQJNS7ucceBamFcJqy8"
+                                    target="_blank">Click Here</a>
+                                for details on how to proceed. </p>
+                        </lightning-layout>
+
+                        <template if:true={accRec.Show_Net_30_Question__c}>
+                            <lightning-layout>
+                                <lightning-combobox                        
+                                    label="Does your Customer mandate net 30 terms*?"
+                                    value={accRec.Does_Your_Customer_mandate_net_30_terms__c}
+                                    options={options}
+                                    name="Does_Your_Customer_mandate_net_30_terms__c" onchange={handleChange}></lightning-combobox>
+
+                            </lightning-layout>
+                        </template>
+                        <lightning-layout>
+                            <span style="font-weight:bold;">Please
+                                select the billing method<strong><span
+                                        style="color:#FF0000;font-weight:bold;">*</span>
+                                </strong>:.&nbsp; <br></br> (<span
+                                    style="color:#008000;font-weight:bold;"><strong>Remind
+                                        the Customer that OD is a Green Company &amp; we would perfer them to
+                                        accept ePDF's as their bill Type)</strong></span></span>
+                        </lightning-layout>
+                        <lightning-layout>
+                            
+                                <lightning-combobox                        
+                                label="Does your Customer mandate net 30 terms*?"
+                                value={accRec.Billing_Delivery_Method_Media_type__c}
+                                options={deliveryMediaOptions}
+                                name="Billing_Delivery_Method_Media_type__c" onchange={handleDeliveryMediaOptions}></lightning-combobox>
+    
+                        </lightning-layout>
+                        <template if:true={togglePaper}>
+                            <lightning-layout>
+                                <span style="font-size: larger;"><strong><span
+                                    style="color: rgb(0, 0, 128);"><u>Enter
+                                        in the Accounts Payable (AP) Billing Contact information</u></span></strong></span>
+                            
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-combobox                        
+                                label="AP Salutation"
+                                value={accRec.AP_Contact_Salutation__c}
+                                options={salutationOptions}
+                                name="AP_Contact_Salutation__c" onchange={handleChange}></lightning-combobox>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="text" label="AP First Name" 
+                                    value={accRec.AP_Contact_First_Name__c}
+                                    name="AP_Contact_First_Name__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="text" label="AP Last Name" 
+                                    value={accRec.AP_Contact_Last_Name__c}
+                                    name="AP_Contact_Last_Name__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="email" label="Email" value={accRec.AP_Contact_Email__c} name="AP_Contact_Email__c" onchange={handleChange}
+                                message-when-pattern-mismatch="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                message-when-bad-input="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"	></lightning-input>
+        
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="tel" label="AP Phone" 
+                                    value={accRec.AP_Contact_Phone__c}
+                                    pattern="[0-9]{10}" pattern-mismatch="Phone number should be 10 digits"
+                                    name="AP_Contact_Phone__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="text" label="AP Fax" 
+                                    value={accRec.AP_Contact_Fax__c}                                   
+                                    name="AP_Contact_Fax__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                        </template>
+
+                        <template if:true={togglePDF}>
+                            <lightning-layout>
+                                <span style="font-size: larger;"><strong><span
+                                    style="color: rgb(0, 0, 128);"><u>Enter in
+                                        the Primary eBilling Contact
+                                        information</u></span></strong></span>
+                            </lightning-layout>
+                            
+                            <lightning-layout>
+                                
+                                <lightning-combobox                        
+                                label="eBilling Salutation"
+                                value={accRec.eBilling_Contact_Salutation__c}
+                                options={salutationOptions}
+                                name="eBilling_Contact_Salutation__c" onchange={handleChange}></lightning-combobox>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="text" label="eBilling First Name" 
+                                    value={accRec.eBilling_Contact_First_Name__c}
+                                    name="eBilling_Contact_First_Name__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="text" label="eBilling Last Name" 
+                                    value={accRec.eBilling_Contact_Last_Name__c}
+                                    name="eBilling_Contact_Last_Name__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="tel" label="eBilling Phone" 
+                                    value={accRec.eBilling_Contact_Phone__c}
+                                    pattern="[0-9]{10}" pattern-mismatch="Phone number should be 10 digits"
+                                    name="eBilling_Contact_Phone__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="email" label="Please
+                                provide the email address that the bill will be sent to." value={accRec.eBilling_Contact_Email__c} name="eBilling_Contact_Email__c" onchange={handleChange}
+                                message-when-pattern-mismatch="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                message-when-bad-input="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"	></lightning-input>
+        
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="email" label="Please
+                                provide the email address for electronic billing delivery" value={accRec.Monthly_eStatement_Email__c} name="Monthly_eStatement_Email__c" onchange={handleChange}
+                                message-when-pattern-mismatch="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                message-when-bad-input="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"	></lightning-input>
+        
+                            </lightning-layout>
+                            <lightning-layout>
+                                <span style="font-size: larger;"><strong><span
+                                    style="color: rgb(0, 0, 128);"><u>Enter
+                                        in the Secondary eBilling Contact information</u></span></strong></span>
+                            
+                            </lightning-layout>
+                            
+                            <lightning-layout>
+                                <lightning-combobox                        
+                                label="eBilling Salutation"
+                                value={accRec.eBilling_Contact_Salutation2__c}
+                                options={salutationOptions}
+                                name="eBilling_Contact_Salutation2__c" onchange={handleChange}></lightning-combobox>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="text" label="eBilling First Name" 
+                                    value={accRec.eBilling_Contact_First_Name2__c}
+                                    name="eBilling_Contact_First_Name2__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="text" label="eBilling Last Name" 
+                                    value={accRec.eBilling_Contact_Last_Name2__c}
+                                    name="eBilling_Contact_Last_Name2__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="tel" label="eBilling Phone" 
+                                    value={accRec.eBilling_Contact_Phone2__c}
+                                    pattern="[0-9]{10}" pattern-mismatch="Phone number should be 10 digits"
+                                    name="eBilling_Contact_Phone2__c" onchange={handleChange}>
+                                </lightning-input>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-input type="email" label="Please
+                                provide the email address that the bill will be sent to." value={accRec.eBilling_Contact_Email2__c} name="eBilling_Contact_Email2__c" onchange={handleChange}
+                                message-when-pattern-mismatch="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                message-when-bad-input="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"	></lightning-input>
+        
+                            </lightning-layout>
+                           
+                        </template>
+                        <lightning-layout>
+                            <lightning-combobox                        
+                                label="Does your
+                                customer have any specific changes to the table above?"
+                                field-level-help="Ie (Billing Monthly vs. Weekly; Consolidated Billing..etc..)"
+                                value={accRec.PD_Incl_Backup_Inc__c}
+                                options={options}
+                                name="PD_Incl_Backup_Inc__c" onchange={handlePDBackup}></lightning-combobox>
+                        </lightning-layout>
+                        <template if:true={togglePDBackup}>
+                            <lightning-layout>
+                                <lightning-combobox                        
+                                    label="Does
+                                    your customer require monthly eStatements?"
+                                    field-level-help="(Note: If you select yes, you will
+                                    be emailed instructions on how to proceed)"
+                                    value={accRec.Monthly_eStatements__c}
+                                    options={options}
+                                    name="Monthly_eStatements__c" onchange={handleChange}></lightning-combobox>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-combobox                        
+                                    label="Has
+                                    the customer been approved for an early pay discount?"
+                                    field-level-help="(Note, if yes, you will
+                                    be emailed with instructions on how to proceed)"
+                                    value={accRec.Early_Pay_Discount_Needed__c}
+                                    options={options}
+                                    name="Early_Pay_Discount_Needed__c" onchange={handleChange}></lightning-combobox>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-combobox                        
+                                    label="Has
+                                    the customer been approved for an early pay discount?"
+                                    field-level-help="(Note, if yes, you will
+                                    be emailed with instructions on how to proceed)"
+                                    value={accRec.PD_multiple_bill_to_locations__c}
+                                    options={billLocationOptions}
+                                    name="PD_multiple_bill_to_locations__c" onchange={handleChange}></lightning-combobox>
+                            </lightning-layout>
+                            <lightning-layout>
+                                <lightning-combobox                        
+                                    label="What type of Invoice will the customer accept"
+                                    field-level-help="(Note, if yes, you will
+                                    be emailed with instructions on how to proceed)"
+                                    value={accRec.PD_Doc_Name__c}
+                                    options={invoiceTypeOptions}
+                                    name="PD_Doc_Name__c" onchange={handleChange}></lightning-combobox>
+                            </lightning-layout>
+
+
+                        </template>
+                        
+                    </template>
+
+                </p>                
+            </lightning-card>
+            </lightning-layout>
+
+            <lightning-layout class="c-container">
+            <lightning-card  title="Tax Section Information">              
+                <p class="slds-p-horizontal_small">
+                    <lightning-layout>
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input type="text" label="TIN" class="inputTIN" value={accRec.Employer_TIN__c}  max-length="30" pattern="[0-9]{2}-[0-9]{7}" placeholder="Format XX-XXXXXXX" name="Employer_TIN__c" onchange={handleChange}></lightning-input> <!--onblur={TINValid}-->
+                        </lightning-layout-item>
+                        
+                    </lightning-layout>
+
+                    <lightning-layout>
+                        <lightning-layout-item size="6" padding="around-small"> 
+                            <lightning-combobox
+                                
+                                label="Does your Customer require an IRS Federal W9 in order to pay us?"
+                                value={accRec.Is_IRS_W9_Required_for_AP__c}
+                                options={options} name="Is_IRS_W9_Required_for_AP__c" onchange={handleChange}></lightning-combobox>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-combobox
+                                name=""
+                                label="Is your Customer tax exempt?"
+                                value={accRec.Tax_Exempt__c}
+                                options={options}
+                                onchange={handleTaxExemptChange} ></lightning-combobox>
+                            <span style="font-weight:bold;"><a target="_blank"
+                                href="http://sp.na.odcorp.net/sites/BSG/PSBSD/Shared%20Documents/SFDC%20ACCOUNT%20SETUP%20DOCS/EXEMPTION%20MATRIX.xlsx">Click
+                                here</a> to see a list of what items you will need.&nbsp; Also, to expedite the setup,
+                                put in the comments section "Tax exempt customer" <br></br></span>    
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <template if:true={toggletax}>
+                        <lightning-layout>
+                            <lightning-layout-item size="12" padding="around-small">
+                            <span style="font-weight:bold;">In which state(s) are you exempt?</span>
+                                <div style="width:50%">
+                                    <lightning-layout horizontal-align="space" multiple-rows="true"	>                                      
+                                        <template for:each={checkboxValueMap} for:item='cus'>                                          
+                                            <lightning-layout-item  key={cus.key} size="2" >{cus.key}
+                                                <lightning-input type="checkbox" value={cus.key} checked={cus.value} onchange={oncheck}> </lightning-input>
+                                            </lightning-layout-item>
+                                       </template>                        
+                                    </lightning-layout>
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout>
+
+                        <lightning-layout>
+                            <lightning-layout-item size="6" padding="around-small"> 
+                                <lightning-combobox
+                                name=""
+                                label="Type of tax exemption:"
+                                value={accRec.Why_are_you_tax_exempt__c}
+                                options={exemptionTypeOptions}
+                                onchange={handleExemptionTypeChange} ></lightning-combobox>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="6" padding="around-small"> 
+                                <template if:true={togglegov}>
+                                    <lightning-combobox
+                            
+                                    label="Branch of government:"
+                                    value={accRec.Goverment_Branch__c}
+                                    options={governmentBranchOptions} name="Goverment_Branch__c" onchange={handleChange}></lightning-combobox>
+                                </template>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                        <template if:true={accRec.Show_Net_20__c}>
+                            <lightning-layout>
+                                <span style="font-weight:bold;"><span
+                                    style="color: #000080"><span style="font-size: larger"><strong>Copy and Paste the
+                                            following in the comments
+                                            section:<em>&nbsp;Please set my customer as tax
+                                                exempt</em></strong></span></span>
+                            </span>
+                            </lightning-layout>
+                        </template>
+                    </template>    
+                </p>               
+            </lightning-card>
+            </lightning-layout>
+
+            <lightning-layout class="c-container">
+                <lightning-card  title="Submit Request">              
+                    <p class="slds-p-horizontal_small">
+                        <lightning-layout>
+                            <lightning-layout-item size="6" padding="around-small"> 
+                                <lightning-combobox
+                            
+                                label="Select DML"
+                                value={accRec.DML__c}
+                                options={dmlOptions}
+                                name="DML__c" onchange={handleChange} ></lightning-combobox> 
+                                <lightning-button class="slds-m-around_x-small" variant="brand" label="Suggest New DML" onclick={handleDMLClick}></lightning-button>          
+                            </lightning-layout-item>
+
+                            
+                        </lightning-layout>
+
+                        <!--Create ALT DML UI -->
+                        <template if:true={isNewDML} > 
+                            <div class="c-container">
+                            <lightning-layout>
+                                <lightning-layout-item size="6" padding="around-small">
+                                    <!--<lightning-combobox
+                                        name=""
+                                        label="Select Alternate DML"
+                                        value={value}
+                                        options={options}
+                                        onchange={handleChange} ></lightning-combobox>-->
+                                    <lightning-input type="text" value={dmlRec.DECISION_MAKER_NM__c} label="DML Name" name="DECISION_MAKER_NM__c" onchange={handleDMLChange} ></lightning-input>
+                                    <lightning-input type="text" value={dmlRec.DML_City__c} label="DML City" name="DML_City__c" onchange={handleDMLChange}></lightning-input>
+                                    <lightning-input type="text" value={dmlRec.DECISION_MAKER_ZIP_CD__c} label="DML Zip" name="DECISION_MAKER_ZIP_CD__c" onchange={handleDMLChange}></lightning-input>
+                                    <lightning-input type="text" value={dmlRec.Notes__c} label="Notes" name="Notes__c" onchange={handleDMLChange}></lightning-input>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="6" padding="around-small">
+                                    <lightning-input disabled></lightning-input>
+                                    <lightning-input disabled></lightning-input>
+                                    <lightning-input type="text" value={dmlRec.DML_State__c} label="DML State" name="DML_State__c" onchange={handleDMLChange}></lightning-input>
+                                    <lightning-combobox
+                                        
+                                        label="Segment"
+                                        value={dmlRec.DECISION_MAKER_SEGMENT__c}
+                                        options={dmlSegmentOptions}
+                                        name="DECISION_MAKER_SEGMENT__c" onchange={handleDMLChange} ></lightning-combobox>
+                                </lightning-layout-item>
+                                
+                            </lightning-layout>
+
+                            <lightning-layout horizontal-align="end">
+                                <lightning-button class="slds-m-around_x-small" variant="brand" label="Submit Suggested DML" onclick={handleDMLSubmit}></lightning-button>
+                                <lightning-button class="slds-m-around_x-small" variant="brand" label="Cancel" onclick={handleDMLCancel}></lightning-button>
+                            </lightning-layout>
+                            </div>
+                        
+                    </template>
+                        <!-- -->
+
+                        <lightning-layout>
+                            <lightning-layout-item size="12" padding="around-small">
+                                <span style="color:#FF0000;">*Attaching an account to the correct DML is important to ensure your account assignments are
+                                    properly aligned* </span>
+                             </lightning-layout-item>                                                      
+                        </lightning-layout>
+
+                        <lightning-layout>
+                            <lightning-layout-item size="12" padding="around-small">
+                                 <!--<p class="paragraph bold">-->
+                                    Select “Choose DML” to view if there is an existing DML for the account you are creating. If no
+                                    DML suggestion is available, or the suggested DML is not correct, please choose the “Suggest New
+                                    DML” option.
+                                <!--</p>-->
+                            </lightning-layout-item>
+                        </lightning-layout>
+
+                        <lightning-layout>
+                            <lightning-layout-item size="12" padding="around-small">
+                                <!--<p class="paragraph bold">-->
+                                    If you know there is an existing DML for the account that you are creating, please include that
+                                    information in the Comments section.
+                                <!--</p>-->
+                            </lightning-layout-item>                             
+                        </lightning-layout>
+
+                        <lightning-layout>
+                            <lightning-layout-item size="12" padding="around-small">
+                                <!--<p class="paragraph bold">-->
+                                    Note for Implementation Team: Please reference the name of the sales rep and the program that
+                                    you are creating the account for.
+                                <!--</p>--> 
+                            </lightning-layout-item>
+                        </lightning-layout>
+
+                        <lightning-layout>
+                            <lightning-layout-item size="12" padding="around-small">
+                                <span style="font-weight:bold;"> Any Additional Comments about your Account Request?<br></br>
+                                    (<em>Note:
+                                        If you see comments in the box
+                                        below, do not delete them. You can append your comments to the end)</em></span>
+                                        <lightning-textarea label="" value={accRec.Rep_Comments__c} name="Rep_Comments__c" onchange={handleChange}
+                                        max-length="255"></lightning-textarea>
+                            </lightning-layout-item>                            
+                        </lightning-layout>
+                        
+                        <lightning-layout>
+                            <lightning-layout-item size="12" padding="around-small">
+                                <span style="font-size: x-large;font-weight:bold;">Please
+                                    click Submit to send this account for setup.</span> 
+                             </lightning-layout-item>                                                      
+                        </lightning-layout>
+                        
+                    </p>               
+                </lightning-card>
+                </lightning-layout>
+                   
+        </div>
+
+        
+        <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_brand slds-float_right" onclick={handleSubmit}>
+                Submit
+            </button>                             
+        </footer>
+        
+       
+    </div>
+</section>
+<div class="slds-backdrop slds-backdrop_open slds-hide modalBackdrops" id="modalBackdrops"></div>
+
+<template if:true={showSpinner}>
+    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+</template> 
+
+</template>

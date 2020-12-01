@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Generic Template to be used for most email responses to requests.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>72hr Close</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber}</subject>
+    <textOnly>Customer Name: {!Case.Account}
+
+Account Number:  {!Case.ACCT_Account_Number__c}
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+Requestor Email: {!Case.WRF_Requestor_Email__c}
+
+
+Click here to go to the support case.
+
+
+Hello {!Case.WRF_Requestor_Name__c},
+
+
+
+As we have not received a response on this request we are closing this case. If no further action is needed there&apos;s no need to reply. However, if this case is unresolved please reply to this email with the needed information.
+
+
+
+Thank you have a great day
+
+
+
+
+
+
+
+
+
+{!Case.Email_Thread}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

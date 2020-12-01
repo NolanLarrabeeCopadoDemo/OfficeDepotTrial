@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This is to Notify The lead owner after 24 and 48 Hrs</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Remind Lead Owner</name>
+    <style>freeForm</style>
+    <subject>You have leads waiting for you in Salesforce</subject>
+    <textOnly>Business Solutions Division
+
+Dear {!Receiving_User.Name},
+
+
+
+You have leads that have been waiting in Salesforce for at least one day. At Office Depot, we want to be sure that our customer inquiries to sales are followed up on in a timely manner. Please go into Salesforce and disposition the leads before their respective expiration dates. Failure to log activity in Salesforce against the leads within three business days of their being assigned to you will result in them being reassigned.
+
+
+
+Click here to view the details of the lead(s) in Salesforce.com.
+
+
+FAQs:
+
+Q: I have called the customer previously. Why do I need to log that in Salesforce?
+
+A: There are many reasons for leads from existing accounts to come into Salesforce. Regardless of the reason, we want to ensure these customers are getting contacted (email or phone).  The only way to track the follow-up effectively is through Salesforce.
+
+
+Q: Is it hard to track follow-up in Salesforce?
+
+A: No, it is very easy.  Click on the link in this email and change the lead status to &quot;Contacted&quot; or add a new note to the &quot;Notes&quot; section.
+
+
+
+Thank you,
+
+Sales Operations Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

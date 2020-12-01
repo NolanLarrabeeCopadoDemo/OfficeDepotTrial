@@ -1,0 +1,35 @@
+<template>
+    <div>
+        <div class="slds-align_absolute-center">
+            <div if:false={prodSpinner} class="slds-spinner_inline spinner-padding"></br></br></br>
+                <lightning-spinner variant="brand" alternative-text="Loading....." size="large"></lightning-spinner>
+            </div>
+        </div>
+        <div class="slds-box">
+			<div class="slds-text-heading_small slds-m-bottom_medium">Marketing 360 Contact Information</div>
+			<div class="slds-grid">
+				<div class="slds-m-right_medium">
+					<lightning-input value={searchStr} label="Contact Name" onchange={onNameChange}></lightning-input>
+				</div>
+				<div class="slds-col_bump-top">
+					<lightning-button disabled={disableSearch} label="Search Contact" onclick={onSearchContactClick} variant="brand"></lightning-button>&nbsp;&nbsp;&nbsp;
+                    <lightning-button disabled={disableSearch} label="Reset" onclick={resetSearch} variant="brand"></lightning-button>
+                </div>
+			</div>
+			<div if:false={hasError}>
+                <lightning-accordion allow-multiple-sections-open="true" active-section-name="B">
+                    <template for:each={gmilContactInfo} for:item="contact">                        
+                        <lightning-accordion-section key={contact.key} name={contact.key} label={contact.key}>
+                            <lightning-datatable hide-checkbox-column show-row-number-column key-field="id" data={contact.value} columns={columns}></lightning-datatable>
+                        </lightning-accordion-section>
+                    </template>
+                </lightning-accordion>
+            </div>
+            <template if:true={hasError}>
+                <div class="slds-m-top_medium">
+                    No data to display
+                </div>
+            </template>
+        </div>        
+    </div>	
+</template>

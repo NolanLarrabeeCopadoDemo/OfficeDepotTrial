@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Can we sit and chat?</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Services: Workplace Interiors</name>
+    <style>freeForm</style>
+    <subject>Can we sit and chat?</subject>
+    <textOnly>Dear {!Contact.Name},
+
+INSERT COMPANY NAME investment in its facilities speaks highly of your organization and its commitment to your employees and the community!
+
+
+I value the chance to be a part of your future needs. Workspace Interiors by Office Depot works with many clients in providing a variety of furniture solutions, including providing needs assessments, solution development, project management, space planning and surplus re-purposing. Below is a link to Business Solutions at Office Depot&apos;s Healthcare E-Journal, which provides an overview of our capabilities in the healthcare arena. We can also do this for your line of business.
+
+
+http://officedepotdigital.s3.amazonaws.com/hc_ejournal/launchpub.html
+
+
+
+My goal is to learn about your interiors/facilities program, and determine how Office Depot may be a resource to INSERT COMPANY NAME. Respectfully, I am requesting a meeting or a contact for the appropriate person in your organization with whom I can request a meeting. I am available to meet INSERT DATE AND TIME. I appreciate your consideration and look forward to hearing from you.
+
+
+
+Thank you,
+
+
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

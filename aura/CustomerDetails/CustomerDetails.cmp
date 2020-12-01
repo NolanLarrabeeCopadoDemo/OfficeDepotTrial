@@ -1,0 +1,1179 @@
+<aura:component controller="AccountSetUpController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global">
+    <ltng:require styles="{!$Resource.popupCSS}" />
+    <aura:attribute name="taxfiles" type="List"/>
+    <aura:attribute name="fileName" type="String" />
+    <aura:attribute name="base64Data" type="String" />
+    <aura:attribute name="contentType" type="String" />
+    <aura:attribute name="showFileName" type="Boolean" default="false"/>
+    <aura:attribute name="showBillTo" type="Boolean" default="true" />
+    <aura:attribute name="showShipTo" type="Boolean" />
+    <aura:attribute name="showPrimaryContact" type="Boolean" />
+    <aura:attribute name="showBillingPref" type="Boolean" />
+    <aura:attribute name="showTax" type="Boolean" />
+    <aura:attribute name="showSubmitRequest" type="Boolean" />
+    <aura:attribute name="toggleePDF" type="boolean" />
+    <aura:attribute name="togglePaper" type="boolean" />
+    <aura:attribute name="toggle1change" type="boolean" />
+    <aura:attribute name="toggletax" type="boolean" />
+    <aura:attribute name="togglegov" type="boolean" default="false" />
+    <aura:attribute name="togglePO" type="boolean" default="false" />
+    <aura:attribute name="togglePOD" type="boolean" default="false" />
+    <aura:attribute name="togglePOCost" type="boolean" default="false" />
+    <aura:attribute name="togglePODeskTop" type="boolean" default="false" />
+    <aura:attribute name="togglePORelease" type="boolean" default="false" />
+    <aura:attribute name="toggleDelivery" type="boolean" default="false" />
+    <aura:attribute name="checkboxValueMap" type="List" />
+    <aura:attribute name="errorMessages" type="String" />
+    <aura:attribute name="errorMessagedml" type="String" />
+    <aura:attribute name="isRecordCreated" type="Boolean" default="false" />
+    <aura:attribute name="validationError" type="Boolean" default="false" />
+    <aura:attribute name="validationErrordml" type="Boolean" default="false" />
+    <aura:attribute name="DML_Error" type="String" default="" />
+    <aura:attribute name="States" type="List"
+        default="[ 'AL','AK','AZ','AR','CA','CO','CT','DC','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="subrecordIdLocator" type="Id" access="global" />
+    <!-- Account information to serach Org if nay and create a prospect Account -->
+    <aura:attribute name="accRec" type="Account_Setup_Request__c"
+        default="{'sobjectType': 'Account_Setup_Request__c'}" />
+    <aura:attribute name="taxAttachment" type="Attachment"
+        default="{'sobjectType': 'Attachment'}" />
+    <aura:registerEvent name="processIndicatorEvent" type="c:ProcessIndicatorEvent" />
+    <!-- In any required field information missed while seraching account Infor -->
+    <aura:attribute name="requiredError" type="boolean" />
+    <aura:attribute name="Spinner" type="boolean" default="false" />
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}" />
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}" />
+    <aura:attribute name="inputError" type="boolean" />
+    <aura:attribute name="errorMessage" type="String" />
+    <aura:attribute name="ErrorFinal" type="String" />
+    <aura:attribute name="DMLValue" type="String" />
+    <aura:attribute name="selectedDML" type="String" />
+    <aura:attribute name="BillToError" type="String" />
+    <aura:attribute name="BillToError1" type="String" />
+    <aura:attribute name="BillToErrorAP" type="String" />
+    <aura:attribute name="BillToErrorE1" type="String" />
+    <aura:attribute name="BillToErrorE2" type="String" />
+    <aura:attribute name="BillToErrorFax" type="String" />
+    <aura:attribute name="BillToErrorFax1" type="String" />
+    <aura:attribute name="TINError" type="String" />
+    <aura:attribute name="ODEmailError" type="boolean" />
+    <aura:attribute name="DML" type="List" />
+    <aura:attribute name="AltDML" type="List" />
+    <aura:attribute name="AltDMLs" type="String" />
+    <aura:attribute name="AltDMLkey" type="String" />
+    <aura:attribute name="AltDMLvalue" type="String" />
+    <aura:attribute name="DMLs" type="boolean" default="true" />
+    <aura:attribute name="ALT" type="String" />
+    <aura:attribute name="dmlRec" type="DML__c" default="{'sobjectType': 'DML__c'}" />
+    <aura:attribute name="AltdmlRec" type="Alternate_DML__c" default="{'sobjectType': 'Alternate_DML__c'}" />
+    <aura:attribute name="disableDMLCreate" type="Boolean" default="true" />
+    <aura:attribute name="documentLink" type="String" default="" />
+
+    <aura:registerEvent name="logError" type="c:ErrorNotificationEvent" />
+    <aura:handler name="logError" event="c:ErrorNotificationEvent" action="{!c.reportError}" />
+
+    <div style="margin: auto;width: 75%;">
+        <aura:if isTrue="{!v.inputError}">
+            <div class="recordError">
+                <ui:message title="Error" severity="error" closable="false">{!v.errorMessage}</ui:message>
+            </div>
+        </aura:if>
+    </div>
+    <div style="margin: auto;width: 75%;">
+        <aura:if isTrue="{!v.showBillTo}">
+            <fieldset class="slds-form--compound">
+                <legend class="slds-text-heading--small slds-p-vertical--medium">Bill To Information </legend>
+                <div class="form-element__group">
+                    <aura:if isTrue="{!v.requiredError}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false"> Required Fields are missing.
+                            </ui:message>
+                        </div>
+                    </aura:if>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;"> Account
+                                Name&nbsp;</span> <strong><span style="color: #ff0000;font-weight:bold;">*</span>
+                            </strong>
+                            <lightning:input type="String" value="{!v.accRec.BillTo_Name__c}" />
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;"> Primary
+                                Phone&nbsp;</span><a title="Enter 10 digits, no spacing or formatting required"><span
+                                    style="color: #0000ff;font-weight:bold;"><strong>?</strong></span>&nbsp;<em><span
+                                        style="color: #ff0000;font-weight:bold;">*</span></em></a> <span
+                                onkeypress="{!c.validatePhoneNo}">
+                                <lightning:input aura:id="Phone" value="{!v.accRec.Account_Phone__c}" type="tel" />
+                            </span>
+                            <p>
+                                <lightning:formattedText aura:id="fteErrorP" class="error-text"
+                                    value="Phone Required Field" />
+                            </p>
+                            <p>
+                                <lightning:formattedText aura:id="fteErrorP1" class="error-text"
+                                    value="Phone number should be 10 digits" />
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Street
+                                Address <em><span style="color: #ff0000;font-weight:bold">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.Street_Address_Bill__c}" maxlength="25" />
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Street
+                                Address 2</span>
+                            <lightning:input value="{!v.accRec.Street_Address_2_Bill__c}" maxlength="25" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">City<em><span
+                                        style="color: #ff0000;font-weight:bold;"> *</span> </em> </span>
+                            <lightning:input value="{!v.accRec.City_Bill__c}" />
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">State
+                                <em><span style="color: #ff0000;font-weight:bold;">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.State_Bill__c}" maxlength="2" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Zip <em><span
+                                        style="color: #ff0000;font-weight:bold;">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.Zip_Bill__c}" maxlength="9" minlength="5" />
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Country
+                                <em><span style="color: #ff0000;font-weight:bold;">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.BILL_COUNTRY__c}" maxlength="3" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <lightning:button variant="brand" label="Next" onclick="{! c.handleClickNextBillTo}" disabled="{! v.validationError}"/>
+        </aura:if>
+    </div>
+    <div style="margin: auto;width: 75%;">
+        <aura:if isTrue="{!v.showShipTo}">
+            <fieldset class="slds-form--compound">
+                <legend class="slds-text-heading--small slds-p-vertical--medium">Ship To Information </legend>
+                <div class="form-element__group">
+                    <aura:if isTrue="{!v.requiredError}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false"> Required Fields are missing.
+                            </ui:message>
+                        </div>
+                    </aura:if>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Street
+                                Address <em><span style="color: #ff0000;font-weight:bold;">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.Street_Address_Ship__c}" maxlength="25" />
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Street
+                                Address 2</span>
+                            <lightning:input value="{!v.accRec.Street_Address_2_Ship__c}" maxlength="25" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">City <em><span
+                                        style="color: #ff0000;font-weight:bold;">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.City_Ship__c}" />
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">State
+                                <em><span style="color: #ff0000;font-weight:bold;">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.State_Ship__c}" maxlength="2" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Zip <em><span
+                                        style="color: #ff0000;font-weight:bold;">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.Zip_Ship__c}" maxlength="9" minlength="5" />
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Country
+                                <em><span style="color: #ff0000;font-weight:bold;">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.SHIP_COUNTRY__c}" maxlength="3" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <lightning:button variant="brand" label="Back" onclick="{! c.handleClickBackShipTo}" />
+            <lightning:button variant="brand" label="Next" onclick="{! c.handleClickNextShipTo}" disabled="{! v.validationError}"/>
+        </aura:if>
+    </div>
+    <div style="margin: auto;width: 75%;">
+        <aura:if isTrue="{!v.showPrimaryContact}">
+            <fieldset class="slds-form--compound">
+                <legend class="slds-text-heading--small slds-p-vertical--medium">Primary Contact Information </legend>
+                <div class="form-element__group">
+                    <aura:if isTrue="{!v.requiredError}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false"> Required Fields are missing.
+                            </ui:message>
+                        </div>
+                    </aura:if>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">First Name
+                                <em><span style="color: #ff0000;font-weight:bold">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.Primary_Contact_First_Name__c}" maxlength="30" />
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Last Name
+                                <em><span style="color: #ff0000;font-weight:bold">*</span> </em> </span>
+                            <lightning:input value="{!v.accRec.Primary_Contact_Last_Name__c}" maxlength="30" />
+                        </div>
+                    </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Phone</span><a
+                                title="Enter 10 digits, no spacing for formatting required"><span
+                                    style="color: #0000ff;font-weight:bold"><strong>?</strong></span>
+                                <em><span style="color: #ff0000;font-weight:bold">*</span></em></a> <span
+                                onkeypress="{!c.validatePhoneNo}">
+                                <lightning:input value="{!v.accRec.Primary_Contact_Phone__c}" type="tel" /> </span>
+                            <p>
+                                <lightning:formattedText aura:id="fteErrorPCon" class="error-text"
+                                    value="Phone Format (555) 555-5555" />
+                            </p>
+                            <p>
+                                <lightning:formattedText aura:id="fteErrorP2" class="error-text"
+                                    value="Phone number should be 10 digits" />
+                            </p>
+                        </div>
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Fax</span><a
+                                title="Enter 10 digits, no spacing for formatting required"><span
+                                    style="color: #0000ff;font-weight:bold"><strong>?</strong></span>
+                            </a>
+                            <lightning:input value="{!v.accRec.Primary_Contact_Fax__c}" />
+                            <p>
+                                <lightning:formattedText aura:id="fteErrorFax1" class="error-text"
+                                    value="Fax Format (555) 555-5555" />
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-1"> <span
+                                style="font-weight:bold;">Email</span><span style="font-weight:bold;"> <em><span
+                                        style="color: #ff0000;font-weight:bold">*</span>
+                                </em> </span>
+                            <lightning:input aura:id="inputField" value="{!v.accRec.Primary_Contact_Email__c}"
+                                messageWhenBadInput="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"
+                                messageWhenPatternMismatch="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$" />
+                            <p>
+                                <lightning:formattedText aura:id="fteError" class="error-text"
+                                    value="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)" />
+                            </p>
+                        </div>
+                    </div><span style="font-size: medium"><u><strong>ORDERING&nbsp;PREFERENCES </strong></u></span>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does your
+                                Customer have any ordering preferences? <span
+                                    style="color: #ff0000;font-weight:bold;">*</span></span>
+                            <lightning:select aura:id="select" name="select"
+                                value="{!v.accRec.Does_your_Customer_have_any_ordering_pr__c}" onchange="{!c.togglePO}">
+                                <option value="">choose one... </option>
+                                <option value="Yes">Yes </option>
+                                <option value="No">No </option>
+                            </lightning:select>
+                        </div>
+                    </div>
+                    <aura:if isTrue="{!v.togglePO}">
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Purchase
+                                    Order Field during Order Entry? </span>
+                                <lightning:select aura:id="PurchaseOrder" name="PurchaseOrder" value="{!v.accRec.PO__c}"
+                                    onchange="{!c.togglePOD}">
+                                    <option value="">choose one...</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="Hide">Hide</option>
+                                    <option value="Validate">Validate</option>
+                                    <option value="No">No</option>
+                                </lightning:select>
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Desktop
+                                    Field during Order Entry? </span>
+                                <lightning:select aura:id="DesktopField" name="DesktopField"
+                                    onchange="{!c.togglePODeskTop}" value="{!v.accRec.Desktop__c}">
+                                    <option value="">choose one...</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="Hide">Hide</option>
+                                    <option value="Validate">Validate</option>
+                                    <option value="No">No</option>
+                                </lightning:select>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Cost
+                                    Center or Department Field during Order Entry? </span>
+                                <lightning:select aura:id="CostCenter" name="CostCenter" onchange="{!c.togglePOCost}"
+                                    value="{!v.accRec.Cost_Center__c}">
+                                    <option value="">choose one...</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="Hide">Hide</option>
+                                    <option value="Validate">Validate</option>
+                                    <option value="No">No</option>
+                                </lightning:select>
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;"> Release
+                                    Field during Order Entry? </span>
+                                <lightning:select aura:id="ReleaseField" name="ReleaseField"
+                                    onchange="{!c.togglePORelease}" value="{!v.accRec.Release__c}">
+                                    <option value="">choose one...</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="Hide">Hide</option>
+                                    <option value="Validate">Validate</option>
+                                    <option value="No">No</option>
+                                </lightning:select>
+                            </div>
+                        </div><span style="font-weight:bold;"><u>Rename the following Field labels for Order Entry
+                                &amp; Billing?</u></span>
+                        <div class="slds-form-element__row">
+                            <aura:if isTrue="{!v.togglePOD}">
+                                <div class="slds-form-element slds-size--1-of-2"> <span
+                                        style="font-weight:bold;">Purchase
+                                        Order</span>
+                                    <lightning:input aura:id="RenamePurchaseOrder" name="RenamePurchaseOrder"
+                                        value="{!v.accRec.Rename_Purchase_Order__c}"
+                                        placeholder="Limited to 7 Characters" maxlength="7" />
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.togglePODeskTop}">
+                                <div class="slds-form-element slds-size--1-of-2"> <span
+                                        style="font-weight:bold;">Desktop</span>
+                                    <lightning:input aura:id="RenameDesktop" name="RenameDesktop"
+                                        value="{!v.accRec.Rename_Desktop__c}" placeholder="Limited to 7 Characters"
+                                        maxlength="7" />
+                                </div>
+                            </aura:if>
+                        </div>
+                        <div class="slds-form-element__row">
+                            <aura:if isTrue="{!v.togglePOCost}">
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Cost
+                                        Center</span>
+                                    <lightning:input aura:id="RenameCost" name="RenameCost"
+                                        value="{!v.accRec.Rename_Cost_Center__c}" placeholder="Limited to 7 Characters"
+                                        maxlength="7" />
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.togglePORelease}">
+                                <div class="slds-form-element slds-size--1-of-2"> <span
+                                        style="font-weight:bold;">Release</span>
+                                    <lightning:input aura:id="RenameRelease" name="RenameRelease"
+                                        value="{!v.accRec.Rename_Release__c}" placeholder="Limited to 7 Characters"
+                                        maxlength="7" />
+                                </div>
+                            </aura:if>
+                        </div>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Minimum
+                                    Order Value (MOV)</span> <br></br> <span class="ct_help ct_help_top">Prevents
+                                    orders from being submitted unless the MOV is met</span>
+                                <lightning:input aura:id="MOV" name="MOV" type="number"
+                                    value="{!v.accRec.Minimum_Order_Value__c}" format="###,###.00" maxlength="8" />
+                            </div>
+                        </div>
+                        <aura:if
+                            isTrue="{!or(or(v.togglePORelease, v.togglePOCost),(or(v.togglePOD,v.togglePODeskTop)))}">
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does
+                                        the customer have budgets for each cost center or purchase order?</span>
+                                    <lightning:select aura:id="Budget" name="Budget"
+                                        value="{!v.accRec.Budgets_CC_PO__c}">
+                                        <option value="">choose one... </option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                        </aura:if>
+                    </aura:if>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does your
+                                customer have any special Delivery Instructions?&nbsp;<strong><span
+                                        style="color:#FF0000;font-weight:bold;">*&nbsp;</span>
+                                </strong> </span>
+                            <lightning:select aura:id="selectDelivery" name="selectDelivery"
+                                value="{!v.accRec.Special_Delivery_Requirements__c}" onchange="{!c.toggleDelivery}">
+                                <option value="">choose one... </option>
+                                <option value="Yes">Yes </option>
+                                <option value="No">No </option>
+                            </lightning:select>
+                        </div>
+                    </div>
+                    <aura:if isTrue="{!v.toggleDelivery}"> <span
+                            style="font-size: large"><u>DELIVERY&nbsp;PREFERENCES</u></span>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does a
+                                    copy of the invoice need to be included with the packing list?</span>
+                                <lightning:select aura:id="Invoice" name="Invoice" value="{!v.accRec.Print_Invoice__c}">
+                                    <option value="">choose one... </option>
+                                    <option value="Yes">Yes </option>
+                                    <option value="No">No </option>
+                                </lightning:select>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Would you
+                                    like to show the Purchase Order information on the packing list? </span>
+                                <lightning:select aura:id="DisplayPO" name="DisplayPO"
+                                    value="{!v.accRec.Display_Purchase_Orders__c}">
+                                    <option value="">choose one... </option>
+                                    <option value="Yes">Yes </option>
+                                    <option value="No">No </option>
+                                </lightning:select>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Would you
+                                    like to show the Payment Method information on the packing list? </span>
+                                <lightning:select aura:id="DisplayPM" name="DisplayPM"
+                                    value="{!v.accRec.Display_Payment_Method__c}">
+                                    <option value="">choose one... </option>
+                                    <option value="Yes">Yes </option>
+                                    <option value="No">No </option>
+                                </lightning:select>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Would you
+                                    like to show Prices on the packing list? </span>
+                                <lightning:select aura:id="DisplayPM" name="DisplayPM"
+                                    value="{!v.accRec.Display_Prices__c}">
+                                    <option value="">choose one... </option>
+                                    <option value="Yes">Yes </option>
+                                    <option value="No">No </option>
+                                </lightning:select>
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Would you
+                                    like to show Backorders on the packing list? </span>
+                                <lightning:select aura:id="DisplayBO" name="DisplayBO"
+                                    value="{!v.accRec.Backorders_displayed_on_packing_list__c}">
+                                    <option value="">choose one... </option>
+                                    <option value="Yes">Yes </option>
+                                    <option value="No">No </option>
+                                </lightning:select>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Rename
+                                    PackList field on Delivery Doc</span>
+                                <lightning:select aura:id="RenamePL" name="RenamePL"
+                                    value="{!v.accRec.Rename_Packlist__c}">
+                                    <option value="">choose one... </option>
+                                    <option value="Yes">Yes </option>
+                                    <option value="No">No </option>
+                                </lightning:select>
+                            </div>
+                        </div>
+                    </aura:if>
+                </div>
+            </fieldset>
+            <lightning:button variant="brand" label="Back" onclick="{! c.handleClickBackContact}" />
+            <lightning:button variant="brand" label="Next" onclick="{! c.handleClickNextContact}" disabled="{! v.validationError}"/>
+        </aura:if>
+    </div>
+    <div style="margin: auto;width: 75%;">
+        <aura:if isTrue="{!v.showBillingPref}">
+            <fieldset class="slds-form--compound">
+                <legend class="slds-text-heading--small slds-p-vertical--medium">Billing Preference Information
+                </legend>
+                <div class="form-element__group">
+                    <aura:if isTrue="{!v.requiredError}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false"> Required Fields are missing.
+                            </ui:message>
+                        </div>
+                    </aura:if>
+                    <div class="slds-form-element__row" style=" color: black; text-decoration:underline;"> Next Section
+                        Involves setting up Billing Preferences </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does this
+                                account require EDI (External Interface) integration <strong><span
+                                        style="color:#FF0000;font-weight:bold;">*</span>
+                                </strong>?</span>
+                            <lightning:select aura:id="selectEDI" name="selectEDI"
+                                value="{!v.accRec.EDI_or_Punch_Out__c}">
+                                <option value="">choose one... </option>
+                                <option value="Yes">Yes </option>
+                                <option value="No">No </option>
+                            </lightning:select>
+                        </div>
+                    </div>
+                    <aura:if isTrue="{!v.accRec.Show_Net_20__c}">
+                        <div class="slds-form-element__row"> <span style="color: #ff0000;font-weight:bold;">Please
+                                Note: The following is our standard billing setup, unless noted otherwise</span> </div>
+                        <div class="slds-form-element__row">
+                            <H2> Standard Billing Setup </H2>
+                        </div>
+                        <table border="1" bordercolor="black" cellpadding="1" cellspacing="1" style="width: 500px">
+                            <tbody>
+                                <tr>
+                                    <td> <strong>Billing Frequency&nbsp; </strong> </td>
+                                    <td> <strong>Weekly </strong> </td>
+                                </tr>
+                                <tr>
+                                    <td> <strong>Media Type&nbsp; </strong> </td>
+                                    <td> <strong>ePDF(electronic billing) </strong> </td>
+                                </tr>
+                                <tr>
+                                    <td> <strong>Terms </strong> </td>
+                                    <td> <strong>20 Days&nbsp; </strong> </td>
+                                </tr>
+                                <tr>
+                                    <td> <strong>Bill type </strong> </td>
+                                    <td> <strong>One Invoice per order&nbsp; </strong> </td>
+                                </tr>
+                            </tbody>
+                        </table> <br></br>
+                        <div class="slds-form-element__row">
+                            <!-- <H4> If you wish to deviate from any of these, please<a href="https://officedepot\-\-ODUAT.cs78.my.salesforce.com/sfc/p/1k0000008aqo/a/1k00000000X5/kzxk3xHMvnZVtCcRXeV_aaEugYnYdid1F_ml0MzeCSo"
+                                    target="_blank"> click here </a> for details on how to proceed. </H4> -->
+                            <p class="bold"> If you wish to deviate from any of these, please
+                                <a href="https://officedepot.my.salesforce.com/sfc/p/E0000000J4oS/a/44000000Q0T7/acpxd3qzQ2ddaSZ7iT9R_Ql3LQJNS7ucceBamFcJqy8"
+                                    target="_blank">Click Here</a>
+                                for details on how to proceed. </p>
+                        </div>
+                        <aura:if isTrue="{!v.accRec.Show_Net_30_Question__c}">
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does
+                                        your Customer mandate net 30 terms*?<strong><span
+                                                style="color:#FF0000;font-weight:bold;">*</span>
+                                        </strong>:.&nbsp; <br></br> </span>
+                                    <lightning:select aura:id="net30" name="net30"
+                                        value="{!v.accRec.Does_Your_Customer_mandate_net_30_terms__c}">
+                                        <option value="">choose one... </option>
+                                        <option value="Yes">Yes </option>
+                                        <option value="No">No </option>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                        </aura:if>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Please
+                                    select the billing method<strong><span
+                                            style="color:#FF0000;font-weight:bold;">*</span>
+                                    </strong>:.&nbsp; <br></br> (<span
+                                        style="color:#008000;font-weight:bold;"><strong>Remind
+                                            the Customer that OD is a Green Company &amp; we would perfer them to
+                                            accept ePDF's as their bill Type)</strong></span></span>
+                                <lightning:select aura:id="selectbillingmethod" name="selectbillingmethod"
+                                    onchange="{!c.toggle}" value="{!v.accRec.Billing_Delivery_Method_Media_type__c}">
+                                    <option value="">choose one... </option>
+                                    <option value="ePDF">ePDF </option>
+                                    <option value="Paper">Paper </option>
+                                </lightning:select>
+                            </div>
+                        </div>
+                        <aura:if isTrue="{!v.togglePaper}">
+                            <div class="slds-form-element__row"> <span style="font-size: larger;"><strong><span
+                                            style="color: rgb(0, 0, 128);"><u>Enter
+                                                in the Accounts Payable (AP) Billing Contact information</u></span>
+                                    </strong> </span> </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-1" style="width:20%;"> <span
+                                        style="font-weight:bold;">AP
+                                        Salutation</span>
+                                    <lightning:select aura:id="APSalutation" name="APSalutation"
+                                        value="{!v.accRec.AP_Contact_Salutation__c}">
+                                        <option value="">choose one... </option>
+                                        <option value="Capt">Capt </option>
+                                        <option value="Dr">Dr. </option>
+                                        <option value="Miss">Miss </option>
+                                        <option value="Mr">Mr. </option>
+                                        <option value="Mrs">Mrs. </option>
+                                        <option value="Ms">Ms. </option>
+                                        <option value="Rev">Rev. </option>
+                                        <option value="Sgt">Sgt.. </option>
+                                        <option value="Sir">Sir </option>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">AP
+                                        First Name <span
+                                            style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                    <lightning:input value="{!v.accRec.AP_Contact_First_Name__c}" />
+                                </div>
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">AP
+                                        Last Name <span
+                                            style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                    <lightning:input value="{!v.accRec.AP_Contact_Last_Name__c}" />
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-1"> <span style="font-weight:bold;">AP
+                                        eMail <span style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                    <lightning:input size="30" maxlength="255" value="{!v.accRec.AP_Contact_Email__c}"
+                                        messageWhenBadInput="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)"
+                                        messageWhenPatternMismatch="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)"
+                                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                        onblur="{!c.ODEmailValid}" />
+                                    <p>
+                                        <lightning:formattedText aura:id="fteError1" class="error-text"
+                                            value="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)" />
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;"> AP
+                                        Phone</span><a title="Enter 10 digits, no spacing or formatting required"><span
+                                            style="color: #0000ff;font-weight:bold;"><strong>?</strong></span> </a><span
+                                        style="color: #ff0000;font-weight:bold;">*Required*</span> <span
+                                        onkeypress="{!c.validatePhoneNo}">
+                                        <lightning:input value="{!v.accRec.AP_Contact_Phone__c}" type="tel" /> </span>
+                                    <p>
+                                        <lightning:formattedText aura:id="fteErrorP3" class="error-text"
+                                            value="Phone number should be 10 digits" />
+                                    </p>
+                                </div>
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">AP
+                                        Fax</span><a title="Enter 10 digits, no spacing for formatting required"><span
+                                            style="color: #0000ff;font-weight:bold;"><strong>?</strong></span> </a>
+                                    <lightning:input value="{!v.accRec.AP_Contact_Fax__c}" />
+                                    <p>
+                                        <lightning:formattedText aura:id="fteErrorFax" class="error-text"
+                                            value="Fax Format (555) 555-5555" />
+                                    </p>
+                                </div>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.toggleePDF}">
+                            <div class="slds-form-element__row"> <span class="ct_text ct_text_top"><strong><span
+                                            style="font-size: larger;"><span style="color: rgb(0, 0, 128);"><u>Enter in
+                                                    the Primary eBilling Contact
+                                                    information</u></span></span> </strong> </span> </div>
+                            <!-- Start : Added by Rajendra Shahane for NAIT-135699 Ability to Auto-Populate eBilling Contact Info From AP Contact Information - Account Setup -->
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-1" style="width:50%;"><span style="font-weight:bold;">Use (AP) Billing Contact information</span>
+                                    
+                                <lightning:input type="checkbox" aura:id="boxPack1" label=""  onchange="{!c.checkboxPrimarySelect}"/>
+                                </div>
+                            </div>
+                            <!-- End : Added by Rajendra Shahane for NAIT-135699 Ability to Auto-Populate eBilling Contact Info From AP Contact Information - Account Setup -->
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-1" style="width:20%;"> <span
+                                        style="font-weight:bold;">eBilling
+                                        Salutation</span>
+                                    <lightning:select aura:id="eBillingSalutation" name="eBillingSalutation"
+                                        value="{!v.accRec.eBilling_Contact_Salutation__c}">
+                                        <option value="">choose one... </option>
+                                        <option value="Capt">Capt </option>
+                                        <option value="Dr">Dr. </option>
+                                        <option value="Miss">Miss </option>
+                                        <option value="Mr">Mr. </option>
+                                        <option value="Mrs">Mrs. </option>
+                                        <option value="Ms">Ms. </option>
+                                        <option value="Rev">Rev. </option>
+                                        <option value="Sgt">Sgt.. </option>
+                                        <option value="Sir">Sir </option>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span
+                                        style="font-weight:bold;">eBilling
+                                        First Name <span
+                                            style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                    <lightning:input value="{!v.accRec.eBilling_Contact_First_Name__c}" />
+                                </div>
+                                <div class="slds-form-element slds-size--1-of-2"> <span
+                                        style="font-weight:bold;">eBilling
+                                        Last Name<span style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                    <lightning:input value="{!v.accRec.eBilling_Contact_Last_Name__c}" />
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span
+                                        style="font-weight:bold;">eBilling
+                                        Phone</span><a title="Enter 10 digits, no spacing or formatting required"><span
+                                            style="color: #0000ff;font-weight:bold;"><strong>?</strong></span> </a><span
+                                        style="color: #ff0000;font-weight:bold;">*Required*</span> <span
+                                        onkeypress="{!c.validatePhoneNo}">
+                                        <lightning:input value="{!v.accRec.eBilling_Contact_Phone__c}" type="tel" />
+                                    </span>
+                                    <p>
+                                        <lightning:formattedText aura:id="fteErrorP4" class="error-text"
+                                            value="Phone number should be 10 digits" />
+                                    </p>
+                                </div>
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Please
+                                        provide the email address that the bill will be sent to.<span
+                                            style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                    <lightning:input value="{!v.accRec.eBilling_Contact_Email__c}"
+                                        messageWhenBadInput="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)"
+                                        messageWhenPatternMismatch="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)"
+                                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                        onblur="{!c.ODEmailValid1}" />
+                                    <p>
+                                        <lightning:formattedText aura:id="fteError2" class="error-text"
+                                            value="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)" />
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-1"> <span style="font-weight:bold;">Please
+                                        provide the email address for electronic billing delivery<span
+                                            style="color: #ff0000;font-weight:bold;">:*Required*</span></span>
+                                    <lightning:input value="{!v.accRec.Monthly_eStatement_Email__c}"
+                                        messageWhenBadInput="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)"
+                                        messageWhenPatternMismatch="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)"
+                                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                        onblur="{!c.ODEmailValid2}" />
+                                    <p>
+                                        <lightning:formattedText aura:id="fteError3" class="error-text"
+                                            value="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)" />
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row"> <span style="font-size: larger;"><span
+                                        style="color: rgb(0, 0, 128);"><u>Enter
+                                            in the Secondary eBilling Contact information</u></span></span> </div>
+                            <!-- Start : Added by Rajendra Shahane for NAIT-135699 Ability to Auto-Populate eBilling Contact Info From AP Contact Information - Account Setup -->
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-1" style="width:50%;"><span style="font-weight:bold;">Use (AP) Billing Contact information</span>
+                                    
+                                <lightning:input type="checkbox" aura:id="boxPack" label=""  onchange="{!c.checkboxSecondarySelect}"/>
+                                </div>
+                            </div>
+                            <!-- End : Added by Rajendra Shahane for NAIT-135699 Ability to Auto-Populate eBilling Contact Info From AP Contact Information - Account Setup -->
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-1" style="width:20%;"> <span
+                                        style="font-weight:bold;">eBilling
+                                        Salutation</span>
+                                    <lightning:select aura:id="eBillingSalutation" name="eBillingSalutation"
+                                        value="{!v.accRec.eBilling_Contact_Salutation2__c}">
+                                        <option value="">choose one... </option>
+                                        <option value="Capt">Capt </option>
+                                        <option value="Dr">Dr. </option>
+                                        <option value="Miss">Miss </option>
+                                        <option value="Mr">Mr. </option>
+                                        <option value="Mrs">Mrs. </option>
+                                        <option value="Ms">Ms. </option>
+                                        <option value="Rev">Rev. </option>
+                                        <option value="Sgt">Sgt.. </option>
+                                        <option value="Sir">Sir </option>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span
+                                        style="font-weight:bold;">eBilling
+                                        First Name <span
+                                            style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                    <lightning:input value="{!v.accRec.eBilling_Contact_First_Name2__c}" />
+                                </div>
+                                <div class="slds-form-element slds-size--1-of-2"> <span
+                                        style="font-weight:bold;">eBilling
+                                        Last Name<span style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                    <lightning:input value="{!v.accRec.eBilling_Contact_Last_Name2__c}" />
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span
+                                        style="font-weight:bold;">eBilling
+                                        Phone</span><a title="Enter 10 digits, no spacing or formatting required"><span
+                                            style="color: #0000ff;font-weight:bold;"><strong>?</strong></span> </a><span
+                                        style="color: #ff0000;font-weight:bold;">*Required*</span> <span
+                                        onkeypress="{!c.validatePhoneNo}">
+                                        <lightning:input value="{!v.accRec.eBilling_Contact_Phone2__c}" type="tel" />
+                                    </span>
+                                    <p>
+                                        <lightning:formattedText aura:id="fteErrorP5" class="error-text"
+                                            value="Phone number should be 10 digits" />
+                                    </p>
+                                </div>
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Please
+                                        provide the email address that the bill will be sent to.<span
+                                            style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                    <lightning:input value="{!v.accRec.eBilling_Contact_Email2__c}"
+                                        messageWhenBadInput="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)"
+                                        messageWhenPatternMismatch="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)"
+                                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                        onblur="{!c.ODEmailValid3}" />
+                                    <p>
+                                        <lightning:formattedText aura:id="fteError4" class="error-text"
+                                            value="Must be in eMail format, example: John.Doe@Doe.com (Officedepot emails will not be accepted)" />
+                                    </p>
+                                </div>
+                            </div>
+                        </aura:if>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does your
+                                    customer have any specific changes to the table above?<span
+                                        style="color: #ff0000;font-weight:bold;">*Required*</span></span>
+                                <tr>
+                                    <td class="ct_td_help ct_td_help_top"> <span
+                                            style="font-style: italic;"><em><strong>Ie
+                                                    (Billing Monthly vs. Weekly; Consolidated
+                                                    Billing..etc..)</strong></em></span>
+                                    </td>
+                                </tr>
+                                <lightning:select aura:id="specificchanges" name="specificchanges"
+                                    value="{!v.accRec.PD_Incl_Backup_Inc__c}" onchange="{!c.toggle1}">
+                                    <option value="">choose one... </option>
+                                    <option value="Yes">Yes </option>
+                                    <option value="No">No </option>
+                                </lightning:select>
+                            </div>
+                        </div>
+                        <aura:if isTrue="{!v.toggle1change}">
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does
+                                        your customer require monthly eStatements? (Note: If you select yes, you will
+                                        be emailed instructions on how to proceed)</span>
+                                    <lightning:select aura:id="changestatement" name="changestatement"
+                                        value="{!v.accRec.Monthly_eStatements__c}">
+                                        <option value="No">No </option>
+                                        <option value="Yes">Yes </option>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Has
+                                        the customer been approved for an early pay discount? (Note, if yes, you will
+                                        be emailed with instructions on how to proceed)</span>
+                                    <lightning:select aura:id="EarlyPayDiscount" name="EarlyPayDiscount"
+                                        value="{!v.accRec.Early_Pay_Discount_Needed__c}">
+                                        <option value="No">No </option>
+                                        <option value="Yes">Yes </option>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does
+                                        your customer require Bills to be sent to multiple locations?</span>
+                                    <lightning:select aura:id="EarlyPayDiscount1" name="EarlyPayDiscount"
+                                        value="{!v.accRec.PD_multiple_bill_to_locations__c}">
+                                        <option value="No, Centralized Accts Payable receives bill">No,
+                                            Centralized Accounts Payable receives the bill </option>
+                                        <option value="Yes, some or all Ship To locations receive bill">Yes,
+                                            some or all "Ship To" locations receive the bill </option>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">
+                                        <p>What type of Invoice will the customer accept</p>
+                                    </span>
+                                    <lightning:select aura:id="InvoiceType" name="InvoiceType"
+                                        value="{!v.accRec.PD_Doc_Name__c}">
+                                        <option value="Standard Invoice">Standard Invoice</option>
+                                        <option value="Consolidated Bill">Consolidated Bill</option>
+                                    </lightning:select>
+                                </div>
+                            </div>
+                        </aura:if>
+                    </aura:if>
+                </div>
+            </fieldset>
+            <lightning:button variant="brand" label="Back" onclick="{! c.handleClickBackBillPref}" />
+            <lightning:button variant="brand" label="Next" onclick="{! c.handleClickNextBillPref}" disabled="{! v.validationError}"/>
+        </aura:if>
+    </div>
+    <div style="margin: auto;width: 100%;">
+        <aura:if isTrue="{!v.showTax}">
+            <fieldset class="slds-form--compound">
+                <legend class="slds-text-heading--small slds-p-vertical--medium">Tax Section Information </legend>
+                <div class="form-element__group">
+                    <aura:if isTrue="{!v.requiredError}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false"> Required Fields are missing.
+                            </ui:message>
+                        </div>
+                    </aura:if>
+                </div>
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">TIN</span>
+                        <lightning:input placeholder="Format XX-XXXXXXX" onblur="{!c.TINValid}"
+                            pattern="[0-9]{2}-[0-9]{7}" value="{!v.accRec.Employer_TIN__c}" />
+                    </div>
+                </div>
+                <div class="slds-form-element__row">
+                <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Payment Method<br/>
+                        <lightning:helptext
+                                            content="Select the payment method your Customer needs to be setup on to remit payments"
+                                            /></span>
+                        <lightning:select aura:id="PaymentMethod" name="PaymentMethod" value="{!v.accRec.What_is_the_payment_method__c}">
+                            <option value="">choose one... </option>
+                            <option value="ACH">ACH</option>
+                            <option value="CHECK">CHECK</option>
+                        </lightning:select>
+                    </div>
+                </div>
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does this Customer offer CTX-820 or Email Remittance?<br/>
+                        <lightning:helptext
+                                            content="The customer will either email their remittance or it is incorporated in the ACH payment (CTX-820)"
+                                            /></span>
+                        <lightning:select aura:id="PaymentMethod" name="PaymentMethod" value="{!v.accRec.CTX_820_or_Email_Remittance__c}">
+                            <option value="">choose one...</option>
+                            <option value="CTX-820">CTX-820</option>
+                            <option value="Email Remittance">Email Remittance</option>
+                        </lightning:select>    
+                    </div>
+                </div>
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Does your
+                            Customer require an IRS Federal W9 in order to pay us?</span>
+                        <lightning:select aura:id="IRS" name="IRS" value="{!v.accRec.Is_IRS_W9_Required_for_AP__c}">
+                            <option value="">choose one... </option>
+                            <option value="Yes">Yes </option>
+                            <option value="No">No </option>
+                        </lightning:select>
+                    </div>
+                    <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Is your Customer
+                            tax exempt?</span>
+                        <lightning:select aura:id="EarlyPayDiscount3" name="EarlyPayDiscount"
+                            value="{!v.accRec.Tax_Exempt__c}" onchange="{!c.toggletaxexempt}">
+                            <option value="">choose one... </option>
+                            <option value="Yes">Yes </option>
+                            <option value="No">No </option>
+                        </lightning:select> <span style="font-weight:bold;"><a target="_blank"
+                                href="http://sp.na.odcorp.net/sites/BSG/PSBSD/Shared%20Documents/SFDC%20ACCOUNT%20SETUP%20DOCS/EXEMPTION%20MATRIX.xlsx">Click
+                                here</a> to see a list of what items you will need.&nbsp; Also, to expedite the setup,
+                            put in the comments section "Tax exempt customer" <br></br></span>
+                    </div>
+                </div>
+                <aura:if isTrue="{!v.toggletax}">
+                    <!-- Start: by Rajendra Shahane for NAIT-135726 02931356 - Allow Reps to Attach Tax Exemption Form - Account Setup -->
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-1"> <span style="font-weight:bold;">Upload your 
+                            Customer tax exempt file/document</span>
+                            <div style="width:50%">
+                                <lightning:input aura:id="singlefileUpload" onchange="{!c.uploadtaxFile}" type="file" name="file" label="Upload File" multiple="false"/>
+   								<div class="slds-text-body_small slds-text-color_error">Selected File: {!v.fileName} </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End: by Rajendra Shahane for NAIT-135726 02931356 - Allow Reps to Attach Tax Exemption Form - Account Setup -->
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-1"> <span style="font-weight:bold;">In which
+                                state(s) are you exempt?</span>
+                            <div style="width:50%">
+                                <lightning:layout horizontalAlign="left" multipleRows="true">
+                                    <aura:iteration items="{!v.checkboxValueMap}" var="cus" indexVar="key">
+                                        <lightning:layoutItem size="2">{!cus.key}
+                                            <lightning:input value="{!cus.key}" checked="{!cus.value}" label=""
+                                                type="checkbox" onchange="{!c.onCheck}" aura:id="checkbox"
+                                                class="myCheckbox" />
+                                        </lightning:layoutItem>
+                                    </aura:iteration>
+                                </lightning:layout>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Type of tax
+                                exemption:</span>
+                            <lightning:select aura:id="exemption" name="exemption"
+                                value="{!v.accRec.Why_are_you_tax_exempt__c}" onchange="{!c.togglegovt}">
+                                <option value="0">Pick Exemption Type </option>
+                                <option value="Government">Government </option>
+                                <option value="Non-profit">Non-profit </option>
+                                <option value="Reseller">Reseller </option>
+                                <option value="School">School </option>
+                            </lightning:select>
+                        </div>
+                        <aura:if isTrue="{!v.togglegov}">
+                            <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Branch of
+                                    government:</span>
+                                <lightning:select aura:id="government" name="government"
+                                    value="{!v.accRec.Goverment_Branch__c}">
+                                    <option value=" ">Pick Government Branch </option>
+                                    <option value="State">State </option>
+                                    <option value="Local">Local </option>
+                                    <option value="Federal">Federal </option>
+                                </lightning:select>
+                            </div>
+                        </aura:if>
+                    </div>
+                    <aura:if isTrue="{!v.accRec.Show_Net_20__c}">
+                        <div class="slds-form-element__row"> <span style="font-weight:bold;"><span
+                                    style="color: #000080"><span style="font-size: larger"><strong>Copy and Paste the
+                                            following in the comments
+                                            section:<em>&nbsp;Please set my customer as tax
+                                                exempt</em></strong></span></span>
+                            </span> </div>
+                    </aura:if>
+                </aura:if>
+            </fieldset>
+            <lightning:button variant="brand" label="Back" onclick="{! c.handleClickBackTax}" />
+            <lightning:button variant="brand" label="Next" onclick="{! c.handleClickNextTax}" disabled="{! v.validationError}"/>
+        </aura:if>
+    </div>
+    <div style="margin: auto;width: 100%;">
+        <aura:if isTrue="{!v.showSubmitRequest}">
+            <div class="form-element__group">
+                <aura:if isTrue="{!v.requiredError}">
+                    <div class="recordError">
+                        <ui:message title="Error" severity="error" closable="false"> Required Fields are missing.
+                        </ui:message>
+                    </div>
+                </aura:if>
+            </div>
+            <fieldset class="slds-form--compound">
+                <div class="slds-form-element__row" style="width: 50%;">
+                    <div class="slds-form-element slds-size--1-of-2"> <span style="font-weight:bold;">Select DML</span>
+                        <lightning:select aura:id="DML" required="false" value="{!v.accRec.DML__c}"
+                            onchange="{!c.dmlselect}">
+                            <option value="">Choose DML</option>
+                            <aura:iteration items="{!v.DML}" var="cus" indexVar="key">
+                                <option value="{!cus.value}" selected="{!cus.key==v.selectedDML}">{!cus.key}</option>
+                            </aura:iteration>
+                             <option value="New DML">New DML</option>
+                        </lightning:select>
+                    </div>
+                </div>
+                <aura:if isTrue="{!v.DMLs}">
+                    <div class="slds-form-element__row" style="width: 50%;">
+                        <div class="slds-form-element slds-size--1-of-1">
+                            <lightning:button variant="brand" label="Suggest New DML"  disabled ="{!v.disableDMLCreate}" onclick="{! c.CreateDML}" />
+                        </div>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{!v.ALT}">
+                    <div class="demo-only" style="height: 400px; width:100%;">
+                        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <!-- <lightning:input label="New DML Id" value="{!v.NewDMLId}"/> -->
+                                <header class="slds-modal__header" style="width:100%;"> <button
+                                        class="slds-button slds-modal__close slds-button--icon-inverse" title="Close"
+                                        onclick="{!c.closeModel}"> X <span class="slds-assistive-text">Close</span>
+                                    </button> </header>
+                                <div style="background-color:white; width:100%; padding: 10px; font-weight: 900;">
+                                    <aura:if isTrue="{!v.validationErrordml}">
+                                        <div class="recordError">
+                                            <ui:message title="Error" severity="error" closable="false"> {!v.DML_Error}
+                                            </ui:message>
+                                        </div>
+                                    </aura:if>
+                                    <div class="slds-form-element__row" style="width: 100%;">
+                                        <div class="slds-form-element slds-size--1-of-2"> <span
+                                                style="font-weight:bold;">Select
+                                                Alternate DML</span>
+                                            <lightning:select aura:id="AltDML" onchange="{!c.SelectAltDML}">
+                                                <option value="">Choose DML</option>
+                                                <aura:iteration items="{!v.AltDML}" var="cus" indexVar="key">
+                                                    <option value="{!cus.value}">{!cus.key}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2"> <span
+                                                style="font-weight:bold;">DML
+                                                Name</span>
+                                            <lightning:input value="{!v.dmlRec.DECISION_MAKER_NM__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2"> <span
+                                                style="font-weight:bold;">DML
+                                                City</span>
+                                            <lightning:input value="{!v.dmlRec.DML_City__c}" />
+                                        </div>
+                                        <div class="slds-form-element slds-size--1-of-2"> <span
+                                                style="font-weight:bold;">DML
+                                                State</span>
+                                            <lightning:input value="{!v.dmlRec.DML_State__c}" />
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2"> <span
+                                                style="font-weight:bold;">DML
+                                                Zip</span>
+                                            <lightning:input value="{!v.dmlRec.DECISION_MAKER_ZIP_CD__c}" />
+                                        </div>
+                                        <div class="slds-form-element slds-size--1-of-2"> <span
+                                                style="font-weight:bold;">Segment</span>
+                                            <lightning:select aura:id="Segment"
+                                                value="{!v.dmlRec.DECISION_MAKER_SEGMENT__c}">
+                                                <option value="">Choose one Segment </option>
+                                                <option value="Small &lt; $10K">Small &lt; $10K</option>
+                                                <option value="Small $10K-$75K">Small $10K-$75K</option>
+                                                <option value="Medium $75K-$150K">Medium $75K-$150K</option>
+                                                <option value="Standard $150K-$250K">Standard $150K-$250K</option>
+                                                <option value="Key $250K-$500K">Key $250K-$500K</option>
+                                                <option value="Major $500K-$1M">Major $500K-$1M</option>
+                                                <option value="K-12">K-12 </option>
+                                                <option value="Higher-Ed">Higher-Ed </option>
+                                                <option value="Federal">Federal </option>
+                                                <option value="State">State </option>
+                                                <option value="Local">Local </option>
+                                                <option value="Non-Profit">Non-Profit </option>
+                                                <option value="Enterprise $1M+">Enterprise $1M+</option>
+                                            </lightning:select>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2"> <span
+                                                style="font-weight:bold;">Notes</span>
+                                            <lightning:textarea aura:id="notesdml" value="{!v.dmlRec.Notes__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <footer class="slds-modal__footer" style="width:100%;">
+                                    <lightning:button variant="brand" label="Submit Suggested DML"
+                                        onclick="{! c.SubmitDML}" />
+                                    <lightning:button variant="brand" label="Cancel" onclick="{! c.Cancel}" />
+                                </footer>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </div>
+                </aura:if>
+                <div style="width: 60%;">
+                    <H1>*Attaching an account to the correct DML is important to ensure your account assignments are
+                        properly aligned* </H1>
+                    <p class="paragraph bold">
+                        Select “Choose DML” to view if there is an existing DML for the account you are creating. If no
+                        DML suggestion is available, or the suggested DML is not correct, please choose the “Suggest New
+                        DML” option.
+                    </p>
+                    <p class="paragraph bold">
+                        If you know there is an existing DML for the account that you are creating, please include that
+                        information in the Comments section.
+                    </p>
+                    <p class="paragraph bold">
+                        Note for Implementation Team: Please reference the name of the sales rep and the program that
+                        you are creating the account for.
+                    </p>
+                </div>
+
+                <div class="slds-form-element__row" style="width: 50%;">
+                    <div class="slds-form-element slds-size--1-of-1">
+                        <span style="font-weight:bold;"> Any Additional Comments about your Account Request?<br></br>
+                            (<em>Note:
+                                If you see comments in the box
+                                below, do not delete them. You can append your comments to the end)</em></span>
+                        <lightning:textarea name="message-input" value="{!v.accRec.Rep_Comments__c}" cols="40" rows="5"
+                            maxlength="255" />
+                    </div>
+                </div>
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-1"> <span
+                            style="font-size: x-large;font-weight:bold;">Please
+                            click Submit to send this account for setup.</span> </div>
+                </div>
+            </fieldset>
+            <lightning:button variant="brand" label="Back" onclick="{! c.handleClickBackSubmit}" />
+            <lightning:button variant="brand" label="Submit" onclick="{! c.submitProspect}" disabled="{! v.validationError}"/>
+            <!-- <lightning:button variant="brand" label="Close"onclick="{! c.SubmitProspectOnClose}"/> -->
+        </aura:if>
+    </div>
+    <aura:if isTrue="{!v.isRecordCreated}">
+        <div>Account Setup Request Submitted Successfully</div>
+    </aura:if>
+    <aura:if isTrue="{!v.validationError}">
+        <div class="recordError">
+            <ui:message title="Error" severity="error" closable="false">{!v.errorMessages}</ui:message>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brandslds-spinner slds-spinner--large slds-is-relative" role="alert"> <span
+                    class="slds-assistive-text">Loading....
+                </span>
+                <div class="slds-spinner__dot-a"> </div>
+                <div class="slds-spinner__dot-b"> </div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

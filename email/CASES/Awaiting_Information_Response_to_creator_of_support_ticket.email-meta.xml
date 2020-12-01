@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Awaiting Information Response to creator of support ticket</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Awaiting Information Response to creator of support ticket</name>
+    <style>freeForm</style>
+    <subject>Regarding your support request {!Case.CaseNumber} - {!Case.Thread_Id}</subject>
+    <textOnly>Greetings {!Case.Support_Requester__c},
+
+We have not heard back from you in a couple of weeks and I&apos;m following up to validate that your issue or question has been resolved and to close your support ticket. If this has not been resolved, please reply to this email, which will reopen your support ticket and I will assess asap.
+
+Thank you.
+
+Link to Support Ticket: {!Case.CaseNumber}
+Subject:  {!Case.Subject}
+
+{!Case.IT_BU_Reviewer__c}
+Sales Enablement Technologies
+{!User.Email}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

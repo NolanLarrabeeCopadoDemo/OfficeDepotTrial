@@ -1,0 +1,20 @@
+<apex:page standardController="MDR__c" extensions="MDR_Extension" readOnly="true">
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!lstChildMDR}" var="MDRc" rendered="{!IF(lstChildMDR.size=0,false,true)}">
+            <apex:column headerValue="Child Name">
+                <apex:outputLink value="../{!MDRc.id}" target="_blank">{!MDRc.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column value="{!MDRc.FILETYPE_L__c}" headerValue="Type"></apex:column>
+            <apex:column value="{!MDRc.PUPEXPAIM_L__c}" headerValue="Instruc/Stdnt"></apex:column>
+            <apex:column value="{!MDRc.Enrollment__c}" headerValue="Enrollment"></apex:column>
+            <apex:column value="{!MDRc.Potential__c}" headerValue="Potential"></apex:column>
+            <apex:column value="{!MDRc.POVLVLCODE_L__c}" headerValue="Poverty Level"></apex:column>
+            <apex:column value="{!MDRc.SCHCLASS_L__c}" headerValue="School Class"></apex:column>
+            <apex:column value="{!MDRc.School_Type__c }" headerValue="School Type"></apex:column>
+            <apex:column value="{!MDRc.CHARTER_L__c }" headerValue="Charter"></apex:column>
+        </apex:pageBlockTable>
+        
+        <apex:outputPanel rendered="{!IF(lstChildMDR.size=0,true,false)}">No Children to display</apex:outputPanel>
+        
+    </apex:pageBlock>
+</apex:page>

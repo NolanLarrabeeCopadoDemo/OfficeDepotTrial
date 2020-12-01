@@ -1,0 +1,102 @@
+<aura:component controller="CPTRelatedListController" implements="force:hasRecordId,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome" access="global" >
+    <aura:attribute name="ContractPriceTerm" type="List" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="noResults" type="String" default='No records to display' />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <article aura:id="gridContainer" class="slds-card_boundary">
+      
+        <lightning:card title="Contract Pricing Terms"  iconName="custom:custom63">
+            <aura:set attribute="actions">
+                <lightning:button label="New" onclick="{!c.createNewCPT}" />
+            </aura:set>
+        </lightning:card>
+        
+    </article>
+    <article  class="slds-card slds-card_boundary">
+        
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Contract Pricing Terms Name">Contract Pricing Terms Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Relevant customer level(s) for this pricing terms group">Relevant customer level(s) for this pricing terms group</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="How frequently can we pass increases (in days)">How frequently can we pass increases (in days)</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="How much notice must be provided before pricing changes can be made? (in days)">How much notice must be provided before pricing changes can be made? (in days)</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="What type of customer communication is required to permit pricing changes on the custom core?">What type of customer communication is required to permit pricing <br></br> changes on the custom core?</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Are price increases capped?">Are price increases capped?</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Addition Communication Requirements">Addition Communication Requirements</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Deletion Communication Requirements">Deletion Communication Requirements</div>
+                    </th>
+                     <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Actions">Actions</div>
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <aura:if isTrue="{!not(empty(v.ContractPriceTerm))}" >
+                <aura:iteration items="{!v.ContractPriceTerm}" var="cpt">
+                    <tr class="slds-hint-parent">
+                        
+                        <td data-label="Account Name">
+                            <div class="slds-truncate" title="Name">
+                                <a onclick="{!c.goToCPT}" id="{!cpt.Id}">
+                                {!cpt.Name}
+                                </a>
+                            </div>
+                        </td>
+                        <td data-label="Close Date">
+                            <div class="slds-truncate" title="Relevant_Customer_Level__c">{!cpt.Relevant_Customer_Level__c}</div>
+                        </td>
+                        
+                        <td data-label="Prospecting">
+                            <div class="slds-truncate" title="CC_Pricing_Update_Frequency_in_days__c">{!cpt.Calendar_period__c} {!cpt.In_days__c}</div>
+                        </td>
+                        <td data-label="Confidence">
+                            <div class="slds-truncate" title="CC_Prc_Chg_Notice_Reqd_days__c">{!cpt.CC_Prc_Chg_Notice_Reqd_days__c}</div>
+                        </td>
+                        <td data-label="Amount">
+                            <div class="slds-truncate" title="Comm_Req_CC_Price_Chg__c">{!cpt.Comm_Req_CC_Price_Chg__c}</div>
+                        </td>
+                        <td data-label="Contact">
+                            <div class="slds-truncate" title="CC_Price_Incr_Capped__c">{!cpt.CC_Price_Incr_Capped__c}</div>
+                        </td>
+                        <td data-label="Contact">
+                            <div class="slds-truncate" title="Addition_communication_requirements__c">{!cpt.Addition_communication_requirements__c}</div>
+                        </td>
+                        <td data-label="Contact">
+                            <div class="slds-truncate" title="Deletion_communication_requirements__c">{!cpt.Deletion_communication_requirements__c}</div>
+                        </td>
+                        <td data-label="Actions">
+                            <lightning:buttonMenu aura:id="menu" onselect="{!c.handleMenuSelect}" alternativeText="Show menu" class = "{!cpt.Id}">
+                                <lightning:menuItem value="EDIT" label="Edit" />
+                                <lightning:menuItem value="delete" label="Delete" />
+                            </lightning:buttonMenu>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                </aura:if>
+                <aura:if isTrue="{!empty(v.ContractPriceTerm)}" >
+                   <p>{!v.noResults}</p>
+                </aura:if>
+            </tbody>
+                
+        </table>
+        
+    </article>
+    
+</aura:component>

@@ -1,0 +1,25 @@
+<!-- Home Landing Page for all GPO Communities -->
+
+<!-- action checkUser determines if the user is public (not logged in) or a member (logged in) -->
+<!-- 1) public user will load the template Home Page -->
+<!-- 2) member user will be redirected to the Member Page -->
+
+<apex:page standardstylesheets="False" id="GPOLandingPage" showHeader="false" sidebar="false" controller="com2GPOCommunityLandingController" action="{!checkUser}">
+<html>
+<head>
+<script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'eluminate.js')}"/>
+<script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'cmcustom.js')}"/>   
+<script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'cmcookie.js')}"/> 
+<script type="text/javascript">
+    var coreMetricsEnabled=true;
+    cmSetClientID("90065331", false, "www18.officedepot.com", document.domain);
+    cmSetupOther({"cm_TrackImpressions":""});
+ </script>
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+<body>
+<script>cmCreatePageviewTag("{!pageID}", null, "Communities", "https://business.officedepot.com/", null, '-_--_--_--_--_--_--_-B2B');</script>
+<apex:include pageName="{!TemplateHomePage}"/>
+</body>
+</html>
+</apex:page>

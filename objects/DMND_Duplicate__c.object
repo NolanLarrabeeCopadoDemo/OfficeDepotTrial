@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>PotentialDuplicate_Disposition_Update</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Potential Duplicates Generated from Demand Tool</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Potential_Duplicates</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Address_1__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Account__c &lt;&gt; null, Account__r.Address1__c, if(Lead__c &lt;&gt; null, Lead__r.Address1__c, if(Contact__c &lt;&gt; null, Contact__r.Account.Address1__c, if(Opportunity__c &lt;&gt; null, Opportunity__r.Account.Address1__c, &apos;Not Applicable&apos;))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Address 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address_2__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Address2__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Address 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Account__c &lt;&gt; null, Account__r.City__c, if(Lead__c &lt;&gt; null, Lead__r.City__c, if(Contact__c &lt;&gt; null, Contact__r.Account.City__c, if(Opportunity__c &lt;&gt; null, Opportunity__r.Account.City__c, &apos;Not Applicable&apos;))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>City</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Potential_Duplicates</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CurrentUser__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( Related_Object_OwnerID__c== $User.Id ,&apos;A&apos;,&apos;B&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CurrentUser</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_User_is_Owner__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( $User.Id = Related_Object_OwnerID__c, TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Current User is Owner</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Cust_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.AOPS_Cust_Id__c &amp; &quot;-&quot; &amp;  Account__r.AOPS_Seq_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Cust ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Id__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( Account__r.RecordType.Name = &quot;Site&quot;, Account__r.AOPS_Seq_ID__c ,
+if( Account__r.RecordType.Name = &quot;Customer&quot; &amp;&amp; Account__r.Grandparent__c = &quot;No&quot;, Account__r.AOPS_Cust_Id__c,
+if( Account__r.RecordType.Name = &quot;Customer&quot; &amp;&amp; Account__r.Grandparent__c = &quot;Yes&quot; &amp;&amp; LEN(Account__r.AOPS_Cust_Id__c) = 1, &quot;0000000&quot; + Account__r.AOPS_Cust_Id__c,
+if( Account__r.RecordType.Name = &quot;Customer&quot; &amp;&amp; Account__r.Grandparent__c = &quot;Yes&quot; &amp;&amp; LEN(Account__r.AOPS_Cust_Id__c) = 2, &quot;000000&quot; + Account__r.AOPS_Cust_Id__c,
+if( Account__r.RecordType.Name = &quot;Customer&quot; &amp;&amp; Account__r.Grandparent__c = &quot;Yes&quot; &amp;&amp; LEN(Account__r.AOPS_Cust_Id__c) = 3, &quot;00000&quot; + Account__r.AOPS_Cust_Id__c,
+if( Account__r.RecordType.Name = &quot;Customer&quot; &amp;&amp; Account__r.Grandparent__c = &quot;Yes&quot; &amp;&amp; LEN(Account__r.AOPS_Cust_Id__c) = 4, &quot;0000&quot; + Account__r.AOPS_Cust_Id__c,
+if( Account__r.RecordType.Name = &quot;Customer&quot; &amp;&amp; Account__r.Grandparent__c = &quot;Yes&quot; &amp;&amp; LEN(Account__r.AOPS_Cust_Id__c) = 5, &quot;000&quot; + Account__r.AOPS_Cust_Id__c,
+if( Account__r.RecordType.Name = &quot;Customer&quot; &amp;&amp; Account__r.Grandparent__c = &quot;Yes&quot; &amp;&amp; LEN(Account__r.AOPS_Cust_Id__c) = 6, &quot;00&quot; + Account__r.AOPS_Cust_Id__c,
+null
+))))))))</formula>
+        <label>Customer Id</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disposition__c</fullName>
+        <externalId>false</externalId>
+        <label>Disposition</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Delete</fullName>
+                    <default>false</default>
+                    <label>Delete</label>
+                </value>
+                <value>
+                    <fullName>Merge</fullName>
+                    <default>false</default>
+                    <label>Merge</label>
+                </value>
+                <value>
+                    <fullName>Keep</fullName>
+                    <default>false</default>
+                    <label>Keep</label>
+                </value>
+                <value>
+                    <fullName>Inactive</fullName>
+                    <default>false</default>
+                    <label>Inactive</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Dispostion_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Dispostion Reason</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Account Restrictions</fullName>
+                    <default>false</default>
+                    <label>Account Restrictions</label>
+                </value>
+                <value>
+                    <fullName>Canada</fullName>
+                    <default>false</default>
+                    <label>Canada</label>
+                </value>
+                <value>
+                    <fullName>Copy Print</fullName>
+                    <default>false</default>
+                    <label>Copy Print</label>
+                </value>
+                <value>
+                    <fullName>EDI</fullName>
+                    <default>false</default>
+                    <label>EDI</label>
+                </value>
+                <value>
+                    <fullName>Employee Purchase (EPP)</fullName>
+                    <default>false</default>
+                    <label>Employee Purchase (EPP)</label>
+                </value>
+                <value>
+                    <fullName>Export Account</fullName>
+                    <default>false</default>
+                    <label>Export Account</label>
+                </value>
+                <value>
+                    <fullName>Furniture</fullName>
+                    <default>false</default>
+                    <label>Furniture</label>
+                </value>
+                <value>
+                    <fullName>Internal Programs (Corp Use)</fullName>
+                    <default>false</default>
+                    <label>Internal Programs (Corp Use)</label>
+                </value>
+                <value>
+                    <fullName>Managed Print Services</fullName>
+                    <default>false</default>
+                    <label>Managed Print Services</label>
+                </value>
+                <value>
+                    <fullName>Puerto Rico</fullName>
+                    <default>false</default>
+                    <label>Puerto Rico</label>
+                </value>
+                <value>
+                    <fullName>SPC Purchases</fullName>
+                    <default>false</default>
+                    <label>SPC Purchases</label>
+                </value>
+                <value>
+                    <fullName>Tax Exempt</fullName>
+                    <default>false</default>
+                    <label>Tax Exempt</label>
+                </value>
+                <value>
+                    <fullName>Technology</fullName>
+                    <default>false</default>
+                    <label>Technology</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Lead</label>
+        <referenceTo>Lead</referenceTo>
+        <relationshipName>Potential_Duplicates</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Name_text__c</fullName>
+        <externalId>false</externalId>
+        <formula>Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Potential Duplicate #</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Object_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Account__c &lt;&gt; null, Account__r.RecordType.Name , IF( Lead__c &lt;&gt; null, &apos;Lead&apos; , IF( Contact__c &lt;&gt; null, &apos;Contact&apos; , IF( Opportunity__c &lt;&gt; null, &apos;Opportunity&apos;,&apos;Not Applicable&apos; ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Object Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Potential_Duplicates</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Other_Disposition_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Disposition Reason</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Potential_Duplicate_Warning__c</fullName>
+        <externalId>false</externalId>
+        <label>Potential Duplicate Warning</label>
+        <referenceTo>DMND_Potential_Warning__c</referenceTo>
+        <relationshipName>Potential_Duplicates</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Potential_Warning_Key__c</fullName>
+        <externalId>false</externalId>
+        <formula>Potential_Duplicate_Warning__r.Warning_Key__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Potential Warning Key</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Account_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Related_Account__r.RecordType.DeveloperName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Related Account Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Object_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Account__c &lt;&gt; null, Account__r.Id , IF( Lead__c &lt;&gt; null, Lead__r.Id , IF( Contact__c &lt;&gt; null, Contact__r.Id , IF( Opportunity__c &lt;&gt; null, Opportunity__r.Id,&apos;Not Applicable&apos; ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Related Object ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Object_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Account__c &lt;&gt; null, Account__r.Name , IF( Lead__c &lt;&gt; null,   Lead__r.FirstName  &amp;&apos; &apos;&amp;  Lead__r.LastName   , IF( Contact__c &lt;&gt; null, Contact__r.FirstName &amp;&apos; &apos;&amp;  Contact__r.LastName , IF( Opportunity__c &lt;&gt; null, Opportunity__r.Name ,&apos;Not Applicable&apos; ) ) ) )</formula>
+        <label>Related Object Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Object_OwnerID__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Account__c &lt;&gt; null, Account__r.OwnerId , IF( Lead__c &lt;&gt; null, Lead__r.OwnerId , IF( Contact__c &lt;&gt; null, Contact__r.OwnerId , IF( Opportunity__c &lt;&gt; null, Opportunity__r.OwnerId ,&apos;Not Applicable&apos; ) ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Related Object OwnerID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Object_OwnerName__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Account__c &lt;&gt; null,  Account__r.Owner.FirstName &amp;&apos; &apos;&amp;Account__r.Owner.LastName  , IF( Lead__c &lt;&gt; null, Lead__r.Owner:User.FirstName &amp;&apos; &apos;&amp;Lead__r.Owner:User.LastName , IF( Contact__c &lt;&gt; null,  Contact__r.Owner.FirstName &amp;&apos; &apos;&amp;Contact__r.Owner.LastName  , IF( Opportunity__c &lt;&gt; null,  Opportunity__r.Owner.FirstName &amp;&apos; &apos;&amp;Opportunity__r.Owner.LastName ,&apos;Not Applicable&apos; ) ) ) )</formula>
+        <label>Related Object OwnerName</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Account__c &lt;&gt; null, TEXT(Account__r.State__c), if(Lead__c &lt;&gt; null, TEXT(Lead__r.State__c), if(Contact__c &lt;&gt; null, TEXT(Contact__r.Account.State__c), if(Opportunity__c &lt;&gt; null, TEXT(Opportunity__r.Account.State__c), &apos;Not Applicable&apos;))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Potential_Duplicates__c</fullName>
+        <externalId>false</externalId>
+        <formula>Potential_Duplicate_Warning__r.Total_Potential_Duplicates__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Potential Duplicates</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>YTD_Sales_TY__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Account__c &lt;&gt; null, Account__r.YTD_Sales_TY__c, if(Contact__c &lt;&gt; null, Contact__r.Account.YTD_Sales_TY__c, if(Opportunity__c &lt;&gt; null, Opportunity__r.Account.YTD_Sales_TY__c, 0)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>YTD Sales TY</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Year_Sales_LY__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Account__c &lt;&gt; null, Account__r.Year_LY__c, if(Contact__c &lt;&gt; null, Contact__r.Account.Year_LY__c, if(Opportunity__c &lt;&gt; null, Opportunity__r.Account.Year_LY__c, 0)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Year Sales LY</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Zip__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Account__c &lt;&gt; null, Account__r.Zip__c, if(Lead__c &lt;&gt; null, Lead__r.Zip__c, if(Contact__c &lt;&gt; null, Contact__r.Account.Zip__c, if(Opportunity__c &lt;&gt; null, Opportunity__r.Account.Zip__c, &apos;Not Applicable&apos;))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Zip</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>My Duplicates</label>
+    <nameField>
+        <displayFormat>Duplicate-{0}</displayFormat>
+        <label>Potential Duplicate #</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>My Duplicates</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>DispositionDescription</fullName>
+        <active>true</active>
+        <errorConditionFormula>Text(Disposition__c)==&apos;Keep&apos; &amp;&amp; Text(Dispostion_Reason__c)==&apos;&apos;</errorConditionFormula>
+        <errorDisplayField>Dispostion_Reason__c</errorDisplayField>
+        <errorMessage>Please give a reason to keep the record</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DispostionReasonDiscribtion</fullName>
+        <active>true</active>
+        <errorConditionFormula>(Text(Dispostion_Reason__c) ==&apos;Others&apos; &amp;&amp; (ISNULL(Other_Disposition_Reason__c) || ISBLANK(Other_Disposition_Reason__c)))</errorConditionFormula>
+        <errorDisplayField>Other_Disposition_Reason__c</errorDisplayField>
+        <errorMessage>Please give a reason to keep the record</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Potential_Duplicate_based_record</fullName>
+        <active>true</active>
+        <errorConditionFormula>((Account__c &lt;&gt; null &amp;&amp; (  Contact__c  &lt;&gt; null ||  Lead__c &lt;&gt; null ||  Opportunity__c &lt;&gt; null )) || ( Contact__c  &lt;&gt; null &amp;&amp; ( Account__c &lt;&gt; null ||  Lead__c &lt;&gt; null ||  Opportunity__c &lt;&gt; null )) || ( Lead__c &lt;&gt; null &amp;&amp; ( Account__c &lt;&gt; null ||  Contact__c  &lt;&gt; null ||  Opportunity__c &lt;&gt; null )) || ( Opportunity__c &lt;&gt; null &amp;&amp; ( Account__c &lt;&gt; null ||  Contact__c  &lt;&gt; null ||  Lead__c &lt;&gt; null )) )</errorConditionFormula>
+        <errorMessage>Only one base object record can be related with one Potential Duplicate.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

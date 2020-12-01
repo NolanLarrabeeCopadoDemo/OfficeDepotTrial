@@ -1,0 +1,12 @@
+<template>
+	<lightning-accordion allow-multiple-sections-open>
+		<lightning-accordion-section name="OverlayAssignments" label="Overlay Assignments">
+			<template if:true={hasData} style="max-height: 300px;">
+				<lightning-datatable key-field="id" data={data} columns={columns} hide-checkbox-column></lightning-datatable>
+			</template>
+			<template if:false={hasData}>
+				{label.GT_NoRecords}
+			</template>
+		</lightning-accordion-section>
+	</lightning-accordion>
+</template>

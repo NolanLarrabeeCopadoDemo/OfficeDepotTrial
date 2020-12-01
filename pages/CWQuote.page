@@ -1,0 +1,47 @@
+<apex:page standardController="Opportunity" extensions="CWQuoteExtension">
+
+    <apex:slds />
+    
+    <apex:outputPanel id="op1" rendered="{!isOpptContactRoleExist = true}">
+    	<apex:iframe scrolling="true" height="10000" width="100%" src="{!$Setup.QUOSAL__SellSettings__c.QUOSAL__Server_Name__c}/QuosalWeb{!$Setup.QUOSAL__SellSettings__c.QUOSAL__Server_Mode__c}/picktemplate.quosalweb?opportunityid={!Opportunity.Id}&sfusername={!$User.Username}&sfsession={!$Api.Session_ID}&sfurl={!$Api.Partner_Server_URL_250}&accesskey={!$Setup.QUOSAL__SellSettings__c.QUOSAL__Access_Key__c}&datatheme=a&skin=quosal&skiplayout=yes" />
+	</apex:outputPanel>
+    
+    <apex:outputPanel id="op2" rendered="{!isOpptContactRoleExist = false}">
+        <script language="JavaScript">
+            function toastLaunch() {
+                var element = document.getElementById("ToastMessage");
+                if(element.classList.toggle("slds-hidden") == true) {
+                    window.history.back();
+                }
+            } 
+    	</script>    
+
+        <!-- Toast message code starts here -->
+        <div class="slds-hidden" style="height: 4rem;" id='ToastMessage'>
+            <div class="slds-notify_container slds-is-relative">
+                <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">error</span>
+                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#error')}" />
+                        </svg>
+                    </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">Contact Roles are required on this opportunity to generate a quote.</h2>
+                    </div>
+                    <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" onclick='toastLaunch()'>
+                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}" />
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+		<!-- Toast message code ends here -->    
+        <script>
+        	toastLaunch();
+        </script>
+	</apex:outputPanel>
+    
+</apex:page>

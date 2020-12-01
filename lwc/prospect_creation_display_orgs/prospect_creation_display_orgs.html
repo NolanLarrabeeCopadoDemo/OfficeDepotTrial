@@ -1,0 +1,8 @@
+<template>
+    <div if:true={showTable} style="margin-top: 25px; margin-bottom: 25px;">
+        <lightning-datatable data={_matchingOrgs} columns={cols} key-field={keyField} max-row-selection="1" onrowselection={rowSelected} selected-rows={defaultSelected}></lightning-datatable>
+    </div>
+    <div if:true={showNoOrgsMessage} style="margin-top: 25px; text-align: center">
+        <lightning-formatted-rich-text value="<h2>No Orgs Found</h2>"></lightning-formatted-rich-text>
+    </div>
+</template>

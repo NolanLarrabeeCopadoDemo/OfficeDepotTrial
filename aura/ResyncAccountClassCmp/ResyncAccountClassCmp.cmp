@@ -1,0 +1,18 @@
+<aura:component controller="ResyncAccountClass" implements="force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="AddSeq" type="integer" default="0"/>
+    <aura:attribute name="AOPSAccID" type="integer"/>
+    <lightning:card variant="Narrow" title="Resync Account" iconName="standard:account">
+        <lightning:helptext align="right" 
+                            content="Please Enter a 8 Digit AOPS Account Id and Address Sequence in Numbers only"
+                            />
+        <div class="slds-form-element__control slds-size--1-of-4" align="center" style="margin: 3%">
+            <lightning:quickActionAPI aura:id="quickActionAPI" />
+            <ui:inputNumber class="field" label="Enter an AOPSAccountId" aura:id="AopsAccId" value="{!v.AOPSAccID}" change="{!c.validate}"/>
+            <ui:inputNumber label="Enter an AddressSequence" aura:id="addSeq" class="field" value="{!v.AddSeq}"/>
+        </div>
+        <div class="slds-form-element__control" align="left" style="margin: 3%">
+            <lightning:button variant="brand" label="Submit" title="Brand action" type="submit" name="Submit" onclick="{!c.ResyncAccountsetup}"/>
+            <ui:outputText aura:id="nameOutput" value=""/>
+        </div>
+    </lightning:card>
+</aura:component>

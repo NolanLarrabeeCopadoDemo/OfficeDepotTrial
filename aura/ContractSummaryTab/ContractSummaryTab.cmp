@@ -1,0 +1,163 @@
+<aura:component implements="force:appHostable,lightning:availableForFlowScreens,force:hasRecordId,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="fields" type="Object" />
+    <aura:attribute name="recordTypeName" type="String"/>
+    
+    <force:recordData aura:id="forceRecordCmp"
+                      recordId="{!v.recordId}"
+                      layoutType="FULL"
+                      fields="Name,AccountId,Account_Recordtype__c"
+                      mode="VIEW"
+                      targetFields="{!v.fields}"
+                      targetError="{!v.error}"
+                      recordUpdated="{!c.doInit}"
+                      />
+    
+    
+     <div class="slds-box">
+    <h3 class="slds-section-title--divider"><b>Contract Summary</b></h3>
+    <Br></Br>
+    <lightning:recordViewForm recordId= "{!v.recordId}" objectApiName="Contract">
+        <lightning:messages />
+        
+        
+        <div class="slds-grid slds-wrap">
+            
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <Label class="slds-form-element__label">Does the contract state we can charge a small order fee?</Label> 
+                </span>
+            </div>
+            <div  class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="Contract_state_a_Small_Order_Fee_charge__c" variant="label-hidden" />
+                </span>
+            </div>
+            
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <Label class="slds-form-element__label">Does the contract state we can charge a furniture delivery fee?</Label> 
+                </span>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="Contract_state_a_furniture_delivery_fee__c" variant="label-hidden" />
+                </span>
+            </div>
+            
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <Label class="slds-form-element__label">Does the contract state a minimum order value?</Label>
+                </span>
+            </div>
+            
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="Contract_State_Minimum_Order__c" variant="label-hidden" />
+                </span>
+            </div>
+            
+            <div class="slds-col slds-size_5-of-12">
+                <span>           
+                    <Label class="slds-form-element__label">Is there a point of sale discount?</Label>
+                </span>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="Is_there_a_Point_of_Sale_Discount__c" variant="label-hidden" />
+                </span>
+            </div>
+            
+            <div class="slds-col slds-size_5-of-12">
+                <span> 
+                    <Label class="slds-form-element__label">Does written agreement have core exhibit pricing?</Label>
+                </span>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span> 
+                    <lightning:outputField fieldName="Written_Agreement_allow_GP_Custom_Cores__c" variant="label-hidden" />
+                </span>
+            </div>
+            
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <Label class="slds-form-element__label">Core exhibit agreement language</Label>
+                </span>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="GP_Custom_Core_Written_Agreement_Languag__c" variant="label-hidden" />
+                </span>
+            </div>
+            
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    
+                    <Label class="slds-form-element__label">Does written agreement allow for custom cores?</Label>
+                </span>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="Agreement_allow_for_custom_cores__c" variant="label-hidden" />
+                </span>
+            </div>
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <Label class="slds-form-element__label">Apply Parent Custom Core Written Agreement Language</Label>
+                </span>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="Apply_Parent_Cust_Core_Agreement_Lang__c" variant="label-hidden" />
+                </span>
+            </div>
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <Label class="slds-form-element__label">Forced inheritance (no custom cores)</Label>
+                </span>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="Forced_inheritance_no_custom_cores__c" variant="label-hidden" />
+                </span>
+            </div>
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <Label class="slds-form-element__label">Customization on inherited core sku</Label>
+                </span>.
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="No_customization_on_inherited_core_sku__c" variant="label-hidden" />
+                </span>
+            </div>
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <Label class="slds-form-element__label">Documentation/confirmation required to participate in program?</Label>
+                </span>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="Documentation_confirmation_required_to_p__c" variant="label-hidden" />
+                </span>
+            </div>
+            <div class="slds-col slds-size_5-of-12">
+                <span>
+                    <Label class="slds-form-element__label">Participation requirement</Label>
+                </span>
+            </div>
+            <div class="slds-col slds-size_7-of-12">
+                <span>
+                    <lightning:outputField fieldName="Participation_requirement__c" variant="label-hidden" />
+                </span>
+            </div>
+        </div>
+    </lightning:recordViewForm>
+    <aura:if isTrue="{!(v.fields.Account_Recordtype__c=='Parent')||(v.fields.Account_Recordtype__c=='Customer')}">
+        <h3 class="slds-section-title--divider"><b>Custom Link</b></h3>
+        <Br></Br>
+        <lightning:formattedUrl value="{!$Label.c.Customer360+'?recordId='+v.fields.AccountId}" tooltip="Go to Customer360 App" label="Customer 360" target="_blank" />
+    </aura:if> 
+    <!--<lightning:formattedUrl value="{!'https://officedepot-oduat.lightning.force.com/c/Customer360Application.app?recordId='+v.fields.AccountId}" tooltip="Go to https://crmprd01.officedepot.com/Customer360/" label="Customer 360" target="_blank" />-->
+     </div> 
+</aura:component>

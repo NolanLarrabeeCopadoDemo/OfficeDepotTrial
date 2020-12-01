@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission allows an Implementation manager to change (reassign) a opportunity owner on any opportunity.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Edit Canada Opportunity Owners</label>
+    <license>Salesforce</license>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Opportunity</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>Opportunity.GT_Field_Sales</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+</PermissionSet>

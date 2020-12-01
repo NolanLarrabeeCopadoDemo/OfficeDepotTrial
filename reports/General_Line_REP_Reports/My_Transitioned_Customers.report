@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Launched_OMX_ID__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Launched_Date__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Account_Owner__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.AOPS_Assigned_Date__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Customer_Transition__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>UnScheduled,Scheduled,ReScheduled,On Deck,Launched,Awaiting Disposition</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>My Team Customer Transition Pipeline</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Customer_Transition__c@Customer_Transition__c.Account__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Customer_Transition__c.Review_Start_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

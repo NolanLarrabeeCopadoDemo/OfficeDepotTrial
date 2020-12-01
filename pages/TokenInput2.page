@@ -1,0 +1,35 @@
+<apex:page Controller="TokenWebSerCallCtrl">
+  
+  <h1>WebService Call</h1>
+  <apex:form >
+  <apex:pageBlock >
+  <apex:outputlabel value="Enter Token"/>
+  <apex:inputtext value="{!Token}" />
+   <apex:commandButton action="{!decodeu}" value="Decode URL" />
+  <apex:inputtext value="{!Token1}" />
+ <apex:commandButton action="{!decryptu}" value="Decrypt token" />
+  <apex:inputtext value="{!splt}"  />
+    <apex:inputtext value="{!eid}"  />
+      <apex:inputtext value="{!cid}"  />
+  
+  <apex:commandButton action="{!CallWebSerMethod}" value="Submit" />
+  <!-- <apex:inputtext value="{!Token1}" /> -->
+  <apex:pageBlockSection rendered="{!Render}">
+  Employee Full Name<apex:outputLabel >{!Name}</apex:outputLabel>
+  Employee First Name <apex:outputLabel >{!Emp_FName}</apex:outputLabel>
+  Employee Last Name <apex:outputLabel >{!Emp_LName}</apex:outputLabel>
+  Employee Id <apex:outputLabel >{!Emp_Id}</apex:outputLabel>
+  Employee Email Id <apex:outputLabel >{!Emp_Email}</apex:outputLabel>
+  
+  Manager Full Name  <apex:outputLabel >{!Manager}</apex:outputLabel>
+  Manager First Name  <apex:outputLabel >{!mngr_FName}</apex:outputLabel>
+  Manager Last Name  <apex:outputLabel >{!mngr_LName}</apex:outputLabel>
+  Manager Emp Id  <apex:outputLabel >{!ManagerEmpid}</apex:outputLabel>
+  Manager Email Id <apex:outputLabel >{!mngr_Email}</apex:outputLabel>
+    UserRole  <apex:outputLabel >{!UserRole}</apex:outputLabel>
+  Company <apex:outputLabel >{!Company}</apex:outputLabel>
+  Status<apex:outputLabel >{!Status}</apex:outputLabel>
+  </apex:pageBlockSection>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CallCenter xmlns="http://soap.sforce.com/2006/04/metadata">
+    <adapterUrl>https://agent.ccone.net/ada-ws/salesforce/index.html</adapterUrl>
+    <customSettings>{&quot;reqSoftphoneHeight&quot;:&quot;500&quot;,&quot;reqUseApi&quot;:&quot;true&quot;,&quot;reqSoftphoneWidth&quot;:&quot;400&quot;,&quot;reqSalesforceCompatibilityMode&quot;:&quot;Lightning&quot;}</customSettings>
+    <displayName>Webex Contact Center Agent Desktop</displayName>
+    <displayNameLabel>Display Name</displayNameLabel>
+    <internalNameLabel>InternalName</internalNameLabel>
+    <sections>
+        <items>
+            <label>CTI Adapter URL</label>
+            <name>reqAdapterUrl</name>
+            <value>https://agent.ccone.net/ada-ws/salesforce/index.html</value>
+        </items>
+        <items>
+            <label>Use CTI API</label>
+            <name>reqUseApi</name>
+            <value>true</value>
+        </items>
+        <items>
+            <label>Softphone Height</label>
+            <name>reqSoftphoneHeight</name>
+            <value>500</value>
+        </items>
+        <items>
+            <label>Softphone Width</label>
+            <name>reqSoftphoneWidth</name>
+            <value>400</value>
+        </items>
+        <items>
+            <label>Salesforce Compatibility Mode</label>
+            <name>reqSalesforceCompatibilityMode</name>
+            <value>Lightning</value>
+        </items>
+        <label>Cisco Webex Contact Center Desktop Information</label>
+        <name>reqGeneralInfo</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Salesforce Package Namespace</label>
+            <name>reqSalesforceNamespace</name>
+            <value>ciscocjs</value>
+        </items>
+        <items>
+            <label>Whether custom field needs to be updated in activity record</label>
+            <name>reqIsCadVariableUpdatedToActivity</name>
+            <value>true</value>
+        </items>
+        <items>
+            <label>WebexCC Salesforce field mapping</label>
+            <name>CadSalesforceFieldMapping</name>
+            <value>[{&quot;CadFieldName&quot;:&quot;Customercall_Notes&quot;,&quot;SalesforceFieldName&quot;:&quot;Description&quot;}]</value>
+        </items>
+        <label>Call Activity Record Creation Configuration</label>
+        <name>reqActivityRecordConfig</name>
+    </sections>
+</CallCenter>

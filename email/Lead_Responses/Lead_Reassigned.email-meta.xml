@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Lead Reassigned</name>
+    <style>freeForm</style>
+    <subject>Lead(s) Reassigned Due to Inactivity</subject>
+    <textOnly>Business Solutions Division
+Dear {!Receiving_User.Name},
+
+One or more leads have been reassigned due to lack of activity within the first 3 business days of the customer&apos;s inquiry. If you contacted the customer previously, the activity was not logged in Salesforce. If you feel this is an error, please contact salesforce@officedepot.com.
+
+Thank you,
+Sales Operations Team
+
+Helpful links:
+Salesforce Home
+Leads Home</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

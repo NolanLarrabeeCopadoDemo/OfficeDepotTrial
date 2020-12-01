@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This Field gives access to BSD Pricing to edit for Local Core decision</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Transition__c.Written_Agreement_Custom_Core_Request__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Customer Migration - Written Agreement Custom Core Request</label>
+    <license>Salesforce</license>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Customer_Transition__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>Customer_Transition__c.Record_Type_CT</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+</PermissionSet>

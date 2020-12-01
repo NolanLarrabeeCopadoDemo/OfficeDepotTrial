@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Email Notification that gets sent out to approvers for review</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF - CPM Approval Request 2</name>
+    <style>freeForm</style>
+    <subject>CPM Approval  - {!Case.Account} - {!Case.CaseNumber} submitted by {!Case.WRF_Requestor__c} from {!Case.Region__c} region</subject>
+    <textOnly>{!Case.Pricing_Analyst__c} has requested your approval on the following CPM.
+
+Click here to see the CPM:  {!Case.CPM_Link__c}
+
+Please click the link below for details and instructions:
+
+{!ApprovalRequest.External_URL}
+
+_______________________________________________</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

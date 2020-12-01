@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Holds the Connection Details for the Aggro Service</description>
+    <fields>
+        <fullName>Avention_Access_Token__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>The Token to access the avention service.</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Avention Access Token</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Avention_Company_URL__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>The URL to match avention ids to companies</description>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>Avention Company URL</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Avention_Search_URL__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Holds the Connection Details for the Avention Service</description>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <label>Avention Search URL</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <label>Avention Connection Setting</label>
+    <pluralLabel>Avention Connection Settings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

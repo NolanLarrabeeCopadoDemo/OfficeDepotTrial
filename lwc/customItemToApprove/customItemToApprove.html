@@ -1,0 +1,84 @@
+<template>
+  <!--  <lightning-card title="Custom Items to Approve">
+        </br>
+        <div style="height: 300px;">
+        <lightning-datatable
+        key-field="id"
+        hidecheckboxcolumn="true"
+        data={data}
+        columns={columns}>
+        </lightning-datatable>
+        </div> 
+    </lightning-card>   -->  
+
+    <lightning-card title="Custom Items to Approve">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+          <tr class="slds-line-height_reset">
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Action">Reassign/Approve/Reject</div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Account Name">Request Type</div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Close Date">Related To</div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Stage">Account #</div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Confidence">Account Name</div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncate" title="Amount">Submitted Date</div>
+            </th>
+            
+          </tr>
+        </thead>
+        <tbody>
+            <template if:true={items_to_approve.data}>
+                <template for:each={items_to_approve.data} for:item="wrapper">
+          <tr key={wrapper.approvalid}>
+            <th>
+              <div >
+                <!-- <lightning-button-menu alternative-text="Show menu">
+                    <lightning-menu-item value="MenuItemOne" label="Reassign" onclick={redirectToReassign} ></lightning-menu-item>
+                    <lightning-menu-item value="MenuItemTwo" label="Approve"></lightning-menu-item>
+                    <lightning-menu-item value="MenuItemTwo" label="Reject"></lightning-menu-item> 
+                    
+                   
+                </lightning-button-menu>-->
+                <a target="_self" data-target-id={wrapper.approvalid}  href={hrefdata} onclick={redirectToReassign}>Click Here</a>
+              </div>
+            </th>
+            <td>
+              <div class="slds-truncate">{wrapper.objtype}</div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                <a href={wrapper.url}>
+                  {wrapper.name}
+                  </a>
+                </div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                {wrapper.AccountNumber}
+               
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate" title="20%">{wrapper.AccountName}</div>
+            </td>
+            <td>
+              <div class="slds-truncate">{wrapper.DateSubmited}</div>
+            </td>
+        </tr>
+         </template>
+         </template> 
+        </tbody>
+        
+      </table>
+</lightning-card>
+ </template>

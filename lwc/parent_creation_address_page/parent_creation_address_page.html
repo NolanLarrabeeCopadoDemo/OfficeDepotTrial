@@ -1,0 +1,12 @@
+<template>
+    <lightning-record-edit-form object-api-name="Account">
+        <lightning-input value={nameOutput} onkeyup={nameChanged} label="Parent Name" placeholder="Parent Name" required></lightning-input>
+        
+        <lightning-input value={address1Output} onkeyup={address1Changed} label="Address 1" placeholder="Address 1" required></lightning-input>
+        <lightning-input value={address2Output} onkeyup={address2Changed} label="Address 2" placeholder="Address 2"></lightning-input>
+        <lightning-input value={cityOutput} onkeyup={cityChanged} label="City" placeholder="City" required></lightning-input>
+        <lightning-input value={zipOutput} onkeyup={zipChanged} label="Zip" placeholder="Zip/Postal Code" required></lightning-input>
+        <lightning-input-field value={stateOutput} onchange={stateChanged} field-name="State__c" variant="label-stacked" required></lightning-input-field>
+        <lightning-input-field value={countryOutput} onchange={countryChanged} field-name="Country__c" variant="label-stacked" required></lightning-input-field>
+    </lightning-record-edit-form>
+</template>

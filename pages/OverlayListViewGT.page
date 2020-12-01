@@ -1,0 +1,14 @@
+<apex:page standardController="Account" extensions="OverlayListViewExtension" readOnly="true">
+<apex:pageBlock >
+  <apex:pageBlockTable value="{!lstAccountTeamMember}" var="accountTeamMember" rendered="{!IF(lstAccountTeamMember.size=0,false,true)}">
+    <apex:column value="{!accountTeamMember.User.Name}" headerValue="{!$Label.GT_Name}"></apex:column>
+    <apex:column value="{!accountTeamMember.User.Short_Title__c}" headerValue="{!$Label.GT_Title}"></apex:column>
+    <apex:column value="{!accountTeamMember.User.UserRole.Name}" headerValue="{!$Label.GT_Role}"></apex:column>
+    <apex:column value="{!accountTeamMember.User.phone}" headerValue="{!$Label.GT_Phone}"></apex:column>
+    <apex:column value="{!accountTeamMember.TeamMemberRole}"  headerValue="{!$Label.GT_SalesRep}"></apex:column>
+  </apex:pageBlockTable>
+  
+  <apex:outputPanel rendered="{!IF(lstAccountTeamMember.size=0,true,false)}">{!$Label.GT_NoRecords}</apex:outputPanel>
+  
+</apex:pageBlock>
+</apex:page>

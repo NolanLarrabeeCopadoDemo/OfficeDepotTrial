@@ -1,0 +1,64 @@
+<template>
+	<template if:false={isQuoteLocked}>
+		<template if:true={isQuoteIdAvailable}>
+			<template if:true={LDR.isVisible}>
+				<c-endless-aisle-loader></c-endless-aisle-loader>
+			</template>
+
+			<template if:true={ME.isVisible}>
+				<c-endless-aisle-manual-entry onclose={ME_onClose} onaddtoscratchpad={ME_onAddToScratchpad}>
+				</c-endless-aisle-manual-entry>
+			</template>
+
+			<template if:true={MDL.isVisible}>
+				<c-endless-aisle-modal title={MDL.title} message={MDL.message} proceed-label={MDL.proceedLabel}
+					onclose={MDL.onClose} onproceed={MDL.onProceed}>
+				</c-endless-aisle-modal>
+			</template>
+
+			<template if:true={MD.isVisible}>
+				<c-endless-aisle-more-details product={MD.product} is-replacing={MD.isReplacing}
+					onselectsupplier={MD_onSelectSupplier} onclose={MD_onClose} onaddtoscratchpad={MD_onAddToScratchpad}
+					onchangesupplier={MD_onChangeSupplier}>
+				</c-endless-aisle-more-details>
+			</template>
+
+			<template if:true={PS.isVisible}>
+				<c-endless-aisle-product-search onselectionchange={PS_onSelectionChange}
+					onopenmoredetails={PS_onOpenMoreDetails} onsearch={PS_onSearch}
+					ongotoscratchpad={PS_onGoToScratchpad} onaddtoscratchpad={PS_onAddToScratchpad}
+					onfilter={PS_onFilter} onclearfilter={PS_onClearFilter} onadditemmanually={PS_onAddItemManually}>
+				</c-endless-aisle-product-search>
+			</template>
+
+			<template if:true={SP.isVisible}>
+				<c-endless-aisle-scratchpad items={SP.items} margin={SP.margin} tax={SP.tax} record-id={SP.recordId}
+					customer-notes={SP.customerNotes} onbacktosearch={SP_onBackToSearch}
+					onmodifyglobalproperties={SP_onModifyGlobalProperties} onsavingtoquote={SP_onSavingToQuote}
+					onsavedtoquote={SP_onSavedToQuote} onfailedtosave={SP_onFailedToSave}
+					onopenmoredetails={SP_onOpenMoreDetails} onselectglobalproperties={SP_onSelectGlobalProperties}
+					onopenmanufacturerlookup={SP_onOpenManufacturerLookup} onmanufacturerclear={SP_onManufacturerClear}
+					onsave={SP_onSave}>
+				</c-endless-aisle-scratchpad>
+			</template>
+
+			<template if:true={ML.isVisible}>
+				<c-endless-aisle-manufacturer-lookup onclose={ML_onClose} onsetmanufacturer={ML_onSetManufacturer}
+					onsearch={ML_onSearch} is-loading={ML.isLoading} manufacturer-options={ML.manufacturerOptions}>
+				</c-endless-aisle-manufacturer-lookup>
+			</template>
+		</template>
+		<template if:false={isQuoteIdAvailable}>
+			<c-endless-aisle-modal title="Uh oh!"
+				message="No Quote ID was passed to me. Please relaunch the Scratchpad."
+				proceed-label="Back to Quotes List" onclose={goToQuoteHome} onproceed={goToQuoteHome}>
+			</c-endless-aisle-modal>
+		</template>
+	</template>
+	<template if:true={isQuoteLocked}>
+		<c-endless-aisle-modal title="Uh oh!"
+			message="You can no longer modify this quote: The status is Completed or an order was already placed."
+			proceed-label="Back to Quote" onclose={goToQuote} onproceed={goToQuote}>
+		</c-endless-aisle-modal>
+	</template>
+</template>

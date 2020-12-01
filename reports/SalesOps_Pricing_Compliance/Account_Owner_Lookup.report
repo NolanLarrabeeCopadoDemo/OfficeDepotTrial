@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account.AOPS_Cust_Id__c</field>
+    </columns>
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <description>Find Account Owner by AOPS ID</description>
+    <filter>
+        <criteriaItems>
+            <column>Account.AOPS_Cust_Id__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>01096635,01118140,01384256,01855602,01984766,02118973,02119043,02184493,02187418,02231975,02353844,02435621,02696606,02751289,02848431,03191496,03241216,03446714,03818541,03871232,03884980,03906760,04028763,04082543,04090261,04240391,04260942,04345075,04368003,04486107,04512624,04847842,05115894,05343924,05393285,05393537,05576694,05624158,05720473,06079658,06080407,06084687,06264315,06378259,06402889,06482928,06577923,06610444,06653874,06678963,06708621,06710104,06715887,06824832,07032768,07053512,07225530,07320463,07323134,07499291,07646356,07669217,07673425,07911267,07960180,08039872,08130872,08131223,08206804,08456204</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Account Owner Lookup</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList@Account.Sales_PersonID__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

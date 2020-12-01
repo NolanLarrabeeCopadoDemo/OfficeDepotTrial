@@ -1,0 +1,108 @@
+<apex:page title="My Reports" sidebar="false" controller="ACEReportHomeController" showheader="false">
+<!--  <apex:sectionHeader title="BSD Price Change" subtitle="Process Reporting"/> -->
+<!-- Include the Jquery Script files -->
+    <link rel="stylesheet" href="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.treeview.css')}"/>
+    <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.cookie.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.Jtreeview,'Jquerytreeview/jquery.treeview.js')}" type="text/javascript"></script>
+<!-- End of Javascript files -->
+<script type="text/javascript">
+        $(function() {
+            $("#tree").treeview({
+                collapsed: true,
+                animated: "fast",
+                control:"#sidetreecontrol"
+                
+                
+            });
+        })
+</script>
+
+<!-- Tree -->
+<apex:form >
+<apex:pageBlock title="Reports">
+<!-- <apex:outputPanel style="text-align: right;float:right;">
+                                    <apex:selectList value="{!OwnerValue}" multiselect="false" size="1" >
+                                        <apex:actionSupport event="onchange" action="{!SearchRecords}">
+                                        </apex:actionSupport>
+                                        <apex:selectOption itemValue="Q1-2014" itemLabel="Q1-2014"/>
+                                        <apex:selectOption itemValue="Q2-2014" itemLabel="Q2-2014"/>
+                                        <apex:selectOption itemValue="Q3-2014" itemLabel="Q3-2014"/>
+                                        <apex:selectOption itemValue="Q4-2014" itemLabel="Q4-2014"/>
+                                        
+                                    </apex:selectList> 
+                                </apex:outputPanel> -->
+
+
+
+<div class="treeheader" style="height:0px;">&nbsp;</div>
+<div id="sidetreecontrol"><a href="?#"><font style="color:grey;">Collapse All</font></a> | <a href="?#"><font style="color:grey;">Expand All</font></a></div>
+
+<ul id='tree'>
+    <apex:repeat value="{!mainnodes}" var="parent1">
+       
+        <li><strong>{!parent1.gparent}</strong>
+             <ul>
+                 <apex:repeat value="{!parent1.parent}" var="child1">
+                    <li>
+                        <span class="formattextcon">
+                            <!-- <apex:outputLink style="color:black;" target="_Top" value="/apex/{!child1}">{!child1}</apex:outputLink> -->
+                            <!--//sfdc 861332:changed the report name to Summary-->
+                            <apex:outputPanel rendered="{!child1 == 'Summary' && parent1.gparent=='Revenue Reporting'}">
+                                <a href="/apex/ACERevMargWaterFallOverview" target="_blank"> {!child1} </a>
+                            </apex:outputPanel>
+                            <!--//sfdc 861332:changed the report name to Summary-->
+                            <apex:outputPanel rendered="{!child1 != 'Summary' && parent1.gparent=='Revenue Reporting'}"> 
+                                <a href="/apex/ACERevenueMarginWaterfall?reportType={!child1}" target="_blank"> {!child1} </a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!child1 == 'Exception Report'}">
+                                <a href="/apex/ACERevenueMarginWaterfallException?reportType=Exception" target="_blank"> {!child1} </a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!child1 == 'Remediation Report'}">
+                                <a href="/apex/ACERemediationReport?reportType=Remediation" target="_blank"> {!child1} </a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!child1 == 'Hosted Catalog Report'}">
+                                <a href="/apex/ACEHostedCatalogReport?reportType=Hosted Catalog" target="_blank"> {!child1} </a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!child1 == 'Customer Notification Report'}"> <!--sfdc 00910704 -->
+                                <a href="/apex/ACEReportingCustomerNotifyOrResponse?reportType=Notification" target="_blank"> {!child1} </a> <!--coomented below line and added this line: sfdc 00910704 -->
+                                <!--<a href="/apex/ACEReportingCustomerNotifyOrResponse?reportType={!child1}" target="_blank"> {!child1} </a> -->
+                            </apex:outputPanel>
+                            <!--sfdc 00910706,00910713 --Start--->                             
+                            <!--<apex:outputPanel rendered="{!child1 =='Response' || child1 == 'Compliance'}"> 
+                                <a href="/apex/ACEReportingCustomerNotifyOrResponse?reportType=Response&Rptyp={!child1}" target="_blank"> {!child1} </a> -->
+                            <apex:outputPanel rendered="{!child1 == 'Customer Approval Report'}"> <!--sfdc 00910706 -->
+                                <a href="/apex/ACEReportingCustomerNotifyOrResponse?reportType=Response" target="_blank"> {!child1} </a> 
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!child1 == 'Compliance Summary Report'}"> <!--sfdc 00910713 -->
+                                 <a href="/apex/ACEReportingCustomerNotifyOrResponse?reportType=Compliance" target="_blank"> {!child1} </a>
+                            </apex:outputPanel>
+                            <!--sfdc 00910706,00910713 --End---> 
+                            <apex:outputPanel rendered="{!child1 == 'Change Type'}">
+                                <a href="/apex/ACEChangeTypeReport" target="_blank"> {!child1} </a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!child1 == 'PipeLine Report'}">
+                                <a href="/apex/ACEProcessPipelineReport?reportType=Process Progress/PipeLine" target="_blank"> {!child1} </a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!child1 == 'Customers Not Receiving Full Increase'}">
+                                <a href="/apex/ACECustNotRecFullIncrease?reportType={!child1}" target="_blank"> {!child1} </a>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!child1 == 'Vendavo Dashboard Report'}">
+                               <!-- <a href="/apex/ACEVendavoReport?reportType={!child1}" target="_blank"> {!child1} </a>   -->
+                                <a href="/apex/ACEVendavoReport_1?reportType=Vendavo" target="_blank"> {!child1} </a> 
+                            </apex:outputPanel>
+                        </span>    
+                    </li>             
+                 </apex:repeat>
+             </ul>  
+        </li>
+        
+        
+    </apex:repeat>
+</ul>
+
+
+</apex:pageBlock>
+</apex:form>
+<!-- End of Tree -->       
+</apex:page>

@@ -1,0 +1,63 @@
+<apex:page controller="MDR.SyncMdrDataController" standardStylesheets="false">
+
+<apex:stylesheet value="{!URLFOR($Resource.MDR__MDRMapping, 'mdr-mapping.css')}"/>
+
+<apex:form >
+
+    <apex:pageMessages />
+
+    <br />
+    <h1 style="font-size:large;">Synchronize Data from MDR</h1>
+    <br /><br />
+
+    <apex:outputPanel rendered="{!displayFullDate}">
+        <apex:outputLabel >The most recent synchronization of MDR data was completed on: </apex:outputLabel>
+        {!lastFullUpdateDate}
+        <br /><br />
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="{!displayCredentialsMsg}">
+        <apex:outputLabel >Before performing a synchronization of data with MDR you need to provide MDR the Salesforce User credentials that are dedicated to this process.
+                            <br /><br />Please select the "MDR Setup" tab above to enter and provide these credentials to MDR.
+        </apex:outputLabel>
+        <br /><br />
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="{!displayNoMappingMsg}">
+        <apex:outputLabel >Before performing a synchronization of data with MDR you need to complete the mapping of both Building and Personnel fields.
+                            <br /><br />Please complete the mappings by selecting the "Map MDR..." tabs above.
+        </apex:outputLabel>
+        <br />
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="false">
+        <apex:outputLabel >Before performing a synchronization of data with MDR you need to complete the mapping of both Building and Personnel fields.
+                            <br /><br />Please complete the mappings by selecting the "Map MDR..." tabs above.
+        </apex:outputLabel>
+        <br />
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="{!displayOutdatedMappingsMsg}">
+        <apex:outputLabel >Changes have been made to {!updateMappingsMessage} mapping information, but these changes have not yet been sent to MDR.
+                            <br /><br />Clicking the "Synchronize MDR Data" button below will initiate the synchronization process with the previously saved mapping information.
+        </apex:outputLabel>
+        <br />
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="false">
+        <apex:outputLabel >The most recent synchronization of changes was completed on: </apex:outputLabel>
+        {!lastDeltaUpdateDate}
+        <br /><br />
+    </apex:outputPanel>
+    <br />
+    <apex:outputPanel rendered="false">
+        <apex:outputLabel >Please select which update you would like to apply</apex:outputLabel>
+    </apex:outputPanel>
+    <br />
+    <apex:commandButton action="{!fullsync}" styleClass="mdr-button mdr-button-submit" rendered="{!displayUpdateButton}" value="Synchronize MDR Data" />
+    &nbsp;
+    <apex:commandButton action="{!deltasync}" styleClass="mdr-button mdr-button-submit" value="Synchronize changed data" rendered="false" />
+
+</apex:form>
+
+</apex:page>

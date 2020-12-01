@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <choices>
+        <name>Booth_Order_Choice</name>
+        <choiceText>Booth - Order</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Booth - Order</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Booth_Request_New_Graphics_Choice</name>
+        <choiceText>Booth - Request New Graphics</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Booth - Request New Graphics</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Create_a_Custom_Email_Choice</name>
+        <choiceText>Create a Custom Email</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Create a Custom Email</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Create_a_Custom_Mailing_Choice</name>
+        <choiceText>Create a Custom Mailing</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Create a Custom Mailing</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Create_a_Sellsheet_Choice</name>
+        <choiceText>Create a Sellsheet</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Create a Sellsheet</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Edit_Existing_Sellsheet_Choice</name>
+        <choiceText>Edit Existing Sellsheet</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Edit Existing Sellsheet</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Logo_Delete_old_customer_logos_Choice</name>
+        <choiceText>Logo Delete old customer logo(s)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Logo Delete old customer logo(s)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Logo_New_customer_logos_Choice</name>
+        <choiceText>Logo - New customer logo(s)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Logo - New customer logo(s)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Logo_Update_Change_existing_customer_logos_Choice</name>
+        <choiceText>Logo Update / Change existing customer logo(s)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Logo Update / Change existing customer logo(s)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Reporting_Coupon_Performance_Choice</name>
+        <choiceText>Reporting (Coupon Performance)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Reporting (Coupon Performance)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Request_Ad_Creation_Choice</name>
+        <choiceText>Request Ad Creation</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Request Ad Creation</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Request_Adjacency_Materials_Choice</name>
+        <choiceText>Request Adjacency Materials</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Request Adjacency Materials</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Request_Banner_Choice</name>
+        <choiceText>Request Banner</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Request Banner</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Request_Custom_Print_Materials_for_Event_Choice</name>
+        <choiceText>Request Custom Print Materials for Event</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Request Custom Print Materials for Event</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Request_Giveaways_for_an_Event_Choice</name>
+        <choiceText>Request Giveaways for an Event</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Request Giveaways for an Event</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Request_Offer_Choice</name>
+        <choiceText>Request Offer</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Request Offer</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Request_Print_Materials_in_Stock_for_Event_Choice</name>
+        <choiceText>Request Print Materials in Stock for Event</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Request Print Materials in Stock for Event</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Request_Sponsorship_Event_Fees_Choice</name>
+        <choiceText>Request Sponsorship/Event Fees</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Request Sponsorship/Event Fees</stringValue>
+        </value>
+    </choices>
+    <description>no headers</description>
+    <interviewLabel>Marketing {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Marketing</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Marketing_Record</name>
+        <label>Create Marketing Record</label>
+        <locationX>509</locationX>
+        <locationY>65</locationY>
+        <assignRecordIdToReference>Record_ID</assignRecordIdToReference>
+        <connector>
+            <targetReference>file</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>Account_ID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>Marketing_Description</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>SCOE_RecordTypeId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <elementReference>SCOE_Issue_Type</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <elementReference>Marketing_Radio_Buttons</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <elementReference>SCOE_Support_Type</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Marketing_Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>User_ID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <screens>
+        <name>file</name>
+        <label>file</label>
+        <locationX>656</locationX>
+        <locationY>58</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>note</name>
+            <fieldText>&lt;p&gt;Upload Attachment(s)&lt;/p&gt;&lt;p&gt;NOTE: Size limit is 5Mb PER ATTACHMENT. You can combine multiple attachments using WinZip as long as the zipped file is less than 5Mb.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>upload_1</name>
+            <extensionName>forceContent:fileUpload</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Upload Related File(s)</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>Record_ID</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>multiple</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Marketing_Screen</name>
+        <label>Marketing Screen</label>
+        <locationX>191</locationX>
+        <locationY>50</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Marketing_Screen_2</targetReference>
+        </connector>
+        <fields>
+            <name>Marketing_Radio_Buttons</name>
+            <choiceReferences>Create_a_Custom_Email_Choice</choiceReferences>
+            <choiceReferences>Create_a_Custom_Mailing_Choice</choiceReferences>
+            <choiceReferences>Create_a_Sellsheet_Choice</choiceReferences>
+            <choiceReferences>Edit_Existing_Sellsheet_Choice</choiceReferences>
+            <choiceReferences>Booth_Order_Choice</choiceReferences>
+            <choiceReferences>Booth_Request_New_Graphics_Choice</choiceReferences>
+            <choiceReferences>Logo_New_customer_logos_Choice</choiceReferences>
+            <choiceReferences>Logo_Update_Change_existing_customer_logos_Choice</choiceReferences>
+            <choiceReferences>Logo_Delete_old_customer_logos_Choice</choiceReferences>
+            <choiceReferences>Reporting_Coupon_Performance_Choice</choiceReferences>
+            <choiceReferences>Request_Ad_Creation_Choice</choiceReferences>
+            <choiceReferences>Request_Adjacency_Materials_Choice</choiceReferences>
+            <choiceReferences>Request_Offer_Choice</choiceReferences>
+            <choiceReferences>Request_Banner_Choice</choiceReferences>
+            <choiceReferences>Request_Custom_Print_Materials_for_Event_Choice</choiceReferences>
+            <choiceReferences>Request_Print_Materials_in_Stock_for_Event_Choice</choiceReferences>
+            <choiceReferences>Request_Giveaways_for_an_Event_Choice</choiceReferences>
+            <choiceReferences>Request_Sponsorship_Event_Fees_Choice</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Marketing Options</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Marketing_Screen_2</name>
+        <label>Marketing Screen 2</label>
+        <locationX>364</locationX>
+        <locationY>49</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Marketing_Record</targetReference>
+        </connector>
+        <fields>
+            <name>Marketing_Subject</name>
+            <dataType>String</dataType>
+            <fieldText>Subject</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Marketing_Description</name>
+            <fieldText>Description</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Marketing_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>Account_ID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>Account_Name</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>Customer_ID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>Record_ID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>SCOE_Issue_Type</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Marketing</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>SCOE_RecordTypeId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>SCOE_Support_Type</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Marketing</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>User_ID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

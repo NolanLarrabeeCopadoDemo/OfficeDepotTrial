@@ -1,0 +1,66 @@
+<apex:page standardController="account"  extensions="AccountStructure">
+
+<apex:Form >
+  <apex:pageblock >     
+    <apex:pageBlockSection >
+     <apex:pageBlockSectionItem >
+        <apex:outputLabel value="{!$Label.CC_lbl} " for="userEmailCc"/>    
+        <apex:inputText value="{!userEmailCc}" id="userEmailCc" maxlength="200"/>
+      </apex:pageBlockSectionItem> <br/> 
+      <apex:pageBlockSectionItem >
+        <apex:outputLabel value="{!$Label.Subject_lbl} " for="Subject"/>    
+        <apex:inputText value="{!subject}" id="Subject" maxlength="80"/>
+      </apex:pageBlockSectionItem> <br/>    
+      <apex:pageBlockSectionItem >
+        <apex:outputLabel value="{!$Label.Body_lbl}" for="Body"/>   
+        <apex:inputTextarea value="{!body}" id="Body" rows="10" cols="80"/>
+      </apex:pageBlockSectionItem> <br/>    
+    
+    
+        <apex:pageBlockSectionItem >
+        <apex:outputLabel value="{!$Label.Attach_a_document_lbl}" />  
+        <apex:inputFile value="{!document.body}" filename="{!document.name}" contenttype="{!document.contenttype}"></apex:inputFile>
+      </apex:pageBlockSectionItem> <br/>
+  <!--       <apex:pageBlockSectionItem >
+        <apex:outputLabel value="File 1 Name: " />    
+        <apex:inputText value="{!firstFileName}" maxlength="80"/>
+      </apex:pageBlockSectionItem> 
+      <apex:pageBlockSectionItem >
+        <apex:outputLabel value="File 1 Link: " />    
+        <apex:inputText     value="{!firstFileLink}" maxlength="80" />
+      </apex:pageBlockSectionItem>  
+      
+      <apex:pageBlockSectionItem >
+        <apex:outputLabel value="File 2 Name: " />    
+        <apex:inputText value="{!secondFileName}" maxlength="80"/>
+      </apex:pageBlockSectionItem> 
+      <apex:pageBlockSectionItem >
+        <apex:outputLabel value="File 2 Link: " />    
+        <apex:inputText value="{!secondFileLink}" maxlength="80" />
+      </apex:pageBlockSectionItem> 
+      
+      <apex:pageBlockSectionItem >
+        <apex:outputLabel value="File 3 Name: " />    
+        <apex:inputText value="{!thirdFileName}" maxlength="80"/>
+      </apex:pageBlockSectionItem> 
+      <apex:pageBlockSectionItem >
+        <apex:outputLabel value="File 3 Link: " />    
+        <apex:inputText value="{!thirdFileLink}" maxlength="80" />
+      </apex:pageBlockSectionItem> -->
+      
+      <apex:pageBlockSectionItem >
+        <apex:outputLabel > {!$Label.List_of_recipient_lbl}</apex:outputLabel>
+        <apex:selectList value="{!selectedUsers}" multiselect="false" size="1">
+          <apex:selectOptions value="{!users}"/>                     
+        </apex:selectList> 
+      </apex:pageBlockSectionItem>
+    
+    </apex:pageBlockSection>
+    
+    <apex:pageBlockButtons location="bottom">
+      <apex:commandButton value="{!$Label.Send_lbl}"  action="{!sendEmail}" />          
+    </apex:pageBlockButtons>
+  </apex:pageblock>
+  
+</apex:Form>
+</apex:page>

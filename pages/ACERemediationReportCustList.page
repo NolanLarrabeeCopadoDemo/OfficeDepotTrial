@@ -1,0 +1,154 @@
+<apex:page readOnly="true" controller="ACEReporting_RevMarg_WaterFall" action="{!RemediationReportCustList}">
+ <head>
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        
+        .expandCollapse{
+        -moz-border-radius:5px 5px 5px 5px;
+        -webkit-border-radius:5px 5px 5px 5px;
+        border-radius:5px 5px 5px 5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        align:center; 
+        text-align:center; 
+        font-weight:bold;
+        background-color:#3D8C8C;
+        background-image:none;
+        width:auto;
+        height:auto;
+        color:white;
+        }
+        .borderLeft{
+            border-left: solid 1px black;
+        }
+        .borderRight{
+            border-right: solid 1px black;
+        }
+    </Style>
+   </head>  
+    <apex:outputPanel id="bucketPanel">
+        <apex:form >    
+           <apex:sectionHeader title="Reports" id="reports1" subtitle="BSD Price Change Process - Remediation Customer List" rendered="{!SegmentType == null}"/>
+           <apex:sectionHeader title="Reports" id="reports2" subtitle="BSD Price Change Process - Remediation Customer List" rendered="{!SegmentType != null}"/>     
+            <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%">    
+                <apex:outputPanel style="text-align: right;float:right;">
+                           <!-- <a href="/servlet/servlet.FileDownload?file=015M0000000ACus" target="_blank"> <apex:image id="theImage" value="{!$Resource.TalkingPointImage}" width="40" height="18" style="text-align: right;"/></a>-->
+                           &nbsp; 
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!RemediationReportCustList}"  status="search_Status_main"/>
+                                        <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid>
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                 <!-- Added apex image tag S-346420 by  Rahul  <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/> --> 
+                 <apex:image id="ajax_loading" value="{!$Resource.Ajax_Loading}" height="100" width="100" alt="Loading graphic" />
+             </div>
+         </div>
+         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                 
+         <div style="background-color:white;">
+               <apex:pageBlock id="block">              
+                                <apex:outputPanel >
+                                    <B>Search by Customer # or Name: </B> <apex:inputText id="text1" value="{!searchWord}" tabindex="0" onkeypress="if(event.keyCode==13){Refresh_pg(this); return false;}"/>  &nbsp;&nbsp;&nbsp;
+                                    <apex:commandButton id="searchbtn" value="Search" status="search_Status_main" reRender="componentPanel" action="{!SearchRecords}" tabindex="1"/>
+                                </apex:outputPanel>    
+                                <apex:actionFunction name="Refresh_action" action="{!SearchRecords}" reRender="pagetabCust,buttons3" status="search_Status_main"/>                        
+                   <apex:outputPanel id="componentPanel" >                
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                         
+                         <div class="expandCollapse">
+                             <apex:outputText value="Customers" style="color:white;"/>
+                         </div>  
+                         <apex:pageBlockTable id="pagetabCust" value="{!lRemediationReportCustList}" var="a">
+                             <apex:column >
+                                 <apex:facet name="header">
+                                 Customer #
+                                 </apex:facet>
+                                 {!a.Owning_Customer_ID__c} 
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Customer</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Customer" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Customer'}"/> 
+                                       <apex:image id="sortInDesc" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Customer'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 <a href="/{!a.id}" target="_blank">{!a.customer__r.name} </a> 
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">
+                                   Revenue                     
+                                 </apex:facet>
+                                  
+                                 <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Total_Spend_Impact_12_Month__c}"/>
+                                     </apex:outputText>
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">
+                                  Margin                     
+                                 </apex:facet>
+                                 
+                                  <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.New_Gross_IGM__c}"/>
+                                     </apex:outputText>
+                             </apex:column>
+                             
+                             
+                         </apex:pageBlockTable>
+                         <apex:panelGrid id="buttons3" width="100%" columns="2" columnClasses="btn3,btn4">
+                             <apex:outputPanel >
+                                 <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel >
+                                 <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                             </apex:outputPanel>
+                         </apex:panelGrid>
+                    </apex:outputPanel>     
+                 </apex:pageBlock> 
+         </div>  
+      </apex:form>
+         
+          
+           
+    </apex:outputPanel>
+    
+    <script>
+        function Refresh_pg(val)
+        {
+            Refresh_action();
+            var elem = document.getElementById(val.id);
+            elem.focus();
+        }
+        
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script>
+
+</apex:page>

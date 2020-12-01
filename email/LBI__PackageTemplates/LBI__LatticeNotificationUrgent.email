@@ -1,0 +1,43 @@
+<messaging:emailTemplate subject="{!$Organization.Name + IF(ISBLANK(RelatedTo.LBI__LatticeApplicationRegion__c), ': ' , ', ' + RelatedTo.LatticeApplicationRegion__r.LBI__ApplicationOrRegionName__c + ': ') + $Label.lbi__not_urgentsubject}" recipientType="User" relatedToType="LBI__Notification__c">
+
+<messaging:htmlEmailBody >
+
+<apex:outputPanel layout="none" id="thePage">
+<apex:variable value="{!relatedTo.LBI__NotificationDate__c + 15}" var="expirationDate"/>
+<apex:variable value="{!IF(AND(NOT(ISBLANK(expirationDate)),expirationDate > TODAY()), "is scheduled to expire", "expired")}" var="textComponent"/>
+    <table style="max-width: 800px; min-width: 600px; margin: 0 auto;">
+        <tr style="border-bottom: 1px solid #DBDAD5; display: block;">
+            <td style="width:100%;display:block;">
+                <h2 style="font-size: 24px; color: #2E2E2C; font-weight: 100; margin-bottom: 0; margin-top:0;display:inline-block;padding-bottom:10px;">Notifications: <span style="color: #D32027; font-style: italic;">Urgent</span></h2>
+                <img src="http://pages.lattice-engines.com/rs/latticeengines/images/lattice-logo.png" alt="Logo" title="Logo" style="display:block; float:right; padding-left:15px;" width="100" height="26" />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p style="color: #2E2E2C; margin-top: 15px;">
+                <apex:outputText value="{!$Label.lbi__not_urgentintro}" escape="false">
+                    <apex:param value="{!$Label.lbi__lab_tokenexpirationdays}" />
+                    <apex:param value="{!textComponent}" />
+                    <apex:param value="{!expirationDate}" />
+                </apex:outputText></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td style="text-align: center;">
+                <small style="text-align: center; color: #989894; padding: 20px 0; width: 75%; margin:0 auto; display: block;"><i>This email is being sent to you because you are a recipient for notifications on Lattice Engines for Salesforce. If you would like to be taken off of this list, please contact your Salesforce Administrator.
+                <br /><br />
+                To resolve or learn more about the above notification, log in to your Salesforce Account or contact your Salesforce Administrator.</i></small>
+            </td>
+        </tr>
+    </table>
+
+</apex:outputPanel>
+
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

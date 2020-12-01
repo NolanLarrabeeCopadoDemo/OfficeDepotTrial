@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Support Ticket Closed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>PRM_Email_Letterhead</letterhead>
+    <name>PRM Support Ticket Closed</name>
+    <style>freeForm</style>
+    <subject>Support Ticket Closed #{!Case.CaseNumber}</subject>
+    <textOnly>Hi {!Contact.Name},
+
+Your support ticket has been closed.
+
+Thanks,
+Channel Support.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

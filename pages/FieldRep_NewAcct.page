@@ -1,0 +1,37 @@
+<apex:page sidebar="false" showHeader="false" Controller="FieldRep_NewAcctExtension">
+ 
+
+  <style>
+
+  .right { text-align:right; 
+ }
+ 
+  </style>
+
+  <apex:pageBlock title="">
+  <table class="list" border="0" cellspacing="0" cellpadding="0" width="490px">
+    <tbody>
+      <tr class="headerRow">
+        <th width="175px"><apex:outputText value="Acct" /></th> 
+        <th class=" dataCell  CurrencyElement" width="15px"><apex:outputText value="Orders #" /></th>
+        <th class=" dataCell  CurrencyElement" width="15px"><apex:outputText style="text-wrap:normal;" value="Wks/lastorder" /></th>
+        <th class=" dataCell  CurrencyElement" ><apex:outputText value="TY Sales" /></th>
+
+
+      </tr>
+      <apex:repeat value="{!topAccounts}" var="acct" id="topOpp">
+          <tr class="dataRow odd">
+
+
+            <td width="125px"><apex:outputlink style="font-size:90%;"  target="_blank" value="/{!acct.Id}">{!acct.Name}</apex:outputLink></td>
+            <td class=" dataCell  CurrencyElement" ><apex:outputText style="font-size:90%;" value="{0, Number, #}"><apex:param value="{!acct.Num_of_Orders_Since_Start__c}"/></apex:outputText></td>
+            <td class=" dataCell  CurrencyElement" ><apex:outputText style="font-size:90%;" value="{0, Number, #}"><apex:param value="{!acct.Weeks_Since_Last_Order__c}"/></apex:outputText></td>
+            <td class=" dataCell  CurrencyElement" ><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}"><apex:param value="{!acct.YTD_Sales_TY__c}"/></apex:outputText></td>
+
+          </tr>
+      </apex:repeat>    
+    </tbody>
+  </table> 
+  </apex:pageBlock>
+ 
+</apex:page>

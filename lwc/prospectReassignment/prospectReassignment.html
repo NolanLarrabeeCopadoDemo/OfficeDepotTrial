@@ -1,0 +1,28 @@
+<template>
+    
+    <template if:false={pageAccess}>
+        <div class="slds-m-vertical_medium">
+            Access Denied. Your Title Does Not Allow Access To This Functionality.
+        </div>
+    </template>
+
+    <template if:true={pageAccess}>
+        <lightning-tabset>
+            <lightning-tab label="Assignments" title="Assignments">
+                <c-assignment-prospect></c-assignment-prospect>
+            </lightning-tab>
+            <lightning-tab label="Approval Requests" title="Approval Requests">
+                <!-- Approval Requests Content !   -->
+                    <c-approval-requests></c-approval-requests>                  
+                <!-- Approval Requests Content !   -->
+            </lightning-tab>
+            <template if:true={adminAccess}>
+                <lightning-tab label="Admin Access" title="Admin Access">
+                    <div class="slds-m-around_medium">                         
+                        <lightning-formatted-url value={label.reportlink} label="Click here "></lightning-formatted-url>to Access the Pending Approval Records.            
+                    </div>
+                </lightning-tab>
+            </template>         
+        </lightning-tabset>
+    </template>
+</template>

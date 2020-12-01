@@ -1,0 +1,44 @@
+<aura:component controller="AccountSetUpController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >   
+    <aura:attribute name="subrecordId" type="Id" access="global"/>
+    <aura:attribute name="showChecklist" type="Boolean" access="global" default="true"/>
+    <!--Sandesh Ganjare NAIT-148117 - Start-->
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}" />
+    <aura:handler event="aura:waiting" action="{!c.waiting}"></aura:handler>
+    <aura:handler event="aura:doneWaiting" action="{!c.doneWaiting}"></aura:handler>
+    <aura:attribute name="HideSpinner" type="Boolean" default="true"></aura:attribute> 
+
+    <aura:if isTrue="{!v.HideSpinner}">
+        <lightning:spinner variant="brand" size="large"/>
+    </aura:if>
+    <!--Sandesh Ganjare NAIT-148117 - End-->
+    <lightning:layout class="slds-page-header slds-page-header--object-home">
+        <lightning:layoutItem >
+            <lightning:icon iconName="standard:scan_card" alternativeText="Customer Account Setup" />
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <div class="page-section page-header">
+                <h1 class="slds-text-heading--label">Customer Account Setup</h1>
+                <h2 class="slds-text-heading--medium">Account</h2>
+            </div>
+        </lightning:layoutItem>
+    
+        <lightning:layoutItem padding="horizontal-small" size="10" class="right-align">
+                         
+     			<lightning:button label="Cancel"  onclick="{! c.navigatetohomepage }" /> 
+          </lightning:layoutItem>      
+    </lightning:layout>
+    
+          
+    <div style="margin: auto;width: 75%;">
+        <!--Progress Bar -->       
+        <aura:if isTrue="{!v.showChecklist}">        
+            <c:accountSetupRequestChecklist opportunityid="{!v.subrecordId}" onfireevent="{!c.handleEvent}"></c:accountSetupRequestChecklist>
+            <aura:set attribute="else">
+                <c:AccountSetUpIndicatorComponent />
+                <c:CustomerDetails subrecordIdLocator="{!v.subrecordId}" />
+            </aura:set>
+        </aura:if> 
+    </div>
+  
+    
+</aura:component>

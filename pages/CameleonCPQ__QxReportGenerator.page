@@ -1,0 +1,166 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="CameleonCPQ.QxVFGenerateReportController" showHeader="false" sidebar="false" applyHtmlTag="false" docType="html-5.0">
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins, 'jquery/jquery.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins,'jquery/jquery-ui.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__GUIResources,'css/CPQQuotePanel.css')}"/>
+
+    <apex:outputPanel rendered="{!AND(NOT($User.UIThemeDisplayed == 'Theme4d'),NOT($User.UIThemeDisplayed == 'Theme4t'))}">
+        <apex:form >
+           <apex:outputPanel layout="block">
+               <apex:outputText value="{!$Label.cameleoncpq__qx_docgen_helpmsg}"/>
+           </apex:outputPanel>
+           <apex:outputPanel layout="block" style="padding-top:5px">
+               <apex:selectList size="1" style="width:250px" value="{!actionType}" onchange="selectedAction=this.value; selectedActionLabel=this.options[this.selectedIndex].text;">
+                   <apex:selectOptions value="{!actionlist}"></apex:selectOptions>
+               </apex:selectList>
+           </apex:outputPanel>
+           <apex:outputPanel styleClass="buttons" layout="block" style="padding-top:20px;margin:auto;width:100%;text-align:center;">
+                 <apex:commandButton value="{!$Label.cameleoncpq__qx_docgen_title}" onclick="generateReport()" oncomplete="" />
+                 <apex:commandButton value="{!$Label.cameleoncpq__btn_cancel}" onclick="goBackToQuote();"/>
+           </apex:outputPanel>
+        </apex:form>
+        <div id="waitingScreen" class="hidden forceGlobalModalIndicator oneStyle oneOne">
+          <div class="modal-glass">&nbsp;</div>
+          <div class="indicatorContainer" role="alert">
+            <img class="spinnerIcon icon uiImage" alt="" src="{!URLFOR($Resource.CPQCMResources,'default/img/s.gif')}"/>
+            <div class="message" id="_gModal_Message"/>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+           var selectedAction = '{!IF(actionlist.size > 0,actionlist[0].value,'')}';
+           var selectedActionLabel = '{!IF(actionlist.size > 0,actionlist[0].label,'')}';
+           $jq = jQuery.noConflict();
+           function goBackToQuote() {
+               top.location.href = '{!URLFOR($Action.CameleonCPQ__QxQuote__c.View, QxQuote__c.Id)}';
+           }
+           function generateReport() {
+             toggleWaitingScreen();
+             Visualforce.remoting.Manager.invokeAction(
+                 '{!$RemoteAction.QxVFGenerateReportController.generateQuoteReport}',
+                 '{!qxSharedCtxStr}',
+                 selectedAction,
+                 function(reportInfo, event) {
+                   if(event.status) {
+                      //console.log('generateReport - Report identifier ='+reportInfo.reportId);
+                      setTimeout(function(){getReportStatus(reportInfo.reportId,1);}, 5000);
+                   }
+                   if(event.type=='exception') {
+                      alert(event.message);
+                      top.location.href = '{!URLFOR($Action.CameleonCPQ__QxQuote__c.View, QxQuote__c.Id)}';
+                      return false;
+                   }
+                 });
+           }
+           function getReportStatus(reportId,iteration) {
+             //console.log('getReportStatus('+iteration+')');
+             Visualforce.remoting.Manager.invokeAction(
+                 '{!$RemoteAction.QxVFGenerateReportController.getReportStatus}',
+                 '{!qxSharedCtxStr}',
+                 reportId,
+                 function(statusInfo, event) {
+                   if(event.status) {
+                      // Statuses :InProgress,Ready,Failed
+                      //console.log('getReportStatus - status ='+statusInfo.status);
+                      if('InProgress' === statusInfo.status) {
+                         if(iteration < 20) {
+                            console.log('Report not ready. Retrying('+iteration+')');
+                            setTimeout(function(){getReportStatus(reportId,iteration+1);}, 5000);
+                         }
+                         else {
+                            alert('{!$Label.cameleoncpq__qx_notification_error} :{!$Label.cameleoncpq__qx_report_generation_timeout}');
+                            top.location.href = '{!URLFOR($Action.CameleonCPQ__QxQuote__c.View, QxQuote__c.Id)}';
+                         }
+                      }
+                      else {
+                         if('Failed' === statusInfo.status) {
+                            alert('{!$Label.cameleoncpq__qx_notification_error} :{!$Label.cameleoncpq__qx_report_generation_error}');
+                            top.location.href = '{!URLFOR($Action.CameleonCPQ__QxQuote__c.View, QxQuote__c.Id)}';
+                         }
+                         else if('Ready' === statusInfo.status) {
+                            this.getReport(reportId);
+                         }
+                      }
+                   }
+                   if(event.type=='exception') {
+                      alert(event.message);
+                      top.location.href = '{!URLFOR($Action.CameleonCPQ__QxQuote__c.View, QxQuote__c.Id)}';
+                      return false;
+                   }
+                 });
+           }
+           function getReport(reportId) {
+             Visualforce.remoting.Manager.invokeAction(
+                 '{!$RemoteAction.QxVFGenerateReportController.getQuoteReport}',
+                 '{!qxSharedCtxStr}',
+                 reportId,
+                 selectedActionLabel,
+                 function(reportInfo, event) {
+                   if(event.status) {
+                      top.location.href = '{!URLFOR($Action.CameleonCPQ__QxQuote__c.View, QxQuote__c.Id)}';
+                   }
+                   if(event.type=='exception') {
+                      alert(event.message);
+                      top.location.href = '{!URLFOR($Action.CameleonCPQ__QxQuote__c.View, QxQuote__c.Id)}';
+                      return false;
+                   }
+                 });
+           }
+           function toggleWaitingScreen(){
+               $jq("#waitingScreen").toggleClass("hidden");
+               $jq("#_gModal_Message").html("In progress..");
+           }
+        </script>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!OR($User.UIThemeDisplayed == 'Theme4d',$User.UIThemeDisplayed == 'Theme4t')}">
+        <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/css/lightning/app.css')}"/>
+        <apex:includeLightning />
+        <div id="QxReportGenerator_LEX_Component">
+          <div id="toastContainer" class="forceToastManager--default forceToastManager lafStandardLayoutContainer lafAppLayoutHost forceAccess forceStyle oneOne hidden">
+            <div class="forceVisualMessageQueue">
+              <div class="toastContainer slds-notify_container slds-is-relative" style="top: 0">
+                <div id="toastBox" class="slds-notify--toast slds-notify slds-notify--toast forceToastMessage">
+                  <div class="toastContent slds-notify__content">
+                    <div class="slds-align-middle slds-hyphenate">
+                      <span id="toastMessage" class="toastMessage slds-text-heading--small forceActionsText"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+            $jq = jQuery.noConflict();
+            $Lightning.use("CameleonCPQ:SmartCPQ", function() {
+              $Lightning.createComponent("CameleonCPQ:QxReportGenerator",
+              {
+                  "recordId" : "{!JSENCODE(QxQuote__c.Id)}"
+              },
+              "QxReportGenerator_LEX_Component",
+              function(cmp) {
+                  $A.eventService.addHandler({
+                      event: 'force:showToast',
+                      handler: function(event) {
+                          showToast(event.getParams());
+                      }
+                  });
+              }
+            )});
+
+            function showToast(toastMsg) {
+              if((typeof toastMsg.type!='undefined') && (toastMsg.type!=null)) {
+                 $jq("#toastBox").toggleClass("slds-theme--"+toastMsg.type.toLowerCase());
+              }
+              $jq("#toastMessage").html(toastMsg.message);
+              $jq("#toastContainer").toggleClass("hidden");
+              setTimeout(function(){
+                    if((typeof toastMsg.type!='undefined') && (toastMsg.type!=null)) {
+                       $jq("#toastBox").removeClass("slds-theme--"+toastMsg.type.toLowerCase());
+                    }
+                    $jq("[id$='toastContainer']").toggleClass("hidden");
+              }, 5000);
+            }
+
+        </script>
+    </apex:outputPanel>
+</apex:page>

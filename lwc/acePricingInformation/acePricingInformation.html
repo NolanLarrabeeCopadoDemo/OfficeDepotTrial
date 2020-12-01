@@ -1,0 +1,20 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="slds-is-relative component-min-height">
+            <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+        </div>
+    </template>
+    <template if:false={isLoading}>
+        <template if:true={hasData}>
+            <lightning-datatable data={data} columns={columns} key-field="batch" hide-checkbox-column>
+            </lightning-datatable>
+        </template>
+        <template if:false={hasData}>
+            <div class="slds-grid">
+                <div class="m-auto">
+                    No data available.
+                </div>
+            </div>
+        </template>
+    </template>
+</template>

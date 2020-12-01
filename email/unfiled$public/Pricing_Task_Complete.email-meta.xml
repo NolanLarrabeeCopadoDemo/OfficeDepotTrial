@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Pricing Task Complete</name>
+    <style>freeForm</style>
+    <subject>WRF Task {!WRF_Task__c.Name} Pricing Completion – DOA Reminder</subject>
+    <textOnly>Hello,
+
+
+
+The {!WRF_Task__c.Name} has been marked completed. This sub task type indicates that pricing has been created and/or changed. Per our companies Delegation of Authority guidelines a CPM may need to be launched. CPMs are to be launched prior to customer submittal on all customers who:
+
+
+
+- Are under (or will result in) a written agreement
+- Contain rebates (outside of existing GPO approved structures)
+- Are priced under an existing GPO but pricing/incentives created deviate from the GPO’s approved structure.
+
+
+
+If your pricing meets any of this criteria, please be sure to launch a CPM through SalesForce to the necessary DOA approvers. If there is no need to obtain DOA approval, please confirm that the Main Task, {!WRF_Task__c.Parent_WRF_Task__c}&apos;s stage reflects “Pending Award.”
+
+
+
+Click here to view the WRF Task: {!WRF_Task__c.Link}
+
+
+
+Thank You!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

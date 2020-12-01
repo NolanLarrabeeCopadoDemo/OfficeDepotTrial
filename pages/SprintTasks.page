@@ -1,0 +1,92 @@
+<!-- ***********************************************************************************************
+Name       : SprintTasks
+Controller : SprintTasksController
+Created    : 8/24/2016 [Hemant]
+Story      : S-434793 [OD 00786800] 
+Desc       : To create the sprint tasks for cases
+*********************************************************************************************** -->
+<apex:page standardController="Case" recordSetVar="Cases" extensions="SprintTasksController" sidebar="false" showHeader="true" action="{!init}">
+
+  <apex:sectionHeader title="Task" subtitle="Tasks Creation"/>
+  <apex:pageMessages />
+  
+  <apex:form id="frm">
+  
+    <apex:pageBlock title="Create Sprint Tasks" mode="edit" id="itemsBlock">
+      
+      
+      <apex:pageBlockButtons > 
+        <apex:commandButton value="Save" action="{!saveTasks}" status="status_wait" rerender="frm"/>
+        <apex:commandButton value="Cancel" action="{!cancel}"/>
+      </apex:pageBlockButtons> 
+      
+      <apex:actionstatus id="status_wait">
+         <apex:facet name="start">
+             <div class="waitingSearchDiv" id="el_loading"
+                 style="background-color: #fbfbfb; height: 100%; opacity: 0.65; width: 100%;">
+                 <div class="waitingHolder" style="top: 54.2px; width: 91px;">
+                     <img class="waitingImage" src="/img/loading.gif"
+                         title="Please Wait..." /> <span class="waitingDescription">Please
+                         Wait...</span>
+                 </div>
+             </div>
+         </apex:facet>
+     </apex:actionstatus>
+      
+      <apex:pageBlockTable value="{!taskWrapperList}" var="taskWrapper">
+        <apex:column >
+          <apex:outputText escape="false" value="<b>Support Number:</b><br/>"></apex:outputText>
+          <apex:outputField value="{!taskWrapper.twCase.CaseNumber}"/>
+        </apex:column>
+        
+        <apex:column >
+          <apex:outputText escape="false" value="<b>Subject:</b><br/>"></apex:outputText>
+          <apex:outputField value="{!taskWrapper.twCase.Subject}"/>
+        </apex:column>
+        
+        <apex:column >
+          <apex:outputText escape="false" value="<b>BU Reviewer:</b><br/>"></apex:outputText>
+          <apex:outputField value="{!taskWrapper.twCase.IT_BU_Reviewer__c}"/>
+        </apex:column>
+        
+        <apex:column >
+          <apex:outputText escape="false" value="<b>IT Assignment*:</b><br/>"></apex:outputText>
+          <apex:outputField value="{!taskWrapper.twCase.IT_Assignment__c}"/>
+        </apex:column>
+        
+        <apex:column >
+          <apex:outputText escape="false" value="<b>QA Assignment:</b><br/>"></apex:outputText>
+          <apex:outputField value="{!taskWrapper.twCase.IT_QA_External_Assignment__c}"/>
+        </apex:column>  
+
+        <apex:column breakBefore="true" colspan="5">
+          <!-- Inner PBT for tasks for each case -->
+          <hr/>
+          <apex:pageblockTable value="{!taskWrapper.taskTLst}" var="t2"  id="table" >
+					  <apex:column headerValue="Select" width="20">
+						  <apex:inputCheckbox value="{!t2.isSelected}" />
+						</apex:column>   
+						
+						<apex:column headerValue="TASK Type" value="{!t2.Label1}" / >        
+						
+						<apex:column headerValue="Assigned To">
+						  <apex:inputField value="{!t2.T1.OwnerID}" required="false"/>
+						</apex:column>
+						
+						<apex:column headerValue="Estimated LOE">
+						  <apex:inputField value="{!t2.T1.Estimated_LOE__c}" required="false"/>  
+						</apex:column>
+						
+						<apex:column headerValue="Due Date" > 
+						  <apex:inputField value="{!t2.T1.ActivityDate}" required="false"/>    
+						</apex:column> 
+						       
+				  </apex:pageblockTable>
+				  <!-- Inner PBT for tasks for each case -->
+					<br/><hr/><hr/>
+        </apex:column>
+        
+      </apex:pageBlockTable>
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

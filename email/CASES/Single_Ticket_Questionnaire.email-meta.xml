@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Sales Enablement Single Ticket Questionnaire</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Single Ticket Questionnaire</name>
+    <style>freeForm</style>
+    <subject>Sales Enablement Questionnaire {!Project__c.Link}</subject>
+    <textOnly>Hello,
+
+You have been selected to complete a questionnaire. To help us serve you better, please take a moment to answer the questions below to assist us in scoping a process for Single Ticket.
+
+1.  What are your top common issues when trying to service the Customer?
+
+
+
+2. How is your team notified of a request/issue? (email, case, outside source) ?
+
+
+
+3. What systems are used to help assist the Customer outside of Saleforce (if applicable)?
+
+
+
+4. Does everyone on your team have access to Salesforce?
+
+
+
+Single Ticket it the expansion of SCOE button to provide reps with a single place to submit requests and issues surrounding customers.  This will remove the manual routing of tickets and automate the process of ticket assignment and resolution.  This will also bridge the gap of non-Salesforce support groups to Salesforce via integrations.
+
+
+
+
+Thank you,
+Sales Enablement Team
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

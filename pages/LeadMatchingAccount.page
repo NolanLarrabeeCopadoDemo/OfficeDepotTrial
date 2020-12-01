@@ -1,0 +1,100 @@
+<apex:page standardController="Lead" sidebar="false" extensions="LeadMatchingAccountExtension" action="{!validateLead}">
+  <apex:sectionHeader title="Matched Records found for:" subTitle="{!Lead.Name}"/>
+  <apex:pageMessages />
+  
+  <apex:form rendered="{!isLeadValidationSuccessful}">
+    <apex:pageBlock >
+      <apex:pageBlockButtons > 
+        <apex:commandButton value="Return to Lead"  action="{!BackToLead}" />
+      </apex:pageBlockButtons> 
+                
+      <!-- Matching Account -->
+      <apex:pageBlockSection columns="1" title="Matching Accounts (Matches on Name/Zip)" collapsible="false" rendered="{!isLeadValidationSuccessful}">
+        <apex:outputPanel rendered="{!lstMatchingAccount.size == 0}">
+            No matching Accounts found
+        </apex:outputPanel> 
+    
+        <apex:pageBlockTable value="{!lstMatchingAccount}" var="account" rendered="{!lstMatchingAccount.size > 0}">      
+          <apex:column headerValue="Account Name">             
+            <apex:outputLink value="/{!account.Id}">{!account.Name}</apex:outputLink> 
+          </apex:column> 
+          <apex:column value="{!account.RecordTypeId}" /> 
+          <apex:column value="{!account.Cust_ID__c}" /> 
+          <apex:column headerValue="Owner">             
+            <apex:outputLink value="/{!account.OwnerId}">{!account.Owner.Name}</apex:outputLink> 
+          </apex:column>    
+          <apex:column value="{!account.phone}"/>  
+          <apex:column headerValue="Street" value="{!account.Address1__c}"/>  
+          <apex:column value="{!account.City__c}"/>  
+          <apex:column value="{!account.State__c}"/>
+          <apex:column headerValue="Industry" value="{!account.Industry_OD_SIC_Rep__c}"/>  
+          <apex:column value="{!account.Stage__c}" /> 
+          <apex:column value="{!account.YTD_Sales_TY__c}" />
+          <apex:column value="{!account.Last_Order_Date__c}" />             
+        
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+       <!-- Matching Lead -->
+      <apex:pageBlockSection columns="1" title="Matching Leads (Matches on Name/Zip or Phone)" collapsible="false" rendered="{!isLeadValidationSuccessful}">
+        <apex:outputPanel rendered="{!lstMatchingLead.size == 0}">
+            No matching Leads found
+        </apex:outputPanel> 
+          <apex:pageBlockTable value="{!lstMatchingLead}" var="lead" rendered="{!lstMatchingLead.size > 0}">      
+          <apex:column headerValue="Company">             
+            <apex:outputLink value="/{!lead.Id}">{!lead.company}</apex:outputLink> 
+          </apex:column> 
+          <apex:column value="{!lead.name}"/>  
+          <apex:column headerValue="Owner">             
+            <apex:outputLink value="/{!lead.OwnerId}">{!lead.Owner.Name}</apex:outputLink> 
+          </apex:column>    
+          <apex:column value="{!lead.Phone}"/>  
+          <apex:column headerValue="Street" value="{!lead.Address1__c}"/>  
+          <apex:column value="{!lead.City__c}"/>  
+          <apex:column value="{!lead.State__c}"/>
+          <apex:column value="{!lead.Zip__c}"/>  
+          <apex:column value="{!lead.industry}" /> 
+          <apex:column headerValue="Created" value="{!lead.createddate}" />
+        
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+       <!-- Matching contact -->
+      <apex:pageBlockSection columns="1" title="Matching Contacts (Matches on Phone)" collapsible="false" rendered="{!isLeadValidationSuccessful}">
+        <apex:outputPanel rendered="{!lstMatchingcontact.size == 0}">
+            No matching Contacts found
+        </apex:outputPanel> 
+          <apex:pageBlockTable value="{!lstMatchingcontact}" var="contact" rendered="{!lstMatchingcontact.size > 0}">      
+          <apex:column headerValue="Contact Full Name">             
+            <apex:outputLink value="/{!contact.Id}">{!contact.name}</apex:outputLink> 
+          </apex:column> 
+          <apex:column headerValue="Account">             
+            <apex:outputLink value="/{!contact.AccountId}">{!contact.Account.Name}</apex:outputLink> 
+          </apex:column>              
+          <apex:column headerValue="Owner">             
+            <apex:outputLink value="/{!contact.OwnerId}">{!contact.Owner.Name}</apex:outputLink> 
+          </apex:column>    
+          <apex:column value="{!contact.Phone}"/>  
+          <apex:column value="{!contact.email}"/>  
+          <apex:column headerValue="Street" value="{!contact.mailingstreet}"/>  
+          <apex:column headerValue="City" value="{!contact.mailingcity}"/>  
+          <apex:column headerValue="State" value="{!contact.mailingstate}"/>
+          <apex:column headerValue="Zip" value="{!contact.mailingpostalcode}"/>  
+          <apex:column headerValue="Created" value="{!contact.createddate}" />
+
+        
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+  </apex:form>
+  
+  <apex:form rendered="{!!isLeadValidationSuccessful}">
+    <div style="padding-left:420px">
+        <apex:commandButton value="Return to Lead"  action="{!BackToLead}" />
+    </div>
+  </apex:form>
+  
+<!-- List of Lead fields used -->
+<apex:outputText rendered="false">
+   {!Lead.Company},{!Lead.Zip_5digit__c}, {!Lead.phone}, {!Lead.Zip__c}
+</apex:outputText>
+</apex:page>

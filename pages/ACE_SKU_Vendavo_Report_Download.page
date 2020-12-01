@@ -1,0 +1,5 @@
+<apex:page controller="ACEReporting_RevMarg_WaterFall" action="{!VendSKUListReportData_1}" readOnly="true"  contentType="text/csv#VendavoReportSKUExport.csv" cache="true">Transmission Date,Status,Status Details,Customer #,Customer Name,Core #,SKU,SKU Action,SKU Price,SKU Alt#,SKU Alt Price,Vendavo Current Price
+       <apex:repeat value="{!lVendSKUListReportData_1}" var="a">
+          {!a.TransmissionDate_str},{!a.Status},{!a.StatusDetails},{!a.CustomerNum},{!a.CustomerName},{!a.CoreId},{!a.SKUNum},{!a.SKUAction},{!a.SKUPrice},{!a.SKUAlt},{!a.SKUAltPrice},{!a.VendavoCurrentPrice}           
+       </apex:repeat>
+</apex:page>

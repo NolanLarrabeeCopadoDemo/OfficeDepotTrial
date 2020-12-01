@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>As a Sales Admin, I need a Implementation Assignment email template. Use the Sales Admin Generic template as a guide. Keep the logo and pre-populated header info: Customer Name, Account Number, Requester Name, Account Owner, and link to  Click here to go to the support case.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax_Letterhead_V1</letterhead>
+    <name>Implementation Assignment Generic</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} {!Case.Thread_Id}</subject>
+    <textOnly>Customer Name: {!Account.Name}
+
+
+
+Account Number: {!Case.ACCT_Account_Number__c}
+
+
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+
+
+Account Owner: {!Account.OwnerFullName}
+
+
+
+Click here to go to the support case
+
+
+
+Hi {!Account.Implementation_Manager__c},
+
+
+
+You have been assigned to lead the account migration for {!Account.Name}. Please schedule a pre-call asap with {!Account.OwnerFullName} to introduce yourself, describe your lead role and excellent support, and begin to gather a bit of account detail that will help you build the implementation team.
+
+
+
+Please see your manager with any questions.
+
+
+
+Thanks!
+
+
+
+Implementation Assignment Team
+
+
+
+**This mailbox is not monitored.  Please direct inquires to your manager.**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

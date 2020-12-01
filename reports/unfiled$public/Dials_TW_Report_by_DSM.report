@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>CALLDURATION:SUM/(3600*1.5)</calculatedFormula>
+        <datatype>percent</datatype>
+        <description>By Sec of call (1.5 Hrs Goal)</description>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Daily%Talktime</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>(CALLDURATION:SUM)/((3600*(7.5*ASSIGNED:UNIQUE)))</calculatedFormula>
+        <datatype>percent</datatype>
+        <description>Weekly</description>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Weekly%Talktime</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_22800038</developerName>
+        <masterLabel>CJP Marked</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>CALLDISPOSITION</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>2972:A-Left VMail</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Left a Voicemail</sourceValue>
+            </sourceValues>
+            <value>Voice Mail</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>1554:z.DO NOT USE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1628:Internal Call</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2733:A-Not Mine</sourceValue>
+            </sourceValues>
+            <value>Other Call</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2973:A-No Answer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6112:Audio - Static or Noise</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2740:A-Wrong Number</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>5531:R-Refusal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007806:Bad or No Connection</sourceValue>
+            </sourceValues>
+            <value>No Connection</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2734:P-Plan and Engage</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2759:A-Follow-Up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>3287:S- Appt Secured</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Follow up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007690:S-Advising</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007691:S-Propose</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007692:S-Executing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007689:S-Discovery</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1006488:A-Follow-Up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007688:S-Qualifying</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2741:S-Introduction</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2743:S-Conversion</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2745:R-Retention</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>3289:S-Presentation</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>3308:S-Technology Quote</sourceValue>
+            </sourceValues>
+            <value>A Sales Call</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2755:A-Acct Maint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1006487:A-Acct Maint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2760:A-Dlvry issues</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>4805:Placed Order</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>4784:Account Manager</sourceValue>
+            </sourceValues>
+            <value>CS - Acct Maintenance</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_65210984</developerName>
+        <masterLabel>DialRegion</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>OWNER_ROLE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 3 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 4 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 5 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - GPO 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Med 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT- Med 2 Rep</sourceValue>
+            </sourceValues>
+            <value>Henson</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Tech 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Tech 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Tech 3 Rep</sourceValue>
+            </sourceValues>
+            <value>Evans</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Public 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 3 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 4 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 5 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 6 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Adjacency 1 Rep</sourceValue>
+            </sourceValues>
+            <value>Reuter</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 2 - SthE Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 3 - Cntl Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 5 - CA Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 6 - Chmb Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 2 Rep</sourceValue>
+            </sourceValues>
+            <value>Graham</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_1178767</developerName>
+        <masterLabel>DialTeam</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>OWNER_ROLE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Adjacency 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 2 Rep</sourceValue>
+            </sourceValues>
+            <value>ACQ</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Tech 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Tech 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Tech 3 Rep</sourceValue>
+            </sourceValues>
+            <value>Tech</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 1 Rep</sourceValue>
+            </sourceValues>
+            <value>Greenlee</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - GPO 1 Rep</sourceValue>
+            </sourceValues>
+            <value>Fallis</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Med 1 Rep</sourceValue>
+            </sourceValues>
+            <value>Mooney</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT- Med 2 Rep</sourceValue>
+            </sourceValues>
+            <value>Eureste</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 3 Rep</sourceValue>
+            </sourceValues>
+            <value>Dhaliwal</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 5 Rep</sourceValue>
+            </sourceValues>
+            <value>Nsekpong</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 4 Rep</sourceValue>
+            </sourceValues>
+            <value>Perlet</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 2 Rep</sourceValue>
+            </sourceValues>
+            <value>Martin</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 2 - SthE Rep</sourceValue>
+            </sourceValues>
+            <value>Lankford</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 3 - Cntl Rep</sourceValue>
+            </sourceValues>
+            <value>Pittman</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 6 - Chmb Rep</sourceValue>
+            </sourceValues>
+            <value>Kendall</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 5 - CA Rep</sourceValue>
+            </sourceValues>
+            <value>Hamilton</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Public 1 Rep</sourceValue>
+            </sourceValues>
+            <value>Kingsbery</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Public 2 Rep</sourceValue>
+            </sourceValues>
+            <value>Kaminsky</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Public 3 Rep</sourceValue>
+            </sourceValues>
+            <value>Morales</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Public 4 Rep</sourceValue>
+            </sourceValues>
+            <value>Conway</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Public 5 Rep</sourceValue>
+            </sourceValues>
+            <value>McQuade</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Public 6 Rep</sourceValue>
+            </sourceValues>
+            <value>Kolodzey</value>
+        </values>
+    </buckets>
+    <columns>
+        <aggregateTypes>Unique</aggregateTypes>
+        <field>ASSIGNED</field>
+    </columns>
+    <columns>
+        <field>OWNER_ROLE</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>CALLDISPOSITION</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Unique</aggregateTypes>
+        <field>CALLOBJECT</field>
+    </columns>
+    <columns>
+        <field>CALLDURATIONFORMATTED</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CALLDURATION</field>
+    </columns>
+    <columns>
+        <field>Activity.Task_Type__c</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <columns>
+        <field>WHAT_NAME</field>
+    </columns>
+    <columns>
+        <field>CONTACT</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <customDetailFormulas>
+        <calculatedFormula>CALLDURATION/60</calculatedFormula>
+        <dataType>Double</dataType>
+        <description>sec to min</description>
+        <developerName>CDF1</developerName>
+        <label>Callmin</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>CALLOBJECT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>BucketField_22800038</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Voice Mail,A Sales Call,CS - Acct Maintenance</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>BucketField_65210984</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Evans</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_65210984</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_1178767</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_22800038</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Dials TW Report by DSM</name>
+    <params>
+        <name>closed</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activity</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CONTACT</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_THISWEEK</interval>
+    </timeFrameFilter>
+</Report>

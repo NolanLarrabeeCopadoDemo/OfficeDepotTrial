@@ -1,0 +1,98 @@
+<apex:page controller="CT_Curr_Controller_Report" readOnly="true">
+        <style>
+            .ct{text-align:center;}
+        </style>
+    <apex:form >
+        
+        <apex:variable value="{!0}" var="tot"/>
+        <apex:variable value="{!0}" var="totNWA"/>
+        <apex:variable value="{!0}" var="totWA"/>
+        <apex:variable value="{!0}" var="totpNWA"/>
+        <apex:variable value="{!0}" var="totpWA"/>
+        <apex:variable value="{!0}" var="totpA"/>
+        
+        
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!Summaries}" var="summary" >
+                <apex:column headerClass="ct">
+                    <apex:facet name="header">
+                        Date:
+                    </apex:facet>
+                    <apex:outputtext style="Float:right;" value="{!IF(summary.Mnth = '','', right('00' + summary.Mnth,2) + '/' + summary.sYr)}"  />
+                    <apex:facet name="footer">
+                        Total:  
+                    </apex:facet>
+                </apex:column>
+                <apex:column styleClass="ct" headerClass="ct">
+                    <apex:facet name="header">
+                        <apex:outputLink style="float:mid;" value="/00OE0000002TxTx" target="blank" >Top<br/>WA:</apex:outputLink>
+                    </apex:facet>
+                    <apex:variable var="totpWA" value="{!totpWA + summary.pWA}" />
+                    <apex:outputtext value="{!summary.pWA}"  />
+                    <apex:facet name="footer">
+                        <span class="tp2"></span>
+                    </apex:facet>
+                </apex:column>
+                <apex:column styleClass="ct" headerClass="ct">
+                    <apex:facet name="header">
+                        <apex:outputLink value="/00OE0000002TxTi" target="blank" ><br/>WA:</apex:outputLink>
+                    </apex:facet>
+                    <apex:variable var="totWA" value="{!totWA + summary.WA}" />
+                    <apex:outputtext value="{!summary.WA}"  />
+                    <apex:facet name="footer">
+                        <span class="t2"></span>
+                    </apex:facet>
+                </apex:column>
+                <apex:column styleClass="ct" headerClass="ct" >
+                    <apex:facet name="header">
+                        <apex:outputLink value="/00OE0000002TxU7" target="blank" >Top<br/>Non-WA:</apex:outputLink>
+                    </apex:facet>
+                    <apex:variable var="totpNWA" value="{!totpNWA + summary.pNWA}" />
+                    <apex:outputtext value="{!summary.pNWA}"  />
+                    <apex:facet name="footer">
+                        <span class="tp3"></span>
+                    </apex:facet>
+                </apex:column>
+                <apex:column styleClass="ct" headerClass="ct" >
+                    <apex:facet name="header">
+                        <apex:outputLink value="/00OE0000002TxTn" target="blank" ><br/>Non-WA:</apex:outputLink>
+                    </apex:facet>
+                    <apex:variable var="totNWA" value="{!summary.NWA + totNWA}" />
+                    <apex:outputtext value="{!summary.NWA}"/>
+                    <apex:facet name="footer">
+                        <span class="t3"></span>
+                    </apex:facet>
+                </apex:column>
+                <apex:column styleClass="ct" headerClass="ct" >
+                    <apex:facet name="header">
+                        <apex:outputLink value="/00OE0000002Txoq" target="blank" >Top<br/>Total:</apex:outputLink>
+                    </apex:facet>
+                    <apex:variable var="totpA" value="{!totpNWA + summary.pNWA + summary.pWA}" />
+                    <apex:outputtext value="{!summary.pNWA + summary.pWA}"  />
+                    <apex:facet name="footer">
+                        <span class="tp4"></span>
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column styleClass="ct" headerClass="ct" >
+                    <apex:facet name="header">
+                        <apex:outputLink value="/00OE0000002TPME" target="blank" ><br/>Total:</apex:outputLink>
+                    </apex:facet>
+                    <apex:variable var="tot" value="{!summary.CTCnt + tot}" />
+                    <apex:outputtext value="{!summary.CTCnt}"/>
+                    <apex:facet name="footer">
+                        <span class="t1"></span>
+                    </apex:facet>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+<script>
+        document.getElementsByClassName('t1')[0].innerHTML = '{!tot}';
+        document.getElementsByClassName('t2')[0].innerHTML = '{!totWA}';
+        document.getElementsByClassName('t3')[0].innerHTML = '{!totNWA}';
+        document.getElementsByClassName('tp2')[0].innerHTML = '{!totpWA}';
+        document.getElementsByClassName('tp3')[0].innerHTML = '{!totpNWA}';
+        document.getElementsByClassName('tp4')[0].innerHTML = '{!totpA}';
+</script>
+    </apex:form>
+</apex:page>

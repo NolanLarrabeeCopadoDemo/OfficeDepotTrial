@@ -1,0 +1,178 @@
+<template>
+	<div class="slds-grid slds-grid--vertical slds-transition-hide moe-transition od-container"
+		style="transition: opacity 250ms; z-index: 9001;">
+		<div class="slds-card slds-m-bottom_medium slds-p-around_medium slds-col_bump-bottom od-header">
+			<div class="slds-grid slds-grid_align-spread">
+				<div class="slds-m-right_x-small">
+					<button class="slds-button slds-button_outline-brand" onclick={onReturnToQuote}>Return to
+						Quote</button>
+				</div>
+				<img src={odLogoUrl} style="height: 32px; max-height: 32px;">
+				<div>
+					<button class="slds-button slds-button_brand" onclick={onAddProductsClick}>Add Products</button>
+					<lightning-button-menu menu-alignment="auto" class="slds-m-left_x-small">
+						<lightning-menu-item if:false={customerNotesVisible} label="Add Customer Notes"
+							prefix-icon-name="utility:quote" onclick={onAddCustomerNotesClick}>
+						</lightning-menu-item>
+						<lightning-menu-item if:true={customerNotesVisible} label="Hide Customer Notes"
+							prefix-icon-name="utility:quote" onclick={onAddCustomerNotesClick}>
+						</lightning-menu-item>
+					</lightning-button-menu>
+				</div>
+			</div>
+			<div if:true={customerNotesVisible}>
+				<lightning-textarea name="customerNotes" value={customerNotes} label="Customer Notes"
+					onchange={onCustomerNotesChange}></lightning-textarea>
+			</div>
+		</div>
+		<div class="slds-grid slds-grow" style="overflow: hidden;">
+			<div class="slds-p-horizontal_medium od-line-items-container">
+				<template if:true={isScratchpadEmpty}>
+					<div class="od-no-products-popup">
+						<h2 class="slds-text-heading_small">Click on <a onclick={onAddProductsClick}
+								style="color: white;">Add Products</a> to
+							search for and add products to the quote.</h2>
+					</div>
+				</template>
+				<template if:false={isScratchpadEmpty}>
+					<template for:each={_items} for:item="item" for:index="index">
+						<c-endless-aisle-line-item key={item.Id} index={index} line-item-data={item}
+							onremove={LI_onRemove} onupdate={LI_onUpdate} onselectionchange={LI_onSelectionChange}
+							onopenmoredetails={LI_onOpenMoreDetails}
+							onopenmanufacturerlookup={LI_onOpenManufacturerLookup}
+							onmanufacturerclear={LI_onManufacturerClear} oninputblur={LI_onInputBlur}>
+						</c-endless-aisle-line-item>
+					</template>
+				</template>
+			</div>
+			<div class="slds-grid slds-grid--vertical slds-m-right_medium" style="width: 300px;">
+				<article class="slds-card od-small-boxshadow-onhover">
+					<div class="slds-modal__header slds-grid slds-theme_shade">
+						<header class="slds-media slds-media_center slds-has-flexi-truncate">
+							<div class="slds-media__body">
+								<h2 class="slds-text-heading_medium">Checkout</h2>
+							</div>
+						</header>
+					</div>
+					<div class="slds-card__body slds-card__body_inner">
+						<div class="slds-grid slds-m-bottom_x-small">
+							<template if:true={_tax.isPercent}>
+								<lightning-input class="slds-col_bump-top" type="number" name="_tax-percent"
+									value={_tax.percent} formatter="decimal" step="any" label="Estimated Tax"
+									onchange={onTaxPercentChange} message-when-bad-input=" ">
+								</lightning-input>
+							</template>
+							<template if:true={_tax.isDollar}>
+								<lightning-input class="slds-col_bump-top" type="number" name="_tax-dollar"
+									value={_tax.dollar} step="any" label="Estimated Tax" onchange={onTaxDollarChange}
+									message-when-bad-input=" ">
+								</lightning-input>
+							</template>
+							<form class="slds-col_bump-top slds-m-left_x-small">
+								<fieldset class="slds-form-element">
+									<div class="slds-form-element__control">
+										<div class="slds-radio_button-group">
+											<span class="slds-button slds-radio_button">
+												<input type="radio" name="radio" class="percent-1" id="percent-1"
+													onchange={onTaxPercentSelection} />
+												<label class="slds-radio_button__label" for="percent-1">
+													<span class="slds-radio_faux">%</span>
+												</label>
+											</span>
+											<span class="slds-button slds-radio_button">
+												<input type="radio" name="radio" class="dollar-1" id="dollar-1"
+													onchange={onTaxDollarSelection} />
+												<label class="slds-radio_button__label" for="dollar-1">
+													<span class="slds-radio_faux">$</span>
+												</label>
+											</span>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+						<div class="slds-m-bottom_x-small">
+							<div class="slds-grid slds-m-bottom_x-small">
+								<label class="slds-form-element__label slds-no-flex">Global Margin</label>
+								<div class="slds-col_bump-top">
+									<label class="slds-checkbox_toggle slds-grid">
+										<input type="checkbox" name="checkbox-toggle" value="checkbox-toggle"
+											onchange={onMarginToggleChange} />
+										<span id="checkbox-toggle" class="slds-checkbox_faux_container">
+											<span class="slds-checkbox_faux"></span>
+										</span>
+									</label>
+								</div>
+							</div>
+							<div class="slds-grid">
+								<template if:true={_margin.isPercent}>
+									<lightning-input class="slds-col_bump-top" type="number" name="_margin-percent"
+										value={_margin.percent} formatter="decimal" step="any" label="Global Margin"
+										variant="label-hidden" onchange={onMarginPercentChange}
+										message-when-bad-input=" ">
+									</lightning-input>
+								</template>
+								<template if:true={_margin.isDollar}>
+									<lightning-input class="slds-col_bump-top" type="number" name="_margin-dollar"
+										value={_margin.dollar} step="any" label="Global Margin" variant="label-hidden"
+										onchange={onMarginDollarChange} message-when-bad-input=" ">
+									</lightning-input>
+								</template>
+								<form class="slds-col_bump-top slds-m-left_x-small">
+									<fieldset class="slds-form-element">
+										<div class="slds-form-element__control slds-col_bump-top">
+											<div class="slds-radio_button-group">
+												<span class="slds-button slds-radio_button">
+													<input type="radio" name="radio" class="percent-2" id="percent-2"
+														onchange={onMarginPercentSelection} />
+													<label class="slds-radio_button__label" for="percent-2">
+														<span class="slds-radio_faux">%</span>
+													</label>
+												</span>
+												<span class="slds-button slds-radio_button">
+													<input type="radio" name="radio" id="dollar-2"
+														onchange={onMarginDollarSelection} />
+													<label class="slds-radio_button__label" for="dollar-2">
+														<span class="slds-radio_faux">$</span>
+													</label>
+												</span>
+											</div>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+						<div class="slds-grid">
+							<lightning-input class="slds-col_bump-top slds-m-right_medium" type="number" name="shipping"
+								value={shipping} formatter="currency" label="Shipping" read-only></lightning-input>
+							<lightning-input class="slds-col_bump-top" type="number" name="total-value" value={total}
+								formatter="currency" label="Total" read-only></lightning-input>
+						</div>
+					</div>
+					<footer class="slds-modal__footer slds-grid">
+						<template if:false={isRecordIdAvailable}>
+							<div class="slds-grid slds-m-left_x-small">
+								<button class="slds-button slds-button_success slds-col_bump-top slds-m-right_small"
+									disabled>Save to Quote</button>
+								<lightning-helptext
+									content="Unable to save quote: no quote was passed to the Scratchpad. Please relaunch the Scratchpad or the Product Search.">
+								</lightning-helptext>
+							</div>
+						</template>
+						<template if:true={isRecordIdAvailable}>
+							<template if:false={hasError}>
+								<button class="slds-button slds-button_success slds-col_bump-top slds-grow"
+									onclick={onSaveToQuoteClick}>Save to
+									Quote</button>
+							</template>
+							<template if:true={hasError}>
+								<button class="slds-button slds-button_success slds-col_bump-top slds-grow"
+									disabled>Save to Quote</button>
+							</template>
+						</template>
+					</footer>
+				</article>
+			</div>
+		</div>
+	</div>
+</template>

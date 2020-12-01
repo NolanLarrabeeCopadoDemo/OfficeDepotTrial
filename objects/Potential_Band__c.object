@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>InDevelopment</deploymentStatus>
+    <description>Potential Bands used to find potential of a Industry given different properties related to the industry.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>Banding_Key__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>The High Level Industry + Employee Count Band + Revenue Band for Matching Org Objects to Potential Bands Populated the Trigger.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>The High Level Industry + Employee Count Band + Revenue Band for Matching Org Objects to Potential Bands.</inlineHelpText>
+        <label>Banding Key</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>CBFS_Industry_Potential__c</fullName>
+        <description>The cbfs industry potential given the high-level industry, employee count band, and revenue band.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The cbfs industry potential given the high-level industry, employee count band, and revenue band.</inlineHelpText>
+        <label>CBFS Industry Potential</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CPD_Industry_Potential__c</fullName>
+        <description>The cpd industry potential given the high-level industry, employee count band, and revenue band.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The cpd industry potential given the high-level industry, employee count band, and revenue band.</inlineHelpText>
+        <label>CPD Industry Potential</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Core_Industry_Potential__c</fullName>
+        <description>The core industry potential given the high-level industry, employee count  band, and revenue band.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The core industry potential given the high-level industry, employee count  band, and revenue band.</inlineHelpText>
+        <label>Core Industry Potential</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Employee_Count_Band__c</fullName>
+        <description>The employee count band key used to match industries based on their employee count.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The employee count band key used to match industries based on their employee count.</inlineHelpText>
+        <label>Employee Count Band</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Furniture_Industry_Potential__c</fullName>
+        <description>The furniture industry potential given the high-level industry, employee count band, and revenue band.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The furniture industry potential given the high-level industry, employee count band, and revenue band.</inlineHelpText>
+        <label>Furniture Industry Potential</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>High_Level_Industry__c</fullName>
+        <description>The High-Level Industry as defined by SBI.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The High-Level Industry as defined by SBI.</inlineHelpText>
+        <label>High-Level Industry</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>High_Level_Industry</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Revenue_Band__c</fullName>
+        <description>The revenue band key used to match industries based on their revenue.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The revenue band key used to match industries based on their revenue.</inlineHelpText>
+        <label>Revenue Band</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Segment__c</fullName>
+        <description>The Segment calculated according to the Alteryx Model.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Segment calculated according to the Alteryx Model.</inlineHelpText>
+        <label>Segment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DML_Segments</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Tech_Industry_Potential__c</fullName>
+        <description>The tech industry potential given the high-level industry, employee count band, and revenue band.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The tech industry potential given the high-level industry, employee count band, and revenue band.</inlineHelpText>
+        <label>Tech Industry Potential</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Industry_Potential__c</fullName>
+        <description>The total industry potential given the high-level industry, employee count band, and revenue band.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The total industry potential given the high-level industry, employee count band, and revenue band.</inlineHelpText>
+        <label>Total Industry Potential</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Potential Band</label>
+    <nameField>
+        <displayFormat>PB-{00000000}</displayFormat>
+        <label>Potential Band Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Potential Bands</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

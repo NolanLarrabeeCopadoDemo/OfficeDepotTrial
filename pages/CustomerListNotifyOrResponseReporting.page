@@ -1,0 +1,216 @@
+<apex:page readOnly="true" title="Customer List - {!reportType}" controller="ACEReporting_RevMarg_WaterFall" action="{!loadCustomerNotifyResponseData}">
+ <head>
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        
+        .expandCollapse{
+        -moz-border-radius:5px 5px 5px 5px;
+        -webkit-border-radius:5px 5px 5px 5px;
+        border-radius:5px 5px 5px 5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        align:center; 
+        text-align:center; 
+        font-weight:bold;
+        background-color:#3D8C8C;
+        background-image:none;
+        width:auto;
+        height:auto;
+        color:white;
+        }
+        .borderLeft{
+            border-left: solid 1px black;
+        }
+        .borderRight{
+            border-right: solid 1px black;
+        }
+    </Style>
+   </head>  
+    <apex:outputPanel id="bucketPanel">
+        <apex:form >               
+           <apex:sectionHeader title="Reports" id="reports2" subtitle="Customer List - Customer Notification Reporting"/> <!--commented below line ---sfdc 00910704,00910706,00910713 -->        
+            <!--<apex:sectionHeader title="Reports" id="reports2" subtitle="Customer List - Customer {!reportType} Reporting"/> -->
+            <!--sfdc 910713 -- below panel grid -->
+            <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%" rendered="{!IF((reportType='Compliance' && (ColumnVal='compapprovalcust'||ColumnVal='compnotifycust')),true,false)}">    
+                <apex:outputPanel style="text-align: right;float:right;">
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!compStatus}" size="1" title="Complist"  multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!loadCustomerNotifyResponseData}" rerender="componentPanel" status="search_comp_Status"/>
+                                        <apex:selectOptions value="{!compstatuslist}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid> 
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                 <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/>
+             </div>
+         </div>
+        <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_comp_Status" startStyle="color:red;"/>
+        
+            <apex:pageBlock id="block">               
+             <div style="background-color:white;"> 
+                              
+                   <apex:outputPanel id="componentPanel" > 
+                                             
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                         
+                         <div class="expandCollapse">
+                             <apex:outputText value="Customers" style="color:white;"/>
+                         </div>  
+                         <apex:pageBlockTable value="{!lCustListReportData}" var="a">
+                         
+                             <apex:column >
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Customer ID</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="CustomerId" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc1" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'CustomerId'}"/> 
+                                       <apex:image id="sortInDesc1" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'CustomerId'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 <a href="/{!a.IDCust}" target="_blank">{!a.CustID} </a> 
+                             </apex:column>
+                             
+                             <apex:column >
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Customer</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Customer" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc2" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Customer'}"/> 
+                                       <apex:image id="sortInDesc2" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Customer'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 <a href="/{!a.IDCust}" target="_blank">{!a.CustName}</a> 
+                             </apex:column>
+                             
+                             <apex:column rendered="{!IF((reportType='Compliance' && (ColumnVal='compapprovalcust'||ColumnVal='compnotifycust')),false,true)}"><!--SFDC 00910713 -- added the rendered condition for compliance to not show Rep -->
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Rep</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Rep" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc3" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Rep'}"/> 
+                                       <apex:image id="sortInDes3" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Rep'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet> 
+                                 {!a.repName}
+                             </apex:column> 
+                             
+                             <apex:column >
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Notification Date</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="NotifyDate" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc4" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'NotifyDate'}"/> 
+                                       <apex:image id="sortInDesc4" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'NotifyDate'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>                                 
+                                 <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                    <apex:param value="{!a.CustNotifyDate}"/>
+                                 </apex:outputText>                                                                   
+                             </apex:column>
+                             
+                             <!--SFDC 00910713 -- added this below column section -->
+                             <apex:column rendered="{!IF((reportType='Compliance' && (ColumnVal='compapprovalcust'||ColumnVal='compnotifycust')),true,false)}">
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Notification Status</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Notification Status" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc7" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Notification Status'}"/> 
+                                       <apex:image id="sortInDesc7" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Notification Status'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 {!a.CustNotifyStatus} 
+                             </apex:column>
+                             
+                             
+                             <!--<apex:column rendered="{!IF((reportType='Response' && (ColumnVal='Approved'||ColumnVal='B3Tot')),true,false)}"> -->
+                             <apex:column rendered="{!IF( (reportType='Response' && (ColumnVal='Approved'||ColumnVal='B3Tot')) || 
+                                                    (reportType='Compliance' && (ColumnVal='compapprovalcust'||ColumnVal='compnotifycust')),true,false)}"> <!--SFDC 00910713 -- added compliance condition -->
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Approval Date</apex:outputText>  &nbsp;<!--SFDC 00910713 changed acceptedDate to Approval date-->
+                                       <apex:param name="fieldName" value="AcceptDate" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc5" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'AcceptDate'}"/> 
+                                       <apex:image id="sortInDesc5" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'AcceptDate'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                    <apex:param value="{!a.AcceptedDate}"/>
+                                 </apex:outputText> 
+                             </apex:column>
+                             
+                             <apex:column rendered="{!IF((reportType='Response' && (ColumnVal='Approved'||ColumnVal='B3Tot')),true,false)}">
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Approval Time</apex:outputText>  &nbsp; <!--SFDC 00910713 -- chnaged from accepted to approval time for better understanding -->
+                                       <apex:param name="fieldName" value="AcceptTime" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc6" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'AcceptTime'}"/> 
+                                       <apex:image id="sortInDesc6" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'AcceptTime'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 <apex:outputText value="{0, number, ###,###,###,###}">
+                                    <apex:param value="{!a.AcceptTime}"/>
+                                 </apex:outputText>                                  
+                             </apex:column>
+                             
+                             <!--SFDC 00910713 -- added this below column section -->
+                             <apex:column rendered="{!IF((reportType='Compliance' && (ColumnVal='compapprovalcust'||ColumnVal='compnotifycust')),true,false)}">
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Approval Status</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Approval Status" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc8" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Approval Status'}"/> 
+                                       <apex:image id="sortInDesc8" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Approval Status'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>                                 
+                                 {!a.CustApprovalStatus}                                                                                               
+                             </apex:column>  
+                             
+                         </apex:pageBlockTable>
+                          <apex:panelGrid id="buttons3" width="100%" columns="2" columnClasses="btn3,btn4">
+                         <apex:outputPanel >
+                             <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                         </apex:outputPanel>
+                         <apex:outputPanel >
+                             <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                         </apex:outputPanel>
+                     </apex:panelGrid>
+                                         
+                    </apex:outputPanel>     
+                  
+         </div> 
+           </apex:pageBlock>  
+      </apex:form>
+         
+          
+           
+    </apex:outputPanel>
+    
+    <script>
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script>
+
+</apex:page>

@@ -1,0 +1,145 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="CameleonCPQ.QxVFSetActiveQuoteController" showHeader="false" sidebar="false" docType="html-5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/> 
+
+  <apex:slds />
+  <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jQuery2.0.3.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jquery.touchwipe.min.js')}"/>
+  <style type="text/css">
+    .hidden {
+       display: none;
+    }
+  </style>
+
+  <div id="toastContainer" class="forceToastManager--default forceToastManager lafStandardLayoutContainer lafAppLayoutHost forceAccess forceStyle oneOne hidden">
+    <div class="forceVisualMessageQueue">
+      <div class="toastContainer slds-notify_container slds-is-relative" style="top: 0">
+        <div id="toastBox" class="slds-notify--toast slds-notify slds-notify--toast forceToastMessage">
+          <div class="toastContent slds-notify__content">
+            <div class="slds-align-middle slds-hyphenate">
+              <span id="toastMessage" class="toastMessage slds-text-heading--small forceActionsText"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <apex:outputPanel id="WaitScreen" layout="block">
+     <div id="loadingStatus" class="slds-spinner_container">
+       <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+         <span class="slds-assistive-text" id="_gModal_Message"/>
+         <div class="slds-spinner__dot-a"></div>
+         <div class="slds-spinner__dot-b"></div>
+       </div>
+     </div>
+  </apex:outputPanel>
+  
+  <script type="text/javascript">
+    $jq=jQuery.noConflict();
+    var cpq_synced_calls=0;
+
+    function canBeSetAsActive() {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxVFSetActiveQuoteController.canBeSetAsActive}',
+          '{!CameleonCPQ__QxQuote__c.Id}',
+          function(qxInfo, event) {
+            if(event.type=='exception') {
+               showToastMsg('error',event.message);
+               setTimeout(function(){ redirectToQuote(); }, 3000);
+            }
+            if(event.status) {
+               if(!qxInfo.success) {
+                  if((typeof qxInfo.msgTitle != 'undefined') && (qxInfo.msgTitle != null)) {
+                     showToastMsg(qxInfo.msgType.toLowerCase(), qxInfo.msgTitle);
+                  }
+                  setTimeout(function(){ redirectToQuote(); }, 3000);
+               }
+               else {
+                  var ok = confirm('{!$Label.cameleoncpq__msg_qx_set_quo_active_confirm}');
+                  if(ok) {
+                     setAsActive(qxInfo.oppId, qxInfo.quoLkp);
+                  }
+                  else {
+                     redirectToQuote();
+                  }
+               }
+            }
+          },
+          {escape: false}
+      );
+    }
+
+    function setAsActive(oppId, quoLkp) {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxVFSetActiveQuoteController.setAsActive}',
+          '{!CameleonCPQ__QxQuote__c.Id}',
+          oppId,
+          quoLkp,
+          function(qxInfo, event) {
+            if(event.type=='exception') {
+               showToastMsg('error',event.message);
+            }
+            if(event.status) {
+               if(!qxInfo.success) {
+                  if((typeof qxInfo.msgTitle != 'undefined') && (qxInfo.msgTitle != null)) {
+                     showToastMsg(qxInfo.msgTitle, qxInfo.msgTitle);
+                  }
+               }
+               else {
+                  showToastMsg('success','{!$Label.cameleoncpq__msg_qx_set_quo_active_ok} '+qxInfo.oppName);
+               }
+            }
+            waitForSyncComplete();
+          },
+          {escape: false}
+      );
+    }
+
+    function waitForSyncComplete() {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxVFSetActiveQuoteController.getSynchronized}',
+          '{!CameleonCPQ__QxQuote__c.Id}',
+          function(result, event) {
+            if(event.status) {
+               if(result==false) {
+                 cpq_synced_calls=0;
+                 setTimeout(function(){ redirectToQuote(); }, 3000);
+               }
+               else {
+                 if(cpq_synced_calls<=40) {
+                   cpq_synced_calls++;
+                   setTimeout(function(){waitForSyncComplete();}, 3000);
+                 }
+                 else {
+                   cpq_synced_calls=0;
+                   redirectToQuote();
+                 }
+               }
+            }
+            if(event.type=='exception') {
+               alert(((typeof event.message!='undefined') && (event.message!=null)) ? event.message : '{!$Label.cameleoncpq__msg_error}');
+               redirectToQuote();
+            }
+          });
+    }
+
+    function showToastMsg(msgType,msgBody) {
+       if((typeof msgType!='undefined') && (msgType!=null)) {
+          $jq("#toastBox").toggleClass("slds-theme--"+msgType.toLowerCase());
+       }
+       $jq("#toastMessage").html(msgBody);
+       $jq("#toastContainer").toggleClass("hidden");
+    }
+
+    function redirectToQuote() {
+       if((typeof sforce != 'undefined') && (sforce != null)) {
+         sforce.one.navigateToSObject('{!CameleonCPQ__QxQuote__c.Id}','detail');
+       } 
+       else {
+         top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__QxQuote__c.Id,URLFOR($Action.CameleonCPQ__QxQuote__c.View, CameleonCPQ__QxQuote__c.Id))}";
+       }
+    }
+
+    canBeSetAsActive();
+
+  </script>
+</apex:page>

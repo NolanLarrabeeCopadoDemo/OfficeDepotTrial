@@ -1,0 +1,401 @@
+<template>
+	<template if:true={hasData}>
+		<div>
+			<div class="slds-box slds-col slds-m-bottom_medium" style="width: 100%;">
+				<div class="slds-grid slds-m-bottom_small">
+					<span class="slds-m-right_small">
+						<lightning-icon icon-name="standard:avatar" title="Account Details">
+						</lightning-icon>
+					</span>
+					<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Account Details</div>
+					<!--Sandesh Ganjare NAIT-150754 - Start -->
+					<template if:true={showButton}>
+						<lightning-button label="Customer Request Form" class="slds-align_absolute-center" variant="brand" onclick={handleCreateClick}>
+						</lightning-button>
+					</template>
+					<!--Sandesh Ganjare NAIT-150754 - End -->
+				</div>
+				<div class="slds-grid">
+					<table class="slds-m-right_medium slds-grow">
+						<tr>
+							<td>Customer Id:</td>
+							<td>{aopsCustMasterDetails.CUSTOMER_ID}</td>
+						</tr>
+						<tr>
+							<td>Business Name:</td>
+							<td>{aopsCustMasterDetails.BUSINESS_NAME}</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>{aopsCustMasterDetails.STREET_ADDRESS2}</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>{aopsCustMasterDetails.CITY}, {aopsCustMasterDetails.STATE} {aopsCustMasterDetails.ZIP}
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>{aopsCustMasterDetails.COUNTRY_CODE}</td>
+						</tr>
+						<tr>
+							<td>Contact:</td>
+							<td>{aopsCustMasterDetails.PRMRY_CNTCT_LNAME}</td>
+						</tr>
+						<tr>
+							<td>Sales Person:</td>
+							<td>{aopsCustMasterDetails.SALESPERSON_NAME}</td>
+						</tr>
+						<tr>
+							<td>Primary Address:</td>
+							<td>{aopsCustMasterDetails.STREET_ADDRESS1}</td>
+						</tr>
+					</table>
+					<table class="slds-grow">
+						<tr>
+							<td>Parent Id:</td>
+							<td>{aopsCustMasterDetails.PARENT_ID}</td>
+						</tr>
+						<tr>
+							<td>GrandParent Id:</td>
+							<td>{aopsCustMasterDetails.GP_ID}</td>
+						</tr>
+						<tr>
+							<td>GrandParent Name:</td>
+							<td>{aopsCustMasterDetails.GP_NAME}</td>
+						</tr>
+						<tr>
+							<td>Legal Agreement:</td>
+							<td>{aopsCustMasterDetails.CUST_LEGAL_AGREEMENT_FLAG}</td>
+						</tr>
+						<tr>
+							<td>Sector:</td>
+							<td>{aopsCustMasterDetails.SECTOR}</td>
+						</tr>
+						<tr>
+							<td>Segment:</td>
+							<td>{aopsCustMasterDetails.SEGMENTATION}</td>
+						</tr>
+						<tr>
+							<td>Created Date:</td>
+							<td>{aopsCustMasterDetails.CREATEDATE}</td>
+						</tr>
+						<tr>
+							<td>Status:</td>
+							<td>{aopsCustMasterDetails.STATUS}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="slds-grid od-smaller-tables-container slds-scrollable_x slds-p-bottom_medium">
+				<div class="slds-col slds-grid slds-grid_vertical">
+					<div class="slds-grid slds-m-bottom_small">
+						<span class="slds-m-right_small">
+							<lightning-icon icon-name="standard:account" title="SMB Information">
+							</lightning-icon>
+						</span>
+						<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">SMB Information
+							Codes
+						</div>
+					</div>
+					<div class="slds-p-right_medium slds-scrollable_y slds-grid">
+						<table class="slds-grow">
+							<template for:each={aopsCustPreferences} for:item="item">
+								<tr key={item.preferenceCode}>
+									<td>
+										{item.preferenceCode}:
+									</td>
+									<td>
+										{item.value}
+									</td>
+								</tr>
+							</template>
+						</table>
+					</div>
+				</div>
+				<div class="slds-col slds-grid slds-grid_vertical">
+					<div class="slds-grid slds-m-bottom_small">
+						<span class="slds-m-right_small">
+							<lightning-icon icon-name="standard:work_order" title="Freight & Delivery Codes">
+							</lightning-icon>
+						</span>
+						<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Freight & Delivery
+							Codes
+						</div>
+					</div>
+					<div class="slds-p-right_medium slds-scrollable_y slds-grid">
+						<table class="slds-grow">
+							<tr>
+								<td>Delivery Charge Code:</td>
+								<td>{aopsCustMasterDetails.DELIVER_CHARGE_CODE}</td>
+							</tr>
+							<tr>
+								<td>Furniture Delivery Fee Enabled:</td>
+								<td>{aopsCustMasterDetails.FURN_DLVRY_FEE}</td>
+							</tr>
+							<tr>
+								<td>Small Order Fee:</td>
+								<td>{aopsCustMasterDetails.SMALLORDERFEE}</td>
+							</tr>
+							<tr>
+								<td>Signature Required:</td>
+								<td>{aopsCustMasterDetails.SIGNATURE_REQ}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="slds-col slds-grid slds-grid_vertical">
+					<div class="slds-grid slds-m-bottom_small">
+						<span class="slds-m-right_small">
+							<lightning-icon icon-name="standard:buyer_group" title="Procurement/SPC">
+							</lightning-icon>
+						</span>
+						<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Procurement/SPC
+						</div>
+					</div>
+					<div class="slds-p-right_medium slds-scrollable_y slds-grid">
+						<table class="slds-grow">
+							<tr>
+								<td>Pro Cards?:</td>
+								<td>{aopsCustMasterDetails.PRO_CARDS}</td>
+							</tr>
+							<tr>
+								<td>SPC Cards?:</td>
+								<td>{aopsCustMasterDetails.SPC_CARDS}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="slds-col slds-grid slds-grid_vertical">
+					<div class="slds-grid slds-m-bottom_small">
+						<span class="slds-m-right_small">
+							<lightning-icon icon-name="standard:number_input" title="Accounting Fields">
+							</lightning-icon>
+						</span>
+						<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Accounting Fields
+						</div>
+					</div>
+					<div class="slds-p-right_medium slds-scrollable_y slds-grid">
+						<table class="slds-grow">
+							<tr>
+								<td>PO Required:</td>
+								<td>{aopsCustMasterDetails.PO_REQUIRED_CODE}</td>
+							</tr>
+							<tr>
+								<td>Release Required:</td>
+								<td>{aopsCustMasterDetails.RELEASE_REQUIRED_CODE}</td>
+							</tr>
+							<tr>
+								<td>Department Required:</td>
+								<td>{aopsCustMasterDetails.DEPT_REQUIRED_CODE}</td>
+							</tr>
+							<tr>
+								<td>Location Required:</td>
+								<td>{aopsCustMasterDetails.LOCATION_REQ_CODE}</td>
+							</tr>
+							<tr>
+								<td>Shipto Required:</td>
+								<td>{aopsCustMasterDetails.SHIP_TO_REQUIRED_CODE}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="slds-col slds-grid slds-grid_vertical">
+					<div class="slds-grid slds-m-bottom_small">
+						<span class="slds-m-right_small">
+							<lightning-icon icon-name="standard:unmatched" title="Restrictions">
+							</lightning-icon>
+						</span>
+						<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Restrictions
+						</div>
+					</div>
+					<div class="slds-p-right_medium slds-scrollable_y slds-grid">
+						<table class="slds-grow">
+							<tr>
+								<td>Product Cross Reference Number:</td>
+								<td>{aopsCustMasterDetails.PRODUCT_XREF_NBR}</td>
+							</tr>
+							<tr>
+								<td>Order Restriction:</td>
+								<td>{aopsCustMasterDetails.ORDER_REST_IND}</td>
+							</tr>
+							<tr>
+								<td>Max Order Value:</td>
+								<td>{aopsCustMasterDetails.LINE_LIMIT}</td>
+							</tr>
+							<tr>
+								<td>Max Line Value:</td>
+								<td>{aopsCustMasterDetails.ORDER_LIMIT}</td>
+							</tr>
+							<tr>
+								<td>Minimum Order Value $:</td>
+								<td>{aopsCustMasterDetails.MINIMUM_ORDER_VALUE}</td>
+							</tr>
+							<tr>
+								<td>Type of Restrictions:</td>
+								<td>{itemRestrictionCode}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="slds-col slds-grid slds-grid_vertical">
+					<div class="slds-grid slds-m-bottom_small">
+						<span class="slds-m-right_small">
+							<lightning-icon icon-name="standard:voice_call" title="Fax Flags">
+							</lightning-icon>
+						</span>
+						<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Fax Flags</div>
+					</div>
+					<div class="slds-p-right_medium slds-scrollable_y slds-grid">
+						<table class="slds-grow">
+							<tr>
+								<td>Fax Invoice:</td>
+								<td>{aopsCustMasterDetails.FAX_INV_CODE}</td>
+							</tr>
+							<tr>
+								<td>Fax PO:</td>
+								<td>{aopsCustMasterDetails.FAX_PO_CODE}</td>
+							</tr>
+							<tr>
+								<td>Fax Reorder:</td>
+								<td>{aopsCustMasterDetails.FAX_REORDER_CODE}</td>
+							</tr>
+							<tr>
+								<td>Fax Shipment Confirmation:</td>
+								<td>{aopsCustMasterDetails.FAX_SHIP_CONFIRMATION}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="slds-col slds-grid slds-grid_vertical">
+					<div class="slds-grid slds-m-bottom_small">
+						<span class="slds-m-right_small">
+							<lightning-icon icon-name="standard:settings" title="Ordering Preferences">
+							</lightning-icon>
+						</span>
+						<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Ordering
+							Preferences
+						</div>
+					</div>
+					<div class="slds-p-right_medium slds-scrollable_y slds-grid">
+						<table class="slds-grow">
+							<tr>
+								<td>Allow Back Orders:</td>
+								<td>{aopsCustMasterDetails.BACKORDER_ALLOW_FLAG}</td>
+							</tr>
+							<tr>
+								<td>Allow Substitutes:</td>
+								<td>{aopsCustMasterDetails.SUBSTITUTE_ALLOWED}</td>
+							</tr>
+							<tr>
+								<td>Take Back Flag:</td>
+								<td>{aopsCustMasterDetails.TAKE_BACK_FLAG}</td>
+							</tr>
+							<tr if:true={isHoldReturn}>
+								<td>Hold Returns:</td>
+								<td>{aopsCustMasterDetails.HOLD_RETRN_IND}</td>
+							</tr>
+							<tr if:false={isHoldReturn}>
+								<td>Hold Returns:</td>
+								<td>N</td>
+							</tr>
+							<tr>
+								<td>Allow Print on Demand:</td>
+								<td>{aopsCustMasterDetails.ALLOW_PRNT_ON_DMND}</td>
+							</tr>
+							<tr if:true={isHoldReturn2}>
+								<td>Block TechDepot:</td>
+								<td>{aopsCustMasterDetails.TECH_BLOCK}</td>
+							</tr>
+							<tr if:false={isHoldReturn2}>
+								<td>Block TechDepot:</td>
+								<td>N</td>
+							</tr>
+							<tr>
+								<td>Block Online Reporting on BSDNET:</td>
+								<td>{aopsCustMasterDetails.BSDFIN_BLOCK}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<!--Sandesh Ganjare NAIT-150754 - Start -->
+	<section id="modal" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-hide">
+		<template if:true={showSpinner}>
+			<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+		</template> 
+		
+		<div class="slds-modal__container">
+			<header class="slds-modal__header">
+				<lightning-button-icon icon-name="utility:close" variant="bare-inverse" onclick={handleCloseClick} alternative-text="Close window" class="slds-modal__close">
+				</lightning-button-icon>
+				<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+					Customer Request Form
+				</h2>
+			</header>
+			<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+				<lightning-layout class="c-container">
+					<lightning-card class="slds-p-horizontal_small">
+						Customer Care Agent information:</br>
+						<!--Aniket Bende NAIT-157600 - Start -->
+						<lightning-input type="text" label="Agent Name" value={customerDetails.Agent_Name} name="Agent_Name" onchange={handleChange} required="true"></lightning-input>
+						<lightning-input type="email" label="Agent Email" value={customerDetails.Agent_Email} name="Agent_Email" onchange={handleChange} required="true"></lightning-input>
+						<lightning-input type="text" label="Sales/CSR ID #" value={customerDetails.Sales_CSR_ID} name="Sales_CSR_ID" onchange={handleChange} required="true"></lightning-input>
+						Account Manager: <b>{aopsCustMasterDetails.SALESPERSON_NAME}</b></br>
+						Account Name: <b>{aopsCustMasterDetails.BUSINESS_NAME}</b></br>
+						Account Number: <b>{aopsCustMasterDetails.CUSTOMER_ID}</b></br>
+						<lightning-input type="text" label="Contact First Name" value={customerDetails.Contact_First_Name} name="Contact_First_Name" onchange={handleChange} required="true"></lightning-input>
+						<lightning-input type="text" label="Contact Last Name" value={customerDetails.Contact_Last_Name} name="Contact_Last_Name" onchange={handleChange} required="true"></lightning-input>
+						<lightning-input type="email" label="Contact Email Address" value={customerDetails.Contact_Email_Address} name="Contact_Email_Address" onchange={handleChange} required="true"></lightning-input>
+						<lightning-input type="text" label="Preferred Call Back Number" value={customerDetails.Preferred_Call_Back_Number} name="Preferred_Call_Back_Number" onchange={handleChange} required="true"></lightning-input>
+						<lightning-input type="text" label="ANI/Incident Number" value={customerDetails.ANI_Incident_Number} name="ANI_Incident_Number" onchange={handleChange}></lightning-input>
+						<lightning-combobox name="Contact_Type" label="Contact Type" value={customerDetails.Contact_Type} placeholder="--None--" options={contactTypeOption} onchange={handleChange} required="true"></lightning-combobox>
+						<lightning-combobox name="Ship To" label="Do you need to update a Ship To?" value={updateShipTo} placeholder="--None--" options={options} onchange={handleShipToChange}></lightning-combobox>
+						<template if:true={updateShipTo}>
+							<lightning-input type="text" label="Business Name" value={customerDetails.Business_Name} name="Business_Name" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="Address" value={customerDetails.Address} name="Address" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="City" value={customerDetails.City} name="City" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="State" value={customerDetails.State} name="State" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="Zip" value={customerDetails.Zip} name="Zip" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="Address ID" value={customerDetails.Address_ID} name="Address_ID" onchange={handleChange}></lightning-input>
+						</template>
+						
+						<lightning-combobox name="progress" label="Do you need to add a web user?" value={addWebUser} placeholder="--None--" options={options} onchange={handleWebUserChange}></lightning-combobox>
+						<template if:true={addWebUser}>
+							<lightning-input type="text" label="First Name" value={customerDetails.First_Name} name="First_Name" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="Last Name" value={customerDetails.Last_Name} name="Last_Name" onchange={handleChange}></lightning-input>
+							<lightning-input type="email" label="Email address" value={customerDetails.Email_address} name="Email_address" onchange={handleChange}></lightning-input>
+							<!--<lightning-input type="text" label="Business Name" value={} name="Name" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="Address" value={} name="Name" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="City" value={} name="Name" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="State" value={} name="Name" onchange={handleChange}></lightning-input>
+							<lightning-input type="text" label="Zip" value={} name="Name" onchange={handleChange}></lightning-input>-->
+							<lightning-input type="text" label="Ship To ID" value={customerDetails.Ship_To_ID} name="Ship_To_ID" onchange={handleChange}></lightning-input> 
+						</template>
+						<div class="slds-p-around_medium lgc-bg">
+							<lightning-input type="file" label="Attachment" onchange={handleFileChange}></lightning-input>
+							Selected File: {fileName}
+						</div>
+						<lightning-input type="text" label="Comments/Action Requested" value={customerDetails.Comments_Action_Requested} name="Comments_Action_Requested" onchange={handleChange}></lightning-input>
+					</lightning-card>
+					<!--Aniket Bende NAIT-157600 - End -->
+				</lightning-layout>
+			</div>
+			<footer class="slds-modal__footer">
+				<button class="slds-button slds-button_neutral" onclick={handleCloseClick}>
+					Cancel
+				</button>
+				<button class="slds-button slds-button_brand" onclick={handleSubmitClick}>
+					Submit
+				</button>
+			</footer>
+		</div>
+	</section>
+	<div class="slds-backdrop slds-backdrop_open slds-hide modalBackdrops" id="modalBackdrops"></div>
+
+	
+	<!--Sandesh Ganjare NAIT-150754 - End -->
+</template>

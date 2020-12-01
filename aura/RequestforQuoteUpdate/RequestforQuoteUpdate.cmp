@@ -1,0 +1,66 @@
+<aura:component controller= "RequestforQuoteUpdate_Ctrl" implements="flexipage:availableForAllPageTypes,force:lightningQuickAction,force:hasRecordId,lightning:isUrlAddressable" access="global">
+    
+   <aura:attribute name="saved" type="Boolean" default="false" />
+ <!-- <aura:attribute name="recordIdAttr" type="String" default="{!v.recordId}" /> -->
+   <aura:attribute name="NoteRec" type="QxQuote_Note__c" default="{ 'sobjectType': 'QxQuote_Note__c' }"/>
+   <aura:attribute name="QuoRec" type="CameleonCPQ__QxQuote__c" default="{ 'sobjectType': 'CameleonCPQ__QxQuote__c' }"/>
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="recordId" type="String" access='global'/>
+   <aura:attribute name="Message" type="String" />
+     <aura:attribute name="validationError" type="String" />
+     <aura:attribute name="errorMessages" type="String" />
+       <aura:attribute name="Message1" type="String" default="hi"/>
+     <aura:attribute name="showSpinner" type="Boolean" default="false" />
+        
+         <div class="slds-page-header" style="font-weight: bold;">
+       <div class="slds-align_absolute-center">
+           Request For Quote Update Types
+             </div>
+         </div>
+   <aura:if isTrue="{!v.validationError}">
+       <div class="recordError">
+           <ui:message title="Error" severity="error" closable="false">{!v.errorMessages}</ui:message>
+       </div>
+   </aura:if>
+          <aura:if isTrue="{!not(empty(v.Message))}">
+      <div class="recordError">
+          <ui:message title="Error" severity="error" closable="false">  {!v.Message} </ui:message></div>
+  </aura:if>
+    
+     
+      <div class="slds-box" style="font-weight: bold;size:50%">
+ <aura:if isTrue="{!(empty(v.Message1))}">  
+                <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="10">
+                                <span style="font-weight:bold;">Request For Quote Update Types&nbsp;</span>
+                            </lightning:layoutItem>
+          </lightning:layout>
+            <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="3">
+                             <ui:inputSelect aura:id="quopicklistid" class="slds-grid--align-spread"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+     <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">Notes&nbsp;</span>
+                            </lightning:layoutItem>
+          </lightning:layout>
+            <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="3">
+                              <lightning:textarea aura:id="CommentsId" class="slds-grid--align-spread"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+           
+        
+         
+        <br></br>
+                 
+   <lightning:button disabled="{!v.disabled}"  onclick="{! c.handleSubmit }" label="Save" />
+         </aura:if>
+   
+      
+                   <lightning:button label="Back To Quote" onclick="{! c.navigatetohomepage }" /> 
+    </div>
+</aura:component>

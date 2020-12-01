@@ -1,0 +1,49 @@
+<apex:page controller="OppTrackingHistoryController" action="{!getWatsonValues}" sidebar="false">
+    <style type = "text/css">
+        .headerRow .colHeadr {
+            text-align: center;
+            font-size:130% !important;
+        }     
+    </style>
+
+    <apex:form >
+        <apex:pageBlock title="Watson Pipeline and Conversion">
+            <apex:outputLabel >Pipeline week:</apex:outputLabel>&nbsp;&nbsp;&nbsp;
+            <apex:inputText value="{!pipelineWeek}"/>&nbsp;&nbsp;&nbsp;
+            <apex:commandButton value="Search" action="{!getWatsonValues}"/>
+            <apex:commandlink action="{!createPdfWatson}" target="_blank" style="text-decoration:none;">
+                <apex:commandButton value="Convert to PDF"/>
+            </apex:commandLink>
+
+            <table width="100%" border="0">
+                <tr>  
+                    <td width="30%">
+                        <apex:chart height="350" width="450" data="{!stageList}">
+                            <apex:pieSeries dataField="remaining" labelField="stageName">
+                                <apex:chartTips height="20" width="155"/>
+                                <apex:chartLabel display="none"/>
+                            </apex:pieSeries>
+                            <apex:legend position="left"/>   
+                        </apex:chart>
+                    </td>
+                    <td width="3%"/>
+                    <td width="58%">
+                        <apex:pageBlockTable value="{!stageList}" var="wrapper">
+                            <apex:column value="{!wrapper.stageName}" headerValue="Stage" headerClass="colHeadr" style="font-size:130%;"/>
+                            <apex:column value="{!wrapper.total}" headerValue="Total" headerClass="colHeadr" style="text-align:center;font-size:130%;"/>
+                            <apex:column value="{!wrapper.remaining}" headerValue="Remaining" headerClass="colHeadr" style="text-align:center;font-size:130%;"/>
+                            <apex:column value="{!wrapper.converted}" headerValue="Converted" headerClass="colHeadr" style="text-align:center;font-size:130%;"/>
+                            <apex:column headerValue="Rate" headerClass="colHeadr" style="text-align:center;font-size:130%;"><apex:outputText value="{0,number,0}%"><apex:param value="{!wrapper.rate}"/></apex:outputText></apex:column>
+                        </apex:pageBlockTable>
+                    </td>
+                    <td width="1%"/>
+                    <td width="8%">
+                        <apex:pageBlockTable value="{!stageList}" var="wrapper">
+                            <apex:column value="{!wrapper.notReady}" headerValue="Not Ready" headerClass="colHeadr" style="text-align:center;font-size:130%;"/>
+                        </apex:pageBlockTable>
+                    </td>
+                </tr>
+            </table>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

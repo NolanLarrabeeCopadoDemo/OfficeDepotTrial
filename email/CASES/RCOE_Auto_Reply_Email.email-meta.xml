@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Auto Reply for a RCOE Case</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>RCOE Auto Reply Email</name>
+    <style>freeForm</style>
+    <subject>Regarding your RCOE support request {!Case.CaseNumber} - {!Case.Thread_Id}</subject>
+    <textOnly>Greetings {!Case.Support_Requester__c}, 
+
+
+
+Thank you for your request. This email acknowledges that the RCOE team has received your request. We will work through this request in the order it was received. We will follow up within 3-4 days to ensure we have your report requirements. 
+
+
+
+Link to Support Ticket: {!Case.CaseNumber} 
+
+Subject: {!Case.Subject} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

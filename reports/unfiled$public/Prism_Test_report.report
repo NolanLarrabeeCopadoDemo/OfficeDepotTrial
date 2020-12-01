@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_ALIAS</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>FULL_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_OWNER_ALIAS</field>
+    </columns>
+    <columns>
+        <field>Activity.Disposition_Code__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Primary_Campaign_Source__c</field>
+    </columns>
+    <columns>
+        <field>ACCTDUE_DATE</field>
+    </columns>
+    <columns>
+        <field>Account.Follow_Up_Note__c</field>
+    </columns>
+    <columns>
+        <field>Account.YTD_Sales_Diff__c</field>
+    </columns>
+    <columns>
+        <field>Account.YTD_IMU_Diff__c</field>
+    </columns>
+    <columns>
+        <field>Account.YTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>Account.YTD_Sales_LY__c</field>
+    </columns>
+    <columns>
+        <field>Account.YTD_Sales_TY_IMU__c</field>
+    </columns>
+    <columns>
+        <field>Account.YTD_Sales_LY_IMU__c</field>
+    </columns>
+    <description>For Prism Completed this year
+Prism Date
+Comments,
+Created Owner Alias
+Account 
+cust Id
+ last activty
+Follow up notes
+Owner 
+Sales (SFDC)</description>
+    <filter>
+        <criteriaItems>
+            <column>Activity.Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>SalesPrism</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Completed</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Prism Test report</name>
+    <params>
+        <name>closed</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountActivity</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>ACCTDUE_DATE</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

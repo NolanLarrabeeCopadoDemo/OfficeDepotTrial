@@ -1,0 +1,185 @@
+<apex:page standardController="Lead" extensions="LeadConversion2" title="Convert Lead-{!Lead.Name}" id="page">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="/soap/ajax/15.0/connection.js" type="text/javascript"></script>
+<script src="/soap/ajax/15.0/apex.js" type="text/javascript"></script>
+<script>
+sforce.debug.trace=false;
+sforce.connection.sessionId="{!$Api.Session_ID}";
+
+var stages = sforce.apex.execute("opportunitySearch", "getFieldValues", {});
+var staheArray = stages.toString().split("+");
+j$ = jQuery.noConflict();
+j$(function(){ 
+j$('todoElement').css("visibility", 'hidden');
+j$('#todoItem').css("visibility", 'hidden');
+j$('#listItem-getSalesforce1').css("visibility", 'hidden');
+   var availableTags = staheArray;  previousValue = ""; var tags= staheArray; 
+   var element  = document.getElementById('page:form:mainPgBlock:buttonrender:oppPgBlockSection:Primary_Competitor1__c');
+ j$(document.getElementById('page:form:mainPgBlock:buttonrender:oppPgBlockSection:Primary_Competitor1__c')).bind('dblclick', function() {
+ j$(document.getElementById('page:form:mainPgBlock:buttonrender:oppPgBlockSection:Primary_Competitor1__c')).autocomplete({  change: function( event, ui ) {val = j$(this).val();  exists = j$.inArray(val,tags);  if (exists<0) {   j$(this).val("Other");    return false;  }}, autoFocus: true, source: function( request, response )   {            var matcher = new RegExp( "^" + j$.ui.autocomplete.escapeRegex( request.term ), "i" ); 
+   response( j$.grep( tags, function( item ){                return matcher.test( item );          }) );  }    
+ });  
+ }); 
+ j$(document.getElementById('page:form:mainPgBlock:buttonrender:oppPgBlockSection:Primary_Competitor1__c')).autocomplete({  change: function( event, ui ) {val = j$(this).val(); exists = j$.inArray(val,tags);  if (exists<0) {    j$(this).val("Other");    return false;  }}, autoFocus: true, source: function( request, response )   {            var matcher = new RegExp( "^" + j$.ui.autocomplete.escapeRegex( request.term ), "i" );    response( j$.grep( tags, function( item ){                return matcher.test( item );          }) );  }    
+ }); 
+ }); 
+ </script>
+  </link>
+  <script type="text/javascript">
+  function getProspectValue(){
+    var isCreateProspectValue = document.getElementById('page:form:buttonrender:pgBlockSection:prospectValue');
+    isCreateProspectValue.value = true;
+  }
+  
+  function getCreateNewContactValue(){
+    var isCreateNewContactValue = document.getElementById('page:form:contactPgBlock:contactPageBlockSection:contactValue');
+    isCreateNewContactValue.value = true;
+  }
+  </script>
+
+  
+  <style>
+    .button {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+   }
+  </style>
+  <apex:sectionHeader title="Convert Lead" subTitle="{!Lead.Name}"/>
+  <apex:outputLink style="font-family: 'Verdana','Geneva',sans-serif; font-size: 91.3%; height: 15px; margin-bottom: -15px;
+      vertical-align: middle; color:#1468B6;padding-bottom:10px;" value="/{!lead.Id}">Back to Lead: {!Lead.Name}</apex:outputLink>
+  <apex:pageMessages />
+
+
+<apex:form id="form"> 
+<apex:pageblock id="mainPgBlock">
+ <apex:pageBlockButtons > 
+        <apex:commandButton value="Convert" action="{!GenerateRecords}" />
+        <apex:commandButton value="Cancel"  action="{!Cancel}" />
+  </apex:pageBlockButtons> 
+<apex:outputPanel id="mainoutpanel">
+  
+  <apex:pageBlock rendered="{!notvalidadd}">
+  
+       <apex:pageblocksection columns="1">
+            <apex:commandlink style="font-family: 'Verdana','Geneva',sans-serif; font-size: 91.3%; height: 15px; margin-bottom: -15px;
+      vertical-align: middle; color:#1468B6;padding-bottom:10px;" value="PROCEED WITH THE SAME ADDRESS" action="{!validateLead}" >
+                <apex:param name="ProceedCoversion" value="true"/>
+            </apex:commandlink>
+       </apex:pageblocksection>
+  </apex:pageBlock>
+  
+  <apex:pageBlock title="Accounts" rendered="{!AND(lstMatchingAccount.size > 0,!notvalidadd=true)}"  id ="pgBlock">
+     
+     
+    <!-- Matching Account -->
+    <apex:pageBlockSection columns="1" title="Matching Accounts" collapsible="false" id="pgBlockSection" > 
+    <apex:pageBlockTable value="{!lstMatchingAccount}" var="account" >
+    
+    <!-- <apex:column style="width:40px;">      
+        <input type="radio" name="prospectAccountRadio" value="{!account.Id}" onclick="relatedContacts('{!account.Id}')" />                   
+      </apex:column> -->
+      
+      <apex:column headerValue="Name">             
+        <apex:outputLink value="/{!account.Id}">{!account.Name}</apex:outputLink> 
+      </apex:column>     
+      <apex:column value="{!account.Address1__c}"/>  
+      <apex:column value="{!account.City__c}"/>  
+      <apex:column value="{!account.State__c}"/>         
+      <apex:column value="{!account.RecordTypeId}" />         
+      <apex:column value="{!account.Cust_ID__c}" />  
+      <apex:column value="{!account.OwnerId}" />  
+      <apex:column value="{!account.YTD_Sales_TY__c}" /> 
+    </apex:pageBlockTable>
+    </apex:pageBlockSection>   
+  </apex:pageBlock>
+  
+    <apex:pageBlock title="Duplicate Disposition" rendered="{!AND(lstMatchingAccount.size > 0, !notvalidadd=true)}" id="dispBlock">
+        <apex:pageBlockSection columns="1">
+        <apex:pageBlockSectionItem >
+        <apex:outputLabel value="Duplicate Disposition" />      
+        <apex:inputfield taborderhint="1" required="true" value="{!tmpAccount.Duplicate_Disposition__c}" />    
+        </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>             
+    </apex:pageBlock>
+    
+   
+    
+  <!-- Opportunity Block -->
+    <apex:pageBlock id="buttonrender" rendered="{!!notvalidadd}" >      
+      <apex:pageBlockSection columns="1" title="Create Opportunity"  collapsible="false">      
+        <apex:pageBlockSectionItem >   
+          <apex:outputLabel value="Create new Opportunity" />
+          <apex:inputCheckbox value="{!isCreateOpportunity}" />
+        </apex:pageBlockSectionItem>  
+      </apex:pageBlocksection>
+        
+     
+      <apex:Pageblocksection collapsible="false" columns="1" title="Additional Information"  id="oppPgBlockSection" rendered="{!!isBusinessProLead}">
+         <apex:inputField value="{!lead.FirstName}" id="FirstName_idd"/>
+         <apex:inputField value="{!lead.LastName}"/>
+         <apex:inputField value="{!lead.Company}" id="Company_idd"/>      
+         <apex:inputField value="{!lead.Phone}" required="true" id="Phone_idd"/>  
+         <!-- CCG:Marketing update-->
+         <apex:inputField value="{!tmpContact.Phone_Type1__c}" required="true" id="PhoneT_idd" label="Phone Type"/>
+         <!-- CCG:Marketing update-->
+         <apex:inputField value="{!lead.WCW_Count__c}" required="true"/>   
+         <apex:inputField value="{!lead.Amount__c}" required="true"/>
+         <apex:inputField value="{!lead.Industry}" required="true"/>                  
+         <apex:inputField value="{!lead.Current_Supplier__c}" required="true"/>     
+         <apex:inputField value="{!tmpopp.Primary_Competitor1__c}" required="true" id="Primary_Competitor1__c"/>
+         <apex:inputField value="{!lead.Address1__c}" id="address1_idd" required="true"/>         
+         <apex:inputField value="{!lead.Address2__c}" id="address2_idd"/>
+         <apex:inputField value="{!lead.City__c}" id="city_idd" required="true"/>
+         <apex:inputField value="{!lead.State__c}" required="true" id="state_idd"/>
+         <apex:inputField value="{!lead.Zip__c}" required="true" id="zip_idd"/>
+         <apex:inputField value="{!lead.Country__c}" required="true" id="country_idd"/>
+         <apex:inputField value="{!tmpAccount.Sector__c}" required="true"/>
+         <apex:inputField value="{!tmpAccount.Segment__c}" required="true"/>
+         <apex:inputField value="{!tmpAccount.Buying_Group__c}" required="true"/>
+                   <!-- Support Case : 01351319-->
+         <apex:inputField value="{!tmpAccount.Est_Spend__c}" required="true"/>
+          <!-- Ends Here -->
+
+         <apex:inputField value="{!lead.Decision_Maker__c}" required="true"/>
+      </apex:Pageblocksection>
+      <apex:Pageblocksection collapsible="false" columns="1" title="Additional Information"  id="bProSection" rendered="{!isBusinessProLead}">
+         <apex:inputField value="{!lead.FirstName}"/>
+         <apex:inputField value="{!lead.LastName}"/>
+         <apex:inputField value="{!lead.Company}"/>      
+         <apex:inputField value="{!lead.Phone}" required="true"/>  
+         <apex:inputField value="{!tmpAccount.Loyatly_Number__c}" />
+         <apex:inputField value="{!tmpAccount.BSD_Account_Number__c}" /> 
+         <apex:inputField value="{!tmpAccount.Contact_Initiation_Type__c}" required="true"/>
+        <!-- <apex:inputField value="{!tmpAccount.Customer_Contact_Touch_Point__c}" required="true"/>-->
+         <apex:inputField value="{!tmpAccount.Lead_Source__c}" />
+         <apex:inputField value="{!tmpAccount.VIP_Card_Issue_Reqt__c}"/>
+         <apex:inputField value="{!tmpAccount.VIP_Card_Effective_Date__c}"/>
+         <apex:inputField value="{!tmpAccount.VIP_Card_End_Date__c}"/>
+     
+       </apex:Pageblocksection>
+    </apex:pageBlock>    
+  <!-- End of Opportunity Block -->
+  
+  </apex:outputPanel> 
+ </apex:pageblock>
+</apex:form>
+
+
+<!-- List of Lead fields used on the page -->
+<apex:outputText rendered="false">
+    <!-- CCG:Marketing update -- added phone_type__c -->
+    {!Lead.Account__c},{!Lead.City__c},{!Lead.State__c},{!Lead.Country__c},{!Lead.Amount__c},{!Lead.Address1__c},{!Lead.Address2__c},{!Lead.Zip__c},{!Lead.Phone},{!Lead.FirstName},{!Lead.LastName},{!Lead.WCW_Count__c}, 
+    {!Lead.OwnerId},{!Lead.Zip_5digit__c},{!Lead.Title}, {!Lead.LeadSource},{!Lead.Lead_Page_Source__c}, {!Lead.Store__c}, {!Lead.Product__c}, {!Lead.Company}, {!Lead.Email}, 
+    {!Lead.Industry},{!Lead.Sales_Person_ID__c},{!Lead.Current_Supplier__c},{!Lead.CreatedById}, {!lead.account__r.Related_Account__c},{!lead.Business_Pro_Loyalty_Account_Number__c},{!lead.Employee_ID__c}
+</apex:outputText>
+
+</apex:page>

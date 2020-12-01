@@ -1,0 +1,168 @@
+<apex:page docType="html-5.0" standardController="CameleonCPQ__Contract__c" extensions="CameleonCPQ.CPQContract_VFCtrl" id="contractPage">
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins, 'jquery/jquery.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins,'jquery/jquery-ui.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__GUIResources,'css/CPQQuotePanel.css')}"/>
+    <style>
+        .loading {background:url('{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins,'jstree/themes/classic/throbber.gif')}') center center no-repeat !important;
+            margin-left: 10px;
+            padding-left: 15px;
+            border: none
+        }
+        .dataCol.right {
+            float: right;
+        }
+        .overlayDialog{visibility:visible;display:block;left:40%;padding:10px;position:absolute;margin-left:-250px;top:200px;}
+        .optionsPopupBg{background-color:black;opacity:0.20;position:absolute;width: 100%;height:100%;top:0;left:0;z-index:9998;}
+    </style>
+    <apex:detail subject="{!CameleonCPQ__Contract__c.Id}" inlineEdit="true" relatedList="true" relatedListHover="true" showChatter="true" title="true" />
+    <apex:form id="optionsForm">
+        <apex:outputPanel id="optionsPopup" rendered="{!OptionsPopupDisplayed}">
+           <apex:outputPanel styleClass="optionsPopupBg" layout="block" />
+           <apex:outputPanel id="overlayDialog" styleClass="overlayDialog" layout="block">
+              <apex:outputPanel styleClass="topRight" layout="block">
+                 <apex:outputPanel styleClass="topLeft" layout="block">
+                    <apex:outputLink styleClass="dialogClose"/>
+                    <h2><apex:outputText value="Modify Contract"/></h2>
+                 </apex:outputPanel>   
+              </apex:outputPanel>   
+              <apex:pageBlock mode="edit">
+                <apex:pageBlockSection title="{!qFcParams.contractType} options" columns="1">
+                  <apex:outputPanel styleClass="middle" layout="block"> 
+                     <apex:outputPanel styleClass="innerContent" layout="block"> 
+                        <apex:outputText styleClass="labelCol" value="Contract type"/>
+                        <apex:selectList style="float:right" id="contractType" value="{!qFcParams.contractType}" size="1">
+                           <apex:selectOptions value="{!contractTypes}"/>
+                        </apex:selectList>
+                     </apex:outputPanel>
+                     <apex:outputPanel styleClass="innerContent" layout="block"> 
+                        <apex:outputText styleClass="labelCol" value="Renewal type"/>
+                        <apex:selectList style="float:right" id="renewalType" value="{!qFcParams.renewalType}" size="1">
+                           <apex:selectOptions value="{!renewalTypes}"/>
+                        </apex:selectList>
+                     </apex:outputPanel>
+                     <apex:outputPanel styleClass="innerContent" layout="block"> 
+                        <apex:outputText styleClass="labelCol" value="Contract start date"/>
+                        <apex:inputText styleClass="dataCol right" id="contractStartDate" value="{!qFcParams.contractStartDate}" onfocus="DatePicker.pickDate(false, this, false);"/>
+                     </apex:outputPanel>
+                     <apex:outputPanel styleClass="innerContent" layout="block"> 
+                        <apex:outputText styleClass="labelCol" value="Contract end date"/>
+                        <apex:inputText styleClass="dataCol right" id="contractEndDate" value="{!qFcParams.contractEndDate}" onfocus="DatePicker.pickDate(false, this, false);"/>
+                     </apex:outputPanel>
+                     <apex:outputPanel styleClass="innerContent" layout="block">
+                         <apex:outputText styleClass="labelCol" value="Refresh items"/>
+                         <apex:inputCheckbox styleClass="dataCol right" id="refreshItems" value="{!qFcParams.refreshItems}" />
+                     </apex:outputPanel>
+                     <apex:outputPanel styleClass="innerContent" layout="block">
+                        <apex:outputText styleClass="labelCol" value="Replace items"/>
+                        <apex:inputCheckbox styleClass="dataCol right" id="replaceItems" value="{!qFcParams.replaceItems}" />
+                     </apex:outputPanel>
+                  </apex:outputPanel>
+                  <apex:outputPanel styleClass="buttons" layout="block">                 
+                     <apex:commandButton value="{!$Label.cameleoncpq__btn_ok}" action="{!closeOptionsPopup}" onclick="hideOptionsPopup();" oncomplete="createQuoteFromContract();" />
+                     <apex:commandButton value="{!$Label.cameleoncpq__btn_cancel}" action="{!closeOptionsPopup}" onclick="hideOptionsPopup();"/>
+                  </apex:outputPanel>
+                </apex:pageBlockSection>
+              </apex:pageBlock>
+           </apex:outputPanel>
+        </apex:outputPanel>
+        <div id="waitingScreen" class="hidden forceGlobalModalIndicator oneStyle oneOne">
+          <div class="modal-glass">&nbsp;</div>
+          <div class="indicatorContainer" role="alert">
+            <img class="spinnerIcon icon uiImage" alt="" src="{!URLFOR($Resource.CPQCMResources,'default/img/s.gif')}"/>
+            <div class="message" id="_gModal_Message"/>
+          </div>
+        </div>
+    </apex:form>
+    <script type="text/javascript">
+        $jq = jQuery.noConflict();
+        function hideOptionsPopup() {
+            $jq("[id$='optionsPopup']").hide();
+        }
+        // Get the Contract options from HTML elements
+        function createQuoteFromContractUI() {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CPQContract_VFCtrl.getNewOptions}',
+                function(qFcParams, event) {
+                    if (event.status) {
+                        qFcParams.contractType = $jq("[id$='contractType']").val();
+                        qFcParams.renewalType = $jq("[id$='renewalType']").val();
+                        qFcParams.contractStartDate = normalizeDate($jq("[id$='contractStartDate']").val()); 
+                        qFcParams.contractEndDate = normalizeDate($jq("[id$='contractEndDate']").val());
+                        qFcParams.refreshItems = $jq("[id$='refreshItems']").is(':checked');
+                        qFcParams.replaceItems = $jq("[id$='replaceItems']").is(':checked');
+                        createQuoteFromContract(qFcParams);
+                    }
+                    if (event.type == 'exception') {
+                        alert('{!$Label.cameleoncpq__msg_clm_cfq_error} (3)' + event.message);
+                        return false;
+                    }
+                },
+                { buffer: false, escape: true, timeout: 120000 }
+            );
+        }
+        // Get the Contract options from page parameters
+        function createQuoteFromContractNoUI(contractType,refreshItems,replaceItems) {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CPQContract_VFCtrl.getNewOptions}',
+                function(qFcParams, event) {
+                    if (event.status) {
+                        qFcParams.contractType = contractType;
+                        qFcParams.refreshItems = refreshItems;
+                        qFcParams.replaceItems = replaceItems;
+                        createQuoteFromContract(qFcParams);
+                    }
+                    if (event.type == 'exception') {
+                        alert('{!$Label.cameleoncpq__msg_clm_cfq_error} (3)' + event.message);
+                        return false;
+                    }
+                },
+                { buffer: false, escape: true, timeout: 120000 }
+            );
+        }
+        function createQuoteFromContract(qFcParams) {
+            toggleWaitingScreen();
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CPQContract_VFCtrl.createQuoteFromContract_Part1}',
+                '{!CameleonCPQ__Contract__c.Id}',
+                qFcParams,
+                function(clmInfo1, event1) {
+                    if (event1.status) {
+                        console.log('New quote ID :'+clmInfo1.objectId);
+                        Visualforce.remoting.Manager.invokeAction(
+                            '{!$RemoteAction.CPQContract_VFCtrl.createQuoteFromContract_Part2}',
+                            '{!CameleonCPQ__Contract__c.Id}',
+                            clmInfo1.objectId,
+                            qFcParams,
+                            function(clmInfo2, event2) {
+                                if (event2.status) {
+                                    //console.log('Execution status :'+clmInfo2.status+'('+clmInfo2.errorMessage+') - ID ='+clmInfo2.objectId);
+                                    top.location.href = top.location.href = '/'+clmInfo2.objectId;
+                                }
+                                if (event2.type == 'exception') {
+                                    alert('{!$Label.cameleoncpq__msg_clm_cfq_error} (1)' + event2.message);
+                                    top.location.href = '{!URLFOR($Action.CameleonCPQ__Contract__c.View, CameleonCPQ__Contract__c.Id)}';
+                                    return false;
+                                }
+                            },
+                            { buffer: false, escape: true, timeout: 120000 }
+                        );
+                    }
+                    if (event1.type == 'exception') {
+                        alert('{!$Label.cameleoncpq__msg_clm_cfq_error} (2)' + event1.message);
+                        top.location.href = '{!URLFOR($Action.CameleonCPQ__Contract__c.View, CameleonCPQ__Contract__c.Id)}';
+                        return false;
+                    }
+                },
+                { buffer: false, escape: true, timeout: 120000 }
+            );
+        }
+        function normalizeDate(dateVal) {
+            dateVal = dateVal == null || dateVal.length == 0 ? new Date() : new Date($jq.datepicker.parseDate(UserContext.dateFormat.replace(/M/g, 'm').replace(/yyyy/g, 'yy'), dateVal));
+            return new Date(Date.UTC(dateVal.getFullYear(), dateVal.getMonth(), dateVal.getDate())).toUTCString();
+        }
+        function toggleWaitingScreen(){
+            $jq("#waitingScreen").toggleClass("hidden");
+            $jq("#_gModal_Message").html("In progress..");
+        }
+    </script>
+</apex:page>

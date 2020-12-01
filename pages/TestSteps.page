@@ -1,0 +1,100 @@
+<apex:page standardController="SFDC_Test_Case__c"  extensions="TestCaseScriptsController" sidebar="false" showheader="true">
+
+    <script language="javascript">
+        function confirmDelete(){
+            if(confirm('Are you sure you want to delete?'))
+                return true;
+                else
+                return false; }
+    </script>
+    
+    <script language="javascript">
+    
+        function OpenInNewTab(url )
+        {
+          var win=window.open(url, '_blank');
+          win.focus();
+        }
+    </script>
+    
+
+
+    <apex:form >
+
+     <apex:pageBlock title="Test Scripts Steps">
+
+    
+          <apex:pageBlockButtons >
+             
+             <apex:commandButton value="Add One" action="{!new1}" id="newButton" rerender="detailtab"/>
+             <apex:commandButton value="Add Five" action="{!addFive}" id="newButton1" rerender="detailtab"/>
+             <apex:commandButton value="Save" action="{!save}" id="saveButton" />
+             <apex:commandButton value="Cancel" action="{!cancel}" id="cancelButton" />
+             
+          </apex:pageBlockButtons>
+           
+           
+       
+        <apex:outputPanel id="detailtab">
+        
+         <apex:pageblockTable value="{!oCRecord}" var="l" id="table">
+         
+         
+             <!-- <apex:column >
+              <apex:inputCheckbox value="{!l.selected}"/>
+              </apex:column> -->
+          
+              <apex:column headerValue="Step#" >
+                 <apex:inputField value="{!l.rec.name}"  required="true" />
+              </apex:column>
+        
+              <apex:column headerValue="Test Step Description" >
+                 <apex:inputField value="{!l.rec.Test_Step_Description__c}" required="true" />
+              </apex:column>
+          
+              <apex:column headerValue="Expected Results" >
+                 <apex:inputField value="{!l.rec.Expected_Results__c}" /> 
+              </apex:column>
+            
+              <apex:column headerValue="Actual Results" >
+                  <apex:inputField value="{!l.rec.Actual_Results__c}"/>
+                  <apex:actionSupport event="onsave"  />
+              </apex:column>
+              
+              <apex:column headerValue="Status" >
+               <apex:inputField value="{!l.rec.Status__c}" >
+                   <apex:actionSupport event="onchange" reRender="btn1" />
+               </apex:inputField>
+              </apex:column> 
+              
+              <apex:column headerValue="Comments" >
+                  <apex:inputField value="{!l.rec.Comments__c}"/>  
+              </apex:column> 
+              
+              <apex:column headerValue="Defect #" > 
+               <apex:outputlink value="/{!l.rec.Support__c}" target="_blank"> {!l.rec.Support__r.CaseNumber} </apex:outputlink>
+              </apex:column>          
+              
+              
+              
+        <apex:column headerValue="Action"  >
+            <apex:outputPanel id="btn1">           
+                <apex:commandButton value="Delete" onclick="if(!confirm('Are you sure?')) return true;" action="{!delete1}" rerender="detailtab"  > 
+                     <apex:param name="toDelIdent" value="{!l.rec.name}" assignTo="{!toDelId}"/>
+                 </apex:commandButton>
+                  <apex:commandButton value="New Support" action="{!saveStep}"    rerender="detailtab" rendered="{!l.rec.Status__c == 'Failed' && l.rec.Support__c == '' }">  <!--&& l.rec.Id != null-->
+                 <apex:param name="tosupIdent" value="{!l.rec.name}" assignTo="{!toSupId}"/> 
+                 </apex:commandButton> 
+                 
+            </apex:outputPanel>
+         </apex:column>      
+         
+         </apex:pageblockTable>
+ 
+        </apex:outputPanel> 
+              
+    </apex:pageBlock>
+    
+   </apex:form>
+ 
+</apex:page>

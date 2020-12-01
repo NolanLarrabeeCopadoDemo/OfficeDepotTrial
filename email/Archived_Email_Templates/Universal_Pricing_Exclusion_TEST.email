@@ -1,0 +1,31 @@
+<messaging:emailTemplate recipientType="Contact"
+        relatedToType="Account"
+        subject="Exclude Unversal Pricing list for- {!Relatedto.Cust_ID__c} - {!Relatedto.Name}"
+        replyTo="{!relatedto.owner.email}">
+                <messaging:htmlEmailBody >
+                <html>
+                <style type="text/css">
+                        body {font-family: Arial; size: 9pt;}
+            
+          
+                </style>
+                <body>
+            <p>Account information:</p>
+            <UL>
+            <li>Customer Name: {!relatedto.Name}</li>
+            <li>Customer AOPS: {!relatedto.Cust_ID__c}</li>
+            <li>Rep Owner:{!relatedto.Sales_PersonID__c}</li>
+            </ul>          
+            <br></br>
+            <br></br>
+            <UL>
+            <li>Program Code  1: {!relatedto.Pricing_template_cd__c}</li>
+
+            </UL>
+
+            
+            
+                </body>
+                </html>
+        </messaging:htmlEmailBody>
+</messaging:emailTemplate>

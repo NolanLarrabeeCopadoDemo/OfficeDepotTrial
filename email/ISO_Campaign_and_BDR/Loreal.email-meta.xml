@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Loreal</name>
+    <style>none</style>
+    <subject>Discover exclusive savings for your store.</subject>
+    <textOnly>Discover exclusive savings for your store.
+
+Because your brand portfolio is worth it.
+
+Save beautifully with Office Depot®
+Office Depot is here to provide exclusive pricing, great customer service and top-notch solutions to make your job easier.
+Save on office supplies, toner, paper, technology, cleaning and breakroom supplies, furniture and more to help increase the efficiency of your training and profitability of your brand portfolio. Start saving today!
+Questions? Contact your local account representative or visit business.officedepot.com for more information.
+{!User.Name}
+{!User.TitleTrimmed__c}
+
+{!User.Street} | {!User.City}, {!User.State} {!User.PostalCode}
+{!if(!ISBLANK(User.My_Customer_Contact__c), &apos;Tel: &apos;+User.My_Customer_Contact__c,&apos;&apos; )}
+Email: {!User.Email}
+
+© 2018 Office Depot, Inc. All rights reserved. 6﻿6﻿0﻿0 N﻿o﻿r﻿t﻿h M﻿i﻿l﻿i﻿t﻿a﻿r﻿y T﻿r﻿a﻿i﻿l, B﻿o﻿c﻿a R﻿a﻿t﻿o﻿n, F﻿L 3﻿3﻿4﻿9﻿6
+Have questions? Contact us online or call 888-2-OFFICE (888.263.3423). Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

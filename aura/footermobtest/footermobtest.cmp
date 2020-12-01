@@ -1,0 +1,30 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:attribute name="today" type="Date" />
+    
+    <aura:if isTrue="{!$Browser.formFactor == 'DESKTOP'}">
+        <div class="slds-docked-form-footer" style="background-color:#2b2826; height:30px;">
+            <ul class="slds-list_horizontal slds-has-dividers_right slds-has-block-links_space slds-text-color_inverse">
+                <li class="slds-item"><a href="https://itunes.apple.com/us/app/office-depot-rewards-deals/id382457983?mt=8" target='_blank' class="slds-text-color_inverse">Shop Us On App Store</a></li>
+                <li class="slds-item"><a href="https://www.officedepot.com/a/companyinfo/companyfacts/index/" target='_blank' class="slds-text-color_inverse">About Us</a></li>
+                <li class="slds-item"><a href="https://www.facebook.com/OfficeDepot/" target='_blank' class="slds-text-color_inverse">Facebook</a></li>
+                <li class="slds-item slds-text-color_inverse"><a href="https://www.instagram.com/officedepot/?hl=en" target='_blank' class="slds-text-color_inverse">Instagram</a></li>
+                <li class="slds-item"><a href="https://twitter.com/officedepot?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target='_blank' class="slds-text-color_inverse">Twitter</a></li>
+                <li class="slds-item"><a href="https://play.google.com/store/apps/details?id=com.officedepot.mobile.ui.bsd.us.prod" target='_blank' class="slds-text-color_inverse">Shop Us On Google</a></li>
+                <li><div id="copyrightinfo" >Copyright © {!v.today} by Office Depot, Inc. All rights reserved.</div></li>
+            </ul>
+        </div> 
+    </aura:if >
+    <aura:if isTrue="{!$Browser.isPhone}">
+        <ul style=" Background-color:black;"> 
+            <li><div class="slds-text-align--center" style="color:white;" id="copyrightinfo">Copyright © {!v.today} by Office Depot, Inc. All rights reserved.</div></li>        
+        </ul>
+   </aura:if>
+    
+     <aura:if isTrue="{!$Browser.formFactor == 'TABLET'}">
+                 <ul style=" Background-color:black;"> 
+            <li><div  class="slds-text-align--center" style="color:white;" id="copyrightinfo">Copyright © {!v.today} by Office Depot, Inc. All rights reserved.</div></li>        
+        </ul>
+   </aura:if>
+</aura:component>

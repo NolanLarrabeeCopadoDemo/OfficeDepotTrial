@@ -1,0 +1,7 @@
+<apex:page standardController="account"  extensions="AccountStructure">
+    <apex:pageBlock Title="email status">
+        <apex:outputLabel ><b>Thank you - your email(s) have been sent </b></apex:outputLabel><br/><br/>
+        <apex:outputLabel >Below that have a link to go back to the previous Account Hierarchy page </apex:outputLabel><br/><br/>
+        <div style="padding-left:150px"><a href="/apex/AccountHierarchyPage?id={!account.id}">  Back to hierarchy page</a> </div>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,345 @@
+<!-- 
+ Name         : CustomListView
+ Created By   : Lalit
+ Description  : VF page to show the Leads and Accounts for S-410488(00687615)
+ Created Date : May  5, 2016   
+ -->
+<apex:page controller="CustomListViewController" showHeader="true" sidebar="true" id="pgLstView">
+<script src="{!URLFOR($Resource.jquery)}"></script>
+<apex:includeScript value="/soap/ajax/21.0/connection.js"/>
+<apex:includeScript value="/soap/ajax/21.0/apex.js"/>
+<style>
+
+a , a:hover{
+text-decoration : none;
+cursor : pointer;
+}
+
+.mainDivWidth {
+width:100%;
+overflow-x:auto;
+}
+
+.mainDivHeight {
+height:500px;
+overflow-y:auto;
+}
+
+</style>
+            
+            
+<apex:form id="frmLstView" styleClass="frmLstViewClass"> 
+    <apex:actionFunction name="doSortJS" action="{!doSort}" reRender="charmap,resultBlock,NavigationPanel,scriptPanel" status="myStatus" >
+         <apex:param value="" name="firstParam" assignTo="{!sortField}"/>
+    </apex:actionFunction>
+    <apex:actionFunction name="charFilterJS" id="charFilter" action="{!charFilter}" reRender="charmap,resultBlock,NavigationPanel,scriptPanel" status="myStatus" > 
+        <apex:param value="" name="d" assignTo="{!currentChar}"/>
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="prevPage" action="{!previousPage}" reRender="resultBlock,NavigationPanel,scriptPanel" status="myStatus" > 
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="nextPage" action="{!nextPage}" reRender="resultBlock,NavigationPanel,scriptPanel" status="myStatus" > 
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="firstPage" action="{!firstPage}" reRender="resultBlock,NavigationPanel,scriptPanel" status="myStatus" > 
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="lastPage" action="{!lastPage}" reRender="resultBlock,NavigationPanel,scriptPanel" status="myStatus" > 
+    </apex:actionFunction>   
+    
+    <!-- Account view Action START -->
+    <apex:actionFunction name="doSortJSAccount" action="{!doSortAccount}" reRender="charmap,resultBlockAccount,NavigationPanelAccount,scriptPanel" status="myStatus" >
+         <apex:param value="" name="firstParam" assignTo="{!sortField}"/>
+    </apex:actionFunction>
+        
+    <apex:actionFunction name="prevPageAccount" action="{!previousPageAccount}" reRender="resultBlockAccount,NavigationPanelAccount,scriptPanel" status="myStatus" > 
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="nextPageAccount" action="{!nextPageAccount}" reRender="resultBlockAccount,NavigationPanelAccount,scriptPanel" status="myStatus" > 
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="firstPageAccount" action="{!firstPageAccount}" reRender="resultBlockAccount,NavigationPanelAccount,scriptPanel" status="myStatus" > 
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="lastPageAccount" action="{!lastPageAccount}" reRender="resultBlockAccount,NavigationPanelAccount,scriptPanel" status="myStatus" > 
+    </apex:actionFunction> 
+    <!-- Account view action  END -->  
+    
+    <apex:sectionHeader title="{!objectLabel}" subtitle="Home" rendered="{!objectLabel!=null}"/>
+    <apex:outputPanel id="charmap">   
+        <!--<apex:outputPanel rendered="{!sortField != null && CONTAINS(FieldListSTR,sortField) && mapColumns[sortField].EnableCharFilter}"> 
+        <br/>        
+            <div align="center">
+                <apex:repeat value="{!charList}" var="c">
+                    <span style="{!IF(c == currentChar,'background-color:#333;color:#FFF;','color:#000;cursor:pointer;')}" onClick="charFilterJS('{!c}');">&nbsp;{!c}&nbsp;</span><b>|</b>
+                </apex:repeat>
+            </div>
+            <br/>
+        </apex:outputPanel> -->
+    </apex:outputPanel> 
+    <!-- Added by Lalit for S-410489 START -->
+    <div align="center">
+    <br/><input value="Next Lead" class="btn" name="next_lead" onclick="getNextLead() ;return false" title="Next Lead" type="button" />  
+    </div> 
+    <!-- Added by Lalit for S-410489 END -->  
+    <apex:outputPanel styleClass="customListView" > 
+    <apex:pageBlock id="resultBlock" title="Leads View">   
+           <div class="mainDivHeight">
+           <div class="mainDivWidth">
+          <apex:outputPanel rendered="{!displayList.size != 0}"> 
+           <table cellspacing="0" cellpadding="0" class="list" >
+                <tr class="headerRow ">
+                    <apex:repeat value="{! fieldList}" var="field">
+                      <apex:variable value="{!0}" var="check" rendered="{!mapColumns[field].MakeVisible}">  
+                        <th class="headerRow " style="max-width: 100px ;"><a href="javascript:void(0);" onclick="var sortFld = '{! mapColumns[field].SortByFieldAPI}'; if (sortFld == null || sortFld == '') {return;} doSortJS('{! mapColumns[field].SortByFieldAPI}'); return false;"  style="white-space:normal">
+                        {!mapColumns[field].FieldLabel}
+                        <img src="{!IF(sortField == field,IF(isAsc, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" />
+                        </a></th>
+                      </apex:variable>
+                    </apex:repeat>
+                </tr>
+                <apex:repeat value="{! displayList}" var="rec">
+                <tr class="dataRow ">
+                    <apex:repeat value="{! fieldList}" var="field">
+                        <apex:variable value="{!0}" var="check" rendered="{!mapColumns[field].MakeVisible}">               
+                        <td class="datacell" style="text-align: {!IF(mapColumns[field].EscapeOutput,'center','')}">
+                          <apex:outputLink rendered="{!mapColumns[field].MakeLink && !(objectType == 'KnowledgeArticleVersion' && field == 'Title')}" value="/{!rec.fieldMap[field + '__REF']}" target="_blank" style="cursor : pointer;">
+                              <apex:outputText rendered="{!CONTAINS(field,'Date') || CONTAINS(field,'Time')}" value="{0,date,MM/dd/yyyy}">                          
+                              <apex:param value="{! rec.fieldMap[field]}" />
+                              </apex:outputText>
+                              <apex:outputText escape="{!!mapColumns[field].EscapeOutput}" rendered="{!!(CONTAINS(field,'Date') || CONTAINS(field,'Time'))}" value="{!rec.fieldMap[field]}" />
+                          </apex:outputLink>
+                          
+                          <apex:outputLink rendered="{!mapColumns[field].MakeLink && (objectType == 'KnowledgeArticleVersion' && field == 'Title')}" value="urlname={!rec.fieldMap[field + '__REF']}" target="_top" style="cursor : pointer;">
+                             <apex:outputLabel escape="{!!mapColumns[field].EscapeOutput}" rendered="{!objectType == 'KnowledgeArticleVersion' && field == 'Title'}"  value="{!rec.fieldMap[field]}" />
+                          </apex:outputLink>
+                          
+<!--                          <apex:outputLink rendered="{!mapColumns[field].MakeLink && (objectType == 'KnowledgeArticleVersion' && field == 'Title')}" value="{!SUBSTITUTE(rec.fieldMap['ArticleType'],'__kav','') & rec.fieldMap[field + '__REF']}" target="_top" style="cursor : pointer;">-->
+<!--                             <apex:outputLabel escape="{!!mapColumns[field].EscapeOutput}" rendered="{!objectType == 'KnowledgeArticleVersion' && field == 'Title'}"  value="{!rec.fieldMap[field]}" />-->
+<!--                          </apex:outputLin-->
+                          
+                          <apex:outputLabel rendered="{!!mapColumns[field].MakeLink}">                          
+                              <apex:outputText rendered="{! (CONTAINS(field,'Date') || CONTAINS(field,'Time')) && field != 'Time_Zone__c' }" value="{0,date,MM/dd/yyyy}">                          
+                              <apex:param value="{! rec.fieldMap[field]}" />
+                              </apex:outputText>
+                              <apex:outputLabel escape="{!!mapColumns[field].EscapeOutput}" rendered="{! !(field == 'ArticleType' || CONTAINS(field,'Date') || CONTAINS(field,'Time')) || field == 'Time_Zone__c'}" 
+                              value="{!rec.fieldMap[field]}" />
+                              <apex:outputLabel escape="{!!mapColumns[field].EscapeOutput}" rendered="{!field == 'ArticleType'}"  value="{!SUBSTITUTE(rec.fieldMap[field],'__kav','')}" />
+                          </apex:outputLabel>
+                                               
+                        </td> 
+                        </apex:variable>
+                    </apex:repeat>
+                </tr>
+                </apex:repeat>
+            </table>
+            
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="NavigationPanel">
+            <apex:outputPanel rendered="{!displayList.size != 0}">
+               <table width="100%" >
+               <tr><td align="left" width="33%">
+                       <div id="pagelinkblock" > 
+                         <div id="curstate"><apex:outputText value="{!paginator.showingFrom} - {!paginator.showingTo} of {!paginator.totalResults}" escape="false" /> </div>
+                       </div>
+                   </td>
+                   <td align="left" width="33%" style="vertical-align:middle;">
+                        <apex:outputlink rendered="{!paginator.isPreviousPageAvailable}" onclick="firstPage();return false">
+                            <apex:outputLabel style="cursor:pointer" >&lt;&lt;First </apex:outputLabel>
+                        </apex:outputlink>&nbsp;
+                        <apex:outputlink onclick="prevPage();return false;" rendered="{!paginator.isPreviousPageAvailable}" >
+                        <apex:outputLabel style="cursor:pointer" escape="false" value="&lt;Previous"></apex:outputLabel></apex:outputlink>
+                        <span id="div_mid1" >&nbsp;<apex:outputLabel value="|" rendered="{!paginator.isPreviousPageAvailable &&  paginator.isNextPageAvailable}" />&nbsp;</span>
+                        <apex:outputlink onclick="nextPage();return false;" rendered="{!paginator.isNextPageAvailable}" >Next&gt;</apex:outputlink>
+                        &nbsp;
+                        <apex:outputlink rendered="{!paginator.isNextPageAvailable}" onclick="lastPage();return false;" >Last&gt;&gt;</apex:outputlink>
+                   </td>
+                   <td align="right" width="33%" style="vertical-align:middle;">
+                      <div id="pagenumber"><apex:outputText value="Page &nbsp; {!paginator.currentPage} of {!paginator.totalPage}" escape="false" />
+                      </div>
+                   </td></tr> 
+                </table> 
+                </apex:outputPanel>    
+            </apex:outputPanel>    
+            <apex:outputPanel rendered="{!displayList.size == 0}"> 
+                 <apex:outputText value="No Records to Display" />
+             </apex:outputPanel>
+            </div> </div>
+    </apex:pageBlock>
+    
+    <!-- Account View--------- START-->
+    <apex:pageBlock id="resultBlockAccount" title="Accounts View">   
+           <div class="mainDivHeight">
+           <div class="mainDivWidth">
+          <apex:outputPanel rendered="{!displayListAccount.size != 0}"> 
+           <table cellspacing="0" cellpadding="0" class="list" >
+                <tr class="headerRow ">
+                    <apex:repeat value="{! fieldListAccount}" var="field">
+                      <apex:variable value="{!0}" var="check" rendered="{!mapColumnsAccount[field].MakeVisible}">  
+                        <th class="headerRow " style="max-width: 100px ;"><a href="javascript:void(0);" onclick="var sortFld = '{! mapColumnsAccount[field].SortByFieldAPI}'; if (sortFld == null || sortFld == '') {return;} doSortJSAccount('{! mapColumnsAccount[field].SortByFieldAPI}'); return false;"  style="white-space:normal">
+                        {!mapColumnsAccount[field].FieldLabel}
+                        <img src="{!IF(sortField == field,IF(isAsc, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" />
+                        </a></th>
+                      </apex:variable>
+                    </apex:repeat>
+                </tr>
+                <apex:repeat value="{! displayListAccount}" var="rec">
+                <tr class="dataRow ">
+                    <apex:repeat value="{! fieldListAccount}" var="field">
+                        <apex:variable value="{!0}" var="check" rendered="{!mapColumnsAccount[field].MakeVisible}">               
+                        <td class="datacell" style="text-align: {!IF(mapColumnsAccount[field].EscapeOutput,'center','')}">
+                          <apex:outputLink rendered="{!mapColumnsAccount[field].MakeLink && !(objectType == 'KnowledgeArticleVersion' && field == 'Title')}" value="/{!rec.fieldMap[field + '__REF']}" target="_blank" style="cursor : pointer;">
+                              <apex:outputText rendered="{!CONTAINS(field,'Date') || CONTAINS(field,'Time')}" value="{0,date,MM/dd/yyyy}">                          
+                              <apex:param value="{! rec.fieldMap[field]}" />
+                              </apex:outputText>
+                              <apex:outputText escape="{!!mapColumnsAccount[field].EscapeOutput}" rendered="{!!(CONTAINS(field,'Date') || CONTAINS(field,'Time'))}" value="{!rec.fieldMap[field]}" />
+                          </apex:outputLink>
+                          
+                          <apex:outputLink rendered="{!mapColumnsAccount[field].MakeLink && (objectType == 'KnowledgeArticleVersion' && field == 'Title')}" value="urlname={!rec.fieldMap[field + '__REF']}" target="_top" style="cursor : pointer;">
+                             <apex:outputLabel escape="{!!mapColumnsAccount[field].EscapeOutput}" rendered="{!objectType == 'KnowledgeArticleVersion' && field == 'Title'}"  value="{!rec.fieldMap[field]}" />
+                          </apex:outputLink>
+                          
+<!--                          <apex:outputLink rendered="{!mapColumns[field].MakeLink && (objectType == 'KnowledgeArticleVersion' && field == 'Title')}" value="{!SUBSTITUTE(rec.fieldMap['ArticleType'],'__kav','') & rec.fieldMap[field + '__REF']}" target="_top" style="cursor : pointer;">-->
+<!--                             <apex:outputLabel escape="{!!mapColumns[field].EscapeOutput}" rendered="{!objectType == 'KnowledgeArticleVersion' && field == 'Title'}"  value="{!rec.fieldMap[field]}" />-->
+<!--                          </apex:outputLin-->
+                          
+                          <apex:outputLabel rendered="{!!mapColumnsAccount[field].MakeLink}">                          
+                              <apex:outputText rendered="{!CONTAINS(field,'Date') || CONTAINS(field,'Time')}" value="{0,date,MM/dd/yyyy}">                          
+                              <apex:param value="{! rec.fieldMap[field]}" />
+                              </apex:outputText>
+                              <apex:outputLabel escape="{!!mapColumnsAccount[field].EscapeOutput}" rendered="{!!(field == 'ArticleType' || CONTAINS(field,'Date') || CONTAINS(field,'Time'))}" 
+                              value="{!rec.fieldMap[field]}" />
+                              <apex:outputLabel escape="{!!mapColumnsAccount[field].EscapeOutput}" rendered="{!field == 'ArticleType'}"  value="{!SUBSTITUTE(rec.fieldMap[field],'__kav','')}" />
+                          </apex:outputLabel>
+                                               
+                        </td> 
+                        </apex:variable>
+                    </apex:repeat>
+                </tr>
+                </apex:repeat>
+            </table>
+            
+        </apex:outputPanel>
+        
+        <apex:outputPanel id="NavigationPanelAccount">
+            <apex:outputPanel rendered="{!displayListAccount.size != 0}">
+               <table width="100%" >
+               <tr><td align="left" width="33%">
+                       <div id="pagelinkblock" > 
+                         <div id="curstate"><apex:outputText value="{!paginatorAccount.showingFrom} - {!paginatorAccount.showingTo} of {!paginatorAccount.totalResults}" escape="false" /> </div>
+                       </div>
+                   </td>
+                   <td align="left" width="33%" style="vertical-align:middle;">
+                        <apex:outputlink rendered="{!paginatorAccount.isPreviousPageAvailable}" onclick="firstPageAccount();return false">
+                            <apex:outputLabel style="cursor:pointer" >&lt;&lt;First </apex:outputLabel>
+                        </apex:outputlink>&nbsp;
+                        <apex:outputlink onclick="prevPageAccount();return false;" rendered="{!paginatorAccount.isPreviousPageAvailable}" >
+                        <apex:outputLabel style="cursor:pointer" escape="false" value="&lt;Previous"></apex:outputLabel></apex:outputlink>
+                        <span id="div_mid1" >&nbsp;<apex:outputLabel value="|" rendered="{!paginatorAccount.isPreviousPageAvailable &&  paginatorAccount.isNextPageAvailable}" />&nbsp;</span>
+                        <apex:outputlink onclick="nextPageAccount();return false;" rendered="{!paginatorAccount.isNextPageAvailable}" >Next&gt;</apex:outputlink>
+                        &nbsp;
+                        <apex:outputlink rendered="{!paginatorAccount.isNextPageAvailable}" onclick="lastPageAccount();return false;" >Last&gt;&gt;</apex:outputlink>
+                   </td>
+                   <td align="right" width="33%" style="vertical-align:middle;">
+                      <div id="pagenumber"><apex:outputText value="Page &nbsp; {!paginatorAccount.currentPage} of {!paginatorAccount.totalPage}" escape="false" />
+                      </div>
+                   </td></tr> 
+                </table> 
+                </apex:outputPanel>    
+            </apex:outputPanel>    
+            <apex:outputPanel rendered="{!displayListAccount.size == 0}"> 
+                 <apex:outputText value="No Records to Display" />
+             </apex:outputPanel>
+            </div> </div>
+    </apex:pageBlock>
+    <!-- Account view END -->
+    </apex:outputPanel>
+    <div Id="hoverFrameDiv" style="display:none;z-index:101;position:absolute;">
+<!--      <iframe Id="hoverFrame" src="" style="border:0px;" height="300px" width="500px"/>-->
+    </div>
+
+    <div Id="hoverWaitDiv" style="padding-top:20px;color:red;display:none;z-index:101;position:absolute;border:1px solid black;background-color:white;height:50px;width:500px">
+    <center><h1>Loading...</h1></center>
+    </div>
+    
+    <apex:outputPanel id="scriptPanel">
+    <script>
+    function setFocusOnLoad() {}
+    
+        $(document).ready(function(){   
+            $('.makeHover').each(function(){
+                var url = $(this).attr('href');
+                $(this).attr('href','javascript:void(0)');
+                $(this).mouseover(function(){
+                    hideHover();
+                    showHover(this,url);
+                });                
+            }); 
+            
+            $('#hoverFrameDiv').mouseout(function(){
+                hideHover();
+            });     
+            var temHeight = $('.mainDivWidth').first().height();
+            temHeight = temHeight > 500 ? 500 : temHeight < 30 ? 30 : temHeight;
+            $('.mainDivHeight').first().height(temHeight);
+        });
+        
+        function showHover(obj,url){
+            if(obj != null ){
+                var po = $(obj).position();                
+                $('#hoverFrameDiv').html('<iframe Id=\"hoverFrame\" src=\"' + url + '\" style=\"border:0px;\" height=\"300px\" width=\"500px\"/>');
+                
+                $('#hoverFrame').load(function(){
+                     $('#hoverFrameDiv').css('border','2px solid #09c');              
+                     $('#hoverFrameDiv').css('display','block'); 
+                     $('#hoverWaitDiv').css('display','none'); 
+                     var frameHeight =  $(this).contents().find('body').height();
+                     $(this).height(frameHeight > 200 ? 200 : frameHeight);
+                });
+                                
+                var leftPos = po.left - 500 > 0 ? po.left - 500 : po.left;
+                $('#hoverFrameDiv').css('top', ( po.top - 10) + 'px');
+                $('#hoverFrameDiv').css('left', leftPos + 'px');               
+                $('#hoverWaitDiv').css('top', ( po.top - 10) + 'px');
+                $('#hoverWaitDiv').css('left', leftPos + 'px');
+             }  
+             $('#hoverWaitDiv').css('display','block');   
+        }
+        
+        
+        function hideHover(){        
+         $('#hoverFrameDiv').css('display','none');   
+         $('#hoverWaitDiv').css('display','none');   
+        }
+        <!-- Added by Lalit for S-410489 START -->
+        function getNextLead(){
+        sforce.connection.sessionId = '{!GETSESSIONID()}';
+        if('{!$Profile.Name}' == '{!$Label.Inside_Sales_Profile}' || '{!$Profile.Name}' == '{!$Label.System_Administrator_Profile}'){
+
+            var idList =''; //{!GETRECORDIDS($ObjectType.Lead)};
+            // Call Class to Update Leads
+            var strResult = sforce.apex.execute('LeadRepQueueAssignment', 'getNextLead', {});
+            
+            // If strResult contains anything, that is the cases not updated
+            if (strResult != ''){
+              //START S-418605 (OD 00716013) [Hemant 7/22/2016]
+						  if((""+strResult).indexOf('00Q') != -1){
+						    window.open('/'+strResult, '_blank');
+						  }else{
+						    alert(strResult);
+						  }
+						  //END S-418605 (OD 00716013)
+            }
+            location.reload();
+            
+            }else{
+            alert('{!$Label.Lead_Assignment_Message}');
+            }
+        }
+        <!-- Added by Lalit for S-410489 END -->
+    </script>
+    </apex:outputPanel>
+</apex:form> 
+</apex:page>

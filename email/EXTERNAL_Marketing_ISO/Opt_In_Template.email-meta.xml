@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Opt In Template</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Opt In Template</name>
+    <style>freeForm</style>
+    <subject>Opt In Template</subject>
+    <textOnly>Dear {!Contact.Name},
+
+
+As always thank you for being a loyal Office Depot customer.    I truly value your business and would like for your organization to receive information about products, promotions, and specials that are available to you in addition to the special pricing you receive from us.  You can update your preferences by clicking below.
+
+YES I would like to receive emails about weekly and monthly promotions
+
+If you have any questions, please don&apos;t hesitate to contact me at the below number. For your reference, your account number is {!Account.Cust_ID__c}
+
+Thank you again for your time and your continued business with Office Depot.
+
+
+Regards,
+{!User.Name}
+Account Manager
+800-652-9855 x{!User.ISO_Extension__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

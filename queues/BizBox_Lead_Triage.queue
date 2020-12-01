@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>BizBox Lead Triage</name>
+    <queueMembers>
+        <roleAndSubordinatesInternal>
+            <roleAndSubordinateInternal>Business_Pro_MGR</roleAndSubordinateInternal>
+        </roleAndSubordinatesInternal>
+        <roles>
+            <role>Advisor_Rep</role>
+            <role>Manager_BizBox_ISO</role>
+            <role>Reveneer</role>
+            <role>Sr_Advisor</role>
+            <role>Sr_Advisor_BizBox_ISO</role>
+            <role>Sr_Sales_Market_Manager</role>
+        </roles>
+        <users>
+            <user>898927@officedepot.com</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>CompuCom_BBOX_Lead__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Lead</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>LeadStaging__c</sobjectType>
+    </queueSobject>
+</Queue>

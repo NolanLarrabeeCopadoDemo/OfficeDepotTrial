@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_69105473</developerName>
+        <masterLabel>Opp Bands</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>AMOUNT</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>4,999</to>
+            </sourceValues>
+            <value>Less than $5k</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>4,999</from>
+                <to>19,999</to>
+            </sourceValues>
+            <value>$5k-$20k</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>19,999</from>
+            </sourceValues>
+            <value>Over $20k</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_6656018</developerName>
+        <masterLabel>Region</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>ROLLUP_DESCRIPTION</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - GPO 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 3 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 4 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 5</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT Medical 1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT Medical 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT- Medical 2 Rep</sourceValue>
+            </sourceValues>
+            <value>Crawford</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Public 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 3 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 4 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 5 Rep</sourceValue>
+            </sourceValues>
+            <value>Reuter</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 1 - NthE Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 2 - SthE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 3 - Cntl Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 5 - CA Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 4 - MidW Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 6 - Chmb Rep</sourceValue>
+            </sourceValues>
+            <value>Graham</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 3 Rep</sourceValue>
+            </sourceValues>
+            <value>Acq/Piranha</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Account.Account_Owner_Manager_2__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Owner_Manager_Name__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Owner__c</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.AOPS_Cust_Id__c</field>
+    </columns>
+    <columns>
+        <field>Account.AOPS_Seq_ID__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Product__c</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Created_Fiscal_Month__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Status__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Close_Reason__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>ISO</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Product__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>CBFS,CBS/Facilities,Contract Furniture,Facilities- Coffee,Furniture - Catalog,Furniture - Interiors,Print Services,Tech</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>tech</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_6656018</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_69105473</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Opps Created Geoff</name>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity@Opportunity.Account_Extension_Related_Site__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <endDate>2018-04-28</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2018-04-01</startDate>
+    </timeFrameFilter>
+</Report>

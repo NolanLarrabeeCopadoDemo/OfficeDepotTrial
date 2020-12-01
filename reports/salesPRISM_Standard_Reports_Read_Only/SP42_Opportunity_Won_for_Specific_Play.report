@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_35718673</developerName>
+        <masterLabel>Product Category</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Product__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Writing &amp; Drafting</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>School Supplies</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Office Supplies</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Office Essentials</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Miscellaneous</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Labels &amp; Forms</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Filing &amp; Binding</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>All Supplies</sourceValue>
+            </sourceValues>
+            <value>Office Supplies</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>CBFS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CBS/Facilities</sourceValue>
+            </sourceValues>
+            <value>CBFS</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Paper</sourceValue>
+            </sourceValues>
+            <value>Paper</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Contract Furniture</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Furniture - Catalog</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Furniture - Interiors</sourceValue>
+            </sourceValues>
+            <value>Furniture</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Tech</sourceValue>
+            </sourceValues>
+            <value>Technology</value>
+        </values>
+        <values>
+            <value>CPD</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>K-12 Growth</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Instructional Solutions</sourceValue>
+            </sourceValues>
+            <value>Education</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ink &amp; Toner</sourceValue>
+            </sourceValues>
+            <value>Ink &amp; Toner</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>MPS</sourceValue>
+            </sourceValues>
+            <value>MPS</value>
+        </values>
+        <values>
+            <value>Other</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>CAMPAIGN_SOURCE</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Product__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Owner_Region__c</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <description>salesPRISM Opportunity Won for a Specific Play</description>
+    <filter>
+        <criteriaItems>
+            <column>LEAD_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>salesPRISM ACQ,salesPRISM SOW</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CAMPAIGN_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>executive suite</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_35718673</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>SP42: Opportunity Won for Specific Play</name>
+    <params>
+        <name>open</name>
+        <value>closedwon</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURY</interval>
+    </timeFrameFilter>
+</Report>

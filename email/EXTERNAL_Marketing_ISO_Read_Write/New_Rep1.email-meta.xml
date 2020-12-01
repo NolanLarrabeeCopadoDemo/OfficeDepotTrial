@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>New Rep Contact Info</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>New Rep</name>
+    <style>freeForm</style>
+    <subject>Office Depot New Account Manager Information</subject>
+    <textOnly>{!Contact.FirstName},
+
+
+
+We have done some restructuring of accounts here at Office Depot in order to better serve our customers.  Part of this transition means your account will now be managed by (NAME).  I wanted to reach out to you personally and ensure you that you are in good hands and that (NAME) will be reaching out to you over the next couple of weeks to introduce him/herself to you.
+
+
+
+In the meantime, should you need anything, you can reach out to them directly as well.  I have enjoyed working with you and I thank you for your continued business and loyalty to Office Depot during this transition. Please let me know if you have any questions.
+
+
+
+Your new Account Manager Contact Info:
+
+
+
+
+
+Warm Regards,
+
+{!User.Name}
+
+Account Manager
+
+{!User.Email}
+
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

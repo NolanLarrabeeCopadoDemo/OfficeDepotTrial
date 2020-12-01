@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>BIC Xtra-Value Packs</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>BIC Xtra-Value Packs</name>
+    <style>freeForm</style>
+    <subject>Office Depot - BIC® Xtra-Value Packs</subject>
+    <textOnly>{!Contact.FirstName},
+
+
+BIC Xtra-Value Packs are the best way to buy BIC and save up to 49%! They offer great value and are ideal for schools, offices and anywhere a large volume is needed. Available in:
+
+BIC® Brite Liner® Highlighter 200c
+BIC® Xtra Smooth Mechanical Pencil 320c
+BIC® Marking™ Permanent Marker 200ct
+BIC® Great Erase® Dry Erase Marker 175ct
+
+There are no inner packs. See the attached flyer to learn more. 
+
+
+
+Warmest Regards,
+
+{!User.Name}
+
+Account Manager
+
+{!User.Email}
+
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

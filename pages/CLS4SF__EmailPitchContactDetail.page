@@ -1,0 +1,17 @@
+<apex:page standardController="Contact" extensions="CLS4SF.ContactUtils" showHeader="false" sidebar="false">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<script type="text/javascript">
+    window.onload=function(){
+         document.getElementById("cspost").submit();
+    };
+</script>
+    <form name="cspost" id="cspost" action="{!postURL}/manage/email/external_link_post" method="POST">
+<input type="hidden" id="crmid" name="crmid" value="crm://salesforce.com/contact/{!Contact.Id}"/>
+<input type="hidden" id="name" name="name" value="{!contact.Name}" />
+<input type="hidden" id="email" name="email" value="{!contact.name+' <'+contact.Email+'>'}" />
+<input type="hidden" id="account" name="account" value="{!contact.AccountId}" />
+<input type="hidden" id="company" name="company" value="{!contact.Account.Name}" />
+<input type="hidden" id="csrf_token" name="csrf_token" value="{!csrf}" />
+</form>
+</META>
+</apex:page>

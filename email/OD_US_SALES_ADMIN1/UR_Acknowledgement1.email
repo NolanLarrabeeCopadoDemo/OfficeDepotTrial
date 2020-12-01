@@ -1,0 +1,27 @@
+Dear <Sales Rep, Sales ID>
+
+We have received your request for a Usage Report.
+
+This is for <Account Name> with <AC Number> 
+
+We will complete your request for Usage Report within 2 Business Day.
+
+Thank you and have a great day!
+
+{!User.FirstName} {!User.LastName}
+Business Analyst, Sales Support | Office Depot, Inc.
+6600 N Military Trail | Boca Raton, FL 33496.
+Office: 866.365.0557 | {!User.Email}
+
+
+CONFIDENTIALITY NOTICE: The information contained in this email and attached document(s) may contain confidential information that is intended only for the addressee(s). If you are not the intended recipient, you are hereby advised that any disclosure, copying, distribution or the taking of any action in reliance upon the information is prohibited. If you have received this email in error, please immediately notify the sender and delete it from your system.
+
+------------------------Original Message------------------------
+
+From Address: {!EmailMessage.FromName} [{!EmailMessage.FromAddress}]
+Sent : {!EmailMessage.MessageDate}
+To Address : {!EmailMessage.ToAddress}
+
+Subject : {!EmailMessage.Subject}
+
+{!EmailMessage.TextBody}

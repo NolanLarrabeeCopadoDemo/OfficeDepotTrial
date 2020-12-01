@@ -1,0 +1,70 @@
+<apex:page id="ODFH" action="{!userSetup}" controller="ContactSearchController" sidebar="false" showHeader="false" standardStylesheets="false" docType="html-5.0">
+   <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=9" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <apex:includeScript value="{!URLFOR($Resource.JQueryUI1103, '/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js')}"  />
+     <apex:includeScript value="{!URLFOR($Resource.JQueryUI1103, '/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js')}"  />
+     <!--  <apex:stylesheet value="{!URLFOR($Resource.JQueryUI1103, '/jquery-ui-1.10.3.custom/css/sunny/jquery-ui-1.10.3.custom.css')}"  />
+-->      <apex:includeScript value="{!URLFOR($Resource.BS, '/bootstrap/js/bootstrap.js')}"  />
+      <apex:stylesheet value="{!URLFOR($Resource.BS, '/bootstrap/css/bootstrap.min.css')}"  />
+     <apex:stylesheet value="{!URLFOR($Resource.BS, '/bootstrap/css/bootstrap-responsive.css')}"  />
+     <apex:stylesheet value="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"  />
+ <!--    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"/>-->
+ <apex:stylesheet value="http://fonts.googleapis.com/css?family=Lobster|Cabin:400,700"  />
+     
+      <style>
+      h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lobster', cursive;
+}
+           </style>
+     
+   </head>
+   
+   <body data-spy="scroll" >
+      <div class="container ">
+   
+</div>
+
+
+     <script>
+if( /Android|webOS|iPhone|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent) ) {
+window.location = "https://officedepot.my.salesforce.com/one/one.app"
+ 
+}
+else
+{
+window.location = "https://officedepot.my.salesforce.com";
+}
+</script>
+
+Welcome to Officedepot Mobile Site for Salesforce.
+
+The Site is under Construction....
+
+ <a href="https://officedepot.my.salesforce.com">Please click Here for Desktop site</a>
+   <div class="span12">
+                  <div class="well">
+                     <h3> My Profile</h3>
+                     <hr class="featurette-divider"/>
+                     <div class="row">
+                        <apex:form >
+                           <div class="span2">
+                              <img class="img-thumbnail" src="{!MyPic}"/>
+                           </div>
+                           <div class="span2">
+                              <h4>  {!$User.FirstName} {!$User.LastName} </h4>
+                              <h5>  {!$User.Title} </h5>
+                              <h6>  {!$User.Email} </h6>
+                              <h6>  {!$User.Phone} </h6>
+                              <hr class="featurette-divider"/>
+                              <h5>Change my Profile Picture</h5>
+                              <apex:inputFile value="{!fileBody}" filename="{!fileName}" title="Choose the file to upload"  />
+                              <apex:commandButton action="{!UploadFile}" value="Upload" id="upload" styleclass="btn  btn-default btn-xs"   />
+                           </div>
+                        </apex:form>
+                     </div>
+                  </div>
+               </div>
+          <a href="https://officedepot.my.salesforce.com">Please click Here for Desktop site</a>
+   </body>
+</apex:page>

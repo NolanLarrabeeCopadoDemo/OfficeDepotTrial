@@ -1,0 +1,46 @@
+<template>
+    <div class="slds-form-element">
+        <div class="slds-form-element__control">
+            <div class={inputContainerClass}
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                role="combobox"
+                id="searchLookup">
+                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left"
+                    id="iconDirection">
+                    <lightning-input label="Address Search"
+                                onkeyup={keyUpController}
+                                value={searchKey}
+                                placeholder="Enter a location"></lightning-input>
+                    
+                </div>
+
+
+                <div id="listbox-unique-id" role="listbox">
+                    <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid"
+                        role="presentation">
+
+                        <template for:each={filteredOptions} for:item="option">
+                            <li key={option.placeid}
+                                data-key={option.placeid}
+                                value={option.value}
+                                data-label={option.label}
+                                role="presentation"
+                                class="slds-listbox__item"
+                                onclick={selectOption}>
+                                <span key={option.placeid}
+                                    class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                    role="option">
+                                    <span class="slds-media__body">
+                                        <span class="slds-listbox__option-text slds-listbox__option-text_entity">{option.label}</span>
+                                    </span>
+                                </span>
+                            </li>
+                        </template>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

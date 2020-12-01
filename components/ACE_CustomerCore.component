@@ -1,0 +1,126 @@
+<apex:component controller="ACECustomerCoreController">
+    <Style>
+        .headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: white;}
+        .col1 {width:90%;}
+        .col2 {width:10%;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+    </Style>
+  <apex:pageBlock >
+      <apex:pageMessages ></apex:pageMessages>
+      <apex:panelGrid width="100%" columns="1" style="text-align: right; align:right;">
+      <apex:outputpanel >
+         <!-- <a href="/servlet/servlet.FileDownload?file=015M0000000ACus" target="_blank"> <apex:image id="theImage" value="{!$Resource.TalkingPointImage}" width="40" height="18"/></a>  -->
+                  <!--   <a  target="_blank" href="/sfc/#version?selectedDocumentId=069M00000002qd7">
+                           <apex:image id="theImage" value="{!$Resource.TalkingPointImage}" width="30" height="12" style="text-align: right;"/>Talking Points</a> -->
+                
+          &nbsp;&nbsp;
+          <apex:selectList id="period" value="{!period}" size="1" style="width:auto">
+                    <apex:actionSupport event="onchange" action="{!calcRange}" rerender="coretab1,buttons2,corepanel"/>
+                    <apex:selectOption itemValue="12-Months" itemLabel="Rolling 12 Months"/>
+                    <apex:selectOption itemValue="9-Months" itemLabel="Rolling 9 Months"/>
+                    <apex:selectOption itemValue="6-Months" itemLabel="Rolling 6 Months"/>
+                    <apex:selectOption itemValue="3-Months" itemLabel="Rolling 3 Months"/>
+          </apex:selectList> 
+      </apex:outputpanel>
+      </apex:panelGrid>
+       
+       <apex:pageBlockSection columns="1" id="Customer_core" rendered="{!showPageBlockTable}">
+           <apex:pageBlockTable id="coretab1" value="{!oCustCoreDataResponse}" var="core" style="width:100%;overflow:auto;word-wrap:break-word;">                
+              <apex:column headerValue="Core List ID" >
+                  <a href="/{!core.SalesforceCOREID}" id="{!core.SalesforceCOREID}" target="_parent">
+                  {!core.COREID}
+                  </a>                   
+                  <apex:facet name="footer">TOTAL</apex:facet>
+              </apex:column>
+                
+             <apex:column headerValue="Core Description" value="{!core.CoreDescription}"/> 
+             <apex:column headerValue="# Impacted SKUs" value="{!core.SKUCOUNT}"/> 
+                
+              <apex:column headerValue="Impacted SKU Usage">
+                         <apex:facet name="footer">
+                           <apex:outputText value="{0, number, ###,###,###,##0}">
+                            <apex:param value="{!Annual_Usage}"/>
+                           </apex:outputText>
+                         </apex:facet> 
+                         <apex:outputText value="{0, number, ###,###,###,##0}">
+                           <apex:param value="{!core.ANNUALUSAGE}"/>
+                        </apex:outputText>
+              </apex:column>
+              
+              <apex:column headerValue="Impacted SKU Spend" >
+                     <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                        <apex:param value="{!Annual_SKU_Spend}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+                    <apex:outputText value="${0, number, ###,###,###,###.00}">
+                        <apex:param value="{!core.ANNUALSKUSPEND}"/>
+                    </apex:outputText>
+              </apex:column>
+               
+             
+                <apex:column headerValue="Estimated Total Spend"  >
+                     <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                            <apex:param value="{!Annual_Spend_Change_Amt}"/>
+                        </apex:outputText>
+                     </apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                            <apex:param value="{!core.ANNUALSPENDCHANGEAMT}"/>
+                        </apex:outputText>
+               </apex:column>
+               
+               <apex:column headerValue="Average SKU Increase Amount"  >
+                     <apex:facet name="footer">
+                        <apex:outputText value="{0, number, ###,###,###,###.0}%">
+                            <apex:param value="{!Avg_Change}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+                     <apex:outputText value="{0, number, ###.0}%">
+                            <apex:param value="{!core.AVGCHANGE}"/>
+                      </apex:outputText>
+               </apex:column>
+               
+               <apex:column headerValue="Estimated Average Spend Impact" >
+                   <apex:facet name="footer">
+                        <apex:outputText value="{0, number, ###,###,###,###.0}%">
+                            <apex:param value="{!Total_Spend_Impact}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+                    <apex:outputText value="{0, number, ###.0}%">
+                            <apex:param value="{!core.TOTALSPENDIMPACT}"/>
+                      </apex:outputText>
+               </apex:column>
+               
+               <apex:column headerValue="SRM Impact">
+                  <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                            <apex:param value="{!Total_SRM_Impact}"/>
+                        </apex:outputText>
+                  </apex:facet>
+                  <apex:outputText value="${0, number, ###,###,###,###.00}">
+                            <apex:param value="{!core.SRMIMPACT}"/>
+                  </apex:outputText>
+               </apex:column>
+                             
+           </apex:pageBlockTable>   
+           <apex:panelGrid id="buttons2" width="100%" columns="2" columnClasses="btn3,btn4">
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="Customer_core" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="Customer_core" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+           </apex:panelGrid>       
+          
+      </apex:pageBlockSection>
+      <!--apex:outputPanel id="corepanel">
+          <b>{!Customer_Spend_label}:&nbsp;</b>
+              <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                <apex:param value="{!Customer_Spend}"/>
+              </apex:outputText>                    
+      </apex:outputPanel-->
+      
+  </apex:pageBlock>
+</apex:component>

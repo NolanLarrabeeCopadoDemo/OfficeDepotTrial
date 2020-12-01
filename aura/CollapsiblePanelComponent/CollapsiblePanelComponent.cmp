@@ -1,0 +1,34 @@
+<aura:component >
+
+		<aura:attribute name="header" type="String"  />
+		<aura:attribute name="prospectRec" type="Account"/>
+		<aura:attribute name="contactRec" type="Contact"/>
+		<aura:attribute name="newOrgRec" type="Org__c"/>
+		<aura:attribute name="parentOrgRecord" type="Org__c"/>
+    	<aura:attribute name="leadRec" type="Lead"/>
+		<aura:attribute name="cmpId" type="String"/>
+		<aura:attribute name="cmpDivId" type="String"/>
+		<aura:attribute name="reqFields" type="Boolean" default="false"/>
+		<aura:attribute name="collapseIdx" type="String"/>
+    	<aura:attribute name="dupliatedisosition" type="Boolean" default="false"/>
+    	<aura:attribute name="createNewOrg" type="Boolean" default="false"/>
+		
+		<aura:attribute name="body" type="Aura.Component[]"/>
+		<aura:attribute name="collpaseText" type="String" default=">"/>
+    	
+        <aura:method name="toggleCollapseBackToGreen" action="{!c.toggleCollapseBackToGreen}" access="PUBLIC"/>
+            
+		<div>
+			<div class="Message" id="{!v.cmpId}">
+				<div style="width:90%;float:left;margin-top: -10px;" > {!v.header}<span id="{!v.cmpDivId}"></span></div>
+				<div  class="expandCollapse" onclick="{!c.ToggleCollapse}"> 
+					<!--{!v.collpaseText} -->
+                    <img class="slds-show" id="{!'left'+v.collapseIdx}" style="max-width: 15%;margin-left: auto;background-color:white" src="{!$Resource.lightningstyle + '/assets/icons/utility/add_60.png'}"/>
+                    <img class="slds-hide" id="{!'down'+v.collapseIdx}" style="max-width: 15%;margin-left: auto;background-color:white" src="{!$Resource.lightningstyle + '/assets/icons/utility/dash_60.png'}"/>
+                </div>
+			</div> 
+			<div class="container hide"  id="{!'prospectBody'+v.collapseIdx}">
+				{!v.body}
+			</div>
+		</div>
+	</aura:component>

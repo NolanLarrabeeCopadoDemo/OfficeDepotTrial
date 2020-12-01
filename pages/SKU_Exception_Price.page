@@ -1,0 +1,127 @@
+<apex:page title="SKU Sales Price Exception Request" controller="skuExceptionPageController" showHeader="true" sidebar="true" action="{!getURL}">
+  <script>
+        if (location.href.match(/&inline=1/)) window.top.location=location.href.replace(/&inline=1/, '');         
+  </script>
+  <style>
+      .btn1{width:50%;text-align: left; align:left;}
+      .btn2 {width:50%;text-align: right; align:right;}
+  </style>
+  <apex:form >  
+  <apex:pageBlock title="SKU Sales Price Exception Request">
+  <apex:pageMessages ></apex:pageMessages>
+      <b>You have indicated that you would like to request a SKU sales price exception for the following SKU: {!skuNumber} - {!skuDescription} . 
+      <br/><br/></b>
+      <table  width="1300px">
+      <tr><td width="300px" style="font-weight:bold;">Current Sales Price: &nbsp;</td>
+          <td width="200px">${!currentPrice}</td>
+      </tr>
+      <tr><td width="300px" style="font-weight:bold;">New Sales Price: &nbsp;</td>
+          <td width="200px">${!sellPrice}</td>
+          
+      </tr>
+      <tr><td width="300px" style="font-weight:bold;">Proposed Sales Price : &nbsp;$</td>
+          <td width="200px"><apex:inputText label="Proposed Sales Price" value="{!userProposal}" id="PSP" onkeyup="calculate()"/></td>
+          <td width="800px"><font style="font-weight:bold;">Change Passed to Customer:
+                            </font><apex:outputPanel id="out1" style="{!IF(result1!=null && result1<0,'color:red;font-weight:bold;font-size:15px','')}">&nbsp;&nbsp;{!result1}% </apex:outputPanel></td>
+      </tr>
+      <tr><td width="300px"></td>
+          <td width="200px"></td>
+          <td width="800px"><font style="font-weight:bold;">OD Revenue Impact of Price Change:</font>
+                              <apex:outputPanel id="out2" style="{!IF(result2!=null && result2<0,'color:red;font-weight:bold;font-size:15px','')}">&nbsp;&nbsp;${!result2} </apex:outputPanel></td>
+      </tr>
+      </table>            
+      <br/><br/>
+      <table width="1300px">
+      <tr><td width="300px" style="font-weight:bold;">Reason for Exception Request : &nbsp;</td>
+          <td width="300px">
+          <div class="requiredInput">
+          <div class="requiredBlock"></div>
+          <apex:selectList id="Reason" value="{!reason}" size="1" style="width:300px" required="true">
+                <apex:selectOption itemValue="Competitor" itemLabel="Competitor Price Pressure"/>
+                <apex:selectOption itemValue="NewSku" itemLabel="New SKU Added to Customer (<30 Days)"/>                
+                <apex:selectOption itemValue="Other" itemLabel="Other"/>                
+          </apex:selectList>
+          </div>
+          </td>
+      </tr>
+     
+      <tr>
+      <td width="300px" style="font-weight:bold;">Additional Comments : &nbsp;</td>
+      <td width="300px"><apex:inputTextarea style="width:300px;" value="{!comments}"/></td>
+      <td width="700px"></td>
+      </tr>
+      </table>
+      <br></br><br></br>
+       <b>Please be aware that any change is subject to <font color="red">DSM, RSD, and potentially RVP approval </font> depending on the margin impact of the change you are requesting.  All exceptions will be reported to Sales leadership.</b>      
+        <br/>                   
+     <apex:pageBlockButtons location="bottom" >
+        <apex:commandButton value="Submit Request for Price Exception" style="color:white;background-color:#FF6666;background-image:none;" onclick="showOverlay();return false;"/>
+        <apex:commandButton value="Cancel" onclick="showOverlay1();return false;" style="color:white;background-color:#0B2F3A;background-image:none;"/>
+     </apex:pageBlockButtons>     
+  </apex:pageBlock>
+  
+  <div id="overlayDiv" style="display:none;position:absolute; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+  <apex:outputPanel id="confirmPanel" layout="block" style="">  
+            <left><b>CONFIRMATION:</b></left><br/> 
+            <hr style="width:100%; color:#0099CC;"/>            
+            <center><b>The proposed price will be submitted for price exception approval. Do you wish to continue?</b></center><br/><br/>                        
+            <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+            <apex:commandButton value="Yes" id="submitRequest" onclick="hideOverlay();" action="{!submitReq}"/>
+            <apex:commandButton value="Cancel" id="closeOverlay" onclick="hideOverlay(); return false;"/>
+            </apex:panelGrid>   
+   </apex:outputPanel>
+   </div>
+   <apex:actionFunction name="calculate" action="{!calcProposed}" reRender="out1,out2"/>
+   
+   <div id="overlayDiv1" style="display:none;position:absolute; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+   <apex:outputPanel id="confirmPanel1" layout="block" style="">  
+            <left><b>CONFIRMATION:</b></left><br/> 
+            <hr style="width:100%; color:#0099CC;"/>            
+            <center><b>Do you want to cancel this request?</b></center><br/><br/>                        
+            <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+            <apex:commandButton value="Yes" id="submitRequest1" onclick="hideOverlay1();" action="{!Cancel}"/>
+            <apex:commandButton value="No" id="closeOverlay1" onclick="hideOverlay1(); return false;"/>
+            </apex:panelGrid>   
+   </apex:outputPanel>
+   </div>
+  
+  </apex:form>
+  <script>
+      function hideOverlay(){
+         var e = document.getElementById("overlayDiv");                 
+            e.style.display = 'none';  
+                            
+     }
+     
+     function showOverlay()
+     {
+         // alert("in function");
+         var num = document.getElementById('{!$Component.j_id0:j_id2:j_id3:PSP}').value;
+         // alert(num);
+         if (num != null && num != "" && isNaN(parseFloat(num)))
+         {
+            alert("Invalid price. Please enter a numeric value."); 
+            return false;
+         }
+         if (num == null || num == "")
+         {
+             alert("Please enter a value for the Proposed Sales Price to continue."); 
+             return false;
+         }
+         
+         var e = document.getElementById("overlayDiv");                           
+            e.style.display = 'block';                   
+     }
+     
+     function hideOverlay1(){
+         var e = document.getElementById("overlayDiv1");                 
+            e.style.display = 'none';  
+                            
+     }
+     
+     function showOverlay1(){
+         var e = document.getElementById("overlayDiv1");                           
+            e.style.display = 'block';                   
+     }
+  </script>
+</apex:page>

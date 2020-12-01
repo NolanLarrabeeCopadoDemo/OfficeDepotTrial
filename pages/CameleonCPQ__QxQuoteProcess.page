@@ -1,0 +1,198 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="CameleonCPQ.QxVFQuoteProcessController" showHeader="false" sidebar="false" docType="html-5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+
+  <apex:slds />
+  <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jQuery2.0.3.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jquery.touchwipe.min.js')}"/>
+  <style type="text/css">
+    .hidden {
+       display: none;
+    }
+    .navigationBar {
+       width: 100%;
+       text-align: center;
+    }
+  </style>
+
+  <div id="toastContainer" class="forceToastManager--default forceToastManager lafStandardLayoutContainer lafAppLayoutHost forceAccess forceStyle oneOne hidden">
+    <div class="forceVisualMessageQueue">
+      <div class="toastContainer slds-notify_container slds-is-relative" style="top: 0">
+        <div id="toastBox" class="slds-notify--toast slds-notify slds-notify--toast forceToastMessage">
+          <div class="toastContent slds-notify__content">
+            <div class="slds-align-middle slds-hyphenate">
+              <span id="toastMessage" class="toastMessage slds-text-heading--small forceActionsText"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <apex:outputPanel id="navigationBar" styleClass="navigationBar hidden" layout="block">
+     <button type="button" id="closeButton" class="slds-button slds-button--neutral uiButton" onClick="startSynchronization();" disabled="true">
+        <span class=" label bBody">{!$Label.BTN_SYNCHRONIZE}</span>
+     </button>
+  </apex:outputPanel>
+  <apex:outputPanel id="CPQxContainer" layout="block">
+  <apex:outputPanel id="CPQxQuoteContent" layout="block"/>
+     <div id="loadingStatus" class="slds-spinner_container">
+       <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+         <span class="slds-assistive-text" id="_gModal_Message"/>
+         <div class="slds-spinner__dot-a"></div>
+         <div class="slds-spinner__dot-b"></div>
+       </div>
+     </div>
+  </apex:outputPanel>
+
+  <script type="text/javascript">
+    $jq=jQuery.noConflict();
+    var isMobileApp={!IF($User.UIThemeDisplayed=='Theme4t',true,false)};
+    var qxSyncInfo;
+
+    function initQxProcess() {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxVFQuoteProcessController.initQxProcess}',
+          '{!CameleonCPQ__QxQuote__c.Id}',
+          function(qxInfo, event) {
+            if(event.type=='exception') {
+               console.log(event.message);
+               alert('{!$Label.cameleoncpq__qx_error_msg}');
+               redirectToMainObject();
+            }
+            if(event.status) {
+               if(qxInfo.success) {
+                  if((typeof qxInfo.message != 'undefined') && (qxInfo.message != null)) {
+                     showToastMsg(qxInfo.message);
+                  }
+                  if(qxInfo.mustRetry) {
+                     retryQxProcess(qxInfo);
+                  }
+                  else {
+                     if((typeof qxInfo.message != 'undefined') && (qxInfo.message != null) && (qxInfo.message.title != null) && ('info' != qxInfo.message.type.toLowerCase())) {
+                        setTimeout(function(){ displayQxUIContent(qxInfo); }, 5000);
+                     }
+                     else {
+                        displayQxUIContent(qxInfo);
+                     }
+                  }
+               }
+               else {
+                  alert(qxInfo.message!=null ? qxInfo.message.title : '{!$Label.cameleoncpq__qx_error_msg}');
+                  redirectToMainObject();
+               }
+            }
+          },
+          {escape: false}
+      );
+    }
+
+    function retryQxProcess(qxInfo) {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxVFQuoteProcessController.retryQxProcess}',
+          qxInfo.qxSharedCtx,
+          qxInfo.processId,
+          function(qxInfo, event) {
+            if(event.type=='exception') {
+               alert('{!$Label.cameleoncpq__qx_error_msg}');
+               redirectToMainObject();
+            }
+            if(event.status) {
+               if(qxInfo.success) {
+                  if((typeof qxInfo.message != 'undefined') && (qxInfo.message != null)) {
+                     showToastMsg(qxInfo.message);
+                  }
+                  if(qxInfo.mustRetry) {
+                     retryQxProcess(qxInfo);
+                  }
+                  else {
+                     if((typeof qxInfo.message != 'undefined') && (qxInfo.message != null) && (qxInfo.message.title != null) && ('info' != qxInfo.message.type.toLowerCase())) {
+                        setTimeout(function(){ displayQxUIContent(qxInfo); }, 5000);
+                     }
+                     else {
+                        displayQxUIContent(qxInfo);
+                     }
+                  }
+               }
+               else {
+                  alert(qxInfo.message!=null ? qxInfo.message.title : '{!$Label.cameleoncpq__qx_error_msg}');
+                  redirectToMainObject();
+               }
+            }
+          },
+          {escape: false}
+      );
+    }
+
+    function startSynchronization() {
+        $jq("#loadingStatus").toggleClass("hidden");
+        $jq("#_gModal_Message").html("{!$Label.cameleoncpq__synchronization}");
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.QxVFQuoteProcessController.synchronizeQuote}',
+            qxSyncInfo.qxSharedCtx,
+            function(qxInfo, event) {
+               if(event.type=='exception') {
+                  alert(((typeof event.message!='undefined') && (event.message!=null)) ? event.message : '{!$Label.cameleoncpq__msg_error}');
+               }
+               if(event.status && !qxInfo.success) {
+                  showToastMsg(qxInfo.message);
+               }
+               setTimeout(function(){ redirectToMainObject(); }, 3000);
+            },
+            {escape: false}
+      );
+    }
+
+    function redirectToMainObject() {
+      if((typeof sforce != 'undefined') && (sforce != null)) {
+        sforce.one.navigateToSObject('{!CameleonCPQ__QxQuote__c.Id}','detail');
+      }
+      else {
+        top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__QxQuote__c.Id,URLFOR($Action.CameleonCPQ__QxQuote__c.View, CameleonCPQ__QxQuote__c.Id))}";
+      }
+    }
+
+    function showToastMsg(toastMsg) {
+      if((typeof toastMsg.title=='undefined') || toastMsg.title==null || toastMsg.title.length==0) {
+         return;
+      }
+      if((typeof toastMsg.type!='undefined') && (toastMsg.type!=null)) {
+         $jq("#toastBox").toggleClass("slds-theme--"+toastMsg.type.toLowerCase());
+      }
+      $jq("#toastMessage").html(toastMsg.title);
+      $jq("#toastContainer").toggleClass("hidden");
+      setTimeout(function(){ $jq("[id$='toastContainer']").toggleClass("hidden"); }, 5000);
+    }
+
+    function displayQxUIContent(qxInfo) {
+      var qxHeight;
+      try {
+          qxHeight = window.innerHeight;
+      } catch (e) {
+          qxHeight = document.documentElement.clientHeight;
+      }
+      $jq("#loadingStatus").toggleClass("hidden");
+
+      // Display navigation bar on SF1 App.
+      if(isMobileApp) {
+         qxSyncInfo = qxInfo;
+         $jq("[id$='{!$Component.navigationBar}']").toggleClass("hidden");
+
+         var navHeight = document.getElementById('{!$Component.navigationBar}').clientHeight;
+         $jq("[id$='{!$Component.CPQxQuoteContent}']").height((qxHeight-navHeight)+'px');
+      }
+      else {
+         $jq("[id$='{!$Component.CPQxQuoteContent}']").height((qxHeight)+'px');
+      }
+      $jq("#toastContainer").addClass("hidden");
+      $jq("[id$='{!$Component.CPQxQuoteContent}']").html(qxInfo.qxHtmlContent);
+
+      // Enable the Close & Synchronize button.
+      if(isMobileApp) {
+         setTimeout(function(){ $jq("[id$='closeButton']").prop("disabled",false); }, 5000);
+      }
+    }
+
+    initQxProcess();
+
+  </script>
+</apex:page>

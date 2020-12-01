@@ -1,0 +1,695 @@
+<apex:page standardController="Viewpath__VP_Project__c" Extensions="Viewpath.VP_Project_New_Extension">   
+<script type="text/javascript">
+var __sfdcSessionId = '{!GETSESSIONID()}';
+
+</script>
+<script src="../../soap/ajax/23.0/connection.js" type="text/javascript"></script>
+<script>
+//Monkey patch for transport bug that throws can't set request header exception in chrome
+sforce.Transport = function(url) {
+    this.url = url;
+    this.connection = null;
+
+    this.newConnection = function() {
+        try {
+            this.connection = new ActiveXObject('Msxml2.XMLHTTP');
+        } catch(e) {
+            try {
+                this.connection = new ActiveXObject('Microsoft.XMLHTTP');
+            } catch(e) {
+                this.connection = new XMLHttpRequest();
+            }
+        }
+
+        return this.connection;
+    };
+
+    this.send = function (envelope, callback, async, timeout) {
+        this.newConnection();
+        if (async) {
+            this.connection.onreadystatechange = this.httpConnectionCallback;
+        }
+        var holder = new sforce.internal.ConnectionHolder(this.connection, callback);
+        sforce.internal._connections.push(holder);
+        this.connection.open("POST", this.url, async);
+        this.connection.setRequestHeader("Content-Type", "text/xml; charset=UTF-8");
+        this.connection.setRequestHeader("SOAPAction", "\"\"");
+        this.connection.setRequestHeader("Accept", "text/xml");
+     //   this.connection.setRequestHeader("User-Agent", "SFAJAX 1.0");
+        this.connection.send(envelope);
+        if (async && typeof(timeout) !== "undefined") {
+            this.setTimeoutOn(holder, timeout);
+        }
+        if (!async) {
+            this.httpConnectionCallback();
+        }
+    };
+
+    this.setTimeoutOn = function (holder, timeout) {
+        function abortConnection() {
+            if (holder.connection.readyState !== 4) {
+                holder.timedout = true;
+                holder.connection.abort();
+            }
+        }
+        setTimeout(abortConnection, timeout);
+    };
+
+    this.httpConnectionCallback = function () {
+
+        for (var i = 0; i < sforce.internal._connections.length; i++) {
+            var holder = sforce.internal._connections[i];
+            if (holder !== null) {
+                if (holder.timedout) {
+                    sforce.internal._connections[i] = null;
+                    sforce.internal._connections.slice(i,1);
+                    holder.callback.httpCallback("Remote invocation timed out", false);
+                } else  if (holder.connection.readyState == 4) {
+                    sforce.internal._connections[i] = null;
+                    sforce.internal._connections.slice(i,1);
+                    var success = holder.connection.status == 200;
+                    if (sforce.debug.trace) {
+                        sforce.debug.log("Response : status - " + holder.connection.status);
+                        sforce.debug.logXml(holder.connection.responseText);
+                    }
+                    if (sforce.debug.apexTrace) {
+                        sforce.debug.logApex(holder.connection.responseText);
+                    }
+                    if (holder.connection.responseXML && holder.connection.responseXML.documentElement) {
+                        holder.callback.httpCallback(holder.connection.responseXML.documentElement, success);
+                    } else {
+                        holder.callback.httpCallback("Remote invocation failed, due to: " + holder.connection.responseText +
+                                                     " status code: ", holder.connection.status);
+                    }
+                }
+            }
+        }
+    };
+};
+</script>
+
+
+<style>
+.editPage {
+    position:relative; /*hack to make loader appear in correct place*/
+}
+</style>
+
+<div id="pnlCreateProjectPage">
+    <link rel="Stylesheet" type="text/css" href="{!$Resource.ExtJS}/resources/css/ext-all.css" />
+    <link rel="Stylesheet" type="text/css" href="{!$Resource.ExtJS}/resources/css/xtheme-gray.css" />
+    
+<!--    <script type="text/javascript" src="{!AppUrl}/partner/api.js"></script>-->
+        <script type="text/javascript" src="{!$Resource.ExtJS}/adapter/ext/ext-base.js"></script>
+        <script type="text/javascript" src="{!$Resource.ExtJS}/ext-all-debug.js"></script>
+    <script type="text/javascript">
+    
+    
+    
+    window.existingProjects = <apex:outputText value="{!ExistingProjectsJson}"/>
+    
+    //Dependent on ExtJS 3.1+
+    var Ext3 = Ext;
+    ViewpathApiUrl = '<apex:outputText value="{!ViewpathAPIUrl}"/>';
+    function log(text){
+        if (window.console && window.console.debug)
+        {
+            window.console.log(text);         //  mozilla
+        }
+        else if (window.console && window.console.log)
+        {
+            window.console.log(text);           //  safari
+        }
+        else if (window.opera && opera.postError)
+        {
+            opera.postError(text);              //  opera
+        }
+        else
+        {
+        //    alert(text);                        //  ie
+        }
+    };
+
+    function addScript(src, callback){
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = src;
+
+
+        if (script.readyState){  //IE
+            script.onreadystatechange = function(){
+                if (script.readyState == "loaded" || script.readyState == "complete"){
+                    script.onreadystatechange = null;
+                    callback();
+                }
+            };
+        } else {  //Others
+            script.onload = function(){
+                callback();
+            };
+        }
+        
+        head.appendChild(script);
+    }
+    
+    
+    //Obsolete--used for loading ExtJS AFTER Kris's library.
+    var scriptLoader = {
+        loadIndex:0,
+        files : [
+            "{!$Resource.Viewpath__ExtJS}/adapter/ext/ext-base.js",
+            "{!$Resource.Viewpath__ExtJS}/ext-all-debug.js"
+        ],
+        
+        filesLoaded : [],
+        
+        loadScript: function(sScriptSrc) {
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = this.files[this.loadIndex];
+
+
+            var callback = this.loadComplete;
+            if (script.readyState){  //IE
+                script.onreadystatechange = function(){
+                    if (script.readyState == "loaded" || script.readyState == "complete"){
+                        script.onreadystatechange = null;
+                        callback();
+                    }
+                };
+            } else {  //Others
+                script.onload = function(){
+                    callback();
+                };
+            }
+            
+            head.appendChild(script);
+        },
+        
+        loadComplete:function(){
+            var oScript = this;
+            self = scriptLoader;
+            self.filesLoaded.push(self.files[self.loadIndex]);
+            self.loadIndex++;
+            if (self.filesLoaded.length == self.files.length) {
+                ExtReady();
+            } else {
+                if (self.filesLoaded.length < self.files.length) { 
+                    self.loadScript();
+                } else {
+                    alert('There was an error loading your script library. Please contact support@viewpath.com');
+                }
+            }
+        },
+        
+        loadScripts: function(){
+            this.loadScript();
+        }
+    }
+          
+   
+
+    
+    window.dataSet = null;
+
+    function onReady(dataSet, error) {
+        window.dataSet = dataSet;
+        scriptLoader.loadScripts();
+    }
+        
+    //Kris's callback has the wrong scope; temporary fix
+    window.createComplete = function(a){
+        CreateProjectPage.createComplete(a);
+    }
+       
+    function popUp(URL) {
+        day = new Date();
+        id = day.getTime();
+        eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=800,height=600');");
+    }
+    
+    
+    // We are using EXT JS 3.4 in this solution
+    //   Docs are found at: http://extjs.cachefly.net/ext-3.4.0/docs/
+            
+    
+    //function ExtReady(){
+    Ext.onReady(function(){
+
+       function returnProjects(queryResult, source) {
+
+             if (queryResult.size > 0) {
+             var output = "";
+        
+             //get the records array 
+             var records = queryResult.getArray('records');
+        
+             //loop through the records and construct html string            
+             for (var i = 0; i < records.length; i++) {
+                  var account = records[i];
+                  output += account.Id + " " + account.Name +
+                  " [Industry - " + account.Industry + "]<br>";
+             }
+        
+             //render the generated html string 
+            
+             source.output.innerHTML = output;
+             }
+        }
+        
+        
+       Ext.ns('vpApp.pages');
+        (function(){
+            var CreateProject = Ext.extend(Object, {
+                
+                //Properties
+                projectElId: 'projects',
+                projectTemplatesElId: 'projectTemplates',
+                panelElId: 'pnlCreateProjectPage',
+                connectExistingPanelElId:'pnlConnectExisting',
+                createNewPanelElId:'pnlCreateNew',
+                                   
+                constructor: function(config){
+                    log("CreateProject Constructor");
+                    Ext.apply(this, config)
+                                    
+                    //Event Listeners
+                    Ext.select("input[name*='ProjectCreateType']").on("click", this.onChangeMode, this);
+                    this.getProjectsEl().on("change", this.changeConnectToProject, this);
+                    this.getProjectTemplatesEl().on("change", this.onChangeProjectTemplate, this);
+                    
+                    this.loadMask = new Ext.LoadMask(this.getPanelEl(), {msg: 'Loading'});
+                    this.sfProjects = window.existingProjects;
+                    
+                    //Once these both complete, the loader will unhide and things will render.                   
+                    this.loadProjects(); //callback isn't working..?
+                    //this.loadSFProjects();
+
+                    
+                    //NON proto-typed properties. There's got to be a better way to do this.
+                    this.vpDataSet = null;
+                    this.allowTemplateCreation = false;
+                },
+                
+                mode: function() {
+                        return Ext.query("input[name*='ProjectCreateType']")[0].checked ? "NEW" : "EXISTING";
+                },
+                changeConnectToProject: function(e,el){
+                    this.setConnectProjectId(el.value);
+                },
+                submitForm: function(){
+                    //'click' the save button. If we just do form submit(), we don't get the proper apex command invoked.
+                    //This will invoke submit handler, creating a loop unless the allowtemplatecreation is true 
+                     var btnSave = Ext.query("input[type='submit'][name*='CreateProjectForm']")[0];
+                     log(btnSave);
+                     btnSave.click();
+                },
+                
+                submitHandler: function(){
+                    //Existing
+                    if (this.mode() == "EXISTING") {
+                        var projectId = this.getSelectedProjectId(); 
+                        this.setConnectProjectId(projectId);
+                        return true;                
+                    } else {
+                    //New
+                        //If a template is specified
+                        if (this.getSelectedProjectTemplateId() != '0') {
+                            if(this.allowTemplateCreation) return true;
+                            this.createProjectFromTemplate(this.getSelectedProjectTemplateId());
+                        } else {
+                        //No template specified
+                            //this.createProject();
+                            if (this.validateName()) return true;
+                        }
+                        return false; 
+                    }
+                },
+                validateName: function(){
+                    var newName = Ext.query("input[name*='ProjectName']")[0].value;
+                    
+                    //Validation       RW ToDo: Add test here for 80 char max field size, to fix exceptions
+                    if (newName === '') {
+                        alert('A project name is required');
+                        return false;
+                    }
+                    return true;
+                },
+                createProject: function(){
+                    
+                    if (!this.validateName()) return false;
+                    
+                    var operation = { "name": 'sf.createProjectFromTemplate' };
+                    this.vpDataSet.beginOperation(operation);
+                    try {
+                        this.vpDataSet.createProject({ "name" : newName }, window.createComplete);
+                    } catch (e) {
+                        //console.debug(e);
+                    }
+                    finally {
+                        this.vpDataSet.endOperation(operation);
+                    }
+                },
+                
+                createProjectFromTemplate: function(projId) {      
+                    var newName = Ext.query("input[name*='ProjectName']")[0].value;
+                    var dateField = Ext.query("input[name*='Start']")[0].value;
+                    var importResources, importAssignedOnly;
+                    importResources = this.getImportResources() == "none" ? false : true;
+                    importAssignedOnly = this.getImportResources() == "assigned" ? true : false;
+
+                    var newDate = new Date(dateField);
+                    
+                    //Validation
+                    if (newName === '') {
+                        alert('Project name is required');
+                        return false;
+                    }
+                    
+                    if (dateField === '') {
+                        alert('Start date required');
+                        return false;
+                    }
+                    
+                    //load client api
+                    this.loadMask.msg = "Creating project from template; this could take several minutes depending on the complexity of the project."
+                    this.loadMask.show(); 
+
+                    this.loadClientApi(function(dataSet){
+                        this.vpDataSet = dataSet;
+                        var operation = { "name": 'sf.createProjectFromTemplate' };
+                        this.vpDataSet.beginOperation(operation);
+                        try {
+                            var proj = {
+                                name: newName,
+                                templateId: projId,
+                                startDate: newDate,
+                                importResources: importResources,
+                                importAssignedOnly: importAssignedOnly
+                                };
+                            log(proj);
+                            this.vpDataSet.createProject(proj, window.createComplete);
+                        } catch (e) {
+                            console.debug(e);
+                        }
+                        finally {
+                            this.vpDataSet.endOperation(operation);
+                        }
+                    });
+                    
+                },
+
+                loadClientApi : function(callback){
+                    var createCallback = function(){
+                        vp_init({
+                            server: "{!AppUrl}",
+                            callback: callback,
+                            etoken: "{!HTMLENCODE(ClientToken)}"   // Oct 2013: Security Change to prevent XSS
+                        });
+                    }             /* following Client Library file found in App Engine GIT repo at C:\Projects\VP3_App\Release\war\partner */
+                    addScript("{!AppUrl}/partner/api.js", createCallback);
+                },
+                
+                createComplete: function(a){
+                    if (typeof(a.error) === undefined || a.error === null) {
+                        var theForm = Ext.query("input[id*='CreateProjectForm']")[0];
+                        //theForm.value = "Save";
+                        //theForm.submit();
+                        log('Create Complete; submitting form');
+                        this.allowTemplateCreation = true;
+                        this.setConnectProjectId(a.id);
+                        this.submitForm();
+                    } else {
+                        log('Error: ' + a);
+                    }
+                },
+                existingProjects: null,
+                getExistingProjects: function(){
+                    this.getSFProjects();
+                    return;
+                    
+                    //    var results = sforce.connection.query("Select Id, Name, Viewpath__ProjectId__c From Viewpath__VP_Project__c");
+                    //    var records = results.getArray("records");
+                    //    var records = this.getSFProjects();
+                    //} catch (ex) {
+                    //    var records = [];
+                    //}
+                    //this.sfProjects = records;
+                },
+                projectExistsLocally:function(projectId){
+                    //if(this.sfProjects == null){
+                    //    this.getExistingProjects();
+                    //}
+                    
+                    for (var i = 0; i < this.sfProjects.length; i++){
+                        var proj = this.sfProjects[i];
+                        if (proj.Viewpath__ProjectId__c === projectId) {
+                            return true;
+                        }
+                    }
+                    return false;
+                },
+                
+                renderProjectTemplates: function(projects){
+                    //var projects = this.vpDataSet.getTable('Project').selectLocal({'ProjectType':1});  /* Historical Hack: The empty object parameter will cause results to be sorted. */
+                    
+                    
+                    var ddl = document.getElementById(this.projectTemplatesElId);
+                    var content = [];
+                                       
+                    //clear the list expect for the first, 'none'
+
+                    ddl.options.length = 1;
+                    
+                    for (var i = 0; i < projects.length; i++) {
+                        var project = projects[i];
+                        if (project.ProjectType !== null && project.ProjectType == 1 && !project.Archived) {
+                            content.push(new Option(project.Name, project.Id));
+                        }
+                    }
+                    
+                    for (i = 0; i < content.length; i++){
+                        ddl.options.add(content[i]);
+                    }
+                },
+      
+                renderProjects: function(projects){
+                    var ddl = document.getElementById(this.projectElId);
+                    //var projects = this.vpDataSet.getTable('Project').selectLocal();  /* Historical Hack: The empty object parameter will cause results to be sorted. */
+                    var content = [];
+    
+                    ddl.options.length = 0;
+                    
+                    for (var i = 0; i < projects.length; i++) {
+                        var project = projects[i];
+                        if (!project.Archived && project.ProjectType != 1 &&  !this.projectExistsLocally(project.Id)) {
+                            content.push(new Option(project.Name, project.Id));
+                        }
+                    }
+                    
+                    for (i = 0; i < content.length; i++){
+                        ddl.options.add(content[i]);
+                    }
+                },
+                
+                
+                /* Handlers */
+                onChangeMode: function(e,el){
+                    if (el.value == 'NEW') {
+                       this.getCreateNewPanel().setVisibilityMode(Ext.Element.DISPLAY).show();
+                       this.getConnectExistingPanel().setVisibilityMode(Ext.Element.DISPLAY).hide();
+                    } else {
+                       this.getCreateNewPanel().setVisibilityMode(Ext.Element.DISPLAY).hide();
+                       this.getConnectExistingPanel().setVisibilityMode(Ext.Element.DISPLAY).show();           
+                    }
+                },
+                
+                onChangeProjectTemplate: function(e,el){
+                    if (el.value != '0') {
+                        Ext.get("projectTemplateFields").setVisibilityMode(Ext.Element.DISPLAY).show();
+                    } else {
+                        Ext.get("projectTemplateFields").setVisibilityMode(Ext.Element.DISPLAY).hide();
+                    }
+                },
+    
+                /* End Handlers */
+                
+                getProjectsEl: function(){
+                    return Ext.get(this.projectElId);
+                },
+                getProjectTemplatesEl: function(){
+                    return Ext.get(this.projectTemplatesElId);
+                },
+                getPanelEl: function() { 
+                    return Ext.get(this.panelElId);
+                },
+                getCreateNewPanel: function() {
+                    return Ext.get(this.createNewPanelElId);
+                },
+                getConnectExistingPanel: function(){
+                    return Ext.get(this.connectExistingPanelElId);
+                },
+                getProjectStartField: function(){
+                    return Ext.select("input[id*='ProjectStart']").first();
+                },
+                getSelectedProjectId: function(){
+                    return this.getProjectsEl().dom.value;
+                },
+                getSelectedProjectTemplateId: function(){
+                    return this.getProjectTemplatesEl().dom.value;
+                },
+                getImportResources: function(){
+                    return Ext.get("ImportResources").dom.value;
+                },
+                setVpDataSet: function(dataSet){
+                    this.vpDataSet = dataSet;
+                },
+                setConnectProjectId : function(id){
+                    Ext.query("input[name*='ProjectId']")[0].value = id;
+                },
+                
+                vpProjects: null,
+                sfProjects: null,
+                
+                checkLoadFinish: function(){
+                    if (this.vpProjects != null && this.sfProjects != null) {
+                        
+                        //Render Projects once finished loading.
+                        this.renderProjects(this.vpProjects);
+                        this.renderProjectTemplates(this.vpProjects);
+                        this.loadMask.hide();
+                        return true;
+                    }
+                    return false;
+                },
+                
+                loadProjects: function(){
+                    this.loadMask.show(); 
+                    var self = this;
+
+                    Ext.Ajax.request({
+                       url: ViewpathApiUrl,
+                       success: function(resp, ajax){
+                           var json = Ext.decode(resp.responseText);
+                           var projects = json.ops[0].values;
+                           self.vpProjects = projects;
+                           self.checkLoadFinish.call(self)
+                       },
+                       failure: function(resp, ajax){
+                           self.vpProjects = [];
+                           self.checkLoadFinish.call(self)
+                       },
+                       method: "GET",
+                       params: { method: 'getProjects' }
+                    });
+                }
+            }); 
+            vpApp.pages.CreateProject = CreateProject; //Export to public
+        })();
+        
+            CreateProjectPage = new vpApp.pages.CreateProject();            
+    });
+    
+   </script>
+   <apex:outputText value="{!Viewpath__VP_Project__c.Viewpath__ProjectId__c}" rendered="false" />            
+   <apex:outputPanel rendered="{!(!AccountActivated)}">
+      <p>It looks like your account hasn't been activated yet. Please have your administrator go to the Viewpath Configuration tab and activate the account. Thanks!</p>
+   </apex:outputPanel>
+  
+   <apex:outputPanel rendered="{!(AccountActivated)}">
+
+
+       <apex:form id="CreateProjectForm" >
+        <apex:pageBlock title="Create Viewpath Project" mode="Edit" rendered="{!(AccountActivated)}">
+           
+            <apex:pageBlockSection title="Help" collapsible="true" columns="1" >
+            <apex:outputText >
+                <div style="">
+                    Need help getting started with your Viewpath Projects?<br/>
+                    Check out our <a href="#" onClick="popUp('http://members.viewpath.com/Support/Videos/SFIntroduction/SFIntroduction.html')">online help video</a>!
+                </div>
+            </apex:outputText>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Project Details" columns="1">   
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!('Type')}" />
+                    <apex:selectRadio layout="pageDirection" value="{!Mode}" id="ProjectCreateType">
+                        <apex:selectOptions value="{!Items}"></apex:selectOptions>
+                    </apex:selectRadio>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <div id="pnlCreateNew">
+                <apex:pageBlockSection title="ProjectNameRow" showHeader="false" columns="1">
+                    <apex:pageBlockSectionItem id="ProjectName">
+                        <label style="">Project Name</label>
+                        <apex:inputField style="width:300px;" value="{!Viewpath__VP_Project__c.Name}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>    
+                
+                <apex:pageBlockSection title="ProjectTemplateRow" showHeader="false" columns="1">
+                    <apex:pageblockSectionItem >
+                        <apex:outputLabel value="{!('Template')}" />
+                        <select id="projectTemplates">
+                        <option value="0"> -None Selected- </option>
+                        </select>
+                    </apex:pageblockSectionItem>
+                </apex:pageBlockSection>
+                                
+                <div id="projectTemplateFields" style="display:none">                               
+                    <apex:pageBlockSection id="StartDateRow" title="New Project" showHeader="false" columns="1" >        
+                        <apex:pageBlockSectionItem id="ProjectStart">
+                            <label style="">Start Date</label>
+                            <apex:inputField style="" value="{!Project.Viewpath__Start__c}" style=""/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageblockSection>
+                    
+                    <apex:pageBlockSection id="ImportResourcesRow" title="New Project" showHeader="false" columns="1" >    
+                        <apex:pageBlockSectionItem id="ImportResources">
+                            <apex:outputLabel value="{!('Import Resources')}"></apex:outputLabel>
+                            <select id="ImportResources">
+                                <option value="none">None</option>
+                                <option value="all">All Resources</option>
+                                <option value="assigned">Assigned Only</option>
+                                
+                            </select>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageblockSection>
+                </div>
+                
+            </div>
+
+            <div id="pnlConnectExisting" style="display:none">
+            
+                <apex:pageblockSection columns="1" showHeader="false">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!('Project')}" />
+                        <select id="projects" name="projectId">
+                        </select>
+                    </apex:pageblockSectionItem>      
+                </apex:pageBlockSection>
+                
+            </div>          
+
+            <apex:inputField id="ProjectId" value="{!Project.Viewpath__ProjectId__c}" style="display:none"/>
+            
+            <apex:pageBlockButtons >        
+                <apex:commandButton value="Save" onClick="return CreateProjectPage.submitHandler()" action="{!save}"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+            
+            <!--<div id="loadMask"  style="position:absolute;top:0;height:100%;width:100%;">
+                <div class="ext-el-mask"></div>
+                <div class="ext-el-mask-msg x-mask-loading" style="top: 48%;left: 40%;">
+                    <div>Loading</div>
+                </div>
+            </div>-->
+            
+        </apex:pageBlock>
+        <apex:commandButton styleClass="submitApexForm" value="Save" action="{!save}" style="display:none"/>
+    </apex:form>
+    </apex:outputPanel>
+ </div>
+</apex:page>

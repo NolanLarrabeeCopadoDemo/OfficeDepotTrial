@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NavigationMenu xmlns="http://soap.sforce.com/2006/04/metadata">
+    <container>PartnerProgram</container>
+    <containerType>Network</containerType>
+    <label>Default Navigation</label>
+    <navigationMenuItem>
+        <label>Learn</label>
+        <position>1</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/mmplaybook</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Marketing Automation</label>
+        <position>2</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/mmmarketingautomation</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Sell</label>
+        <position>3</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <subMenu>
+            <navigationMenuItem>
+                <label>Manage Lead</label>
+                <position>0</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>Lead</target>
+                <type>SalesforceObject</type>
+            </navigationMenuItem>
+            <navigationMenuItem>
+                <defaultListViewId>My_Opportunities_GT</defaultListViewId>
+                <label>Manage Opportunity</label>
+                <position>1</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>Opportunity</target>
+                <type>SalesforceObject</type>
+            </navigationMenuItem>
+        </subMenu>
+        <type>MenuLabel</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Manage User</label>
+        <position>4</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <subMenu>
+            <navigationMenuItem>
+                <label>Add Contact</label>
+                <position>0</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>/submit-a-contact</target>
+                <type>InternalLink</type>
+            </navigationMenuItem>
+            <navigationMenuItem>
+                <defaultListViewId>Channel_Contacts</defaultListViewId>
+                <label>Contact List</label>
+                <position>1</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>Contact</target>
+                <type>SalesforceObject</type>
+            </navigationMenuItem>
+        </subMenu>
+        <type>MenuLabel</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Program Support</label>
+        <position>5</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <subMenu>
+            <navigationMenuItem>
+                <label>Submit Case</label>
+                <position>0</position>
+                <publiclyAvailable>true</publiclyAvailable>
+                <target>/submit-a-case</target>
+                <type>InternalLink</type>
+            </navigationMenuItem>
+            <navigationMenuItem>
+                <defaultListViewId>Open_Support_case</defaultListViewId>
+                <label>My Cases</label>
+                <position>1</position>
+                <publiclyAvailable>false</publiclyAvailable>
+                <target>Case</target>
+                <type>SalesforceObject</type>
+            </navigationMenuItem>
+        </subMenu>
+        <type>MenuLabel</type>
+    </navigationMenuItem>
+</NavigationMenu>

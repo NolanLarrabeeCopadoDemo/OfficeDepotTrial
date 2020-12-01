@@ -1,0 +1,22 @@
+<messaging:emailTemplate recipientType="User"
+    relatedToType="CameleonCPQ__QxQuote__c"
+
+    subject="{!relatedTo.CameleonCPQ__AccountId__r.Name} - {!relatedTo.Quote_Number__c} – {!relatedTo.Request_For_Quote_Update_Types__c}"
+   
+    replyTo="support@acme.com">
+
+    <messaging:htmlEmailBody >
+        <html>
+            <body>
+
+            <p>Hello {!relatedTo.PricingAnalyst__r.Name},</p>
+            <p>This is a notification of a request for {!relatedTo.Request_For_Quote_Update_Types__c} on Quote ID
+           &nbsp;<apex:variable var="url" value="{!LEFT($Api.Partner_Server_URL_140, FIND(".com/",$Api.Partner_Server_URL_140)+3)}"/><apex:outputLink value="{!url}/{!relatedTo.Id}">{!relatedTo.Quote_Number__c}</apex:outputLink>&nbsp;by {!recipient.Name}. 
+            Please take appropriate actions to resolve. Please see requestor’s comments below:</p>                   
+         <c:EmailTemplateNotes quoteid="{!relatedTo.Id}"/>
+
+            </body>
+        </html>
+    </messaging:htmlEmailBody>
+    
+</messaging:emailTemplate>

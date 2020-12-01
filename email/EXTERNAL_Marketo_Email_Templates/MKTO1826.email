@@ -1,0 +1,510 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<!--[if !mso]><!-- --> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<!--<![endif]--> 
+<title>Email on Acid: Responsive Email Template (Standalone HTML version)</title> 
+<style type="text/css">
+	
+	
+	.bg-rollover:hover {
+		background-color: #FFFFFF !important;
+		border: 1px solid #007000 !important;
+		color: #007000 !important;
+		border-radius: 4px !important;
+		-moz-border-radius:4px !important;
+		-webkit-border-radius:4px !important;
+	}
+	
+	.fade-slow{ transition: 0.3s !important; } 
+	.fade-slow:hover{ transition: 0.3s !important; opacity: 0.5 !important;}
+
+@media only screen and (max-width: 640px)  {
+	
+.deviceWidth { width: 100% !important;
+				height: auto !important;}
+
+.hideForMobile { display: none !important; }
+
+.removePaddingForMobile { padding: 0 !important; }
+.navPaddingForMobile { padding: 20px !important; }
+.titlePaddingForMobile { padding: 15px 20px 0 20px !important; }
+.textPaddingForMobile { padding: 15px 20px 15px 20px !important; }
+.whiteBackgroundForMobile { background-color: #ffffff !important; }
+
+}
+
+			
+@media only screen and (max-width: 479px) {
+
+.hideForMobile { display: none !important; }
+
+.removePaddingForMobile { padding: 0 !important; }
+.navPaddingForMobile { padding: 20px !important; }
+.titlePaddingForMobile { padding: 15px 20px 0 20px !important; }
+.textPaddingForMobile { padding: 15px 20px 15px 20px !important; }
+.whiteBackgroundForMobile { background-color: #ffffff !important; }
+
+}
+
+
+.ReadMsgBody { width: 100%; background-color: #f6f7fb; }
+.ExternalClass { width: 100%; background-color: #f6f7fb; }
+
+body { 
+width: 100%; 
+margin: 0; 
+padding: 0; 
+background-color: #f6f7fb;
+font-family: Arial, sans-serif; 
+mso-line-height-rule: exactly;
+-webkit-font-smoothing: antialiased; 
+-ms-text-size-adjust: none !important;
+}
+
+table { border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0; }
+table td { border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0; }
+
+img { border: 0; -ms-interpolation-mode: bicubic; }
+
+
+
+
+.nav { 
+font-family: Arial, sans-serif; 
+font-size: 14px; 
+color: #272727; 
+font-weight: normal; 
+line-height: 14px; 
+mso-line-height-rule: exactly;
+text-align: center; 
+vertical-align: top; 
+}
+
+.nav a { color: #272727; text-decoration: none; } 
+
+
+.heading { 
+font-family: Arial, sans-serif; 
+font-size: 26px; 
+color: #45b1e2; 
+font-weight: bold; 
+line-height: 26px; 
+mso-line-height-rule: exactly; 
+text-align: center; 
+vertical-align: top; 
+}
+
+.heading a { color: #45b1e2; text-decoration: none; }
+
+
+.title { 
+font-family: Arial, sans-serif; 
+font-size: 20px;
+color: #20a2dc; 
+font-weight: bold; 
+line-height: 24px; 
+mso-line-height-rule: exactly; 
+text-align: left; 
+vertical-align: top; 
+}
+
+.title a { color: #20a2dc; text-decoration: none; } 
+
+
+.rssTitle { 
+font-family: Arial, sans-serif; 
+font-size: 16px; 
+color: #20a2dc; 
+font-weight: bold; 
+line-height: 20px; 
+mso-line-height-rule: exactly; 
+text-align: left; 
+vertical-align: top;
+}
+
+.rssTitle a { color: #20a2dc; text-decoration: none; }
+
+
+.bodyText { color: #222222; }
+.bodyText a { color: #20a2dc; font-weight: bold; }  
+
+.bodyText, .bodyText a { 
+font-family: Arial, sans-serif; 
+font-size: 14px; 
+line-height: 20px; 
+mso-line-height-rule: exactly; 
+vertical-align: top; 
+text-decoration: none; 
+}
+
+
+.footerText { 
+font-family: Arial, sans-serif; 
+font-size: 12px; 
+color: #999999; 
+font-weight: bold; 
+line-height: 18px; 
+mso-line-height-rule: exactly; 
+text-align: center; 
+vertical-align: top; 
+}
+
+.footerText a { color: #999999; text-decoration: none; } 
+
+
+
+
+.button1 { background-color: #45b1e2; }
+
+.button1 a {
+display: block;
+border: 0;
+padding: 10px;
+font-family: Arial, sans-serif;
+font-size: 14px;
+color: #ffffff;
+font-weight: bold;
+line-height: 16px;
+text-decoration: none; 
+text-align: center; 
+background: #45b1e2; 
+border: 1px solid #45b1e2; 
+-moz-border-radius: 4px; 
+-webkit-border-radius: 4px; 
+border-radius: 4px;
+}
+
+
+.button2 { background-color: #999999; } 
+
+.button2 a {
+display: block;
+border: 0;
+padding: 10px;
+font-family: Arial, sans-serif;
+font-size: 14px;
+color: #ffffff;
+font-weight: bold;
+line-height: 16px;
+text-decoration: none; 
+text-align: center; 
+background: #999999; 
+border: 1px solid #999999; 
+-moz-border-radius: 4px; 
+-webkit-border-radius: 4px; 
+border-radius: 4px;
+} 
+
+.button1, .button2 { 
+-moz-border-radius: 4px; 
+-webkit-border-radius: 4px;
+border-radius: 4px; 
+word-break: break-word; 
+word-wrap: break-word; 
+}
+
+
+</style> 
+<!--[if gte mso 9]><xml>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+  <o:PixelsPerInch>96</o:PixelsPerInch>
+ </o:OfficeDocumentSettings>
+</xml><![endif]--> 
+</head> 
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="width:100%;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;background-color:#f6f7fb;font-family:Arial, sans-serif;mso-line-height-rule:exactly;-webkit-font-smoothing:antialiased;-ms-text-size-adjust:none !important;"> 
+<!-- Start: Wrapper --> 
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td width="100%" valign="top" bgcolor="#E6E7E8" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<!-- Start: Preheader --> 
+<div style="font-family:Arial, sans-serif;font-size:1px;color:#FFFFFF;line-height:1px;mso-line-height-rule:exactly;display:none;max-width:0px;max-height:0px;opacity:0;overflow:hidden;mso-hide:all;">
+ Your preheader text goes here 
+</div> 
+<!-- End: Preheader --> 
+<!-- Start: Header --> 
+<table bgcolor="#E6E7E8" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth" style="width:600px;height:87px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td align="left" valign="bottom" style="width:201px;text-align:left;vertical-align:bottom;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0; padding-top: 30px; padding-bottom: 10px;"> 
+<!-- Start: Logo --> 
+<table border="0" cellpadding="0" cellspacing="0" align="left" class="deviceWidth" style="width:201px; border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td align="left" valign="bottom" style="text-align:left;vertical-align:bottom;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0; padding-left: 0px; padding-bottom: 10px;"> <a href="https://www.grandandtoy.com?utm_source={{my.UTM Source}}&amp;utm_medium={{my.UTM Medium}}&amp;utm_content={{my.UTM Content}}&amp;utm_campaign={{my.UTM Campaign}}" target="_blank"><img src="https://go.grandandtoy.com/rs/720-MXC-641/images/GrandAndToy_Logo_2.jpg" width="251" align="left" alt="" border="0" class="deviceWidth" style="display:block;border-width:0;-ms-interpolation-mode:bicubic; max-width: 380px; "> </a> </td> 
+</tr> 
+</tbody> 
+</table> 
+<!-- End: Logo --> 
+<!--[if (gte mso 9)|(IE)]></td><td style="width:5px;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;" ><![endif]--> 
+<!-- Start: Separator table --> 
+<table border="0" cellspacing="0" cellpadding="0" align="left" class="deviceWidth" style="width:5px;border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td bgcolor="#E6E7E8" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;">&nbsp;</td> 
+</tr> 
+</tbody> 
+</table> 
+<!-- End: Separator table --> 
+<!--[if (gte mso 9)|(IE)]></td><td align="right" valign="top" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;" ><![endif]--> 
+<table border="0" cellspacing="0" cellpadding="0" align="right" class="deviceWidth" style="border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0; padding-bottom: 10px;"><a href="https://www.grandandtoy.com?utm_source={{my.UTM Source}}&amp;utm_medium={{my.UTM Medium}}&amp;utm_content={{my.UTM Content}}&amp;utm_campaign={{my.UTM Campaign}}"><img src="https://go.grandandtoy.com/rs/720-MXC-641/images/BusinessSelect_Logo.png" width="250" align="left" alt="" border="0" class="deviceWidth" style="display:block;border-width:0;-ms-interpolation-mode:bicubic; max-width: 380px;"></a></td> 
+</tr> 
+</tbody> 
+</table> 
+<!--[if (gte mso 9)|(IE)]></td><td style="width:5px;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;" ><![endif]--> 
+<!-- Start: Separator table --> 
+<table border="0" cellspacing="0" cellpadding="0" align="right" class="deviceWidth" style="width:5px;border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td bgcolor="#E6E7E8" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;">&nbsp;</td> 
+</tr> 
+</tbody> 
+</table> 
+<!-- End: Separator table --> </td> 
+</tr> 
+</tbody> 
+</table> 
+<!-- End: Header --> 
+<!-- Start: Main content container --> 
+<table border="0" cellspacing="0" cellpadding="0" align="center" class="deviceWidth" style="width:580px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td align="center" bgcolor="#E6E7E8" style=""> 
+<div class="mktEditable" id="Main_Image">
+<table width="600" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#E6E7E8" class="deviceWidth" style="width: 600px; border-spacing: 0;"> 
+<tbody> 
+<tr> 
+<td valign="top" bgcolor="#E6E7E8" style="border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"><a href="http://www.grandandtoy.com/dcr/sites/core/Gtblog-startup-by-sophia.aspx?cmp=EBBSOCTOBERBLOG1928EN&amp;utm_source=Marketo&amp;utm_medium=email&amp;utm_campaign=GZ+Disengaged+Nurture+BS+Explicit+&amp;utm_content=Disengaged+Stream" target="_blank"> <img src="https://www.grandandtoy.com/OnlineRepository/dcr/eblast/21667-19-DisengagementEmails-Email2-header.jpg" width="600" border="0" alt="A Different Kind of Small Business!" class="deviceWidth fade-slow" style="display: block;" imagepreview="false"> </a></td> 
+</tr> 
+</tbody> 
+</table>
+</div> 
+<table border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" class="deviceWidth" style="width:600px;border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td align="center" valign="top" bgcolor="#ffffff" class="heading" style="padding-top:40px;padding-bottom:20px;padding-right:20px;padding-left:20px;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;font-family:Arial, sans-serif;font-size:33px;color:#45b1e2;font-weight:bold;line-height:35px;mso-line-height-rule:exactly;text-align:center;vertical-align:top;"> 
+<div class="mktEditable" id="Title_Text">
+<table border="0" cellpadding="0" cellspacing="0" align="center"> 
+<tbody> 
+<tr> 
+<td style="border-bottom: 2px solid #007000; padding-bottom: 10px;"><a href="http://www.example.com" style="color: #007000; text-decoration: none; font-size:33px; line-height: 35px;">A Different Kind of Small Business!</a></td> 
+</tr> 
+</tbody> 
+</table>
+</div> </td> 
+</tr> 
+<tr> 
+<td align="center" valign="top" bgcolor="#ffffff" class="bodyText" style="padding-top:0;padding-bottom:15px;padding-right:25px;padding-left:25px;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;color:#222222;font-family:Arial, sans-serif;font-size:14px;line-height:20px;mso-line-height-rule:exactly;vertical-align:top;text-decoration:none;"> 
+<div class="mktEditable" id="Main_Text">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"> 
+<tbody> 
+<tr> 
+<td align="center" valign="top" bgcolor="#ffffff" class="bodyText" style="border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0; color: #555555; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; mso-line-height-rule: exactly; vertical-align: top; text-decoration: none; padding: 0 20px 15px 20px;">Meet one of our littlest entrepreneurs Sophia Fairweather. At only 11 years old, this young scientist sells her inventions through her online business, Start Up By Sophia. Supporting her on her path to success is Grand &amp; Toy – always there for her with the products she needs.</td> 
+</tr> 
+</tbody> 
+</table>
+</div> </td> 
+</tr> 
+<tr> 
+<td align="center" style="padding-top:0;padding-bottom:40px;padding-right:0;padding-left:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<!-- Start: Blue button --> 
+<center> 
+<table width="98%" border="0" cellpadding="0" cellspacing="0" style="border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td align="center" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<table border="0" align="center" cellpadding="0" cellspacing="0" style="border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td align="center" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<div class="mktEditable" id="Button">
+<table border="0" cellpadding="0" cellspacing="0" style="width: 300px; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;"> 
+<tbody> 
+<tr> 
+<td align="center" class="button1" style="border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0; background-color: #007000; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; word-break: break-word; word-wrap: break-word;"><a class="bg-rollover" target="_blank" href="http://www.grandandtoy.com/dcr/sites/core/Gtblog-startup-by-sophia.aspx?cmp=EBBSOCTOBERBLOG1928EN&amp;utm_source=Marketo&amp;utm_medium=email&amp;utm_campaign=GZ+Disengaged+Nurture+BS+Explicit+&amp;utm_content=Disengaged+Stream" style="display: block; font-family: Arial, sans-serif; font-size: 18px; color: #ffffff; font-weight: bold; line-height: 22px; text-decoration: none; text-align: center; background-color: #007000; background-repeat: repeat; background-position: top left; background-attachment: scroll; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: 10px; border: 1px solid #007000;">LEARN MORE</a></td> 
+</tr> 
+</tbody> 
+</table>
+</div> </td> 
+</tr> 
+</tbody> 
+</table> </td> 
+</tr> 
+</tbody> 
+</table> 
+</center> 
+<!-- End: Blue button --> </td> 
+</tr> 
+</tbody> 
+</table> 
+<!-- Start: Footer section --> 
+<table bgcolor="#dddddd" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth" style="width:600px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;border-spacing:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<tbody> 
+<tr> 
+<td align="center" valign="top" class="removePaddingForMobile whiteBackgroundForMobile" style="padding-top:25px;padding-bottom:25px;padding-right:0;padding-left:0;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;"> 
+<!-- Start: Footer contact details and unsubscribe link --> 
+<table class="outer" align="center" style="border-spacing: 0; margin: 0 auto; width: 100%; max-width: 620px;" cellspacing="0" cellpadding="0" border="0"> 
+<tbody> 
+<tr> 
+<td class="one-column" style="padding-left: 10px; padding-right: 10px; font-family:'Roboto', Arial, 'sans-serif'; font-size: 14px; line-height: 2; color: #212121" align="center"> 
+<table border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation" style="border-collapse: collapse; padding: 0; margin: 0; width:100%;"> 
+<!-- Spacer begins --> 
+<tbody> 
+<tr> 
+<td width="10" height="40" style="font-size:1px; line-height:1px; mso-line-height-rule: exactly;">&nbsp;</td> 
+</tr> 
+<!-- Spacer ends --> 
+<tr> 
+<td align="center"> 
+<!--[if true]>
+      
+<table width="340" align="center" cellpadding="0" cellspacing="0" border="0">
+      
+<tr>
+<td align="center">
+      <![endif]--> 
+<table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin: 0 auto; max-width: 340px; width: 100%;"> 
+<tbody> 
+<tr> 
+<td align="center" valign="middle"> 
+<div class="mktoText" id="footerlink1">
+<a href="https://www.grandandtoy.com/en/sites/core/contact-us.aspx" style="display:block; border:0; outline:0; color: #212121; font-family:'Roboto', Arial, 'sans-serif'; font-size: 11px;font-weight: normal; letter-spacing: 1;  text-decoration: none; text-align: center;" title="" align="center">Customer Service</a>
+</div></td> 
+<td align="center" style="font-family:'Roboto', Arial, 'sans-serif'; font-size:13px;letter-spacing: 1px;text-decoration:none;color:#dfdfdf ;width:20px; text-align:center;color: #212121">|</td> 
+<td align="center" valign="middle"> 
+<div class="mktoText" id="footerlink2">
+<a href="https://www.grandandtoy.com/en/sites/core/terms-and-conditions.aspx" style="display:block; border:0; outline:0; color: #212121; font-family:'Roboto', Arial, 'sans-serif'; font-size: 11px;font-weight: normal; letter-spacing: 1;  text-decoration: none; text-align: center;" title="" align="center">Terms &amp; Conditions</a>
+</div></td> 
+<td align="center" style="font-family:'Roboto', Arial, 'sans-serif'; font-size:13px;letter-spacing: 1px;text-decoration:none;color:#dfdfdf ;width:20px; text-align:center;color: #212121">|</td> 
+<td align="center" valign="middle"> 
+<div class="mktoText" id="footerlink3">
+<a href="https://www.grandandtoy.com/en/sites/core/privacy-policy.aspx" style="display:block; border:0; outline:0; color: #212121; font-family:'Roboto', Arial, 'sans-serif'; font-size: 11px;font-weight: normal; letter-spacing: 1;  text-decoration: none; text-align: center;" title="" align="center">Privacy Policy</a>
+</div></td> 
+</tr> 
+</tbody> 
+</table> 
+<!--[if true]>
+				</td>
+				
+</tr>
+				
+</table>
+				<![endif]--></td> 
+</tr> 
+<!-- Spacer begins --> 
+<tr> 
+<td width="10" height="40" style="font-size:1px; line-height:1px; mso-line-height-rule: exactly;">&nbsp;</td> 
+</tr> 
+<!-- Spacer ends --> 
+<tr> 
+<td align="center" style="padding: 0 10px;"> 
+<!--[if true]>
+      
+<table width="200" align="center" cellpadding="0" cellspacing="0" border="0">
+      
+<tr>
+<td align="center">
+      <![endif]--> 
+<table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin: 0 auto; max-width: 320px; width: 100%;"> 
+<tbody> 
+<tr> 
+<td align="center"> 
+<div class="mktoImg" id="twitter" mktolockimgsize="true">
+<a href="https://twitter.com/grandandtoyca" target="_blank"><img src="http://na-ab29.marketo.com/rs/859-MON-386/images/twitter.png" width="32" border="0" alt="Twitter" style="padding-left: 5px; padding-right: 5px;"></a>
+</div></td> 
+<td align="center"> 
+<div class="mktoImg" id="linkedin" mktolockimgsize="true">
+<a href="https://www.linkedin.com/company/grandandtoy/" target="_blank"><img src="http://na-ab29.marketo.com/rs/859-MON-386/images/linkedin.png" width="32" border="0" alt="LinkedIn" style="padding-left: 5px; padding-right: 5px;"></a>
+</div></td> 
+<td align="center"> 
+<div class="mktoImg" id="instagram" mktolockimgsize="true">
+<a href="https://twitter.com/grandandtoyca" target="_blank"><img src="http://na-ab29.marketo.com/rs/859-MON-386/images/instagram.png" width="32" border="0" alt="Instagram" style="padding-left: 5px; padding-right: 5px;"></a>
+</div></td> 
+<td align="center"> 
+<div class="mktoImg" id="facebook" mktolockimgsize="true">
+<a href="https://www.facebook.com/grandandtoy" target="_blank"><img src="http://na-ab29.marketo.com/rs/859-MON-386/images/facbook.png" width="32" border="0" alt="Facebook" style="padding-left: 5px; padding-right: 5px;"></a>
+</div></td> 
+</tr> 
+</tbody> 
+</table> 
+<!--[if true]>
+				</td>
+				
+</tr>
+				
+</table>
+				<![endif]--></td> 
+</tr> 
+<!-- Spacer begins --> 
+<tr> 
+<td width="10" height="20" style="font-size:1px; line-height:1px; mso-line-height-rule: exactly;">&nbsp;</td> 
+</tr> 
+<!-- Spacer ends --> 
+<tr> 
+<td style="color: #494949; font-family:'Roboto', Arial, 'sans-serif'; font-size: 11px; line-height: 16px; text-align: center;" align="center"> 
+<div class="mktoText" id="webview">
+View in&nbsp; 
+<a href="{{system.viewAsWebpageLink}}" style="color: #494949; font-family:'Roboto', Arial, 'sans-serif'; font-size: 11px; text-align: center; font-weight: bold; text-decoration: none;">Web Browser</a>
+</div></td> 
+</tr> 
+<!-- Spacer begins --> 
+<tr> 
+<td width="10" height="12" style="font-size:1px; line-height:1px; mso-line-height-rule: exactly;">&nbsp;</td> 
+</tr> 
+<!-- Spacer ends --> 
+<tr> 
+<td style="color: #494949; font-family:'Roboto', Arial, 'sans-serif'; font-size: 11px; line-height: 1.5; text-align: center; -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale; padding-left: 20px; padding-right: 20px;" align="center"> 
+<div class="mktoText" id="finprint">
+Grand &amp; Toy&nbsp;&nbsp;|&nbsp;&nbsp;200 Aviva Park Drive, Vaughan, ON L4L9C7&nbsp;&nbsp;|&nbsp;&nbsp; 
+<a style="text-decoration: none; color: #494949; border: none;">1&nbsp;866&nbsp;391‑8111</a> 
+<br>
+</div></td> 
+</tr> 
+<!-- Spacer begins --> 
+<tr> 
+<td width="10" height="30" style="font-size:1px; line-height:1px; mso-line-height-rule: exactly;">&nbsp;</td> 
+</tr> 
+<!-- Spacer ends --> 
+<tr> 
+<td style="color: #494949; font-family:'Roboto', Arial, 'sans-serif'; font-size: 11px; line-height: 14px; text-align: center; -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale; padding-left: 20px; padding-right: 20px;" align="center"> 
+<div class="mktoText" id="companyname">
+<span>© 2019 Grand &amp; Toy Limited</span>
+</div></td> 
+</tr> 
+<!-- Spacer begins --> 
+<tr> 
+<td width="10" height="20" style="font-size:1px; line-height:1px; mso-line-height-rule: exactly;">&nbsp;</td> 
+</tr> 
+<!-- Spacer ends --> 
+</tbody> 
+</table></td> 
+</tr> 
+</tbody> 
+</table> 
+<!-- End: Footer contact details and unsubscribe link --> </td> 
+</tr> 
+</tbody> 
+</table> 
+<!-- End: Footer section --> </td> 
+</tr> 
+</tbody> 
+</table> 
+<!-- End: Wrapper --> 
+<div style="display:none;white-space:nowrap;font-style:normal;font-variant:normal;font-weight:normal;font-size:15px;font-family:courier;line-height:0;">
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+</div> </td> 
+</tr> 
+</tbody> 
+</table>  
+</body>
+</html>

@@ -1,0 +1,21 @@
+<apex:page standardStylesheets="false" showheader="false">
+    <!-- <apex:includeScript value="/lightning/lightning.out.js" /> -->
+    <apex:includeScript value="{!$Site.BaseUrl}/lightning/lightning.out.js?v=2"/>
+    <b><apex:includeLightning /></b>
+    <script>
+        document.body.style.marginTop = "0px";
+        document.body.style.marginBottom = "0px";
+        document.body.style.backgroundColor = 'rgb(' + 39 + ',' + 48 + ',' + 57 + ')';
+        console.log("Hello");
+        $Lightning.use("c:Lead_App", function() {
+            $Lightning.createComponent(
+            "c:Lead_Form",
+             {storenumber:'{!$CurrentPage.parameters.Store}'},
+            "Lead_Form");
+      });
+  </script>
+    <div id="Lead_Form">
+
+    </div>
+
+</apex:page>

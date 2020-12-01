@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Project__c$Project_Name__c</field>
+    </columns>
+    <columns>
+        <field>Project__c.Project_Milestones__r$Title__c</field>
+    </columns>
+    <columns>
+        <field>Project__c.Project_Milestones__r$Name</field>
+    </columns>
+    <columns>
+        <field>Project__c.Project_Milestones__r$Owner__c</field>
+    </columns>
+    <columns>
+        <field>Project__c.Project_Milestones__r$Mile_Stone_Date__c</field>
+    </columns>
+    <columns>
+        <field>Project__c.Project_Milestones__r$Description__c</field>
+    </columns>
+    <columns>
+        <field>Project__c.Project_Milestones__r$Comments__c</field>
+    </columns>
+    <columns>
+        <field>Project__c.Project_Milestones__r$Action__c</field>
+    </columns>
+    <description>My team&apos;s Projects with or without Milestones</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Project__c$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Projects and Milestones</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Projects_and_Project_Milestones__c</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Project__c.Project_Milestones__r$Mile_Stone_Date__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Project__c.Project_Milestones__r$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

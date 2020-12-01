@@ -1,0 +1,171 @@
+<apex:page id="excepPage" controller="skuExceptionPageController" showHeader="true" sidebar="true" action="{!getURL}">
+    <script>
+        if (location.href.match(/&inline=1/)) window.top.location=location.href.replace(/&inline=1/, '');                         
+    </script>
+  <apex:form id="form1">
+  <apex:pageBlock title="SKU Exception Request" id="pgblock">
+      <b> You have indicated that you would like to request a SKU exception for the following SKU: {!skuNumber} - {!skuDescription}.
+      <br/><br/>What type of change are you requesting?</b>            
+      <apex:selectRadio id="selectedOpt" value="{!radioOption}" layout="pageDirection">
+          <apex:selectOption itemValue="delSku" itemlabel="Delete SKU from core with no replacement" rendered="{!delAllowed}"/><br/>   
+          <apex:selectOption itemValue="delSkuWithAlt" itemEscaped="false" itemLabel="Delete SKU from core but replace with alternate SKU: <font color=black><b> {!SKUALT} - {!skuAltDescription} </b></font> - Unit Price <font color=black><b> ${!SKUALTPRICE} </b></font>" rendered="{!altExists}"/><br/>                
+          <apex:selectOption itemValue="priceException" itemlabel="Sales price exception" rendered="{!!renderAltOptions}"/>
+      </apex:selectRadio>
+      <br/><br/>     
+  <apex:pageBlockButtons location="bottom"> 
+      <apex:commandButton value="Continue" onClick="showOverlay(); return false;" style="color:white;background-color:#009933;background-image:none;" />
+      <apex:CommandButton value="Cancel" onClick="showOverlay1(); return false;"  style="color:white;background-color:#0B2F3A;background-image:none;"/>
+  </apex:pageBlockButtons>     
+  </apex:pageBlock>
+  
+  
+  <div id="overlayDiv" style="display:none;position:absolute; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+  <apex:outputPanel id="confirmPanel" layout="block" style="">  
+            <left><b>CONFIRMATION:</b></left><br/> 
+            <hr style="width:100%; color:#0099CC;"/>            
+            <center><b>Are you sure you want to delete this SKU from the core with no replacement?</b></center><br/><br/>
+            <center>                        
+              <apex:panelGrid columns="2" columnClasses="btn2,btn1">
+                <apex:commandButton value="Yes" id="submitRequest" onclick="hideOverlay();" action="{!continueProcess}"/>
+                <apex:commandButton value="Cancel" id="closeOverlay" onclick="hideOverlay(); return false;"/>
+              </apex:panelGrid>
+            </center>   
+   </apex:outputPanel>
+   </div>
+   <div id="overlayDiv2" style="display:none;position:absolute; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+  <apex:outputPanel id="confirmPanel2" layout="block" style="">  
+            <left><b>CONFIRMATION:</b></left><br/> 
+            <hr style="width:100%; color:#0099CC;"/>            
+            <center><b>Are you sure you want to delete this SKU and replace with the selected alternate?</b></center><br/><br/>
+            <center>                        
+              <apex:panelGrid columns="2" columnClasses="btn2,btn1">
+                <apex:commandButton value="Yes" id="submitRequest2" onclick="hideOverlay2();" action="{!continueProcess}"/>
+                <apex:commandButton value="Cancel" id="closeOverlay2" onclick="hideOverlay2(); return false;"/>
+              </apex:panelGrid>
+            </center>   
+   </apex:outputPanel>
+   </div>
+     <apex:actionFunction name="continueCall" action="{!continueProcess}"/>
+     
+  <div id="overlayDiv1" style="display:none;position:absolute; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+  <apex:outputPanel id="confirmPanel1" layout="block" style="">  
+            <left><b>CONFIRMATION:</b></left><br/> 
+            <hr style="width:100%; color:#0099CC;"/>            
+            <center><b>Do you want to cancel this request?</b></center><br/><br/>
+            <center>                        
+              <apex:panelGrid columns="2" columnClasses="btn2,btn1">
+                <apex:commandButton value="Yes" id="submitRequest1" onclick="hideOverlay1();" action="{!Cancel}"/>
+                <apex:commandButton value="No" id="closeOverlay1" onclick="hideOverlay1(); return false;"/>
+              </apex:panelGrid>
+            </center>   
+   </apex:outputPanel>
+   </div>
+   <div id="NoSelection" style="display:none;position:absolute; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+  <apex:outputPanel id="NoSelectionPanel1" layout="block" style="">  
+            <left><b>CONFIRMATION:</b></left><br/> 
+            <hr style="width:100%; color:#0099CC;"/>            
+            <center><b>Please select an option to continue.</b></center><br/><br/>
+            <center>                        
+              <apex:panelGrid columns="1" columnClasses="btn2,btn1">
+                <apex:commandButton value="Ok" id="noSelbutton1" onclick="hideNoSelection(); return false;"/>
+              </apex:panelGrid>
+            </center>   
+   </apex:outputPanel>
+   </div>
+     <apex:actionFunction name="CancelCall" action="{!Cancel}"/>
+     
+     
+     
+  <script>
+      function hideOverlay(){
+         var e = document.getElementById("overlayDiv");                 
+            e.style.display = 'none';  
+                            
+     }
+     function hideOverlay2(){
+         var e = document.getElementById("overlayDiv2");                 
+            e.style.display = 'none';  
+                            
+     }
+     function hideOverlay1(){
+         var e = document.getElementById("overlayDiv1");                 
+            e.style.display = 'none';  
+                            
+     }
+      function hideNoSelection(){
+         var e = document.getElementById("NoSelection");                 
+            e.style.display = 'none';  
+                            
+     }
+     
+     function showOverlay(){
+             var e = document.getElementById("overlayDiv"); 
+             var altblock = document.getElementById("overlayDiv2"); 
+             var noSel = document.getElementById("NoSelection");    
+             var o1 = document.getElementById("excepPage:form1:pgblock:selectedOpt:0");
+             var o2 = document.getElementById("excepPage:form1:pgblock:selectedOpt:1");
+             var o3 = document.getElementById("excepPage:form1:pgblock:selectedOpt:2");
+             var selectValue = null;
+             
+             if (o1 != null)
+              if (o1.checked)
+                 selectValue = o1.value;
+             
+             if (o2 != null)
+               if (o2.checked)
+                 selectValue = o2.value;
+             
+             if (o3 != null)
+               if (o3.checked)
+                 selectValue = o3.value;
+ 
+             if (selectValue == 'priceException')
+               continueCall();
+             else if (selectValue == 'delSkuWithAlt')
+               altblock.style.display = 'block';
+             else if (selectValue != null)
+              e.style.display = 'block';
+             else 
+              noSel.style.display = 'block';
+             
+            /* alert(o1.value);
+             if (o1 !=null && o2==null && o3==null) {
+                if (o1.checked) 
+                  e.style.display = 'block';
+             }
+             else if (o1 !=null && o2!=null && o3==null) {
+               if (o1.checked || o2.checked)
+                e.style.display = 'block';
+             }
+             else if (o3 == null) {
+             if(!o2.checked)
+               e.style.display = 'block';
+             else
+               continueCall();
+             
+            }
+            else {
+              if (o1.checked) {
+               e.style.display = 'block';
+              }
+              else if (o2.checked) {
+               altblock.style.display = 'block';
+              }
+              else {
+               continueCall();
+              }
+            }*/
+                       
+     }
+     
+     function showOverlay1(){
+             var e = document.getElementById("overlayDiv1");   
+             e.style.display = 'block';
+            
+                       
+     }
+     
+     
+  </script>
+  </apex:form>
+</apex:page>

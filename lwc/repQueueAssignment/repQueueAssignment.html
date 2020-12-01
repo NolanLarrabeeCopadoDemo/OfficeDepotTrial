@@ -1,0 +1,42 @@
+<template>
+    <lightning-card title="Rep Queue Assignment">
+        <template if:true={enableFilters}>
+            <lightning-button label="Clear Filters" slot="actions" onclick={onClearFilterClick}
+                class="slds-m-right_small">
+            </lightning-button>
+        </template>
+        <div class="slds-is-relative component-min-height slds-grid">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+            </template>
+            <template if:false={isLoading}>
+                <template if:true={errorMessage}>
+                    <div class="slds-p-around_medium m-auto">
+                        { errorMessage }
+                    </div>
+                </template>
+                <template if:false={errorMessage}>
+                    <div class="slds-scrollable_none">
+                        <template if:true={enableFilters}>
+                            <div class="slds-p-around_medium slds-p-top_none">
+                                <div>Filters</div>
+                                <div class="slds-grid">
+                                    <lightning-input label="Rep Name" value={repNameFilterValue}
+                                        onchange={onRepNameFilterValueChange} class="slds-m-right_medium">
+                                    </lightning-input>
+                                    <lightning-input label="Queue Name" value={queueNameFilterValue}
+                                        onchange={onQueueNameFilterValueChange}></lightning-input>
+                                </div>
+                            </div>
+                        </template>
+                        <div>
+                            <lightning-datatable data={filteredData} columns={filteredColumns} hide-checkbox-column
+                                key-field="repName" min-column-width="150" onsave={onTableSave} errors={errors} show-row-number-column>
+                            </lightning-datatable>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

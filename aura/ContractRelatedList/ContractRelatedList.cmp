@@ -1,0 +1,185 @@
+<aura:component controller="ContractRelatedListController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="ContractList" type="Object" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isOpen" type="Boolean" default="false" />
+    <aura:attribute name="isOpenFlow" type="Boolean" default="false" />
+    <aura:attribute name="isStandardFlow" type="Boolean" default="false" />
+    <aura:attribute name="width" type="String" default="Medium" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <lightning:flexipageRegionInfo width="{!v.width}"/>
+    <aura:if isTrue="{!v.isOpenFlow}">
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Contract</h2>
+                    </header>
+                    <!--###### MODAL BOX BODY Part Start######-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                         <lightning:flow aura:id="flowData" />
+                    </div>
+                    <!--###### MODAL BOX FOOTER Part Start ######-->
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral" 
+                                          label="Cancel"
+                                          title="Cancel"
+                                          onclick="{! c.closeModel }"/>
+                    </footer>
+                </div>
+        
+
+            </section>
+         <div class="slds-backdrop slds-backdrop--open" id="backdrop"></div>
+    </aura:if>
+   
+     <aura:if isTrue="{!v.isOpen}">
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Contract</h2>
+                    </header>
+                    <!--###### MODAL BOX BODY Part Start######-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        {!v.body}
+                    </div>
+                    <!--###### MODAL BOX FOOTER Part Start ######-->
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral" 
+                                          label="Cancel"
+                                          title="Cancel"
+                                          onclick="{! c.closeModel }"/>
+                    </footer>
+                </div>
+        
+
+            </section>
+         <div class="slds-backdrop slds-backdrop--open" id="backdrop"></div>
+    </aura:if>
+    
+    <article aura:id="gridContainer" class="slds-card_boundary">
+      
+        <lightning:card title="Contract Hierarchy"  iconName="custom:custom63">
+            <aura:set attribute="actions">
+                <lightning:button label="New" onclick="{!c.OpenNewContractComponent}"/>
+                <lightning:button label="Archive Contracts" onclick="{!c.OpenArchiveContractsReport}"/> 
+            </aura:set>
+        </lightning:card>
+        
+    </article>
+   
+    <article  class="slds-card slds-card_boundary">
+        <div class="slds-scrollable--y slds-scrollable--x" style="height:50%;">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Action">Action</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Contract Number">Contract Number</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Contract Name">Contract Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Primary">Primary</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Customer Id">Customer Id</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Customer Id">Customer Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Account Type">Account Type</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Customer Type">Customer Type</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Contract Type">Contract Type</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Contract Status">Contract Status</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Contract Owner">Contract Owner</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate slds-cell-wrap" title="Date Current Legal Contract Expires">Date Current Legal Contract Expires</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody >
+                <aura:iteration items="{!v.ContractList}" var="contractRecord" indexVar="index">
+                    <tr class="slds-hint-parent">
+                        <td data-label="Action">
+                            
+                                <lightning:buttonMenu aura:id="menu" onselect="{!c.handleMenuSelect}" alternativeText="Show menu" class = "{!index}">
+                                <lightning:menuItem value="EDIT" label="Edit" />
+                                <lightning:menuItem value="delete" label="Delete" />
+                            </lightning:buttonMenu>
+                        </td>
+                        <td data-label="Account Name">
+                            <div class="slds-truncate slds-cell-wrap" title="ContractNumber"><aura:if isTrue="{!contractRecord.WrapContract.RecordType.Name == 'Standard'}"><a target="_blank" href="{!$Label.c.Standard_Contract_URL+contractRecord.WrapContract.Id+'/view'}">{!contractRecord.WrapContract.ContractNumber}</a>
+                                <aura:set attribute="else">
+                                    <a target="_blank" href="{!$Label.c.Non_Standard_Contract_URL+contractRecord.WrapContract.Id+'/view'}">{!contractRecord.WrapContract.ContractNumber}</a>
+                                </aura:set>
+                                
+                                </aura:if></div>
+                        </td>
+                        <td data-label="Close Date">
+                            <div class="slds-truncate slds-cell-wrap" title="Name"><aura:if isTrue="{!contractRecord.WrapContract.RecordType.Name == 'Standard'}"><a target="_blank" href="{!$Label.c.Standard_Contract_URL+contractRecord.WrapContract.Id+'/view'}">{!contractRecord.WrapContract.Name}</a>
+                                <aura:set attribute="else">
+                                    <a target="_blank" href="{!$Label.c.Non_Standard_Contract_URL+contractRecord.WrapContract.Id+'/view'}">{!contractRecord.WrapContract.Name}</a>
+                                </aura:set>
+                                
+                                </aura:if></div>
+                        </td>
+                        <td data-label="Prospecting">
+                            <div class="slds-truncate slds-cell-wrap" title="primary__c">{!contractRecord.WrapContract.primary__c}</div>
+                        </td>
+                        <td data-label="Prospecting">
+                            <div class="slds-truncate slds-cell-wrap" title="Cust_ID__c">{!contractRecord.WrapAccount.Cust_ID__c}</div>
+                        </td>
+                        <td data-label="Prospecting">
+                            <div class="slds-truncate slds-cell-wrap" title="Customer Name"><a href="{!$Label.c.Account_URL+contractRecord.WrapAccount.Id+'/view'}">{!contractRecord.WrapAccount.Name}</a></div>
+                        </td>
+                        <td data-label="Confidence">
+                            <div class="slds-truncate slds-cell-wrap" title="Account Name">{!contractRecord.WrapAccount.RecordType.Name}</div>
+                        </td>
+                        <td data-label="Amount">
+                            <div class="slds-truncate slds-cell-wrap" title="CustomerType">{!contractRecord.CustomerType}</div>
+                        </td>
+                        <td data-label="Contact">
+                            <div class="slds-truncate slds-cell-wrap" title="Contract_Type__c">{!contractRecord.WrapContract.Contract_Type__c}</div>
+                        </td>
+                        <td data-label="Contact">
+                            <div class="slds-truncate slds-cell-wrap" title="Contract_Status__c">{!contractRecord.Contract_Status__c}</div>
+                        </td>
+                        <td data-label="Contact">
+                            <div class="slds-truncate slds-cell-wrap" title="Contract_Owner__c">{!contractRecord.WrapContract.Contract_Owner__c}</div>
+                        </td>
+                        <td data-label="Contact">
+                            <div class="slds-truncate slds-cell-wrap" title="Date_current_Legal_Contract_expires__c">{!contractRecord.WrapContract.Date_current_Legal_Contract_expires__c}</div>
+                        </td>
+                        
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        </div>
+    </article>
+</aura:component>

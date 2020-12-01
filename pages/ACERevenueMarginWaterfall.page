@@ -1,0 +1,219 @@
+<apex:page readOnly="true" title="Revenue & Margin Waterfall" controller="ACEReporting_RevMarg_WaterFall" action="{!loadData}">
+ 
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        
+        .expandCollapse{
+        -moz-border-radius:5px 5px 5px 5px;
+        -webkit-border-radius:5px 5px 5px 5px;
+        border-radius:5px 5px 5px 5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        align:center; 
+        text-align:left; 
+        font-weight:bold;
+        background-color:#3D8C8C;
+        background-image:none;
+        width:auto;
+        height:auto;
+        color:white;
+        }
+        .borderLeft{
+            border-left: solid 1px black;
+        }
+        .borderRight{
+            border-right: solid 1px black;
+        }
+    </Style>
+    
+    <apex:outputPanel id="bucketPanel">
+        <apex:form >    
+           <apex:sectionHeader title="Reports" id="reports1" subtitle="BSD Price Change Process - Revenue Waterfall by {!reportType}" rendered="{!SegmentName == null && reportType != 'Summary by Industry/Vertical Market' && reportType != 'Summary by Participation (Buying Group/GPO)' && reportType != 'Summary by Region' && reportType != 'Summary by Sector/Segment'}"/><!--sfdc 910700,910698,910696, 910703, 910701---changed the report names-->
+            <apex:sectionHeader title="Reports" id="reports3" subtitle="BSD Price Change Process - Revenue Waterfall {!reportType}" rendered="{!SegmentName == null && (reportType == 'Summary by Industry/Vertical Market' || reportType == 'Summary by Participation (Buying Group/GPO)' || reportType == 'Summary by Region' || reportType == 'Summary by Sector/Segment')}"/><!--sfdc 910700,910698,910696,910703, 910701---changed the report names-->
+           <apex:sectionHeader title="Reports" id="reports2" subtitle="BSD Price Change Process - Revenue Waterfall {!reportType}: {!SegmentName}" rendered="{!SegmentName != null}"/>     
+            <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%">    
+                <apex:outputPanel style="text-align: right;float:right;">
+                           <!-- <a href="/servlet/servlet.FileDownload?file=015M0000000ACus" target="_blank"> <apex:image id="theImage" value="{!$Resource.TalkingPointImage}" width="40" height="18" style="text-align: right;"/></a>-->
+                           &nbsp; 
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!loadData}"  status="search_Status_main"/>
+                                        <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid>
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                 <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/>
+             </div>
+         </div>
+         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                 
+             <!-- Revenue Block -->
+        <div style="{!IF((reportType == 'Summary by Industry/Vertical Market'||SegmentName == 'Private'||SegmentName=='Public'), 'width:100%;background-color:white;', 'width:100%;background-color:white;')}">
+            <apex:pageBlock id="block">                  
+               <apex:outputPanel id="componentPanel" >                
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                   
+                         <div class="expandCollapse" width="100%" style="width:100%;">                                                           
+                             <apex:outputText value="Revenue" style="color:white;"/>
+                                    <!-- <apex:commandLink value="Revenue" action="{!doExpand}" rendered="true" style="color:white;" rerender="block"/>-->                                                                                         
+                         </div>                                            
+                         <br/>  
+                         
+                         <table width="100%" border="1" style="border-collapse:collapse;">
+                                 <tr style="font-weight:bold;">
+                                    <th>Metric</th> 
+                                    <apex:repeat value="{!sSectors}" var="a">  
+                                        <th style="text-align:center;width:400px;">
+                                            <!---sfdc 910700, 910698 ---changed the sector report name --->                                                                                      
+                                            <apex:outputPanel rendered="{!reportType == 'Summary by Sector/Segment' && (SegmentName==null || SegmentName=='') && a != 'BSD Total'}">
+                                                <a href= "/apex/ACERevenueMarginWaterfall?reportType={!reportType}&Segment={!a}&quarter={!quarterValue}" target="_blank"> {!a}</a>
+                                            </apex:outputPanel>
+                                            <!---sfdc 910700, 910698 ---changed the sector report name --->
+                                            <apex:outputPanel rendered="{!reportType == 'Summary by Sector/Segment' && (SegmentName!=null && SegmentName!='') && a != 'BSD Total'}">
+                                                {!a}
+                                            </apex:outputPanel>
+                                            <!---sfdc 910700, 910698 ---changed the sector report name --->
+                                            <apex:outputText value="{!a}" rendered="{!(reportType != 'Summary by Sector/Segment') || (reportType == 'Summary by Sector/Segment' && a == 'BSD Total')}"/>                                           
+                                        </th>
+                                    </apex:repeat>
+                                 </tr> 
+                                 
+                                 <apex:repeat value="{!ovd}" var="a">  
+                                 <apex:outputPanel rendered="{!a.reportname == 'Revenue'}">
+                                 <tr>
+                                     <td style="height:25px;white-space:nowrap;" valign="middle">
+                                        {!a.datatype}
+                                     </td>
+                                     <apex:repeat value="{!sSectors}" var="b">  
+                                         <td style="height:25px;text-align:center;" valign="middle" >
+                                            <table width="100%" border="0" style="border-collapse:collapse;white-space:nowrap;">
+                                            <tr>
+                                               <apex:outputPanel rendered="{!a.datatype == '# Customers Receiving Increases'}" style="width:400px;white-space:nowrap;">
+                                                <td width="100%" style="text-align:center;height:25px;white-space:nowrap;" valign="middle">
+                                                   <apex:outputPanel rendered="{!b != 'BSD Total' && (segmentName == null || segmentName == '')}" >
+                                                       <a href= "/apex/ACERevenueMarginWaterfallCustomerList?reportType={!reportType}&Segment={!b}&quarter={!quarterValue}&rowName=Customers-Receiving-Increases" target="_blank">
+                                                        <apex:outputText value="{!a.formatType}" style="white-space:nowrap;">
+                                                              <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                        </apex:outputText> 
+                                                       </a>  
+                                                   </apex:outputPanel> 
+                                                   <apex:outputPanel rendered="{!b != 'BSD Total' && (segmentName != null && segmentName != '')}" >
+                                                       <a href= "/apex/ACERevenueMarginWaterfallCustomerList?reportType={!reportType}&Segment={!SegmentName}&SegmentType={!b}&quarter={!quarterValue}&rowName=Customers-Receiving-Increases" target="_blank">
+                                                        <apex:outputText value="{!a.formatType}" style="white-space:nowrap;">
+                                                              <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                        </apex:outputText> 
+                                                       </a>  
+                                                   </apex:outputPanel> 
+                                                   <apex:outputPanel rendered="{!b == 'BSD Total'}" >
+                                                        <apex:outputText value="{!a.formatType}" style="white-space:nowrap;">
+                                                              <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                        </apex:outputText>
+                                                   </apex:outputPanel>
+                                                </td>
+                                               </apex:outputPanel>  
+                                               <apex:outputPanel rendered="{!a.datatype <> '# Customers Receiving Increases'}" style="width:400px;white-space:nowrap;">
+                                                <td class="borderRight" width="50%" style="text-align:center;height:25px;white-space:nowrap;" valign="middle">
+                                                    
+                                                    <apex:outputPanel rendered="{!a.datatype == 'Erosion' && b != 'BSD Total' && (segmentName == null || segmentName == '')}">
+                                                        <a href= "/apex/ACERevenueMarginWaterfallErosion?Val=Erosion&reportType={!reportType}&Segment={!b}&quarter={!quarterValue}" target="_blank">
+                                                            <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                                  <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                            </apex:outputText> 
+                                                        </a>
+                                                    </apex:outputPanel> 
+                                                    <apex:outputPanel rendered="{!a.datatype == 'Erosion' && b != 'BSD Total' && (segmentName != null && segmentName != '')}">
+                                                        <a href= "/apex/ACERevenueMarginWaterfallErosion?Val=Erosion&reportType={!reportType}&Segment={!SegmentName}&SegmentType={!b}&quarter={!quarterValue}" target="_blank">
+                                                            <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                                  <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                            </apex:outputText> 
+                                                        </a>
+                                                    </apex:outputPanel> 
+                                                    
+                                                    
+                                                    <apex:outputPanel rendered="{!(a.datatype != 'Erosion') || (a.datatype == 'Erosion' && b == 'BSD Total')}">
+                                                            <apex:outputPanel rendered="{!b != 'BSD Total'  && (segmentName == null || segmentName == '')}" >
+                                                               <a href= "/apex/ACERevenueMarginWaterfallCustomerList?reportType={!reportType}&Segment={!b}&quarter={!quarterValue}&rowName={!a.datatype}" target="_blank">
+                                                                <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                                  <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                                </apex:outputText>
+                                                               </a>  
+                                                           </apex:outputPanel>
+                                                           <apex:outputPanel rendered="{!b != 'BSD Total' && (segmentName != null && segmentName != '')}" >
+                                                            <a href= "/apex/ACERevenueMarginWaterfallCustomerList?reportType={!reportType}&Segment={!SegmentName}&SegmentType={!b}&quarter={!quarterValue}&rowName={!a.datatype}" target="_blank">
+                                                            <apex:outputText value="{!a.formatType}" style="white-space:nowrap;">
+                                                              <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                            </apex:outputText> 
+                                                            </a>  
+                                                           </apex:outputPanel>  
+                                                           <apex:outputPanel rendered="{!b == 'BSD Total'}" >
+                                                                <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                                  <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                                </apex:outputText> 
+                                                           </apex:outputPanel> 
+                                                   </apex:outputPanel> 
+                                                </td>
+                                                <td class="borderLeft" width="50%" style="text-align:center;height:25px;white-space:nowrap;" valign="middle">
+                                                    <apex:outputPanel rendered="{!b != 'BSD Total' && a.datatype != 'Erosion'}" >
+                                                        <a href= "/apex/ACERevenueMarginWaterfallCustomerList?reportType={!reportType}&Segment={!b}&quarter={!quarterValue}&rowName={!a.datatype}" target="_blank">
+                                                            <apex:outputText value="{0, number, ###,###,###,###.00}%" style="white-space:nowrap;">
+                                                                <apex:param value="{!a.map_sect_per[b]}"/>
+                                                            </apex:outputText>
+                                                        </a>  
+                                                    </apex:outputPanel> 
+                                                    <apex:outputPanel rendered="{!b == 'BSD Total' || a.datatype == 'Erosion'}" >
+                                                        <apex:outputText value="{0, number, ###,###,###,###.00}%" style="white-space:nowrap;">
+                                                            <apex:param value="{!a.map_sect_per[b]}"/>
+                                                        </apex:outputText> 
+                                                    </apex:outputPanel>
+                                                </td>  
+                                               </apex:outputPanel>  
+                                            </tr>
+                                            </table>      
+                                         </td>            
+                                     </apex:repeat>        
+                                  </tr>
+                                 </apex:outputPanel>
+                               </apex:repeat>  
+                             </table>
+                    </apex:outputPanel>                          
+                 </apex:pageBlock> 
+                <!-- Revenue Block End Here -->  
+         
+            <br/><br/>
+            
+        </div>  
+      </apex:form>
+         
+          
+           
+    </apex:outputPanel>
+    
+    <script>
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script>
+
+</apex:page>

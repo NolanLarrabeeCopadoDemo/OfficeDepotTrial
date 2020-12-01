@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>EOM HP Printer Sale</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>HP Printer Sale</name>
+    <style>freeForm</style>
+    <subject>HP Printer Sale!</subject>
+    <textOnly>Hi {!Contact.FirstName},
+
+
+
+I just got word that I am in a position to be more aggressive than usual on HP Printer pricing this month. HP dropped our cost so they can hit a goal for April and I can pass the savings on to you! Were you planning to get any printers that you could order in April to take advantage of this?
+
+
+
+If so, let me know the model and quantities and I will see what kind of deal they are willing to make. They are looking for bulk orders but I&apos;ll see what I can do for any request.
+
+
+If you ever have any questions or concerns, please do not hesitate to call me.  I am here to assist you with anything you may need and I look forward to speaking with you.
+
+
+
+Warm Regards,
+
+{!User.Name}
+
+Technology Account Manager
+
+{!User.Email}
+
+(888)707-7040 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

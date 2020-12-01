@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Account</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OpportunityTeamMembers$TeamMemberRole</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OpportunityTeamMembers$UserRole</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OpportunityTeamMembers*User$Manager__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.OpportunityTeamMembers*User$Manager__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>Schrank</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity$StageName</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1%-Qualifying Prospect,10%-Appointment Secured,25%-Initial Approach,50%-Presentation,75%-Negotiate &amp; Finalize,90%-Execute</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.OpportunityTeamMembers$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Sherry Schrank - Team Overlay Opps</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunities_With_Opp_Team_Members__c</reportType>
+    <roleHierarchyFilter>ContractDivision</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$CreatedDate</dateColumn>
+        <interval>INTERVAL_PREVCURFY</interval>
+    </timeFrameFilter>
+</Report>

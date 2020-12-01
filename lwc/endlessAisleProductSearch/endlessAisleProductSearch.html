@@ -1,0 +1,276 @@
+<template>
+	<div class="slds-grid slds-grid--vertical slds-transition-hide moe-transition od-container"
+		style="transition: opacity 250ms; z-index: 9001;">
+		<div>
+			<div class="slds-card slds-m-bottom_medium slds-p-around_medium od-header">
+				<div class="slds-grid">
+					<div class="slds-col_bump-top slds-col_bump-bottom slds-m-right_medium">
+						<img src={odLogoUrl} style="height: 32px; max-height: 32px;">
+					</div>
+					<div
+						class="slds-grid slds-col_bump-top slds-col_bump-bottom slds-grow slds-m-horizontal_medium">
+						<lightning-combobox value={search.key} placeholder="Search" options={search.availableKeys}
+							onchange={onSearchKeyChange} variant="label-hidden"
+							class="slds-m-right_small">
+						</lightning-combobox>
+						<div class="slds-form-element slds-grow slds-m-right_small">
+							<div
+								class="slds-form-element__control slds-input-has-icon slds-input-has-icon_group-right">
+								<input type="text" id="text-input-id-1" placeholder="Search products..."
+									class="slds-input" oninput={onSearchValueChange}
+									onkeypress={onSearchKeyPress} />
+								<div class="slds-input__icon-group slds-input__icon-group_right">
+									<template if:true={search.loading}>
+										<div role="status"
+											class="slds-spinner slds-spinner_brand slds-spinner_x-small slds-input__spinner od-input-loader">
+											<span class="slds-assistive-text">Loading</span>
+											<div class="slds-spinner__dot-a"></div>
+											<div class="slds-spinner__dot-b"></div>
+										</div>
+									</template>
+									<button
+										class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+										title="Search" onclick={onSearchClick}>
+										<svg class="slds-button__icon slds-icon-text-light">
+											<use
+												xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#search">
+											</use>
+										</svg>
+										<span class="slds-assistive-text">Search</span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<button class="slds-button slds-button_outline-brand" onclick={onSearchClick}>
+							Search
+						</button>
+					</div>
+					<div class="slds-col_bump-top slds-col_bump-bottom slds-m-left_medium">
+						<button class="slds-button slds-button_brand slds-m-right_small" title="Open Scratchpad"
+							onclick={onOpenScratchpadClick}>Open Scratchpad
+						</button>
+						<lightning-button-menu alternative-text="Toggle menu" menu-alignment="auto">
+							<lightning-menu-item label="Add Item Manually" value="add-item-manually"
+								prefix-icon-name="utility:add" onclick={onAddItemManuallyClick}>
+							</lightning-menu-item>
+							<!-- <lightning-menu-item label="Help" value="help"
+								prefix-icon-name="utility:question_mark" onclick={onHelpClick}>
+							</lightning-menu-item> -->
+						</lightning-button-menu>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slds-grid slds-m-bottom_medium slds-p-horizontal_medium" style="height: 0; flex: 1;">
+			<div class="od-filter-outer-container">
+				<template if:true={isFilterContainerVisible}>
+					<div class="od-filter-container">
+						<template if:true={isProductsTableEmpty}>
+							<div class="slds-grid slds-grid--vertical" style="width: 300px;">
+								<article class="slds-card od-small-boxshadow-onhover">
+									<div class="slds-modal__header slds-grid slds-theme_shade">
+										<header class="slds-media slds-media_center slds-has-flexi-truncate">
+											<div class="slds-media__body">
+												<h2 class="slds-text-heading_medium">Filter Products</h2>
+											</div>
+										</header>
+									</div>
+									<div class="slds-card__body slds-card__body_inner">
+										<div class="slds-m-bottom_small">
+											<lightning-combobox name="Manufacturer" label="By Manufacturer"
+												placeholder="Select Manufacturer" disabled>
+											</lightning-combobox>
+										</div>
+										<div class="slds-m-bottom_small">
+											<lightning-combobox name="OdSKUNumber" label="By SKU"
+												placeholder="Select SKU #"
+												disabled>
+											</lightning-combobox>
+										</div>
+										<div>
+											<div class="slds-grid">
+												<div class="slds-col_bump-top slds-grow slds-m-right_small">
+													<lightning-input name="minlpvalue" type="number"
+														formatter="currency"
+														label="Min Price" min="0"
+														step="any" disabled>
+													</lightning-input>
+												</div>
+												<div class="slds-col_bump-top slds-grow">
+													<lightning-input name="maxlpvalue" type="number"
+														formatter="currency"
+														label="Max Price" min="0" step="any" disabled>
+													</lightning-input>
+												</div>
+											</div>
+										</div>
+									</div>
+									<footer class="slds-modal__footer slds-grid">
+										<button class="slds-button slds-button_neutral slds-col_bump-right"
+											style="white-space: nowrap;" disabled>
+											Clear Filter
+										</button>
+										<button class="slds-button slds-button_brand slds-col_bump-left"
+											style="white-space: nowrap;" disabled>
+											Apply Filter
+										</button>
+										<lightning-helptext
+											content="Unable to apply filter: no products were found. Please search for your desired products"
+											class="slds-m-left_small">
+										</lightning-helptext>
+									</footer>
+								</article>
+							</div>
+						</template>
+						<template if:false={isProductsTableEmpty}>
+							<div class="slds-grid slds-grid--vertical" style="width: 300px;">
+								<article class="slds-card od-small-boxshadow-onhover">
+									<div class="slds-modal__header slds-grid slds-theme_shade">
+										<header class="slds-media slds-media_center slds-has-flexi-truncate">
+											<div class="slds-media__body">
+												<h2 class="slds-text-heading_medium">Filter Products</h2>
+											</div>
+										</header>
+									</div>
+									<div class="slds-card__body slds-card__body_inner">
+										<div class="slds-m-bottom_small">
+											<lightning-combobox name="Manufacturer" label="By Manufacturer"
+												placeholder="Select Manufacturer"
+												value={filter.vendorManufacturer}
+												onchange={onManufacturerFilterChange}
+												options={filter.availableManufacturers}>
+											</lightning-combobox>
+										</div>
+										<div class="slds-m-bottom_small">
+											<lightning-combobox name="OdSKUNumber" label="By SKU"
+												placeholder="Select SKU #"
+												value={filter.sku} onchange={onOdSkuFilterChange}
+												options={filter.availableSkus}>
+											</lightning-combobox>
+										</div>
+										<div>
+											<div class="slds-grid">
+												<div class="slds-col_bump-top slds-grow slds-m-right_small">
+													<lightning-input name="minlpvalue" type="number"
+														formatter="currency"
+														label="Min Price" value={filter.minListPrice} min="0"
+														step="any"
+														onchange={onMinListPriceFilterChange}
+														onkeypress={onMinListPriceKeyPress}
+														message-when-bad-input=" "
+														message-when-range-underflow=" ">
+													</lightning-input>
+												</div>
+												<div class="slds-col_bump-top slds-grow">
+													<lightning-input name="maxlpvalue" type="number"
+														formatter="currency"
+														label="Max Price" min="0" step="any"
+														value={filter.maxListPrice}
+														onchange={onMaxListPriceFilterChange}
+														onkeypress={onMaxListPriceKeyPress}
+														message-when-bad-input=" "
+														message-when-range-underflow=" ">
+													</lightning-input>
+												</div>
+											</div>
+										</div>
+									</div>
+									<footer class="slds-modal__footer slds-grid">
+										<button class="slds-button slds-button_neutral slds-col_bump-right"
+											style="white-space: nowrap;" onclick={onClearFilterClick}>
+											Clear Filter
+										</button>
+										<button class="slds-button slds-button_brand slds-col_bump-left"
+											style="white-space: nowrap;" onclick={onApplyFilterClick}>
+											Apply Filter
+										</button>
+									</footer>
+								</article>
+							</div>
+						</template>
+					</div>
+					<button class="od-filter-visibility-button slds-m-left_medium"
+						onclick={onFilterHideClick}>
+						<span class="slds-icon_container slds-icon_container_circle slds-icon-action-apex">
+							<svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+								<use
+									xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#back">
+								</use>
+							</svg>
+						</span>
+					</button>
+				</template>
+				<template if:false={isFilterContainerVisible}>
+					<button class="od-filter-visibility-button"
+						onclick={onFilterShowClick}>
+						<span class="slds-icon_container slds-icon_container_circle slds-icon-action-apex"
+							style="transform: rotateZ(180deg);">
+							<svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+								<use
+									xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#back">
+								</use>
+							</svg>
+						</span>
+					</button>
+				</template>
+			</div>
+			<article class="slds-card od-small-boxshadow-onhover slds-grid slds-grid_vertical slds-m-left_medium"
+				style="width: 0; flex: 1;">
+				<template if:true={search.loading}>
+					<div class="slds-spinner_container od-datatable-loader">
+						<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+							<span class="slds-assistive-text">Loading</span>
+							<div class="slds-spinner__dot-a"></div>
+							<div class="slds-spinner__dot-b"></div>
+						</div>
+					</div>
+				</template>
+				<div class="slds-modal__header slds-grid slds-theme_shade">
+					<header class="slds-media slds-media_center slds-has-flexi-truncate">
+						<div class="slds-media__body">
+							<h2 class="slds-text-heading_medium">Search Results</h2>
+						</div>
+					</header>
+				</div>
+				<div class="slds-card__body slds-card__body_inner" style="height: 0; flex: 1;">
+					<lightning-datatable key-field="id" sorted-by={table.sortBy} enable-infinite-loading
+						sorted-direction={table.sortDirection} data={table.filteredData}
+						columns={table.columns} onloadmore={onTableLoadMore}
+						onrowaction={onTableRowAction} onrowselection={onTableRowSelection}
+						onsort={onTableSort} load-more-offset="1">
+					</lightning-datatable>
+				</div>
+				<footer class="slds-modal__footer slds-col_bump-top">
+					<div class="slds-grid">
+						<template if:true={isSomeLineItemSelected}>
+							<button class="slds-button slds-button_brand slds-col_bump-left"
+								style="white-space: nowrap;"
+								onclick={onAddToScratchpad}>
+								Add to Scratchpad
+							</button>
+						</template>
+						<template if:false={isSomeLineItemSelected}>
+							<button class="slds-button slds-button_brand slds-col_bump-left"
+								style="white-space: nowrap;"
+								title="Unable to add to the Scratchpad: no item is selected." disabled>
+								Add to Scratchpad
+							</button>
+							<lightning-helptext content="Unable to add to the Scratchpad: no item is selected."
+								class="slds-m-left_small">
+							</lightning-helptext>
+						</template>
+					</div>
+				</footer>
+			</article>
+		</div>
+		<template if:true={isInitializing}>
+			<div class="slds-spinner_container od-fullscreen-loader">
+				<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+					<span class="slds-assistive-text">Loading</span>
+					<div class="slds-spinner__dot-a"></div>
+					<div class="slds-spinner__dot-b"></div>
+				</div>
+			</div>
+		</template>
+	</div>
+</template>

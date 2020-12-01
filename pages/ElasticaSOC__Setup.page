@@ -1,0 +1,8 @@
+<apex:page controller="ElasticaSOC.SetupController" >
+    <apex:form >
+        <h1>Welcome to the Elastica Securlet Setup Page!</h1><br/>
+        <p>Press the button below to configure the &quot;Securlet&quot; with Elastica.</p>
+        <apex:commandLink target="_blank" action="{!configure}" value="Configure" id="btnConfigure"/><br/>
+        <apex:outputText value="{!results}" escape="true"/>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,22 @@
+<apex:page standardController="CameleonCPQ__Quote__c" extensions="CameleonCPQ.PA_ViewAdditionalContext_VFCtrl" showHeader="false" sidebar="false" tabStyle="CameleonCPQ__AdditionalContext__c">
+    <script type="text/javascript">
+       function initAdditionalCtx() {
+         Visualforce.remoting.Manager.invokeAction(
+             '{!$RemoteAction.PA_ViewAdditionalContext_VFCtrl.initAdditionalCtx}',
+             '{!CameleonCPQ__Quote__c.Id}',
+             function(acId, event) {
+               if(event.status) {
+                  sforce.one.navigateToSObject(acId,'detail');
+               }
+               if(event.type=='exception') {
+                  alert(event.message);
+                  top.location.href = '{!URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id)}';
+                  return false;
+               }
+             });
+       }
+       if ((typeof sforce != 'undefined') && (sforce != null)) {
+            initAdditionalCtx();
+       }
+    </script>
+</apex:page>

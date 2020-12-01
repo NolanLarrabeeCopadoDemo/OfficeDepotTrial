@@ -1,0 +1,3092 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Price Change Process UI</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>ACE_SKU_Changes_ID1__c</fullName>
+        <externalId>true</externalId>
+        <label>ACE_SKU_Changes_ID1</label>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>ACE_SKU_Changes_ID__c</fullName>
+        <externalId>true</externalId>
+        <label>ACE_SKU_Changes_ID</label>
+        <precision>15</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Owner_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Ace_Customer_Core_Changes__r.ACE_Customer_Price_Changes__r.Customer__r.Owner.FirstName + &apos; &apos; +Ace_Customer_Core_Changes__r.ACE_Customer_Price_Changes__r.Customer__r.Owner.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Owner Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Ace_Customer_SKU_Changes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Ace_Customer_Core_Changes__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Core Changes</label>
+        <referenceTo>Ace_Customer_Core_Changes__c</referenceTo>
+        <relationshipLabel>Customer SKU Changes</relationshipLabel>
+        <relationshipName>Ace_Customer_SKU_Changes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Actual_Implementation_Date__c</fullName>
+        <description>This fields holds the date the sku got implemented in vendavo</description>
+        <externalId>false</externalId>
+        <label>Actual Implementation Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Addition_communication_requirements__c</fullName>
+        <externalId>false</externalId>
+        <label>Addition_communication_requirements</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Additional_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Comments</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Agreement_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Agreement Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Alt_SKU__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Indicates if it is Alt sku</description>
+        <externalId>false</externalId>
+        <label>Alt_SKU</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Alternate_Chosen_Flag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used to indicate whether the user has replaced the sku with its alternate</description>
+        <externalId>false</externalId>
+        <label>Alternate Chosen Flag</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Alternate_Margin__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Alternate Margin value of alt sku</description>
+        <externalId>false</externalId>
+        <label>Alternate Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_SKU_Spend__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This is Migrated from CRMDEMO</description>
+        <externalId>false</externalId>
+        <label>Annual SKU Spend</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Usage__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This is migrated from CRMDEMO</description>
+        <externalId>false</externalId>
+        <label>Annual Usage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approval_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Type</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approval__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(SFDC_Notification_Flag__c==&apos;3&apos;,&quot;Y&quot;,&quot;N&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Approval?</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approval_status__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval status</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approved_Proposed_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This will hold the actual proposed price (new price). The value from ACE will be copied to this field and new proposals by rep after approval will be copied to this field</description>
+        <externalId>false</externalId>
+        <label>New Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Backlog_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Backlog_Reason</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Batch_Month__c</fullName>
+        <externalId>false</externalId>
+        <formula>VALUE(RIGHT((LEFT((batchId__c), 2)),1))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Batch_Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Batch_Processed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Batch Processed</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Batch_Run_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Batch Run Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Batch_Year__c</fullName>
+        <externalId>false</externalId>
+        <formula>VALUE(RIGHT((batchId__c), 4))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Batch_Year</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cap_Amount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Calculation_Base__c</fullName>
+        <externalId>false</externalId>
+        <label>Cap Calculation Base</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cap_Format__c</fullName>
+        <externalId>false</externalId>
+        <label>Cap Format</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $ 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $ 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $ 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $ 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Scope__c</fullName>
+        <externalId>false</externalId>
+        <label>Cap Scope</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cap_Units__c</fullName>
+        <externalId>false</externalId>
+        <label>Cap Units</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ChangeAmount_per__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Current_Sell_Price__c !=0 ,(Change_Amount__c / Current_Sell_Price__c),0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ChangeAmount %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Change_Amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>Approved_Proposed_Price__c-Current_Sell_Price__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Change Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Change_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Change Type</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Class Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class_Id__c</fullName>
+        <description>SKU Merch Hierarchy? - Yes</description>
+        <externalId>false</externalId>
+        <label>Class Id</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comp_Vetting_Not_Performed__c</fullName>
+        <externalId>false</externalId>
+        <label>Comp_Vetting_Not_Performed</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CompareQtr_Appr__c</fullName>
+        <externalId>false</externalId>
+        <formula>OR(((SalesPriceChangeEffDateApprYear__c &gt; Batch_Year__c)),((SalesPriceChangeEffDateApprYear__c = Batch_Year__c)&amp;&amp;(SalesPriceChangeEffDateApprMonth__c &gt; Batch_Month__c)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CompareQtr_Appr</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Complex_Cap__c</fullName>
+        <externalId>false</externalId>
+        <label>Complex_Cap</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contract_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Contract Type</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CoreList_ID__c</fullName>
+        <description>Vendavo Corelist.VNumber</description>
+        <externalId>false</externalId>
+        <label>CoreList ID</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CoreList_Indicator__c</fullName>
+        <externalId>false</externalId>
+        <label>CoreList Indicator</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CoreList_Type__c</fullName>
+        <description>Either
+C = Custom Core
+S = Standard Core</description>
+        <externalId>false</externalId>
+        <label>CoreList Type</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Core_Description__c</fullName>
+        <description>Vendavo Corelist.Description</description>
+        <externalId>false</externalId>
+        <label>Core Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Core_Priority__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Owning_Customer_Corelist_Priority__c ,&apos;A&apos;,1,&apos;B&apos;,2,&apos;C&apos;,3,&apos;D&apos;,4,&apos;E&apos;,5,&apos;F&apos;,6,&apos;G&apos;,7,&apos;H&apos;,8,&apos;I&apos;,9,&apos;J&apos;,10,&apos;K&apos;,11,&apos;L&apos;,12,&apos;M&apos;,13,&apos;N&apos;,14,&apos;O&apos;,15,&apos;P&apos;,16,&apos;Q&apos;,17,&apos;R&apos;,18,&apos;S&apos;,19,&apos;T&apos;,20,&apos;U&apos;,21,&apos;V&apos;,22,&apos;W&apos;,23,&apos;X&apos;,24,&apos;Y&apos;,25,&apos;Z&apos;,26,99)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Core Priority</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Core_s_SKU_Vendor_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Core’s SKU Vendor ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Core_s_SKU_Vendor_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU&apos;s Primary Vendor</label>
+        <length>60</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cost_Change_From_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Cost Change From Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Cost_Change_To_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Cost Change To Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Current_List_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current List Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Margin_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Margin_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Margin_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Margin_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Margin__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Price_Method__c</fullName>
+        <description>Price Method at SKU Level Values:
+•         Fixed Price
+•         DFZ
+•         Cost
+•         DFL</description>
+        <externalId>false</externalId>
+        <label>Current Price Method</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Sell_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Sell Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_WANET_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current WANET Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_WAPO_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current WAPO Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_WATD_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current WATD Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Core_Price_Changes__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Customer Core Price Changes</label>
+        <referenceTo>ACE_Customer_Price_Changes__c</referenceTo>
+        <relationshipLabel>Customer SKU Changes</relationshipLabel>
+        <relationshipName>Customer_SKU_Changes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Notification_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Notification Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Price_Change__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Price Change</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customers_Linked__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Vendavo
+Cplpriorityhandle_v
+Bidagreement
+Vvalidity_from
+Vvalidity_to
+Delete = &apos;F&apos;</description>
+        <externalId>false</externalId>
+        <label>Customers Linked</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DISCO_communication_requirements__c</fullName>
+        <externalId>false</externalId>
+        <label>DISCO_communication_requirements</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>DSM Level User</description>
+        <externalId>false</externalId>
+        <label>DSM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Customer_SKU_Changes2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Deletion_communication_requirements__c</fullName>
+        <externalId>false</externalId>
+        <label>Deletion_communication_requirements</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dept_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Dept Description</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dept_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Dept Id</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Division_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Division Description</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Division_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Division Id</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Effective_Date_Language__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective_Date_Language</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Erosion_Exists__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Proposed_Price_Without_Cap__c &lt;&gt;  Approved_Proposed_Price__c , true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Erosion Exists</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Forecasted_Spend_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Spend 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Forecasted_Spend_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Spend 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Forecasted_Spend_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Spend 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Forecasted_Spend_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Spend 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Gross_IGM_Basis_Point_Increase__c</fullName>
+        <externalId>false</externalId>
+        <label>Gross IGM Basis Point Increase</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Group_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Group Description</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Group_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Group Id</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>High_Priority__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>High Priority flag for Hosted Cat functionality</description>
+        <externalId>false</externalId>
+        <label>High Priority</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HomePage_Approval_History__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>HomePage_Approval_History</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HostedCatalog_Hold__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This flag if marked true will not allow data to be released to vendavo. The flag will be unset when the data is loaded back in by hosted Catalog team</description>
+        <externalId>false</externalId>
+        <label>HostedCatalog Hold</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hosted_Catalog__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Hosted Catalog flag for Hosted Catalog bucket</description>
+        <externalId>false</externalId>
+        <label>Hosted Catalog</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Implementation_Message__c</fullName>
+        <description>This field holds the error or success message from vendavo</description>
+        <externalId>false</externalId>
+        <label>Implementation Message</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Implementation_Status_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>Ace_Customer_Core_Changes__r.ACE_Customer_Price_Changes__r.Implementation_Status_Code__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Implementation Status Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Implementation_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Implementation Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initial_Price_Freeze_Period__c</fullName>
+        <externalId>false</externalId>
+        <label>Initial Price Freeze Period</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsDeleted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Field to track if the User has deleted the SKU record from the Request Sales Price Exception Screen.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Field to track if the User has deleted the SKU record from the Request Sales Price Exception Screen.</inlineHelpText>
+        <label>IsDeleted</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsNotifyCancelled__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( 
+( Price_Changes_Type1__c==&apos;Cost&apos; &amp;&amp; Change_Amount__c&gt;0 &amp;&amp; text(Status__c) !=&apos;Deleted&apos;)  ||
+( Price_Changes_Type1__c==&apos;Margin Swap&apos; &amp;&amp; Change_Amount__c&gt;0 &amp;&amp; text(Status__c) !=&apos;Deleted&apos;)  ||
+( Price_Changes_Type1__c==&apos;Margin Lift&apos; &amp;&amp; Change_Amount__c&gt;0 &amp;&amp; text(Status__c) !=&apos;Deleted&apos;)  ,
+true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IsNotifyCancelled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Cap_Lesser_Of_Two__c</fullName>
+        <externalId>false</externalId>
+        <label>Is_Cap_Lesser_Of_Two</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_There_A_Cap__c</fullName>
+        <externalId>false</externalId>
+        <label>Is_There_A_Cap</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Item_12_Month_Qty__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sold Qty for this Core, Last 12 calendar months from current date
+Same Time Period as of Sales</description>
+        <externalId>false</externalId>
+        <label>12 Month Usage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Item_12_Month_Sales__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Vendavo PA</description>
+        <externalId>false</externalId>
+        <label>Item 12 Month Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Item_3_Month_Qty__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sold Qty for this Core, Last 3 calendar months from current date
+Same Time Period as of Sales</description>
+        <externalId>false</externalId>
+        <label>3 Month Usage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Item_3_Month_Sales__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sales for this Core, Last 3 calendar months from current date</description>
+        <externalId>false</externalId>
+        <label>Item 3 Month Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Item_6_Month_Qty__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sold Qty for this Core, Last 6 calendar months from current date
+Same Time Period as of Sales</description>
+        <externalId>false</externalId>
+        <label>6 Month Usage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Item_6_Month_Sales__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Vendavo PA</description>
+        <externalId>false</externalId>
+        <label>Item 6 Month Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Item_9_Month_Qty__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sold Qty for this Core, Last 9 calendar months from current date
+Same Time Period as of Sales</description>
+        <externalId>false</externalId>
+        <label>9 Month Usage</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Item_9_Month_Sales__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Vendavo PA</description>
+        <externalId>false</externalId>
+        <label>Item 9 Month Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>L1_Mgr_AppReject_Time_c__c</fullName>
+        <externalId>false</externalId>
+        <formula>L1_Mgr_Approval_End_Date__c -  L1_Mgr_Approval_Start_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>L1_Mgr_AppReject_Time__c</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>L1_Mgr_Approval_End_Date__c</fullName>
+        <description>L1 Mgr Approval End Date</description>
+        <externalId>false</externalId>
+        <label>L1 Mgr Approval End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>L1_Mgr_Approval_Start_Date__c</fullName>
+        <description>L1 Mgr Approval Start Date</description>
+        <externalId>false</externalId>
+        <label>L1 Mgr Approval Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>L2_Mgr_AppReject_Time_c__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF ( L2_Mgr_Approval_End_Date__c != null, L2_Mgr_Approval_End_Date__c -  L2_Mgr_Approval_Start_Date__c,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>L2_Mgr_AppReject_Time__c</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>L2_Mgr_Approval_End_Date__c</fullName>
+        <description>L2 Mgr Approval End Date</description>
+        <externalId>false</externalId>
+        <label>L2 Mgr Approval End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>L2_Mgr_Approval_Start_Date__c</fullName>
+        <description>L2 Mgr Approval Start Date</description>
+        <externalId>false</externalId>
+        <label>L2 Mgr Approval Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>L3_Mgr_AppReject_Time_c__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF ( L3_Mgr_Approval_End_Date__c != null, L3_Mgr_Approval_End_Date__c -  L3_Mgr_Approval_Start_Date__c,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>L3_Mgr_AppReject_Time__c</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>L3_Mgr_Approval_End_Date__c</fullName>
+        <description>L3 Mgr Approval End Date</description>
+        <externalId>false</externalId>
+        <label>L3 Mgr Approval End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>L3_Mgr_Approval_Start_Date__c</fullName>
+        <description>L3 Mgr Approval Start Date</description>
+        <externalId>false</externalId>
+        <label>L3 Mgr Approval Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LastModify_Tracking__c</fullName>
+        <externalId>false</externalId>
+        <label>LastModify Tracking</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_before_change__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure (before change)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Play__c</fullName>
+        <externalId>false</externalId>
+        <label>Margin Play Type</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Margin_wo_Change_WAPO__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin % wo/ Change WAPO</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_wo_Change_WATD__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin % wo/ Change WATD</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>NWCustomer_Notification_Flag__c</fullName>
+        <externalId>false</externalId>
+        <label>NWCustomer Notification Flag</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_Approval_Price__c</fullName>
+        <externalId>false</externalId>
+        <label>New Approval Price</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_Gross_IGM1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New Gross IGM %</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>New_Gross_IGM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New Gross IGM $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_IGM_Change__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New IGM $ Change</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_List_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New List Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_Price_cal__c</fullName>
+        <externalId>false</externalId>
+        <formula>Proposed_Price_with_Cap__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>New Price ACE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_Sell_Price_Dollar_Change_Amount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Change in Sell Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_Sell_Price_Percentage_Change_Amoun__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Price Change %</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>New_WANET_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New WANET Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_WAPO_Cost_Effective_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>New WAPO Cost Effective Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>New_WAPO_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New WAPO Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_WATD_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New WATD Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Next_eligible_increase_date__c</fullName>
+        <externalId>false</externalId>
+        <label>Next eligible increase date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Notification_Action__c</fullName>
+        <externalId>false</externalId>
+        <label>Notification Action</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Notify_Cancelled__c</fullName>
+        <externalId>false</externalId>
+        <formula>Ace_Customer_Core_Changes__r.ACE_Customer_Price_Changes__r.Notify_Cancelled__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Notify Cancelled</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Old_Gross_IGM1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old Gross IGM %</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Old_Gross_IGM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old Gross IGM $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Old_WANET__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old WANET</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Old_WAPO_Margin1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old WAPO Margin $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Old_WAPO_Margin__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old WAPO Margin %</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Old_WAPO__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old WAPO</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Old_WATD_SRM1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old WATD SRM $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Old_WATD_SRM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old WATD SRM %</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Old_WATD__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old WATD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Owning_Customer_Annual_Sales_Volume__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Owning Customer Annual Sales Volume</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Owning_Customer_Corelist_Priority__c</fullName>
+        <externalId>false</externalId>
+        <label>Owning Customer Corelist Priority</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Owning_Customer_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Owning Customer ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Owning_Customer_Legal__c</fullName>
+        <description>Vendavo
+Corelist
+SpecialHandling</description>
+        <externalId>false</externalId>
+        <label>Owning Customer Legal</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Owning_Customer_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Owning Customer Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Owning_Customer_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Owning Customer Type</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PRICE_NOT_CALCULATED__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>PRICE NOT CALCULATED</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PROCESSING_ALLOWED__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Processing allowed flag for SFDC to Vendavo consolidation</description>
+        <externalId>false</externalId>
+        <label>PROCESSING_ALLOWED</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Previous_Exception_Impact__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Previous Exception Impact</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Price_Change_ID__c</fullName>
+        <description>This field holds the ace_Customer_price_change object reference, created to fix performance issue with queries that are trying to travering 2 relations up to pull this info.</description>
+        <externalId>false</externalId>
+        <label>Price Change ID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Price_Change_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(TEXT(Status__c) == &apos;Deleted&apos;,&apos;D&apos;,Price_Changes_Type__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Price Change Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Price_Changes_Type1__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( AND( Price_Changes_Type__c=&apos;M&apos;, Margin_Play__c=&apos;L&apos;), &apos;Margin Lift&apos;,
+IF( AND( Price_Changes_Type__c=&apos;M&apos;, Margin_Play__c=&apos;S&apos;), &apos;Margin Swap&apos;,
+IF( Margin_Play__c=&apos;A&apos;, &apos;Assortment Swap&apos;,
+IF( Price_Changes_Type__c=&apos;C&apos;, &apos;Cost&apos;,
+IF( Price_Changes_Type__c=&apos;A&apos;, &apos;Alternate&apos;, &apos;&apos;)))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Change Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Price_Changes_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Price Changes Type</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Price_Comparison__c</fullName>
+        <externalId>false</externalId>
+        <formula>MIN(Approved_Proposed_Price__c, Proposed_Price_with_Cap__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Price Comparison</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Price_Exception_Revenue_Impact__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Revenue Impact captured in SFDC due to price changes by Rep</description>
+        <externalId>false</externalId>
+        <label>Price Exception Revenue Impact</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Pricing_Method_Percentage__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Vendavo
+Corelistlineitem
+Coreadjusted_amount</description>
+        <externalId>false</externalId>
+        <label>Pricing Method Percentage</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_New_List_Less_Disc_Without_Cap__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Proposed New List Less Disc% Without Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proposed_Price_Without_Cap__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Proposed Price Without Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This will be changed by the Rep if he is proposing the New Price _if Approval is needed after approval this value will be copied to &quot;Approved Proposed Price&quot;, If no approval needed then workflow has to update the &quot;Approved Proposed Price&quot;-This field will be used in all the UI</description>
+        <externalId>false</externalId>
+        <label>Proposed Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_Price_with_Cap__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This  value come from ACE as an Inbound MSG Data Process</description>
+        <externalId>false</externalId>
+        <label>Proposed Price with Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_SRM_with_Cap1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Proposed SRM $ with Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_SRM_with_Cap__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Proposed SRM% with Cap</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_WAPO_Margin_with_Cap1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Proposed WAPO Margin $ with Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_WAPO_Margin_with_Cap__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Proposed WAPO Margin % with Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>QPU__c</fullName>
+        <externalId>false</externalId>
+        <label>QPU</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RSD__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>RSD</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Customer_SKU_Changes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reason_For_Exception_Request__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason For Exception Request</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Written Agreement Compliance</fullName>
+                    <default>false</default>
+                    <label>Written Agreement Compliance</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Recommended_Action__c</fullName>
+        <externalId>false</externalId>
+        <label>Recommended Action</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recommended_Deletion__c</fullName>
+        <externalId>false</externalId>
+        <label>Recommended Deletion</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_Lock_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Lock Code</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_Locked__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>The status on the record will be used to lock it from being updated</description>
+        <externalId>false</externalId>
+        <label>Record Locked</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Related_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Related Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Customer SKU Changes (Related Account)</relationshipLabel>
+        <relationshipName>Customer_SKU_Changes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Related_Contract_Number__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Related Contract Number</label>
+        <referenceTo>Contract</referenceTo>
+        <relationshipLabel>Customer SKU Changes</relationshipLabel>
+        <relationshipName>Customer_SKU_Changes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Related_Contract_Pricing_Term__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Related Contract Pricing Term</label>
+        <referenceTo>Contract_Pricing_Terms__c</referenceTo>
+        <relationshipLabel>Customer SKU Changes</relationshipLabel>
+        <relationshipName>Customer_SKU_Changes</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Remediation_Hold__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This flag if marked true will not allow data to be released to vendavo. The flag will be unset when the data is loaded back in by remediation team.</description>
+        <externalId>false</externalId>
+        <label>Remediation Hold</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Report_New_Gross_IGM_ACE__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Used in reports, stores the original value from ACE and is not updated.</description>
+        <externalId>false</externalId>
+        <label>Report New Gross IGM ACE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Report_Total_Spend_Impact_12_Month_ACE__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Used in Reports and stores the original value from ACE</description>
+        <externalId>false</externalId>
+        <label>Report Total Spend Impact 12 Month ACE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Approved_Price__c</fullName>
+        <externalId>false</externalId>
+        <formula>Approved_Proposed_Price__c &lt; Proposed_Price_with_Cap__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Approved Price</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Approved_Without_Cap_Price__c</fullName>
+        <externalId>false</externalId>
+        <formula>Approved_Proposed_Price__c &lt; Proposed_Price_Without_Cap__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Approved Without Cap Price</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Field_MarkDown__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Approved_Proposed_Price__c &lt;  Proposed_Price_with_Cap__c ,(Proposed_Price_with_Cap__c-Approved_Proposed_Price__c)* Item_12_Month_Qty__c , 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Erosion Field MarkDown</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Margin_CAP__c</fullName>
+        <externalId>false</externalId>
+        <formula>((Proposed_Price_Without_Cap__c - New_WATD_Cost__c)-Proposed_SRM_with_Cap1__c)*Item_12_Month_Qty__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Erosion Margin CAP</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Margin_Field_MarkDown__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Approved_Proposed_Price__c &lt; Proposed_Price_with_Cap__c ,((Proposed_Price_with_Cap__c-Current_WATD_Cost__c)-(Approved_Proposed_Price__c-Current_WATD_Cost__c))* Item_12_Month_Qty__c , 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Erosion Margin Field MarkDown</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Margin__c</fullName>
+        <description>Used in Reporting - Vendor letter, Timing Erosion</description>
+        <externalId>false</externalId>
+        <formula>(Proposed_SRM_with_Cap1__c-Old_WATD_SRM1__c)* Item_12_Month_Qty__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Erosion Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Revenue_CAP__c</fullName>
+        <externalId>false</externalId>
+        <formula>Cap_Lost_Margin_Dollar__c * Item_12_Month_Qty__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Erosion Revenue CAP</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Revenue__c</fullName>
+        <externalId>false</externalId>
+        <formula>New_Sell_Price_Dollar_Change_Amount__c * Item_12_Month_Qty__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Erosion Revenue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Exception_Field_MarkDown__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Proposed_Price__c  &lt; Proposed_Price_with_Cap__c ,(Proposed_Price_with_Cap__c-Proposed_Price__c)* Item_12_Month_Qty__c , 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Exception  Field MarkDown</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Exception_Mgn_Field_MarkDown__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Proposed_Price__c &lt; Proposed_Price_with_Cap__c ,((Proposed_Price_with_Cap__c-Current_WATD_Cost__c)-(Proposed_Price__c-Current_WATD_Cost__c))* Item_12_Month_Qty__c , 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Exception Mgn Field MarkDown</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_ExposureDaysEarly_Sale_Erosion__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Sales_Price_Change_Effective_Date_Approv__c!=null,
+IF(Sales_Price_Change_Effective_Date_Approv__c&lt;Sales_Price_Change_Effective_Date__c ,
+ (Sales_Price_Change_Effective_Date__c - Sales_Price_Change_Effective_Date_Approv__c),0),0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting ExposureDaysEarly Sale Erosion</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reporting_Exposure_Days_Initial__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Sales_Price_Change_Effective_Date_Approv__c==Sales_Price_Change_Effective_Date__c ,
+ IF(Reporting_Quarter_Start_Date__c!=null,(Sales_Price_Change_Effective_Date__c -  Reporting_Quarter_Start_Date__c),0),0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Exposure Days Initial</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reporting_Exposure_Days_Sale_Erosion__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Sales_Price_Change_Effective_Date_Approv__c!=null,
+IF(Sales_Price_Change_Effective_Date_Approv__c&gt;Sales_Price_Change_Effective_Date__c ,
+ (Sales_Price_Change_Effective_Date_Approv__c-Sales_Price_Change_Effective_Date__c),0),0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Exposure Days Sale Erosion</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reporting_Passed_Margin__c</fullName>
+        <externalId>false</externalId>
+        <formula>Approved_Proposed_Price__c -  New_WATD_Cost__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Passed Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Price_Modified_By_Approver__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Reporting Price Modified By Approver</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Prosposed_Margin__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Proposed_Price_Without_Cap__c-New_WATD_Cost__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reporting Prosposed Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Quarter_End_Date__c</fullName>
+        <description>Needed for ACE Reporting</description>
+        <externalId>false</externalId>
+        <label>Reporting_Quarter End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Quarter_Start_Date__c</fullName>
+        <description>It is needed for Reporting</description>
+        <externalId>false</externalId>
+        <label>Reporting_Quarter Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Request_Key__c</fullName>
+        <externalId>false</externalId>
+        <label>Request Key</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Requirement_Window__c</fullName>
+        <externalId>false</externalId>
+        <label>Requirement Window</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Retail_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Retail Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>SFDC_Contract_Object_Customer_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>SFDC Contract Object Customer ID</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SFDC_Contract_Object_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>SFDC Contract Object ID</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SFDC_Notification_Flag__c</fullName>
+        <externalId>false</externalId>
+        <label>SFDC Notification Flag</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SKU_Add_Notif_Req__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU Add Notif Req</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SKU_Alt__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU Alt</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SKU_DISCO_Alternate_Price_Requirement__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU DISCO Alternate Price Requirement</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SKU_Del_Notif_Req__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU Del Notif Req</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SKU_Description__c</fullName>
+        <description>Vendavo: v_vproduct.vlabel
+RMS 
+Item_master. short_desc</description>
+        <externalId>false</externalId>
+        <label>SKU Description</label>
+        <length>60</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SKU_Disco_Alt_Req__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU Disco Alt Req</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SKU_Disco_Cust_Notif_Req__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU Disco Cust Notif Req</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SKU_Governed_By_Active_Written_Agreement__c</fullName>
+        <description>SKU Governed By Active Written Agreement - to indicate if the target SKU fell under an active CSF</description>
+        <externalId>false</externalId>
+        <label>SKU Governed By Active Written Agreement</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Y</fullName>
+                    <default>false</default>
+                    <label>Y</label>
+                </value>
+                <value>
+                    <fullName>N</fullName>
+                    <default>false</default>
+                    <label>N</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>SKU_Last_Update__c</fullName>
+        <description>Last time the SKU price was changed</description>
+        <externalId>false</externalId>
+        <label>SKU Last Update</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SKU_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU Type</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SKU__c</fullName>
+        <externalId>true</externalId>
+        <label>SKU</label>
+        <length>100</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SRM_Basis_Point_Increase__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>SRM Basis Point Increase</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SRM_Differential__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>SRM Differential $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>SalesPriceChangeEffDateApprMonth__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 1.0, 1.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 2.0, 1.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 3.0, 1.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 4.0, 2.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 5.0, 2.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 6.0, 2.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 7.0, 3.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 8.0, 3.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 9.0, 3.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 10.0, 4.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 11.0, 4.0, 
+IF((MONTH(Sales_Price_Change_Effective_Date_Approv__c)) = 12.0, 4.0, 
+null))))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SalesPriceChangeEffDateApprMonth</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SalesPriceChangeEffDateApprYear__c</fullName>
+        <externalId>false</externalId>
+        <formula>(YEAR(Sales_Price_Change_Effective_Date_Approv__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SalesPriceChangeEffDateApprYear</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sales_Price_Change_Effective_Date_Approv__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Price_Change_Effective_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Price Change Effective Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SpendImpactValue__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Item_12_Month_Qty__c  &lt;&gt; 0,Total_Spend_Impact_12_Month__c/Item_12_Month_Qty__c , 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SpendImpactValue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Active</fullName>
+                    <default>true</default>
+                    <label>Active</label>
+                </value>
+                <value>
+                    <fullName>Inactive</fullName>
+                    <default>false</default>
+                    <label>Inactive</label>
+                </value>
+                <value>
+                    <fullName>Deleted</fullName>
+                    <default>false</default>
+                    <label>Deleted</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Subclass_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Subclass Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subclass_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Subclass Id</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Amount_not_passed_due_to_WA__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Amount not passed due to WA</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Amount_not_passed_due_to_WA_restr1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Amount not passed due to WA restri</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Amount_not_passed_due_to_WA_restr2__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Amount not passed due to WA restri</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Amount_not_passed_due_to_WA_restr3__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Amount not passed due to WA restri</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Amount_not_passed_due_to_WA_restri__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Amount not passed due to WA restri</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Impact__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( NOT( ISNULL( Previous_Exception_Impact__c ) ) , ( Previous_Exception_Impact__c  +  Price_Exception_Revenue_Impact__c ), Price_Exception_Revenue_Impact__c)</formula>
+        <label>Total Impact</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Spend_Impact_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Spend Impact 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Spend_Impact_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Spend Impact 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Spend_Impact_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Spend Impact 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Spend_Impact_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Spend Impact 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>UOM__c</fullName>
+        <description>Vendavo: v_vproduct.baseuom_vname
+RMS
+Item_master. standard_uom</description>
+        <externalId>false</externalId>
+        <label>UOM</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Frequency_Calendar_Period__c</fullName>
+        <externalId>false</externalId>
+        <label>Update_Frequency_Calendar_Period</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Frequency_Date_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Update_Frequency_Date_1</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Update_Frequency_Date_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Update_Frequency_Date_2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Update_Frequency_Date_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Update_Frequency_Date_3</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Update_Frequency_Date_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Update_Frequency_Date_4</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Update_Frequency_In_Days__c</fullName>
+        <externalId>false</externalId>
+        <label>Update_Frequency_In_Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Frequency_Other__c</fullName>
+        <externalId>false</externalId>
+        <label>Update_Frequency_Other</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Frequency_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Update_Frequency_Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Frequency__c</fullName>
+        <externalId>false</externalId>
+        <label>Update Frequency</label>
+        <length>15</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Timing_Action__c</fullName>
+        <externalId>false</externalId>
+        <label>Update Timing Action</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Timing__c</fullName>
+        <externalId>false</externalId>
+        <label>Update Timing</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>User_Proposed_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>User Proposed Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>VCC_ENGINE_CONTROL_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>VCC ENGINE CONTROL ID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VP__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>VP</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Customer_SKU_Changes1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Vendavo_Processed_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Vendavo Processed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Vendavo_Update_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Vendavo_Update_Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Vendor_Letter_Eligible_No_Det__c</fullName>
+        <externalId>false</externalId>
+        <label>Vendor_Letter_Eligible_No_Det</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vendor_OEM_Letters_Required__c</fullName>
+        <externalId>false</externalId>
+        <label>Vendor/OEM Letters Required</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WAPO_Cost_Change__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>WAPO Cost % Change</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>WATD_Cost_Change1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>WATD Cost $ Change</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>WATD_Cost_Change__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>WATD Cost % Change</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>XREF_REQUEST_ID__c</fullName>
+        <externalId>true</externalId>
+        <label>XREF_REQUEST_ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>batchId__c</fullName>
+        <externalId>false</externalId>
+        <label>batchId</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Customer SKU Changes</label>
+    <nameField>
+        <label>Customer SKU Changes Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Customer SKU Changes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Pricing_Summary_Grid</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Back To Summary Of My Customers With Core Price Changes</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>https://officedepot--uat--c.cs7.visual.force.com/apex/ace_price_change_summary_grid?batch=Q1-2014</url>
+    </webLinks>
+</CustomObject>

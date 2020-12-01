@@ -1,0 +1,15 @@
+<apex:page standardController="Ace_Customer_Core_Changes__c" extensions="AceCustomerCoreChangesButtons">
+  <apex:form >
+    <LEFT>
+   <apex:outputPanel id="redirectPanel" >
+     <apex:outputText rendered="{!Redirect}">
+          <script type="text/javascript">
+               window.top.location.href = '{!redirecturl}';
+          </script>
+     </apex:outputText>
+   </apex:outputPanel>
+     <br></br>
+     <apex:commandlink action="{!summaryGridRedirect}" value="Back To Summary Of My Customers With Core Price Changes" rerender="redirectPanel"/>          
+   </LEFT>
+  </apex:form>
+</apex:page>

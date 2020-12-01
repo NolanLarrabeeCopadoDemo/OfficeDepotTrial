@@ -1,0 +1,192 @@
+<apex:page readOnly="true" title="Revenue & Margin Waterfall" controller="ACEReporting_RevMarg_WaterFall" action="{!loadErosionDateData}">
+ <head>
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        
+        .expandCollapse{
+        -moz-border-radius:5px 5px 5px 5px;
+        -webkit-border-radius:5px 5px 5px 5px;
+        border-radius:5px 5px 5px 5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        align:center; 
+        text-align:center; 
+        font-weight:bold;
+        background-color:#3D8C8C;
+        background-image:none;
+        width:auto;
+        height:auto;
+        color:white;
+        }
+        .borderLeft{
+            border-left: solid 1px black;
+        }
+        .borderRight{
+            border-right: solid 1px black;
+        }
+    </Style>
+   </head>  
+    <apex:outputPanel id="bucketPanel">
+        <apex:form >    
+           <apex:sectionHeader title="Reports" id="reports1" subtitle="BSD Price Change Process - Revenue & Margin Waterfall By {!reportType}" rendered="{!SegmentName == null}"/>
+           <apex:sectionHeader title="Reports" id="reports2" subtitle="BSD Price Change Process - Revenue & Margin Waterfall {!ReportName} By {!SegmentName} {!reportType} for {!ErosionType} Exception" rendered="{!SegmentName != null}"/>     
+            <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%">    
+                <apex:outputPanel style="text-align: right;float:right;">
+                           <!-- <a href="/servlet/servlet.FileDownload?file=015M0000000ACus" target="_blank"> <apex:image id="theImage" value="{!$Resource.TalkingPointImage}" width="40" height="18" style="text-align: right;"/></a>-->
+                           &nbsp; 
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!loadErosionDateData}"  status="search_Status_main"/>
+                                        <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid>
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                 <!-- Added apex image tag S-346420 by  Rahul  <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/> --> 
+                 <apex:image id="ajax_loading" value="{!$Resource.Ajax_Loading}" height="100" width="100" alt="Loading graphic" />
+             </div>
+         </div>
+         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                 
+         <div style="background-color:white;">
+               <apex:pageBlock id="block">    
+                                <apex:outputPanel >
+                                    <B>Search by Customer # or Name: </B> <apex:inputText id="text1" value="{!searchWord}" tabindex="0" onkeypress="if(event.keyCode==13){Refresh_pg(this); return false;}"/>  &nbsp;&nbsp;&nbsp;
+                                    <apex:commandButton id="searchbtn" value="Search" status="search_Status_main" reRender="componentPanel" action="{!SearchRecords}" tabindex="1"/>
+                                </apex:outputPanel>                
+                   <apex:outputPanel id="componentPanel" >                
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                         
+                         <div class="expandCollapse">
+                             <apex:outputText value="Customers" style="color:white;"/>
+                         </div>  
+                         <apex:pageBlockTable value="{!lErosionDateReportDataList}" var="a">
+                             <apex:column >
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Customer</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Customer" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Customer'}"/> 
+                                       <apex:image id="sortInDesc" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Customer'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 <a href="/{!a.customer__r.id}" target="_blank">{!a.customer__r.name} </a> 
+                             </apex:column>
+                              <apex:column >
+                                
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Change<br/>Requirement</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Category" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc1" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Category'}"/> 
+                                       <apex:image id="sortInDesc1" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Category'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 {!a.Customer_Category__c}
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Original Date</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Original Date" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc2" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Original Date'}"/> 
+                                       <apex:image id="sortInDesc2" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Original Date'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                     <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                         <apex:param value="{!a.Sales_Price_Change_Effective_Date__c}" /> 
+                                     </apex:outputText>
+                             </apex:column>
+                              <apex:column >
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText > Delay Approved</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Delay Approved" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc5" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Delay Approved'}"/> 
+                                       <apex:image id="sortInDesc5" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Delay Approved'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 
+                                     <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                         <apex:param value="{!a.Sales_Price_Change_Effective_Date_Min__c}" /> 
+                                     </apex:outputText>
+                             </apex:column>
+                              <apex:column >
+                                 <apex:facet name="header">Delay Due to<br/>Field Exception </apex:facet>
+                                 {!a.Sales_Price_Change_Effective_Date_Min__c - a.Sales_Price_Change_Effective_Date__c}
+                             </apex:column>
+                              <apex:column >
+                                  <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Revenue Lost</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Revenue Lost" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc3" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Revenue Lost'}"/> 
+                                       <apex:image id="sortInDesc3" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Revenue Lost'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                
+                                 <apex:outputText value="${0, number, ###,###,###,###.##}">
+                                    <apex:param value="{!a.Reporting_Erosion_Field_Delay__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                              <apex:column >
+                                  <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText > Margin Lost</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="Margin Lost" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc4" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Margin Lost'}"/> 
+                                       <apex:image id="sortInDesc4" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Margin Lost'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet>
+                                 <apex:outputText value="${0, number, ###,###,###,###.##}">
+                                    <apex:param value="{!a.Reporting_Erosion_Margin_Field_Delay__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                             
+                             
+                         </apex:pageBlockTable>
+                          <apex:panelGrid id="buttons3" width="100%" columns="2" columnClasses="btn3,btn4">
+                         <apex:outputPanel >
+                             <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                         </apex:outputPanel>
+                         <apex:outputPanel >
+                             <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                         </apex:outputPanel>
+                     </apex:panelGrid>
+                    </apex:outputPanel>     
+                 </apex:pageBlock> 
+         </div>  
+      </apex:form>
+         
+          
+           
+    </apex:outputPanel>
+    
+    <script>
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script>
+
+</apex:page>

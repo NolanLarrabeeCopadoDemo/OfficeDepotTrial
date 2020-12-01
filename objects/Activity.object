@@ -1,0 +1,4604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ComposeGmail</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ComposeGmail</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ComposeGmail</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>LogCall</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>LogCall</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>LogCall</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MailMerge</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MailMerge</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>MailMerge</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>RequestUpdate</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>RequestUpdate</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>RequestUpdate</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SendEmail</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SendEmail</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SendEmail</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewAll</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewAll</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewAll</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>AccountManagement_ActionPlan__c</fullName>
+        <description>Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>Action Plan</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Account_Management_Rating__c</fullName>
+        <description>Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>Account Management Rating</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Highly Effective</fullName>
+                    <default>false</default>
+                    <label>Highly Effective</label>
+                </value>
+                <value>
+                    <fullName>Effective</fullName>
+                    <default>false</default>
+                    <label>Effective</label>
+                </value>
+                <value>
+                    <fullName>Developing</fullName>
+                    <default>false</default>
+                    <label>Developing</label>
+                </value>
+                <value>
+                    <fullName>Ineffective</fullName>
+                    <default>false</default>
+                    <label>Ineffective</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Account_Org__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account.Org__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Org</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.RecordType.Name</field>
+                <operation>notContain</operation>
+                <value>(Tech-Zone)</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Activities</relationshipLabel>
+        <relationshipName>Activities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Action__c</fullName>
+        <externalId>false</externalId>
+        <label>Action</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Task_Type__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Co-Ordination</fullName>
+                    <default>false</default>
+                    <label>Co-Ordination</label>
+                </value>
+                <value>
+                    <fullName>Development</fullName>
+                    <default>false</default>
+                    <label>Development</label>
+                </value>
+                <value>
+                    <fullName>Migration</fullName>
+                    <default>false</default>
+                    <label>Migration</label>
+                </value>
+                <value>
+                    <fullName>Validation</fullName>
+                    <default>false</default>
+                    <label>Validation</label>
+                </value>
+                <value>
+                    <fullName>Migration Validation</fullName>
+                    <default>false</default>
+                    <label>Migration Validation</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>true</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>QA-Validation</fullName>
+                    <default>false</default>
+                    <label>QA-Validation</label>
+                </value>
+                <value>
+                    <fullName>Risk/issue</fullName>
+                    <default>false</default>
+                    <label>Risk/issue</label>
+                </value>
+                <value>
+                    <fullName>Analysis/Development</fullName>
+                    <default>false</default>
+                    <label>Analysis/Development</label>
+                </value>
+                <value>
+                    <fullName>Notification/Validation</fullName>
+                    <default>false</default>
+                    <label>Notification/Validation</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>IT</controllingFieldValue>
+                <valueName>Development</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IT</controllingFieldValue>
+                <valueName>Migration</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>IT</controllingFieldValue>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Validation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Business</controllingFieldValue>
+                <valueName>Migration Validation</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Actual_LOE__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual LOE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Address Id</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Anticipated_Decision_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Anticipated Decision Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Anticipated_RFP_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Anticipated RFP Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Appointment_FiscalMonth__c</fullName>
+        <externalId>false</externalId>
+        <label>Appointment Fiscal Month</label>
+        <length>10</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Appointment_FiscalYear__c</fullName>
+        <externalId>false</externalId>
+        <label>Appointment Fiscal Year</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Appointment_Fiscal_Month__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( value(Appointment_FiscalMonth__c),
+1, &quot;January&quot;,
+2, &quot;February&quot;,
+3, &quot;March&quot;,
+4, &quot;April&quot;,
+5, &quot;May&quot;,
+6, &quot;June&quot;,
+7, &quot;July&quot;,
+8, &quot;August&quot;,
+9, &quot;September&quot;,
+10, &quot;October&quot;,
+11, &quot;November&quot;,
+12, &quot;December&quot;,
+&quot;None&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Fiscal Month</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Areas_for_Improvement__c</fullName>
+        <externalId>false</externalId>
+        <label>Areas for Improvement</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Assigned_Call_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Assigned Call Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Assignment_Group__c</fullName>
+        <externalId>false</externalId>
+        <label>Assignment Group</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>IT</fullName>
+                    <default>false</default>
+                    <label>IT</label>
+                </value>
+                <value>
+                    <fullName>Business</fullName>
+                    <default>false</default>
+                    <label>Business</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Attended_Weekly_Meeting__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Attended Weekly Meeting</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BOT_Leverage__c</fullName>
+        <externalId>false</externalId>
+        <label>BOT Leverage</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Batch_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Batch Id</label>
+        <length>8</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Call_Disposition__c</fullName>
+        <externalId>false</externalId>
+        <label>Disposition</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>&apos;Did You Know&apos; Informational Email</fullName>
+                    <default>false</default>
+                    <label>&apos;Did You Know&apos; Informational Email</label>
+                </value>
+                <value>
+                    <fullName>Account Maintenance</fullName>
+                    <default>false</default>
+                    <label>Account Maintenance</label>
+                </value>
+                <value>
+                    <fullName>Adapt &amp; Refine/Finalize</fullName>
+                    <default>false</default>
+                    <label>Adapt &amp; Refine/Finalize</label>
+                </value>
+                <value>
+                    <fullName>Adding Contacts</fullName>
+                    <default>false</default>
+                    <label>Adding Contacts</label>
+                </value>
+                <value>
+                    <fullName>Adjacency Partner Call</fullName>
+                    <default>false</default>
+                    <label>Adjacency Partner Call</label>
+                </value>
+                <value>
+                    <fullName>Adj Pursuit Plan Task</fullName>
+                    <default>false</default>
+                    <label>Adj Pursuit Plan Task</label>
+                </value>
+                <value>
+                    <fullName>Advancing Opportunity</fullName>
+                    <default>false</default>
+                    <label>Advancing Opportunity</label>
+                </value>
+                <value>
+                    <fullName>Annuity Agreement</fullName>
+                    <default>false</default>
+                    <label>Annuity Agreement</label>
+                </value>
+                <value>
+                    <fullName>Annuity Product Opportunity</fullName>
+                    <default>false</default>
+                    <label>Annuity Product Opportunity</label>
+                </value>
+                <value>
+                    <fullName>Appointment Set</fullName>
+                    <default>false</default>
+                    <label>Appointment Set</label>
+                </value>
+                <value>
+                    <fullName>Balance of Trade</fullName>
+                    <default>false</default>
+                    <label>Balance of Trade</label>
+                </value>
+                <value>
+                    <fullName>Business Review</fullName>
+                    <default>false</default>
+                    <label>Business Review</label>
+                </value>
+                <value>
+                    <fullName>Category Expert</fullName>
+                    <default>false</default>
+                    <label>Category Expert</label>
+                </value>
+                <value>
+                    <fullName>CBFS Portal Piece</fullName>
+                    <default>false</default>
+                    <label>CBFS Portal Piece</label>
+                </value>
+                <value>
+                    <fullName>Coaching Session</fullName>
+                    <default>false</default>
+                    <label>Coaching Session</label>
+                </value>
+                <value>
+                    <fullName>Contract Lifecycle</fullName>
+                    <default>false</default>
+                    <label>Contract Lifecycle</label>
+                </value>
+                <value>
+                    <fullName>Customer Appointment</fullName>
+                    <default>false</default>
+                    <label>Customer Appointment</label>
+                </value>
+                <value>
+                    <fullName>Demo Appointment</fullName>
+                    <default>false</default>
+                    <label>Demo Appointment</label>
+                </value>
+                <value>
+                    <fullName>Demo Meeting</fullName>
+                    <default>false</default>
+                    <label>Demo Meeting</label>
+                </value>
+                <value>
+                    <fullName>Discovery/EvalPlan</fullName>
+                    <default>false</default>
+                    <label>Discovery/EvalPlan</label>
+                </value>
+                <value>
+                    <fullName>Education - Return to School</fullName>
+                    <default>false</default>
+                    <label>Education - Return to School</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>External Sys(QC)</fullName>
+                    <default>false</default>
+                    <label>External Sys(QC)</label>
+                </value>
+                <value>
+                    <fullName>Facility Tour</fullName>
+                    <default>false</default>
+                    <label>Facility Tour/Site Survey</label>
+                </value>
+                <value>
+                    <fullName>Fact Finding Meeting</fullName>
+                    <default>false</default>
+                    <label>Fact Finding Meeting</label>
+                </value>
+                <value>
+                    <fullName>First Appointment</fullName>
+                    <default>false</default>
+                    <label>First Appointment</label>
+                </value>
+                <value>
+                    <fullName>Gain Referral Sponsorship</fullName>
+                    <default>false</default>
+                    <label>Gain Referral Sponsorship</label>
+                </value>
+                <value>
+                    <fullName>Green Sales Activity</fullName>
+                    <default>false</default>
+                    <label>Green Sales Activity</label>
+                </value>
+                <value>
+                    <fullName>Health Care - PPE</fullName>
+                    <default>false</default>
+                    <label>Health Care - PPE</label>
+                </value>
+                <value>
+                    <fullName>Identify Stakeholders</fullName>
+                    <default>false</default>
+                    <label>Identify Stakeholders</label>
+                </value>
+                <value>
+                    <fullName>Implementation Meeting</fullName>
+                    <default>false</default>
+                    <label>Implementation Meeting</label>
+                </value>
+                <value>
+                    <fullName>Initial Approach</fullName>
+                    <default>false</default>
+                    <label>Initial Approach</label>
+                </value>
+                <value>
+                    <fullName>Key Executive</fullName>
+                    <default>false</default>
+                    <label>Key Executive Meeting</label>
+                </value>
+                <value>
+                    <fullName>MarketBuilder Piece</fullName>
+                    <default>false</default>
+                    <label>MarketBuilder Piece</label>
+                </value>
+                <value>
+                    <fullName>Meeting</fullName>
+                    <default>false</default>
+                    <label>Meeting</label>
+                </value>
+                <value>
+                    <fullName>Monthly One on One</fullName>
+                    <default>false</default>
+                    <label>Monthly One on One</label>
+                </value>
+                <value>
+                    <fullName>Negotiate &amp; Finalize</fullName>
+                    <default>false</default>
+                    <label>Negotiate &amp; Finalize</label>
+                </value>
+                <value>
+                    <fullName>Not Interested</fullName>
+                    <default>false</default>
+                    <label>Not Interested</label>
+                </value>
+                <value>
+                    <fullName>One on One Pipeline Discussion</fullName>
+                    <default>false</default>
+                    <label>One on One Pipeline Discussion</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Outlook Integration</fullName>
+                    <default>false</default>
+                    <label>Outlook Integration</label>
+                </value>
+                <value>
+                    <fullName>Personalized Note</fullName>
+                    <default>false</default>
+                    <label>Personalized Note</label>
+                </value>
+                <value>
+                    <fullName>Placed Order</fullName>
+                    <default>false</default>
+                    <label>Placed Order</label>
+                </value>
+                <value>
+                    <fullName>POR</fullName>
+                    <default>false</default>
+                    <label>POR</label>
+                </value>
+                <value>
+                    <fullName>Presentation/Demo</fullName>
+                    <default>false</default>
+                    <label>Presentation/Demo</label>
+                </value>
+                <value>
+                    <fullName>Presentation with Next Steps</fullName>
+                    <default>false</default>
+                    <label>Presentation with Next Steps</label>
+                </value>
+                <value>
+                    <fullName>Pricing Maintenance</fullName>
+                    <default>false</default>
+                    <label>Pricing Maintenance</label>
+                </value>
+                <value>
+                    <fullName>Product Line - Adj Meeting</fullName>
+                    <default>false</default>
+                    <label>Product Line - Adj Meeting</label>
+                </value>
+                <value>
+                    <fullName>Proposal Presentation</fullName>
+                    <default>false</default>
+                    <label>Proposal Presentation</label>
+                </value>
+                <value>
+                    <fullName>Propose</fullName>
+                    <default>false</default>
+                    <label>Propose</label>
+                </value>
+                <value>
+                    <fullName>Prospecting</fullName>
+                    <default>false</default>
+                    <label>Prospecting</label>
+                </value>
+                <value>
+                    <fullName>Pursue</fullName>
+                    <default>false</default>
+                    <label>Pursue</label>
+                </value>
+                <value>
+                    <fullName>Quarterly Assessment Form</fullName>
+                    <default>false</default>
+                    <label>Quarterly Assessment Form</label>
+                </value>
+                <value>
+                    <fullName>Quarterly Skip Level</fullName>
+                    <default>false</default>
+                    <label>Quarterly Skip Level</label>
+                </value>
+                <value>
+                    <fullName>Region 4 – Education – Return to School</fullName>
+                    <default>false</default>
+                    <label>Region 4 – Education – Return to School</label>
+                </value>
+                <value>
+                    <fullName>Renewal Meeting</fullName>
+                    <default>false</default>
+                    <label>Renewal Meeting</label>
+                </value>
+                <value>
+                    <fullName>Sales Process Advancement</fullName>
+                    <default>false</default>
+                    <label>Sales Process Advancement</label>
+                </value>
+                <value>
+                    <fullName>Sales Related</fullName>
+                    <default>false</default>
+                    <label>Sales Related</label>
+                </value>
+                <value>
+                    <fullName>SAVO Marketing Piece</fullName>
+                    <default>false</default>
+                    <label>SAVO Marketing Piece</label>
+                </value>
+                <value>
+                    <fullName>Solution Presentation</fullName>
+                    <default>false</default>
+                    <label>Solution Presentation</label>
+                </value>
+                <value>
+                    <fullName>Strategic Partner Demo</fullName>
+                    <default>false</default>
+                    <label>Strategic Partner Demo</label>
+                </value>
+                <value>
+                    <fullName>Telephone Calls</fullName>
+                    <default>false</default>
+                    <label>Telephone Calls</label>
+                </value>
+                <value>
+                    <fullName>Uncover Business Needs/Issues/Goals</fullName>
+                    <default>false</default>
+                    <label>Uncover Business Needs/Issues/Goals</label>
+                </value>
+                <value>
+                    <fullName>Upsell Recurring Customer</fullName>
+                    <default>false</default>
+                    <label>Upsell Recurring Customer</label>
+                </value>
+                <value>
+                    <fullName>Webinar/Training</fullName>
+                    <default>false</default>
+                    <label>Webinar/Training</label>
+                </value>
+                <value>
+                    <fullName>Weekly Commitment Task</fullName>
+                    <default>false</default>
+                    <label>Weekly Commitment Task</label>
+                </value>
+                <value>
+                    <fullName>Weekly Pipeline Update</fullName>
+                    <default>false</default>
+                    <label>Weekly Pipeline Update</label>
+                </value>
+                <value>
+                    <fullName>Weekly Update Call</fullName>
+                    <default>false</default>
+                    <label>Weekly Update Call</label>
+                </value>
+                <value>
+                    <fullName>WIG</fullName>
+                    <default>false</default>
+                    <label>WIG</label>
+                </value>
+                <value>
+                    <fullName>Work Request</fullName>
+                    <default>false</default>
+                    <label>Work Request</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Close_Reason__c</fullName>
+        <description>This is the Close reason for the Legacy Object.. and we are currently not having this on page layout but this filed has data in it.</description>
+        <externalId>false</externalId>
+        <label>Close Reason</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Commitment_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Commitment 1</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Commitment_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Commitment 2</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Commitment_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Commitment 3</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Complete__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Estimated_LOE__c &gt;0,(Actual_LOE__c / Estimated_LOE__c) ,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Burn %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Contract_Expiration_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Contract Expiration Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Contract_Extension_Terms__c</fullName>
+        <externalId>false</externalId>
+        <label>Contract Extension Terms</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Created_By_Role__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedBy.UserRole.Id</formula>
+        <label>Created By Role ID</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Supplier__c</fullName>
+        <externalId>false</externalId>
+        <label>Current Supplier</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Alpha Office Supplies - Staples tier I partner</fullName>
+                    <default>false</default>
+                    <label>Alpha Office Supplies - Staples tier I partner</label>
+                </value>
+                <value>
+                    <fullName>APD-Tier 1</fullName>
+                    <default>false</default>
+                    <label>APD-Tier 1</label>
+                </value>
+                <value>
+                    <fullName>Basically Evergreen</fullName>
+                    <default>false</default>
+                    <label>Basically Evergreen</label>
+                </value>
+                <value>
+                    <fullName>Bulldog Office Supplies</fullName>
+                    <default>false</default>
+                    <label>Bulldog Office Supplies</label>
+                </value>
+                <value>
+                    <fullName>Burketts</fullName>
+                    <default>false</default>
+                    <label>Burketts</label>
+                </value>
+                <value>
+                    <fullName>Faison</fullName>
+                    <default>false</default>
+                    <label>Faison</label>
+                </value>
+                <value>
+                    <fullName>Challenge Office Products</fullName>
+                    <default>false</default>
+                    <label>Challenge Office Products</label>
+                </value>
+                <value>
+                    <fullName>Complete Office</fullName>
+                    <default>false</default>
+                    <label>Complete Office</label>
+                </value>
+                <value>
+                    <fullName>Concerto</fullName>
+                    <default>false</default>
+                    <label>Concerto</label>
+                </value>
+                <value>
+                    <fullName>Core Trust</fullName>
+                    <default>false</default>
+                    <label>Core Trust</label>
+                </value>
+                <value>
+                    <fullName>Corporate United</fullName>
+                    <default>false</default>
+                    <label>Corporate United</label>
+                </value>
+                <value>
+                    <fullName>DSSI</fullName>
+                    <default>false</default>
+                    <label>DSSI</label>
+                </value>
+                <value>
+                    <fullName>EON</fullName>
+                    <default>false</default>
+                    <label>EON</label>
+                </value>
+                <value>
+                    <fullName>Fedex Kinko&apos;s</fullName>
+                    <default>false</default>
+                    <label>Fedex Kinko&apos;s</label>
+                </value>
+                <value>
+                    <fullName>FM Resources</fullName>
+                    <default>false</default>
+                    <label>FM Resources</label>
+                </value>
+                <value>
+                    <fullName>Guernsey</fullName>
+                    <default>false</default>
+                    <label>Guernsey</label>
+                </value>
+                <value>
+                    <fullName>Guy Brown</fullName>
+                    <default>false</default>
+                    <label>Guy Brown</label>
+                </value>
+                <value>
+                    <fullName>Legacy CorpEx</fullName>
+                    <default>false</default>
+                    <label>Legacy CorpEx</label>
+                </value>
+                <value>
+                    <fullName>Midwest Single Source</fullName>
+                    <default>false</default>
+                    <label>Midwest Single Source</label>
+                </value>
+                <value>
+                    <fullName>Multiple</fullName>
+                    <default>false</default>
+                    <label>Multiple</label>
+                </value>
+                <value>
+                    <fullName>My Office Products</fullName>
+                    <default>false</default>
+                    <label>My Office Products</label>
+                </value>
+                <value>
+                    <fullName>Office Depot Inc.</fullName>
+                    <default>false</default>
+                    <label>Office Depot Inc.</label>
+                </value>
+                <value>
+                    <fullName>ODP/SPLS/Lyreco</fullName>
+                    <default>false</default>
+                    <label>ODP/SPLS/Lyreco</label>
+                </value>
+                <value>
+                    <fullName>Office Depot and Staples</fullName>
+                    <default>false</default>
+                    <label>Office Depot and Staples</label>
+                </value>
+                <value>
+                    <fullName>Office Depot with PDME - Tier 1</fullName>
+                    <default>false</default>
+                    <label>Office Depot with PDME - Tier 1</label>
+                </value>
+                <value>
+                    <fullName>Office Products NW</fullName>
+                    <default>false</default>
+                    <label>Office Products NW</label>
+                </value>
+                <value>
+                    <fullName>Office Solutions</fullName>
+                    <default>false</default>
+                    <label>Office Solutions</label>
+                </value>
+                <value>
+                    <fullName>Corporate United Consortium</fullName>
+                    <default>false</default>
+                    <label>Corporate United Consortium</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>PDME / Office Depot</fullName>
+                    <default>false</default>
+                    <label>PDME / Office Depot</label>
+                </value>
+                <value>
+                    <fullName>ProfTech</fullName>
+                    <default>false</default>
+                    <label>ProfTech</label>
+                </value>
+                <value>
+                    <fullName>Rangel/Concerto</fullName>
+                    <default>false</default>
+                    <label>Rangel/Concerto</label>
+                </value>
+                <value>
+                    <fullName>School Specialties</fullName>
+                    <default>false</default>
+                    <label>School Specialties</label>
+                </value>
+                <value>
+                    <fullName>Sierra Office Supply</fullName>
+                    <default>false</default>
+                    <label>Sierra Office Supply</label>
+                </value>
+                <value>
+                    <fullName>SPLS/Lyreco</fullName>
+                    <default>false</default>
+                    <label>SPLS/Lyreco</label>
+                </value>
+                <value>
+                    <fullName>SPLS/Lee Office Supplies</fullName>
+                    <default>false</default>
+                    <label>SPLS/Lee Office Supplies</label>
+                </value>
+                <value>
+                    <fullName>Staples</fullName>
+                    <default>false</default>
+                    <label>Staples</label>
+                </value>
+                <value>
+                    <fullName>Paperworks - Tier 1</fullName>
+                    <default>false</default>
+                    <label>Paperworks - Tier 1</label>
+                </value>
+                <value>
+                    <fullName>VIOX</fullName>
+                    <default>false</default>
+                    <label>VIOX</label>
+                </value>
+                <value>
+                    <fullName>WB Mason</fullName>
+                    <default>false</default>
+                    <label>WB Mason</label>
+                </value>
+                <value>
+                    <fullName>WPS Partnership</fullName>
+                    <default>false</default>
+                    <label>WPS Partnership</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Cust_Account_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Cust Account Id</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Id</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DB_Activity_Type__c</fullName>
+        <description>This is a field that is installed by and used with the Adoption Dashboard AppExchange package.  If your org already has a similar field, you can change the reports that are part of the Adoption Dashboard package to use your custom field and then delete this field.</description>
+        <externalId>false</externalId>
+        <formula>IF(CONTAINS( Subject , &quot;Email&quot;), &quot;Email&quot;, IF(CONTAINS( Subject , &quot;Cold Call&quot;), &quot;Cold Call&quot;, IF(CONTAINS( Subject , &quot;Call&quot;), &quot;Call&quot;, IF(CONTAINS( Subject , &quot;Meeting&quot;), &quot;Meeting&quot;, IF(CONTAINS( Subject , &quot;On Site Visit&quot;), &quot;Site Visit&quot;, IF(CONTAINS( Subject , &quot;Quote&quot;), &quot;Send Letter/Quote&quot;, &quot;Other&quot;))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DB Activity Type</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(IsTask &amp;&amp; NOT(IsClosed) &amp;&amp; ActivityDate &lt; TODAY() &amp;&amp; NOT(ISNULL(ActivityDate)),  TODAY() -  ActivityDate, null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days Past Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disposition_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Disposition Code</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Call_Disposition__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Appt Secured</fullName>
+                    <default>false</default>
+                    <label>Appt Secured</label>
+                </value>
+                <value>
+                    <fullName>Initial Approach</fullName>
+                    <default>false</default>
+                    <label>Initial Approach</label>
+                </value>
+                <value>
+                    <fullName>Presentation</fullName>
+                    <default>false</default>
+                    <label>Presentation</label>
+                </value>
+                <value>
+                    <fullName>Negotiate &amp; Finalize</fullName>
+                    <default>false</default>
+                    <label>Negotiate &amp; Finalize</label>
+                </value>
+                <value>
+                    <fullName>Execute</fullName>
+                    <default>false</default>
+                    <label>Execute</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Account Maintenance</fullName>
+                    <default>false</default>
+                    <label>Account Maintenance</label>
+                </value>
+                <value>
+                    <fullName>Account or Shipto Closed</fullName>
+                    <default>false</default>
+                    <label>Account or Shipto Closed</label>
+                </value>
+                <value>
+                    <fullName>Audit</fullName>
+                    <default>false</default>
+                    <label>Audit</label>
+                </value>
+                <value>
+                    <fullName>Beverage Quote</fullName>
+                    <default>false</default>
+                    <label>Beverage Quote</label>
+                </value>
+                <value>
+                    <fullName>Bid Writing</fullName>
+                    <default>false</default>
+                    <label>Bid Writing</label>
+                </value>
+                <value>
+                    <fullName>Billing issues</fullName>
+                    <default>false</default>
+                    <label>Billing issues</label>
+                </value>
+                <value>
+                    <fullName>Breakroom Quote</fullName>
+                    <default>false</default>
+                    <label>Breakroom Quote</label>
+                </value>
+                <value>
+                    <fullName>BSA</fullName>
+                    <default>false</default>
+                    <label>BSA</label>
+                </value>
+                <value>
+                    <fullName>Business Review</fullName>
+                    <default>false</default>
+                    <label>Business Review</label>
+                </value>
+                <value>
+                    <fullName>Canada</fullName>
+                    <default>false</default>
+                    <label>Canada</label>
+                </value>
+                <value>
+                    <fullName>CBS</fullName>
+                    <default>false</default>
+                    <label>CBS</label>
+                </value>
+                <value>
+                    <fullName>Cleaning Quote</fullName>
+                    <default>false</default>
+                    <label>Cleaning Quote</label>
+                </value>
+                <value>
+                    <fullName>Complaint – promo not matching</fullName>
+                    <default>false</default>
+                    <label>Complaint – promo not matching</label>
+                </value>
+                <value>
+                    <fullName>Conversion call</fullName>
+                    <default>false</default>
+                    <label>Conversion call</label>
+                </value>
+                <value>
+                    <fullName>Copy/Print Job Quotes</fullName>
+                    <default>false</default>
+                    <label>Copy/Print Job Quotes</label>
+                </value>
+                <value>
+                    <fullName>CPD</fullName>
+                    <default>false</default>
+                    <label>CPD</label>
+                </value>
+                <value>
+                    <fullName>Customer Service Issue</fullName>
+                    <default>false</default>
+                    <label>Customer Service Issue</label>
+                </value>
+                <value>
+                    <fullName>Custom Stamps Quote</fullName>
+                    <default>false</default>
+                    <label>Custom Stamps Quote</label>
+                </value>
+                <value>
+                    <fullName>Delivery issues</fullName>
+                    <default>false</default>
+                    <label>Delivery issues</label>
+                </value>
+                <value>
+                    <fullName>Development</fullName>
+                    <default>false</default>
+                    <label>Development</label>
+                </value>
+                <value>
+                    <fullName>Deviated Cost</fullName>
+                    <default>false</default>
+                    <label>Deviated Cost</label>
+                </value>
+                <value>
+                    <fullName>Does not belong to me</fullName>
+                    <default>false</default>
+                    <label>Does not belong to me</label>
+                </value>
+                <value>
+                    <fullName>Do Not Call (DNC)</fullName>
+                    <default>false</default>
+                    <label>Do Not Call (DNC)</label>
+                </value>
+                <value>
+                    <fullName>Duplicate Account or Shipto</fullName>
+                    <default>false</default>
+                    <label>Duplicate Account or Shipto</label>
+                </value>
+                <value>
+                    <fullName>Ecommerce Ordering (BSDNet)</fullName>
+                    <default>false</default>
+                    <label>Ecommerce Ordering (BSDNet)</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Finance</fullName>
+                    <default>false</default>
+                    <label>Finance</label>
+                </value>
+                <value>
+                    <fullName>Follow-Up Required</fullName>
+                    <default>false</default>
+                    <label>Follow-Up Required</label>
+                </value>
+                <value>
+                    <fullName>Furniture</fullName>
+                    <default>false</default>
+                    <label>Furniture</label>
+                </value>
+                <value>
+                    <fullName>HCL</fullName>
+                    <default>false</default>
+                    <label>HCL</label>
+                </value>
+                <value>
+                    <fullName>Implementation</fullName>
+                    <default>false</default>
+                    <label>Implementation</label>
+                </value>
+                <value>
+                    <fullName>Installation/Assembly Quote</fullName>
+                    <default>false</default>
+                    <label>Installation/Assembly Quote</label>
+                </value>
+                <value>
+                    <fullName>Introduction</fullName>
+                    <default>false</default>
+                    <label>Introduction</label>
+                </value>
+                <value>
+                    <fullName>Inventory Inquiry</fullName>
+                    <default>false</default>
+                    <label>Inventory Inquiry</label>
+                </value>
+                <value>
+                    <fullName>Language Barrier</fullName>
+                    <default>false</default>
+                    <label>Language Barrier</label>
+                </value>
+                <value>
+                    <fullName>Left Voice Mail</fullName>
+                    <default>false</default>
+                    <label>Left Voice Mail</label>
+                </value>
+                <value>
+                    <fullName>Legal</fullName>
+                    <default>false</default>
+                    <label>Legal</label>
+                </value>
+                <value>
+                    <fullName>Lifecycle</fullName>
+                    <default>false</default>
+                    <label>Lifecycle</label>
+                </value>
+                <value>
+                    <fullName>MPS</fullName>
+                    <default>false</default>
+                    <label>MPS</label>
+                </value>
+                <value>
+                    <fullName>MPS/ATR Engagement</fullName>
+                    <default>false</default>
+                    <label>MPS/ATR Engagement</label>
+                </value>
+                <value>
+                    <fullName>No Answer</fullName>
+                    <default>false</default>
+                    <label>No Answer</label>
+                </value>
+                <value>
+                    <fullName>Non-Code Quote</fullName>
+                    <default>false</default>
+                    <label>Non-Code Quote</label>
+                </value>
+                <value>
+                    <fullName>ODRP to Option A</fullName>
+                    <default>false</default>
+                    <label>ODRP to Option A</label>
+                </value>
+                <value>
+                    <fullName>Old to Option A</fullName>
+                    <default>false</default>
+                    <label>Old to Option A</label>
+                </value>
+                <value>
+                    <fullName>Option A to Option B</fullName>
+                    <default>false</default>
+                    <label>Option A to Option B</label>
+                </value>
+                <value>
+                    <fullName>Order Placement</fullName>
+                    <default>false</default>
+                    <label>Order Placement</label>
+                </value>
+                <value>
+                    <fullName>Placed Order</fullName>
+                    <default>false</default>
+                    <label>Placed Order</label>
+                </value>
+                <value>
+                    <fullName>Plan and Engage</fullName>
+                    <default>false</default>
+                    <label>Plan and Engage</label>
+                </value>
+                <value>
+                    <fullName>Pricing</fullName>
+                    <default>false</default>
+                    <label>Pricing</label>
+                </value>
+                <value>
+                    <fullName>Pricing escalation</fullName>
+                    <default>false</default>
+                    <label>Pricing escalation</label>
+                </value>
+                <value>
+                    <fullName>Pricing issues</fullName>
+                    <default>false</default>
+                    <label>Pricing issues</label>
+                </value>
+                <value>
+                    <fullName>Pricing Programs</fullName>
+                    <default>false</default>
+                    <label>Pricing Programs</label>
+                </value>
+                <value>
+                    <fullName>Procurement</fullName>
+                    <default>false</default>
+                    <label>Procurement</label>
+                </value>
+                <value>
+                    <fullName>Product issues</fullName>
+                    <default>false</default>
+                    <label>Product issues</label>
+                </value>
+                <value>
+                    <fullName>Project - Large Furn Quote</fullName>
+                    <default>false</default>
+                    <label>Project - Large Furn Quote</label>
+                </value>
+                <value>
+                    <fullName>Project - Small Furn Quote</fullName>
+                    <default>false</default>
+                    <label>Project - Small Furn Quote</label>
+                </value>
+                <value>
+                    <fullName>Promotional Products Quote</fullName>
+                    <default>false</default>
+                    <label>Promotional Products Quote</label>
+                </value>
+                <value>
+                    <fullName>Promotions/Campaigns</fullName>
+                    <default>false</default>
+                    <label>Promotions/Campaigns</label>
+                </value>
+                <value>
+                    <fullName>Question</fullName>
+                    <default>false</default>
+                    <label>Question</label>
+                </value>
+                <value>
+                    <fullName>Rebates</fullName>
+                    <default>false</default>
+                    <label>Rebates</label>
+                </value>
+                <value>
+                    <fullName>Retention call</fullName>
+                    <default>false</default>
+                    <label>Retention call</label>
+                </value>
+                <value>
+                    <fullName>Returns issues</fullName>
+                    <default>false</default>
+                    <label>Returns issues</label>
+                </value>
+                <value>
+                    <fullName>Share of Wallet</fullName>
+                    <default>false</default>
+                    <label>Share of Wallet</label>
+                </value>
+                <value>
+                    <fullName>Space Planning</fullName>
+                    <default>false</default>
+                    <label>Space Planning</label>
+                </value>
+                <value>
+                    <fullName>Stationary Quote</fullName>
+                    <default>false</default>
+                    <label>Stationary Quote</label>
+                </value>
+                <value>
+                    <fullName>Tech Depot</fullName>
+                    <default>false</default>
+                    <label>Tech Depot</label>
+                </value>
+                <value>
+                    <fullName>Technology Quote</fullName>
+                    <default>false</default>
+                    <label>Technology Quote</label>
+                </value>
+                <value>
+                    <fullName>Wrong Number</fullName>
+                    <default>false</default>
+                    <label>Wrong Number</label>
+                </value>
+                <value>
+                    <fullName>Green Prospecting</fullName>
+                    <default>false</default>
+                    <label>Green Prospecting</label>
+                </value>
+                <value>
+                    <fullName>Green Meeting</fullName>
+                    <default>false</default>
+                    <label>Green Meeting</label>
+                </value>
+                <value>
+                    <fullName>Green Book</fullName>
+                    <default>false</default>
+                    <label>Green Book</label>
+                </value>
+                <value>
+                    <fullName>Green Samples</fullName>
+                    <default>false</default>
+                    <label>Green Samples</label>
+                </value>
+                <value>
+                    <fullName>Green Business Review</fullName>
+                    <default>false</default>
+                    <label>Green Business Review</label>
+                </value>
+                <value>
+                    <fullName>Greener Alts Report</fullName>
+                    <default>false</default>
+                    <label>Greener Alts Report</label>
+                </value>
+                <value>
+                    <fullName>GO Delivery Report</fullName>
+                    <default>false</default>
+                    <label>GO Delivery Report</label>
+                </value>
+                <value>
+                    <fullName>Other Green Report</fullName>
+                    <default>false</default>
+                    <label>Other Green Report</label>
+                </value>
+                <value>
+                    <fullName>Green Solution (MPS/CBS/LED)</fullName>
+                    <default>false</default>
+                    <label>Green Solution (MPS/CBS/LED)</label>
+                </value>
+                <value>
+                    <fullName>Recycling Solution</fullName>
+                    <default>false</default>
+                    <label>Recycling Solution</label>
+                </value>
+                <value>
+                    <fullName>Add to Funnel</fullName>
+                    <default>false</default>
+                    <label>Add to Funnel</label>
+                </value>
+                <value>
+                    <fullName>Advance Sales Stage</fullName>
+                    <default>false</default>
+                    <label>Advance Sales Stage</label>
+                </value>
+                <value>
+                    <fullName>Close Business</fullName>
+                    <default>false</default>
+                    <label>Close Business</label>
+                </value>
+                <value>
+                    <fullName>salesPRISM - Unqualified</fullName>
+                    <default>false</default>
+                    <label>salesPRISM - Unqualified</label>
+                </value>
+                <value>
+                    <fullName>salesPRISM - Interested</fullName>
+                    <default>false</default>
+                    <label>salesPRISM - Interested</label>
+                </value>
+                <value>
+                    <fullName>salesPRISM - Not Interested</fullName>
+                    <default>false</default>
+                    <label>salesPRISM - Not Interested</label>
+                </value>
+                <value>
+                    <fullName>salesPRISM - New Opportunity</fullName>
+                    <default>false</default>
+                    <label>salesPRISM - New Opportunity</label>
+                </value>
+                <value>
+                    <fullName>salesPRISM - In Progress</fullName>
+                    <default>false</default>
+                    <label>salesPRISM - In Progress</label>
+                </value>
+                <value>
+                    <fullName>Monthly One on One</fullName>
+                    <default>false</default>
+                    <label>Monthly One on One</label>
+                </value>
+                <value>
+                    <fullName>Quarterly Skip Level</fullName>
+                    <default>false</default>
+                    <label>Quarterly Skip Level</label>
+                </value>
+                <value>
+                    <fullName>Weekly Pipeline Update</fullName>
+                    <default>false</default>
+                    <label>Weekly Pipeline Update</label>
+                </value>
+                <value>
+                    <fullName>Quarterly Assessment Form</fullName>
+                    <default>false</default>
+                    <label>Quarterly Assessment Form</label>
+                </value>
+                <value>
+                    <fullName>Customer Journey</fullName>
+                    <default>false</default>
+                    <label>Customer Journey</label>
+                </value>
+                <value>
+                    <fullName>1st Attempt</fullName>
+                    <default>false</default>
+                    <label>1st Attempt</label>
+                </value>
+                <value>
+                    <fullName>2nd Attempt</fullName>
+                    <default>false</default>
+                    <label>2nd Attempt</label>
+                </value>
+                <value>
+                    <fullName>3rd Attempt</fullName>
+                    <default>false</default>
+                    <label>3rd Attempt</label>
+                </value>
+                <value>
+                    <fullName>Call</fullName>
+                    <default>false</default>
+                    <label>Call</label>
+                </value>
+                <value>
+                    <fullName>In Person</fullName>
+                    <default>false</default>
+                    <label>In Person</label>
+                </value>
+                <value>
+                    <fullName>Sales Standard</fullName>
+                    <default>false</default>
+                    <label>Sales Standard</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>Green Prospecting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>Green Meeting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>Green Book</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>Green Samples</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>Green Business Review</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>Greener Alts Report</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>GO Delivery Report</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>Other Green Report</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>Green Solution (MPS/CBS/LED)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Green Sales Activity</controllingFieldValue>
+                <valueName>Recycling Solution</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Appt Secured</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Initial Approach</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Presentation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Negotiate &amp; Finalize</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Execute</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Business Review</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Conversion call</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Introduction</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Placed Order</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Pricing Programs</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Procurement</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Promotions/Campaigns</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Retention call</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Share of Wallet</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Add to Funnel</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Advance Sales Stage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Close Business</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>salesPRISM - Unqualified</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Sales Related</controllingFieldValue>
+                <valueName>Customer Journey</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Account Maintenance</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Account or Shipto Closed</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Billing issues</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Delivery issues</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Does not belong to me</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Do Not Call (DNC)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Duplicate Account or Shipto</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Ecommerce Ordering (BSDNet)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Follow-Up Required</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Language Barrier</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Left Voice Mail</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>No Answer</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Pricing issues</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Product issues</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Returns issues</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Account Maintenance</controllingFieldValue>
+                <valueName>Wrong Number</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Pricing Maintenance</controllingFieldValue>
+                <valueName>Complaint – promo not matching</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Pricing Maintenance</controllingFieldValue>
+                <valueName>ODRP to Option A</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Pricing Maintenance</controllingFieldValue>
+                <valueName>Old to Option A</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Pricing Maintenance</controllingFieldValue>
+                <valueName>Option A to Option B</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Pricing Maintenance</controllingFieldValue>
+                <valueName>Pricing escalation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Email</controllingFieldValue>
+                <valueName>Email</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Audit</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Bid Writing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>BSA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Canada</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>CBS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>CPD</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Development</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Deviated Cost</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Finance</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Furniture</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>HCL</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Implementation</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Legal</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Lifecycle</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>MPS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Pricing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Rebates</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Work Request</controllingFieldValue>
+                <valueName>Tech Depot</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Beverage Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Breakroom Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Cleaning Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Copy/Print Job Quotes</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Customer Service Issue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Custom Stamps Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Installation/Assembly Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Inventory Inquiry</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>MPS/ATR Engagement</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Non-Code Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Order Placement</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Project - Large Furn Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Project - Small Furn Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Promotional Products Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Question</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Space Planning</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Stationary Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Category Expert</controllingFieldValue>
+                <valueName>Technology Quote</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Monthly One on One</controllingFieldValue>
+                <valueName>Monthly One on One</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Quarterly Skip Level</controllingFieldValue>
+                <valueName>Quarterly Skip Level</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Weekly Pipeline Update</controllingFieldValue>
+                <valueName>Weekly Pipeline Update</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Quarterly Assessment Form</controllingFieldValue>
+                <valueName>Quarterly Assessment Form</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Appointment Set</controllingFieldValue>
+                <valueName>Call</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Appointment Set</controllingFieldValue>
+                <valueName>In Person</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Initial Approach</controllingFieldValue>
+                <valueName>1st Attempt</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Initial Approach</controllingFieldValue>
+                <valueName>2nd Attempt</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Initial Approach</controllingFieldValue>
+                <valueName>3rd Attempt</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Disposition_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Disposition Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Estimated_LOE__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated LOE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Account_Extension__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Event Account Extension</label>
+        <referenceTo>Account_Extension__c</referenceTo>
+        <relationshipLabel>Activities</relationshipLabel>
+        <relationshipName>Activities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Event_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Type</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1st Appointment Event</fullName>
+                    <default>true</default>
+                    <label>1st Appointment Event</label>
+                </value>
+                <value>
+                    <fullName>Adjacency Event</fullName>
+                    <default>false</default>
+                    <label>Adjacency Event</label>
+                </value>
+                <value>
+                    <fullName>Sales Advancing Event</fullName>
+                    <default>false</default>
+                    <label>Sales Advancing Event</label>
+                </value>
+                <value>
+                    <fullName>Field Event</fullName>
+                    <default>false</default>
+                    <label>Field Event</label>
+                </value>
+                <value>
+                    <fullName>Discovery</fullName>
+                    <default>false</default>
+                    <label>Discovery Event</label>
+                </value>
+                <value>
+                    <fullName>Proposal Presentation</fullName>
+                    <default>false</default>
+                    <label>Proposal Presentation Event</label>
+                </value>
+                <value>
+                    <fullName>Qualify Event</fullName>
+                    <default>false</default>
+                    <label>Qualify Event</label>
+                </value>
+                <value>
+                    <fullName>Business Pro Event</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Business Pro Event</label>
+                </value>
+                <value>
+                    <fullName>Event (Tech-Zone)</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Event (Tech-Zone)</label>
+                </value>
+                <value>
+                    <fullName>Opportunity Event</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Opportunity Event</label>
+                </value>
+                <value>
+                    <fullName>Potential Partner Events</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Potential Partner Events</label>
+                </value>
+                <value>
+                    <fullName>Print Services Event</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Print Services Event</label>
+                </value>
+                <value>
+                    <fullName>Pursue/Propose Event</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Pursue/Propose Event</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>External_Sys_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>External Sys ID</label>
+        <length>30</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>From_Case_Tasking_Process__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>From Case Tasking Process?</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Global_Leverage__c</fullName>
+        <externalId>false</externalId>
+        <label>Global Leverage</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ILC_Batch__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>ILC Batch</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IT_TASK_TYPE__c</fullName>
+        <description>This is used by the Sprint Team to fill in what kind of Task they worked on.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is used by the Sprint Team to fill in what kind of Task they worked on.</inlineHelpText>
+        <label>IT TASK TYPE</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Design</fullName>
+                    <default>false</default>
+                    <label>Design</label>
+                </value>
+                <value>
+                    <fullName>Build/Unit Test</fullName>
+                    <default>false</default>
+                    <label>Build/Unit Test</label>
+                </value>
+                <value>
+                    <fullName>Code Review</fullName>
+                    <default>false</default>
+                    <label>Code Review</label>
+                </value>
+                <value>
+                    <fullName>UAT Migration</fullName>
+                    <default>false</default>
+                    <label>UAT Migration</label>
+                </value>
+                <value>
+                    <fullName>QA</fullName>
+                    <default>false</default>
+                    <label>QA</label>
+                </value>
+                <value>
+                    <fullName>UAT</fullName>
+                    <default>false</default>
+                    <label>UAT</label>
+                </value>
+                <value>
+                    <fullName>Usability</fullName>
+                    <default>false</default>
+                    <label>Usability</label>
+                </value>
+                <value>
+                    <fullName>ARB Required</fullName>
+                    <default>false</default>
+                    <label>ARB Required</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>International_Existing__c</fullName>
+        <externalId>false</externalId>
+        <label>International Existing</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>International_Opportunities__c</fullName>
+        <externalId>false</externalId>
+        <label>International Opportunities</label>
+        <required>false</required>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <controllingField>International_Existing__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>AR-ARGENTINA</fullName>
+                    <default>false</default>
+                    <label>AR-ARGENTINA</label>
+                </value>
+                <value>
+                    <fullName>AU-AUSTRALIA</fullName>
+                    <default>false</default>
+                    <label>AU-AUSTRALIA</label>
+                </value>
+                <value>
+                    <fullName>AT-AUSTRIA</fullName>
+                    <default>false</default>
+                    <label>AT-AUSTRIA</label>
+                </value>
+                <value>
+                    <fullName>BS-BAHAMAS</fullName>
+                    <default>false</default>
+                    <label>BS-BAHAMAS</label>
+                </value>
+                <value>
+                    <fullName>BH-BAHRAIN</fullName>
+                    <default>false</default>
+                    <label>BH-BAHRAIN</label>
+                </value>
+                <value>
+                    <fullName>BD-BANGLADESH</fullName>
+                    <default>false</default>
+                    <label>BD-BANGLADESH</label>
+                </value>
+                <value>
+                    <fullName>BB-BARBADOS</fullName>
+                    <default>false</default>
+                    <label>BB-BARBADOS</label>
+                </value>
+                <value>
+                    <fullName>BY-BELARUS</fullName>
+                    <default>false</default>
+                    <label>BY-BELARUS</label>
+                </value>
+                <value>
+                    <fullName>BE-BELGIUM</fullName>
+                    <default>false</default>
+                    <label>BE-BELGIUM</label>
+                </value>
+                <value>
+                    <fullName>BZ-BELIZE</fullName>
+                    <default>false</default>
+                    <label>BZ-BELIZE</label>
+                </value>
+                <value>
+                    <fullName>BJ-BENIN</fullName>
+                    <default>false</default>
+                    <label>BJ-BENIN</label>
+                </value>
+                <value>
+                    <fullName>BM-BERMUDA</fullName>
+                    <default>false</default>
+                    <label>BM-BERMUDA</label>
+                </value>
+                <value>
+                    <fullName>BT-BHUTAN</fullName>
+                    <default>false</default>
+                    <label>BT-BHUTAN</label>
+                </value>
+                <value>
+                    <fullName>BO-BOLIVIA, PLURINATIONAL STATE OF</fullName>
+                    <default>false</default>
+                    <label>BO-BOLIVIA, PLURINATIONAL STATE OF</label>
+                </value>
+                <value>
+                    <fullName>BR-BRAZIL</fullName>
+                    <default>false</default>
+                    <label>BR-BRAZIL</label>
+                </value>
+                <value>
+                    <fullName>IO-BRITISH INDIAN OCEAN TERRITORY</fullName>
+                    <default>false</default>
+                    <label>IO-BRITISH INDIAN OCEAN TERRITORY</label>
+                </value>
+                <value>
+                    <fullName>BN-BRUNEI DARUSSALAM</fullName>
+                    <default>false</default>
+                    <label>BN-BRUNEI DARUSSALAM</label>
+                </value>
+                <value>
+                    <fullName>BG-BULGARIA</fullName>
+                    <default>false</default>
+                    <label>BG-BULGARIA</label>
+                </value>
+                <value>
+                    <fullName>KH-CAMBODIA</fullName>
+                    <default>false</default>
+                    <label>KH-CAMBODIA</label>
+                </value>
+                <value>
+                    <fullName>CM-CAMEROON</fullName>
+                    <default>false</default>
+                    <label>CM-CAMEROON</label>
+                </value>
+                <value>
+                    <fullName>CA-CANADA</fullName>
+                    <default>false</default>
+                    <label>CA-CANADA</label>
+                </value>
+                <value>
+                    <fullName>CV-CAPE VERDE</fullName>
+                    <default>false</default>
+                    <label>CV-CAPE VERDE</label>
+                </value>
+                <value>
+                    <fullName>KY-CAYMAN ISLANDS</fullName>
+                    <default>false</default>
+                    <label>KY-CAYMAN ISLANDS</label>
+                </value>
+                <value>
+                    <fullName>CF-CENTRAL AFRICAN REPUBLIC</fullName>
+                    <default>false</default>
+                    <label>CF-CENTRAL AFRICAN REPUBLIC</label>
+                </value>
+                <value>
+                    <fullName>TD-CHAD</fullName>
+                    <default>false</default>
+                    <label>TD-CHAD</label>
+                </value>
+                <value>
+                    <fullName>CL-CHILE</fullName>
+                    <default>false</default>
+                    <label>CL-CHILE</label>
+                </value>
+                <value>
+                    <fullName>CN-CHINA</fullName>
+                    <default>false</default>
+                    <label>CN-CHINA</label>
+                </value>
+                <value>
+                    <fullName>CO-COLOMBIA</fullName>
+                    <default>false</default>
+                    <label>CO-COLOMBIA</label>
+                </value>
+                <value>
+                    <fullName>KM-COMOROS</fullName>
+                    <default>false</default>
+                    <label>KM-COMOROS</label>
+                </value>
+                <value>
+                    <fullName>CG-CONGO</fullName>
+                    <default>false</default>
+                    <label>CG-CONGO</label>
+                </value>
+                <value>
+                    <fullName>CR-COSTA RICA</fullName>
+                    <default>false</default>
+                    <label>CR-COSTA RICA</label>
+                </value>
+                <value>
+                    <fullName>CI-CÔTE D&apos;IVOIRE</fullName>
+                    <default>false</default>
+                    <label>CI-CÔTE D&apos;IVOIRE</label>
+                </value>
+                <value>
+                    <fullName>HR-CROATIA</fullName>
+                    <default>false</default>
+                    <label>HR-CROATIA</label>
+                </value>
+                <value>
+                    <fullName>CU-CUBA</fullName>
+                    <default>false</default>
+                    <label>CU-CUBA</label>
+                </value>
+                <value>
+                    <fullName>CW-CURAÇAO</fullName>
+                    <default>false</default>
+                    <label>CW-CURAÇAO</label>
+                </value>
+                <value>
+                    <fullName>CY-CYPRUS</fullName>
+                    <default>false</default>
+                    <label>CY-CYPRUS</label>
+                </value>
+                <value>
+                    <fullName>CZ-CZECH REPUBLIC</fullName>
+                    <default>false</default>
+                    <label>CZ-CZECH REPUBLIC</label>
+                </value>
+                <value>
+                    <fullName>DK-DENMARK</fullName>
+                    <default>false</default>
+                    <label>DK-DENMARK</label>
+                </value>
+                <value>
+                    <fullName>DM-DOMINICA</fullName>
+                    <default>false</default>
+                    <label>DM-DOMINICA</label>
+                </value>
+                <value>
+                    <fullName>DO-DOMINICAN REPUBLIC</fullName>
+                    <default>false</default>
+                    <label>DO-DOMINICAN REPUBLIC</label>
+                </value>
+                <value>
+                    <fullName>EC-ECUADOR</fullName>
+                    <default>false</default>
+                    <label>EC-ECUADOR</label>
+                </value>
+                <value>
+                    <fullName>EG-EGYPT</fullName>
+                    <default>false</default>
+                    <label>EG-EGYPT</label>
+                </value>
+                <value>
+                    <fullName>SV-EL SALVADOR</fullName>
+                    <default>false</default>
+                    <label>SV-EL SALVADOR</label>
+                </value>
+                <value>
+                    <fullName>ET-ETHIOPIA</fullName>
+                    <default>false</default>
+                    <label>ET-ETHIOPIA</label>
+                </value>
+                <value>
+                    <fullName>FJ-FIJI</fullName>
+                    <default>false</default>
+                    <label>FJ-FIJI</label>
+                </value>
+                <value>
+                    <fullName>FI-FINLAND</fullName>
+                    <default>false</default>
+                    <label>FI-FINLAND</label>
+                </value>
+                <value>
+                    <fullName>FR-FRANCE</fullName>
+                    <default>false</default>
+                    <label>FR-FRANCE</label>
+                </value>
+                <value>
+                    <fullName>GF-FRENCH GUIANA</fullName>
+                    <default>false</default>
+                    <label>GF-FRENCH GUIANA</label>
+                </value>
+                <value>
+                    <fullName>PF-FRENCH POLYNESIA</fullName>
+                    <default>false</default>
+                    <label>PF-FRENCH POLYNESIA</label>
+                </value>
+                <value>
+                    <fullName>GE-GEORGIA</fullName>
+                    <default>false</default>
+                    <label>GE-GEORGIA</label>
+                </value>
+                <value>
+                    <fullName>DE-GERMANY</fullName>
+                    <default>false</default>
+                    <label>DE-GERMANY</label>
+                </value>
+                <value>
+                    <fullName>GH-GHANA</fullName>
+                    <default>false</default>
+                    <label>GH-GHANA</label>
+                </value>
+                <value>
+                    <fullName>GI-GIBRALTAR</fullName>
+                    <default>false</default>
+                    <label>GI-GIBRALTAR</label>
+                </value>
+                <value>
+                    <fullName>GR-GREECE</fullName>
+                    <default>false</default>
+                    <label>GR-GREECE</label>
+                </value>
+                <value>
+                    <fullName>GL-GREENLAND</fullName>
+                    <default>false</default>
+                    <label>GL-GREENLAND</label>
+                </value>
+                <value>
+                    <fullName>GD-GRENADA</fullName>
+                    <default>false</default>
+                    <label>GD-GRENADA</label>
+                </value>
+                <value>
+                    <fullName>GU-GUAM</fullName>
+                    <default>false</default>
+                    <label>GU-GUAM</label>
+                </value>
+                <value>
+                    <fullName>GT-GUATEMALA</fullName>
+                    <default>false</default>
+                    <label>GT-GUATEMALA</label>
+                </value>
+                <value>
+                    <fullName>GN-GUINEA</fullName>
+                    <default>false</default>
+                    <label>GN-GUINEA</label>
+                </value>
+                <value>
+                    <fullName>GW-GUINEA-BISSAU</fullName>
+                    <default>false</default>
+                    <label>GW-GUINEA-BISSAU</label>
+                </value>
+                <value>
+                    <fullName>GY-GUYANA</fullName>
+                    <default>false</default>
+                    <label>GY-GUYANA</label>
+                </value>
+                <value>
+                    <fullName>HT-HAITI</fullName>
+                    <default>false</default>
+                    <label>HT-HAITI</label>
+                </value>
+                <value>
+                    <fullName>HN-HONDURAS</fullName>
+                    <default>false</default>
+                    <label>HN-HONDURAS</label>
+                </value>
+                <value>
+                    <fullName>HK-HONG KONG</fullName>
+                    <default>false</default>
+                    <label>HK-HONG KONG</label>
+                </value>
+                <value>
+                    <fullName>HU-HUNGARY</fullName>
+                    <default>false</default>
+                    <label>HU-HUNGARY</label>
+                </value>
+                <value>
+                    <fullName>IS-ICELAND</fullName>
+                    <default>false</default>
+                    <label>IS-ICELAND</label>
+                </value>
+                <value>
+                    <fullName>IN-INDIA</fullName>
+                    <default>false</default>
+                    <label>IN-INDIA</label>
+                </value>
+                <value>
+                    <fullName>ID-INDONESIA</fullName>
+                    <default>false</default>
+                    <label>ID-INDONESIA</label>
+                </value>
+                <value>
+                    <fullName>IR-IRAN, ISLAMIC REPUBLIC OF</fullName>
+                    <default>false</default>
+                    <label>IR-IRAN, ISLAMIC REPUBLIC OF</label>
+                </value>
+                <value>
+                    <fullName>IQ-IRAQ</fullName>
+                    <default>false</default>
+                    <label>IQ-IRAQ</label>
+                </value>
+                <value>
+                    <fullName>IE-IRELAND</fullName>
+                    <default>false</default>
+                    <label>IE-IRELAND</label>
+                </value>
+                <value>
+                    <fullName>IL-ISRAEL</fullName>
+                    <default>false</default>
+                    <label>IL-ISRAEL</label>
+                </value>
+                <value>
+                    <fullName>IT-ITALY</fullName>
+                    <default>false</default>
+                    <label>IT-ITALY</label>
+                </value>
+                <value>
+                    <fullName>JM-JAMAICA</fullName>
+                    <default>false</default>
+                    <label>JM-JAMAICA</label>
+                </value>
+                <value>
+                    <fullName>KE-KENYA</fullName>
+                    <default>false</default>
+                    <label>KE-KENYA</label>
+                </value>
+                <value>
+                    <fullName>KP-KOREA</fullName>
+                    <default>false</default>
+                    <label>KP-KOREA</label>
+                </value>
+                <value>
+                    <fullName>KR-KOREA, REPUBLIC OF</fullName>
+                    <default>false</default>
+                    <label>KR-KOREA, REPUBLIC OF</label>
+                </value>
+                <value>
+                    <fullName>KW-KUWAIT</fullName>
+                    <default>false</default>
+                    <label>KW-KUWAIT</label>
+                </value>
+                <value>
+                    <fullName>LV-LATVIA</fullName>
+                    <default>false</default>
+                    <label>LV-LATVIA</label>
+                </value>
+                <value>
+                    <fullName>LB-LEBANON</fullName>
+                    <default>false</default>
+                    <label>LB-LEBANON</label>
+                </value>
+                <value>
+                    <fullName>LS-LESOTHO</fullName>
+                    <default>false</default>
+                    <label>LS-LESOTHO</label>
+                </value>
+                <value>
+                    <fullName>LR-LIBERIA</fullName>
+                    <default>false</default>
+                    <label>LR-LIBERIA</label>
+                </value>
+                <value>
+                    <fullName>LY-LIBYA</fullName>
+                    <default>false</default>
+                    <label>LY-LIBYA</label>
+                </value>
+                <value>
+                    <fullName>LT-LITHUANIA</fullName>
+                    <default>false</default>
+                    <label>LT-LITHUANIA</label>
+                </value>
+                <value>
+                    <fullName>MG-MADAGASCAR</fullName>
+                    <default>false</default>
+                    <label>MG-MADAGASCAR</label>
+                </value>
+                <value>
+                    <fullName>MY-MALAYSIA</fullName>
+                    <default>false</default>
+                    <label>MY-MALAYSIA</label>
+                </value>
+                <value>
+                    <fullName>MX-MEXICO</fullName>
+                    <default>false</default>
+                    <label>MX-MEXICO</label>
+                </value>
+                <value>
+                    <fullName>MN-MONGOLIA</fullName>
+                    <default>false</default>
+                    <label>MN-MONGOLIA</label>
+                </value>
+                <value>
+                    <fullName>ME-MONTENEGRO</fullName>
+                    <default>false</default>
+                    <label>ME-MONTENEGRO</label>
+                </value>
+                <value>
+                    <fullName>MA-MOROCCO</fullName>
+                    <default>false</default>
+                    <label>MA-MOROCCO</label>
+                </value>
+                <value>
+                    <fullName>MZ-MOZAMBIQUE</fullName>
+                    <default>false</default>
+                    <label>MZ-MOZAMBIQUE</label>
+                </value>
+                <value>
+                    <fullName>NL-NETHERLANDS</fullName>
+                    <default>false</default>
+                    <label>NL-NETHERLANDS</label>
+                </value>
+                <value>
+                    <fullName>NZ-NEW ZEALAND</fullName>
+                    <default>false</default>
+                    <label>NZ-NEW ZEALAND</label>
+                </value>
+                <value>
+                    <fullName>NI-NICARAGUA</fullName>
+                    <default>false</default>
+                    <label>NI-NICARAGUA</label>
+                </value>
+                <value>
+                    <fullName>NE-NIGER</fullName>
+                    <default>false</default>
+                    <label>NE-NIGER</label>
+                </value>
+                <value>
+                    <fullName>NG-NIGERIA</fullName>
+                    <default>false</default>
+                    <label>NG-NIGERIA</label>
+                </value>
+                <value>
+                    <fullName>NO-NORWAY</fullName>
+                    <default>false</default>
+                    <label>NO-NORWAY</label>
+                </value>
+                <value>
+                    <fullName>PK-PAKISTAN</fullName>
+                    <default>false</default>
+                    <label>PK-PAKISTAN</label>
+                </value>
+                <value>
+                    <fullName>PA-PANAMA</fullName>
+                    <default>false</default>
+                    <label>PA-PANAMA</label>
+                </value>
+                <value>
+                    <fullName>PY-PARAGUAY</fullName>
+                    <default>false</default>
+                    <label>PY-PARAGUAY</label>
+                </value>
+                <value>
+                    <fullName>PE-PERU</fullName>
+                    <default>false</default>
+                    <label>PE-PERU</label>
+                </value>
+                <value>
+                    <fullName>PH-PHILIPPINES</fullName>
+                    <default>false</default>
+                    <label>PH-PHILIPPINES</label>
+                </value>
+                <value>
+                    <fullName>PL-POLAND</fullName>
+                    <default>false</default>
+                    <label>PL-POLAND</label>
+                </value>
+                <value>
+                    <fullName>PT-PORTUGAL</fullName>
+                    <default>false</default>
+                    <label>PT-PORTUGAL</label>
+                </value>
+                <value>
+                    <fullName>PR-PUERTO RICO</fullName>
+                    <default>false</default>
+                    <label>PR-PUERTO RICO</label>
+                </value>
+                <value>
+                    <fullName>RO-ROMANIA</fullName>
+                    <default>false</default>
+                    <label>RO-ROMANIA</label>
+                </value>
+                <value>
+                    <fullName>RU-RUSSIAN FEDERATION</fullName>
+                    <default>false</default>
+                    <label>RU-RUSSIAN FEDERATION</label>
+                </value>
+                <value>
+                    <fullName>RW-RWANDA</fullName>
+                    <default>false</default>
+                    <label>RW-RWANDA</label>
+                </value>
+                <value>
+                    <fullName>BL-SAINT BARTHÉLEMY</fullName>
+                    <default>false</default>
+                    <label>BL-SAINT BARTHÉLEMY</label>
+                </value>
+                <value>
+                    <fullName>KN-SAINT KITTS AND NEVIS</fullName>
+                    <default>false</default>
+                    <label>KN-SAINT KITTS AND NEVIS</label>
+                </value>
+                <value>
+                    <fullName>WS-SAMOA</fullName>
+                    <default>false</default>
+                    <label>WS-SAMOA</label>
+                </value>
+                <value>
+                    <fullName>SM-SAN MARINO</fullName>
+                    <default>false</default>
+                    <label>SM-SAN MARINO</label>
+                </value>
+                <value>
+                    <fullName>ST-SAO TOME AND PRINCIPE</fullName>
+                    <default>false</default>
+                    <label>ST-SAO TOME AND PRINCIPE</label>
+                </value>
+                <value>
+                    <fullName>SA-SAUDI ARABIA</fullName>
+                    <default>false</default>
+                    <label>SA-SAUDI ARABIA</label>
+                </value>
+                <value>
+                    <fullName>SN-SENEGAL</fullName>
+                    <default>false</default>
+                    <label>SN-SENEGAL</label>
+                </value>
+                <value>
+                    <fullName>RS-SERBIA</fullName>
+                    <default>false</default>
+                    <label>RS-SERBIA</label>
+                </value>
+                <value>
+                    <fullName>SL-SIERRA LEONE</fullName>
+                    <default>false</default>
+                    <label>SL-SIERRA LEONE</label>
+                </value>
+                <value>
+                    <fullName>SG-SINGAPORE</fullName>
+                    <default>false</default>
+                    <label>SG-SINGAPORE</label>
+                </value>
+                <value>
+                    <fullName>SK-SLOVAKIA</fullName>
+                    <default>false</default>
+                    <label>SK-SLOVAKIA</label>
+                </value>
+                <value>
+                    <fullName>SI-SLOVENIA</fullName>
+                    <default>false</default>
+                    <label>SI-SLOVENIA</label>
+                </value>
+                <value>
+                    <fullName>SB-SOLOMON ISLANDS</fullName>
+                    <default>false</default>
+                    <label>SB-SOLOMON ISLANDS</label>
+                </value>
+                <value>
+                    <fullName>SO-SOMALIA</fullName>
+                    <default>false</default>
+                    <label>SO-SOMALIA</label>
+                </value>
+                <value>
+                    <fullName>ZA-SOUTH AFRICA</fullName>
+                    <default>false</default>
+                    <label>ZA-SOUTH AFRICA</label>
+                </value>
+                <value>
+                    <fullName>ES-SPAIN</fullName>
+                    <default>false</default>
+                    <label>ES-SPAIN</label>
+                </value>
+                <value>
+                    <fullName>LK-SRI LANKA</fullName>
+                    <default>false</default>
+                    <label>LK-SRI LANKA</label>
+                </value>
+                <value>
+                    <fullName>SD-SUDAN</fullName>
+                    <default>false</default>
+                    <label>SD-SUDAN</label>
+                </value>
+                <value>
+                    <fullName>SZ-SWAZILAND</fullName>
+                    <default>false</default>
+                    <label>SZ-SWAZILAND</label>
+                </value>
+                <value>
+                    <fullName>SE-SWEDEN</fullName>
+                    <default>false</default>
+                    <label>SE-SWEDEN</label>
+                </value>
+                <value>
+                    <fullName>CH-SWITZERLAND</fullName>
+                    <default>false</default>
+                    <label>CH-SWITZERLAND</label>
+                </value>
+                <value>
+                    <fullName>SY-SYRIAN ARAB REPUBLIC</fullName>
+                    <default>false</default>
+                    <label>SY-SYRIAN ARAB REPUBLIC</label>
+                </value>
+                <value>
+                    <fullName>TW-TAIWAN, PROVINCE OF CHINA</fullName>
+                    <default>false</default>
+                    <label>TW-TAIWAN, PROVINCE OF CHINA</label>
+                </value>
+                <value>
+                    <fullName>TZ-TANZANIA, UNITED REPUBLIC OF</fullName>
+                    <default>false</default>
+                    <label>TZ-TANZANIA, UNITED REPUBLIC OF</label>
+                </value>
+                <value>
+                    <fullName>TH-THAILAND</fullName>
+                    <default>false</default>
+                    <label>TH-THAILAND</label>
+                </value>
+                <value>
+                    <fullName>TT-TRINIDAD AND TOBAGO</fullName>
+                    <default>false</default>
+                    <label>TT-TRINIDAD AND TOBAGO</label>
+                </value>
+                <value>
+                    <fullName>TR-TURKEY</fullName>
+                    <default>false</default>
+                    <label>TR-TURKEY</label>
+                </value>
+                <value>
+                    <fullName>TC-TURKS AND CAICOS ISLANDS</fullName>
+                    <default>false</default>
+                    <label>TC-TURKS AND CAICOS ISLANDS</label>
+                </value>
+                <value>
+                    <fullName>GB-UNITED KINGDOM</fullName>
+                    <default>false</default>
+                    <label>GB-UNITED KINGDOM</label>
+                </value>
+                <value>
+                    <fullName>US-UNITED STATES</fullName>
+                    <default>false</default>
+                    <label>US-UNITED STATES</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>AR-ARGENTINA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>AU-AUSTRALIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>AT-AUSTRIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BS-BAHAMAS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BH-BAHRAIN</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BD-BANGLADESH</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BB-BARBADOS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BY-BELARUS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BE-BELGIUM</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BZ-BELIZE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BJ-BENIN</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BM-BERMUDA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BT-BHUTAN</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BO-BOLIVIA, PLURINATIONAL STATE OF</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BR-BRAZIL</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>IO-BRITISH INDIAN OCEAN TERRITORY</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BN-BRUNEI DARUSSALAM</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BG-BULGARIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>KH-CAMBODIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CM-CAMEROON</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CA-CANADA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CV-CAPE VERDE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>KY-CAYMAN ISLANDS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CF-CENTRAL AFRICAN REPUBLIC</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>TD-CHAD</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CL-CHILE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CN-CHINA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CO-COLOMBIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>KM-COMOROS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CG-CONGO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CR-COSTA RICA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CI-CÔTE D&apos;IVOIRE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>HR-CROATIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CU-CUBA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CW-CURAÇAO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CY-CYPRUS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CZ-CZECH REPUBLIC</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>DK-DENMARK</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>DM-DOMINICA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>DO-DOMINICAN REPUBLIC</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>EC-ECUADOR</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>EG-EGYPT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SV-EL SALVADOR</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>ET-ETHIOPIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>FJ-FIJI</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>FI-FINLAND</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>FR-FRANCE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GF-FRENCH GUIANA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>PF-FRENCH POLYNESIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GE-GEORGIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>DE-GERMANY</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GH-GHANA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GI-GIBRALTAR</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GR-GREECE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GL-GREENLAND</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GD-GRENADA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GU-GUAM</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GT-GUATEMALA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GN-GUINEA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GW-GUINEA-BISSAU</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GY-GUYANA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>HT-HAITI</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>HN-HONDURAS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>HK-HONG KONG</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>HU-HUNGARY</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>IS-ICELAND</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>IN-INDIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>ID-INDONESIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>IR-IRAN, ISLAMIC REPUBLIC OF</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>IQ-IRAQ</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>IE-IRELAND</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>IL-ISRAEL</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>IT-ITALY</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>JM-JAMAICA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>KE-KENYA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>KP-KOREA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>KR-KOREA, REPUBLIC OF</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>KW-KUWAIT</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>LV-LATVIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>LB-LEBANON</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>LS-LESOTHO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>LR-LIBERIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>LY-LIBYA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>LT-LITHUANIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>MG-MADAGASCAR</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>MY-MALAYSIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>MX-MEXICO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>MN-MONGOLIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>ME-MONTENEGRO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>MA-MOROCCO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>MZ-MOZAMBIQUE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>NL-NETHERLANDS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>NZ-NEW ZEALAND</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>NI-NICARAGUA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>NE-NIGER</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>NG-NIGERIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>NO-NORWAY</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>PK-PAKISTAN</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>PA-PANAMA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>PY-PARAGUAY</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>PE-PERU</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>PH-PHILIPPINES</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>PL-POLAND</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>PT-PORTUGAL</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>PR-PUERTO RICO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>RO-ROMANIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>RU-RUSSIAN FEDERATION</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>RW-RWANDA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>BL-SAINT BARTHÉLEMY</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>KN-SAINT KITTS AND NEVIS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>WS-SAMOA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SM-SAN MARINO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>ST-SAO TOME AND PRINCIPE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SA-SAUDI ARABIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SN-SENEGAL</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>RS-SERBIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SL-SIERRA LEONE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SG-SINGAPORE</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SK-SLOVAKIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SI-SLOVENIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SB-SOLOMON ISLANDS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SO-SOMALIA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>ZA-SOUTH AFRICA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>ES-SPAIN</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>LK-SRI LANKA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SD-SUDAN</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SZ-SWAZILAND</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SE-SWEDEN</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>CH-SWITZERLAND</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>SY-SYRIAN ARAB REPUBLIC</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>TW-TAIWAN, PROVINCE OF CHINA</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>TZ-TANZANIA, UNITED REPUBLIC OF</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>TH-THAILAND</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>TT-TRINIDAD AND TOBAGO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>TR-TURKEY</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>TC-TURKS AND CAICOS ISLANDS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>GB-UNITED KINGDOM</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Yes</controllingFieldValue>
+                <valueName>US-UNITED STATES</valueName>
+            </valueSettings>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Is_ILC_Rep__c</fullName>
+        <externalId>false</externalId>
+        <formula>Owner:User.Is_ILC_Rep__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is ILC Rep</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Knowledge_ActionPlan__c</fullName>
+        <description>Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>Action Plan</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Knowledge_Skills_Rating__c</fullName>
+        <description>Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>Knowledge Skills Rating</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Highly Effective</fullName>
+                    <default>false</default>
+                    <label>Highly Effective</label>
+                </value>
+                <value>
+                    <fullName>Effective</fullName>
+                    <default>false</default>
+                    <label>Effective</label>
+                </value>
+                <value>
+                    <fullName>Developing</fullName>
+                    <default>false</default>
+                    <label>Developing</label>
+                </value>
+                <value>
+                    <fullName>Ineffective</fullName>
+                    <default>false</default>
+                    <label>Ineffective</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Legacy_CreatedBy__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy CreatedBy</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Legacy_CreatedDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy CreatedDate</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Legacy_LastModifiedBy__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy LastModifiedBy</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Legacy_LastModifiedDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy LastModifiedDate</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Met_Last_Weeks_Commitments__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Met Last Week&apos;s Commitments</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>No_Action_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>No Action Required</description>
+        <externalId>false</externalId>
+        <label>No Action Required</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>OMX_Primary_Key__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>OMX Primary Key</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Oracle_Task_Id__c</fullName>
+        <externalId>true</externalId>
+        <label>Oracle Task Id</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Oracle_Task_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Oracle Task Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Oracle_Task_pk__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Oracle Task pk</label>
+        <length>60</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Org__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Related Org</description>
+        <externalId>false</externalId>
+        <label>Org</label>
+        <referenceTo>Org__c</referenceTo>
+        <relationshipLabel>Activities</relationshipLabel>
+        <relationshipName>Activities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Outcome__c</fullName>
+        <externalId>false</externalId>
+        <label>Outcome</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Action__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Validate(Business)</fullName>
+                    <default>false</default>
+                    <label>Validate(Business)</label>
+                </value>
+                <value>
+                    <fullName>Validate(IT)</fullName>
+                    <default>false</default>
+                    <label>Validate(IT)</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+                <value>
+                    <fullName>External System(QC)</fullName>
+                    <default>false</default>
+                    <label>External System(QC)</label>
+                </value>
+                <value>
+                    <fullName>Need More Info(IT)</fullName>
+                    <default>false</default>
+                    <label>Need More Info(IT)</label>
+                </value>
+                <value>
+                    <fullName>Need More Info(Business)</fullName>
+                    <default>false</default>
+                    <label>Need More Info(Business)</label>
+                </value>
+                <value>
+                    <fullName>Meeting</fullName>
+                    <default>false</default>
+                    <label>Meeting</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Need More Info(Rep)</fullName>
+                    <default>false</default>
+                    <label>Need More Info(Rep)</label>
+                </value>
+                <value>
+                    <fullName>No Action Required</fullName>
+                    <default>false</default>
+                    <label>No Action Required</label>
+                </value>
+                <value>
+                    <fullName>Successful</fullName>
+                    <default>false</default>
+                    <label>Successful</label>
+                </value>
+                <value>
+                    <fullName>Failed</fullName>
+                    <default>false</default>
+                    <label>Failed</label>
+                </value>
+                <value>
+                    <fullName>Resolved/Mitigated</fullName>
+                    <default>false</default>
+                    <label>Resolved/Mitigated</label>
+                </value>
+                <value>
+                    <fullName>Differed</fullName>
+                    <default>false</default>
+                    <label>Differed</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Validation</controllingFieldValue>
+                <controllingFieldValue>Development</controllingFieldValue>
+                <controllingFieldValue>QA-Validation</controllingFieldValue>
+                <controllingFieldValue>Migration</controllingFieldValue>
+                <controllingFieldValue>Migration Validation</controllingFieldValue>
+                <valueName>Approved</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Validation</controllingFieldValue>
+                <controllingFieldValue>Development</controllingFieldValue>
+                <controllingFieldValue>QA-Validation</controllingFieldValue>
+                <controllingFieldValue>Migration</controllingFieldValue>
+                <controllingFieldValue>Migration Validation</controllingFieldValue>
+                <valueName>Rejected</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Validation</controllingFieldValue>
+                <controllingFieldValue>Development</controllingFieldValue>
+                <controllingFieldValue>QA-Validation</controllingFieldValue>
+                <controllingFieldValue>Co-Ordination</controllingFieldValue>
+                <controllingFieldValue>Other</controllingFieldValue>
+                <controllingFieldValue>Migration</controllingFieldValue>
+                <controllingFieldValue>Risk/issue</controllingFieldValue>
+                <controllingFieldValue>Analysis/Development</controllingFieldValue>
+                <controllingFieldValue>Migration Validation</controllingFieldValue>
+                <valueName>No Action Required</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>QA-Validation</controllingFieldValue>
+                <controllingFieldValue>Risk/issue</controllingFieldValue>
+                <controllingFieldValue>Analysis/Development</controllingFieldValue>
+                <valueName>Need More Info(IT)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>QA-Validation</controllingFieldValue>
+                <controllingFieldValue>Risk/issue</controllingFieldValue>
+                <controllingFieldValue>Analysis/Development</controllingFieldValue>
+                <valueName>Need More Info(Business)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Co-Ordination</controllingFieldValue>
+                <valueName>External System(QC)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Co-Ordination</controllingFieldValue>
+                <valueName>Meeting</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Co-Ordination</controllingFieldValue>
+                <valueName>Email</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Other</controllingFieldValue>
+                <valueName>Need More Info(Rep)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Risk/issue</controllingFieldValue>
+                <valueName>Resolved/Mitigated</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Risk/issue</controllingFieldValue>
+                <valueName>Differed</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Analysis/Development</controllingFieldValue>
+                <valueName>Validate(Business)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Analysis/Development</controllingFieldValue>
+                <valueName>Validate(IT)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Notification/Validation</controllingFieldValue>
+                <valueName>Successful</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Notification/Validation</controllingFieldValue>
+                <valueName>Failed</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>OverallRating_ActionPlanComment__c</fullName>
+        <description>Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>Action Plan / Comments</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Overall_Rating__c</fullName>
+        <description>Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>Overall Rating</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Highly Effective</fullName>
+                    <default>false</default>
+                    <label>Highly Effective</label>
+                </value>
+                <value>
+                    <fullName>Effective</fullName>
+                    <default>false</default>
+                    <label>Effective</label>
+                </value>
+                <value>
+                    <fullName>Developing</fullName>
+                    <default>false</default>
+                    <label>Developing</label>
+                </value>
+                <value>
+                    <fullName>Ineffective</fullName>
+                    <default>false</default>
+                    <label>Ineffective</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Primary_Campaign_Source__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Lattice Capaign Source population</description>
+        <externalId>false</externalId>
+        <label>Primary Campaign Source</label>
+        <referenceTo>Campaign</referenceTo>
+        <relationshipLabel>Activities</relationshipLabel>
+        <relationshipName>Activities</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Category</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Profile_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Profile Name</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Propose_Opportunity_Action_Plan__c</fullName>
+        <description>Case# 01292981</description>
+        <externalId>false</externalId>
+        <label>Propose Opportunity Action Plan</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Pursue_Opportunity_Action_Plan__c</fullName>
+        <description>Case# 01292981</description>
+        <externalId>false</externalId>
+        <label>Pursue Opportunity Action Plan</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Call__c</fullName>
+        <description>The following two fields are missing on Task object in Salesforce and it is causing datastage jobs CCGD015R and CCGD015I to fail.
+onDemand_Session_Id__c
+Quality_Call__c</description>
+        <externalId>false</externalId>
+        <label>Quality_Call</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Id</label>
+        <length>8</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SalesSkills_ActionPlan__c</fullName>
+        <description>Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>Action Plan</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Skills_Rating__c</fullName>
+        <description>Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>Sales Skills Rating</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Highly Effective</fullName>
+                    <default>false</default>
+                    <label>Highly Effective</label>
+                </value>
+                <value>
+                    <fullName>Effective</fullName>
+                    <default>false</default>
+                    <label>Effective</label>
+                </value>
+                <value>
+                    <fullName>Developing</fullName>
+                    <default>false</default>
+                    <label>Developing</label>
+                </value>
+                <value>
+                    <fullName>Ineffective</fullName>
+                    <default>false</default>
+                    <label>Ineffective</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Source_System__c</fullName>
+        <externalId>false</externalId>
+        <label>Source System</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>EBIZ</fullName>
+                    <default>false</default>
+                    <label>EBIZ</label>
+                </value>
+                <value>
+                    <fullName>AOPS</fullName>
+                    <default>false</default>
+                    <label>AOPS</label>
+                </value>
+                <value>
+                    <fullName>DATAWAREHOUSE</fullName>
+                    <default>false</default>
+                    <label>DATAWAREHOUSE</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(IsClosed, &quot;Closed&quot;, &quot;Open&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StaticText_AccountManagement1__c</fullName>
+        <defaultValue>&quot;Account Setup and Implementation, Category Penetration,&quot;&amp; BR() &amp;&quot;Profitability Management, Proactive Renewals&quot;</defaultValue>
+        <description>Field is used to add static text to &apos;Quarterly Assessment Form&apos; Task record types. Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;white&quot;&gt;-&lt;/font&gt;</label>
+        <length>125</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StaticText_AccountManagement2__c</fullName>
+        <defaultValue>&quot;(Note: a rating of &apos;Developing&apos; or &apos;Ineffective&apos; requires an Action Plan)&quot;</defaultValue>
+        <description>Field is used to add static text to &apos;Quarterly Assessment Form&apos; Task record types. Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;white&quot;&gt;-&lt;/font&gt;</label>
+        <length>75</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StaticText_Knowledge1__c</fullName>
+        <defaultValue>&quot;Industry, Products and Services,&quot;&amp; BR() &amp;&quot;Competitor Intelligence, Company Systems&quot;</defaultValue>
+        <description>Field is used to add static text to &apos;Quarterly Assessment Form&apos; Task record types. Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;white&quot;&gt;-&lt;/font&gt;</label>
+        <length>75</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StaticText_Knowledge2__c</fullName>
+        <defaultValue>&quot;(Note: a rating of &apos;Developing&apos; or &apos;Ineffective&apos; requires an Action Plan)&quot;</defaultValue>
+        <description>Field is used to add static text to &apos;Quarterly Assessment Form&apos; Task record types. Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;white&quot;&gt;-&lt;/font&gt;</label>
+        <length>75</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StaticText_OverallRating2__c</fullName>
+        <defaultValue>&quot;(Note: a rating of &apos;Developing&apos; or &apos;Ineffective&apos; requires an Action Plan)&quot;</defaultValue>
+        <description>Field is used to add static text to &apos;Quarterly Assessment Form&apos; Task record types. Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;white&quot;&gt;-&lt;/font&gt;</label>
+        <length>75</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StaticText_SalesSkills1__c</fullName>
+        <defaultValue>&quot;Prospecting / Qualifying, Relationship Building / Presentation Skills,&quot;&amp; BR() &amp;&quot;Handling Objections / Negotiation Skills, Closing&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;white&quot;&gt;-&lt;/font&gt;</label>
+        <length>125</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StaticText_SalesSkills2__c</fullName>
+        <defaultValue>&quot;(Note: a rating of &apos;Developing&apos; or &apos;Ineffective&apos; requires an Action Plan)&quot;</defaultValue>
+        <description>Field is used to add static text to &apos;Quarterly Assessment Form&apos; Task record types. Case# 01289335</description>
+        <externalId>false</externalId>
+        <label>&lt;font color=&quot;white&quot;&gt;-&lt;/font&gt;</label>
+        <length>75</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Strategic_Focus_Plan_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Strategic Focus/Plan 1</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Strategic_Focus_Plan_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Strategic Focus/Plan 2</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Task_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Task Type</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>In Person</fullName>
+                    <color>#0B6FCE</color>
+                    <default>false</default>
+                    <label>In Person</label>
+                </value>
+                <value>
+                    <fullName>Phone Call</fullName>
+                    <color>#66FF99</color>
+                    <default>false</default>
+                    <label>Phone Call</label>
+                </value>
+                <value>
+                    <fullName>salesPRISM Play</fullName>
+                    <color>#78C953</color>
+                    <default>false</default>
+                    <label>salesPRISM Play</label>
+                </value>
+                <value>
+                    <fullName>Inbound Call</fullName>
+                    <color>#E27001</color>
+                    <default>false</default>
+                    <label>Inbound Call</label>
+                </value>
+                <value>
+                    <fullName>Outbound Call</fullName>
+                    <color>#A845DC</color>
+                    <default>false</default>
+                    <label>Outbound Call</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <color>#F3D904</color>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Mail</fullName>
+                    <color>#A53711</color>
+                    <default>false</default>
+                    <label>Mail</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <color>#66E9BD</color>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Analysis/Design</fullName>
+                    <default>false</default>
+                    <label>Analysis/Design</label>
+                </value>
+                <value>
+                    <fullName>Development</fullName>
+                    <default>false</default>
+                    <label>Development</label>
+                </value>
+                <value>
+                    <fullName>QA</fullName>
+                    <default>false</default>
+                    <label>QA</label>
+                </value>
+                <value>
+                    <fullName>Co-Ordination</fullName>
+                    <default>false</default>
+                    <label>Co-Ordination</label>
+                </value>
+                <value>
+                    <fullName>IT</fullName>
+                    <default>false</default>
+                    <label>IT</label>
+                </value>
+                <value>
+                    <fullName>Business</fullName>
+                    <default>false</default>
+                    <label>Business</label>
+                </value>
+                <value>
+                    <fullName>salesPRISM</fullName>
+                    <default>false</default>
+                    <label>salesPRISM</label>
+                </value>
+                <value>
+                    <fullName>Appointments</fullName>
+                    <default>false</default>
+                    <label>Appointments</label>
+                </value>
+                <value>
+                    <fullName>Customer Location</fullName>
+                    <default>false</default>
+                    <label>Customer Location</label>
+                </value>
+                <value>
+                    <fullName>In-Store</fullName>
+                    <default>false</default>
+                    <label>In-Store</label>
+                </value>
+                <value>
+                    <fullName>Email - InBound</fullName>
+                    <default>false</default>
+                    <label>Email - InBound</label>
+                </value>
+                <value>
+                    <fullName>Email - OutBound</fullName>
+                    <default>false</default>
+                    <label>Email - OutBound</label>
+                </value>
+                <value>
+                    <fullName>Appointments - Customer Location</fullName>
+                    <default>false</default>
+                    <label>Appointments - Customer Location</label>
+                </value>
+                <value>
+                    <fullName>Appointments - In-Store</fullName>
+                    <default>false</default>
+                    <label>Appointments - In-Store</label>
+                </value>
+                <value>
+                    <fullName>Local Marketing Playbook</fullName>
+                    <default>false</default>
+                    <label>Local Marketing Playbook</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>POR</fullName>
+                    <default>false</default>
+                    <label>POR</label>
+                </value>
+                <value>
+                    <fullName>Weekly Commitment Task</fullName>
+                    <default>false</default>
+                    <label>Weekly Commitment Task</label>
+                </value>
+                <value>
+                    <fullName>Webinar</fullName>
+                    <default>false</default>
+                    <label>Webinar</label>
+                </value>
+                <value>
+                    <fullName>Monthly One on One</fullName>
+                    <default>false</default>
+                    <label>Monthly One on One</label>
+                </value>
+                <value>
+                    <fullName>Quarterly Skip Level</fullName>
+                    <default>false</default>
+                    <label>Quarterly Skip Level</label>
+                </value>
+                <value>
+                    <fullName>Weekly Pipeline Update</fullName>
+                    <default>false</default>
+                    <label>Weekly Pipeline Update</label>
+                </value>
+                <value>
+                    <fullName>Quarterly Assessment Form</fullName>
+                    <default>false</default>
+                    <label>Quarterly Assessment Form</label>
+                </value>
+                <value>
+                    <fullName>Adj Pursuit Plan Task</fullName>
+                    <default>false</default>
+                    <label>Adj Pursuit Plan Task</label>
+                </value>
+                <value>
+                    <fullName>Networking Event</fullName>
+                    <default>false</default>
+                    <label>Networking Event</label>
+                </value>
+                <value>
+                    <fullName>Sales Standard</fullName>
+                    <default>false</default>
+                    <label>Sales Standard</label>
+                </value>
+                <value>
+                    <fullName>WIG</fullName>
+                    <default>false</default>
+                    <label>WIG</label>
+                </value>
+                <value>
+                    <fullName>Mandatory Community Event</fullName>
+                    <default>false</default>
+                    <label>Mandatory Community Event</label>
+                </value>
+                <value>
+                    <fullName>Video Call</fullName>
+                    <default>false</default>
+                    <label>Video/Webinar Call</label>
+                </value>
+                <value>
+                    <fullName>Scheduled Call</fullName>
+                    <default>false</default>
+                    <label>Scheduled Call</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>VP_in_Attendance__c</fullName>
+        <externalId>false</externalId>
+        <label>VP in Attendance</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>No</fullName>
+                    <default>true</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Verbal_Win_Opportunity_Action_Plan__c</fullName>
+        <description>Case# 01292981</description>
+        <externalId>false</externalId>
+        <label>Verbal Win Opportunity Action Plan</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>WRF_Task_Await_Action_Dt__c</fullName>
+        <externalId>false</externalId>
+        <label>Awaiting Action Date</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>WRF_Task_Complete_Dt__c</fullName>
+        <externalId>false</externalId>
+        <label>Completion Date</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>WRF_Task_Complete__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(Status), &quot;Not Started&quot;, 0, &quot;Under Review&quot;, 10,
+ &quot;Team Review&quot;, 25, &quot;In Progress&quot;,50,
+&quot;Final Review&quot;, 75, &quot;Completed&quot;, 100, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% Complete</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WRF_Task_Final_Review_Dt__c</fullName>
+        <externalId>false</externalId>
+        <label>Final Review Date</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>WRF_Task_In_Progress_Dt__c</fullName>
+        <externalId>false</externalId>
+        <label>In Progress Date</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>WRF_Task_Team_Review_Dt__c</fullName>
+        <externalId>false</externalId>
+        <label>Team Review Date</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>WRF_Task_Under_Review_Dt__c</fullName>
+        <externalId>false</externalId>
+        <label>Under Review Date</label>
+        <required>false</required>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>What_Went_Well__c</fullName>
+        <externalId>false</externalId>
+        <label>What Went Well</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>X3_Commitments_to_Impact_Results__c</fullName>
+        <externalId>false</externalId>
+        <label>3 Commitments to Impact Results</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ciscocjs__ANI__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Ani</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ciscocjs__Contact_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Contact Type</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Call</fullName>
+                    <default>false</default>
+                    <label>Call</label>
+                </value>
+                <value>
+                    <fullName>Chat</fullName>
+                    <default>false</default>
+                    <label>Chat</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ciscocjs__DNIS__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dnis</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ciscocjs__QUEUE_NAME__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Queue Name</label>
+        <length>40</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ciscocjs__RINGING_TIME__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Ringing Time</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ciscocjs__WRAP_UP_DURATION__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Wrap Up Duration</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>onDemand_Session_Id__c</fullName>
+        <description>The following two fields are missing on Task object in Salesforce and it is causing datastage jobs CCGD015R and CCGD015I to fail.
+onDemand_Session_Id__c
+Quality_Call__c</description>
+        <externalId>false</externalId>
+        <label>onDemand_Session_Id</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <listViews>
+        <fullName>MyActivities</fullName>
+        <filterScope>Mine</filterScope>
+        <label>My Activities</label>
+    </listViews>
+    <listViews>
+        <fullName>MyDelegatedActivities</fullName>
+        <filterScope>Delegated</filterScope>
+        <label>My Delegated Activities</label>
+    </listViews>
+    <listViews>
+        <fullName>MyTeamsActivities</fullName>
+        <filterScope>Team</filterScope>
+        <label>My Team&apos;s Activities</label>
+    </listViews>
+    <listViews>
+        <fullName>TodaysTasks</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>TASK.CLOSED</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>ACTIVITY.TASK</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>TASK.DUE_DATE</field>
+            <operation>lessThan</operation>
+            <value>TOMORROW</value>
+        </filters>
+        <label>Today&apos;s Tasks</label>
+    </listViews>
+    <listViews>
+        <fullName>UpcomingEvents</fullName>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>ACTIVITY.TASK</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>TASK.DUE_DATE</field>
+            <operation>greaterThan</operation>
+            <value>YESTERDAY</value>
+        </filters>
+        <label>Upcoming Events</label>
+    </listViews>
+    <profileSearchLayouts>
+        <fields>TASK.SUBJECT</fields>
+        <fields>TASK.WHAT_NAME</fields>
+        <fields>TASK.WHO_NAME</fields>
+        <fields>TASK.DUE_DATE</fields>
+        <fields>TASK.STATUS</fields>
+        <fields>Task_Type__c</fields>
+        <fields>Call_Disposition__c</fields>
+        <fields>Disposition_Code__c</fields>
+        <fields>CORE.USERS.ALIAS</fields>
+        <fields>UPDATEDBY_USER.NAME</fields>
+        <profileName>Global Sales</profileName>
+    </profileSearchLayouts>
+    <searchLayouts>
+        <searchFilterFields>Task_Type__c</searchFilterFields>
+        <searchFilterFields>Disposition_Code__c</searchFilterFields>
+        <searchFilterFields>Call_Disposition__c</searchFilterFields>
+        <searchFilterFields>TASK.WHAT_NAME</searchFilterFields>
+        <searchFilterFields>TASK.WHO_NAME</searchFilterFields>
+        <searchFilterFields>CORE.USERS.LAST_NAME</searchFilterFields>
+        <searchResultsAdditionalFields>TASK.SUBJECT</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.WHAT_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.WHO_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.DUE_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TASK.STATUS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Task_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Call_Disposition__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Disposition_Code__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>UPDATEDBY_USER.NAME</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

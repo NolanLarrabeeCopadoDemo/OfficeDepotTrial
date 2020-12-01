@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Device type --></label>
+        <name>Q4__Device_type__c</name>
+    </fields>
+    <fields>
+        <label><!-- IP address --></label>
+        <name>Q4__IPaddress__c</name>
+    </fields>
+    <fields>
+        <label><!-- Login DateTime --></label>
+        <name>Q4__LoginDateTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Login Source --></label>
+        <name>Q4__Login_Source__c</name>
+        <picklistValues>
+            <masterLabel>Web</masterLabel>
+            <translation><!-- Web --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>iPad</masterLabel>
+            <translation><!-- iPad --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Logout DateTime --></label>
+        <name>Q4__LogoutDateTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- OS --></label>
+        <name>Q4__OS__c</name>
+    </fields>
+    <fields>
+        <label><!-- [Obsolete] Qvidian Login Id --></label>
+        <name>Q4__Qvidian_Login_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Session Duration --></label>
+        <name>Q4__SessionDuration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Session ID --></label>
+        <name>Q4__Session_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- User_Id --></label>
+        <name>Q4__User_Id__c</name>
+        <relationshipLabel><!-- Qvidian Logins --></relationshipLabel>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- Login Source value must be either &quot;Web&quot;, &quot;iPad&quot; or &quot;SF1&quot;. --></errorMessage>
+        <name>Q4__SourceIsInPicklist</name>
+    </validationRules>
+</CustomObjectTranslation>

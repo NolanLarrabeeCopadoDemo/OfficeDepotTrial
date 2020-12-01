@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account Setup - Tiered Discount Setup</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Tiered Discounts</name>
+    <style>freeForm</style>
+    <subject>Tier Discount Request  - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>During Account Setup you requested the following account to have Tiered Discount
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Account Number: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+Sales ID:{!Account_Setup_Request__c.OwnerId}
+
+Fill out the table below and forward this email to contractmaint@officedepot.com
+
+From Amount&lt;?xml:namespace prefix = o ns = &quot;urn:schemas-microsoft-com:office:office&quot; /&gt;
+
+To Amount
+
+Discount Percentage</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

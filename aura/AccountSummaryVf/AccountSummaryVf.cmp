@@ -1,0 +1,219 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="AccountSummaryController" >
+    <aura:attribute name="acct" type="Account" />
+    <aura:attribute name="org" type="Org__c" />
+    <aura:attribute name="items" type="Object"/>  
+    <aura:attribute name="oid" type ="String"/> 
+    <aura:attribute name="ListAcct" type ="List"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />	
+    <aura:attribute name="subrecordId" type="Id" access="global"/>
+    <aura:attribute name="ind" type ="Boolean" default="false"/> 
+    <aura:attribute name="title" type="String" default="Custom Title"/>
+    <div>
+        <aura:If  isTrue="{!v.ind}">
+            <lightning:tabset  variant="scoped">
+                <lightning:tab onactive="{!c.handleActive }" label="DML Summary" id="dml" >
+                    <div class="c-container">
+                        <lightning:layout multipleRows="true">
+                            <lightning:layoutItem flexibility="auto"  padding="around-small" size="12">
+                                <lightning:layout multipleRows="fasle">
+                                    <lightning:layoutItem flexibility="auto"  padding="around-small" size="12">
+                                        <c:DMLInfoComponent aura:id="childDMLRec"/>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </lightning:layoutItem>
+                            
+                            <lightning:layoutItem flexibility="auto"  padding="around-small" size="12">
+                                <lightning:layout>
+                                    <lightning:layoutItem flexibility="auto" padding="around-small" size="4">
+                                        <div class="page-section page-right">
+                                              <c:DMLDataAccComponent aura:id="childDmlAcc"/>                                            
+                                        </div>
+                                        
+                                    </lightning:layoutItem>
+                                    
+                                    
+                                    <lightning:layoutItem flexibility="auto"  padding="around-small" size="8">
+                                        <div class="page-section page-main">
+                                            
+                                            <c:ContactDetailsCmpDML aura:id="childContacts" />
+                                            <c:OpportunityDetailsCmpDML aura:id="childOpps"/>
+                                            <c:CaseDetailsCmpDML aura:id="childCases"/>
+                                            <c:TaskDetailsCmpDML aura:id="childTasks"/>
+                                            <c:SiteDetailsCmpDML aura:id="childSites"/>
+                                            <c:SalesDetailCmpDML aura:id="childSaless"/>
+                                            <c:ContractDetailsCmpDML aura:id="childcontracts"/>   
+                                            <c:NoteDetailsCmpDML aura:id="childnotes"/>
+                                            <c:PricingDetailsCmpDML aura:id="childprices"/>
+                                            
+                                            <c:CustomerDetailsComponentdml aura:id="childcusdetails"/>
+                                            <c:RepDetailsComponentdml aura:id="childreps"/>
+                                           
+                                        </div>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </div>
+                    <!--<c:DMLOrgComponent aura:id="childDml"/>ContactDetailsCmpDML
+                    <c:DMLDataComponent aura:id="childDmls"/> -->
+                </lightning:tab>
+                <lightning:tab onactive="{!c.handleActive }" label="Organization Summary" id="org" >
+                    <div class="c-container">
+                        <lightning:layout multipleRows="true">
+                                    <lightning:layoutItem padding="around-small" size="12">
+                                        <div class="page-section page-main">
+                                            <div>
+                                            <lightning:button variant="brand" label="View Org Hiearchy" onclick="{! c.orghierarchy}" />
+                                                </div>
+                                            <lightning:card title="{!v.acct.Org__r.Business_Name__c}" iconName="standard:account" >
+                                                <lightning:layout multipleRows="fasle">
+                                                    <lightning:layoutItem padding="around-small" size="5">
+                                                        <lightning:tile>
+                                                            <p class="slds-p-horizontal_small">
+                                                                <dt class="slds-dl_horizontal__label">
+                                                                    <p class="slds-truncate" title="Alt">Other Name :</p>
+                                                                </dt>
+                                                                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                    <p class="slds-truncate" title="salesforce-ux@salesforce.com">{!v.acct.Org__r.Alt_Business_Name_1__c} </p>
+                                                                </dd>
+                                                                <dt class="slds-dl_horizontal__label">
+                                                                    <p class="slds-truncate" title="Alt">Industry:</p>
+                                                                </dt>
+                                                                <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                    <p class="slds-truncate" title="salesforce-ux@salesforce.com">{!v.acct.Org__r.LOB__c}</p>
+                                                                </dd>
+                                                                
+                                                                
+                                                                <lightning:formattedAddress
+                                                                                            street="{!v.acct.Org__r.Address_1__c }"
+                                                                                            city="{!v.acct.Org__r.City__c }"
+                                                                                            country="USA"
+                                                                                            province="{!v.acct.Org__r.State__c }"
+                                                                                            postalCode="{!v.acct.Org__r.Zip__c }"
+                                                                                            />
+                                                                
+                                                            </p></lightning:tile>
+                                                    </lightning:layoutItem>
+                                                    <lightning:layoutItem padding="around-small" size="8">
+                                                        <lightning:tile>
+                                                            <p>
+                                                                <lightning:tile label="DNB Information" href="/path/to/somewhere">
+                                                                    
+                                                                    <dl class="slds-dl_horizontal">
+                                                                        <dt class="slds-dl_horizontal__label">
+                                                                            <p class="slds-truncate" title="Company">Duns#:</p>
+                                                                        </dt>
+                                                                        <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                            <p class="slds-truncate" >{!v.acct.Org__r.DUNS_Number__c}</p>
+                                                                        </dd>
+                                                                        <dt class="slds-dl_horizontal__label">
+                                                                            <p class="slds-truncate" title="Email">Employees at Location  :</p>
+                                                                        </dt>
+                                                                        <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                            <p class="slds-truncate" title="salesforce-ux@salesforce.com">{!v.acct.Org__r.SITE_EMPLOYEE_CNT__c}</p>
+                                                                        </dd>
+                                                                        <dt class="slds-dl_horizontal__label">
+                                                                            <p class="slds-truncate" title="Email">Revenue  :</p>
+                                                                        </dt>
+                                                                        <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                            <p class="slds-truncate" title="salesforce-ux@salesforce.com">${!v.acct.Org__r.SITE_SALES_AMT__c}</p>
+                                                                        </dd>
+                                                                        <dt class="slds-dl_horizontal__label">
+                                                                            <p class="slds-truncate" title="Email">Global Employees  :</p>
+                                                                        </dt>
+                                                                        
+                                                                        <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                            <p class="slds-truncate" title="salesforce-ux@salesforce.com">{!v.acct.Org__r.SITE_EMPLOYEE_CNT__c}</p>
+                                                                        </dd>
+                                                                        <dt class="slds-dl_horizontal__label">
+                                                                            <p class="slds-truncate" title="Email"> Global Revenue :</p>
+                                                                        </dt>
+                                                                        <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                            <p class="slds-truncate" title="salesforce-ux@salesforce.com">${!v.acct.Org__r.GLOBAL_ULTIMATE_SALES_AMT__c}</p>
+                                                                        </dd>
+                                                                        <dt class="slds-dl_horizontal__label">
+                                                                            <p class="slds-truncate" title="Legal Parent">Legal Parent Name:</p>
+                                                                        </dt>
+                                                                        <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                            <p class="slds-truncate" >{!v.Org__r.Parent_Org__r.Business_Name__c}  </p>
+                                                                        </dd>
+                                                                        <lightning:formattedAddress
+                                                                                                    street="{!v.acct.Org__r.Parent_Org__r.Address_1__c }"
+                                                                                                    city="{!v.acct.Org__r.Parent_Org__r.City__c }"
+                                                                                                    country="USA"
+                                                                                                    province="{!v.acct.Org__r.Parent_Org__r.State__c }"
+                                                                                                    postalCode="{!v.acct.Org__r.Parent_Org__r.Zip__c }"
+                                                                                                    />
+                                                                        
+                                                                    </dl>
+                                                                </lightning:tile>
+                                                            </p>
+                                                        </lightning:tile>
+                                                    </lightning:layoutItem>
+                                                </lightning:layout>
+                                            </lightning:card>
+                                        </div>
+                                    </lightning:layoutItem>
+                             <!--           <lightning:layoutItem padding="around-small" size="3" >
+                                            <div class="page-section page-right">
+                                                <div class="slds-modal__cotent" id="modal-content-id-01">
+                                                    <div class="slds-grid">
+                                                         <div class="slds-col">
+                                                <c:AccountLocator subrecordIdLocator="{!v.subrecordId}" />
+                                            </div>
+                                            </div>
+                                                </div>
+                                            </div>
+                                        </lightning:layoutItem>
+                            -->
+                            <lightning:layoutItem padding="around-small" size="12">
+                                <lightning:layout>
+                                    <lightning:layoutItem padding="around-small" size="4">
+                                        <div class="page-section page-right">
+                                            <c:OrgAccountsComponent aura:id="childAccounts"/>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    
+                                    <lightning:layoutItem padding="around-small" size="8">
+                                        <div class="page-section page-main">
+                                            
+                                            <c:ContactDtlSmall aura:id="childContact" />
+                                            <c:OpportunityDetailsComponent aura:id="childOpp"/>
+                                            <c:CaseDetailsComponent aura:id="childCase"/>
+                                            <c:TaskDetailsComponent aura:id="childTask"/>
+                                            <c:SiteDetailsComponent aura:id="childSite"/>
+                                            <c:SalesDetailComponent aura:id="childSales"/>
+                                            <c:ContractDetailsComponent aura:id="childContract"/>
+                                            <c:NoteDetailsComponent aura:id="childNote"/>
+                                            <c:PricingDetailsComponent aura:id="childPricing"/>
+                                            <c:CustomerDetailsComponent aura:id="childCustomer"/>
+                                            <c:RepDetailsComponent aura:id="childRep"/>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    
+                                </lightning:layout>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+                                <div class="page-footer page-section">
+                          
+                                </div>
+                            </lightning:layoutItem>
+                         
+                        </lightning:layout>
+                                         <div class="slds-grid slds-wrap" style="width:100px;margin-left: 50px;">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                <c:AccountLocator subrecordIdLocator="{!v.subrecordId}" />
+                                </div>
+                            </div>
+                    </div>
+           
+                </lightning:tab>
+                
+            </lightning:tabset>
+        </aura:If>
+    </div>
+  
+</aura:component>

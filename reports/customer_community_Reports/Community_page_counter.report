@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_CREATED</field>
+    </columns>
+    <columns>
+        <field>GPO_Lead__c.Private__c</field>
+    </columns>
+    <columns>
+        <field>FK_CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>FK_$GPO_Group__c.Public_Page_View__c</field>
+    </columns>
+    <columns>
+        <field>FK_$GPO_Group__c.Community_Name__c</field>
+    </columns>
+    <columns>
+        <field>GPO_Lead__c.AOPS_Cust_ID__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>FK_CREATED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Barbara Peterson</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <name>Community page counter</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$GPO_Lead__c@GPO_Lead__c.GPO_Group__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>FK_CREATED_DATE</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

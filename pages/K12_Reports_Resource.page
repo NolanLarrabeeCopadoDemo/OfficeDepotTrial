@@ -1,0 +1,32 @@
+<apex:page controller="K12_report_links" readOnly="true" showHeader="true" sidebar="true">
+        <style>
+            .ct{text-align:center;}
+            .blank{white-space: nowrap;}
+        </style>
+    <table border = '0'>
+        <apex:image id="logo1" url="{!$Resource.Logo}" width="500" style="float:left"/> 
+    </table>
+    <apex:form >
+        <apex:pageBlock >
+           <br/>
+           <apex:outputLabel value="BSD Growth Initiatives - K-12 Pipeline Reporting" style="font-size:20px; font-weight:bold;"/>
+           <br/><br/>
+            <apex:pageBlockTable value="{!Reportlist}" var="vRLinks" rendered="{!IF(Reportlist.size=0,false,true)}" width="100%">
+                <apex:column headerValue="K-12 Reports" style="width:2%">
+                    <apex:outputLink value="{!vRLinks.Report_Link__c}" target="_blank"  title="{!vRLinks.Report_Description__c}">{!vRLinks.Report_Label__c}</apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Description" style="width:10%">
+                     <apex:outputField value="{!vRLinks.Report_Description__c}"/>
+                </apex:column>
+              
+            </apex:pageBlockTable>
+           
+            
+         <apex:outputPanel rendered="{!IF(Reportlist.size=0,true,false)}">No reports to display</apex:outputPanel>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    
+          
+</apex:page>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Activity$Owner</field>
+    </columns>
+    <columns>
+        <field>Activity$Owner.Title</field>
+    </columns>
+    <columns>
+        <field>Activity$Account</field>
+    </columns>
+    <columns>
+        <field>Activity$CreatedDate</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Activity$Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>salesPRISM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$Subject</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>[SR] ISO 5 Star Play,[SR] ISO 4 Star Play,[SR] ISO Strikes Back</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity$Owner.Manager__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <name>Q2 ISO Contest Play data</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activities_Report_with_Active_Users__c</reportType>
+    <roleHierarchyFilter>Support</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Activity$CreatedDate</dateColumn>
+        <endDate>2016-07-01</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2016-04-25</startDate>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account_Profile__c.Integration_Type_EDI__c</field>
+    </columns>
+    <columns>
+        <field>Account_Profile__c.eCommerce_Analyst_EDI__c</field>
+    </columns>
+    <columns>
+        <field>Account_Profile__c.eCommerce_Consultant_EDI__c</field>
+    </columns>
+    <columns>
+        <field>Account_Profile__c.X3rd_Party_EDI__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>CUST_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>EDI</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account_Profile__c.eCommerce_Analyst_EDI__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Gilllian Alperstein</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Account_Profile__c.Integration_Status_EDI__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>EDI - Assigned to Gillian</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountCustomEntity$Account_Profile__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

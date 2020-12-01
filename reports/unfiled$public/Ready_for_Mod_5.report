@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Split_Account_Detail__c.OMX_ACCOUNT__c</field>
+    </columns>
+    <columns>
+        <field>Split_Account_Detail__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>Split_Account_Detail__c.Error_Message__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Customer_Transition__c.Ready_For_Mod_5__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>FK_$Customer_Transition__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>On Deck</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Split_Account_Detail__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Uploaded,Upload Error</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_$Customer_Transition__c.OMX_Primary_Key__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Ready for Mod 5</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Split_Account_Detail__c@Split_Account_Detail__c.Customer_Transition__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

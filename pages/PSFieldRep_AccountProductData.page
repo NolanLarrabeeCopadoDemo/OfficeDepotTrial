@@ -1,0 +1,149 @@
+<apex:page sidebar="false" showHeader="false" Controller="PSFieldRep_AccountProductDataExtension" readOnly="true">
+ 
+
+<style>
+  .redText {
+    color :red;
+  }
+  .blackText {
+    color :black;
+  }
+  .nth-child {
+  background-color: #DBDFE0;
+ 
+  }
+.last-child{
+  background-color: #CFD3D4;
+  border-color: #000000;
+ }
+  </style>
+  <apex:pageBlock title="">  
+  <table class="list" border="0" cellspacing="0" cellpadding="0" width="450">
+    <tbody>
+      
+      <tr class="headerRow">
+        <th><apex:outputText value="Category" /></th>
+        <th class="CurrencyElement"><apex:outputText value="TY TD" /></th> 
+        <th class="CurrencyElement"><apex:outputText value="LY TD" /></th>
+       <th class="CurrencyElement"><apex:outputtext value="Diff" /></th>
+         <!--    <th class="CurrencyElement"><apex:outputtext value="Potential" /></th>-->
+
+       
+      </tr>
+      
+      <tr class="dataRow odd">
+       <td><b><apex:outputText value="Paper"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Paper_TY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Paper_LY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Paper_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"> <apex:param value="{!siteAccount.Paper_Diff}"/></apex:outputText></apex:outputPanel></td> 
+          <!--    <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Paper_Pot}"/></apex:outputText></td>-->
+       
+      </tr>
+
+      
+      <tr class="nth-child">
+       <td><b><apex:outputText value="Ink Toner"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Ink_Toner_TY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Ink_Toner_LY}"/></apex:outputText></td>
+     <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Ink_Toner_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Ink_Toner_Diff}"/></apex:outputText></apex:outputPanel></td>
+       <!--<td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Ink_toner_Pot}"/></apex:outputText></td>-->
+      
+      </tr>
+      
+       <tr class="dataRow odd">
+       <td><b><apex:outputText value="Furniture"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Furniture_TY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Furniture_LY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Furniture_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Furniture_Diff}"/></apex:outputText></apex:outputPanel></td>  
+        <!--    <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Furniture_Pot}"/></apex:outputText></td>-->
+      </tr>
+      
+       <tr class="nth-child">
+       <td><b><apex:outputText value="CBS"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.CBS_TY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.CBS_LY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.CBS_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.CBS_Diff}"/></apex:outputText></apex:outputPanel></td>
+        <!--    <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.CBS_Pot}"/></apex:outputText></td>      -->
+      </tr>
+     
+      <tr class="dataRow odd">
+        <td><b><apex:outputText value="CPD" /></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.CPD_TY}"/></apex:outputText></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.CPD_LY}"/></apex:outputText></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.CPD_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.CPD_Diff}"/></apex:outputText></apex:outputPanel></td>
+      <!--      <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.CPD_Pot}"/></apex:outputText></td>-->
+      </tr>
+       
+       <tr class="nth-child">
+       <td><b><apex:outputText value="Tech"/></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Tech_TY}"/></apex:outputText></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Tech_LY}"/></apex:outputText></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Tech_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Tech_Diff}"/></apex:outputText></apex:outputPanel></td> 
+       <!--     <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Tech_Pot}"/></apex:outputText></td>-->
+      </tr>
+      
+       <tr class="dataRow odd">
+        <td><b><apex:outputText value="Filing & Binding"/></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Filing_Binding_TY}"/></apex:outputText></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Filing_Binding_LY}"/></apex:outputText></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Filing_Binding_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Filing_Binding_Diff}"/></apex:outputText></apex:outputPanel></td>  
+       <!--     <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Filing_Binding_Pot}"/></apex:outputText></td>-->
+      </tr>
+      
+      <tr class="nth-child">
+       <td><b><apex:outputText value="Labels & Forms"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Labels_Forms_TY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Labels_Forms_LY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Labels_Forms_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Labels_Forms_Diff}"/></apex:outputText></apex:outputPanel></td> 
+      <!--      <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Labels_Forms_Pot}"/></apex:outputText></td>-->
+      </tr>
+      
+      
+        <tr class="dataRow odd">
+       <td><b><apex:outputText value="Writing Drafting"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Writing_Drafting_TY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Writing_Drafting_LY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Writing_Drafting_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Writing_Drafting_Diff}"/></apex:outputText></apex:outputPanel></td> 
+       <!--     <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Writing_Drafting_Pot}"/></apex:outputText></td>-->
+      </tr>
+          
+           
+      <tr class="nth-child">
+        <td><b><apex:outputText value="Office Essentials"/></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Office_Essentials_TY}"/></apex:outputText></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Office_Essentials_LY}"/></apex:outputText></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Office_Essentials_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Office_Essentials_Diff}"/></apex:outputText></apex:outputPanel></td> 
+         <!--    <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Office_Essentials_Pot}"/></apex:outputText></td>-->
+      </tr>
+           
+      <tr class="dataRow odd">
+       <td><b><apex:outputText value="MPS"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.MPS_TY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.MPS_LY}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.MPS_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}">       <apex:param value="{!siteAccount.MPS_Diff}"/></apex:outputText></apex:outputPanel></td>
+        <!--    <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.MPS_Pot}"/></apex:outputText></td>-->
+      </tr>
+      
+      
+      <tr class="nth-child">
+       <td style="border-bottom:1px solid #727272;"><b><apex:outputText value="Miscellaneous"/></b></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Miscellaneous_TY}"/></apex:outputText></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Miscellaneous_LY}"/></apex:outputText></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Miscellaneous_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Miscellaneous_Diff}"/></apex:outputText></apex:outputPanel></td>
+        <!--    <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Miscellaneous_Pot}"/></apex:outputText></td>-->
+      </tr>
+      
+         
+      <tr class="last-child">
+       <td><b><apex:outputText value="Total"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Total_TY_Sales_to_Date}"/></apex:outputText></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Total_LY_Sales_to_Date}"/></apex:outputText></td>
+      <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(siteAccount.Total_Sales_Diff < 0,'redText','blackText')}" layout="block"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Total_Sales_Diff}"/></apex:outputText></apex:outputPanel></td>
+        <!--    <td class=" dataCell  CurrencyElement"><apex:outputText value="{0, Number, $#,###}"><apex:param value="{!siteAccount.Total_Potential_to_date}"/></apex:outputText></td>-->
+      </tr>
+    </tbody>
+  </table> 
+
+  </apex:pageBlock>
+   
+</apex:page>

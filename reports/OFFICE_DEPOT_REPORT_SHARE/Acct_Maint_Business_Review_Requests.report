@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>Case.AM_Gen_Maintenance_Other__c</field>
+    </columns>
+    <columns>
+        <field>Case.AM_Other_General_Maint_Request_Type__c</field>
+    </columns>
+    <columns>
+        <field>Case.WRF_Proj_Goal_Cmnt__c</field>
+    </columns>
+    <filter>
+        <booleanFilter>1 AND 2 AND (3 or 4)</booleanFilter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Case.Account_Maintenance</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.WRF_Request_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Other General Maintenance</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.WRF_Proj_Goal_Cmnt__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>business review</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.AM_Gen_Maintenance_Other__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>business review</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Acct Maint - Business Review Requests</name>
+    <params>
+        <name>units</name>
+        <value>h</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

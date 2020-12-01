@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Auto Response New Case</name>
+    <style>freeForm</style>
+    <subject>Salesforce Support Case # {!Case.CaseNumber} {!Case.Thread_Id}</subject>
+    <textOnly>Hello, 
+
+Thank you for your email. A support request has been created for you. 
+
+Support Case #: {!Case.CaseNumber} 
+
+Click here to go to the support case. Please do not edit and change anything in the subject line.
+
+
+Thank you, 
+
+Support team 
+
+
+
+
+
+
+
+
+
+
+[{!Case.Thread_Id}]</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

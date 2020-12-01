@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>PROS CPQx Settings</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>CameleonCPQ__AppPortalAccountId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>This information will be provided by PROS Cloud Team once your CPQx environment will be ready on PROS servers.</inlineHelpText>
+        <label>Quote Service Account Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CameleonCPQ__AppPortalCertificateName__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the certificate used to sign the requests to CPQx servers</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The certificate must exist in your Salesforce environment (Certificate and Key Management) and be hosted on CPQx servers. 
+It is used to sign the Service to Service requests to CPQx servers</inlineHelpText>
+        <label>AppPortal Certificate Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CameleonCPQ__AppPortalIDP__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Leave this value empty when CPQx instance authenticates to a single Identity Provider. Indicate the IDP identifier in case a CPQx instance is linked to multiple authenticators.</description>
+        <externalId>false</externalId>
+        <label>AppPortal IDP identifier</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CameleonCPQ__AppPortalURL__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The URL of the server in charge of authorizing the access to your CPQx environment</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This information will be provided by PROS Cloud Team once your CPQx environment will be ready on PROS servers.</inlineHelpText>
+        <label>AppPortal URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>CameleonCPQ__BaseURL__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The URL to access the CPQx server</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This information will be provided by PROS Cloud Team once your CPQx environment will be ready on PROS servers.</inlineHelpText>
+        <label>CPQx Base URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>CameleonCPQ__EnvironmentId__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The CPQx Environment Identifier</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This information will be provided by PROS Cloud Team once your CPQx environment will be ready on PROS servers.
+Usually environments are used during the deployment cycle to Develop, Test, and release your models to Production</inlineHelpText>
+        <label>Environment Id</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CameleonCPQ__MaxNbSfdcJobs__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum number of jobs in a &quot;Holding&quot; status within the Salesforce Job queue. When overpassing this limit, synchronization jobs are managed in a custom job queue to avoid hitting the governor limits.</inlineHelpText>
+        <label>Max. number of SFDC queued jobs</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CameleonCPQ__TenantId__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The CPQx Tenant Identifier.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This information will be provided by PROS Cloud Team once your CPQx environment will be ready on PROS servers.</inlineHelpText>
+        <label>Tenant Id</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CameleonCPQ__Tracing__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>When checked, the main integration features, mostly synchronization operations, are traced and the logs are sent to CPQx</description>
+        <externalId>false</externalId>
+        <label>Tracing Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>PROS CPQx Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,283 @@
+<apex:component controller="ProspectReassign" allowDML="TRUE">
+
+<!-- added for S-429664 -->
+<style>
+.pagination {
+    font-size: 80%;
+}
+
+.pagination a {
+    text-decoration: none;
+    border: solid 1px #AAE;
+    color: #15B;
+}
+
+.pagination a,.pagination span {
+    display: block;
+    float: left;
+    padding: 0.3em 0.5em;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.pagination .current {
+    background: #5E82A3;
+    color: #fff;
+    border: solid 1px #AAE;
+    text-decoration: none;
+}
+
+.pagination .notPrevious,.pagination .notNext {
+    color: #999;
+    border-color: #999;
+    background: #fff;
+    text-decoration: none;
+}
+
+.next {
+    text-decoration: underline
+}
+
+.prev {
+    text-decoration: underline
+}
+</style>
+<!-- 		end S-429664 -->
+<script>
+
+
+
+ function uncheckAll(cb)
+{
+var inputElem = document.getElementsByTagName("input");
+for(var i=0; i<inputElem.length; i++)
+{
+inputElem[i].checked = false;
+}
+}
+
+
+function checkAllReassign(cb)
+{
+    //alert('call');
+var inputElem = document.getElementsByTagName("input");
+for(var i=0; i<inputElem.length; i++)
+{
+    //alert('checkbox status:' + inputElem[i].disabled);
+if(inputElem[i].id.indexOf("checkedone")!=-1)
+    //alert('checkbox status:' + inputElem[i].disabled);
+  if (!inputElem[i].disabled) {
+    inputElem[i].checked = cb.checked;
+  }
+    else
+        inputElem[i].checked = false;
+}
+}
+
+function reAssign() {
+
+  if (confirm('The Operation Will ReAssign Selected Prospect, Are You Sure?')) {
+    reAssignaction();
+
+  }
+}
+function reAssignAll() {
+  if (confirm('The Operation Will ReAssign All Prospects Returned By The Search Criteria, Are You Sure?')) {
+    reAssignAllaction();
+  }
+}
+</script>
+   <apex:pageBlock >
+    <apex:form >
+
+        <apex:pageBlockSection title="Prospect Search - Assignments" collapsible="false" columns="2" >
+         <apex:inputText value="{!CustomerName}" label="Prospect Name"/>
+         <apex:inputText value="{!customerNumber}" label="Prospect Number"/>
+         <apex:inputField value="{!AccountToHoldInput.ownerID}" label="Sales Person" required="false"/>
+         <apex:inputText value="{!odEmpID}" label="Employee ID"/>
+         <!--<apex:inputField value="{!AccountToHoldInput.Industry_OD_SIC_Rep__c}" label="Industry"/> -->
+
+         <!-- START S-414429 (OD 00687413) [Hemant 5/31/2016] - Update Zip Filter
+         <apex:inputField value="{!AccountToHoldInput.Zip__c}" label="Zip Code"/>
+         <apex:inputTextarea value="{!zipCodes}" rows="4" cols="40" label="Zip Code" />-->
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Zip Code"> <br/>
+                <p><i>(Please use a comma (,) as delimiter for multiple zip codes)</i></p>
+                </apex:outputlabel>
+                 <apex:inputTextarea value="{!zipCodes}" rows="4" cols="40" label="Zip Code" />
+            </apex:pageBlockSectionItem>
+         <!-- END S-414429 (OD 00687413) [Hemant 5/31/2016] - Update Zip Filter -->
+
+         <apex:selectList id="newlist" value="{!Industry}" multiselect="false" size="1" label="Industry">
+           <apex:selectOptions value="{!Industryoptions}" />
+         </apex:selectList>
+
+         <!-- START S-414428 (OD 00687410) [Hemant 5/31/2016] - Add WCW Range
+         <apex:inputField value="{!AccountToHoldInput.Org_WCW_Count_DB__c}" label="WCW" required="false"/> -->
+         <apex:selectList id="wcwlist" value="{!WCWRangeValue}" multiselect="false" size="1" label="WCW">
+           <apex:selectOptions value="{!WCWRangeOptions}" />
+         </apex:selectList>
+         <!-- END S-414428 (OD 00687410) [Hemant 5/31/2016] - Add WCW Range -->
+
+         <apex:inputField value="{!AccountToHoldsp.ownerID}" label="Proposed Sales Person" required="false"/>
+
+         <!--  added for the story #S-418599 (00687415) #START -->
+         <apex:inputText value="{!SalesRepName}" label="Sales Person ID"/>
+         <!--  added for the story #S-418599 (00687415) #END -->
+
+         <!--  added for the story #S-418604 (00715861) #START -->
+
+          <apex:selectList id="state" value="{!state}" size="1" label="State" >
+          <apex:selectOptions value="{!stateList}"/>
+         </apex:selectList>
+
+         <!--  added for the story #S-418604 (00715861) #END -->
+
+     </apex:pageBlockSection>
+<!--      modified below line S-429664 -->
+        <center><apex:commandButton value="Search" action="{!Search}"   oncomplete="uncheckAll(this); setStyle();"   reRender="resulttbl,Resultmsg" status="searchStat"/>
+            <br/>
+            <apex:actionStatus startText="Searching, please wait...."
+                        stopText="" id="searchStat" />
+            </center>
+     </apex:form>
+       <br/><br/>
+       <apex:pagemessages id="Resultmsg" escape="false"/>
+       <apex:form id="resulttbl">
+
+<!--        added for S-429664 -->
+               <script>
+    var currentIndex = parseInt('{!selectedPageNumber}');
+    var numberOfLinks = parseInt('{!totalPage}');
+    function setCurrentPage(index) {
+        if(currentIndex != index) {
+            currentIndex = parseInt(index);
+            getpage(currentIndex);
+        }
+    }
+    function setStyle() {
+        if(currentIndex == numberOfLinks) {
+            document.getElementById("nextDown").className = "notNext";
+        } else {
+            document.getElementById("nextDown").className = "next";
+        }
+        if(currentIndex == 1) {
+            document.getElementById("previousDown").className = "notPrevious";
+        } else {
+            document.getElementById("previousDown").className = "prev";
+        }
+    }
+
+    function nextPage() {
+        if(currentIndex < numberOfLinks) {
+        currentIndex = currentIndex + 1;
+        getpage(currentIndex);
+        }
+    }
+    function previousPage() {
+        if(currentIndex > 1) {
+         currentIndex = currentIndex - 1;
+         getpage(currentIndex);
+        }
+    }
+
+    </script>
+
+        <apex:actionFunction name="getpage" action="{!getList}"
+            rerender="resulttbl" status="status" immediate="true" onComplete="setStyle(); numberOfLinks = parseInt('{!totalPage}'); currentIndex = parseInt('{!selectedPageNumber}'); ">
+            <apex:param value="" assignTo="{!selectedPageNumber}"
+                name="cPageNumber" />
+        </apex:actionFunction>
+<!--   end S-429664 -->
+             <apex:pageBlockSection title="Search Results" rendered="{!msgRendered}" columns="1" collapsible="false">
+              <apex:pageBlockSectionItem dataStyle="width=10%">
+               <apex:outputLabel value="New Sales Person" style="font-weight:bold" rendered="{!tblRendered}"></apex:outputLabel>
+               <apex:inputField value="{!newsalesPersonlkup.ownerID}" style="align:left" rendered="{!tblRendered}"/>
+              </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem >
+                 <apex:commandButton value="Assign Selected" rendered="{!tblRendered}" onclick="return reAssign();" rerender="resultpbTBL,Resultmsg,sallchk"/>
+                 <apex:commandButton value="Assign All" rendered="{!tblRendered}" onclick="return reAssignAll();" rerender="resultpbTBL,Resultmsg,sallchk"/>
+                 </apex:pageBlockSectionItem>
+                 <apex:actionStatus startText="Reassignment In Progress, please wait...."
+                        stopText="" id="reassignStat" />
+                 </apex:pageBlockSection>
+<!--                  Modified  for S-429664 -->
+                 <apex:actionFunction name="reAssignaction" action="{!reAssign}" oncomplete="uncheckAll(this)"   rerender="resultpbTBL,Resultmsg,sallchk,resulttbl" status="reassignStat"/>
+                 <apex:actionFunction name="reAssignAllaction" action="{!reAssignAll}" oncomplete="uncheckAll(this)"   rerender="resultpbTBL,Resultmsg,sallchk,resulttbl" status="reassignStat"/>
+<!--                  end S-429664 -->
+          <!--   <center>
+              <apex:commandButton value="Assign Selected" action="{!Reassign}" rendered="{!tblRendered}" onclick="return confirm('The Operation Will ReAssign Selected Prospect, Are You Sure?');"/>
+              <apex:commandButton value="Assign All" action="{!ReassignAll}" rendered="{!tblRendered}" onclick="return confirm('The Operation Will ReAssign All Prospects Returned By The Search Criteria, Are You Sure?');"/>
+             </center>   -->
+                 <br/>
+
+<!--                  added for S-429664 -->
+<apex:actionstatus id="status">
+                    <apex:facet name="start">
+                        <div class="waitingSearchDiv" id="el_loading"
+                            style="background-color: #fbfbfb; height: 100%; opacity: 0.65; width: 100%;">
+                        <div class="waitingHolder" style="top: 174.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif"
+                            title="Please Wait..." /> <span class="waitingDescription">Loading...</span>
+                        </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+             <apex:outputLabel value="Your Search Fetched {!TotalSearchRows} out of {!totalRows} Records" rendered="{!msgRendered}" style="color:#4C787E"/>
+			 <apex:outputPanel rendered="{!tblRendered}" id="pg">
+			   <table width="100%" style="margin-top: 8px;">
+            <tr>
+                <td>&nbsp;</td>
+                <td style="float: right; vertical-align: middle; font-size: 15px;">
+                <div id="PaginationDown" class="pagination"><a href="#"
+                    class="notPrevious" id="previousDown"
+                    onClick="previousPage(); return false;">Previous</a> <span
+                    style="IF (isMorePrevious,'display: block; font-size: 14px; color: #5E82A3; ',' display: none;"><b>....</b></span>
+                <apex:repeat value="{!listOfLinks}" var="number">
+                    <a href="#" style=""
+                        class="{!IF(number == selectedPageNumber,'current','')}"
+                        onClick="setCurrentPage('{!number}');return false;">{!number}</a>
+                </apex:repeat> <span
+                    style="IF (isMoreNext,'display: block; font-size: 14px; color: #5E82A3; ',' display: none;"><b>....</b></span>
+                <a id="nextDown" href="#" class="next"
+                    onClick="nextPage(); return false;">Next</a></div>
+                </td>
+            </tr>
+        </table>
+			 </apex:outputPanel>
+			 <!--              end S-429664 -->
+              <apex:pageBlockTable value="{!roWrapperList}" var="sr" width="100%" rendered="{!tblRendered}" ID="resultpbTBL">
+             <apex:column >
+                   <apex:facet name="header" >
+                     <apex:inputCheckbox id="sallchk" disabled="{!disableSelectAll}">
+                     <apex:actionSupport event="onclick"  onsubmit="checkAllReassign(this)" rerender="resultpbTBL"/>
+                     </apex:inputCheckbox>
+                   </apex:facet>
+                  <apex:inputCheckbox value="{!sr.sbox}" id="checkedone" disabled="{!sr.selectDisabled}"/>
+             </apex:column>
+             <apex:column value="{!sr.act.Account_Number__c}" headerValue="Prospect Number"/>
+            <apex:column headerValue="Prospect Name">
+                <apex:outputLink value="/{!sr.act.Id}" target="_blank" >{!sr.act.Name}</apex:outputLink>
+            </apex:column>>
+
+             <apex:column value="{!sr.act.owner.name}" headerValue="Sales Person Name"/>
+             <apex:column value="{!sr.act.sales_personid__r.name}" headerValue="Sales Person ID"/>
+             <apex:column value="{!sr.act.Industry_OD_SIC_Rep__c}" headerValue="Industry"/>
+             <apex:column value="{!sr.act.Org_WCW_Count_Rep__c}" headerValue="WCW"/>
+
+             <apex:column value="{!sr.act.Zip__c}"/>
+             <apex:column value="{!sr.act.Status__c}" headerValue="Prospect Status"/>
+             <apex:column value="{!sr.act.assignment_status__r.Status__c}" headerValue="Assignment Queue Status"/>
+             <!--<apex:column value="{!sr.act.assignment_status__r.Status_message__c}" headerValue="Queue Status Message"/>
+             <apex:column value="{!sr.act.assignment_status__r.Approve_Reject_Date__c}" headerValue="Approve/Reject Date"/>-->
+             <apex:column value="{!sr.act.assignment_status__r.New_Owner__c}"  headerValue="Proposed Sales Rep" />
+             <apex:column value="{!sr.act.assignment_status__r.Approver__c}" headerValue="Approver"/>
+
+         </apex:pageBlockTable>
+
+       </apex:form>
+
+   </apex:pageBlock>
+
+
+</apex:component>

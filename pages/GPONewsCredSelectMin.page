@@ -1,0 +1,16 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="GPONewsCredSelectCntrl">
+<apex:variable value="{!0}" var="rownum"/>
+<div class="tip_section">
+
+   <apex:repeat value="{!postNewsCredHdrs}" var="M">  
+      <div class="tip gw2 {!IF(MOD(rownum,3)==0,'clear','')}">
+           <img src="{!M.link}"/>
+           <a href="{!M.guid}" target="_blank">
+           {!M.title}
+          </a><br/><br/>       
+      </div>  
+      <apex:variable var="rownum" value="{!rownum+1}"/>     
+   </apex:repeat>
+ 
+</div>
+</apex:page>

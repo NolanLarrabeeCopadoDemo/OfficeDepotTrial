@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Measures how many leads have been closed or converted</description>
+    <groupColumn>Lead.Owner_Region__c</groupColumn>
+    <mappings>
+        <sourceField>Lead.Owner_Region__c</sourceField>
+        <sourceType>tabular</sourceType>
+        <targetField>Reporting_Snapshot__c.Name</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>RowCount</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Reporting_Snapshot__c.Converted_Leads__c</targetField>
+    </mappings>
+    <name>Converted Leads</name>
+    <runningUser>055053@officedepot.com</runningUser>
+    <sourceReport>Certification_Metrics_Report/Cert_Leads_Closed</sourceReport>
+    <targetObject>Reporting_Snapshot__c</targetObject>
+</AnalyticSnapshot>

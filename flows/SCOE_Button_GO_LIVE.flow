@@ -1,0 +1,2423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>49.0</apiVersion>
+    <choices>
+        <name>Account_Closure</name>
+        <choiceText>Account Closure</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Account Closure</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Account_Maintenance_Customer_Service_Reporting</name>
+        <choiceText>Account Maintenance</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Account Maintenance</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Account_Placed_on_DNS</name>
+        <choiceText>Account Placed on DNS (Collections Only)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Account Placed on DNS</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Account_Reactivations</name>
+        <choiceText>Account Reactivations</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Account Reactivations</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AccountingFieldMaintenance</name>
+        <choiceText>Accounting Field Maintenance</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Accounting Field Maintenance</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AddressExceptionsRequestOther</name>
+        <choiceText>Address Exceptions Request (Other)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Address Exceptions Request</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Back_to_School</name>
+        <choiceText>Back to School</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Back to School</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>BillComplete</name>
+        <choiceText>Bill Complete</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Bill Complete</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>BillExNo</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>BillExYes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Billing_Exception_Requests</name>
+        <choiceText>Billing Exception Requests</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Billing Exception Requests</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Billing_Frequency_Updates</name>
+        <choiceText>Billing Frequency Updates</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Billing Frequency Updates</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Billing_Setup</name>
+        <choiceText>Billing Setup</choiceText>
+        <dataType>String</dataType>
+        <userInput>
+            <isRequired>false</isRequired>
+        </userInput>
+    </choices>
+    <choices>
+        <name>Billing_Setup1</name>
+        <choiceText>Billing Setup Request</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Billing Setup Request</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Change_Billing_Setup</name>
+        <choiceText>Change Billing Setup</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Change Billing Setup</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CMSVendavoAccess</name>
+        <choiceText>CMS/Vendavo Access</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>CMS/Vendavo Access</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Compliance</name>
+        <choiceText>Compliance</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Compliance</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Consolidated_Bill_one_invoice_per_billing_cycle1</name>
+        <choiceText>Consolidated Bill (one invoice per billing cycle)</choiceText>
+        <dataType>Currency</dataType>
+        <userInput>
+            <isRequired>true</isRequired>
+            <promptText>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Please enter Annual Spend &lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;</promptText>
+            <validationRule>
+                <errorMessage>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:14px&quot; COLOR=&quot;#FF0000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;This Customer requires additional support. A support case will not be created. &lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:14px&quot; COLOR=&quot;#FF0000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;/FONT&gt;&lt;/DIV&gt;&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:14px&quot; COLOR=&quot;#FF0000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Please contact AR Billing at ARBillingimplementation@officedepot.com&lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;</errorMessage>
+                <formulaExpression>( ({!Consolidated_Bill_one_invoice_per_billing_cycle1}) &gt;= 60000)</formulaExpression>
+            </validationRule>
+        </userInput>
+        <value>
+            <elementReference>Consolidated_Bill_Type</elementReference>
+        </value>
+    </choices>
+    <choices>
+        <name>Consolidated_Bill_one_invoice_per_billing_cycle_text</name>
+        <choiceText>Consolidated Bill (one invoice per billing cycle)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Consolidated Bill (one invoice per billing cycle)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Consolidated_Bill_Type</name>
+        <choiceText>Consolidated Bill</choiceText>
+        <dataType>Number</dataType>
+    </choices>
+    <choices>
+        <name>CopyandPrint</name>
+        <choiceText>Copy and Print</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Copy and Print</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Cost_Center</name>
+        <choiceText>Cost Center</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cost Center</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Cost_Center_Subtotal</name>
+        <choiceText>Cost Center</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Cost Center</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Credit_Limit_Decreases</name>
+        <choiceText>Credit Limit Decreases</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Credit Limit Decreases</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Credit_Limit_Increases</name>
+        <choiceText>Credit Limit Increases</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Credit_Setup</name>
+        <choiceText>Credit Setup</choiceText>
+        <dataType>String</dataType>
+        <userInput>
+            <isRequired>false</isRequired>
+        </userInput>
+    </choices>
+    <choices>
+        <name>Credit_Setup1</name>
+        <choiceText>Credit Setup Request</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Credit Setup Request</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CusAppNo</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CusAppYes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CusFileNo</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CusFileYes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Customer_Request</name>
+        <choiceText>Customer Request</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Customer Request</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CustomerService</name>
+        <choiceText>Customer Service</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Customer Service</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Daily</name>
+        <choiceText>Daily</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Daily</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Department</name>
+        <choiceText>Department</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Department</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Department_Subtotal</name>
+        <choiceText>Department</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Department</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Deployment_Request</name>
+        <choiceText>Deployment Request</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Desktop</name>
+        <choiceText>Desktop</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Desktop</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Direct_Billing_Bill_goes_to_Bill_To_Seq</name>
+        <choiceText>Direct Billing Request (Bill goes to Bill To Seq)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Direct Billing Request (Bill goes to Bill To Seq)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>E_Billing_Contact_Update</name>
+        <choiceText>E-Billing Contact Update</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>E-Billing Contact Update</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>E_Statements_Enrollment</name>
+        <choiceText>E -Statements Enrollment</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>E -Statements Enrollment</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>EcommCustomCatalog</name>
+        <choiceText>E-Comm/Custom Catalog</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>E-Comm/Custom Catalog</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>eExcel</name>
+        <choiceText>eExcel</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>eExcelmediaType</name>
+        <choiceText>eExcel</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>eExcel</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ePDFmediatype</name>
+        <choiceText>ePDF</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>ePDF</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Furniture</name>
+        <choiceText>Furniture</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Furniture</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Furniture_NON_Code_or_Catalog</name>
+        <choiceText>Furniture NON-Code or Catalog</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Furniture NON-Code or Catalog</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>GeneralMaintenance</name>
+        <choiceText>General Maintenance</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>General Maintenance</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>GreenReporting</name>
+        <choiceText>Green Reporting</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Green Reporting</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ImplementationFieldeCommerce</name>
+        <choiceText>Implementation/Field eCommerce</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Implementation/Field eCommerce Request</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ImplementationRequest</name>
+        <choiceText>Implementation Request</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Implementation Request</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Increased_Spend_Permanent</name>
+        <choiceText>Increased Spend (Permanent)</choiceText>
+        <dataType>Currency</dataType>
+        <userInput>
+            <isRequired>true</isRequired>
+            <promptText>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Estimated Annual Spend &lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;</promptText>
+        </userInput>
+    </choices>
+    <choices>
+        <name>Increased_Spend_Permanent1</name>
+        <choiceText>Increased Spend (Permanent)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Increased Spend (Permanent)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Indirect_Billing_Contact_Update</name>
+        <choiceText>Indirect Billing Contact Update</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Indirect Billing Contact Update</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Indirect_Billing_Request_Bill_goes_to_Ship_to</name>
+        <choiceText>Indirect Billing Request (Bill goes to Ship to)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Indirect Billing Request (Bill goes to Ship to)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Individual_Invoice_Bill_Type</name>
+        <choiceText>Individual Invoice</choiceText>
+        <dataType>String</dataType>
+        <userInput>
+            <isRequired>true</isRequired>
+            <promptText>One invoice per shipment</promptText>
+        </userInput>
+    </choices>
+    <choices>
+        <name>Individual_Invoice_one_invoice_per_shipment</name>
+        <choiceText>Individual Invoice (one invoice per shipment)</choiceText>
+        <dataType>Currency</dataType>
+        <value>
+            <elementReference>Consolidated_Bill_Type</elementReference>
+        </value>
+    </choices>
+    <choices>
+        <name>Individual_Invoice_one_invoice_per_shipment_Text</name>
+        <choiceText>Individual Invoice (one invoice per shipment)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Individual Invoice (one invoice per shipment)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Input_dollar_Limit</name>
+        <choiceText>Input dollar Limit</choiceText>
+        <dataType>Number</dataType>
+    </choices>
+    <choices>
+        <name>InventoryChannelSupport</name>
+        <choiceText>Inventory Channel Support</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inventory Channel Support</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Line_Item_Detail_includes_SKU</name>
+        <choiceText>Line Item Detail (Includes SKU)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Line Item Detail Includes SKU</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Line_Item_DetailmediatType</name>
+        <choiceText>Line Item Detail</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Line Item Detail</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>LocationsNo</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>LocationsYes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Lost_Contract</name>
+        <choiceText>Lost Contract</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Lost Contract</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ManagedPrintServices</name>
+        <choiceText>Managed Print Services (MPS)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Managed Print Services (MPS)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Marketing</name>
+        <choiceText>Marketing</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Marketing</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Medallia</name>
+        <choiceText>Medallia</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Medallia</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Monthly</name>
+        <choiceText>Monthly</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Monthly</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>MPS</name>
+        <choiceText>MPS</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>MPS</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>NAChoice</name>
+        <choiceText>NA</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <elementReference>NA</elementReference>
+        </value>
+    </choices>
+    <choices>
+        <name>New_Account</name>
+        <choiceText>New Account</choiceText>
+        <dataType>Number</dataType>
+    </choices>
+    <choices>
+        <name>New_Account1</name>
+        <choiceText>New Account</choiceText>
+        <dataType>Number</dataType>
+    </choices>
+    <choices>
+        <name>New_Account_Account_Closure</name>
+        <choiceText>New Account</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New Account</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>NewAccountSetupQuestions</name>
+        <choiceText>New Account Setup Questions</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New Account Setup Questions</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>No</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>No_Indirect_Billing</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>No_Line_Item_Detail</name>
+        <choiceText>No Line Item Detail</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No Line Item Detail</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>No_Line_Item_DetailmediaType</name>
+        <choiceText>No Line Item Detail</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No Line Item Detail</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>NoAddressEx</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>NoBillExc</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>NoGPO</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>None</name>
+        <choiceText>-None-</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>-None-</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>One_Time_Spend_Temporary</name>
+        <choiceText>One Time Spend (Temporary)</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>One_Time_Spend_Temporary1</name>
+        <choiceText>One Time Spend (Temporary)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>One Time Spend (Temporary)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>One_Time_Spend_Temporary2</name>
+        <choiceText>One Time Spend (Temporary)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>One_Time_Spend_Temporary2</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>One_Time_Spend_Temporary_New</name>
+        <choiceText>One Time Spend (Temporary)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>One Time Spend (Temporary)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Other</name>
+        <choiceText>Other</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>OwnNo</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>OwnYes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Paper</name>
+        <choiceText>Paper</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Paper</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PaperMediaType</name>
+        <choiceText>Paper</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Paper</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PricingMaintenance</name>
+        <choiceText>Pricing Maintenance</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Pricing Maintenance</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Purchase_Order</name>
+        <choiceText>Purchase Order</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Purchase Order</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Purchase_Order_Subtotal</name>
+        <choiceText>Purchase Order</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Purchase Order</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Re_attach_AB_Tender</name>
+        <choiceText>Re-attach AB Tender</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Re-attach AB Tender</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Rebates</name>
+        <choiceText>Rebates</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Rebates</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Release</name>
+        <choiceText>Release</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Release</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Release_Subtotal</name>
+        <choiceText>Release</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Release</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Remove_AB_Tender</name>
+        <choiceText>Remove AB Tender</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Remove AB Tender</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ReportingSalesAdmin</name>
+        <choiceText>Reporting/Sales Admin</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Reporting/Sales Admin</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ReportingTeam</name>
+        <choiceText>Reporting Team</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Reporting</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Salesforce</name>
+        <choiceText>Salesforce</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Salesforce</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>SalesPrism</name>
+        <choiceText>Sales Prism</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Sales Prism</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Seismic</name>
+        <choiceText>Seismic</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Seismic</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Semi_Monthly</name>
+        <choiceText>Semi-Monthly</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Semi-Monthly</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Semi_Monthly_16th_EOM</name>
+        <choiceText>Semi Monthly 16th &amp; EOM</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Semi Monthly 16th &amp; EOM</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Semi_Monthly_1st_15th</name>
+        <choiceText>Semi-Monthly - 1st &amp; 15th</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Semi-Monthly - 1st &amp; 15th</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Ship_to_Location</name>
+        <choiceText>Ship to Location</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Ship to Location</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Ship_to_Location_Subtotal</name>
+        <choiceText>Ship to Location</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Ship to Location</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ShiptoBilltoAddressMaintenance</name>
+        <choiceText>Ship to/Bill to Address Maintenance</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Ship to/Bill to Address Maintenance</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Sort_Subtotal</name>
+        <choiceText>Sort</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Sort</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>StorePurchasingCardSPCMaintenance</name>
+        <choiceText>Store Purchasing Card (SPC) Maintenance</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Store Purchasing Card (SPC) Maintenance</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Summary</name>
+        <choiceText>Summary</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Summary</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Team_Design_Use_Only_50_deposit</name>
+        <choiceText>Team Design Use Only (50% deposit)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Team Design Use Only (50% deposit)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Technology</name>
+        <choiceText>Technology</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Technology</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>TierOne</name>
+        <choiceText>Tier One</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Tier 1</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Update_Payment_Terms</name>
+        <choiceText>Update Payment Terms</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Update Payment Terms</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>WebAccountMaintenance</name>
+        <choiceText>Web Account Maintenance</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Web Account Maintenance</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Weekly</name>
+        <choiceText>Weekly</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Weekly</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X30_days</name>
+        <choiceText>30 days</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>30 days</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X60_days</name>
+        <choiceText>60 days</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>60 days</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X90_days</name>
+        <choiceText>90 days</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Yes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Yes_Indirect_Billing</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>YesAddressEx</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>YesBillExc</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>YesGPO</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <constants>
+        <name>DirectN</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>N</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>DirectNA</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>NA</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>DirectY</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Y</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Indirect_Billing_N</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>N</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Internal</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Internal</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>Value to pass through all of flow = not applicable</description>
+        <name>NA</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>NA</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>Case Priority</description>
+        <name>Priority</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>3-Medium</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>Record Type ID = Finance</description>
+        <name>RID</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>0121k0000000BWr</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Sales</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Sales</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Support</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Support</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Sysadmin</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>System Administrator</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <name>AM_Choice_Screen</name>
+        <label>AM Choice Screen</label>
+        <locationX>1045</locationX>
+        <locationY>127</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>General</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Maintenance_Request_Type_Picklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>GeneralMaintenance</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>General_Maint_flow</targetReference>
+            </connector>
+            <label>General</label>
+        </rules>
+        <rules>
+            <name>web</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Maintenance_Request_Type_Picklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>WebAccountMaintenance</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Web_Account_Maint</targetReference>
+            </connector>
+            <label>web</label>
+        </rules>
+        <rules>
+            <name>spc</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Maintenance_Request_Type_Picklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>StorePurchasingCardSPCMaintenance</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SPC_Flow</targetReference>
+            </connector>
+            <label>spc</label>
+        </rules>
+        <rules>
+            <name>shiptobillto</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Maintenance_Request_Type_Picklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>ShiptoBilltoAddressMaintenance</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Shipto_maint_flow</targetReference>
+            </connector>
+            <label>shiptobillto</label>
+        </rules>
+        <rules>
+            <name>New_Accountquestions</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Maintenance_Request_Type_Picklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>NewAccountSetupQuestions</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>New_Account_Questions</targetReference>
+            </connector>
+            <label>New Account</label>
+        </rules>
+        <rules>
+            <name>accounting_field</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Maintenance_Request_Type_Picklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>AccountingFieldMaintenance</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Accounting_Field_Maint_Flow</targetReference>
+            </connector>
+            <label>accounting field</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Case_Routing_Decision</name>
+        <label>Case Routing Decision</label>
+        <locationX>687</locationX>
+        <locationY>13</locationY>
+        <defaultConnectorLabel>[Default Outcome]</defaultConnectorLabel>
+        <rules>
+            <name>Credit_Setup_Options</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Credit_Setup1</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Launch_Credit_Setup_Request</targetReference>
+            </connector>
+            <label>Credit Setup Options</label>
+        </rules>
+        <rules>
+            <name>Billing_Setup_Options</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Billing_Setup1</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Launch_Billing_Setup_Request</targetReference>
+            </connector>
+            <label>Billing Setup Options</label>
+        </rules>
+        <rules>
+            <name>AccountMain</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Account_Maintenance_Customer_Service_Reporting</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Account_Maint_Options</targetReference>
+            </connector>
+            <label>AccountMain</label>
+        </rules>
+        <rules>
+            <name>Deployment_Requests</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Deployment_Request</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Launch_Deployment_Requests</targetReference>
+            </connector>
+            <label>Deployment Requests</label>
+        </rules>
+        <rules>
+            <name>Customer_Service</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>CustomerService</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Customer_Service_Flow</targetReference>
+            </connector>
+            <label>Customer Service</label>
+        </rules>
+        <rules>
+            <name>reporting_Sales_Admin</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>ReportingSalesAdmin</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>reporting_sales_adminflow</targetReference>
+            </connector>
+            <label>reporting Sales Admin</label>
+        </rules>
+        <rules>
+            <name>CMS_Vendavo_Access</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>CMSVendavoAccess</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CMS_Vendavo_Access_Flow</targetReference>
+            </connector>
+            <label>CMS/Vendavo Access</label>
+        </rules>
+        <rules>
+            <name>Pricing_Maintenance</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>PricingMaintenance</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Pricing_Maintenance_Flow</targetReference>
+            </connector>
+            <label>Pricing Maintenance</label>
+        </rules>
+        <rules>
+            <name>Implementation_Request</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>ImplementationRequest</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Implementation_Request_Flow</targetReference>
+            </connector>
+            <label>Implementation Request</label>
+        </rules>
+        <rules>
+            <name>Tier_One</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>TierOne</elementReference>
+                </rightValue>
+            </conditions>
+            <label>Tier One</label>
+        </rules>
+        <rules>
+            <name>Reporting</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>ReportingTeam</elementReference>
+                </rightValue>
+            </conditions>
+            <label>Reporting</label>
+        </rules>
+        <rules>
+            <name>Bill_Completeflow</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Choices</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>BillComplete</elementReference>
+                </rightValue>
+            </conditions>
+            <label>Bill Complete</label>
+        </rules>
+    </decisions>
+    <description>Final Go Live Flow December updates</description>
+    <dynamicChoiceSets>
+        <name>BillingFrequencySubTypeLOV</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Billing_Frequency_SubType_LOV__c</picklistField>
+        <picklistObject>Case</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>BillingFrequencyUpdateLOV</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Billing_Frequency_Update_LOV__c</picklistField>
+        <picklistObject>Case</picklistObject>
+        <sortOrder>Desc</sortOrder>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>BillingMediaTypes</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Billing_Media_Types__c</picklistField>
+        <picklistObject>Case</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>ProductType</name>
+        <dataType>Multipicklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>WRF_Prod_Type__c</picklistField>
+        <picklistObject>Case</picklistObject>
+        <sortOrder>Asc</sortOrder>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>SubType</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Billing_Frequency_SubType_LOV__c</picklistField>
+        <picklistObject>Case</picklistObject>
+    </dynamicChoiceSets>
+    <formulas>
+        <name>fxuserid</name>
+        <dataType>String</dataType>
+        <expression>{!$User.Id}</expression>
+    </formulas>
+    <formulas>
+        <description>Profile ID</description>
+        <name>profileid</name>
+        <dataType>String</dataType>
+        <expression>{!$Profile.Name}</expression>
+    </formulas>
+    <interviewLabel>SCOE Button - GO LIVE {!$Flow.CurrentDateTime}</interviewLabel>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
+    <label>SCOE Button - GO LIVE</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Account_Maint_Options</name>
+        <label>Account Maint Options</label>
+        <locationX>1040</locationX>
+        <locationY>12</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>AM_Choice_Screen</targetReference>
+        </connector>
+        <fields>
+            <name>Maintenance_Request_Type_Picklist</name>
+            <choiceReferences>AccountingFieldMaintenance</choiceReferences>
+            <choiceReferences>GeneralMaintenance</choiceReferences>
+            <choiceReferences>NewAccountSetupQuestions</choiceReferences>
+            <choiceReferences>ShiptoBilltoAddressMaintenance</choiceReferences>
+            <choiceReferences>StorePurchasingCardSPCMaintenance</choiceReferences>
+            <choiceReferences>WebAccountMaintenance</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Please select a maintenance request type:</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>What_do_you_want_to_do_today</name>
+        <label>What do you want to do today?</label>
+        <locationX>504</locationX>
+        <locationY>7</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Case_Routing_Decision</targetReference>
+        </connector>
+        <fields>
+            <name>logo</name>
+            <fieldText>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;img src=&quot;https://officedepot.scene7.com/is/content/officedepot/od-omax-logo2&quot;&gt;&lt;/FONT&gt;&lt;/DIV&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Greeting</name>
+            <fieldText>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:14px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Hello {!fullName}, Please select a Request Type:&lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Account_Number_New</name>
+            <fieldText>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Account Number: {!custid}&lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Account Name: {!acctnm}&lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Choices</name>
+            <choiceReferences>Account_Maintenance_Customer_Service_Reporting</choiceReferences>
+            <choiceReferences>Billing_Setup1</choiceReferences>
+            <choiceReferences>Credit_Setup1</choiceReferences>
+            <choiceReferences>CustomerService</choiceReferences>
+            <choiceReferences>CMSVendavoAccess</choiceReferences>
+            <choiceReferences>Deployment_Request</choiceReferences>
+            <choiceReferences>ImplementationRequest</choiceReferences>
+            <choiceReferences>PricingMaintenance</choiceReferences>
+            <choiceReferences>ReportingSalesAdmin</choiceReferences>
+            <choiceReferences>BillComplete</choiceReferences>
+            <choiceReferences>TierOne</choiceReferences>
+            <choiceReferences>Salesforce</choiceReferences>
+            <choiceReferences>SalesPrism</choiceReferences>
+            <choiceReferences>Furniture</choiceReferences>
+            <choiceReferences>GreenReporting</choiceReferences>
+            <choiceReferences>ImplementationFieldeCommerce</choiceReferences>
+            <choiceReferences>ManagedPrintServices</choiceReferences>
+            <choiceReferences>Marketing</choiceReferences>
+            <choiceReferences>Medallia</choiceReferences>
+            <choiceReferences>Rebates</choiceReferences>
+            <choiceReferences>ReportingTeam</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Request Type:</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <pausedText>Please select a category that your request falls into.</pausedText>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>What_do_you_want_to_do_today</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Accounting_Field_Maint_Flow</name>
+        <label>Accounting Field Maint Flow</label>
+        <locationX>924</locationX>
+        <locationY>231</locationY>
+        <flowName>Accounting_Field_Maintenance_Flow</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Bill_Complete</name>
+        <label>Bill Complete</label>
+        <locationX>30</locationX>
+        <locationY>401</locationY>
+        <flowName>Bill_Complete_Request</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Queue</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>recid</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>recordtypeid</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>CMS_Vendavo_Access_Flow</name>
+        <label>CMS/Vendavo Access Flow</label>
+        <locationX>422</locationX>
+        <locationY>519</locationY>
+        <flowName>CMS_Vendavo_Access</flowName>
+        <inputAssignments>
+            <name>Username</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>acctid</assignToReference>
+            <name>acctid</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>acctnm</assignToReference>
+            <name>acctnm</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>custid</assignToReference>
+            <name>custid</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>Customer_Service_Flow</name>
+        <label>Customer Service Flow</label>
+        <locationX>645</locationX>
+        <locationY>391</locationY>
+        <flowName>SCOE_Customer_Service</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>General_Maint_flow</name>
+        <label>General Maint flow</label>
+        <locationX>1025</locationX>
+        <locationY>308</locationY>
+        <flowName>General_Maintenance_Flow</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Implementation_Request_Flow</name>
+        <label>Implementation Request Flow</label>
+        <locationX>813</locationX>
+        <locationY>440</locationY>
+        <flowName>Implementation_Request</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>acctid</assignToReference>
+            <name>acctid</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>acctnm</assignToReference>
+            <name>acctnm</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>custid</assignToReference>
+            <name>custid</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>Launch_Billing_Setup_Request</name>
+        <label>Launch Billing Setup Request</label>
+        <locationX>242</locationX>
+        <locationY>281</locationY>
+        <flowName>Billing_Setup_Request</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>acctid</assignToReference>
+            <name>acctid</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>acctnm</assignToReference>
+            <name>acctnm</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>custid</assignToReference>
+            <name>custid</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>Launch_Credit_Setup_Request</name>
+        <label>Launch Credit Setup Request</label>
+        <locationX>485</locationX>
+        <locationY>345</locationY>
+        <flowName>Credit_Setup_Request</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>acctid</assignToReference>
+            <name>acctid</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>acctnm</assignToReference>
+            <name>acctnm</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>custid</assignToReference>
+            <name>custid</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>Launch_Deployment_Requests</name>
+        <label>Launch Deployment Requests</label>
+        <locationX>180</locationX>
+        <locationY>143</locationY>
+        <flowName>Deployment_Requests</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>acctid</assignToReference>
+            <name>acctid</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>acctnm</assignToReference>
+            <name>acctnm</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>custid</assignToReference>
+            <name>custid</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>New_Account_Questions</name>
+        <label>New Account Questions</label>
+        <locationX>1251</locationX>
+        <locationY>177</locationY>
+        <flowName>New_Setup_Account_Questions_Flow</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Pricing_Maintenance_Flow</name>
+        <label>Pricing Maintenance Flow</label>
+        <locationX>583</locationX>
+        <locationY>506</locationY>
+        <flowName>Pricing_Maintenance</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>acctid</assignToReference>
+            <name>acctid</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>acctnm</assignToReference>
+            <name>acctnm</name>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>custid</assignToReference>
+            <name>custid</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>reporting_sales_adminflow</name>
+        <label>reporting sales admin flow</label>
+        <locationX>779</locationX>
+        <locationY>255</locationY>
+        <flowName>SCOE_Reporting_Sales_Admin</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>ReportingFlow</name>
+        <label>Reporting Flow</label>
+        <locationX>33</locationX>
+        <locationY>269</locationY>
+        <flowName>Reporting</flowName>
+        <inputAssignments>
+            <name>Account_ID</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Account_Name</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Customer_ID</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Record_ID</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>SCOE_RecordTypeId</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>User_ID</name>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Shipto_maint_flow</name>
+        <label>Shipto maint flow</label>
+        <locationX>1202</locationX>
+        <locationY>51</locationY>
+        <flowName>Ship_to_Bill_to_Address_Maintenance_Flow</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>SPC_Flow</name>
+        <label>SPC Flow</label>
+        <locationX>1121</locationX>
+        <locationY>275</locationY>
+        <flowName>Store_Purchasing_Card_SPC_Maintenance</flowName>
+        <inputAssignments>
+            <name>aactnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Tier_One_Flow</name>
+        <label>Tier One Flow</label>
+        <locationX>35</locationX>
+        <locationY>151</locationY>
+        <flowName>SCOE_Tier_1</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>caseid</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>custid</name>
+            <value>
+                <elementReference>custid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>General_Questions_Legal</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>IssueTypeTier1Flow</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>SCOEID</name>
+        </inputAssignments>
+        <inputAssignments>
+            <name>varRecordTypeID</name>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Web_Account_Maint</name>
+        <label>Web Account Maint</label>
+        <locationX>872</locationX>
+        <locationY>83</locationY>
+        <flowName>Web_Account_Maintenance_Flow</flowName>
+        <inputAssignments>
+            <name>acctid</name>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>acctnm</name>
+            <value>
+                <elementReference>acctnm</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>userid</name>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <name>acctid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>AccountName</description>
+        <name>acctnm</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>ConsolidatedBilloneinvoiceperbillingcycle</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Consolidated Bill (one invoice per billing cycle)</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>custid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>custid</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>DeploymentRequest</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <elementReference>Deployment_Request</elementReference>
+        </value>
+    </variables>
+    <variables>
+        <name>EbillEmail</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>EbillEmail</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>FileNames</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>FileNames</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>FileNamescollection</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>Full Name</description>
+        <name>fullName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>GPOid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>GPOnm</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>Individual</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Individual Invoice (one invoice per shipment)</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>mgr_flag</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>NewAccountNew_Account_Account_Closure</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>New Account: {!New_Account_Account_Closure}</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Record Type ID Finance</description>
+        <name>RecordTypeID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>0121k0000000BWr</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>SCOEID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>SCOEID</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>Support_Sub_Indirect_Contact_Update</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Indirect Contact Update</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>SupSub_Indirect_Billing_Request</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Indirect Billing Request</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Support SubType Account Reactivation</description>
+        <name>SupSubAccountReactivation</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Account Reactivation</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Support Subtype - Account Placed on DNS</description>
+        <name>SupSubAcctDNS</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Account Placed on DNS</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Support Sub Address Exceptions</description>
+        <name>SupSubAddressExceptions</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Address Exceptions Request</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>SupSubBillingFreq</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Billing Frequency</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>SupSubCreditDecrease</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Credit Limit Decrease</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>SupSubCreditLimitIncrease</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Credit LImit Increase</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Support SubType Direct Billing Request</description>
+        <name>SupSubDirectBillingRequest</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Direct Billing Request</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Support SubType Ebilling Contact Update</description>
+        <name>SupSubEBilling</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>E-Billing Contact Update</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>SupSubEStatement</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>E-Statements Enrollment</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Support Subtype Indirect Billing Request</description>
+        <name>SupSubIndirectBillingRequest</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Indirect Billing Request</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>SupSubOneTimeSpend</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>One Time Spend (Temporary)</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Team Design Use only</description>
+        <name>SupSubTeamDesign</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Team Design Use Only</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Update Payment Terms</description>
+        <name>SupSubUpdtTerms</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Update Payment Terms</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Support SubType: Account Closure</description>
+        <name>SupSupAccountClosure</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>Account Closure</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>User Id</description>
+        <name>userid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>userid</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>varNo</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>varNo</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>varNone</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <elementReference>None</elementReference>
+        </value>
+    </variables>
+    <variables>
+        <name>VarYes</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>VarYes</stringValue>
+        </value>
+    </variables>
+</Flow>

@@ -1,0 +1,46 @@
+<template>
+    <lightning-card title="Check list for Account Setup Request"> 
+        <div class="slds-p-left_medium">
+            <template if:false={isSubmitted} >
+                <lightning-input type="checkbox" label="Is the annual revenue greater than $500K?" name="input1" value={input1} onclick={handleChange} ></lightning-input> 
+                <!--Abhishek Jain NAIT-151586 - Start -->
+                <template if:true={isChecked}>
+                <lightning-input type="text" label="Anticipated annual revenue" name="input9" value={input9} onchange={handleChange}></lightning-input>
+                </template>
+                <!--Abhishek Jain NAIT-151586 - End -->
+                <lightning-formatted-text class="slds-p-left_small" value="a. Do you have the Customer usage? (Upload Screen at the Bottom)" ></lightning-formatted-text>               
+                <lightning-input type="checkbox" label="Does this Customer require EDI or 3rd Party?" value={input2} name="input2" onclick={handleChange} ></lightning-input>
+                <lightning-input type="checkbox" label="Does the Customer have Desktop/Special Delivery requirements?" value={input3} name="input3" onclick={handleChange} ></lightning-input>
+                <lightning-input type="checkbox" label="Does the Customer require Custom Billing?" value={input4} name="input4" onclick={handleChange} ></lightning-input>
+                <lightning-input type="checkbox" label="Does the Customer require any additional customization?" value={input5} name="input5" onclick={handleChange} ></lightning-input>
+                <lightning-input type="checkbox" label="If you answered ‘No’ to the above questions, would you still like to request an Implementation specialist?" value={input6} name="input6" onclick={handleChange}></lightning-input>
+                <lightning-input type="checkbox" label="Is this Customer Tier One?" value={input7} name="input7" onclick={handleChange}></lightning-input>
+                <template if:true={isValid}>
+                        <lightning-combobox
+                                name="input10"
+                                label="Type of Project"
+                                value={input10}
+                                placeholder="Type of Project"
+                                options={options}
+                        onchange={handleChange} >
+                </lightning-combobox>
+
+                <lightning-textarea  label="Comments" value={Comments} name="input8" onchange={handleChange}></lightning-textarea>
+                </template>
+    
+
+                <lightning-input type="file" onchange={onFileUpload} name="uploadFile" label="Upload File">  </lightning-input>
+                Selected File: {fileName}
+                
+                <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmitClick} class="slds-m-right_x-small" style="margin-left: 850px;"></lightning-button>
+            </template>
+            <template if:true={isSubmitted} >
+                Thank you, your SCOE ticket has been sent to Implementation for review and assignment.
+            </template>
+        </div>               
+    </lightning-card>
+
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </template> 
+</template>

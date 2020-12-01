@@ -1,0 +1,952 @@
+<aura:component implements="force:appHostable,lightning:availableForFlowScreens,force:hasRecordId,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="fields" type="Object" />
+    <force:recordData aura:id="forceRecordCmp"
+                      recordId="{!v.recordId }"
+                      layoutType="FULL"
+                      fields="Name,Vendor_Funded_Core_Specificall__c,NCNC_governed_by_the_agreement__c,Wholesaler_Pricing_specified_in_contract__c,OffContract_Pricing_specified_in_contrac__c,NonCore_Cat_Update_Notice_Period__c,Cust_notif_to_chg_Cust_NonCore_Cat_Prcin__c,NonCore_Cat_Update_Notice_Period__c,Is_there_a_custom_NCC__c,NCC_minimum_sell_price__c,Call_Out_Cost_Plus_Floor__c,Does_written_agreement_allow_for_price__c,Minimum_Annual_Spend_Commitment__c,Cost_basis__c,Deviated_Pricing_offered_to_Customer__c,Contract_have_req_for_prop_items__c,Agreement_provide_disco_on_spec_orders__c,Custom_core_item_count__c,SKU_level_pricing__c,Tiered_discounts_on_CPD__c,Call_Out_Auto_Force_Sub__c,Written_Agreement_allow_GP_Custom_Cores__c,Are_there_GP_SKU_Count_Limitations__c,Agreement_allow_for_custom_cores__c"
+                      mode="VIEW"
+                      targetFields="{!v.fields}"
+                      targetError="{!v.error}" />
+    <div class="slds-box">
+        <lightning:recordViewForm recordId= "{!v.recordId}" objectApiName="Contract">
+            <lightning:messages />
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Account Name</Label>
+                            </span>
+                </div>
+                
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="AccountId" variant="label-hidden" />
+                            </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Customer ID</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Customer_ID__c" variant="label-hidden" />
+                    </span>
+                </div>
+            </div>
+            <br></br>
+            
+            <!-- Pricing Call-Outs  -->
+            <h3 class="slds-section-title--divider"><b>Pricing Call-Outs</b></h3>
+            <br></br>
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Does agreement contain cost plus/floor pricing?</Label>
+                            </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Call_Out_Cost_Plus_Floor__c" variant="label-hidden" />
+                    </span>
+                </div>
+            <aura:if isTrue="{!v.fields.Call_Out_Cost_Plus_Floor__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Cost Plus / Floor Pricing Applied to:</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Cost_Plus_Floor_Type__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">What is the Customer Hierarchy for the Cost Plus Pricing?</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Customer_Hierarchy_Cost_Plus_Pricing__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                
+                    </aura:if>
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Are auto/forced subs permitted?</Label>
+                </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Call_Out_Auto_Force_Sub__c" variant="label-hidden" />
+                    </span>
+                </div>
+            <aura:if isTrue="{!v.fields.Call_Out_Auto_Force_Sub__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Auto-Sub Language</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Call_Out_Sub_Language__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Any other callouts from legal</Label>
+                </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Any_other_callouts_from_legal__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">SKU level pricing?</Label>
+                   
+                
+            <lightning:helptext content="Are there particular SKUs called out for pricing?"/>
+                                 </span>
+                </div>
+               <div class="slds-col slds-size_6-of-12">
+                            <span> 
+    		<lightning:outputField fieldName="SKU_level_pricing__c" variant="label-hidden" />
+                   </span>
+                </div>
+            <aura:if isTrue="{!v.fields.SKU_level_pricing__c}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">SKU level pricing language</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="SKU_level_pricing_language__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                    </aura:if> 
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Tiered discounts on CPD?</Label>
+                </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Tiered_discounts_on_CPD__c" variant="label-hidden" />
+                    </span>
+                </div>
+            <aura:if isTrue="{!v.fields.Tiered_discounts_on_CPD__c}">
+               <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">CPD tiered discount language</Label>
+                   </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="CPD_tiered_discount_language__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                
+                    </aura:if> 
+            </div>
+            <br></br>
+            <!-- Core Details -->
+            <h3 class="slds-section-title--divider"><b>Core Details</b></h3>
+            <br></br>
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Does written agreement have core exhibit pricing?</Label>
+                            </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                
+                                <lightning:outputField fieldName="Written_Agreement_allow_GP_Custom_Cores__c" variant="label-hidden" />
+                    </span>
+                </div>
+            <aura:if isTrue="{!v.fields.Written_Agreement_allow_GP_Custom_Cores__c =='Yes'}">
+               <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Core exhibit agreement language</Label>
+                   </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="GP_Custom_Core_Written_Agreement_Languag__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Are there core exhibit SKU count limitations?</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Are_there_GP_SKU_Count_Limitations__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <aura:if isTrue="{!v.fields.Are_there_GP_SKU_Count_Limitations__c =='Yes'}">
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                    <Label class="slds-form-element__label">Core exhibit item count</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                               
+                                <lightning:outputField fieldName="GP_SKU_Count_Limitation__c" variant="label-hidden" />
+                        </span>
+                    </div>
+                        </aura:if>
+            </aura:if>
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Does written agreement allow for custom cores?</Label>
+                </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Agreement_allow_for_custom_cores__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                
+            <aura:if isTrue="{!v.fields.Agreement_allow_for_custom_cores__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Custom core written agreement language</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Custom_core_written_agreement_language__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Cost basis</Label>
+                </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Cost_basis__c" variant="label-hidden" />
+                    </span>
+                </div>
+            
+            <aura:if isTrue="{!v.fields.Cost_basis__c =='Other'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Other cost basis</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Other_cost_basis__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Web icon required by the written agreement?</Label>
+                                <lightning:Helptext content="Icons are set at the sku level. Icons available are Best Value, Contract, FSSI and Select."/>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="indicators_required_by_written_agreement__c" variant="label-hidden" />
+                    </span>
+                </div>
+            <aura:if isTrue="{!v.fields.indicators_required_by_written_agreement__c}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Web indicators language</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Web_indicators_language__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+            </div>
+            <br></br>
+            
+            <!-- Custom Core Restrictions -->
+            <h3 class="slds-section-title--divider"><b>Custom Core Restrictions</b></h3>
+            <br></br>
+            <div class="slds-grid slds-wrap">
+             <aura:if isTrue="{!v.fields.Agreement_allow_for_custom_cores__c =='Yes'}">   
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Custom core item count</Label>
+                </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Custom_core_item_count__c" variant="label-hidden" />
+                    </span>
+                </div>
+                </aura:if>
+                <aura:if isTrue="{!v.fields.Agreement_allow_for_custom_cores__c =='Yes'}">
+            <aura:if isTrue="{!v.fields.Custom_core_item_count__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Item count restrictions</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Item_count_restrictions__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+                </aura:if>
+            <br></br>
+                <aura:if isTrue="{!v.fields.Agreement_allow_for_custom_cores__c =='Yes'}">
+            <Label class="slds-form-element__label">Item count threshold/tier</Label>
+            
+            
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="From ($)">From ($)</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="To ($)">To ($)</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Discount">Count </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div  >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_From1__c" variant="label-hidden" readonly="true"/>
+                            </div>
+                        </th>
+                        <td>
+                            <div >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_To1__c" variant="label-hidden" />
+                            </div>
+                        </td>
+                        <td>
+                            <div  >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_Count1__c" variant="label-hidden" readonly="true"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_From2__c" variant="label-hidden" />
+                            </div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate">
+                                <lightning:outputField fieldName="Item_count_threshold_tier_To2__c" variant="label-hidden" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_Count2__c" variant="label-hidden"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_From3__c" variant="label-hidden" />
+                            </div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate">
+                                <lightning:outputField fieldName="Item_count_threshold_tier_To3__c" variant="label-hidden" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_Count3__c" variant="label-hidden"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_From4__c" variant="label-hidden" />
+                            </div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate">
+                                <lightning:outputField fieldName="Item_count_threshold_tier_To4__c" variant="label-hidden" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_Count4__c" variant="label-hidden"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_From5__c" variant="label-hidden" />
+                            </div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate">
+                                <lightning:outputField fieldName="Item_count_threshold_tier_To5__c" variant="label-hidden" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_Count5__c" variant="label-hidden"/>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                     <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_From6__c" variant="label-hidden" />
+                            </div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate">
+                                <lightning:outputField fieldName="Item_count_threshold_tier_To6__c" variant="label-hidden" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_Count6__c" variant="label-hidden"/>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                     <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_From7__c" variant="label-hidden" />
+                            </div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate">
+                                <lightning:outputField fieldName="Item_count_threshold_tier_To7__c" variant="label-hidden" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >
+                                <lightning:outputField fieldName="Item_count_threshold_tier_Count7__c" variant="label-hidden"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+                </aura:if>
+                <aura:if isTrue="{!v.fields.Agreement_allow_for_custom_cores__c =='Yes'}">
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            
+            <Label class="slds-form-element__label">Customization is permitted on inherited core skus</Label>
+             <lightning:Helptext content="Custom cores allowed - exhibit items on custom core?"/>
+                </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="No_customization_on_inherited_core_sku__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Custom items must come from specific formulary</Label>
+                                 <lightning:Helptext content="Custom core items are limited to a pre-determined listing, items outside the list are not permitted."/>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Custom_items_must_from_specific_formular__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Custom pricing should not be more or less than inherited pricing</Label>
+            <lightning:Helptext content="Custom cores allowed, exhibit items allowed on customer core, price restrictions"/>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Custom_pricing_should_not_be_more_or_les__c" variant="label-hidden" />
+                    </span>
+                </div>
+            
+                </aura:if>
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+             <Label class="slds-form-element__label">Forced inheritance (no custom cores)</Label>
+                          
+            <lightning:Helptext content="No custom cores"/>
+                                  </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Forced_inheritance_no_custom_cores__c" variant="label-hidden"/>
+                     </span>
+                </div>
+            </div>
+           
+            <br></br>
+            
+            <!-- Category Updates  -->
+            <h3 class="slds-section-title--divider"><b>Category Updates</b></h3>
+            <br></br>
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Does the agreement provide discounting on special orders?</Label>
+                            </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Agreement_provide_disco_on_spec_orders__c" variant="label-hidden" />
+                    </span>
+                </div>
+            <aura:if isTrue="{!v.fields.Agreement_provide_disco_on_spec_orders__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Special Order Discount Language</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Special_Order_Discount_Language__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+            </div>
+            <br></br>
+            <!-- Proprietary Items -->
+            <h3 class="slds-section-title--divider"><b>Proprietary Items</b></h3>
+            <br></br>
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Does the contract have a requirement for proprietary items?</Label>
+                            </span>
+                </div>
+                  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Contract_have_req_for_prop_items__c" variant="label-hidden" />
+                      </span>
+                </div>
+            <aura:if isTrue="{!v.fields.Contract_have_req_for_prop_items__c =='Yes'}">
+                  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Requirement Language for Proprietary Items</Label>
+                      </span>
+                </div>
+                  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Proprietary_Items__c" variant="label-hidden" />
+                      </span>
+                </div>
+                      </aura:if>
+            </div>
+            <br></br>
+            <!-- Off Core Pricing  -->
+            <h3 class="slds-section-title--divider"><b>Off Core Pricing</b></h3>
+            <br></br>
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Does written agreement cover non-core catalog setup/pricing?</Label>
+                            </span>
+                </div>
+                
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Contract_cover_NonCore_Cat_setup_pricing__c" variant="label-hidden" />
+                            </span>
+                    </div>
+                    
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">What assortment is the commitment based upon?</Label>
+                            </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Agreement_respon_based_on_cat_prod_assor__c" variant="label-hidden" />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">NCC discount basis</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="NCC_discount_basis__c" variant="label-hidden" />
+                        </span>
+                    </div>
+            <aura:if isTrue="{!v.fields.NCC_discount_basis__c =='Other'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Other discount basis</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Other_discount_basis__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">NCC minimum sell price</Label>
+                </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="NCC_minimum_sell_price__c" variant="label-hidden" />
+                        </span>
+                    </div>
+            <aura:if isTrue="{!v.fields.NCC_minimum_sell_price__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Trigger</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Trigger__c" variant="label-hidden" />
+                <lightning:outputField fieldName="Trigger_un_named__c" variant="label-hidden" />
+                <lightning:outputField fieldName="Trigger_Integer__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Sell price</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Sell_price__c" variant="label-hidden" />
+                <lightning:outputField fieldName="Sell_price_un_named__c" variant="label-hidden" />
+                <lightning:outputField fieldName="Sell_price_Integer__c" variant="label-hidden" />
+                    </span>
+                </div>
+            </aura:if>
+                <aura:if isTrue="{!v.fields.Contract_cover_NonCore_Cat_setup_pricing__c =='Yes'}">
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Variable NCC discount</Label>
+                </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Variable_NCC_discount__c" variant="label-hidden" />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Variable NCC discount language</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Variable_NCC_discount_language__c" variant="label-hidden" />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">NCC Type?</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Is_there_a_custom_NCC__c" variant="label-hidden" />
+                        </span>
+                    </div>
+              
+            <aura:if isTrue="{!v.fields.Is_there_a_custom_NCC__c =='Custom'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">How frequently can the pricing on the custom NCC be updated (in days)?</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="How_frequently_can_the_pricing_on_the_cu__c" variant="label-hidden" />
+                    </span>
+                </div>
+            </aura:if>
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Non-Core Catalog Description</Label>
+                </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Non_Core_Catalog__c" variant="label-hidden" />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Customer notification needed to change Custom Non-Core Catalog Pricing?</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Cust_notif_to_chg_Cust_NonCore_Cat_Prcin__c" variant="label-hidden"/>
+                        </span>
+                    </div>
+                      </aura:if>
+            <aura:if isTrue="{!v.fields.Cust_notif_to_chg_Cust_NonCore_Cat_Prcin__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Non-Core Catalog Update Notice Period</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="NonCore_Cat_Update_Notice_Period__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <aura:if isTrue="{!v.fields.NonCore_Cat_Update_Notice_Period__c =='Other'}">
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                    <Label class="slds-form-element__label">Non-Core Catalog Update Notice Period(Other)</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="NonCore_Cat_Update_Notice_Period_Other__c" variant="label-hidden" />
+                        </span>
+                    </div>
+                        </aura:if>
+                
+            </aura:if>
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Does written agreement cover off-contract setup/pricing?</Label>
+                </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                            <lightning:outputField fieldName="OffContract_Pricing_specified_in_contrac__c" variant="label-hidden" />
+                        </span>
+                    </div>
+            <aura:if isTrue="{!v.fields.OffContract_Pricing_specified_in_contrac__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Off-Contract Language in agreement</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="OffContract_Lang_in_agreement__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Does written agreement cover wholesaler setup/pricing?</Label>
+                </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Wholesaler_Pricing_specified_in_contract__c" variant="label-hidden" />
+                        </span>
+                    </div>
+                    
+            <aura:if isTrue="{!v.fields.Wholesaler_Pricing_specified_in_contract__c =='Yes'}">
+               <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Wholesaler Language in agreement</Label>
+                   </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Wholesaler_Lang_in_agreement__c" variant="label-hidden" />
+                    </span>
+                </div>
+                
+                    </aura:if>
+            <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Off-Core Manufacturer/Vendor Letter required for Increases?</Label>
+                </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Manuf_Vendor_Letter_requiried_for_Increa__c" variant="label-hidden" />
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">NCNC governed by the agreement?</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="NCNC_governed_by_the_agreement__c" variant="label-hidden" />
+                        </span>
+                    </div>
+                    
+            <aura:if isTrue="{!v.fields.NCNC_governed_by_the_agreement__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">What assortment is the commitment based upon?</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Prod_Assortment_is_response_based_upon__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">NCNC Type?</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="NCNC_Type__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Non-Core Non-Catalog description</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Non_Core_None_Catalog_description__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+                </div> 
+                <br></br>
+            <!-- Deviated Cost Pricing   -->
+            <h3 class="slds-section-title--divider"><b>Deviated Cost Pricing</b></h3> 
+            <br></br>
+             <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Is deviated pricing mentioned in the written agreement?</Label>
+                            </span>
+                 </div>
+                  
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Deviated_Pricing_offered_to_Customer__c" variant="label-hidden" />
+                            </span>
+                 </div>
+            <aura:if isTrue="{!v.fields.Deviated_Pricing_offered_to_Customer__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Is a vendor-funded core specifically referenced?</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Vendor_Funded_Core_Specificall__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Deviated pricing language</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Vendor_funded_core_language__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+               
+            </div>
+      <br></br>
+            <!-- Spend Commitment  -->
+            <h3 class="slds-section-title--divider"><b>Spend Commitments</b></h3> 
+            <br></br>
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Minimum spend commitment?</Label>
+                            </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Minimum_Annual_Spend_Commitment__c" variant="label-hidden" />
+                    </span>
+                </div>
+                
+            <aura:if isTrue="{!v.fields.Minimum_Annual_Spend_Commitment__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Minimum Annual Spend Threshold for Pricing Changes</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Minimum_Annual_Spend_Threshold_for_Prici__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Minimum Annual Spend Commitment contract language</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Min_Annual_Spend_Comm_contract_lang_amt__c" variant="label-hidden" />
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Minimum Annual Spend Commitment Amount</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Minimum_Annual_Spend_Commitment_Amount__c" variant="label-hidden" />
+                    </span>
+                </div>
+            </aura:if>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Does written agreement allow for price change if the core spend exceeds a % of annual volume?</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Does_written_agreement_allow_for_price__c" variant="label-hidden" />
+                    </span>
+                </div>
+                
+            <aura:if isTrue="{!v.fields.Does_written_agreement_allow_for_price__c =='Yes'}">
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Core % of annual volume</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Core_of_annual_volume__c" variant="label-hidden" />
+                    </span>
+                </div>
+                    </aura:if>
+            </div>
+        </lightning:recordViewForm>
+    </div>
+    
+</aura:component>

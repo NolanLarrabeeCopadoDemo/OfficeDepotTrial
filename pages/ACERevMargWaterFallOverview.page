@@ -1,0 +1,159 @@
+<apex:page readOnly="true" title="Revenue & Margin Waterfall" controller="ACEReporting_RevMarg_WaterFall_Overview">
+<style>
+    .col1 {width:30%;}
+    .col2 {width:10%;}
+    .col3 {width:20%;}
+    .col4 {width:20%;}
+    .col5 {width:10%;}
+    .col6 {width:10%;}
+table.dtb {
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table.dtb th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.dtb td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+}
+</style>
+<apex:form >
+  <apex:sectionHeader title="Reports" id="reports1" subtitle="BSD Price Change Process - Revenue Waterfall Summary"/><!--//sfdc 861332:changed the report name to Summary-->
+  <apex:pageBlock title="Summary"> <!--//sfdc 861332:changed the report name to Summary-->     
+    <apex:outputPanel style="text-align: right;float:right;">            
+            <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                <apex:actionSupport event="onchange" action="{!loadData_1}" reRender="table1" status="search_Status3" />
+                <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+            </apex:selectList>
+        </apex:outputPanel>  
+      <br/><br/>
+      <div id="contentLoading3" style="display:none;position:fixed;top:50%;right:50%;" >
+        <div style="text-align: center;">
+          <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/>
+        </div>
+    </div>
+    <apex:actionStatus id="search_Status3" onstart="loading3(true)" onstop="loading3(false)"/>
+    
+      <apex:pageblocktable value="{!ovd}" var="d" id="table1">       
+        <apex:column style="height:25px;white-space:nowrap;" value="{!d.dataType}"> 
+           <apex:facet name="header">Metrics</apex:facet>
+        </apex:column>       
+        <apex:column style="text-align:center;height:25px;white-space:nowrap;" >
+            <!--//sfdc 861332:changed the report name to Summary-->
+           <!--<a href="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=Initial&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank" rendered='false'>-->
+           <apex:outputLink value="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=Initial&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank" rendered="{!(d.Initial>0)}">
+           <apex:outputText value="{!d.formatType}">
+                  <apex:param value="{!d.Initial}"/>
+           </apex:outputText>    
+           </apex:outputLink>
+            <!--- sfdc 861332 - to not show the 0 values as hyperlink -->
+            <apex:outputText value="{!d.formatType}" rendered="{!(d.Initial==0)}">
+                  <apex:param value="{!d.Initial}"/>
+           </apex:outputText>                               
+           <apex:facet name="header">Initial</apex:facet>
+        </apex:column>
+        <apex:column style="text-align:center;height:25px;white-space:nowrap;" >            
+           <apex:facet name="header">Erosion Due to Contract Terms</apex:facet>
+            <!--//sfdc 861332:changed the report name to Summary-->
+            <!--<a href="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=ErosionDuetoContractTerms&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank" > //sfdc 861332   -->
+            <apex:outputLink value="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=ErosionDuetoContractTerms&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank" rendered="{!(d.ContractErosion>0)}">
+           <apex:outputText value="{!d.formatType}">
+                  <apex:param value="{!d.ContractErosion}"/>
+             </apex:outputText>
+           </apex:outputLink>
+           <!--- sfdc 861332 - to not show the 0 values as hyperlink -->
+            <apex:outputText value="{!d.formatType}" rendered="{!(d.ContractErosion==0)}">
+                  <apex:param value="{!d.ContractErosion}"/>
+           </apex:outputText>    
+        </apex:column>
+        <!--sfdc861332- added below column -->
+        <apex:column style="text-align:center;height:25px;white-space:nowrap;">            
+           <apex:facet name="header">Eligible Customers</apex:facet>
+            <!--<a href="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=EligibleCustomers&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank"> -->
+            <apex:outputLink value="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=EligibleCustomers&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank" rendered="{!(d.EligibleCustomers>0)}">
+            <apex:outputText value="{!d.formatType}">
+                  <apex:param value="{!d.EligibleCustomers}"/>
+             </apex:outputText> 
+            </apex:outputLink>
+            <!--- sfdc 861332 - to not show the 0 values as hyperlink -->
+            <apex:outputText value="{!d.formatType}" rendered="{!(d.EligibleCustomers==0)}">
+                  <apex:param value="{!d.EligibleCustomers}"/>
+             </apex:outputText>
+        </apex:column> 
+        <apex:column style="text-align:center;height:25px;white-space:nowrap;">                
+           <apex:facet name="header">Erosion Due to Sales Decisions</apex:facet>
+            <!--//sfdc 861332:changed the report name to Summary-->
+           <!--<a href="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=ErosionduetoSalesDecisions&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank"> -->
+           <apex:outputLink value="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=ErosionduetoSalesDecisions&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank" rendered="{!(d.SalesErosion>0)}">
+           <apex:outputText value="{!d.formatType}">
+                  <apex:param value="{!d.SalesErosion}"/>
+             </apex:outputText>
+           </apex:outputLink>
+           <!--- sfdc 861332 - to not show the 0 values as hyperlink -->
+           <apex:outputText value="{!d.formatType}" rendered="{!(d.SalesErosion ==0)}">
+                  <apex:param value="{!d.SalesErosion}"/>
+           </apex:outputText>
+        </apex:column>
+        <!--sfdc861332- added below column -->
+        <apex:column style="text-align:center;height:25px;white-space:nowrap;">                
+           <apex:facet name="header">Erosion Due to Remediation and Sales Pricing Decisions</apex:facet>            
+           <!--<a href="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=ErosionduetoRemediationAndSalesPricingDecisions&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank">-->
+           <apex:outputLink value="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=ErosionduetoRemediationAndSalesPricingDecisions&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank" rendered="{!(d.SalesRemediationErosion > 0)}">
+           <apex:outputText value="{!d.formatType}">
+                  <apex:param value="{!d.SalesRemediationErosion}"/>
+           </apex:outputText>
+           </apex:outputLink>
+           <!--- sfdc 861332 - to not show the 0 values as hyperlink -->
+           <apex:outputText value="{!d.formatType}" rendered="{!(d.SalesRemediationErosion == 0)}">
+                  <apex:param value="{!d.SalesRemediationErosion}"/>
+           </apex:outputText>
+        </apex:column>
+        <apex:column style="text-align:center;height:25px;white-space:nowrap;" >           
+           <apex:facet name="header">Implemented</apex:facet>
+            <!--//sfdc 861332:changed the report name to Summary-->
+           <!--<a href="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=Implemented&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank">  -->   
+            <apex:outputLink value="/apex/ACEOverviewReportCustomerList?reportType=Summary&listType=Implemented&rowname={!d.UrlType}&quarter={!quarterValue}" target="_blank" rendered="{!(d.Implemented > 0)}">     
+            <apex:outputText value="{!d.formatType}">
+                  <apex:param value="{!d.Implemented}"/>
+             </apex:outputText>
+           </apex:outputLink>
+           <!--- sfdc 861332 - to not show the 0 values as hyperlink -->
+            <apex:outputText value="{!d.formatType}" rendered="{!(d.Implemented ==0)}">
+                  <apex:param value="{!d.Implemented}"/>
+            </apex:outputText>           
+            
+        </apex:column>
+        <apex:column style="text-align:center;height:25px;white-space:nowrap;">             
+           <apex:facet name="header">Percentage</apex:facet>            
+            <apex:outputText value="{0, number, ###,###,###,###.##}%">
+                  <apex:param value="{!d.Percentage}"/>
+             </apex:outputText>
+        </apex:column>
+       
+      </apex:pageblocktable>
+      
+          <br/>          
+  </apex:pageBlock>
+  <script>
+  function loading3(val) {
+        if (val) {
+          document.getElementById('contentLoading3').style.display = 'block';
+          
+        }
+        else {
+          document.getElementById('contentLoading3').style.display = 'none';
+         
+        }
+  }
+  </script>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,79 @@
+<template>
+    <section
+        id="modal"
+        role="dialog"
+        tabindex="-1"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open slds-hide"
+    >
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <lightning-button-icon
+                    icon-name="utility:close"
+                    variant="bare-inverse"
+                    onclick={handleClick}
+                    alternative-text="Close window"
+                    class="slds-modal__close">
+                </lightning-button-icon>       
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                    <template if:true={areDetailsVisible} >
+                        {action}
+                    </template>
+                    <template if:false={areDetailsVisible} >
+                        Select Record Type
+                    </template>                    
+                </h2>
+            </header>
+
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                <template if:true={areDetailsVisible} >
+                    <!--<div class="slds-grid slds-gutters"> -->
+                        <!--<div class="slds-large-size_1-of-6 slds-medium-size_1-of-4 slds-small-size_1-of-12"></div>-->
+                        <!--<lightning-card class="slds-large-size_2-of-3 slds-medium-size_1-of-2 slds-small-size_5-of-6" title={action}>   -->         
+                                <lightning-record-form
+                                    record-id={recordid}
+                                    object-api-name="Account"
+                                    layout-type="Full"
+                                    columns="2"                   
+                                    record-type-id={recordTypeId}
+                                    >                    
+                                </lightning-record-form>                                              
+                        <!--</lightning-card>-->
+                        <!--<div class="slds-large-size_1-of-6 slds-medium-size_1-of-4 slds-small-size_1-of-12"></div> -->
+                    <!--</div>-->
+                </template>
+                <template if:false={areDetailsVisible} >
+                    <lightning-radio-group name="radioGroup"
+                        label="Select Record Type"
+                        options={options}
+                        value={value}
+                        onchange={handleChange}
+                        type="radio">
+                    </lightning-radio-group>  
+                </template>
+                       
+            </div>
+
+            <template if:false={areDetailsVisible} >
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_brand slds-float_right" onclick={handleNext}>
+                        Next
+                    </button>                             
+                </footer>
+            </template>
+           
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open slds-hide modalBackdrops" id="modalBackdrops"></div>
+
+   
+    <template if:true={showSpinner} >
+        <div>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+   
+</template>

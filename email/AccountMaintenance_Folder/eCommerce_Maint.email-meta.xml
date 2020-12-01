@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Instructions for eCommerce (BSDnet) setup</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>eCommerce Maintenance</name>
+    <style>freeForm</style>
+    <subject>SF eCommerce / Access to Bill Management Setup- {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>NEW PROCESS!!!
+All Contract Customer Maintenance, Pricing, SPC and ECommerce requests can now be submitted easily right from Salesforce.com!  Beginning February 4, no further requests will be accepted via email.  Please search &quot;Account Maint&quot; in the Answers tab to learn more information.
+
+
+Setup For eCommerce Business.officedepot.com access and/or access to Bill Management:
+
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Account Number: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+Sales ID: {!Account_Setup_Request__c.Rep_ID__c}
+
+
+For single user setup, click on the link below and fill out the form
+
+
+https://bsdupload.na.odcorp.net/bsdweb/singleuser.jsp
+
+
+For Multiple Users (more then 10), you can use the the attached spreadsheet.  If user needs Bill Management Access, please complete column AK for billing, reporting or billing and reporting access(See attached Word Document for more detail).  After completion, please send to ECSetup@officedepot.com.
+
+
+User will be setup within 24 hours of receipt. &lt;?xml:namespace prefix = o ns = &quot;urn:schemas-microsoft-com:office:office&quot; /&gt;</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

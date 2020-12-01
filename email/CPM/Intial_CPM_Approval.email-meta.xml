@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Intial CPM Approval</name>
+    <style>freeForm</style>
+    <subject>NOTIFICATION: CPM ({!CPM__c.Name}) Approval has been launched.</subject>
+    <textOnly>Hello,
+
+The following CPM has been submitted for approval.
+
+CPM Support ID: {!CPM__c.Support_Number__c}
+CPM Account: {!CPM__c.Account_Name__c}
+Sales Rep Name: {!CPM__c.Sales_Rep_Name_auto__c}
+Opp Sales Rep: {!CPM__c.Sales_Rep_Name_Opportunity__c}
+DSM Name: {!CPM__c.District_Sales_Manager__c}
+MD Name: {!CPM__c.Regional_Director__c}
+VP Name: {!CPM__c.Regional_VP__c}
+CDM Name: {!CPM__c.Compliance__c}
+
+
+Link to CPM Support: {!CPM__c.Link}
+
+Please reach out to analyst or support owner for questions or clarifications.
+
+Please do not reply to this email.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

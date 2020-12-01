@@ -1,0 +1,37 @@
+<apex:page id="thePage" sidebar="false" showHeader="false" controller="ciscocjs.AudioPlayerController" title="{!HTMLENCODE($Label.ciscocjs__call_recording)}">
+    <apex:includeScript value="{!URLFOR($Resource.ciscocjs__jQuery, '/js/jquery-1.11.0.min.js')}" />
+   
+    <script>
+        
+        $j = jQuery.noConflict();
+        $j(document).ready(function() {
+            
+            $j("#audioPlayer").bind("loadstart", function(){
+                $j("#loading_msg").show();
+            });
+            
+            $j("#audioPlayer").bind("loadeddata", function(){
+                $j("#loading_msg").hide();
+            });
+            
+            $j("#audioPlayerSource").bind("error", function(){
+                $j("#loading_msg").hide();
+                $j("#mediaplayerror").show();
+            });
+        
+        });
+        
+    </script>
+    <apex:outputPanel >
+    <apex:pageMessages />
+    
+        <div id="mediaplayerror" style="display:none;height:15px;"><span style="color:red;font-weight:bold;z-index:1;position:absolute;">{!HTMLENCODE($Label.ciscocjs__call_recording_not_found)}</span></div>
+
+        <div id="loading_msg" style="display:none;height:35px;align:center"><apex:image value="/img/loading32.gif"/><span style="align-content:middle;vertical-align:center;color:grey;font-weight:bold;z-index:1;">{!HTMLENCODE($Label.Please_Wait_While_Loading)}</span></div>
+
+        <audio id="audioPlayer" autoplay="true" oncontextmenu="return false;" controls="true" controlsList="nodownload" preload="auto">
+            <source id="audioPlayerSource" src="{!HTMLENCODE(audioUrl)}"/>
+        </audio>
+    
+    </apex:outputPanel>
+</apex:page>

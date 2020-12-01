@@ -1,0 +1,90 @@
+<apex:page controller="fanaticDtlCntlr" showHeader="false" sidebar="false">
+<head>
+<style>
+.pbSubheader{
+background-color: #3090C7 !important;
+color: white !important;
+border-color: none !important;
+}
+</style>
+</head>
+<font size="2">
+<apex:form >
+
+<apex:pageblock title="Fanatic Order Details">
+<apex:pagemessages id="msg"></apex:pagemessages>
+
+
+</apex:pageBlock>
+
+
+<apex:tabPanel switchType="client" selectedTab="opportunities2" id="theTabPanel">
+
+        
+         <apex:tab label="Orders Details" name="Order7" id="tab6">
+    <apex:pageBlock id="ordresults3" title="Orders Details" >
+
+    <apex:pageBlockTable value="{!orderItems}" var="odrd" id="cn5" title="Order Details"   >
+    
+      <apex:column > <apex:facet name="header"> <apex:commandLink value="Cust Order No" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.CustOrderNo}" /> </apex:column>
+    
+<apex:column > <apex:facet name="header"> <apex:commandLink value="c4ssku" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.c4ssku}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Product ID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.productid}" /> </apex:column>
+
+
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Mfg SKU" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.mfgsku}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Qty" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.qty}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Sale Price" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.SalePrice}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship Amt" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.ShipAmt}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Tax Amt" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.TaxAmt}" /> </apex:column>
+
+
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship Tax Amt" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.ShipTaxAmt}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Product Name" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.ProductName}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Is Back Ordered" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!IF(odrd.IsBackOrdered == '1', 'Yes', 'No')}"  /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Returnable" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!IF(odrd.Returnable == '1', 'Yes', 'No')}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Warranty Code " >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.WarrantyCode}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="SKU Type Id" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.SkuTypeId}" /> </apex:column>
+
+
+
+ <apex:column > <apex:facet name="header"> <apex:commandLink value="Mfg Name" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.mfgname}" /> </apex:column>
+<!--<apex:column > <apex:facet name="header"> <apex:commandLink value="catlev1" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.catlev1}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="catlev2" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.catlev2}" /> </apex:column>
+-->
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Cat1 Name" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.Cat1Name}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Cat2 Name" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.Cat2Name}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Status" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.Status}" /> </apex:column>
+<!--
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Order Item Status ID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.OrderItemStatusID}" /> </apex:column>
+-->
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Item ID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.ItemID}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Item Price" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.ItemPrice}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Item Tax" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.ItemTax}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Item Shipping" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.ItemShipping}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Item Cost" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.ItemCost}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ext Cost" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.ExtCost}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ext Price" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.ExtPrice}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Margin Dollar" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!odrd.MarginDollar}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Margin Percent" >  
+</apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.MarginPercent}"  >
+   
+ </apex:outputText>
+ </apex:column>
+<!--<apex:column > <apex:facet name="header"> <apex:commandLink value="Is Back Order" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!odrd.IsBackOrder}" /> </apex:column>
+-->
+      
+     </apex:pageBlockTable>
+        </apex:pageBlock>
+        </apex:tab>
+        
+        
+</apex:tabPanel>
+
+      
+        
+           
+        
+</apex:form>
+</font>
+</apex:page>

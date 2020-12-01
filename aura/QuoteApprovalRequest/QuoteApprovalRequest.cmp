@@ -1,0 +1,265 @@
+<aura:component controller="QuoteAppRequestEmail" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+	<aura:attribute name="quotqQx" type="CameleonCPQ__QxQuote__c" default="{'sobjectType': 'CameleonCPQ__QxQuote__c'}" />
+	<aura:attribute name="recordId" type="Id" access="global"/>
+    <aura:attribute name="violationList" type="list" />
+    <aura:attribute name="appList" type="list" />
+    <aura:attribute name="ComplianceList" type="list" />
+    <aura:attribute name="MaintennaceList" type="list" />
+    <aura:attribute name="BusinessList" type="list" />
+    <aura:handler  name="init" value="{!this}" action="{!c.doinit}"></aura:handler>
+   <div class="slds-box slds-theme_info">
+
+  <H1 style="font-weight: bold;">Executive Summary :</H1>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+    	<tr class="slds-text-title--caps">
+            <th></th>
+        	<th colspan="4" class="mystles"><b>Business Risk Review</b></th>
+            <th colspan="4" class="mystles"><b>Core Maintenance Actions</b></th>
+        </tr>
+        <tr class="slds-text-title--caps">
+            <!--<th><b>Name</b></th>-->
+        	<th><b>Category</b></th>
+            <th><b>Count of Items Below Floor</b></th>
+            <th><b>Ext Net</b></th>
+            <th><b>Ext Sell</b></th>
+            <th><b>IGM</b></th>
+            <th><b>Price Increases</b></th>
+            <th><b>Price Decreases</b></th>
+            <th><b>Additions</b></th>
+            <th><b>Deletions</b></th> 
+        </tr>
+        </thead>
+    
+    <tbody>
+    <aura:iteration items="{!v.violationList}" var="type"> 
+        <aura:if isTrue="{!and(and(type.Violation_Type__c !='Compliance', type.Violation_Type__c!='Maintenance'), and(type.Violation_Type__c!='Business', type.Violation_Type__c!='Other'))}">
+            <aura:if isTrue="{!type.RecordType.Name eq 'Executive Summary'}">
+            <tr>
+                <td class="slds-truncate"><b>{!type.Name}</b></td>
+                <!--<td><b>{!type.Product_Category__c}</b></td>-->
+                <td><b>{!type.ES_Below_Floor_Count__c}</b></td>
+                <td><b>{!type.ES_Ext_Net__c}</b></td>
+                <td><b>{!type.ES_Ext_Sell__c}</b></td>
+                <td><b>{!type.ES_IGM__c}</b></td>
+                <td><b>{!type.ES_Price_Increases__c}</b></td>
+                <td><b>{!type.ES_Price_Decreases__c}</b></td>
+                <td><b>{!type.ES_Additions__c}</b></td>
+                <td><b>{!type.ES_Deletions__c}</b></td> 
+            </tr>
+        </aura:if>
+        </aura:if>        
+    </aura:iteration>
+        </tbody>
+   
+        </table>
+    </div>
+    <br/>
+    <div class="slds-box slds-theme--shade">
+         <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="1">
+                                <span style="font-weight:bold;">Analyst Notes :&nbsp;</span>
+                            </lightning:layoutItem>
+        
+          
+                            <lightning:layoutItem >
+                            <ui:outputText value="{!v.quotqQx.Analyst_Notes__c}" />
+                                
+                            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+                 
+    <br/>
+    <!--<lightning:layout>
+        <lightning:layoutItem padding="horizontal-large">
+            <div>
+            
+            </div>                                     
+        </lightning:layoutItem>       
+    </lightning:layout>-->
+    <div class="slds-box slds-theme_info">    	
+            <H1 class="slds-align_absolute-center" style="font-weight: bold;">CPM Waterfall section and Historical Financials :</H1>                
+     <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+    
+        <tr class="slds-text-title--caps">
+            <th><b></b></th>
+            <th><b>Historical</b></th>
+            <th><b>CPM Waterfall</b></th>
+        </tr>
+       
+        <tbody>
+        <tr>
+        	<td ><b>Annual Contract Sales (Gross)</b></td>
+            <td>{!v.quotqQx.Hist_Total_Contract_Sales_Gross__c}</td>
+            <td>{!v.quotqQx.CPM_Total_Contract_Sales_Gross__c} </td>
+        </tr>
+        <tr>
+        	<td><b>Net IGM %/Customer Margin %</b></td>
+            <td>{!v.quotqQx.Hist_Net_IGM_Customer_Margin_Perc__c}</td>
+            <td>{!v.quotqQx.CPM_Net_IGM_Customer_Margin_Perc__c} </td>
+        </tr>
+        <tr>
+        	<td><b>Contribution Margin %</b></td>
+            <td>{!v.quotqQx.Hist_Contribution_Margin_Perc__c}</td>
+            <td>{!v.quotqQx.CPM_Contribution_Margin_Perc__c} </td>
+        </tr>
+            </tbody>
+    </table>
+        <br/>
+  
+
+    <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table_col-bordered">
+    	<thead>
+        <tr class="slds-text-title--caps">
+            <!--<th><b>Name</b></th>-->
+            <th><b>Category</b></th>
+            <th><b>Price Lock (days)</b></th>
+            <th><b>Price Cap %</b></th>
+            <th><b>% of Core</b></th>
+        </tr>
+        </thead>
+        <tbody>
+        <aura:iteration items="{!v.violationList}" var="vio">
+            <aura:if isTrue="{!and(and(vio.Violation_Type__c !='Compliance', vio.Violation_Type__c!='Maintenance'), and(vio.Violation_Type__c!='Business', vio.Violation_Type__c!='Other'))}">
+                <aura:if isTrue="{!vio.RecordType.Name eq 'Executive Summary'}">
+                <tr>
+                    <td ><b>{!vio.Name}</b></td>
+                    <!--<td ><b>{!vio.Product_Category__c}</b></td>-->
+                    <td><b>{!vio.ES_Price_Lock_Days__c}</b></td>
+                    <td><b>{!vio.ES_Price_Cap__c}</b></td>
+                    <td><b>{!vio.ES_Core_Perc__c}</b></td>
+                    </tr>
+                </aura:if>
+            </aura:if>           
+        </aura:iteration> 
+        </tbody>
+    </table>
+
+          </div>
+    <br/>
+     <div class="slds-box slds-theme_info">
+ 
+                        <H1 class="slds-align_absolute-center" style="font-weight: bold;">Compliance/Business Callouts :</H1>
+                  
+   
+
+    <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table_col-bordered">
+    	<thead>
+        <tr class="slds-text-title--caps">
+        	<th><b>Maintenance Violation</b></th>
+            <th><b>Count of SKU violations</b></th>
+            <th><b>Violation Message</b></th>
+        </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.MaintennaceList}" var="main">
+            <tr>
+            <td ><b>{!main.Name}</b></td>
+            <td><b>{!main.Req}</b></td>
+            <td><b>{!main.Msg}</b></td>
+            </tr>
+        </aura:iteration> 
+        </tbody>
+    </table>
+        <br/>
+    <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table_col-bordered">
+    	<thead>
+            <tr class="slds-text-title--caps">
+        	<th><b>Compliance Alert</b></th>
+            <th><b>Requirement</b></th>
+            <th><b>Alert Message</b></th>
+        </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.ComplianceList}" var="comp">
+            <tr>
+            <td ><b>{!comp.Name}</b></td>
+            <td><b>{!comp.Req}</b></td>
+            <td><b>{!comp.Msg}</b></td>
+            </tr>
+        </aura:iteration> 
+        </tbody>
+    </table>
+        <br/>
+   
+  
+    <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table_col-bordered">
+    	<thead>
+        <tr class="slds-text-title--caps">
+        	<th><b>Business Alert</b></th>
+            <th><b>Requirement</b></th>
+            <th><b>Alert Message</b></th>
+        </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.BusinessList}" var="bus">
+            <tr>
+            <td ><b>{!bus.Name}</b></td>
+            <td><b>{!bus.Req}</b></td>
+            <td><b>{!bus.Msg}</b></td>
+            </tr>
+        </aura:iteration> 
+        </tbody>
+    </table>
+   
+    </div>
+    <br/>
+     <div class="slds-box slds-theme--shade">
+         <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="1">
+                                <span style="font-weight:bold;">Non-standard Terms:&nbsp;</span>
+                            </lightning:layoutItem>
+        
+          
+                            <lightning:layoutItem >
+                           <ui:outputText value="{!v.quotqQx.Non_standard_callout_comment_box__c}" /> 
+
+                                
+                            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+                 
+  <!--  <div class="slds-box" >
+    <lightning:layout >
+            <lightning:layoutItem padding="horizontal-small">
+                    <div >
+                        <H1 >Non-standard Terms:</H1>
+                    </div>
+        </lightning:layoutItem>   
+    </lightning:layout>
+    <lightning:layout>
+        <lightning:layoutItem padding="horizontal-large">
+            <div>
+            	&nbsp;&nbsp;<ui:outputText value="{!v.quotqQx.Non_standard_callout_comment_box__c}" /> 
+            </div>                                     
+        </lightning:layoutItem>       
+    </lightning:layout>
+    </div>-->
+    <br/>
+
+    <div class="slds-box slds-theme_info">
+
+                        <H1 style="font-weight: bold;">Approval History:</H1>
+                 
+ 
+    <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table_col-bordered">
+        <thead>
+    	<tr class="slds-text-title--caps">
+        	<th ><b>Actual Approver</b></th>
+            <th ><b>Comments</b></th>
+            <th><b>Status</b></th>
+        </tr>
+        </thead>
+        <tbody>
+        <aura:iteration items="{!v.appList}" var="app">
+            <tr>
+            <td ><b>{!app.Actor.Name}</b></td>
+            <td><b>{!app.Comments}</b></td>
+            <td><b>{!app.StepStatus}</b></td>
+            </tr>
+        </aura:iteration> 
+        </tbody>
+    </table>
+    
+    </div>
+</aura:component>

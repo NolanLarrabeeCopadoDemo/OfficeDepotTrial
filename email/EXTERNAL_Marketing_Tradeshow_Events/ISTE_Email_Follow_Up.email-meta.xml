@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Followup Email Template after ISTE Conference</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>ISTE Email Follow Up</name>
+    <style>freeForm</style>
+    <subject>Glad you stopped by @ ISTE!</subject>
+    <textOnly>Hello {!Contact.Name},
+
+My name is {!User.Name}. I am your representative and point of contact for the Business Solutions Division at Office Depot. I understand you stopped by the Office Depot booth at ISTE and I wanted to reach out personally and say, “Thanks for dropping by!” Did you win anything fun from our Plinko game?
+
+
+I’m sure you noticed the more modern furniture we had in our booth as well as the technology tools displayed in our area. Office Depot is really making a difference when it comes to creating learning environments that are both welcoming and flexible for today’s learners. I had a couple of questions for you:
+
+
+What is your district doing to modernize learning environments with furniture and technology?
+Would you welcome a conversation around helping support your district’s initiatives?
+
+
+You may not be aware that Office Depot has several Educational Consultants that have spent time in the classroom. They can help design spaces, integrate technology, and even help with curriculum and content. I’d be happy to introduce them to you and to others on your team. Please let me know a convenient time to set up a quick conversation.
+
+
+Thanks again for stopping by at our booth at ISTE!
+
+
+
+Thank you,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

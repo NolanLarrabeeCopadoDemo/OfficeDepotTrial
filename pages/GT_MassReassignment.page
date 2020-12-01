@@ -1,0 +1,163 @@
+<apex:page title="GT_MassReassignment" controller="GT_MassReassignmentController" id="pg">
+    <script type="text/javascript">
+        
+        
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                 
+            for(var i=0; i<inputCheckBox.length; i++){         
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                    
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    //Modified By Vipul Jain for Story#S-442659 (00796006 - Opportunity Mass Reassignment for Active or Inactive Users by U.S. DSMs and Above) on October 24,2016
+    function openLookup(baseURL, width, modified, searchParam){
+        var originalbaseURL = baseURL;
+        var originalwidth = width;
+        var originalmodified = modified;
+        var originalsearchParam = searchParam;
+
+        var lookupType = baseURL.substr(baseURL.indexOf('lktp')+5,baseURL.length);
+        console.log('======>'+baseURL);
+        if (modified == '1') baseURL = baseURL + searchParam;
+
+        var isCustomLookup = false;
+
+        // Following "001" is the lookup type for User object so change this as per your standard or custom object
+        console.log('====='+lookupType);
+        if(lookupType == "StandardUserLookup"){
+
+          var urlArr = baseURL.split("&");
+          var txtId = '';
+          if(urlArr.length > 2) {
+            urlArr = urlArr[1].split('=');
+            txtId = urlArr[1];
+          }
+        console.log('^^^^'+txtId);
+          // Following is the url of Custom Lookup page. You need to change that accordingly
+          baseURL = "/apex/OpenLookupPopup?txt=" + txtId;
+
+          // Following is the id of apex:form control "assignment". You need to change that accordingly
+          baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.assignment}");
+            console.log('baseURL', baseURL);
+          if (modified == '1') {
+            baseURL = baseURL + "&lksearch=" + searchParam;
+          }
+
+          // Following is the ID of inputField that is the lookup to be customized as custom lookup
+          if(txtId.indexOf('pg%3Aassignment%3Aj_id1%3Aj_id2%3AmyForm') > -1 ){
+            isCustomLookup = true;
+          }
+        }
+
+        console.log('%%%%%'+isCustomLookup);
+        console.log('$$$$'+baseURL);
+        if(isCustomLookup == true){
+          openPopup(baseURL, "lookup", 350, 480, "width="+width+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+        }
+        else {
+          if (modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+          openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+        }
+  }
+//END
+        
+    </script>
+    <center>
+    <apex:form id="assignment">
+        <apex:pageBlock title="Mass Reassignment" rendered="{!isQuerySectionVisible}">
+            <apex:pageBlockSection >
+                <apex:outputLabel >
+                Please select one object:
+                </apex:outputLabel><p/>
+                <apex:selectRadio value="{!RadioButtonInput}" layout="pageDirection" >
+                    <apex:selectOptions value="{!RecordOptions}"/>
+                </apex:selectRadio><p/>
+                <!-- Modified By Vipul Jain for Story#S-442659 (00796006 - Opportunity Mass Reassignment for Active or Inactive Users by U.S. DSMs and Above) on October 24,2016 -->
+                <apex:inputField value="{!prospectToUpdate.ownerid}" label="Current Owner:" required="true" rendered="{!($User.CompanyName=='Grand & Toy' || isShortTitleMatched == false)}"/>
+                <apex:inputField id="myForm" value="{!prospectToUpdate.ownerid}" label="Current Owner:" rendered="{!($User.CompanyName!='Grand & Toy' && isShortTitleMatched == true)}"/>
+                
+            <!--    <apex:inputField value="{!prospectToUpdate.ownerid}" label="Current Owner:" required="true" /> -->
+                <apex:inputField value="{!prospectToBeUpdated.ownerid}" label="Owner To be Updated:" required="true" />
+            </apex:pageBlockSection>
+            <br/><br/><apex:commandButton value="Query Records" action="{!queryRecords}" reRender="assignment" status="mySaveStatus1"  />
+            <apex:actionStatus id="mySaveStatus1" startText=" loading.." >
+                <apex:facet name="start">
+                    <apex:outputPanel >
+                        <apex:image value="/img/loading.gif" title="loading.." style="height: 15px;"/>                   
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus> 
+        </apex:pageBlock>
+        <apex:pageBlock title="Prospect (GT) records" rendered="{!isProspectDisplayed}">
+            <apex:pageBlockTable value="{!prospectWrapperList}" var="prosWrapper" id="prospectTable">
+                <apex:column >
+                    <apex:facet name="header">
+                        <apex:outputLabel >Select All</apex:outputLabel>
+                        <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                    </apex:facet>
+                    <apex:inputCheckbox value="{!prosWrapper.isSelectedAccount}" id="inputId"/>
+                </apex:column>
+                <apex:column headerValue="Prospect Name" value="{!prosWrapper.selectedAccountWithoutOpp.name}"/> 
+                <apex:column headerValue="RecordType" value="{!prosWrapper.selectedAccountWithoutOpp.recordtype.name}"/>
+                <apex:column headerValue="Owner" value="{!prosWrapper.selectedAccountOwner}"/>
+            </apex:pageBlockTable>
+            <apex:commandButton value="Update Records" action="{!updateProspectOwners}" status="mySaveStatus2"/>
+             <apex:actionStatus id="mySaveStatus2" startText=" loading.." >
+                 <apex:facet name="start">
+                 <apex:outputPanel >
+                       <apex:image value="/img/loading.gif" title="loading.." style="height: 15px;"/>                   
+                  </apex:outputPanel>
+               </apex:facet>
+            </apex:actionStatus>
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Opportunity records" rendered="{!isOpportunityDisplayed}">
+            <apex:pageBlockTable value="{!opportunityWrapperList}" var="oppWrap" id="opptyTable">
+                <apex:column >
+                    <apex:facet name="header">
+                        <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                    </apex:facet>
+                    <apex:inputCheckbox value="{!oppWrap.isSelectedOpportunity}" id="inputId"/>
+                </apex:column>
+                <apex:column headerValue="Opportunity Name" value="{!oppWrap.selectedOpportunity.name}"/> 
+                <apex:column headerValue="Account Name" value="{!oppWrap.selectedOpportunity.accountid}"/>
+                <apex:column headerValue="Account RecordType" value="{!oppWrap.selectedOpportunity.account.recordtype.name}"/>
+                <apex:column headerValue="Owner" value="{!oppWrap.selectedOpportunityOwner}"/>
+                <!--apex:column headerValue="Status" value="{!oppWrap.Status}"/-->
+                <!--apex:column headerValue="Error Reason" value="{!oppWrap.ErrorReason}"/-->
+            </apex:pageBlockTable>
+             <apex:commandButton value="Update Records" action="{!updateOpportunityOwner}" status="mySaveStatus2"/>
+             <apex:actionStatus id="mySaveStatus2" startText=" loading.." >
+                 <apex:facet name="start">
+                 <apex:outputPanel >
+                       <apex:image value="/img/loading.gif" title="loading.." style="height: 15px;"/>                   
+                  </apex:outputPanel>
+               </apex:facet>
+            </apex:actionStatus>  
+        </apex:pageBlock>
+        
+        <apex:pageblock title="Success" rendered="{!isRecordSuccess}">
+            <apex:pageblocksection >
+                <apex:outputLabel >Records Updated Successfully.</apex:outputLabel>
+            </apex:pageblocksection>
+            <apex:commandButton value="Back" action="{!backBtnOnClick}"/>
+        </apex:pageblock>
+        <apex:pageblock title="Error" rendered="{!isRecordError}">
+            <apex:pageblocksection >
+                <apex:outputLabel >Error encountered for following records. Please contact system administrator.</apex:outputLabel>
+            </apex:pageblocksection><p/>
+            <apex:pageblockTable value="{!accountErrorList}" var="sel" rendered="{!isProspectTableVisible}">
+                <apex:column headerValue="Record Name" value="{!sel.name}"/>
+                <apex:column headerValue="Owner Name" value="{!sel.owner.name}"/>
+            </apex:pageblockTable>
+            <apex:pageblockTable value="{!opptyErrorsList}" var="oel" rendered="{!isOpportunityTableVisible}">
+                <apex:column headerValue="Record Name" value="{!oel.name}"/>
+                <apex:column headerValue="Owner Name" value="{!oel.owner.name}"/>
+            </apex:pageblockTable>
+            <apex:commandButton value="Back" action="{!backBtnOnClick}"/>
+        </apex:pageblock>
+        
+    </apex:form>
+    </center>
+</apex:page>

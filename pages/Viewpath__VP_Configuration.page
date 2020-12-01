@@ -1,0 +1,164 @@
+<apex:page controller="Viewpath.VP_Configuration" action="{!initialize}" >
+<script type="text/javascript" src="{!$Resource.ExtJS}/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="{!$Resource.ExtJS}/ext-all.js"></script>  
+<script>
+function popUp(URL) {
+  day = new Date();
+  id = day.getTime();
+  eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=1,location=0,statusbar=1,menubar=0,resizable=1,width=800,height=600');");
+}
+/*
+Ext.onReady(function(){
+    var inputs = Ext.query('#chatterFilterOptions input');      
+    var el = Ext.select("input[name*='ChatterOptions_ToggleFilter']");
+    if (el != null) {
+        el.on('click', function(){
+            for(var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = this.value=="false" ? true : false;
+            }
+        });
+    }
+});
+*/
+</script>
+<style>
+h1 {
+    display:block;
+    font-size:1.2em;
+    margin: 10px 0;
+}
+
+ul#ActivationInfo {
+    list-style:none;
+}
+
+ul#ActivationInfo li{
+    padding:3px;
+}
+
+ul#ActivationInfo li label{
+    text-align:right;
+    width:120px;
+    padding-right:10px;
+    display:inline-block;
+}
+ul#ActivationInfo li input{
+    width:200px;
+}
+</style>
+<apex:form >
+    <apex:pageBlock title="Viewpath Configuration">
+    
+        <!--Activate Viewpath-->
+        <apex:outputPanel id="viewActivate" rendered="{!(View == 'activate')}">
+            <h1>Thanks for installing Viewpath</h1>
+            <p>Before you get started, you'll need to activate your Viewpath installation. It's a free and simple process, we just need a little bit of information about your organization.</p>
+            
+            <ul id="ActivationInfo">
+                <li><label>Organization ID: </label>{!OrganizationId}</li>
+                <li><label>Organization Name: </label>{!OrganizationName}</li>
+                <li><label>Organization Country: </label><apex:inputText value="{!OrganizationCountry}"/></li>
+                <li><label>Administrator Name: </label><apex:inputText value="{!AdministratorName}"/></li>
+                <li><label>Administrator Email: </label><apex:inputText value="{!AdministratorEmail}"/></li>
+                <li><label>Administrator Phone: </label><apex:inputText value="{!AdministratorPhone}"/></li>
+            </ul>
+            
+            <apex:commandButton action="{!Activate}" value="Activate Installation"/>
+            
+        </apex:outputPanel>
+        
+        <!--Configure Viewpath-->
+        <apex:outputPanel id="viewEditSettings" rendered="{!(View == 'configure')}">
+            <apex:pageblockSection columns="1">
+            <h1>Thank you!</h1>
+            <h2>Your Viewpath installation has been activated.</h2>
+            <p>
+                Need help getting started? Check out our video on <a href="#" onClick="popUp('http://members.viewpath.com/Support/Videos/SFIntroduction/SFIntroduction.html')">Using Viewpath Inside Salesforce</a><br/><br/>
+            </p>
+            </apex:pageBlockSection>
+        </apex:outputPanel>
+        
+    </apex:pageBlock>
+    <apex:pageBlock title="Chatter (beta)" rendered="{!(View == 'configure')}">
+            <apex:pageBlockButtons >
+                <apex:commandButton id="btnSaveChatterOptions" rendered="{!(ApiAuthorized==true)}" action="{!UpdateOrgConfig}" title="Save Chatter Options" value="Save Chatter Options"/><br/>
+            </apex:pageBlockButtons>
+        <apex:outputPanel >
+            <apex:outputPanel id="chatterDisabled" rendered="{!(ApiAuthorized==false)}">
+            <apex:pageblockSection columns="1">
+                <p style="margin-bottom:15px;">
+                    Viewpath is now able to send task update notifications to your Chatter feed! To use this feature, we'll need to authorization to access your organizations Partner API.
+                </p>
+                <input type="button" onClick="javascript:popUp('{!HTMLENCODE(ViewpathUrl)}Partners/SFAppEx/Service/SalesforceAuthorize.aspx?mode=AuthorizeOrg')" value="Authorize API Access" class="btn"></input>
+                </apex:pageblockSection>
+            </apex:outputPanel>    
+            
+            <apex:outputPanel id="chatterEnabled" rendered="{!(ApiAuthorized==true)}">
+            <apex:pageBlockSection columns="1" title="Settings">
+                <apex:pageBlockSectionItem labelTitle="ChatterEnabled">
+                    <apex:outputLabel value="Chatter Enabled" for="ChatterEnabled"/>
+                    <apex:inputCheckbox id="ChatterEnabled" value="{!RemoteConfig.ChatterEnabled}"/>
+                </apex:pageBlockSectionItem>
+               
+        
+                <apex:selectRadio rendered="false" layout="pageDirection"  value="{!RemoteConfig.FilterChatterNotifications}" id="ChatterOptions_ToggleFilter">
+                    <apex:selectOptions value="{!ChatterOptions_ToggleFilter}"/>
+                </apex:selectRadio>
+        
+                <!--<apex:inputCheckbox value="{!RemoteConfig.PushSummaryNotifications}"/>Summary Notifications<br/>-->
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel value="Show milestones" for="MilestoneNotifications"/>
+                    <apex:inputCheckbox value="{!RemoteConfig.PushMilestoneNotifications}" id="MilestoneNotifications"/>
+                </apex:pageblockSectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel value="Show flagged tasks" for="FlaggedNotifications"/>
+                    <apex:inputCheckbox value="{!RemoteConfig.PushFlaggedNotifications}" id="FlaggedNotifications"/>
+                </apex:pageblockSectionItem>
+        
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Send chatter notifications to" for="NotificationsDestination"/>
+                    <apex:selectRadio layout="pageDirection" value="{!RemoteConfig.NotificationDestination}" >
+                        <apex:selectOptions value="{!chatterOptions_Destination}" />
+                    </apex:selectRadio>
+                </apex:pageBlockSectionItem>
+          
+            </apex:pageBlockSection>
+            
+        </apex:outputPanel>
+            </apex:outputPanel>
+    </apex:PageBlock>
+    <apex:PageBlock title="Tools" rendered="{!(ApiAuthorized || Mode == 'dev' || Mode == 'deactivate')}">
+    
+        <!--API Reauthorize-->
+        <apex:outputPanel layout="block" style="margin-bottom:10px;" rendered="{!(ApiAuthorized==true) && (View == 'configure')}">
+            <h3>Having problems with Chatter?</h3>
+            <p style="margin-bottom:15px">Try reauthorizing your org for API access. </p>
+            <input type="button" onClick="javascript:popUp('{!HTMLENCODE(ViewpathUrl)}Partners/SFAppEx/Service/SalesforceAuthorize.aspx?mode=AuthorizeOrg')" value="Authorize API Access" class="btn"></input>
+        </apex:outputPanel>
+    
+        <!--Developer Mode-->
+        <apex:pageBlockSection columns="1" id="debug" title="Developer Mode" rendered="{!(Mode == 'dev')}">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Viewpath URL"/>
+                <apex:outputText value="{!ViewpathUrl}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Viewpath API Endpoint"/>
+                <apex:outputText value="{!ViewpathEndpoint}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="DEV AppEngine Ver"/>
+                <apex:outputText value="{!ViewpathAppEngineVersion}" />
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>
+        
+        <!--Deactivate Mode-->
+        <apex:commandButton action="{!Deactivate}" value="Deactivate Installation" rendered="{!(Mode == 'dev' || Mode == 'deactivate')}" />
+    </apex:pageBlock>
+    
+    <!--Unauthorized Mode-->
+    <apex:PageBlock id="viewUnauthorized" title="Unauthorized" rendered="{!(View == 'unauthorized')}">
+        <p>You are not authorized to make changes to the Viewpath Configuration. Please contact your system administrator.</p>
+    </apex:PageBlock>
+</apex:form>
+</apex:page>

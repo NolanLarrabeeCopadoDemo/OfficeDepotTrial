@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Activity$ActivityDate</field>
+    </columns>
+    <columns>
+        <field>Activity$CreatedBy</field>
+    </columns>
+    <columns>
+        <field>Activity$Subject</field>
+    </columns>
+    <columns>
+        <field>Activity$Call_Disposition__c</field>
+    </columns>
+    <columns>
+        <field>Activity$RecordType</field>
+    </columns>
+    <columns>
+        <field>Activity$Task_Type__c</field>
+    </columns>
+    <columns>
+        <field>Activity$Account</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Activity$Task_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>In Person,Appointments,Customer Location,In-Store,Appointments - Customer Location,Appointments - In-Store,Networking Event,Mandatory Community Event</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Completed</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Dir:In Person Activities Report NEW</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activities_with_Lookup_User__c</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Activity$ActivityDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2019-07-01</startDate>
+    </timeFrameFilter>
+</Report>

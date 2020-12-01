@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Customer_Transition__c.OMX_Primary_Key__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Customer_Transition_Type2__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Customer_Transition__c.Account_OMX_Key__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Customer_Transition__c.Customer_Transition_Type2__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Customer Transition with Parent</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Customer_Transition__c@Customer_Transition__c.Parent_Transition_ID__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Customer_Transition__c.Customer_Transition_Type2__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Customer_Transition__c.X14_Days_before_Review_Start_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

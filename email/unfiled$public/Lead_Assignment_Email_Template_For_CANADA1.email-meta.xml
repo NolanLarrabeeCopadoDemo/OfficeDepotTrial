@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Lead Assignment Email Template For CANADA</name>
+    <style>freeForm</style>
+    <subject>Lead # {!Lead.Lead_Number__c}: {!Lead.Name} has been assigned to you.</subject>
+    <textOnly>LEAD ASSIGNMENT NOTIFICATION
+
+Hello {!Lead.OwnerFullName},
+
+The following Lead has been assigned to you:
+
+Company: {!Lead.Name}
+Contact First Name: {!Lead.FirstName}
+Contact Last Name: {!Lead.LastName}
+Contact Phone Number: {!Lead.Phone}
+Contact Email: {!Lead.Email}
+
+
+
+Click here to access your Lead: https://officedepot.my.salesforce.com/{!Lead.Id}
+
+
+
+This is a system generated email.  Please do not reply.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

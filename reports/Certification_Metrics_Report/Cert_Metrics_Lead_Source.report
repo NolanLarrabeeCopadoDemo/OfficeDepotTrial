@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_83343725</developerName>
+        <masterLabel>Lead Source</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>LEAD_SOURCE</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Salesgenie.com</sourceValue>
+            </sourceValues>
+            <value>Salesgenie</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Cold Call</sourceValue>
+            </sourceValues>
+            <value>Cold Call</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>salesPRISM ACQ</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>salesPRISM SOW</sourceValue>
+            </sourceValues>
+            <value>SalesPRISM</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>BSD NET</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>BSDNETquote</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>BSD SetupCS</sourceValue>
+            </sourceValues>
+            <value>BSD Net</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>OneSource</sourceValue>
+            </sourceValues>
+            <value>Onesource</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>Pie</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>false</expandOthers>
+        <groupingColumn>BucketField_83343725</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>TITLE</field>
+    </columns>
+    <columns>
+        <field>COMPANY</field>
+    </columns>
+    <columns>
+        <field>RATING</field>
+    </columns>
+    <columns>
+        <field>EMAIL</field>
+    </columns>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_83343725</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Cert Metrics- Lead Source</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>LeadList</reportType>
+    <scope>org</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

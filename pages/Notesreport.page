@@ -1,0 +1,54 @@
+<apex:page controller="Notesreportcontroller" readOnly="true" standardStylesheets="false" >
+<style>
+    section{background-color:#6495ed;} 
+</style>
+<apex:sectionHeader title="Notes Report" />
+<apex:form >
+    
+    <apex:pageBlock mode="edit" tabStyle="Account">
+        
+        <apex:pageBlockSection columns="1" showHeader="true" >
+            <div style="text-align:center;">
+                <button >
+                    <a href="javascript:var accid = document.getElementById('{!$Component.Accountid}').value;if(accid==null||accid==''){alert('Please Select Account');}else{calcNote_list(document.getElementById('{!$Component.Accountid}').value);}" style="font-weight:bold">GET NOTES</a>
+                </button>
+            </div> 
+            
+           <apex:inputField label="Account" value="{!acc1.Related_Account__c}" id="Accountid" /> 
+        </apex:pageBlockSection>
+        
+        <apex:actionFunction name="calcNote_list"  status="Status1" action="{!refreshnote}" rerender="thepageblock">
+            <apex:param name="nickName" value="" assignTo="{!accid}"/>
+        </apex:actionFunction>
+        <apex:actionStatus id="Status1" startText="Retrieving Notes...."></apex:actionStatus> 
+    
+    </apex:pageBlock>
+    
+    <apex:pageBlock id="thepageblock" tabStyle="Account" >
+      
+        <apex:pageBlockSection title="NOTES" collapsible="false" columns="1" id="section">
+        
+          <div align="centre" style="text-align:centre;display:{!IF((ISNULL(pageNotes)),'block','None')};" >
+                      <b> <p> NO NOTES TO DISPLAY</p> </B>
+          </div>
+          
+          <div align="centre" style="display:{!IF(NOT(ISNULL(pageNotes)),'block','None')}" >  
+            <apex:pageBlockTable value="{!pageNotes}" var="Note_listvar" rendered="true" id="Note_listid"  rows="{!PageSize}">
+                 <apex:column headerValue="Account" value="{!Note_listvar.ParentId}" />
+                 <apex:column headerValue="Title" value="{!Note_listvar.Title}"/>
+                 <apex:column headerValue="Note" value="{!Note_listvar.Body}" />
+                 <apex:column headerValue="Modified date" value="{!Note_listvar.lastmodifieddate}"/>
+            </apex:pageBlockTable>
+          </div> 
+        </apex:pageBlockSection>  
+        
+        <div align="centre" style="display:{!IF(NOT(ISNULL(pageNotes)),'block','None')}" >
+            <font size="1pt">Page #:&nbsp;<apex:outputLabel value="{!PageNumber}"/>&nbsp;out of&nbsp;<apex:outputLabel value="{!totalPageNumber}"/>&nbsp;&nbsp;&nbsp;&nbsp;</font>
+            <apex:commandButton value="Previous" action="{!previousBtnClick}" disabled="{!previousButtonEnabled}" reRender="thepageblock"></apex:commandButton>
+            <apex:commandButton value="Next" action="{!nextBtnClick}" reRender="thepageblock" disabled="{!nextButtonDisabled}" ></apex:commandButton>
+        </div>  
+      
+    </apex:pageBlock>
+    
+</apex:form>
+</apex:page>

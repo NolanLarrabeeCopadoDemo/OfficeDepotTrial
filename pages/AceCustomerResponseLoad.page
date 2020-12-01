@@ -1,0 +1,32 @@
+<apex:page controller="AceCustomerResponseLoad">
+<apex:form >
+ <apex:pageBlock id="pg">
+ <apex:pagemessages id="msg"></apex:pagemessages>
+  <apex:pageBlockButtons >
+   <apex:commandButton value="Submit Customer Response" action="{!attachForApproval}" style="color:white;background-color:#009933;background-image:none;" onClick="if(!confirm('Are you sure?')){return false;};"/>
+   <apex:commandButton value="Cancel" action="{!cancel}" style="color:white;background-color:#0B2F3A;background-image:none;"/>
+  </apex:pageBlockButtons>
+  <b>Please Indicate the Customer Response to the information sent in the {!notificationDate} price change approval request.</b>
+  <p>
+    <apex:selectRadio value="{!responseSelection}" layout="pageDirection">
+         <apex:selectOptions value="{!CustomerReponseOptions}" />
+     </apex:selectRadio>
+  </p>
+      <apex:outputPanel id="Attacment"> 
+         <apex:outputLabel value="Please upload the customer's approval" for="responsefile"/>
+         <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="responsefile"/>
+      </apex:outPutPanel>    
+   <apex:commandButton value="Upload" action="{!AddAttachments}" /> 
+  </apex:pageBlock>
+  
+   <apex:pageBlock title="Documents" id="dpb" rendered="{!lAttachment.size > 0}">
+     <apex:pageBlockTable value="{!lAttachment}" var="documentItem" id="documentTable">
+            <apex:column headerValue="Document Name">
+                <apex:outputField value="{!documentItem.Name}"/>
+            </apex:column>
+        </apex:pageBlockTable> 
+        <br/>
+    </apex:pageBlock>
+  
+  </apex:form>
+</apex:page>

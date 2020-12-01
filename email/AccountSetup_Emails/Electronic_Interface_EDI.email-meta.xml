@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Instructions for eCommerce (BSDnet) setup</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Electronic Interface EDI</name>
+    <style>freeForm</style>
+    <subject>SF Electronic Interface EDI Setup for - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Below new request for Add Shiptos:
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+
+Salesforce Link to Records:
+Salesforce Account Setup Request Record:  &lt;a href=&quot;https://cs7.salesforce.com/{!Account_Setup_Request__c.Id}&quot;&gt;{!Account_Setup_Request__c.Account__c}&lt;/a&gt;
+Salesforce Account Record: &lt;a href=&quot;https://cs7.salesforce.com/{!Account_Setup_Request__c.AccountId__c}&quot;&gt;{!Account_Setup_Request__c.Account__c}&lt;/a&gt;</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

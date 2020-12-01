@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account  Setup - Special Delivery Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Special Delivery</name>
+    <style>freeForm</style>
+    <subject>SF Special Delivery Request - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Below new Request for Special Delivery Request:
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+
+Please fill out the attached spreadsheet and send it to:
+
+&lt;&lt;email Placeholder&gt;&gt;</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

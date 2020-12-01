@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Activity$Subject</field>
+    </columns>
+    <columns>
+        <field>Activity$What</field>
+    </columns>
+    <columns>
+        <field>Activity$ActivityDate</field>
+    </columns>
+    <columns>
+        <field>Activity$LastModifiedDate</field>
+    </columns>
+    <columns>
+        <field>Activity$CreatedBy.Manager__c</field>
+    </columns>
+    <columns>
+        <field>Activity$CreatedDate</field>
+    </columns>
+    <description>Kimberly Gilbert, Joseph Lawson, Pamela Barnett, John Young, Henriette Langenbach, William Conditt, Norma Arreola, Michael Henry, Ronald Stein, William Matthews, Chantill Satterlee, Megan McDougall</description>
+    <filter>
+        <criteriaItems>
+            <column>Activity$Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>salesPRISM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$Subject</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notContain</operator>
+            <value>Account Note</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$CreatedBy.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$Owner</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Adam Thom,Andrea Archuleta,Candace Cloud,Daniel Dion,Derek Newberry,Douglas Thrush,Eric Ostlund,Kim Clauson,Dobby Treadway,Shelly Rose,Theresa McManis,Leslie Anderson</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity$CreatedBy</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Team Perlet Prism Today</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activities_Tasks_Events__c</reportType>
+    <roleHierarchyFilter>Support</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Activity$CreatedDate</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Activity$CreatedDate</dateColumn>
+        <interval>INTERVAL_TODAY</interval>
+    </timeFrameFilter>
+</Report>

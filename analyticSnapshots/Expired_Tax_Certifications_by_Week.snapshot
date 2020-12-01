@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>To report summary of expired tax certifications by week and see any improvements made</description>
+    <groupColumn>Account_Profile__c.Expiration_Date__c</groupColumn>
+    <mappings>
+        <sourceField>RowCount</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Reporting_Snapshot__c.Record_Count_Tax_Certification__c</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>Account_Profile__c.Expiration_Date__c</sourceField>
+        <sourceType>tabular</sourceType>
+        <targetField>Reporting_Snapshot__c.Expired_Week__c</targetField>
+    </mappings>
+    <name>Expired Tax Certifications by Week</name>
+    <runningUser>055053@officedepot.com</runningUser>
+    <sourceReport>Sales_Operations_Maint_Reports1/Expired_Tax_Certifications_by_Region</sourceReport>
+    <targetObject>Reporting_Snapshot__c</targetObject>
+</AnalyticSnapshot>

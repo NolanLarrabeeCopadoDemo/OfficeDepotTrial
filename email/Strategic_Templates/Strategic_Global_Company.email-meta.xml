@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Let our transformation help you!</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Global Company</name>
+    <style>freeForm</style>
+    <subject>Let our transformation help you!</subject>
+    <textOnly>Dear {!Contact.Name},
+
+Understanding that INSERT COMPANY NAME is a global organization centered in North America, I am confident that Business Solutions at Office Depot with strong presence in Canada, Mexico, and the U.S. can deliver a superior program to your organization. With the recent acquisition of CompuCom, a comprehensive technology services company, we can offer you a rich business platform that includes everything from office supplies and breakroom solutions to furniture and technology services.
+
+
+
+I respectfully request the opportunity to meet. My goal is to learn about your program so that I may offer a solution that will help INSERT COMPANY NAME optimize (and leverage) its global program. Would you be available for a meeting INSERT DATE? I appreciate your consideration.
+
+
+
+Thank you,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

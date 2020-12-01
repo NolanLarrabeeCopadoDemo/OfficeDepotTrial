@@ -1,0 +1,32 @@
+<apex:page standardController="CameleonCPQ__Quote__c" extensions="CameleonCPQ.PA_UnlockQuote_VFCtrl" showHeader="false" sidebar="false" docType="html-5.0">
+    <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'custom/css/app.css')}"/>
+    <style type="text/css">
+        .forceGlobalModalIndicator .indicatorContainer .message {
+            background: #354452;
+            border: none;
+            color: #FFFFFF;
+        }
+    </style>
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins,'jquery/jquery.js')}"/>
+    <script type="text/javascript">
+        $jq = jQuery.noConflict(); 
+        function toggleWaitingScreen() {
+            $jq("#loadingStatus").toggleClass("hidden");
+            $jq("#_gModal_Message").html("In progress..");
+        }
+        $jq(document).ready(function() {
+            toggleWaitingScreen();
+            unlockQuote();
+        });
+    </script>
+    <div id="loadingStatus" class="hidden forceGlobalModalIndicator oneStyle oneOne">
+        <div class="modal-glass">&nbsp;</div>
+            <div class="indicatorContainer" role="alert">
+            <img class="spinnerIcon icon uiImage" alt="" src="/auraFW/resources/aura/s.gif"/>
+            <div class="message" id="_gModal_Message"/>
+        </div>
+    </div>
+    <apex:form >
+        <apex:actionFunction name="unlockQuote" action="{!unlockQuote}" status="loadingStatus" />
+    </apex:form>
+</apex:page>

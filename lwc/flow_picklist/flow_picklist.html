@@ -1,0 +1,21 @@
+<template>
+    <lightning-record-edit-form object-api-name={objectName}>
+        <lightning-input-field if:true={field1Required} field-name={field1Name} name="field1SelectedValue" value={field1SelectedValue} onchange={onChange} variant="label-stacked" required></lightning-input-field>
+        <lightning-input-field if:false={field1Required} field-name={field1Name} name="field1SelectedValue" value={field1SelectedValue} onchange={onChange} variant="label-stacked"></lightning-input-field>
+
+        <lightning-input-field if:true={field2Required} field-name={field2Name} name="field2SelectedValue" value={field2SelectedValue} onchange={onChange} variant="label-stacked" required></lightning-input-field>
+        <lightning-input-field if:false={field2Required} field-name={field2Name} name="field2SelectedValue" value={field2SelectedValue} onchange={onChange} variant="label-stacked"></lightning-input-field>
+
+        <lightning-input-field if:true={field3Required} field-name={field3Name} name="field3SelectedValue" value={field3SelectedValue} onchange={onChange} variant="label-stacked" required></lightning-input-field>
+        <lightning-input-field if:false={field3Required} field-name={field3Name} name="field3SelectedValue" value={field3SelectedValue} onchange={onChange} variant="label-stacked"></lightning-input-field>
+
+        <lightning-input-field if:true={field4Required} field-name={field4Name} name="field4SelectedValue" value={field4SelectedValue} onchange={onChange} variant="label-stacked" required></lightning-input-field>
+        <lightning-input-field if:false={field4Required} field-name={field4Name} name="field4SelectedValue" value={field4SelectedValue} onchange={onChange} variant="label-stacked"></lightning-input-field>
+
+        <lightning-input-field if:true={field5Required} field-name={field5Name} name="field5SelectedValue" value={field5SelectedValue} onchange={onChange} variant="label-stacked" required></lightning-input-field>
+        <lightning-input-field if:false={field5Required} field-name={field5Name} name="field5SelectedValue" value={field5SelectedValue} onchange={onChange} variant="label-stacked"></lightning-input-field>
+
+        <lightning-input-field if:true={field6Required} field-name={field6Name} name="field6SelectedValue" value={field6SelectedValue} onchange={onChange} variant="label-stacked" required></lightning-input-field>
+        <lightning-input-field if:false={field6Required} field-name={field6Name} name="field6SelectedValue" value={field6SelectedValue} onchange={onChange} variant="label-stacked"></lightning-input-field>
+    </lightning-record-edit-form>
+</template>

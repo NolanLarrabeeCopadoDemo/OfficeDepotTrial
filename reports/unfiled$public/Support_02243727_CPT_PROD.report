@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account.Contracts$ContractNumber</field>
+    </columns>
+    <columns>
+        <field>Account.Contracts$Action_requirements_for_deleted_or_disco__c</field>
+    </columns>
+    <columns>
+        <field>Account.Contracts$Price_requirements_for_added_or_alternat__c</field>
+    </columns>
+    <columns>
+        <field>Account.Contracts$Notification_process_for_disco_items__c</field>
+    </columns>
+    <columns>
+        <field>Account.Contracts.Contract_Pricing_Terms__r$Relevant_Customer_Level__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Support 02243727 CPT PROD</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Contract_Pricing_Terms__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Account.Contracts.Contract_Pricing_Terms__r$Relevant_Customer_Level__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Account$Cadence_Call_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

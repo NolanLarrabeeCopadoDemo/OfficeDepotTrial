@@ -1,0 +1,593 @@
+<apex:page standardController="DMND_Duplicate__c" showHeader="true" sidebar="true" extensions="PotentialDuplicateDispositionUpdate_Ext" id="page1">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+<apex:form id="form1">
+<apex:pageMessages ></apex:pageMessages>
+
+<style>
+  .headerRow .TableTitle {
+    background-color: skyblue !important;
+    background-image: none !important; //This is needed if you want to overwrite the header background
+    color: black !important; 
+    font-weight:bold !important; 
+    
+  }
+  
+ </style>
+ 
+ <!--
+ body, td {
+    white-space: nowrap;
+  }
+ 
+ Code for Stretching column in PageBlockTable-->
+ 
+ <style>
+
+table th.resizing {
+    cursor: col-resize;
+}
+</style>
+
+ <script>
+ $j = jQuery.noConflict(); 
+  $j(document).ready(function() {
+ $j(function() {
+    var pressed = false;
+    var start = undefined;
+    var startX, startWidth;
+    
+    $j("table th").mousedown(function(e) {
+        start = $j(this);
+        pressed = true;
+        startX = e.pageX;
+        startWidth = $j(this).width();
+        $j(start).addClass("resizing");
+    });
+    
+    $j(document).mousemove(function(e) {
+        if(pressed) {
+            $j(start).width(startWidth+(e.pageX-startX));
+        }
+    });
+    
+    $j(document).mouseup(function() {
+        if(pressed) {
+            $j(start).removeClass("resizing");
+            pressed = false;
+        }
+    });
+});
+}); 
+ </script>
+ <!--End of Code-->
+
+<script type="text/javascript">
+        
+        function checkAll1(cb,cbid)
+        {
+            // document.getElementById("dispositionid").disabled = "true"; 
+            var inputElem = document.getElementsByTagName("input");                    
+            for(var i=0; i<inputElem.length; i++)
+            {            
+                 if(inputElem[i].id.indexOf(cbid)!=-1){                                       
+                    inputElem[i].checked = cb.checked;
+                }
+            }
+            
+            
+            
+        }
+        
+        function checkAll(cb)
+        {
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++)
+            {
+                if(inputElem[i].id.indexOf("checkedone")!=-1)
+                inputElem[i].checked = cb.checked;
+            }
+        }
+        
+        
+        function recordDispositionCheck(cb,cdid,checkall,accCheckall)
+        {  
+            var inputElem = document.getElementsByTagName("input");
+            var abc;
+            for(var i=0; i<inputElem.length; i++)
+            {
+                if(inputElem[i].checked==true)
+                {
+                    abc="test";
+                    
+                }
+            }
+            
+                if(abc!="test")
+                {
+                    alert('Please select atleast one record');                    
+                    return false;
+                } 
+                else
+                {
+                    var dispositionvalue = '{!potentialdup.Disposition__c}';                                                                                              
+                    if(dispositionvalue=='Delete')
+                    {
+                        return confirm('Do you want to delete the selected record?');                
+                    }
+                    else
+                    {
+                        //alert('HIIII');
+                        return true;
+                    }
+                }    
+            
+        } 
+        function populatelist(data)
+        {
+            wraptext(document.getElementById(data).value);
+            //alert('Value-->'+document.getElementById(data).value);
+        }
+        
+        
+        function populaterecords(data)
+        {
+            var reason = document.getElementById(data).value;
+            inputs = document.getElementsByTagName("input");
+            output = document.getElementsByTagName("span");
+            var j=0;
+            var k=0;
+            var indx = 0;
+            var checkedIndex =new Array();
+            var outputbox = new Array();
+            for(var i=0;i<inputs.length;i++)
+            {
+                if(inputs[i].id.indexOf("checkedone")!=-1)
+                {
+                    j++;
+                    if(inputs[i].checked)
+                    {    
+                        checkedIndex[indx] = j;
+                        indx ++;
+                    }
+                    
+                }
+                
+            }
+            
+            for(var i=0;i<output.length;i++)
+            {
+                 if(output[i].id.indexOf("otherreason")!=-1)
+                 {
+                     outputbox[k] = output[i];
+                     k++;
+                 }
+            }
+            for(var i=0;i<checkedIndex.length;i++)
+            {
+                outputbox[checkedIndex[i]-1].innerHTML=reason;
+            }
+            
+        }               
+</script>
+<!--Rearraged the pageblock as per case#00146695 -->
+ <apex:pageBlock title="Query Criteria" >
+        <apex:pageBlockSection columns="2" >
+            <apex:inputCheckbox value="{!currentUserCheck}" label="Records owned by me">               
+            </apex:inputCheckbox>
+             <apex:selectList label="Record Type" style="width:100px;" size="1" value="{!recordTypeValue}">
+                 <apex:selectOption itemLabel="-None-" itemValue=""></apex:selectOption>
+                <apex:selectOption itemLabel="Lead" itemValue="Lead"></apex:selectOption>
+                <apex:selectOption itemLabel="Site" itemValue="Site"></apex:selectOption>
+                <apex:selectOption itemLabel="Customer" itemValue="Customer"></apex:selectOption>
+                <apex:selectOption itemLabel="Prospect" itemValue="Prospect"></apex:selectOption>
+                <apex:selectOption itemLabel="Opportunity" itemValue="Opportunity"></apex:selectOption>
+                <apex:selectOption itemLabel="Contact" itemValue="Contact"></apex:selectOption>
+             </apex:selectList> 
+             <apex:inputtext style="width:100px;" value="{!dispostionWarning}" label="Dispostion Warning" />
+             <apex:inputtext style="width:100px;" value="{!recordNameValue}" label="Record Name" />                
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandbutton id="searchButton" value="Search" action="{!searchrec}"/>
+       </apex:pageBlockButtons>
+    </apex:pageBlock>
+
+
+<apex:pageBlock title="Disposition Potential Duplicate" id="pg">
+            
+            <apex:pageBlockButtons location="top" >
+                    <apex:commandButton value="Save" action="{!saveRecord}" onclick="return recordDispositionCheck(this,'checkdone','{!unselectedCheckboxCount}','{!accountCheckboxCount}');"/>                                       
+                    <apex:commandButton value="Cancel" action="{!cancelRecord}"/>
+        </apex:pageBlockButtons>
+        <!--<apex:actionFunction name="wraptext" action="{!populatelist}" reRender="Dispositionpage"/>-->
+          <!--<apex:param name="otherDispostionReason" value="{!potentialdup.Other_Disposition_Reason__c}" assignTo="{!setstr}" />
+          </apex:actionFunction>-->
+        <apex:pageblockSection columns="1">
+        <!--<apex:inputField value="{!potentialdup.Disposition__c}" id="dispositionid">
+                <script>document.getElementById('{!$Component.dispositionid}').disabled = {!disableInput}; </script>
+            <apex:actionSupport event="onchange" action="{!populatelist}" />
+            </apex:inputField>-->
+            <apex:selectList size="1" value="{!potentialdup.Disposition__c}" id="dispositionid" disabled="{!disableInput}">
+               <apex:selectOptions value="{!DispositionPicVal}"/>                               
+                <apex:actionSupport event="onchange" action="{!populatelist}"/>
+            </apex:selectList>
+           <!--<apex:inputtext value="{!unselectedCheckboxCount}"/>
+           <apex:inputtext value="{!accountCheckboxCount}"/>-->
+            <apex:pageBlockSectionItem rendered="{!potentialdup.Disposition__c=='Keep'}" >             
+            <apex:outputLabel >Dispostion Reason</apex:outputLabel>
+            <apex:outputPanel >
+             <div class="requiredInput">
+                  <div class="requiredBlock"></div>           
+                 <apex:inputField id="DispostionReason" value="{!potentialdup.Dispostion_Reason__c}">
+                 <script>document.getElementById('{!$Component.DispostionReason}').disabled = {!disableInput}; </script>
+                <apex:actionSupport event="onchange" disabled="true" /><!-- action="{!populatelist}" />-->
+                </apex:inputField>
+            </div>     
+            </apex:outputPanel>       
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem rendered="{!potentialdup.Dispostion_Reason__c=='Other' && potentialdup.Disposition__c=='Keep'}" >             
+            <apex:outputLabel >Other Dispostion Reason</apex:outputLabel>
+            <apex:outputPanel >
+             <div class="requiredInput">
+                  <div class="requiredBlock"></div>  
+                  <!--         
+                 <apex:inputField id="otherDispostionReason" value="{!potentialdup.Other_Disposition_Reason__c}" onkeyup="populatelist('{!$Component.otherDispostionReason}');">
+                 -->
+                 <apex:inputField id="otherDispostionReason" value="{!potentialdup.Other_Disposition_Reason__c}" > <!--onkeyup="populaterecords('{!$Component.otherDispostionReason}');">-->
+                 <script>document.getElementById('{!$Component.otherDispostionReason}').disabled = {!disableInput}; </script>
+                </apex:inputField>
+            </div>     
+            </apex:outputPanel>       
+            </apex:pageBlockSectionItem>
+        </apex:pageBlocksection>
+    <!--<input type="text" id='chkechboxchecked'/>-->
+    
+        
+    </apex:pageBlock>
+ <!--   <apex:pageBlock id="pb12" title="Potential Duplicate Warning">
+       <apex:pageBlockSection id="pbs1" columns="1">
+        <apex:pageBlockSectionItem >
+            <apex:outputLabel >Warning Name</apex:outputLabel>
+            <apex:outputField value="{!potentialdup.Potential_Duplicate_Warning__r.Name}"/>
+            </apex:pageBlockSectionItem>  
+        </apex:pageBlockSection>
+            
+    </apex:pageBlock> -->
+    <apex:pageBlock id="Dispositionpage" title="Potential Duplicate">  
+        
+        <!-- <apex:commandButton action="{!Beginning}" title="Beginning" value="<<" disabled="{!disablePrevious}" reRender="myPanel,pb1"/>-->
+        <apex:commandButton style="text-align:right;" action="{!Previous}" title="Previous" value="Previous" disabled="{!disablePrevious}" reRender="myPanel,Dispositionpage" status="mySaveStatus1"/>       
+        <apex:commandButton style="text-align:right;" action="{!Next}" title="Next" value="Next" disabled="{!disableNext}" reRender="myPanel,Dispositionpage" status="mySaveStatus1"/>
+        <apex:outputLabel >({!counter} - {!list_size+counter} of {!total_size})</apex:outputLabel>
+        
+       <!-- <apex:commandButton action="{!End}" title="End" value=">>" disabled="{!disableNext}" reRender="myPanel,pb1"/>   -->     
+               <apex:actionStatus id="mySaveStatus1" startText=" loading.." >
+         <apex:facet name="start">
+             <apex:outputPanel >
+                   <apex:image value="/img/loading.gif" title="loading.." style="height: 15px;"/>                   
+               </apex:outputPanel>
+           </apex:facet>
+        </apex:actionStatus>
+            <apex:outputPanel id="myPanel">
+            <apex:pageBlockTable id="Dispositiontable" value="{!wrapperlist}" var="w" columns="16">
+                <apex:column id="Dispositioncol" headerClass="TableTitle">
+                        <apex:inputCheckbox value="{!w.checked}" id="checkedone" rendered="{!IF((w.BaseOwnerName!=CurrentUsername),false,true)}" onclick="dataCheck(this.id,'{!$Component.pg.otherDispostionReason}','{!$Component.otherreason}');">
+                      
+                            <apex:actionSupport event="onclick" action="{!enableCloseDateInput}"  reRender="pg" >
+                              <!--<apex:param name="recordName" id="recordName" value="{!w.wrapDupPot.Related_Object_ID__c}"/>-->
+                              </apex:actionSupport>
+                        </apex:inputCheckbox>
+                      <!--   <apex:facet name="header"><apex:inputcheckbox value="{!w.checked}" onclick="checkAll(this,'checkdone')"/></apex:facet>  -->
+                      <apex:facet name="header">
+                          <apex:inputcheckbox value="{!w.checked}" id="checkdone">
+                               <apex:actionSupport event="onclick" action="{!enableCloseDateInput}" onsubmit="checkAll(this)" reRender="pg" />
+                          </apex:inputcheckbox> 
+                      </apex:facet>
+                      
+                </apex:column>
+                <!--<apex:column headerValue="Dispostion Warning" headerClass="TableTitle">                         
+                        <a href="/{!w.wrapDupPot.Potential_Duplicate_Warning__r.ID}"><apex:outputText value="{!w.wrapDupPot.Potential_Duplicate_Warning__r.Name}" /></a>
+                </apex:column>-->
+                <apex:column headerValue="Dispostion Warning" headerClass="TableTitle">
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Dispostion Warning">
+                         
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC' && sortingField=='Potential_Duplicate_Warning__r.Name'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC' && sortingField=='Potential_Duplicate_Warning__r.Name'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+
+                         <apex:param value="Potential_Duplicate_Warning__r.Name" assignTo="{!sortingField}" name="sortingField" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Potential_Duplicate_Warning__r.Name', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet> 
+                        <a href="/{!w.wrapDupPot.Potential_Duplicate_Warning__r.ID}"><apex:outputText value="{!w.wrapDupPot.Potential_Duplicate_Warning__r.Name}"/></a>
+                </apex:column>
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Record Type">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC' && sortingField=='Object_Type__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC' && sortingField=='Object_Type__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Object_Type__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Object_Type__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.Object_Type__c}" />
+                </apex:column>
+                <apex:column width="100px" headerClass="TableTitle">
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Record Name">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC' && sortingField=='Related_Object_Name__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC' && sortingField=='Related_Object_Name__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Related_Object_Name__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Related_Object_Name__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                       
+                        <a href="/{!w.wrapDupPot.Related_Object_ID__c}"><apex:outputText value="{!w.ContactName}" /></a>
+                </apex:column>   
+                 
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Customer ID">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC' && sortingField=='Customer_Id__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC' && sortingField=='Customer_Id__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Customer_Id__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Customer_Id__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.Customer_Id__c}" />
+                </apex:column>              
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Address1">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC' && sortingField=='Address_1__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC' && sortingField=='Address_1__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Address_1__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Address_1__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.Address_1__c}" />
+                </apex:column>
+                
+                //Added by George case#00146695 
+                    <apex:column headerClass="TableTitle">  
+                            <apex:facet name="header">
+                             <apex:commandLink action="{!pagination}" value="Address2">
+                             <apex:outputText escape="false" rendered="{!sortDir=='ASC' && sortingField=='Account__r.Address2__c'}">
+                                <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                            </apex:outputText>
+                            
+                            <apex:outputText escape="false" rendered="{!sortDir=='DESC' && sortingField=='Account__r.Address2__c'}">
+                                <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                            </apex:outputText>
+                             <apex:param value="Account__r.Address2__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                             <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Account__r.Address2__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                             </apex:commandLink>
+                             </apex:facet>                     
+                            <apex:outputText value="{!w.wrapDupPot.Account__r.Address2__c}" />
+                    </apex:column>
+                //END:-Added by George case#00146695 
+                
+                
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="City">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC' && sortingField=='City__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC' && sortingField=='City__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="City__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC' && sortingField=='City__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.City__c}" />
+                </apex:column>
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="State">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC' && sortingField=='State__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC' && sortingField=='State__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="State__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC' && sortingField=='State__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.State__c}" />
+                </apex:column>                
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Zip">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC'&& sortingField=='Zip__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC'&& sortingField=='Zip__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Zip__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC'&& sortingField=='Zip__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.Zip__c}" />
+                </apex:column>                
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Year Sales LY">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC'&& sortingField=='Year_Sales_LY__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC'&& sortingField=='Year_Sales_LY__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Year_Sales_LY__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Year_Sales_LY__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.Year_Sales_LY__c}" />
+                </apex:column>                
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="YTD Sales TY">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC'&& sortingField=='YTD_Sales_TY__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC'&& sortingField=='YTD_Sales_TY__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="YTD_Sales_TY__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC' && sortingField=='YTD_Sales_TY__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.YTD_Sales_TY__c}" />
+                </apex:column>                
+                <apex:column headerClass="TableTitle">
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Owner">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC'&& sortingField=='CurrentUser__c,Related_Object_OwnerName__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC'&& sortingField=='CurrentUser__c,Related_Object_OwnerName__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="CurrentUser__c,Related_Object_OwnerName__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC'&& sortingField=='CurrentUser__c,Related_Object_OwnerName__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>               
+                        <a href="/{!w.wrapDupPot.Related_Object_OwnerID__c}"><apex:outputText value="{!w.wrapDupPot.Related_Object_OwnerName__c}" /></a>
+                </apex:column>
+                
+                
+                <!--<apex:column headerValue="Description" headerClass="TableTitle">
+                        <apex:outputText value="{!w.wrapDupPot.Potential_Duplicate_Warning__r.Description__c}"/>
+                </apex:column>-->
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Dispostion">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC'&& sortingField='Disposition__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC'&& sortingField='Disposition__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Disposition__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC'&& sortingField='Disposition__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.Disposition__c}" />
+                </apex:column>                
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Dispostion Reason">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC'&& sortingField='Dispostion_Reason__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC'&& sortingField='Dispostion_Reason__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Dispostion_Reason__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC'&& sortingField='Dispostion_Reason__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.Dispostion_Reason__c}" />
+                </apex:column>
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Other Dispostion Reason">
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC'&& sortingField='Other_Disposition_Reason__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC'&& sortingField='Other_Disposition_Reason__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Other_Disposition_Reason__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC'&& sortingField='Other_Disposition_Reason__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.Other_Disposition_Reason__c}" />
+                </apex:column>
+                <!--
+                <apex:column headerClass="TableTitle">  
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Other Dispostion Reason">
+                         <apex:outputText  >
+                         </apex:outputText >
+                         <apex:outputText escape="false" rendered="{!sortDir=='ASC'&& sortingField='Other_Disposition_Reason__c'}">
+                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                        </apex:outputText>
+                        
+                        <apex:outputText escape="false" rendered="{!sortDir=='DESC' && sortingField='Other_Disposition_Reason__c'}">
+                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                        </apex:outputText>
+                         <apex:param value="Other_Disposition_Reason__c" name="sortingField" assignTo="{!sortingField}" ></apex:param>
+                         <apex:param value="{!IF(sortDir=='ASC'&& sortingField='Other_Disposition_Reason__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                         </apex:commandLink>
+                         </apex:facet>                     
+                        <apex:outputText value="{!w.wrapDupPot.Other_Disposition_Reason__c}" />
+                </apex:column>                
+               -->
+               <!-- <apex:column headerClass="TableTitle">
+                        <apex:facet name="header">
+                         <apex:commandLink action="{!pagination}" value="Last Modified By">
+                         <apex:param value="lastmodifiedby.name" name="sortingField" ></apex:param>
+                         </apex:commandLink>
+                         </apex:facet> 
+                        <apex:outputText value="{!w.wrapDupPot.lastmodifiedby.name}"/>
+                </apex:column> -->
+            </apex:pageBlockTable>
+            </apex:outputPanel>
+            <apex:commandButton style="text-align:right;" action="{!Previous}" title="Previous" value="Previous" disabled="{!disablePrevious}" reRender="myPanel,Dispositionpage" status="mySaveStatus1"/>       
+        <apex:commandButton style="text-align:right;" action="{!Next}" title="Next" value="Next" disabled="{!disableNext}" reRender="myPanel,Dispositionpage" status="mySaveStatus1"/>
+        <apex:outputLabel >({!counter} - {!list_size+counter} of {!total_size})</apex:outputLabel>
+        
+    </apex:pageBlock>    
+    <apex:pageBlock > 
+    <apex:pageBlockButtons location="bottom" >
+                    <apex:commandButton value="Save" action="{!saveRecord}" onclick="return recordDispositionCheck(this,'checkdone');"/>
+                    <apex:commandButton value="Cancel" action="{!cancelRecord}"/>
+        </apex:pageBlockButtons>
+        <apex:outputText value="{!callfunc}" escape="false"></apex:outputText>
+        </apex:pageBlock>
+    
+    
+    
+    
+</apex:form>
+</apex:page>

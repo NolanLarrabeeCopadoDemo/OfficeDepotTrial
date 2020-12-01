@@ -1,0 +1,22 @@
+<apex:page standardController="Contact" extensions="ContactDuplicateExtension">
+    <style type = "text/css">
+        .headerRow {
+            text-align: center;
+        }     
+    </style>
+    <apex:pageBlock rendered="{!IF (duplicateList = null, false, true)}">
+        <apex:pageblockTable value="{!duplicateList}" var="dup">
+            <apex:column headerValue="Name" headerClass="headerRow" style="text-align:center;">
+                <apex:outputLink value="/{!dup.contactId}" target="_blank">{!dup.name}</apex:outputLink>
+            </apex:column>    
+            <apex:column headerValue="Phone" value="{!dup.phone}" headerClass="headerRow" style="text-align:center;"/>
+            <apex:column headerValue="Email" value="{!dup.email}" headerClass="headerRow" style="text-align:center;"/>
+            <apex:column headerValue="Master/Duplicate" value="{!dup.masterDuplicate}" headerClass="headerRow" style="text-align:center;"/>
+            <apex:column headerValue="Number of Activities" value="{!dup.activities}" headerClass="headerRow" style="text-align:center;"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <!-- Empty List -->
+    <apex:pageBlock rendered="{!IF (duplicateList = null, true, false)}">
+        No duplicates found
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,152 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global"
+                controller="submitCaseController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="objCase" type="Case" default="{'sobjectType':'Case'}" />
+    <aura:attribute name="ContactPreferenceoptions" type="List" default="[
+                                                        {'label': 'Email', 'value': 'Email'},
+                                                        {'label': 'Phone', 'value': 'Phone'}
+                                                        ]"/>
+    <aura:attribute name="ContactPreferenceValue" type="String" default="Email"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute name="bCaseSubmitted" type="boolean" default="false"/>
+    
+    <aura:attribute name="listPC_Priority" type="list"/>
+    <aura:attribute name="listIT_Classification" type="list"/>
+    <aura:attribute name="listDepartment" type="list"/>
+    
+    
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.bCaseSubmitted}">
+       
+        <div class="slds-text-align_center slds-text-heading_medium">We have received your support ticket. You will be contacted by our customer support team.  If you need immediate assistance, please contact your Channel Manager.</div>
+        <aura:set attribute="else">
+            <div style="width:100%;" class="slds-align-left">
+                <p class="slds-section-title--divider"><b>Your Details</b></p>
+            </div>
+            <div class="slds-align_absolute-center slds-text-color_success">
+                <div style="width:25%; float:left;"> 
+                    <lightning:input label="Name"
+                                     value="{!v.objCase.Case_Name_field1__c}"
+                                     class="field customLbl"
+                                     disabled="true"
+                                     maxlength="30"/>
+                </div>
+                <div style="width: 10%; float:left;"> &nbsp; </div>
+                
+                <div style="width:25%; float:left;">           
+                    <lightning:input label="Phone" 
+                                     value="{!v.objCase.ContactPhone}" 
+                                     maxlength="30" 
+                                     disabled="true" 
+                                     class="customLbl"/>
+                </div>
+                <div style="width: 10%; float:left;"> &nbsp; </div>
+                <div style="width:25%; float:left;">
+                    <lightning:input label="Email" 
+                                     value="{!v.objCase.ContactEmail}" 
+                                     disabled="true" 
+                                     maxlength="30" 
+                                     class="customLbl"/>
+                </div>
+            </div>
+            <br/>
+            <div style="width:100%;font-size: medium;" class="slds-align-left">
+                <p class="slds-section-title--divider"><b>Help Us Expedite your Case</b></p>
+            </div>
+            <div class="slds-align_absolute-center">
+                <div style="width:25%; float:left;"> 
+                    <lightning:select label="Priority"
+                                      value="{!v.objCase.PC_Priority__c}"
+                                      required="true"
+                                      class="customLbl"
+                                      aura:id="priority_Id">
+                        <option value="">choose one...</option>
+                        <aura:iteration items="{!v.listPC_Priority}" var="opt">
+                           <option value="{!opt}">{!opt}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <div style="width: 10%; float:left;"> &nbsp; </div>
+                
+                <div style="width:25%; float:left;">   
+                    <lightning:select label="Issue Type"
+                                      value="{!v.objCase.IT_Classification__c}"
+                                      required="true"
+                                      class="customLbl"
+                                      aura:id="issueType_Id">
+                        <option value="">choose one...</option>
+                        <aura:iteration items="{!v.listIT_Classification}" var="opt">
+                           <option value="{!opt}">{!opt}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <div style="width: 10%; float:left;"> &nbsp; </div>
+                <div style="width:25%; float:left;"> 
+                    <lightning:select label="Direct Your Question to"
+                                      value="{!v.objCase.Department__c}"
+                                      required="true"
+                                      class="customLbl"
+                                      aura:id="Shoot_Your_Question_to_Id">
+                        <option value="">choose one...</option>
+                        <aura:iteration items="{!v.listDepartment}" var="opt">
+                           <option value="{!opt}">{!opt}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+            </div>
+            <br/>
+            
+            <div style="width:100%;" class="slds-align-left">
+                <p class="slds-section-title--divider"><b>Lets Connect</b></p>
+            </div>
+            <div class="slds-align_absolute-center">
+                <div style="width:25%; float:left;">
+                    <lightning:radioGroup name="radioGroup"
+                                          label="Contact Preference"
+                                          options="{! v.ContactPreferenceoptions}"
+                                          value="{! v.ContactPreferenceValue}"
+                                          type="radio"
+                                          class="customLbl"/>
+                </div>
+                <div style="width: 10%; float:left;"> &nbsp; </div>
+                <div style="width:25%; float:left;"> 
+                    <lightning:textarea class="customLb2"
+                                        name="native"
+                                        label="Subject"
+                                        maxlength="40"
+                                        value="{!v.objCase.Subject}"
+                                        messageWhenTooLong="You have exceeded the limit of 40 characters!"/>
+                </div>
+                <div style="width: 10%; float:left;"> &nbsp; </div>
+                <div style="width:25%; float:left;">
+                   <lightning:textarea class="customLbl"
+                                        name="native"
+                                        label="Description"
+                                        maxlength="90"
+                                        value="{!v.objCase.Description}"
+                                        messageWhenTooLong="You have exceeded the limit of 90 characters!"/>  
+                    
+                </div>
+                
+            </div>
+            <div class="slds-align_absolute-center">
+              <lightning:button variant="neutral" 
+                                class="slds-button slds-button_brand" 
+                                label="Submit" 
+                                title="Success" 
+                                onclick="{!c.savepartnercase}"/>  
+            </div>
+        </aura:set>
+    </aura:if>
+    
+    
+</aura:component>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_27765566</developerName>
+        <masterLabel>Division</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>User.Region__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Canada</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Enterprise BD - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Enterprise BD - Northeast</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Enterprise BD - West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Healthcare and Buying Groups</sourceValue>
+            </sourceValues>
+            <value>Enterprise BD &amp; Canada</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Public - K12 Solutions</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Public Cooperatives</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Public Sector</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Growth Initiatives</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CPD Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CBS Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Furniture Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Technology Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>MPS Sales</sourceValue>
+            </sourceValues>
+            <value>Adjacencies &amp; Public</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Northeast</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Southeast</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Inside Sales</sourceValue>
+            </sourceValues>
+            <value>Field Sales &amp; Inside Sales</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>Account.YTD_Sales_TY__c</column>
+        </chartSummaries>
+        <chartSummaries>
+            <axisBinding>y2</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>VerticalColumnLine</chartType>
+        <enableHoverLabels>true</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>User.Region__c</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_TOP</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>RECORDTYPE</field>
+    </columns>
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Account.First_Order_Date__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.YTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.YTD_Sales_TY_IMU__c</field>
+    </columns>
+    <description>How many new accounts have we created this year, excl Enterprise Owners?</description>
+    <filter>
+        <booleanFilter>(1 AND ((2 AND 4) OR 5) AND 3) AND 6</booleanFilter>
+        <criteriaItems>
+            <column>Account.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Active</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Account.Customer</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Hierarchy__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>C,S</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.OMX_Primary_Key__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Account.Customer_OfficeMax</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notContain</operator>
+            <value>,Support</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>User.Region__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Newly Created Accounts - CFY</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>team</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Account.YTD_Sales_TY__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

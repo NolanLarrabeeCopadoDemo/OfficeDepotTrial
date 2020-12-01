@@ -1,0 +1,105 @@
+<messaging:emailTemplate subject="Win Announcement: {!relatedTo.Account.Name}" recipientType="User" relatedToType="Opportunity">
+    <messaging:htmlEmailBody >
+        <html>
+        <body style="margin:0px">
+           <center>
+              <table role="presentation" style="background-color:rgb(244,246,249);font-family:helvetica,arial,sans-serif;width:100%;border-width:0px;border-spacing:0px;border-collapse:collapse">
+                 <tbody>
+                    <tr>
+                       <th style="width:10%;background-color:rgb(0,112,210);vertical-align:top;text-align:center"></th>
+                       <th style="width:80%;background-color:rgb(0,112,210);vertical-align:top;text-align:center">
+                          <table role="presentation" style="margin:24px auto 0px">
+                             <tbody>
+                                <tr>
+                                   <td>
+                                       <apex:image alt="Salesforce" value="{!LEFT($Api.Partner_Server_URL_140, FIND('.com/',$Api.Partner_Server_URL_140)+3)}/servlet/servlet.ImageServer?id=0154400000BwLec&oid={!$Organization.Id}" style="width:72px;height:72px" />
+                                   </td>
+                                </tr>
+                             </tbody>
+                          </table>
+                          <div style="color:rgb(255,255,255);font-size:18px;font-weight:normal;line-height:24px;padding:0px;margin:0px 16px 24px">
+                             <div style="font-weight:bold">Win Announcement</div>
+                             <div>
+                                 <span>{!relatedTo.Owner.Name} closed a deal at </span>
+                                 <apex:outputLink target="_blank" title="View Account: {!relatedTo.Account.Name}" value="{!LEFT($Api.Partner_Server_URL_140, FIND('.com/',$Api.Partner_Server_URL_140)+3)}/{!relatedTo.AccountId}" style="color:rgb(255,255,255);font-weight:normal;text-decoration:none;border-bottom:1px dotted;">{!relatedTo.Account.Name}</apex:outputLink>.
+                             </div>
+                          </div>
+                       </th>
+                       <th style="width:10%;background-color:rgb(0,112,210);vertical-align:top;text-align:center"></th>
+                    </tr>
+                    <tr>
+                       <td style="width:10%;background-color:rgb(0,112,210);vertical-align:top;text-align:center"></td>
+                       <td style="width:80%;background-color:rgb(255,255,255);vertical-align:top;text-align:center;padding-left:15px;padding-right:15px;">
+                          <h1 style="color:rgb(22,50,92);font-size:24px;font-weight:bold;line-height:1.4em;padding:0px;margin-top:20px;margin-bottom:0px;text-align:center">
+                              {!relatedTo.Name}
+                          </h1>
+                          <h2 style="color:rgb(22,50,92);font-size:22px;font-weight:normal;line-height:1.4em;padding:0px;margin-top:0px;margin-bottom:0px;text-align:center">
+                              <apex:outputText value="${0,number,###,###,##0.00}">
+                                  <apex:param value="{!relatedTo.Amount - (relatedTo.Monthly_Recurring_Amount__c * 11) }" />
+                              </apex:outputText>
+                          </h2>
+                          <apex:outputPanel layout="block" style="line-height:18px;padding:0px;margin-top:20px;margin-bottom:0px;text-align:center">
+                              <div style="color:rgb(148, 157, 173);font-size:12px;">SOURCE</div> 
+                              <div style="color:rgb(84,105,141);font-size:16px;">{!IF(CONTAINS(relatedTo.LeadSource, "TZ: "),RIGHT(relatedTo.LeadSource,LEN(relatedTo.LeadSource)-3),relatedTo.LeadSource)}</div>
+                          </apex:outputPanel> 
+                          <apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(relatedTo.BDR__c))}" style="line-height:18px;padding:0px;margin-top:20px;margin-bottom:0px;text-align:center">
+                              <div style="color: rgb(148, 157, 173);font-size:12px;">BDR</div> 
+                              <div style="color:rgb(84,105,141);font-size:16px;">{!relatedTo.BDR__r.Name}</div>
+                          </apex:outputPanel>
+                          <apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(relatedTo.Channel_Account_Manager__c))}" style="line-height:18px;padding:0px;margin-top:20px;margin-bottom:0px;text-align:center">
+                              <div style="color: rgb(148, 157, 173);font-size:12px;">CHANNEL ACCOUNT MANAGER</div> 
+                              <div style="color:rgb(84,105,141);font-size:16px;">{!relatedTo.Channel_Account_Manager__r.Name}</div>
+                          </apex:outputPanel>
+                          <apex:outputPanel layout="block" style="line-height:18px;padding:0px;margin-top:20px;margin-bottom:0px;text-align:center">
+                              <div style="color:rgb(148, 157, 173);font-size:12px;">PRODUCTS</div> 
+                          </apex:outputPanel> 
+                          <table cellpadding="4" style="color:rgb(84,105,141);border-collapse:collapse;margin:0px auto 10px auto;font-size:16px;" >
+                             <apex:repeat value="{!relatedTo.OpportunityLineItems}" var="lineItem">
+                                <tr>
+                                   <td style="text-align:left;">
+                                       <apex:outputText value="{!lineItem.Product2.Name}"/>
+                                   </td>
+                                   <td style="text-align:right;margin-left:20px;">
+                                       <apex:outputText value="${0,number,###,###,##0.00}">
+                                          <apex:param value="{!IF(lineItem.Recurring__c, lineItem.Monthly_Recurring_Total_Price__c, lineItem.TotalPrice)}" />
+                                      </apex:outputText>
+                                   </td>
+                                </tr>
+                             </apex:repeat>
+                          </table>
+                          <apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(relatedTo.Quote_Number__c))}" style="line-height:18px;padding:0px;margin-top:20px;margin-bottom:0px;text-align:center">
+                              <div style="color: rgb(148, 157, 173);font-size:12px;">QUOTE NUMBER</div> 
+                              <div style="color:rgb(84,105,141);font-size:16px;">{!relatedTo.Quote_Number__c}</div>
+                          </apex:outputPanel>
+                       </td>
+                       <td style="width:10%;background-color:rgb(0,112,210);vertical-align:top;text-align:center"></td>
+                    </tr>
+                    <tr>
+                       <td style="width:10%"></td>
+                       <td style="width:80%;border-bottom-width:2px;border-bottom-style:solid;border-bottom-color:rgb(216,221,230);padding-bottom:24px;padding-top:24px;text-align:center;vertical-align:top;background-color:rgb(255,255,255)">
+                          <table role="presentation" style="margin:auto;border-width:0px">
+                             <tbody>
+                                <tr>
+                                   <td style="background-color:rgb(0,112,210);margin:0px auto;text-decoration:none;text-align:center;padding:12px 16px;border:none;border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-right-radius:4px;border-bottom-left-radius:4px">
+                                       <apex:outputLink target="_blank" title="View Opportunity" value="{!LEFT($Api.Partner_Server_URL_140, FIND('.com/',$Api.Partner_Server_URL_140)+3)}/{!relatedTo.Id}" style="color:rgb(255,255,255);text-decoration:none;text-align:center;text-transform:none;font-size:16px;">View Opportunity</apex:outputLink>
+                                   </td>
+                                </tr>
+                             </tbody>
+                          </table>
+                       </td>
+                       <td style="width:10%"></td>
+                    </tr>
+                    <tr>
+                       <th style="width:10%"></th>
+                       <th style="width:80%">
+                          <div style="margin-top:32px;margin-bottom:32px;font-size:12px;font-weight:normal;color:rgb(84,105,141)"></div>
+                       </th>
+                       <th style="width:10%"></th>
+                    </tr>
+                 </tbody>
+              </table>
+           </center>
+        </body>
+        </html>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Contract Maintenance</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Contract Maintenance</name>
+    <style>freeForm</style>
+    <subject>Contract Maintenance - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Below new request for Contract Maintenance:
+
+    Customer Name: {!Account_Setup_Request__c.Account__c}
+    Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+    Created Date: {!Account_Setup_Request__c.CreatedDate}
+    Owner: {!Account_Setup_Request__c.OwnerFullName}
+
+Contract Maintenance Items:
+
+    Bill Management Access: {!Account_Setup_Request__c.Bill_Mgmt_Access__c}
+    Monthly eStatement Email: {!Account_Setup_Request__c.Monthly_eStatement_Email__c}
+    PO: {!Account_Setup_Request__c.PO__c}
+    Desktop Flag: {!Account_Setup_Request__c.Desktop__c}
+    Cost Center: {!Account_Setup_Request__c.Cost_Center__c}
+    Release: {!Account_Setup_Request__c.Release__c}
+    Individual Invoice: {!Account_Setup_Request__c.individual_invoice_billing_or_consolida__c}
+    Billing Frequence: {!Account_Setup_Request__c.Billing_Frequency__c}
+
+Salesforce Link to Records:
+
+    Salesforce Account Setup Request Record:  https://cs7.salesforce.com/{!Account_Setup_Request__c.Id}
+    Salesforce Account Record: https://cs7.salesforce.com/{!Account_Setup_Request__c.AccountId__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

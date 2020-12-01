@@ -1,0 +1,16 @@
+<apex:page standardController="Contact" standardStylesheets="false" showHeader="false" sidebar="false">
+    <apex:includeScript value="/lightning/lightning.out.js"/>
+    <script>
+        $Lightning.use("c:OptIn", function() {
+        <!--$Lightning.createComponent(String type, Object attributes, String locator, function callback); -->
+            $Lightning.createComponent(
+                "c:OptInList",
+                {recordId : '{!Contact.Id}'},
+                "OptList",
+                function(cmp) {
+                });
+            });
+    </script>  
+    <div id="OptList">
+    </div>
+</apex:page>

@@ -1,0 +1,23 @@
+<template>
+    <!-- While loading, show a spinner. -->
+    <template if:false={isLoaded}>
+        <lightning-spinner size="small"></lightning-spinner>
+    </template>
+
+    <template if:true={isLoaded}>
+
+        <!-- If Something goes wrong, show an error message. -->
+        <template if:true={error}>
+            <c-error-panel errors={error} friendly-message="The DML you are looking for could not be found!">
+            </c-error-panel>
+        </template>
+        <!-- Display the Record -->
+        <template if:false={error}>
+            <c-object-display-component field_list={field_list} object_api_name="DML__c" object_record_id={dml_id}>
+            </c-object-display-component>
+        </template>
+
+    </template>
+
+
+</template>

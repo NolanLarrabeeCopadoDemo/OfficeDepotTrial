@@ -1,0 +1,254 @@
+<apex:page StandardController="Account">
+  <style>
+        .redChar{
+            color: #117822;
+            font-size: 12px;
+            font-weight:bold         
+        }
+        </style>
+    <apex:pageBlock >
+        <table width="100%" cellspacing="20">
+            <tr>
+                <td>
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="{!$Label.Month_Stats_lbl}" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="Rev" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="{!$Label.IMU_lbl}" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="{!$Label.MTD_TY_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement" ><apex:outputField value="{!Account.MTD_Sales_TY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MTD_Sales_TY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.MTD_LY_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MTD_Sales_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MTD_Sales_LY_IMU2__c}" />
+                             
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="{!$Label.MTD_Diff_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MTD_Sales_Diff__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.Monthly_LY_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Monthly_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Monthly_LY_IMU_Per__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.ADS_for_Current_Month_lbl}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Current_Month__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="{!$Label.ADS_for_Last_Month_lbl}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Last_Month__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.AOV_for_Current_Month_lbl}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Current_Month__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even last">
+                            <td><apex:outputText value="{!$Label.AOV_for_Last_Month_lbl}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Last_Month__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                    </table></td>
+
+
+
+                <td>
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="{!$Label.Quarter_Stats_lbl}" />
+                            </th>
+                            <th class="CurrencyElement" ><apex:outputText value="Rev" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="{!$Label.IMU_lbl}" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="{!$Label.QTD_TY_lbl}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_TY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_TY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.QTD_LY_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_LY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="{!$Label.QTD_Diff_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_Diff__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.Quarter_LY_lbl}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Quarter_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Quarter_LY_IMU_per__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.ADS_for_Current_Qtr_lbl}" />
+                            
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Current_Qtr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="{!$Label.ADS_for_Last_Qtr_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Last_Qtr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.AOV_for_Current_Qtr_lbl}" />                            
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Current_Qtr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even last">
+                            <td><apex:outputText value="{!$Label.AOV_for_Last_Qtr_lbl}" />                            
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Last_Qtr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                    </table></td>
+
+
+                <td>
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="{!$Label.Year_Stats_lbl}" />
+                            </th>
+                            <th class="CurrencyElement" ><apex:outputText value="Rev" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="{!$Label.IMU_lbl}" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="{!$Label.YTD_TY_lbl}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_TY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_TY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.YTD_LY_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_LY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="{!$Label.YTD_Diff_lbl}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_Diff__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.Year_LY_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Year_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Year_LY_IMU_per__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.ADS_for_Current_Yr_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Current_Yr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="{!$Label.ADS_for_Last_Yr_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Last_Yr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="{!$Label.AOV_for_Current_Yr_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Current_Yr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even last">
+                            <td><apex:outputText value="{!$Label.AOV_for_Last_Yr_lbl}" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Last_Yr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+
+                    </table></td>
+            </tr>
+           
+
+           <tr>
+                <td></td>
+                                        </tr><br></br>
+                    </table>
+                  </apex:pageBlock>
+       
+</apex:page>

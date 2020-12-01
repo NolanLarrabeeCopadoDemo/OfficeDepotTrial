@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>WRF_Task__c$Assigned_To__c.Manager__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c$Assigned_To__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c$Account_Name__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c$WRF__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c$WRF__c.WRF_Opportunity__c.Amount</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c$WRF__c.WRF_Requestor_Name__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c$WRF__c.WRF_Requestor_Email__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c$WRF__c.WRF_Prpsl_Deadln__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c$WRF__c.WRF_Request_Type__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c$Disposition_Code__c</field>
+    </columns>
+    <description>Need data to fill in Smartsheet Known Wins</description>
+    <filter>
+        <criteriaItems>
+            <column>WRF_Task__c$RecordType.DeveloperName</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>WRF_Sub_Task</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>WRF_Task__c$Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Bid Writing</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>WRF_Task__c$WRF__c.WRF_Request_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Form Completion/NDA/RFI,&quot;Form Completion (NDA, W-9, Vendor, etc)&quot;,Form Completion Only</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>WRF_Task__c$Assigned_To__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>Robert Wilson</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Known Wins</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>WRF_Tasks_with_Support_with_Opportunities__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>WRF_Task__c$WRF__c.WRF_Prpsl_Deadln__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>WRF_Task__c$Due_Date__c</dateColumn>
+        <interval>INTERVAL_CURY</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,248 @@
+<apex:page controller="pricecalc" showHeader="false" sidebar="false">
+<head>
+<style>
+.pbSubheader{
+background-color: #3090C7 !important;
+color: white !important;
+border-color: none !important;
+}
+</style>
+</head>
+<font size="2">
+<apex:form >
+
+<apex:pageblock title="Price Calculator">
+<apex:pagemessages id="msg"></apex:pagemessages>
+<apex:panelgrid columns="2" width="600px">
+<apex:panelgrid columns="1" width="300px">
+<apex:pageblocksection columns="2">
+<apex:pageblocksectionitem >
+ <apex:outputlabel value="Customer Number"/>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:outputPanel >
+                    <div class="requiredInput">
+                        <div class="requiredBlock"></div>
+<apex:inputtext ID="CustomerNumber" value="{!picst}"/></div>
+</apex:outputPanel>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:selectList value="{!selected_option}" size="1">
+ <apex:selectOption itemValue="Address Sequence" itemLabel="Address Sequence"/>
+ <apex:selectOption itemValue="Address Key" itemLabel="Address Key"/>
+ <apex:selectOption itemValue="Inventory Location" itemLabel="Inventory Location"/>
+</apex:selectList>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:inputtext value="{!selected_value}"/>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:outputlabel value="SKU Number"/>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:outputPanel id="skunumberpanel">
+                    <div id="skudivreq" class="requiredInput">
+                        <div id="skudiv" class="requiredBlock"></div>
+<apex:inputtext ID="SKUNumber" value="{!pisk}"/></div>
+</apex:outputPanel>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:outputlabel value="Quantity"/>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:inputtext value="{!piqty}"/>
+</apex:pageblocksectionitem>
+<apex:pageblockSectionItem >
+<apex:commandButton action="{!process_price_calc}" value="Submit" rerender="ResultPanel,msg,custpanel" status="processing_msg"/>
+</apex:pageblockSectionItem>
+</apex:pageblocksection>
+</apex:panelgrid>
+
+  <apex:panelgrid columns="1" id="custpanel">
+  <apex:outputtext value="{!CUSTOMER_NAME}" style="font-weight:bold"/>
+  <apex:outputtext value="{!ADDRESS_LINE1}" style="font-weight:bold"/>
+  <apex:outputtext value="{!ADDRESS_LINE2}" style="font-weight:bold"/>
+  <apex:outputtext value="{!CITY} {!STATE} {!ZIP}" style="font-weight:bold"/>
+  <apex:outputtext value="{!COUNTRY}" style="font-weight:bold"/>
+</apex:panelgrid>
+<!-- <apex:panelgrid columns="1">
+  <apex:outputtext value="ABC Supplies" style="font-weight:bold"/>
+  <apex:outputtext value="6600 N MILITARY TRL" style="font-weight:bold"/>
+  <apex:outputtext value="SUITE#10" style="font-weight:bold"/>
+  <apex:outputtext value="BOCA RATON FL 33496" style="font-weight:bold"/>
+  <apex:outputtext value="USA" style="font-weight:bold"/>
+</apex:panelgrid>  -->
+<apex:actionStatus startText="Processing, please wait...." stopText="" id="processing_msg"/>
+</apex:panelgrid>
+<apex:panelgrid id="ResultPanel">
+<apex:panelgrid columns="2" rendered="{!display_result_panel}">
+  <apex:panelgrid columns="1" width="100%">
+    <apex:panelgrid columns="1" width="100%">
+         <div style="background-color:#3090C7" width="3">
+           <font size="2" color="white"><b>SKU Pricing</b></font>
+        </div>
+    </apex:panelgrid>
+    <apex:panelgrid columns="2">
+       <apex:outputtext value="SKU" style="font-weight:bold"/>
+      <apex:outputtext value="{!sku_desc}"/>
+    </apex:panelgrid>
+    <apex:panelgrid columns="2" width="400px">
+       <apex:outputtext value="Selling Price" style="font-weight:bold"/>
+       <apex:outputtext value="${!selling_price}"/>
+       <apex:outputtext value="List Price" style="font-weight:bold"/>
+       <apex:outputtext value="${!LIST_PRICE}"/>
+       <apex:outputtext value="Department" style="font-weight:bold"/>
+     <apex:outputtext value="{!DEPARTMENT} {!DEPARTMENT_DESC}"/>
+     <apex:outputtext value="Class" style="font-weight:bold"/>
+     <apex:outputtext value="{!CLASS_x} {!CLASS_DESC}"/>
+     <apex:outputtext value="Sub Class" style="font-weight:bold"/>
+     <apex:outputtext value="{!CLASS_SUB} {!CLASS_SUB_DESC}"/>
+     <apex:outputtext value="Vendor" style="font-weight:bold"/>
+     <apex:outputtext value="{!VENDOR} {!VENDOR_NAME}"/>
+       <apex:outputtext value="Vendor Product Code" style="font-weight:bold"/>
+       <apex:outputtext value="{!pomanufprd}"/>
+       <apex:outputtext value="Replenished" style="font-weight:bold"/>
+       <apex:outputtext value="{!REPLENISHED}"/>
+    </apex:panelgrid>
+  </apex:panelgrid>
+  <apex:panelgrid columns="1" width="100%">
+    <div style="background-color:#3090C7" width="3">
+           <font size="2" color="white"><b>SKU Source</b></font>
+        </div>
+    <apex:panelgrid columns="2" width="230px">
+      <apex:outputtext value="Inv Loc" style="font-weight:bold"/>
+      <apex:outputtext value="{!INV_LOCATION}"/>
+      <apex:outputtext value="Frame Sku" style="font-weight:bold"/>
+      <apex:outputtext value="{!FRAME_SKU}"/>
+      <apex:outputtext value="Imprint Sku" style="font-weight:bold"/>
+      <apex:outputtext value="{!IMPRINT_SKU}"/>
+      <apex:outputtext value="VW" style="font-weight:bold"/>
+      <apex:outputtext value="{!VW}"/>
+      <apex:outputtext value="Std Assort" style="font-weight:bold"/>
+      <apex:outputtext value="{!STD_ASSORT}"/>
+      <apex:outputtext value="Whl Source" style="font-weight:bold"/>
+      <apex:outputtext value="{!WHL_SOURCE}"/>
+      <apex:outputtext value="VW Vendor" style="font-weight:bold"/>
+      <apex:outputtext value=""/>
+      <apex:outputtext value="VW Product" style="font-weight:bold"/>
+      <apex:outputtext value=""/>
+    </apex:panelgrid>
+  </apex:panelgrid>
+  <apex:panelgrid columns="1" width="100%">
+    <div style="background-color:#3090C7" width="3">
+           <font size="2" color="white"><b>Available Quantity</b></font>
+        </div>
+    <apex:panelgrid columns="3" width="500px">
+      <apex:outputtext value=""/>
+      <apex:outputtext value="In Stock Qty" style="font-weight:bold;text-decoration:underline"/>
+      <apex:outputtext value="VW Qty" style="font-weight:bold;text-decoration:underline"/>
+      <apex:outputtext value="Avail" style="font-weight:bold"/>
+      <apex:outputtext value="{!INSTOCK_QTY_AVAIL}"/>
+      <apex:outputtext value="{!VW_QTY_AVAIL}"/>
+      <apex:outputtext value="On Hand" style="font-weight:bold"/>
+      <apex:outputtext value="{!INSTOCK_QTY_ON_HAND}"/>
+      <apex:outputtext value="{!VW_QTY_ON_HAND}"/>
+      <apex:outputtext value="Reserved" style="font-weight:bold"/>
+      <apex:outputtext value="{!INSTOCK_QTY_RESERVED}"/>
+      <apex:outputtext value="{!VW_QTY_RESERVED}"/>
+    </apex:panelgrid>
+  </apex:panelgrid>
+  <apex:panelgrid columns="1" width="100%">
+    <div style="background-color:#3090C7" width="3">
+           <font size="2" color="white"><b>SKU Attributes</b></font>
+        </div>
+    <apex:panelgrid columns="4" width="250px">
+      <apex:outputtext value="Cat Page Contract" style="font-weight:bold"/>
+      <apex:outputtext value="{!CAT_PAGE_CONTRACT}"/>
+      <apex:outputtext value="Retail" style="font-weight:bold"/>
+      <apex:outputtext value="{!RETAIL}"/>
+    </apex:panelgrid>
+    <apex:panelgrid columns="2" width="280px">
+      <apex:outputtext value="Last Rcpt Date" style="font-weight:bold"/>
+      <apex:outputtext value="{!LAST_RECPT_DATE}"/>
+      <apex:outputtext value="Next Rcpt Date" style="font-weight:bold"/>
+      <apex:outputtext value="{!NEXT_RECPT_DATE}"/>
+      <apex:outputtext value="Next Rcpt Qty" style="font-weight:bold"/>
+      <apex:outputtext value="{!NEXT_RECPT_QTY}"/>   
+    </apex:panelgrid>
+  </apex:panelgrid>
+    <div style="background-color:#3090C7" width="3">
+           <font size="2" color="white"><b>Pricing Method</b></font>
+        </div>
+    <apex:outputtext />
+    <apex:panelgrid columns="2" width="50%">
+      <apex:outputtext value="Unit Of Measure" style="font-weight:bold"/>
+      <apex:outputtext value="{!UNIT_OF_MEASURE}"/>
+      <apex:outputtext value="Cost Code" style="font-weight:bold"/>
+      <apex:outputtext value="{!COST_CODE}"/>
+      <apex:outputtext value="Cost" style="font-weight:bold"/>
+      <apex:outputtext value="${!COST}"/>
+      <apex:outputtext value="Price Source" style="font-weight:bold"/>
+      <apex:outputtext value="{!PRICE_SOURCE}"/>
+      <apex:outputtext value="Contract/PricePlan" style="font-weight:bold"/>
+      <apex:outputtext value="{!CONTRACT_PLAN_ID} and {!pocontplanseq}"/>
+      <apex:outputtext value="GP Pct" style="font-weight:bold"/>
+      <apex:outputtext value="{!GP_PCT}"/>
+      <apex:outputtext value="Min GP Pct" style="font-weight:bold"/>
+      <apex:outputtext value="{!MIN_GP_PCT}"/>
+      <apex:outputtext value="Min Disc Pct" style="font-weight:bold"/>
+      <apex:outputtext value="{!MIN_DESC_PCT}"/>
+      <apex:outputtext value="Retail Contract" style="font-weight:bold"/>
+      <apex:outputtext value="{!RETAIL_CONTRACT}"/>
+      <apex:outputtext value="Off Retail" style="font-weight:bold"/>
+      <apex:outputtext value="{!OFF_RETAIL}"/>
+      <apex:outputtext value="Off Catalog" style="font-weight:bold"/>
+      <apex:outputtext value="{!OFF_CATALOG}"/>
+      <apex:outputtext value="Off List" style="font-weight:bold"/>
+      <apex:outputtext value="{!OFF_LIST}"/>
+      <apex:outputtext value="Cost Up" style="font-weight:bold"/>
+      <apex:outputtext value="{!COST_UP}"/>
+    </apex:panelgrid>
+    <apex:panelgrid columns="2" width="220px">
+      <apex:outputtext value="Sku" style="font-weight:bold"/>
+      <apex:outputtext value="{!SUB_SELL_SKU}"/>
+      <apex:outputtext value="Master SKU Number" style="font-weight:bold"/>
+      <apex:outputtext value="{!MASTER_SKU_NUMBER}"/>
+      <apex:outputtext value="Master Qty" style="font-weight:bold"/>
+      <apex:outputtext value="{!MASTER_QTY}"/>
+      <apex:outputtext value="Sub Sell SKU Number" style="font-weight:bold"/>
+      <apex:outputtext value="{!SUB_SELL_SKU}"/>
+      <apex:outputtext value="Pack Qty" style="font-weight:bold"/>
+      <apex:outputtext value="{!posellpck}"/>
+      <apex:outputtext value="Qty D&D" style="font-weight:bold"/>
+      <apex:outputtext value="{!QTY_D_D}"/>
+      <apex:outputtext value="Proprietary Item" style="font-weight:bold"/>
+      <apex:outputtext value="{!PROPRIETARY_ITEM}"/>
+      <apex:outputtext value="Recycled Flag" style="font-weight:bold"/>
+      <apex:outputtext value="{!RECYCLED_FLAG}"/>
+      <apex:outputtext value="Handicap Flag" style="font-weight:bold"/>
+      <apex:outputtext value="{!HANDICAP_FLAG}"/>
+      <apex:outputtext value="Minority Bus" style="font-weight:bold"/>
+      <apex:outputtext value="{!MINORITY_BUS}"/>
+      <apex:outputtext value="Bulk Priced" style="font-weight:bold"/>
+      <apex:outputtext value="{!BULK_PRICED}"/>
+      <apex:outputtext value="Oversized Item" style="font-weight:bold"/>
+      <apex:outputtext value="{!OVERSIZED_ITEM}"/>
+      <apex:outputtext value="For Brand" style="font-weight:bold"/>
+      <apex:outputtext value="{!FOR_BRAND}"/>
+      <apex:outputtext value="Returnable Item" style="font-weight:bold"/>
+      <apex:outputtext value="{!RETURNABLE_ITEM}"/>
+      <apex:outputtext value="Additional Delivery Chg" style="font-weight:bold"/>
+      <apex:outputtext value="{!ADDITIONAL_DELIVERY_CHARGE}"/>
+      <apex:outputtext value="Bundle Item" style="font-weight:bold"/>
+      <apex:outputtext value="{!BUNDLE_ITEM}"/>
+      <apex:outputtext value="Premium Item" style="font-weight:bold"/>
+      <apex:outputtext value="{!PREMIUIM_ITEM}"/>
+      <apex:outputtext value="Drop Ship" style="font-weight:bold"/>
+      <apex:outputtext value="{!DROP_SHIP}"/>
+      <apex:outputtext value="GSA Item" style="font-weight:bold"/>
+      <apex:outputtext value="{!GSA_ITEM}"/>
+      <apex:outputtext value="Furniture Item" style="font-weight:bold"/>
+      <apex:outputtext value="{!FURNITURE_ITEM}"/>
+    </apex:panelgrid>
+  </apex:panelgrid>
+  </apex:panelgrid>
+</apex:pageblock>
+</apex:form>
+</font>
+</apex:page>

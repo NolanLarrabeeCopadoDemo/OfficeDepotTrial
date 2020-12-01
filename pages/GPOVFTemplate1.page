@@ -1,0 +1,121 @@
+<!-- Site Template 1 - VF Template-->
+
+<!-- Defines core structure and dynamic elements for Site Template 1 --> 
+
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" cache="false" applyHtmlTag="false"  controller="xGPOCommunityAuthLandingController" extensions="xGPOSiteTemplate1ConExt"> 
+  
+  <apex:insert name="adminheader"/>
+
+    <div class="mainWrapper odgrid_12 gw12">
+            <!--  OD Global header -->
+            <div class="header clearfix">
+                <div class="logoContainer gw3">
+                    <a href="http://business.officedepot.com">
+                        <img src="{!URLFOR($Resource.CommuStaticResources,'images/brand.png')}" alt="Office Depot Business - We provide Smart Solutions that help you take care of business." title="Office Depot Business - We provide Smart Solutions that help you take care of business."/>
+                    </a>
+                    <p class="business_soln_label">
+                        Business Solutions Division
+                    </p>
+                </div>
+                <div class="gw9">
+                    <apex:insert name="CustomBrand" />
+                </div>
+            </div>
+
+            <div class="sub_header fright gw12">
+                <!--
+                <a class="logout_link" href="#">
+                    Logout
+                </a>
+                -->
+                
+                <apex:insert name="LogOut" />
+                
+                <!--<a href="https://oduat-officedepotcorp.cs16.force.com/gpo/GpoHome?id="{!acc.AccountNumber}>Logout</a>-->
+            </div>
+        
+            <!-- Column 1, left Main section -->
+            <div id="main" class="gw8"><!-- Using div id="main" here to allow styles to hook for old browsers since html5 styles can't be applied in old browsers -->
+                <main>
+                    <div class="salutation" style="word-wrap: break-word;">
+                        
+                            <apex:insert name="Welcome" />
+                        
+                        <br/>
+                        <p>
+                            Find tips, news and shop items to keep your business running efficiently.
+                        </p>
+                    </div>
+
+                    <!-- These sub grid elements are within gw10, so can only sum up to that amount -->
+                    <div class="hero_section clearfix">
+                        
+                        <img src="{!URLFOR($Resource.CommuStaticResources,'images/cartSale.png')}"/>
+                        
+                        <h5>
+                            Technology, office supplies, furniture &#38; more.
+                        </h5>
+
+                        <a target="_blank" class="btn primary" href="{!commSetup.shop_link__c}?cm_sp=Communities-_-{!pageID}-_-ShopNow">
+                            SHOP NOW
+                        </a>
+                    </div>
+
+                    <div class="tip_section">
+                        <apex:insert name="row2" />
+                    </div>    
+                    <div class="tip_section">
+                        <apex:insert name="row3" />
+                    </div>   
+
+                    <!-- Helpful tips images/link grid, 3x2 -->
+                    <div class="tip_section">
+                        <h3>
+                            Helpful Tips for your Business
+                        </h3>
+<apex:insert name="Tip1" />
+</div>
+
+                </main>                
+            </div>
+        
+            <div id="aside" class="gw4"><!-- Same as above, div id aside to hook css styles for old browsers -->
+                <aside>
+
+<apex:insert name="AccountOwner"/>
+
+                    <div class="news_column" style="word-wrap: break-word;">
+                        <h3>
+                            News <span class="black_text">@</span>
+                        </h3>
+                        <h5>
+                            {!selectedGroup.Community_Name__c}
+                        </h5>
+<ul>
+<!-- News Column --> 
+<apex:insert name="NewsColumn" />
+<!-- News Column -->    
+
+</ul>    
+                    </div>
+                </aside>
+            </div>
+        </div>
+ <div class="mainWrapper odgrid_12 gw12 alpha omega">
+ 
+            <div id="copyright">
+                
+                
+                    <p class="footer_login_copyright">Copyright © {!currentYear} by Office Depot, Inc. All rights reserved.</p>
+                    <div class="footer_login_terAndCon">
+                    <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp" class="defaultLink" target="_blank">Privacy Policy</a> |
+                    <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp" class="defaultLink" target="_blank">Terms of Use</a> |
+                     <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp" class="defaultLink" target="_blank">Terms &#38; Conditions</a>
+                    </div>
+                
+            </div>
+ </div>  
+  <apex:insert name="userSubmission"/> 
+        
+  
+</apex:page>

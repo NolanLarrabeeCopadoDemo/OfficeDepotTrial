@@ -1,0 +1,220 @@
+<apex:page readOnly="true" controller="ACEReporting_RevMarg_WaterFall" action="{!loadDataCustNotFullInc}">
+ 
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        
+        .expandCollapse{
+        -moz-border-radius:5px 5px 5px 5px;
+        -webkit-border-radius:5px 5px 5px 5px;
+        border-radius:5px 5px 5px 5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        align:center; 
+        text-align:center; 
+        font-weight:bold;
+        background-color:#3D8C8C;
+        background-image:none;
+        width:auto;
+        height:auto;
+        color:white;
+        }
+        .borderLeft{
+            border-left: solid 1px black;
+        }
+        .borderRight{
+            border-right: solid 1px black;
+        }
+    </Style>
+    
+    <apex:outputPanel id="bucketPanel">
+        <apex:form >    
+           <apex:sectionHeader title="Reports" id="reports1" subtitle="Customers Not Receiving Full Increase"/>
+                
+            <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%">    
+                <apex:outputPanel style="text-align: right;float:right;">
+                           <!-- <a href="/servlet/servlet.FileDownload?file=015M0000000ACus" target="_blank"> <apex:image id="theImage" value="{!$Resource.TalkingPointImage}" width="40" height="18" style="text-align: right;"/></a>-->
+                           &nbsp; 
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!loadDataCustNotFullInc}"  status="search_Status_main"/>
+                                        <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid>
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                 <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/>
+             </div>
+         </div>
+         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                 
+             <!-- Revenue Block -->
+             <div style="width:100%;background-color:white;">
+              
+               <apex:outputPanel id="componentPanel" >   
+               <apex:pageBlock id="block">       
+                                <apex:outputPanel >
+                                    <B>Search by SKU # or Name: </B> <apex:inputText id="text1" value="{!searchWord}" tabindex="0" onkeypress="if(event.keyCode==13){Refresh_pg(this); return false;}"/>  &nbsp;&nbsp;&nbsp;
+                                    <apex:commandButton id="searchbtn" value="Search" status="search_Status_main" reRender="componentPanel" action="{!SearchRecords}" tabindex="1"/>
+                                </apex:outputPanel> 
+                                <apex:actionFunction name="Refresh_action" action="{!SearchRecords}" reRender="pagetabCust,buttons3" status="search_Status_main"/>
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                         
+                         <div class="expandCollapse" width="100%" style="width:100%">
+                             <apex:outputText value="Customers Not Receiving Full Increase" style="color:white;"/>
+                             <!-- <apex:commandLink value="Revenue" action="{!doExpand}" rendered="true" style="color:white;" rerender="block"/>-->
+                         </div>  
+                         <br/>  
+                        
+    
+                         <apex:pageBlockTable id="pagetabCust" value="{!lSKUListReportData}" var="a" border="1">
+                             
+                             <apex:column >
+                                 <apex:facet name="header">Customer #</apex:facet>
+                                 {!a.Ace_customer_core_changes__r.ace_customer_price_changes__r.Owning_Customer_ID__c}
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">Customer Name</apex:facet>
+                                <a href="/{!a.Ace_customer_core_changes__r.ace_customer_price_changes__r.id}" target="_blank"> {!a.Ace_customer_core_changes__r.ace_customer_price_changes__r.Customer__r.name} </a>
+                             </apex:column>
+                             
+                              <apex:column >
+                                 <apex:facet name="header">Rep</apex:facet>
+                                 {!a.Ace_customer_core_changes__r.ace_customer_price_changes__r.Customer__r.owner.name}
+                             </apex:column>
+                             
+                             <apex:column >
+                                 <apex:facet name="header">Change<br/>Requirements</apex:facet>
+                                  {!a.SFDC_Notification_Flag__c}
+                             </apex:column>
+                             
+                             <apex:column >
+                                 <apex:facet name="header">SKU</apex:facet>
+                                 <a href="/{!a.id}" target="_blank">  {!a.SKU__c} </a>
+                             </apex:column>
+                             
+                             <apex:column >
+                                 <apex:facet name="header">Reason</apex:facet>
+                                     <apex:outputText value="{!if(a.Approved_Proposed_Price__c <> a.Proposed_Price_with_Cap__c && a.Proposed_Price_with_Cap__c == a.Proposed_Price_Without_Cap__c,'SFDC','ACE')}"></apex:outputText>
+                             </apex:column>
+                             
+                              <apex:column >
+                                 <apex:facet name="header">Current<br/>Price</apex:facet>
+                                 
+                                 <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Current_Sell_Price__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">Proposed<br/>Price</apex:facet>
+                                 
+                                 <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Proposed_Price_Without_Cap__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                              <apex:column >
+                                 <apex:facet name="header">Passed<br/>Price</apex:facet>
+                                 
+                                 <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Approved_Proposed_Price__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">Price<br/>Shortfall</apex:facet>
+                                
+                                  <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Approved_Proposed_Price__c - a.Proposed_Price_Without_Cap__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                            <!--  <apex:column >
+                                 <apex:facet name="header">Current<br/>Margin</apex:facet>
+                                  
+                                  <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Current_Margin_12_Month__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                              <apex:column >
+                                 <apex:facet name="header">Proposed<br/>Margin</apex:facet>
+                                  
+                                  <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Reporting_Prosposed_Margin__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                              <apex:column >
+                                 <apex:facet name="header">Passed<br/>Margin</apex:facet>
+                                  
+                                  <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Reporting_Passed_Margin__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                              <apex:column >
+                                 <apex:facet name="header">Margin<br/>Shortfall</apex:facet>
+                               
+                                 <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Reporting_Passed_Margin__c - a.Reporting_Prosposed_Margin__c}"/>
+                                 </apex:outputText>
+                             </apex:column>
+                              <apex:column >
+                                 <apex:facet name="header">Net<br/>Margin Change</apex:facet>
+                                
+                                 <apex:outputText value="${0, number, ###,###,###,###.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Reporting_Passed_Margin__c - a.Current_Margin_12_Month__c}"/>
+                                 </apex:outputText>
+                             </apex:column> -->
+                             
+                             
+                         </apex:pageBlockTable>    
+                          <apex:panelGrid id="buttons3" width="100%" columns="2" columnClasses="btn3,btn4">
+                             <apex:outputPanel >
+                                 <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel >
+                                 <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                             </apex:outputPanel>
+                         </apex:panelGrid>
+                         
+                                             
+                 </apex:pageBlock> 
+                 </apex:outputPanel>
+                    
+        </div>  
+      </apex:form>
+         
+          
+           
+    </apex:outputPanel>
+    
+    <script>
+        function Refresh_pg(val)
+        {
+            Refresh_action();
+            var elem = document.getElementById(val.id);
+            elem.focus();
+        }
+        
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script>
+
+</apex:page>

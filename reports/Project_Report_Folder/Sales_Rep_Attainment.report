@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Coaching__c.Attainment_of_Pursue_Target__c</field>
+    </columns>
+    <columns>
+        <field>Coaching__c.Attainment_of_Propose_Target__c</field>
+    </columns>
+    <columns>
+        <field>Coaching__c.Attainment_of_Verbal_Win_Target__c</field>
+    </columns>
+    <columns>
+        <field>Coaching__c.Attainment_of_Qualify_Event_Target__c</field>
+    </columns>
+    <columns>
+        <field>Coaching__c.Attainment_of_Pursue_Event_Target__c</field>
+    </columns>
+    <columns>
+        <field>Coaching__c.Attainment_of_Propose_Event_Target__c</field>
+    </columns>
+    <columns>
+        <field>Coaching__c.Attainment_of_Sales_Advancing_Event_Targ__c</field>
+    </columns>
+    <columns>
+        <field>Coaching__c.Attainment_of_Retention_Cadence_Task_Tar__c</field>
+    </columns>
+    <columns>
+        <field>Coaching__c.Attainment_of_Contacts_Expansion_Target__c</field>
+    </columns>
+    <description>Shows Attainment Fields by Rep</description>
+    <format>Tabular</format>
+    <name>Sales Rep Attainment</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Coaching__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CUST_NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

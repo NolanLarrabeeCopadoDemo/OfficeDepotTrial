@@ -1,0 +1,41 @@
+<template>
+    <div style="margin: 1% 5% 1% 5%">
+        <lightning-card>
+            <div if:false={errorMessage} style="padding: 1% 5% 1% 5%">
+                <div if:false={submitted}>
+                    <div if:true={quote} class="slds-text-heading_large slds-text-align_center">Quote {quote.QuoteNumber}</div>
+
+                    <div class="slds-text-heading_medium">Group Approvers</div>
+                    <ol class="slds-list_ordered slds-has-dividers_around-space">
+                        <li for:each={approvalGroups} for:item="group" key={group} class="slds-item">
+                            {group}
+                        </li>
+                    </ol>
+                    <div if:true={noApprovalGroups} class="slds-text-heading_small slds-m-top_x-small">
+                        No groups necessary for approval.
+                    </div>
+
+                    <div class="slds-text-heading_medium" style="margin-top: 25px;">User Approvers</div>
+                    <ol class="slds-list_ordered slds-has-dividers_around-space">
+                        <li for:each={approvalUsers} for:item="user" key={user.Id} class="slds-item">
+                            {user.Name}, {user.Job_Code_Level__c}
+                        </li>
+                    </ol>
+                    <div if:true={noApprovalUsers} class="slds-text-heading_small slds-m-top_x-small">
+                        No users necessary for approval.
+                    </div>
+
+                    <lightning-button onclick={submit} variant="brand" label="Submit For Approval" class="slds-align_absolute-center slds-m-top_large"></lightning-button>
+                </div>
+            </div>
+
+            <div if:true={submitted} class="slds-text-color_success slds-text-align_center slds-text-heading_medium">
+                Successfully Submitted
+            </div>
+
+            <div if:true={errorMessage} class="slds-text-color_error slds-text-align_center slds-text-heading_medium">
+                {errorMessage}
+            </div>
+        </lightning-card>
+    </div>
+</template>

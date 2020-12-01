@@ -1,0 +1,18 @@
+<apex:page controller="ManageUserRole" tabStyle="User">
+<!-- Begin Default Content REMOVE THIS -->
+<apex:sectionHeader title="User Role Change Report" subtitle="Role Report" />
+    <apex:form > 
+        <apex:pageBlock title="User Role">
+            <apex:outputPanel id="theMessages">
+                <apex:pageMessages />
+            </apex:outputPanel>
+              <apex:selectList size="1" value="{!slctedRole}">
+          <apex:selectOptions value="{!UserList}"></apex:selectOptions>
+          
+      </apex:selectList>
+                <apex:commandButton action="{!ChgRoleVal}" value="Change Role" id="btnChgRolevl" />
+                <apex:commandButton action="{!cancelRlchg}" value="Cancel" id="btnCancel" />
+                </apex:pageBlock>
+               
+</apex:form>
+</apex:page>

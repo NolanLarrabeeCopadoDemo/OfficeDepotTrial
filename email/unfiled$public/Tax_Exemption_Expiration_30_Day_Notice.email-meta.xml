@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>TAX EXEMPTION EXPIRATION 30 DAY NOTIFICATION</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Tax Exemption Expiration 30 Day Notice</name>
+    <style>freeForm</style>
+    <subject>TAX EXEMPTION EXPIRATION 30 DAY NOTIFICATION - {!Account.Cust_ID__c} - {!Account_Profile__c.Address_State__c}</subject>
+    <textOnly>Dear {!Account.OwnerFullName},
+
+
+This is a 2nd notice to advise you that your customer, {!Account.Name}, Account # {!Account.Cust_ID__c} for the state of {!Account_Profile__c.Address_State__c} is currently tax exempt. On {!Account_Profile__c.Expiration_Date__c}, this certificate will expire.
+
+
+
+
+
+Therefore, it is urgent that you obtain a new tax exemption certificate from your customer and provide it to the Tax Department prior to the expiration of the certificate. Fax or email the certificate to the tax department: BSD-TaxExemption@officedepot.com
+
+
+Fax # 561-438-2406
+
+
+Questions? Call 800-848-8100
+
+
+Thank you for your assistance in this matter.
+
+
+Sincerely,
+
+
+
+Office Depot Tax Department</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

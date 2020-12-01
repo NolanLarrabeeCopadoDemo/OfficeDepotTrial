@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account Setup - Group Email address Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Group Email Addr</name>
+    <style>freeForm</style>
+    <subject>Distribution List Update for - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>The customer referenced below is now setup on eBilling and has provided a group email address for their eBill distribution. Please update the distribution list in EDGE to include the group email provided below:
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName} }
+eMail Address: {!Account_Setup_Request__c.Monthly_eStatement_Email__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

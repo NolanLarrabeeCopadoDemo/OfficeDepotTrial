@@ -1,0 +1,375 @@
+<apex:component controller="ACESKUComponentControllerALL" allowDML="true">      <!--MM ROM Item A--> 
+    
+   <script type="text/javascript">
+   function navigateToUrl(param1,param2,param3){   
+       //Overriding the function to open the page in the top instead of Iframe     
+       top.location.href = param1;       
+   }   
+   </script>    
+    <Style>         
+        .headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: white;}
+       P.goright {text-align: right}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+    </Style>
+   <apex:attribute name="cIds" description="Id of CustomerPricing or the Id of the Core"
+                  type="String" required="required" assignTo="{!ocIds}"/>   
+   <apex:attribute name="type" description="PageType possible values Pricing/Core"
+                  type="String" required="required" assignTo="{!oType}"/>
+                       
+ <apex:form >  
+           
+<script type="text/javascript">
+  function doSave(frst,lst){
+        passString(frst,lst);
+  }
+</script>
+                     
+ <apex:actionfunction action="{!passStringToController}" name="passString" rerender="none"  >
+ <apex:param id="p1" name="p1" value=""  assignTo="{!altchangePrice}"/>
+<apex:param id="p2" name="p2" value=""  assignTo="{!passThruSkuId}"/>
+</apex:actionfunction>   
+                      
+</apex:form>       
+     
+        <apex:pageBlock id="pb2" mode="maindetail">      
+                  
+   <apex:pageBlock id="pb1" mode="maindetail">
+    <apex:pageMessages ></apex:pageMessages>
+       <apex:form style="width:100%;align:right">          
+      
+      <apex:inputText value="{!SKUSearch}" /> &nbsp;
+      <apex:commandButton value="Search" action="{!searchSKU}" rerender="pb2"/>
+             
+           <P class="goright">
+                
+          &nbsp;&nbsp;
+               
+            <apex:selectList id="DateRange" value="{!DataRange}" size="1"  >
+                <apex:actionSupport event="onchange" action="{!calcRange}" rerender="skuform1,skupanel"/>  
+                <apex:selectOption itemValue="12-Months" itemLabel="Rolling 12 Months"/>
+                <apex:selectOption itemValue="9-Months" itemLabel="Rolling 9 Months"/>
+                <apex:selectOption itemValue="6-Months" itemLabel="Rolling 6 Months"/>
+                <apex:selectOption itemValue="3-Months" itemLabel="Rolling 3 Months"/>
+
+            </apex:selectList> 
+          </P>
+        </apex:form>
+        <apex:pageBlockSection rendered="{!showPageBlockTable}" id="CustomerSku_PBT" columns="1">
+        <apex:form id="skuform1">  
+            
+         <apex:pageBlockTable value="{!oCustSkuDataResponse}" var="sku" style="width:100%;overflow:auto;word-wrap:break-word;"
+         id="theaddrs" >
+                <apex:column headerValue="Alt SKU">
+                  <apex:inputCheckbox value="{!sku.ISALT}" disabled="true" rendered="{!sku.ISALT}"/>
+              </apex:column>            
+            
+                <apex:column >
+                   <a href="/{!sku.SalesforceSKUID}"
+                    id="{!sku.SalesforceSKUID}" target="_top">
+                    {!sku.SKUID}
+                    </a>
+                    <br/>
+                    <apex:outputlabel value="Alt Exists" style="color:orange;font-size:10px" rendered="{!sku.altExists}"/>
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust_notify}" reRender="theaddrs">
+                          <apex:outputText >SKUID</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName_notify" value="SKUNum" assignTo="{!getFieldName_notify}"/>
+                          <apex:image id="sortInAsc7" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc_notify && getFieldName_notify == 'SKUNum'}"/> 
+                          <apex:image id="sortInDesc7" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc_notify && getFieldName_notify == 'SKUNum'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                      <apex:facet name="footer">TOTAL</apex:facet>
+
+                </apex:column>                             
+                               
+                <apex:column >
+                     <div style="overflow:auto;word-wrap:break-word;">
+                           <apex:outputText value="{!sku.skuDescription}">
+                             </apex:outputText>
+                     </div>  
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust_notify}" reRender="theaddrs">
+                          <apex:outputText >SKU<br/>Description</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName_notify" value="Description" assignTo="{!getFieldName_notify}"/>
+                          <apex:image id="sortInAsc6" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc_notify && getFieldName_notify == 'Description'}"/> 
+                          <apex:image id="sortInDesc6" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc_notify && getFieldName_notify == 'Description'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+             </apex:column>                 
+                
+                <apex:column headerValue="Core List ID"  rendered="{!renderCore}"> 
+                   <apex:outputLink value="/{!sku.COREIDLINK }" id="CoreLink" target="_top">{!sku.COREID}</apex:outputLink>       
+                    <apex:facet name="footer">{!NoOfCores}</apex:facet>                    
+                </apex:column>                
+                
+                <apex:column >
+                           <apex:outputText value="{!sku.ChangeType}">
+                             </apex:outputText>
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust_notify}" reRender="theaddrs">
+                          <apex:outputText >Change<br/>Type</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName_notify" value="ChangeT" assignTo="{!getFieldName_notify}"/>
+                          <apex:image id="sortInAsc5" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc_notify && getFieldName_notify == 'ChangeT'}"/> 
+                          <apex:image id="sortInDesc5" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc_notify && getFieldName_notify == 'ChangeT'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                    </apex:column>                
+                                                
+                <apex:column >
+                           <apex:outputText value="{!sku.VENDOR}">
+                             </apex:outputText>
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust_notify}" reRender="theaddrs">
+                          <apex:outputText >Primary <br/>Vendor</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName_notify" value="Vendor" assignTo="{!getFieldName_notify}"/>
+                          <apex:image id="sortInAsc4" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc_notify && getFieldName_notify == 'Vendor'}"/> 
+                          <apex:image id="sortInDesc4" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc_notify && getFieldName_notify == 'Vendor'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                    </apex:column>                
+                
+                <apex:column >
+                           <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param value="{!sku.CURRENTPRICE}"/>
+                             </apex:outputText>
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust_notify}" reRender="theaddrs">
+                          <apex:outputText >Current Price</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName_notify" value="CurrentPrice" assignTo="{!getFieldName_notify}"/>
+                          <apex:image id="sortInAsc3" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc_notify && getFieldName_notify == 'CurrentPrice'}"/> 
+                          <apex:image id="sortInDesc3" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc_notify && getFieldName_notify == 'CurrentPrice'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                    </apex:column>
+                                                                 
+                <apex:column >
+                           <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                    <apex:param value="{!sku.NEWPRICE}"/>
+                             </apex:outputText>
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust_notify}" reRender="theaddrs">
+                          <apex:outputText >New Price</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName_notify" value="NewPrice" assignTo="{!getFieldName_notify}"/>
+                          <apex:image id="sortInAsc2" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc_notify && getFieldName_notify == 'NewPrice'}"/> 
+                          <apex:image id="sortInDesc2" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc_notify && getFieldName_notify == 'NewPrice'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                    </apex:column>  
+                
+                <apex:column >
+                           <apex:outputText value="{0, number, ###,###,###,##0}">
+                                    <apex:param value="{!sku.CHANGEAMOUNT}"/>
+                             </apex:outputText>
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust_notify}" reRender="theaddrs">
+                          <apex:outputText >Change<br/>Amount</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName_notify" value="ChangeAmount" assignTo="{!getFieldName_notify}"/>
+                          <apex:image id="sortInAsc1" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc_notify && getFieldName_notify == 'ChangeAmount'}"/> 
+                          <apex:image id="sortInDesc1" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc_notify && getFieldName_notify == 'ChangeAmount'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                    </apex:column>
+              
+                <apex:column headerValue="% Increase" >                  
+                    <apex:facet name="footer">
+                      <apex:outputText value="{0, number, ###,###,###,##0.0}%">
+                        <apex:param value="{!Per_change_Amount}"/>
+                        </apex:outputText>
+                    </apex:facet>
+                    <apex:outputText value="{0, number, ###,###,###,##0.0}%">
+                        <apex:param value="{!sku.CHANGEAMOUTPER}"/>
+                     </apex:outputText>
+                </apex:column>  
+                <apex:column headerValue="SKU Usage">
+                   <apex:outputText value="{0, number, ###,###,###,##0}">
+                        <apex:param value="{!sku.ANNUALUSAGE}"/>
+                   </apex:outputText> 
+                   <!--<apex:facet name="header">{!dataPeriod}<br/>Usage</apex:facet>-->   
+                   <apex:facet name="footer">                   
+                        <apex:outputText value="{0, number, ###,###,###,##0}">
+                        <apex:param value="{!Annual_Usage}"/>
+                        </apex:outputText>
+                   </apex:facet> 
+                </apex:column>                
+                <apex:column headerValue="SKU Spend">
+                     <!--<apex:facet name="header">{!dataPeriod}<br/>SKU<br/>Spend</apex:facet>-->
+                     <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!sku.ANNUALSKUSPEND}"/>
+                     </apex:outputText>
+                      
+                     <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!Annual_SKU_Spend}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+              </apex:column>               
+             
+                <apex:column >   
+                     <apex:facet name="header">Estimated Total<br/> Spend<br/>Change</apex:facet>
+                     <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!sku.ANNUALSPENDCHANGEAMT}"/>
+                     </apex:outputText>
+                      
+                     <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                            <apex:param value="{!Annual_Spend_Change_Amt}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+                    
+               </apex:column>                                             
+              
+                <apex:column >
+                   <apex:facet name="header">Estimated<br/>Spend<br/>Impact</apex:facet> 
+                   <apex:outputText value="{0, number, ###,###,###,##0.00}%">
+                        <apex:param value="{!sku.TOTALSPENDIMPACT}"/>
+                   </apex:outputText>
+                   
+                   <apex:facet name="footer">
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}%">
+                            <apex:param value="{!Total_Spend_Impact}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+               </apex:column>                                                                                          
+               
+                <apex:column >
+                   <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!sku.SRMIMPACT}"/>
+                   </apex:outputText>
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust_notify}" reRender="theaddrs">
+                          <apex:outputText >SRM<br/>Impact</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName_notify" value="SRMImpact" assignTo="{!getFieldName_notify}"/>
+                          <apex:image id="sortInAsc12" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc_notify && getFieldName_notify == 'SRMImpact'}"/> 
+                          <apex:image id="sortInDesc12" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc_notify && getFieldName_notify == 'SRMImpact'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                  <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!Total_SRM_Impact}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+              </apex:column>              
+                                          
+                <apex:column >
+                       <apex:outputText value="{0, Date, MM'/'dd'/'yyyy}">
+                           <apex:param value="{!sku.skuLastDate}"/>
+                       </apex:outputText>    
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust_notify}" reRender="theaddrs">
+                          <apex:outputText >SKU<br/> Last<br/>Update</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName_notify" value="LastUpdate" assignTo="{!getFieldName_notify}"/>
+                          <apex:image id="sortInAsc11" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc_notify && getFieldName_notify == 'LastUpdate'}"/> 
+                          <apex:image id="sortInDesc11" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc_notify && getFieldName_notify == 'LastUpdate'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+              </apex:column>              
+<!-- ADDED MM               
+                <apex:column >
+                 <apex:facet name="header">Delete</apex:facet> 
+                 <apex:outputPanel rendered="{!sku.CHECKROLLINGNEW}">                  
+                  <apex:commandLink rendered="{!IF(AND(sku.PriceChangesType != 'D',sku.Status !='Deleted'), TRUE, FALSE)}"
+                   onclick="return confirm('Please confirm deletion of SKU '+{!sku.SKUID}+' from CL-'  +{!sku.CORE}+ ' with no replacement?');"  Value="Delete SKU from core" action="{!deleteSKU}" target="_top" style="color:#0000FF;" >                            
+              <apex:param name="passThruSkuId" value="{!sku.SalesforceSKUID}" assignTo="{!passThruSkuId}"/>  
+                                           </apex:commandLink>    
+                                          
+                </apex:outputPanel>  
+               <apex:outputPanel rendered="{!sku.CHECKROLLINGREVERT}">                      
+                <apex:commandLink rendered="{!IF(AND(sku.AltReplace == false,sku.Status =='Deleted',sku.ChangeType !='Assortment Swap'), TRUE, FALSE)}"
+                   onclick="return confirm('Please confirm restoration of SKU '+{!sku.SKUID}+' into CL-'+{!sku.CORE}+' ?');"  Value="Restore" action="{!RevertdeleteSKU}" target="_top" style="color:#0000FF;" >                            
+              <apex:param name="passThruSkuId" value="{!sku.SalesforceSKUID}" assignTo="{!passThruSkuId}"/>  
+                </apex:commandLink>                        
+               </apex:outputPanel>       
+
+                </apex:column>                
+ADDED MM --> 
+<!-- ADDED MM              
+                <apex:column >
+              <apex:facet name="header">Alt</apex:facet>  
+              
+             <apex:outputPanel rendered="{!sku.CHECKROLLINGALT}">   
+             <apex:commandLink rendered="{!IF(AND(sku.AltReplace == true,sku.Status =='Deleted'), TRUE, FALSE)}"
+                   onclick="return confirm('Please confirm restoration of SKU '+{!sku.SKUID}+' into CL-' + {!sku.CORE}+' ?');"  action="{!RevertReplaceALTSKU}" target="_top" style="color:#0000FF;" > 
+                                 Restore  {!sku.SKUID}                                        
+              <apex:param name="passThruSkuId" value="{!sku.SalesforceSKUID}" assignTo="{!passThruSkuId}"/>  
+                </apex:commandLink> 
+            </apex:outputPanel>  
+              
+             <apex:outputPanel rendered="{!sku.CHECKROLLINGNEW}">                                                                                                
+                  <apex:commandLink rendered="{!IF(AND(sku.altExists ==true,sku.Status !='Deleted'), TRUE, FALSE)}"
+                  onclick="if(confirm('Please confirm deletion of SKU '+{!sku.SKUID}+' from CL-'+ {!sku.CORE} +' and replace with alternate SKU '+{!sku.SKUALT}+' '+'{!sku.skuAltDescription}'+ ' UOM is  '+'{!sku.altUOM}'+' QPU is  '+'{!sku.altQPU}'+'-Unit Price '+'{!sku.SKUALTPRICE}'+ '.'))
+                           {
+                           		var altChangeprice= prompt('Please Enter New alt Price if changed', {!sku.SKUALTPRICE}); 
+                     			if(altChangeprice != null){
+                                       if(altChangeprice <   {!sku.SKUALTAPPPRICE }  ){
+                                       alert('You cannot decrease price');
+                                       return false;
+                                       }
+                                       else if({!sku.SKUALTCAPAMOUNT } != null && {!sku.SKUALTCAPAMOUNT } > 0 && altChangeprice>= {!sku.SKUALTAPPPRICE }   && !({!sku.STDCore})  ) {
+                                       alert('The SKU Has a Cap Limit And The Price Cannot Be Increased');
+                                       return false;
+                                       }
+                                       else{
+                                       doSave(altChangeprice,'{!sku.SalesforceSKUID}');                           		
+                                       }
+                                       return true;
+                           		}
+                           		else
+                           		{
+                           			return false;
+                           		}	
+                  		  }
+                          else
+                          {                           		
+                           		return false;
+                          }                           
+                           
+                  "     target="_top" style="color:#0000FF;"   action="{!refreshpage}" >                            
+              
+              Replace with Alt {!sku.SKUALT}             
+                               <apex:param name="passThruSkuId1" value="{!sku.SalesforceSKUID}" assignTo="{!passThruSkuId1}"/>
+          </apex:commandLink>                                                                  
+
+              </apex:outputPanel>  
+                </apex:column>
+ADDED MM -->   
+<!-- ADDED MM             
+                <apex:column headerValue="Price Exceptions" style="text-align:center">
+                    <apex:outputText Value="Pending Approval" style="font-weight:bold; color:orange;text-align:center" rendered="{!IF(sku.APPROVALSTATUS = 'Pending',true,false)}"/>                  
+                    <apex:outputText Value="" style="font-weight:bold; color:red;text-align:center" rendered="{!IF(sku.ISALT = true,true,false)}"/>
+                    <apex:outputText Value="Deleted SKU" style="font-weight:bold; color:red;text-align:center" rendered="{!IF(sku.DELSKU = true,true,false)}"/>
+                    <!-- <apex:outputText Value="Locked SKU" style="font-weight:bold; color:red;text-align:center" rendered="{!IF(sku.ISLOCK = true,true,false)}"/>  -->
+<!-- ADDED MM             
+                    <apex:outputPanel style="text-align:center;font-weight:bold;" rendered="{!sku.CHECKROLLING}">                           
+                           <apex:commandLink Value="Request Exception" action="{!gotoSkuException}" target="_top" style="color:#0000FF;" rendered="{!sku.CHECKROLLING}">                            
+                                <apex:param name="passThruSkuId" value="{!sku.SalesforceSKUID}" assignTo="{!passThruSkuId}"/>
+                                <apex:param name="passThruBatchId" value="{!sku.BATCHID}" assignTo="{!passThruBatchId}"/>     
+                                <apex:param name="passThruDelSKU" value="{!sku.DELSKUALT}" assignTo="{!passThruDelSKU}"/>                                                    
+                            </apex:commandLink>                        
+                    </apex:outputPanel>                   
+              </apex:column>              
+ADDED MM -->              
+           </apex:pageBlockTable>
+            
+           <!-- <apex:facet name="footer">Showing Page # {!pageNumber} of {!totalPages}</apex:facet>            moving to fix page number issue-->
+           <apex:panelGrid id="buttons2" width="100%" columns="2" columnClasses="btn3,btn4">
+               <apex:facet name="footer">Showing Page # {!pageNumber} of {!totalPages}</apex:facet>
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!prevPage}" value="<< Previous <<"     rendered="{!DisablePrevious}" reRender="CustomerSku_PBT" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!IF(totalPages>1,true,false)}">
+                        <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}"  reRender="CustomerSku_PBT" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                </apex:panelGrid>  
+           </apex:form>
+           <br/>
+      </apex:pageBlockSection>        
+      
+      </apex:pageBlock>
+      
+      <!--apex:outputPanel id="skupanel">
+          <b>{!Customer_Spend_label}:&nbsp;</b><apex:outputText value="{0, number, ###,###,###,###.00}">$<apex:param value="{!Customer_Spend}"/></apex:outputText>                    
+      </apex:outputPanel-->
+   </apex:pageBlock>                  
+                  
+</apex:component>

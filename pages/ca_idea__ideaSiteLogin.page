@@ -1,0 +1,24 @@
+<apex:page controller="ca_idea.IdeaController" showHeader="false" sideBar="false" setup="false" title="{!$Label.site.login}">
+	<apex:outputPanel rendered="false">Copyright (c) 2010 salesforce.com, inc. and its licensors.</apex:outputPanel>
+	<apex:composition template="ca_idea__ideaLayoutWrapper">
+		<apex:define name="content">
+			<apex:outputPanel styleClass="ibtSiteLoginContainer" layout="block">
+				<apex:outputPanel styleClass="ibtContentSplitPrimary" layout="block">
+					<apex:outputPanel styleClass="ibtContentSplitPrimaryTop" layout="block" />
+					<apex:outputPanel styleClass="ibtContentSplitPrimaryInner" layout="block">
+						<h2>Login</h2>
+						<p>To vote, post, or comment please login below</p>
+						<c:ideaSiteLogin />
+					</apex:outputPanel>
+				</apex:outputPanel>
+				<apex:outputPanel styleClass="ibtContentSplitSecondary" layout="block">
+					<apex:outputPanel styleClass="ibtContentSplitSecondaryTop" layout="block" />
+					<apex:outputPanel styleClass="ibtContentSplitSecondaryInner ibtUserContent" layout="block">
+						<h2><apex:outputText escape="false" value="{!loginHeading}" /></h2>
+						<apex:outputText escape="false" value="{!loginBody}" />
+					</apex:outputPanel>
+				</apex:outputPanel>
+			</apex:outputPanel>
+		</apex:define>
+	</apex:composition>
+</apex:page>

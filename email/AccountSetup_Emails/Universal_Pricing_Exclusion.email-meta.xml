@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account  Setup - Unversal Pricing Exclusions</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Universal Pricing Exclusion</name>
+    <style>freeForm</style>
+    <subject>Exclude Universal Pricing list for-  {!Account_Setup_Request__c.AOPS_ID1__c}  - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Account information:
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Account Number: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+Sales ID: {!Account_Setup_Request__c.Rep_ID__c}
+
+BSD-Pricing - Please exclude the following Universal programs for this customer
+
+Universal Program Code
+
+Discount %
+
+Block (Y or N)
+
+BUSMACH
+
+n/a
+
+Y
+
+TECH
+
+n/a
+
+Y</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

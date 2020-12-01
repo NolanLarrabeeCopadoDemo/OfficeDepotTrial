@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Rapid Proposal Escalation</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} {!Case.Thread_Id} {!Account.Name} {!WRF.Type} - Action Required</subject>
+    <textOnly>Description: {!Case.Description}
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+
+
+Click here to go to the support case
+
+
+
+Good morning,
+
+
+The due date of (insert date) for the return of this completed proposal package for was missed. The proposal is now at risk of missing the customer deadline of {!Case.WRF_Prpsl_Deadln__c} and becoming a no bid.
+
+
+
+Please return the completed package to me asap today. I will do my best to coordinate signature for on time submission.
+
+
+
+Best regards,
+
+Your Name
+
+Proposal Team
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

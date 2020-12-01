@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Account Created &amp; Web User</name>
+    <style>freeForm</style>
+    <subject>Welcome to Office Depot!</subject>
+    <textOnly>Welcome to Office Depot!
+
+
+Your Office Depot business account has been setup and is ready for use.
+
+
+Account #: {!Account.Cust_ID__c}
+Office Depot Web address: https://business.officedepot.com
+Your Log in ID: {!Account.Cust_ID__c}
+Your temporary password: Welcome1
+Note: You will be prompted to reset your password after logging in for the first time.
+
+Once you have logged in successfully, please review your profile for accuracy, by clicking my profile overview in the My Profile navigation box to the left to the screen.
+
+The Customer Service Department is available Monday through Friday between the hours of 8:00 a.m. and 5:00 p.m. (EST) at 888.263.3423 to answer questions in regards to product, pricing or returns. Or, for account changes please contact your Office Depot Account Manager via email at: {!User.Email}
+
+Thank you for Shopping Office Depot</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,2586 @@
+<!-- Member Landing Site Template 6 -->
+
+<!-- This is the Member Page redering of VF Template6 -->
+
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" applyHtmlTag="false" id="com2GPOPreLogin" controller="com2GPOCommunityLandingController"
+    extensions="xGPOSiteTemplate1ConExt" action="{!loadtypeahead}">
+    <html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Office Depot</title>
+        <script src="https://www.google.com/recaptcha/api.js?onload=myCallBack&render=explicit" html-async="async"></script>
+        <script type="text/javascript">
+            var recaptcha1; // registration form
+            var recaptcha2; //invoice form
+            var myCallBack = function () {
+                //Render the recaptcha1 on the element with ID "recaptcha1"
+                recaptcha1 = grecaptcha.render('recaptcha1', {
+                    'sitekey': '{!publicKey}',
+                    'theme': 'light'
+                });
+
+                //Render the recaptcha2 on the element with ID "recaptcha2"
+                recaptcha2 = grecaptcha.render('recaptcha2', {
+                    'sitekey': '{!publicKey}',
+                    'theme': 'light'
+                });
+            };
+        </script>
+        <script type="text/javascript">
+            function pad(pad, str, padLeft) {
+                if (typeof str === 'undefined')
+                    return pad;
+                if (padLeft) {
+                    return (pad + str).slice(-pad.length);
+                } else {
+                    return (str + pad).substring(0, pad.length);
+                }
+            }
+        </script>
+
+
+        <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jquery1.11.2.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jqueryui1.11.4.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/bootstrap.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jquery.validate.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/od_JSExtendValidator.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/passwordStrengthMeter.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/RequestInvoice.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/Registration.js')}" />
+        <apex:includeScript value="{!$Resource.TypeAhead}" />
+        <link rel="shortcut icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+        <link rel="icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+        <link rel="icon" type="/image/x-ico" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/buttons.css')}"></link>
+        <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/grid.css')}"></link>
+        <!-- Used in Reg Form -->
+        <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/helper.css')}"></link>
+        <!-- Used in Reg Form -->
+        <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tooltip.css')}"></link>
+        <!-- Used in Reg Form -->
+        <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/style.css')}"></link>
+        <!-- Used in Reg Form -->
+        <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tips.css')}"></link>
+        <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/registration.css')}"></link>
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/bootstrap.min.css')}" />
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/main.css')}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/GPOforms.css')}"></link>
+        <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/fixes.css')}" />
+        <script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'eluminate.js')}" />
+        <script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'cmcustom.js')}" />
+        <script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'cmcookie.js')}" />
+
+        <!--NAIT-21032 ----Start-->
+        <script type="text/javascript">
+            var acct2;
+            var addr2_lst;
+
+            $(document).ready(function () {
+                // Defining the local dataset
+                var Addr_lst = {!dlist
+            };
+            var Acct_lst = {!alist};
+            acct2 = Acct_lst;
+            addr2_lst = Addr_lst;
+            //console.log('In ready function: ' + {!dlist});
+
+            if ("{!$CurrentPage.parameters.red}" == "true") {
+                $('#ODFLead').modal('show');
+            }
+
+            // Constructing the suggestion engine
+            var Addr_lst = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: Addr_lst
+            });
+            var Acct_lst = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: Acct_lst
+            });
+
+            // Initializing the typeahead
+            $('.typeahead').typeahead({
+                hint: true,
+                highlight: true, /* Enable substring highlighting */
+                minLength: 1 /* Specify minimum characters required for showing result */
+            },
+                {
+                    name: 'Addr_lst',
+                    source: Addr_lst
+                });
+            $('.typeahead2').typeahead({
+                hint: true,
+                highlight: true, /* Enable substring highlighting */
+                minLength: 1 /* Specify minimum characters required for showing result */
+            },
+                {
+                    name: 'Acct_lst',
+                    source: Acct_lst
+                });
+                /*
+                $('.typeahead2').bind('typeahead:select', function(ev, suggestion) {
+                  console.log('Selection: ' + suggestion);
+                });
+                */
+            });
+
+
+            function SetShipToAddress(Addr) {
+                var match = false;
+                for (var i = addr2_lst.length - 1; i >= 0; i--) {
+                    if (Addr.value == addr2_lst[i]) {
+                        match = true;
+                    }
+                };
+
+                if (match) {
+                    var res = Addr.value.split("  ");
+                    console.log('res[0] val: ' + res[0]);
+                    console.log('res[1] val: ' + res[1]);
+                    console.log('res[2] val: ' + res[2]);
+                    console.log('res[3] val: ' + res[3]);
+                    console.log('res[4] val: ' + res[4]);
+                    console.log('check addressval2:' + res.length);
+
+                    document.getElementById('regAddress1').value = res[0];
+
+                    if (res.length > 4) {
+                        //console.log('I am True');
+                        document.getElementById('regAddress2').value = res[1];
+                        document.getElementById('regCity').value = res[2];
+                        document.getElementById('regState').value = res[3];
+                        document.getElementById('regBillingZip').value = res[4];
+                    }
+                    else {
+                        //console.log('I am false');
+                        document.getElementById('regCity').value = res[1];
+                        document.getElementById('regState').value = res[2];
+                        document.getElementById('regBillingZip').value = res[3];
+
+                    }
+                }
+                else {
+                    document.getElementById('regAddress1').value = null;
+                    document.getElementById('regAddress2').value = null;
+                    document.getElementById('regCity').value = null;
+                    document.getElementById('regState').value = null;
+                    document.getElementById('regBillingZip').value = null;
+                }
+
+
+            }
+
+            function SetAccount(Acct) {
+                var match = false;
+                for (var i = acct2.length - 1; i >= 0; i--) {
+                    if (Acct.value == acct2[i]) {
+                        match = true;
+                    }
+                };
+                if (match) {
+                    var res = Acct.value.split(" - ");
+                    if (confirm('Confirm to change to account ' + Acct.value))
+                        window.location.replace("{!commSetup.URL_Insert__c}GpoHome?id=" + res[0] + "&red=true");
+                }
+            }
+
+            function pad(pad, str, padLeft) {
+                if (typeof str === 'undefined')
+                    return pad;
+                if (padLeft) {
+                    return (pad + str).slice(-pad.length);
+                } else {
+                    return (str + pad).substring(0, pad.length);
+                }
+            }
+        </script>
+
+        <style type="text/css">
+            .bs-example {
+                font-family: sans-serif;
+                position: relative;
+                margin: 100px;
+            }
+
+            .typeahead,
+            .tt-query,
+            .tt-hint,
+            .typeahead2 {
+                border: 2px solid #CCCCCC;
+                border-radius: 8px;
+                font-size: 22px;
+                /* Set input font size */
+                height: 30px;
+                line-height: 30px;
+                outline: medium none;
+                padding: 8px 12px;
+                width: 396px;
+            }
+
+            .tt-dropdown-menu {
+                min-width: 160px;
+                margin-top: 2px;
+                padding: 5px 0;
+                background-color: #ffffff;
+                border: 1px solid #cccccc;
+                border: 1px solid rgba(0, 0, 0, 0.15);
+                cursor: pointer;
+                border-radius: 4px;
+                width: 100%;
+                -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+                background-clip: padding-box;
+
+            }
+
+            .typeahead,
+            .typeahead2 {
+                background-color: #FFFFFF;
+            }
+
+            .typeahead:focus,
+            .typeahead2:focus {
+                border: 2px solid #0097CF;
+            }
+
+            .tt-query {
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+            }
+
+            .tt-hint {
+                color: #999999;
+            }
+
+            .tt-menu {
+                background-color: #FFFFFF;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 8px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                margin-top: 12px;
+                padding: 8px 0;
+                width: 422px;
+            }
+
+            .tt-suggestion {
+                font-size: 15px;
+                /* Set suggestion dropdown font size */
+                padding: 3px 20px;
+            }
+
+            .tt-suggestion.tt-cursor,
+            .tt-suggestion:hover {
+
+                cursor: pointer;
+                background-color: #0097CF;
+                color: #FFFFFF;
+            }
+
+            .tt-suggestion p {
+                margin: 0;
+            }
+        </style>
+
+        <!--NAIT-21032 ----End---->
+
+        <script type="text/javascript">
+            $.fn.modal.Constructor.prototype.enforceFocus = function () { };
+            document.title = "Office Depot"
+            if (!window.console) {
+                var console = {
+                    log: function () { },
+                    warn: function () { },
+                    error: function () { },
+                    time: function () { },
+                    timeEnd: function () { }
+                }
+            }
+
+            Visualforce.remoting.timeout = 120000;
+            //changes by ivarada to method signature 4/9/2018, additional param "splaops"
+            function saveGPOLead(id1, splaops) {
+                var ret = true;
+                var pwdChk = {!selectedGroup.private__c            
+};
+            var companyNameChk = {!hideCompanyName};
+            // Captcha
+            if (document.getElementById('g-recaptcha-response').value == '') {
+                //Must contain regerrormessage start
+                document.getElementById("regerrormessage").innerHTML = 'Please Validate Captcha';
+                ret = false;
+            } else {
+                document.getElementById("regerrormessage").innerHTML = '';
+            }
+            //Must contain regerrormessage end
+            if (document.getElementById('regLoginName').value == '') {
+                document.getElementById('regLoginName').style.border = '1px solid #f00';
+                document.getElementById('regLoginName').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regLoginNameEM').style.display = 'inline';
+
+                ret = false;
+            }
+            if (pwdChk != true) {
+                if (document.getElementById('regPassword').value == '') {
+                    document.getElementById('regPassword').style.border = '1px solid #f00';
+                    document.getElementById('regPassword').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('regPasswordEM').style.display = 'inline';
+
+                    ret = false;
+                }
+
+                if (document.getElementById('regConfirmPassword').value == '') {
+                    document.getElementById('regConfirmPassword').style.border = '1px solid #f00';
+                    document.getElementById('regConfirmPassword').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('regConfirmPasswordEM').style.display = 'inline';
+
+                    ret = false;
+                }
+            }
+
+            if (document.getElementById('regFirstName').value == '') {
+                document.getElementById('regFirstName').style.border = '1px solid #f00';
+                document.getElementById('regFirstName').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regFirstNameEM').style.display = 'inline';
+
+                ret = false;
+            }
+
+            if (document.getElementById('regLastName').value == '') {
+                document.getElementById('regLastName').style.border = '1px solid #f00';
+                document.getElementById('regLastName').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regLastNameEM').style.display = 'inline';
+
+                ret = false;
+            }
+
+            if (companyNameChk != true && document.getElementById('regCompanyName').value == '') {
+                document.getElementById('regCompanyName').style.border = '1px solid #f00';
+                document.getElementById('regCompanyName').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regCompanyNameEM').style.display = 'inline';
+                console.log('in company name check');
+                ret = false;
+            }
+
+            if (document.getElementById('regPhone').value == '') {
+                document.getElementById('regPhone').style.border = '1px solid #f00';
+                document.getElementById('regPhone').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regPhoneEM').style.display = 'inline';
+
+                ret = false;
+            }
+
+            if (document.getElementById('regEmail').value == '') {
+                document.getElementById('regEmail').style.border = '1px solid #f00';
+                document.getElementById('regEmail').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regEmailEM').style.display = 'block';
+
+                ret = false;
+            }
+            if (document.getElementById('regAddress1').value == '') {
+                document.getElementById('regAddress1').style.border = '1px solid #f00';
+                document.getElementById('regAddress1').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regAddress1EM').style.display = 'inline';
+
+                ret = false;
+            }
+            if (document.getElementById('regCity').value == '') {
+                document.getElementById('regCity').style.border = '1px solid #f00';
+                document.getElementById('regCity').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regCityEM').style.display = 'inline';
+                ret = false;
+            }
+            if (document.getElementById('regState').value == '') {
+                document.getElementById('regState').style.border = '1px solid #f00';
+                document.getElementById('regState').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regStateEM').style.display = 'inline';
+                ret = false;
+            }
+            if (document.getElementById('regBillingZip').value == '') {
+                document.getElementById('regBillingZip').style.border = '1px solid #f00';
+                document.getElementById('regBillingZip').style.backgroundColor = '#f2bfbf';
+                document.getElementById('regBillingZipEM').style.display = 'inline';
+                ret = false;
+            }
+            if (document.getElementById('regregforspcid').checked == true && document.getElementById('regSpcTermsBox').checked == false) {
+                document.getElementById("regerrormessage").innerHTML = 'Please check Terms and Conditions';
+                ret = false;
+            }
+
+            if (ret != true || !$('#registrationForm').valid()) {
+                // Do Nothing
+            } else {
+                console.log('In save function');
+                document.getElementById('regerrormessage').innerHTML = 'Saving Registration ....';
+
+                var f1 = new GPOLead();
+                f1.Name = document.getElementById('regLoginName').value;
+                f1.Login_Name__c = document.getElementById('regLoginName').value;
+                f1.first_name__c = document.getElementById('regFirstName').value;
+                f1.last_name__c = document.getElementById('regLastName').value;
+                f1.email__c = document.getElementById('regEmail').value;
+                f1.Phone__c = document.getElementById('regPhone').value;
+                f1.address1__c = document.getElementById('regAddress1').value;
+                f1.address2__c = document.getElementById('regAddress2').value;
+                f1.city__c = document.getElementById('regCity').value;
+                f1.state__c = document.getElementById('regState').value;
+                f1.zip__c = document.getElementById('regBillingZip').value;
+                f1.URL__c = document.getElementById('regWebsite1').value;
+                f1.WCW_Range__c = document.getElementById('regNumEmployees').value;
+                f1.Business_Name__c = document.getElementById('regCompanyName').value;
+                f1.Notes__c = document.getElementById('regNotes').value;
+                f1.Status__c = 'Pending';
+                var pwd = document.getElementById('regPassword').value;
+                f1.private__c = {!selectedGroup.private__c            
+};
+            //Manger Info
+            f1.Manager_First_Name__c = document.getElementById('ManagerFirstName').value;
+            f1.Manager_Last_Name__c = document.getElementById('ManagerLastName').value;
+            f1.Manager_Job_Title__c = document.getElementById('ManagerJobTitle').value;
+            f1.Manager_Phone_Number__c = document.getElementById('ManagerPhoneNumber').value;
+            f1.Manager_Email_Address__c = document.getElementById('ManagerEmailAddress').value;
+            f1.AdditionalCostCenter1__c = document.getElementById('AdditionalCostCenter1').value;
+            f1.AdditionalCostCenter2__c = document.getElementById('AdditionalCostCenter2').value;
+            f1.AdditionalCostCenter3__c = document.getElementById('AdditionalCostCenter3').value;
+            f1.Additional_Address1_1__c = document.getElementById('1AdditionalAddress1').value;
+            f1.Additional_Address2_1__c = document.getElementById('1AdditionalAddress2').value;
+            f1.Additional_City_1__c = document.getElementById('1AdditionalCity').value;
+            f1.Additional_State_1__c = document.getElementById('1AdditionalState').value;
+            f1.Additional_Zip_1__c = document.getElementById('1AdditionalZip').value;
+
+            f1.Additional_Address1_2__c = document.getElementById('2AdditionalAddress1').value;
+            f1.Additional_Address2_2__c = document.getElementById('2AdditionalAddress2').value;
+            f1.Additional_City_2__c = document.getElementById('2AdditionalCity').value;
+            f1.Additional_State_2__c = document.getElementById('2AdditionalState').value;
+            f1.Additional_Zip_2__c = document.getElementById('2AdditionalZip').value;
+
+            f1.Additional_Address1_3__c = document.getElementById('3AdditionalAddress1').value;
+            f1.Additional_Address2_3__c = document.getElementById('3AdditionalAddress2').value;
+            f1.Additional_City_3__c = document.getElementById('3AdditionalCity').value;
+            f1.Additional_State_3__c = document.getElementById('3AdditionalState').value;
+            f1.Additional_Zip_3__c = document.getElementById('3AdditionalZip').value;
+            //----------------NAIT-21026, 21027-------------------START----------->
+
+
+            if ({!(Grp_PO_Num_Setting == true)}) {
+                if ({!(Grp_PO_Num_Flag == false)})
+            f1.PO_Number__c = document.getElementById('regponumid').value;
+                    else if ({!(Grp_PO_Num_Flag == true)})
+            f1.PO_Number__c = document.getElementById('regponumid1').value;
+                   }
+                   else if ({!(Grp_PO_Num_Setting == false)}) {
+                if ({!(Grp_PO_Num_Flag == false)})
+            f1.PO_Number__c = document.getElementById('regponumidu').value;
+                    else if ({!(Grp_PO_Num_Flag == true)})
+            f1.PO_Number__c = document.getElementById('regponumidu1').value;
+                   }
+
+
+
+            //Set default
+            if ({!DefaulthideGrp_PO_Num_Flag} == true || {!hideGrp_PO_Num_Flag} == true)
+            f1.PO_Number__c = ' ';
+            //-----------
+
+            if ('{!$CurrentPage.parameters.PortalCode}' != null && '{!$CurrentPage.parameters.PortalCode}' != '') {
+                f1.Cost_Center__c = "{!$CurrentPage.parameters.PortalCode}";
+            }
+            else if ({!(Grp_CCenter_Setting == true)}) {
+                if ({!(Grp_CCenter_Flag == false)}) {
+                f1.Cost_Center__c = document.getElementById('regccid').value;
+            }
+                     else if ({!(Grp_CCenter_Flag == true)}) {
+                f1.Cost_Center__c = document.getElementById('regccid1').value;
+            }
+                    }
+                     else if ({!(Grp_CCenter_Setting == false)}) {
+                if ({!(Grp_CCenter_Flag == false)}) {
+                f1.Cost_Center__c = document.getElementById('regccidu').value;
+            }
+                     else if ({!(Grp_CCenter_Flag == true)}) {
+                f1.Cost_Center__c = document.getElementById('regccidu1').value;
+            }
+                    }
+
+
+
+            //Set default
+            if ({!DefaulthideGrp_CCenter_Flag} == true || {!hideGrp_CCenter_Flag} == true)
+            f1.Cost_Center__c = ' ';
+
+            console.log('cost center chosen:' + f1.Cost_Center__c);
+            //----------
+
+            if ({!(Grp_Release_Setting == true)}) {
+                if ({!(Grp_Release_Flag == false)})
+            f1.Release__c = document.getElementById('regreleaseid').value;
+                     else if ({!(Grp_Release_Flag == true)})
+            f1.Release__c = document.getElementById('regreleaseid1').value;
+                    }
+                    else if ({!(Grp_Release_Setting == false)}) {
+                if ({!(Grp_Release_Flag == false)})
+            f1.Release__c = document.getElementById('regreleaseidu').value;
+                     else if ({!(Grp_Release_Flag == true)})
+            f1.Release__c = document.getElementById('regreleaseidu1').value;
+                    }
+
+
+            //Set default 
+            if ({!DefaulthideGrp_Release_Flag} == true || {!hideGrp_Release_Flag} == true)
+            f1.Release__c = ' ';
+
+
+            //----------------------------
+            if ({!(Grp_Desktop_Setting == true)}) {
+                if ({!(Grp_Desktop_Flag == false)})
+            f1.Desktop__c = document.getElementById('regdesktopid').value;
+                     else if ({!(Grp_Desktop_Flag == true)})
+            f1.Desktop__c = document.getElementById('regdesktopid1').value;
+                    }
+                    else if ({!(Grp_Desktop_Setting == false)}) {
+                if ({!(Grp_Desktop_Flag == false)})
+            f1.Desktop__c = document.getElementById('regdesktopidu').value;
+                     else if ({!(Grp_Desktop_Flag == true)})
+            f1.Desktop__c = document.getElementById('regdesktopidu1').value;
+                    }
+
+
+            //Set default 
+            if ({!DefaulthideGrp_Desktop_Flag} == true || {!hideGrp_Desktop_Flag} == true)
+            f1.Desktop__c = ' ';
+            //-----------------------------------------
+
+            console.log('PO_Number__c Val:', f1.PO_Number__c);
+            console.log('Cost_Center__c Val: ', f1.Cost_Center__c);
+            console.log('Release__c Val:', f1.Release__c);
+            console.log('Desktop__c Val:', f1.Desktop__c);
+
+            f1.Multiple_PO_Numbers__c = document.getElementById('regmultiponumsid').checked;
+            console.log('MultiplePONumbers Val:', f1.Multiple_PO_Numbers__c);
+            f1.Multiple_Cost_Centers__c = document.getElementById('regmulticcsid').checked;
+            console.log('MultipleCostCenters Val:', f1.Multiple_Cost_Centers__c);
+            f1.Multiple_Releases__c = document.getElementById('regmultireleasesid').checked;
+            console.log('MultipleReleases Val:', f1.Multiple_Releases__c);
+            f1.Multiple_Desktops__c = document.getElementById('regmultidesktopsid').checked;
+            console.log('MultipleDesktops Val:', f1.Multiple_Desktops__c);
+
+
+            //NAIT-21034-----------
+            f1.MultipleShipTo__c = document.getElementById('regmultipleshiptoid').checked;
+            console.log('MultipleShipTo Val:', f1.MultipleShipTo__c);
+
+            //NAIT-21040-----------
+            f1.SSO_Id__c = document.getElementById('regssoid_id').value;
+            //Set default 
+            if ({!DefaultHideSSO_Id_Flag} == true || {!hideSSO_Id_Flag} == true)
+            f1.SSO_Id__c = ' ';
+
+            console.log('SSO_Id Val:', f1.SSO_Id__c);
+
+            if (document.getElementById('regcccode_id').value != null)
+                f1.CustomCatalogCode__c = document.getElementById('regcccode_id').value;
+            else
+                f1.CustomCatalogCode__c = '00000';
+
+            if ({!DefaultHideCustomCatalogCode_Flag} == true || {!hideCustomCatalogCode_Flag} == true)
+            f1.CustomCatalogCode__c = '00000';
+            console.log('CustomCatalogCode__c Val:', f1.CustomCatalogCode__c);
+
+            //----------------NAIT-21026, 21027-------------------End------------>
+
+            //NAIT-11783
+            f1.User_Register_For_SPC__c = document.getElementById('regregforspcid').checked;
+            console.log('User_Register_For_SPC Val:', f1.User_Register_For_SPC__c);
+            f1.Request_Printed_SPC__c = document.getElementById('requestPrintedSPC').checked;
+            console.log('requestPrintedSPC Val:', f1.Request_Printed_SPC__c);
+
+
+            if (document.getElementById('g-recaptcha-response').value != null) {
+                var s = document.getElementById('g-recaptcha-response').value;
+                f1.Recaptcha__c = s.substring(0, 90);
+            }
+
+            //var ccenter1 = "{!if($CurrentPage.parameters.PortalCode == null, 'Noval', $CurrentPage.parameters.PortalCode)}";
+
+            //changes by ivarada 4/9/2019 - additional param "splaops"
+            if (splaops != null && splaops != '') {
+                //  splaops = splaops.padStart(8,"0");
+                splaops = pad('00000000', splaops, true);
+            }
+            else if (id1 != null && id1 != '') {
+                // id1 = id1.padStart(8,"0");
+                id1 = pad('00000000', id1, true);
+            }
+            if (id1 == '1936248') {
+                id1 = '01936248';
+            }
+
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.com2GPOCommunityLandingController.insertLeads}', f1, id1, splaops, pwd, "{!$CurrentPage.parameters.PortalCode}",
+                function (result, event) {
+                    console.log(result);
+                    console.log(f1);
+                    var resultString = '';
+
+                    if (event.status) {
+                        resultString = result;
+                        document.getElementById("regerrormessage").innerHTML = "Successful Registration";
+                        window.location.replace("{!commSetup.URL_Insert__c}com2ThankYouPage?id=" + id1 + "&src=reg" + "&SPC_req=" + f1.User_Register_For_SPC__c);
+                    } else if (event.type === 'exception') {
+                        resultString = event.message + "  " + event.where;
+                        document.getElementById("regerrormessage").innerHTML = resultString;
+                    } else {
+                        resultString = event.message;
+                        document.getElementById("regerrormessage").innerHTML = resultString;
+                    }
+                }); 
+                }
+            return false;
+            }
+
+            function GPOLead() {
+                this.Id = null;
+                this.Name = null;
+                this.Login_Name__c = null;
+                this.first_name__c = null;
+                this.last_name__c = null;
+                this.email__c = null;
+                this.Phone__c = null;
+                this.address1__c = null;
+                this.address2__c = null;
+                this.city__c = null;
+                this.state__c = null;
+                this.zip__c = null;
+                this.URL__c = null;
+                this.WCW_Range__c = null;
+                this.Business_Name__c = null;
+                this.DUNS__c = null;
+                this.Notes__c = null;
+                this.Status__c = null;
+                this.Recaptcha__c = null;
+                this.GPO_Group__c = null;
+                //-----------NAIT-21026, 21027----------sTART----------->
+                this.private__c = null;
+                this.PO_Number__c = null;
+                this.Cost_Center__c = null;
+                this.Release__c = null;
+                this.Desktop__c = null;
+
+                this.Multiple_PO_Numbers__c = null;
+                this.Multiple_Cost_Centers__c = null;
+                this.Multiple_Releases__c = null;
+                this.Multiple_Desktops__c = null;
+
+                //----------NAIT-21026, 21027--------------End----------->
+
+                //NAIT-21034
+                this.MultipleShipTo__c = null;
+                //NAIT-21040
+                this.SSO_Id__c = null;
+                this.CustomCatalogCode__c = null;
+                this.User_Register_For_SPC__c = null;
+                this.Request_Printed_SPC__c = null;
+                //Manager Info
+                this.Manager_Email_Address__c = null;
+                this.Manager_First_Name__c = null;
+                this.Manager_Job_Title__c = null;
+                this.Manager_Last_Name__c = null;
+                this.Manager_Phone_Number__c = null;
+                // Additional Address and Cost Centers
+                this.AdditionalCostCenter1__c = null;
+                this.AdditionalCostCenter2__c = null;
+                this.AdditionalCostCenter3__c = null;
+
+                this.Additional_Address1_1__c = null;
+                this.Additional_Address2_1__c = null;
+                this.Additional_City_1__c = null;
+                this.Additional_State_1__c = null;
+                this.Additional_Zip_1__c = null;
+                this.Additional_Address1_2__c = null;
+                this.Additional_Address2_2__c = null;
+                this.Additional_City_2__c = null;
+                this.Additional_State_2__c = null;
+                this.Additional_Zip_2__c = null;
+                this.Additional_Address1_3__c = null;
+                this.Additional_Address2_3__c = null;
+                this.Additional_City_3__c = null;
+                this.Additional_State_3__c = null;
+                this.Additional_Zip_3__c = null;
+            }
+
+            function type1CoreM(pageId, eventId, catId) {
+                var b = "-_-" + "-_-" + "-_-" + "-_-" + "-_-" + "-_-" + "-_-" +
+                    "-_-" + "-_-" + "-_-" + "-_-" + "1" + "-_-" + "-_-" + "-_-" +
+                    "-_-" + pageId;
+                cmCreateConversionEventTag(eventId, "1", catId, null, b, null);
+            }
+
+            function type2CoreM(pageId, eventId, catId) {
+                var b = "-_-" + "-_-" + "-_-" + "-_-" + "-_-" + "-_-" + "-_-" +
+                    "-_-" + "-_-" + "-_-" + "-_-" + "-_-" + "-_-" + "-_-" +
+                    "-_-" + pageId;
+                cmCreateConversionEventTag(eventId, "2", catId, null, b, null);
+            }
+
+        </script>
+
+        <!-- Invoice Form Functionality -->
+        <script>
+            function saveCase(id2) {
+                var ret = true;
+                if (document.getElementById('g-recaptcha-response-1').value == '') {
+                    document.getElementById('regerrormessage2').innerHTML = 'Please Validate Captcha';
+                    ret = false;
+                    console.log('in if : ' + ret);
+                } else {
+                    document.getElementById('regerrormessage2').innerHTML = '';
+                }
+                if (document.getElementById('InvLoginName').value == '') {
+                    document.getElementById('InvLoginName').style.border = '1px solid #f00';
+                    document.getElementById('InvLoginName').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('InvLoginNameEM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('InvFirstName').value == '') {
+                    document.getElementById('InvFirstName').style.border = '1px solid #f00';
+                    document.getElementById('InvFirstName').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('InvFirstNameEM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('InvLastName').value == '') {
+                    document.getElementById('InvLastName').style.border = '1px solid #f00';
+                    document.getElementById('InvLastName').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('InvLastNameEM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('businessAddr1').value == '') {
+                    document.getElementById('businessAddr1').style.border = '1px solid #f00';
+                    document.getElementById('businessAddr1').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('businessAddr1EM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('businessShipCity').value == '') {
+                    document.getElementById('businessShipCity').style.border = '1px solid #f00';
+                    document.getElementById('businessShipCity').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('businessShipCityEM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('businessShipState').value == '') {
+                    document.getElementById('businessShipState').style.border = '1px solid #f00';
+                    document.getElementById('businessShipState').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('businessShipStateEM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('businessShipZip').value == '') {
+                    document.getElementById('businessShipZip').style.border = '1px solid #f00';
+                    document.getElementById('businessShipZip').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('businessShipZipEM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('requestorPhone').value == '') {
+                    document.getElementById('requestorPhone').style.border = '1px solid #f00';
+                    document.getElementById('requestorPhone').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('requestorPhoneEM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('requestorEmail').value == '') {
+                    document.getElementById('requestorEmail').style.border = '1px solid #f00';
+                    document.getElementById('requestorEmail').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('requestorEmailEM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('annualRevenue').value == '') {
+                    document.getElementById('annualRevenue').style.border = '1px solid #f00';
+                    document.getElementById('annualRevenue').style.backgroundColor = '#f2bfbf';
+                    document.getElementById('annualRevenueEM').style.display = 'inline';
+
+                    ret = false;
+                }
+                if (document.getElementById('shippingSameAsBilling').checked != true) {
+                    if (document.getElementById('billingAddr1').value == '') {
+                        document.getElementById('billingAddr1').style.border = '1px solid #f00';
+                        document.getElementById('billingAddr1').style.backgroundColor = '#f2bfbf';
+                        document.getElementById('billingAddr1EM').style.display = 'inline';
+                        ret = false;
+                    }
+                    if (document.getElementById('billingShipCity').value == '') {
+                        document.getElementById('billingShipCity').style.border = '1px solid #f00';
+                        document.getElementById('billingShipCity').style.backgroundColor = '#f2bfbf';
+                        document.getElementById('billingShipCityEM').style.display = 'inline';
+                        ret = false;
+                    }
+                    if (document.getElementById('billingShipState').value == '') {
+                        document.getElementById('billingShipState').style.border = '1px solid #f00';
+                        document.getElementById('billingShipState').style.backgroundColor = '#f2bfbf';
+                        document.getElementById('billingShipStateEM').style.display = 'inline';
+                        ret = false;
+                    }
+                    if (document.getElementById('billingShipZip').value == '') {
+                        document.getElementById('billingShipZip').style.border = '1px solid #f00';
+                        document.getElementById('billingShipZip').style.backgroundColor = '#f2bfbf';
+                        document.getElementById('billingShipZipEM').style.display = 'inline';
+                        ret = false;
+                    }
+                }
+
+
+                if (ret != true || !$('#requestInvoiceForm').valid()) {
+                    // Do nothing
+                } else {
+                    console.log('In save function');
+                    document.getElementById('regerrormessage2').innerHTML = 'Submitting Request ....';
+
+                    var invoiceCase = new caseObject();
+                    invoiceCase.AM_New_Business_Name__c = document.getElementById('InvLoginName').value;
+                    invoiceCase.First_Name__c = document.getElementById('InvFirstName').value;
+                    invoiceCase.Last_Name__c = document.getElementById('InvLastName').value;
+                    // Reqestor Info Start-->
+                    invoiceCase.AM_Ship_To_Address_1__c = document.getElementById('businessAddr1').value;
+                    invoiceCase.AM_Ship_To_Address_2__c = document.getElementById('businessAddr2').value;
+                    invoiceCase.AM_Ship_To_City__c = document.getElementById('businessShipCity').value;
+                    invoiceCase.AM_Ship_To_State__c = document.getElementById('businessShipState').value;
+                    invoiceCase.AM_Ship_To_Zip__c = document.getElementById('businessShipZip').value;
+                    invoiceCase.SuppliedPhone = document.getElementById('requestorPhone').value;
+                    invoiceCase.Extension__c = document.getElementById('requestorPhoneExt').value;
+                    invoiceCase.Requestor_Email_2__c = document.getElementById('requestorEmail').value;
+
+                    // Business Shipping Info Start-->
+                    if (document.getElementById('shippingSameAsBilling').checked == true) {
+                        invoiceCase.AM_Bill_To_Address_1__c = document.getElementById('businessAddr1').value;
+                        invoiceCase.AM_Bill_To_Address_2__c = document.getElementById('businessAddr2').value;
+                        invoiceCase.AM_Bill_To_City__c = document.getElementById('businessShipCity').value;
+                        invoiceCase.AM_Bill_To_State__c = document.getElementById('businessShipState').value;
+                        invoiceCase.AM_Bill_To_Zip__c = document.getElementById('businessShipZip').value;
+                    } else {
+                        invoiceCase.AM_Bill_To_Address_1__c = document.getElementById('billingAddr1').value;
+                        invoiceCase.AM_Bill_To_Address_2__c = document.getElementById('billingAddr2').value;
+                        invoiceCase.AM_Bill_To_City__c = document.getElementById('billingShipCity').value;
+                        invoiceCase.AM_Bill_To_State__c = document.getElementById('billingShipState').value;
+                        invoiceCase.AM_Bill_To_Zip__c = document.getElementById('billingShipZip').value;
+                    }
+                    // Business Shipping Info End-->
+
+                    invoiceCase.Number_of_Employees__c = document.getElementById('regNumEmployees1').value;
+                    invoiceCase.Annual_Account_Revenue__c = document.getElementById('annualRevenue').value;
+
+                    ///NAIT-21076-------start-----
+                    invoiceCase.Prefer_to_Pay_by_CreditCard__c = document.getElementById('creditcard_check_id').checked;
+
+                    if ({!(Grp_PO_Num_Flag == false)}) {
+                    if ({!(Grp_PO_Num_Setting == true)})
+                invoiceCase.PO_Number__c = document.getElementById('regponumid3').value;
+                    else if ({!(Grp_PO_Num_Setting == false)})
+            invoiceCase.PO_Number__c = document.getElementById('regponumid31').value;
+                }
+                else if ({!(Grp_PO_Num_Flag == true)})
+            invoiceCase.PO_Number__c = document.getElementById('regponumid2').value;
+
+            //Set default
+            if ({!DefaulthideGrp_PO_Num_Flag} == true || {!hideGrp_PO_Num_Flag} == true)
+            invoiceCase.PO_Number__c = ' ';
+            //-----------------------  
+
+            if ({!(Grp_CCenter_Flag == false)}) {
+                if ({!(Grp_CCenter_Setting == true)})
+            invoiceCase.CostCenter__c = document.getElementById('regccid3').value;
+                    else if ({!(Grp_CCenter_Setting == false)})
+            invoiceCase.CostCenter__c = document.getElementById('regccid31').value;
+                }
+                else if ({!(Grp_CCenter_Flag == true)})
+            invoiceCase.CostCenter__c = document.getElementById('regccid2').value;
+            //Set default
+            if ({!DefaulthideGrp_CCenter_Flag} == true || {!hideGrp_CCenter_Flag} == true)
+            invoiceCase.CostCenter__c = ' ';
+            //----------------------- 
+
+            if ({!(Grp_Release_Flag == false)}) {
+                if ({!(Grp_Release_Setting == true)})
+            invoiceCase.Release__c = document.getElementById('regreleaseid3').value;
+                    else if ({!(Grp_Release_Setting == false)})
+            invoiceCase.Release__c = document.getElementById('regreleaseid31').value;
+                }
+                else if ({!(Grp_Release_Flag == true)})
+            invoiceCase.Release__c = document.getElementById('regreleaseid2').value;
+            //Set default 
+            if ({!DefaulthideGrp_Release_Flag} == true || {!hideGrp_Release_Flag} == true)
+            invoiceCase.Release__c = ' ';
+            //-----------------------
+
+            if ({!(Grp_Desktop_Flag == false)}) {
+                if ({!(Grp_Desktop_Setting == true)})
+            invoiceCase.Desktop__c = document.getElementById('regdesktopid3').value;
+                    else if ({!(Grp_Desktop_Setting == false)})
+            invoiceCase.Desktop__c = document.getElementById('regdesktopid31').value;
+                        
+                }
+                else if ({!(Grp_Desktop_Flag == true)})
+            invoiceCase.Desktop__c = document.getElementById('regdesktopid2').value;
+
+            //Set default 
+            if ({!DefaulthideGrp_Desktop_Flag} == true || {!hideGrp_Desktop_Flag} == true)
+            invoiceCase.Desktop__c = ' ';
+            //----------------------- 
+
+
+
+            ///NAIT-21076-----------End-------
+
+            if (document.getElementById('g-recaptcha-response-1') != null) {
+                if (document.getElementById('g-recaptcha-response-1').value != null) {
+                    var s = document.getElementById('g-recaptcha-response-1').value;
+                    invoiceCase.subject = s.substring(0, 90);
+                }
+            }
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.com2GPOCommunityLandingController.createCase}', invoiceCase, '{!selectedGroup.id}',
+                function (result, event) {
+                    var resultString = '';
+                    if (event.status) {
+                        resultString = result;
+                        document.getElementById("regerrormessage2").innerHTML = "Successfully Submitted";
+                        window.location.replace("{!commSetup.URL_Insert__c}com2invoiceThankYouPage?id=" + id2);
+                    } else if (event.type === 'exception') {
+                        resultString = event.message + "  " + event.where;
+                        document.getElementById("regerrormessage2").innerHTML = resultString;
+                    } else {
+                        resultString = event.message;
+                        document.getElementById("regerrormessage2").innerHTML = resultString;
+                    }
+                }); 
+                        } }
+
+
+            function caseObject() {
+                this.AM_New_Business_Name__c = null;
+                this.First_Name__c = null;
+                this.Last_Name__c = null;
+                this.AM_Ship_To_Address_1__c = null;
+                this.AM_Ship_To_Address_2__c = null;
+                this.AM_Ship_To_City__c = null;
+                this.AM_Ship_To_State__c = null;
+                this.AM_Ship_To_Zip__c = null;
+                this.SuppliedPhone = null;
+                this.Requestor_Email_2__c = null;
+                this.AM_Bill_To_Address_1__c = null;
+                this.AM_Bill_To_Address_2__c = null;
+                this.AM_Bill_To_City__c = null;
+                this.AM_Bill_To_State__c = null;
+                this.AM_Bill_To_Zip__c = null;
+                this.Number_of_Employees__c = null;
+                this.Annual_Account_Revenue__c = null;
+
+                ///NAIT-21076------------
+                this.PO_Number__c = null;
+                this.CostCenter__c = null;
+                this.Release__c = null;
+                this.Desktop__c = null;
+                this.Prefer_to_Pay_by_CreditCard__c = null;
+                ///NAIT-21076------------
+                this.subject = null;
+            }
+
+
+        </script>
+        <!-- used for showing and hiding elements based on admin's settings -->
+        <style>
+            .contentHide {
+                display: none;
+            }
+
+            .hideRegister {
+                display: none;
+                padding: 0px 0px 0px 0px;
+            }
+
+            .regular {}
+
+            .btn {
+                border: 0px;
+            }
+
+            label .error {
+                display: none !important;
+            }
+
+            .padding-middle {
+                padding: 30px 0;
+            }
+
+            outputLabel {
+                color: #7f7f7f;
+            }
+
+            .hintText {
+                color: #7f7f7f;
+                font-size: 12px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <apex:composition template="com2GPOPreLoginVFTemplate">
+
+            <apex:define name="ODLogo">
+                <a target="_blank" href="https://business.officedepot.com/">
+                    <img src="{!URLFOR($Resource.CommunitiesAssets,'images/OD-Biz-Logo.png')}" title="Office Depot Business - We provide Smart Solutions that help you take care of business."
+                    />
+                </a>
+            </apex:define>
+
+            <apex:define name="CustomBrand">
+                <apex:image rendered="{!IF(contains(hideSectionsList, "Company Logo"),false,true)}" url="{!IF(AND(showGeneric),URLFOR($Resource.CommunitiesAssets,'images/transparent.png'),ImageRootPath + usingGroup.Community_Image__c  )}"
+                    width="360" height="110" style="float: right;" />
+            </apex:define>
+
+            <apex:define name="Greeting">
+                <div class="{!IF(contains(selectedGroup.hideSections__c," Greeting "),'contentHide','regular')}" style="font-size: 16px">
+                    <p>
+                        <apex:outputText escape="false" value="{!WelcomeMessage1}" /> </p>
+                    <container class="{!IF(hideRegisterLink || $CurrentPage.parameters.id == '01936248' || $CurrentPage.parameters.id == '1936248' || $CurrentPage.parameters.id == '42519356'|| $CurrentPage.parameters.id == '28737175' || $CurrentPage.parameters.id == '79578966' || $CurrentPage.parameters.id == '71285329' || $CurrentPage.parameters.id == '78160508' || $CurrentPage.parameters.id == '90699181' || $CurrentPage.parameters.id == '90589311' || $CurrentPage.parameters.id == '921','hideRegister','regular')}">
+                        <!-- <p>
+                         start shopping now!</p> -->
+                    </container>
+                </div>
+            </apex:define>
+            <!--added by ivarada - 4/9/2018 starts -->
+            <apex:define name="LoginButton">
+                <container class="{!IF(hideRegisterLink,'hideRegister','regular')}">
+
+                    <a type="button" class="btn btn-primary btn-block width-40 {!IF(splOverride,'regular','contentHide')}" data-toggle="modal"
+                        data-target="#ODFLead"> Register </a>
+                    <br/>
+                </container>
+
+                <a type="button" class="btn btn-primary btn-block width-40 {!IF(showGeneric && !splOverride,'regular','contentHide')}" href="{!commSetup.signin_link__c}?cm_sp=Communities-_-{!pageID}-_-SignIn">LOG IN</a>
+                <a type="button" class="btn btn-primary btn-block width-40 {!IF(splOverride,'regular','contentHide')}" href="{!$Label.GPOBSD}">LOG IN</a>
+
+                <container class="{!IF(hideRegisterLink,'hideRegister','regular')}">
+                    <a type="button" class="btn btn-primary btn-block width-40 {!IF(showGeneric,'contentHide','regular')}" data-toggle="modal"
+                        data-target="#ODFLead"> Register </a>
+                </container>
+
+
+
+                <!--added by ivarada - 4/9/2018 ends -->
+            </apex:define>
+            <!-- The actual Login Link -->
+            <apex:define name="RegisterLink">
+                <div class="{!IF(selectedGroup.private__c == true,'','contentHide')}">
+                    <p>
+                        <!-- hideLoginOption Added by Rajendra shahane for NAIT-155579 Remove the login option from the following community pages. -->
+                        <a class="underline {!IF(showGeneric,'contentHide','regular')} {!IF( hideLoginOption || hideRegisterLink || $CurrentPage.parameters.id == '01936248' || $CurrentPage.parameters.id == '1936248' || $CurrentPage.parameters.id == '42519356' || $CurrentPage.parameters.id == '28737175' || $CurrentPage.parameters.id == '90589311' || $CurrentPage.parameters.id == '79578966' || $CurrentPage.parameters.id == '71285329' || $CurrentPage.parameters.id == '78160508' || $CurrentPage.parameters.id == '90699181' || $CurrentPage.parameters.id == '77070942' || $CurrentPage.parameters.id == '921' || $CurrentPage.parameters.id == '36368250' || $CurrentPage.parameters.id == '36369719','contentHide','regular')}"
+                            href="{!commSetup.signin_link__c}?cm_sp=Communities-_-{!pageID}-_-SignIn&gpoGroupid={!selectedGroup.id}">Log in to {!selectedGroup.Community_Name__c} as a registered User</a>                    
+                    </p>
+                </div>
+                <div class="{!IF(selectedGroup.private__c == false,'','contentHide')}">
+                    <p>
+                        <!-- hideLoginOption Added by Rajendra shahane for NAIT-155579 Remove the login option from the following community pages. -->
+                        <a class="underline {!IF(showGeneric,'contentHide','regular')} {!IF(hideLoginOption || hideRegisterLink || $CurrentPage.parameters.id == '01936248' || $CurrentPage.parameters.id == '1936248' || $CurrentPage.parameters.id == '42519356' || $CurrentPage.parameters.id == '28737175' || $CurrentPage.parameters.id == '90589311' || $CurrentPage.parameters.id == '79578966' || $CurrentPage.parameters.id == '71285329' || $CurrentPage.parameters.id == '78160508' || $CurrentPage.parameters.id == '90699181' || $CurrentPage.parameters.id == '77070942' || $CurrentPage.parameters.id == '921' || $CurrentPage.parameters.id == '36368250' || $CurrentPage.parameters.id == '36369719','contentHide','regular')}"
+                            href="https://business.officedepot.com?cm_sp=Communities-_-{!pageID}-_-SignIn&gpoGroupid={!selectedGroup.id}">Log in to {!selectedGroup.Community_Name__c} as a registered User</a>                    
+                    </p>
+                    </div>
+            </apex:define>
+
+            <apex:define name="NonBrandedImage">
+                <apex:image id="NonBrandedImage" url="{!URLFOR($Resource.CommunitiesAssets, 'images/pic.jpg')}" rendered="{!IF(contains(hideSectionsList, "Stock Image"),false,true)}" alt="..." />
+            </apex:define>
+
+            <apex:define name="bottomRow">
+                <container class="{!IF(showGeneric,'contentHide','regular')}">
+                    <div class="row padding-middle border-top">
+                        <!--<div class="col-md-4 {!IF(contains(usingGroup.hideSections__c," Request an Account "),'contentHide','regular')}">-->
+                        <div class="col-md-4 {!IF(contains(hideSectionsList,"Request an Account"),'contentHide','regular')}">
+                            <h4>REQUEST AN ACCOUNT</h4>
+                            <p>
+                                <b>Apply for an account allowing you to make purchases and pay on Net billing terms.</b>
+                            </p>
+                            <p>
+                                <b>
+                                    <a class="underline" data-toggle="modal" data-target="#ODInvRequest">Request an Invoice Account</a>
+                                </b>
+                            </p>
+                        </div>
+
+                        <!-- <div class="col-md-4 {!IF(contains(usingGroup.hideSections__c,"Important Downloads"),'contentHide','regular')}"> -->
+                        <div class="col-md-4 {!IF(contains(hideSectionsList,"Important Downloads"),'contentHide','regular')}">
+                            <h4>IMPORTANT DOWNLOADS </h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <b>
+                                        <a class="underline {!IF(hideSPCdownloadLink,'contentHide','regular')}" target="_blank"
+                                            href="{!commSetup.SPC_Link_Address__c}{!PageIdtoken}">Download Store Purchasing Card</a>
+                                    </b>
+                                </li>
+                                <li>
+                                    <a class="{!IF(Account_SPC_Allowed_Flag == 'Y', 'regular', 'contentHide')}" target="_blank"
+                                        href="{!commSetup.SPC_Registration_Link_URL__c}">Personalize Store Purchasing Card</a>
+                                </li>
+
+                                <apex:repeat var="link" value="{!pageLinks}">
+                                    <li>
+                                        <a target="_blank" class="underline {!IF(link.Active__c != True,'contentHide','regular')}"
+                                            href="{!link.URL_Address__c}">{!link.Label__c}</a>
+                                    </li>
+                                </apex:repeat>
+                            </ul>
+                        </div>
+                        <!--<div class="col-md-4 {!IF(contains(usingGroup.hideSections__c," Account Information
+                            ") || (accountOwner.isactive != True) || (accountOwner.System_User__c == True),'contentHide','regular')}">-->
+                            
+                        <div class="col-md-4 {!IF(contains(hideSectionsList,"Account Information"
+                            ) || (accountOwner.isactive != True) || (accountOwner.System_User__c == True),'contentHide','regular')}">
+
+                            
+                            <h4>ACCOUNT INFORMATION</h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <strong>{!accountOwner.Name}</strong>
+                                </li>
+                                <li>{!accountOwner.Phone}</li>
+                                <li>{!accountOwner.MobilePhone}</li>
+                                <li>{!accountOwner.Email}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </container>
+
+            </apex:define>
+
+            <apex:define name="Messaging">
+                <!--<container class="{!IF(contains(usingGroup.hideSections__c," Benefits "),'contentHide','regular')}">-->
+                <container class="{!IF(contains(hideSectionsList,"Benefits"),'contentHide','regular')}">
+                    <h4 class="benefits-header">
+                        BENEFITS OF SHOPPING OFFICE DEPOT
+                    </h4>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/icon_personalized.jpg')}" />
+                        <h4>PERSONALIZED SERVICES</h4>
+                        <p>Expertise that covers a wide range of business needs. Dedicated account managers to provide customized
+                            solutions.
+                        </p>
+                    </div>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/icon_procurement.jpg')}" />
+                        <h4>FLEXIBLE PROCUREMENT</h4>
+                        <p>Simple ways to shop when, where, and how you want. Custom delivery &amp; invoicing, plus payment
+                            &amp; electronic procurement options.</p>
+                    </div>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/product_services.jpg')}" />
+                        <h4>PRODUCTS &amp; SERVICES</h4>
+                        <p>All the products you need, from technology &amp; furniture to cleaning &amp; breakrooms. Custom copy
+                            &amp; print services, as well as office supplies tailored to your needs.
+                        </p>
+                    </div>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/cost_control.jpg')}" />
+                        <h4>COST CONTROLS</h4>
+                        <p>Cost-containment solutions such as demand management and global sourcing.</p>
+                    </div>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/sustainable_solutions.jpg')}" />
+                        <h4>SUSTAINABLE SOLUTIONS</h4>
+                        <p>Effective strategies to help make going greener more economical. Items that help you meet your purchasing
+                            goals.</p>
+                    </div>
+                </container>
+            </apex:define>
+
+            <apex:define name="RegisterLoginLinks">
+                <container class="{!IF(hideRegisterLink,'hideRegister','regular')}">
+                    <container class="{!IF(showGeneric,'contentHide','regular')}">
+                        <h4 class="text-center">
+                            <a class="underline" data-toggle="modal" data-target="#ODFLead">Register</a> to start shopping. Already have an account?
+                            <a class="underline" href="{!commSetup.signin_link__c}?cm_sp=Communities-_-{!pageID}-_-SignIn">Log in</a>
+                        </h4>
+                    </container>
+                </container>
+            </apex:define>
+
+
+
+            <apex:define name="Footer">
+                <div class="col-md-6 small">Copyright &copy; {!currentYear} by Office Depot, Inc. All rights reserved.
+                </div>
+                <div class="col-md-6 small">
+                    <ul class="list-inline pull-right">
+                        <li class="border-none">
+                            <a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/trackingtools.jsp">Online Tracking Tools</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp">Terms of Use</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp">Terms &amp; Conditions</a>
+                        </li>
+                    </ul>
+                </div>
+            </apex:define>
+
+
+
+            <!----------------------------------------------------------- Start Of Invoice Request Modal-------------------------------------------------------->
+            <!----------------------------------------------------------- Created by C.donald 04282017-------------------------------------------------------->
+            <apex:define name="InvoiceRequestApp">
+                <div class="modal fade" id="ODInvRequest" role="dialog">
+                    <div class="modal-dialog">
+                        <apex:outputPanel id="invoiceSubmissionForm">
+                            <apex:outputPanel rendered="{!showForm}" id="invoice">
+                                <!--Beginning of Invoice Request Form -->
+                                <div id="invoiceRequestRegistrationPage" class="">
+                                    <!------------------------Main Information Input START--------------->
+                                    <div id="requestInvoicePage" class=" mainWrapper odgrid_12 gw12 alpha omega">
+                                        <!--  Main Info START-->
+                                        <form id="requestInvoiceForm" class="invoiceFix" name="requestInvoiceForm" method="POST" style="width: 560px;">
+                                            <section class="p24 ">
+
+                                                <h1> Request Invoice Account </h1>
+
+                                                <p class="mb24"> Enter your information to request an account with invoiced billing terms.
+                                                    </p>
+
+                                                <!----------NAIT-21075------>
+                                                <section class="dfsdf">
+                                                    <div class="{!IF(DefaulthideCreditCard_Flag == false, 'regular', 'contentHide')}">
+                                                        <div class="{!IF(hideCreditCard_Flag == true, 'contentHide', 'regular')}">
+                                                            <apex:pageBlock title="">
+                                                                <apex:pageBlockSection >
+                                                                    <input class="cc_checkbox" type="checkbox" name="cc_check" id="creditcard_check_id" />
+                                                                    <apex:outputLabel style="padding-left:10px" value="{!InvoiceFieldsMap['I would prefer to pay by Credit Card']}" />
+                                                                </apex:pageBlockSection>
+                                                            </apex:pageBlock>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <br/>
+                                                <!----------NAIT-21075------>
+
+                                                <h2> Business Contact </h2>
+
+                                                <apex:outputLabel value="{!InvoiceFieldsMap['Business Name'] }" />
+                                                <input type="text" name="businessName" id="InvLoginName" minlength="1" required="required" onkeypress="return IsInvLoginName(event);"
+                                                />
+                                                <span id="InvLoginNameEM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsInvLoginName(e) {
+                                                        document.getElementById('InvLoginName').style.border = '1px solid Silver';
+                                                        document.getElementById('InvLoginName').style.backgroundColor = '';
+                                                        document.getElementById('InvLoginNameEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <apex:outputLabel value="{!InvoiceFieldsMap['First Name']}" />
+                                                <input type="text" name="requestorFirstName" id="InvFirstName" minlength="1" required="required" onkeypress="return IsInvFirstName(event);"
+                                                />
+                                                <span id="InvFirstNameEM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsInvFirstName(e) {
+                                                        document.getElementById('InvFirstName').style.border = '1px solid Silver';
+                                                        document.getElementById('InvFirstName').style.backgroundColor = '';
+                                                        document.getElementById('InvFirstNameEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <apex:outputLabel value="{!InvoiceFieldsMap['Last Name']}" />
+                                                <input type="text" name="requestorLastName" id="InvLastName" minlength="1" required="required" onkeypress="return IsInvLastName(event);"
+                                                />
+                                                <span id="InvLastNameEM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsInvLastName(e) {
+                                                        document.getElementById('InvLastName').style.border = '1px solid Silver';
+                                                        document.getElementById('InvLastName').style.backgroundColor = '';
+                                                        document.getElementById('InvLastNameEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <apex:outputLabel value="{!InvoiceFieldsMap['Business Street Address 1']}" />
+                                                <input type="text" name="businessAddr1" id="businessAddr1" minlength="1" required="required" onkeypress="return IsbusinessAddr1(event);"
+                                                />
+                                                <span id="businessAddr1EM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsbusinessAddr1(e) {
+                                                        document.getElementById('businessAddr1').style.border = '1px solid Silver';
+                                                        document.getElementById('businessAddr1').style.backgroundColor = '';
+                                                        document.getElementById('businessAddr1EM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <apex:outputLabel value="{!InvoiceFieldsMap['Business Street Address 2']}" />
+                                                <input type="text" name="businessAddr2" id="businessAddr2" minlength="1" />
+
+                                                <apex:outputLabel value="{!InvoiceFieldsMap['Business City']}" />
+                                                <input type="text" name="businessShipCity" id="businessShipCity" minlength="1" required="required" onkeypress="return IsbusinessShipCity(event);"
+                                                />
+                                                <span id="businessShipCityEM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsbusinessShipCity(e) {
+                                                        document.getElementById('businessShipCity').style.border = '1px solid Silver';
+                                                        document.getElementById('businessShipCity').style.backgroundColor = '';
+                                                        document.getElementById('businessShipCityEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <apex:outputLabel value="{!InvoiceFieldsMap['Business State']}" />
+                                                <input type="text" name="businessShipState" id="businessShipState" minlength="2" maxlength="2" required="required" onkeypress="return IsbusinessShipState(event);"
+                                                />
+                                                <span id="businessShipStateEM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsbusinessShipState(e) {
+                                                        document.getElementById('businessShipState').style.border = '1px solid Silver';
+                                                        document.getElementById('businessShipState').style.backgroundColor = '';
+                                                        document.getElementById('businessShipStateEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <apex:outputLabel value="{!InvoiceFieldsMap['Business Zip Code']}" />
+                                                <input type="text" name="businessShipZip" id="businessShipZip" minlength="5" required="required" onkeypress="return IsInvZip(event);"
+                                                />
+                                                <span id="businessShipZipEM" style="color: #f00; display: none">This field is required.</span>
+                                                <span id="invZipError" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsInvZip(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("invZipError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('businessShipZip').style.border = '1px solid Silver';
+                                                        document.getElementById('businessShipZip').style.backgroundColor = '';
+                                                        document.getElementById('businessShipZipEM').style.display = 'none'
+                                                        return ret;
+                                                    }
+
+                                                </script>
+                                                <!--Business Name,Person Name , Address END-->
+
+                                                <!--Business CONTACT INFO Phone,Est, email (Shipping) START-->
+                                                <div class="column1">
+                                                    <apex:outputLabel value="{!InvoiceFieldsMap['Business Phone Number']}" />
+                                                    <input type="text" name="requestorPhone" id="requestorPhone" minlength="10" onkeypress="return IsrequestorPhone(event);"
+                                                        placeholder="(000)000-0000" required="required" maxlength="10" />
+                                                    <span id="requestorPhoneEM" style="color: #f00; display: none">This field is required.</span>
+                                                    <span id="invPhoneError" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsrequestorPhone(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("invPhoneError").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('requestorPhone').style.border = '1px solid Silver';
+                                                            document.getElementById('requestorPhone').style.backgroundColor = '';
+                                                            document.getElementById('requestorPhoneEM').style.display = 'none'
+                                                            return ret;
+                                                        }
+
+                                                    </script>
+                                                </div>
+                                                <div class="{!IF(hideExtension == true, 'contentHide', 'column2')}">
+                                                    <apex:outputLabel value="{!InvoiceFieldsMap['Business Extension']}" />
+                                                    <input type="text" name="requestorPhoneExt" id="requestorPhoneExt" minlength="1" size="4" />
+                                                </div>
+                                                <apex:outputLabel value="{!InvoiceFieldsMap['Business Email Address']}" />
+                                                <input type="email" name="requestorEmail" id="requestorEmail" required="required" onkeypress="return IsrequestorEmail(event);"
+                                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
+                                                <span id="requestorEmailEM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsrequestorEmail(e) {
+                                                        document.getElementById('requestorEmail').style.border = '1px solid Silver';
+                                                        document.getElementById('requestorEmail').style.backgroundColor = '';
+                                                        document.getElementById('requestorEmailEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <!--------- Same as billing address section ----------->
+                                                <!--------- Same as billing address checkbox enablement  section ----------->
+                                                <header class="billingAddressHeader">
+                                                    <h3 align="left" class="di mr24"> Billing Address </h3>
+                                                    <label class="di">
+                                                        <input type="checkbox" id="shippingSameAsBilling" class="styled_checkbox" autocomplete="off" />
+                                                        <span class="styled_checkbox_label"></span>
+                                                        Same as business address
+                                                    </label>
+                                                </header>
+                                                <!--------- Same as billing address checkbox enablement  section ----------->
+                                                <!--Business CONTACT INFO Phone,Est, email (Shipping) END-->
+                                                <!-- Billing address section START-->
+                                                <section id="billingAddressSection">
+                                                    <apex:outputLabel value="{!InvoiceFieldsMap['Billing Street Address 1']}" />
+                                                    <input type="text" name="billingAddr1" id="billingAddr1" minlength="1" onkeypress="return IsbillingAddr1(event);" />
+                                                    <span id="billingAddr1EM" style="color: #f00; display: none">This field is required.</span>
+                                                    <script type="text/javascript">
+                                                        function IsbillingAddr1(e) {
+                                                            document.getElementById('billingAddr1').style.border = '1px solid Silver';
+                                                            document.getElementById('billingAddr1').style.backgroundColor = '';
+                                                            document.getElementById('billingAddr1EM').style.display = 'none';
+                                                            return true;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{!InvoiceFieldsMap['Billing Street Address 2']}" />
+                                                    <input type="text" name="billingAddr2" id="billingAddr2" minlength="1" />
+
+                                                    <apex:outputLabel value="{!InvoiceFieldsMap['Billing City']}" />
+                                                    <input type="text" name="billingShipCity" id="billingShipCity" minlength="1" onkeypress="return IsbillingShipCity(event);"
+                                                    />
+                                                    <span id="billingShipCityEM" style="color: #f00; display: none">This field is required.</span>
+                                                    <script type="text/javascript">
+                                                        function IsbillingShipCity(e) {
+                                                            document.getElementById('billingShipCity').style.border = '1px solid Silver';
+                                                            document.getElementById('billingShipCity').style.backgroundColor = '';
+                                                            document.getElementById('billingShipCityEM').style.display = 'none';
+                                                            return true;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{!InvoiceFieldsMap['Billing State']}" />
+                                                    <input type="text" name="billingShipState" id="billingShipState" minlength="2" onkeypress="return IsbillingShipState(event);"
+                                                    />
+                                                    <span id="billingShipStateEM" style="color: #f00; display: none">This field is required.</span>
+                                                    <script type="text/javascript">
+                                                        function IsbillingShipState(e) {
+                                                            document.getElementById('billingShipState').style.border = '1px solid Silver';
+                                                            document.getElementById('billingShipState').style.backgroundColor = '';
+                                                            document.getElementById('billingShipStateEM').style.display = 'none';
+                                                            return true;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{!InvoiceFieldsMap['Billing Zip Code']}" />
+                                                    <input type="text" name="billingShipZip" id="billingShipZip" minlength="5" onkeypress="return IsbillingShipZip(event);" />
+                                                    <span id="billingShipZipEM" style="color: #f00; display: none">This field is required.</span>
+                                                    <span id="billingShipZipError" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsbillingShipZip(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("billingShipZipError").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('billingShipZip').style.border = '1px solid Silver';
+                                                            document.getElementById('billingShipZip').style.backgroundColor = '';
+                                                            document.getElementById('billingShipZipEM').style.display = 'none';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+                                                    <br class="clear" />
+                                                    <br/>
+                                                </section>
+                                                <!-- Billing address section END-->
+                                                <!-- Business Information section START-->
+                                                <section class="p24" id="infoSection">
+                                                    <h2 class="mt24 clear"> Business Information</h2>
+                                                    <apex:outputLabel value="{!InvoiceFieldsMap['Number of Employees']}" />
+                                                    <select name="regNumEmployees" id="regNumEmployees1">
+                                                        <option> 1-19 </option>
+                                                        <option> 20-49 </option>
+                                                        <option> 50-99 </option>
+                                                        <option> 100-149 </option>
+                                                        <option> 150-199 </option>
+                                                        <option> 200-249 </option>
+                                                        <option> 250-500 </option>
+                                                        <option> 500+ </option>
+                                                    </select>
+
+                                                    <apex:outputLabel value="{!InvoiceFieldsMap['Annual Revenue']}" />
+                                                    <input type="text" name="annualRevenue" id="annualRevenue" minlength="1" required="required" onkeypress="return IsInvNumeric(event);"
+                                                    />
+                                                    <span id="annualRevenueEM" style="color: #f00; display: none">This field is required.</span>
+                                                    <span id="revError" style="color: Red; display: none">* Input digits (0 - 9)</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsInvNumeric(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("revError").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('annualRevenue').style.border = '1px solid Silver';
+                                                            document.getElementById('annualRevenue').style.backgroundColor = '';
+                                                            document.getElementById('annualRevenueEM').style.display = 'none';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+
+
+                                                    <!------------21075------------start------------>
+                                                    <!-- <apex:outputLabel value="{!DefaulthideGrp_PO_Num_Flag}" />
+                                            <apex:outputLabel value="{!hideGrp_PO_Num_Flag}" />
+                                            <apex:outputLabel value="{!Grp_PO_Num_Setting}" />
+                                            <apex:outputLabel value="{!Grp_PO_Num_Flag}" /> -->
+
+
+                                                    <!-- <h2 class="mt24 clear"> Soft Header Info</h2> -->
+                                                    <div class="{!IF(DefaulthideGrp_PO_Num_Flag == false, 'regular', 'contentHide')}">
+                                                        <div class="{!IF(hideGrp_PO_Num_Flag == true, 'contentHide', 'regular')}">
+                                                            <apex:outputLabel value="{!InvoiceUserRegFieldsMap['PO Number']}" />
+                                                            <div class=" {!IF(Grp_PO_Num_Flag == true,'regular','contentHide')}">
+                                                                <select value="" name="PO_Num" id="regponumid2">
+                                                                    <apex:repeat value="{!Grp_PO_Num_str_list}" var="po_num_id">
+                                                                        <option>{!po_num_id.label}</option>
+                                                                    </apex:repeat>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class=" {!IF(Grp_PO_Num_Flag == false,'regular','contentHide')}">
+                                                                <div class="{!IF(Grp_PO_Num_Setting == true, 'regular', 'contentHide')}">
+                                                                    <input type="text" value="" name="ponum" id="regponumid3" minlength="0" maxlength="22" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                                    />
+                                                                </div>
+                                                                <div class="{!IF(Grp_PO_Num_Setting == false, 'regular', 'contentHide')}">
+                                                                    <select value="" name="PO_Num" id="regponumid31">
+                                                                        <apex:repeat value="{!Grp_PO_Num_str_list}" var="po_num_id">
+                                                                            <option>{!po_num_id.label}</option>
+                                                                        </apex:repeat>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!------------------------------------->
+                                                    <div class="{!IF(DefaulthideGrp_CCenter_Flag == false, 'regular', 'contentHide')}">
+                                                        <div class="{!IF(hideGrp_CCenter_Flag == true, 'contentHide', 'regular')}">
+                                                            <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Cost Center'] }" />
+                                                            <div class=" {!IF(Grp_CCenter_Flag == true,'regular','contentHide')}">
+                                                                <select value="" name="CC_Num" id="regccid2">
+                                                                    <apex:repeat value="{!Grp_CCenter_str_list}" var="ccenter_id">
+                                                                        <option>{!ccenter_id.label}</option>
+                                                                    </apex:repeat>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class=" {!IF(Grp_CCenter_Flag == false,'regular','contentHide')}">
+                                                                <div class="{!IF(Grp_CCenter_Setting == true, 'regular', 'contentHide')}">
+                                                                    <input type="text" value="" name="cc" id="regccid3" minlength="0" maxlength="20" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                                    />
+                                                                </div>
+                                                                <div class="{!IF(Grp_CCenter_Setting == false, 'regular', 'contentHide')}">
+                                                                    <select value="" name="CC_Num" id="regccid31">
+                                                                        <apex:repeat value="{!Grp_CCenter_str_list}" var="ccenter_id">
+                                                                            <option>{!ccenter_id.label}</option>
+                                                                        </apex:repeat>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!------------------------------------->
+                                                    <div class="{!IF(DefaulthideGrp_Release_Flag == false, 'regular', 'contentHide')}">
+                                                        <div class="{!IF(hideGrp_Release_Flag == true, 'contentHide', 'regular')}">
+
+                                                            <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Release'] }" />
+
+                                                            <div class=" {!IF(Grp_Release_Flag == true,'regular','contentHide')}">
+                                                                <select value="" name="Rls_Num" id="regreleaseid2">
+                                                                    <apex:repeat value="{!Grp_Release_str_list}" var="release_id">
+                                                                        <option>{!release_id.label}</option>
+                                                                    </apex:repeat>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class=" {!IF(Grp_Release_Flag == false,'regular','contentHide')}">
+                                                                <div class="{!IF(Grp_Release_Setting == true, 'regular', 'contentHide')}">
+                                                                    <input type="text" value="" name="release" id="regreleaseid3" minlength="0" maxlength="12" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                                    />
+                                                                </div>
+                                                                <div class="{!IF(Grp_Release_Setting == false, 'regular', 'contentHide')}">
+                                                                    <select value="" name="Rls_Num" id="regreleaseid31">
+                                                                        <apex:repeat value="{!Grp_Release_str_list}" var="release_id">
+                                                                            <option>{!release_id.label}</option>
+                                                                        </apex:repeat>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!------------------------------------->
+                                                    <div class="{!IF(DefaulthideGrp_Desktop_Flag == false, 'regular', 'contentHide')}">
+                                                        <div class="{!IF(hideGrp_Desktop_Flag == true, 'contentHide', 'regular')}">
+
+                                                            <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Desktop'] }" />
+
+                                                            <div class=" {!IF(Grp_Desktop_Flag == true,'regular','contentHide')}">
+                                                                <select value="" name="Dtp_Num" id="regdesktopid2">
+                                                                    <apex:repeat value="{!Grp_Desktop_str_list}" var="desktop_id">
+                                                                        <option>{!desktop_id.label}</option>
+                                                                    </apex:repeat>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class=" {!IF(Grp_Desktop_Flag == false,'regular','contentHide')}">
+                                                                <div class="{!IF(Grp_Desktop_Setting == true, 'regular', 'contentHide')}">
+                                                                    <input type="text" value="" name="desktop" id="regdesktopid3" minlength="0" maxlength="20" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                                    />
+                                                                </div>
+                                                                <div class="{!IF(Grp_Desktop_Setting == false, 'regular', 'contentHide')}">
+                                                                    <select value="" name="Dtp_Num" id="regdesktopid31">
+                                                                        <apex:repeat value="{!Grp_Desktop_str_list}" var="desktop_id">
+                                                                            <option>{!desktop_id.label}</option>
+                                                                        </apex:repeat>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <br/>
+                                                <br/>
+                                                <!--------------21075 ends----------------->
+
+                                                <!-- Business Information section END-->
+                                                <!-- CAPTCHA and SUBMIT section START-->
+                                                <section class="p24 captchaSection" id="infoSection">
+                                                    <div id="recaptcha2" class="g-recaptcha"></div>
+                                                    <p id="regerrormessage2" style="color:red"></p>
+                                                    <input type="button" id="invoiceButton" value="Submit" class="primary btn" onclick="return saveCase('{!$CurrentPage.parameters.id}');"
+                                                    />
+                                                    <div class="reg_sub_links">
+                                                        <a href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp" target="_blank"> Privacy Policy </a>
+                                                        |
+                                                        <a href="https://business.officedepot.com/specialLinks.do?file=/customerservice/trackingtools.jsp"
+                                                            target="_blank">Online Tracking Tools</a>
+                                                        |
+                                                        <a href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp"
+                                                            target="_blank"> Terms of Use </a>
+                                                        |
+                                                        <a href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp"
+                                                            target="_blank"> Terms &#38; Conditions </a>
+                                                    </div>
+                                                </section>
+                                                <!-- CAPTCHA and SUBMIT section END-->
+                                            </section>
+                                        </form>
+                                        <!--Ending of Invoice Request Form -->
+
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+            </apex:define>
+            <!----------------------------------------------------------- End Of Invoice Request Modal-------------------------------------------------------->
+
+            <apex:define name="NewCustomerRegistration">
+                <!-- BEGIN New Custom Registration -->
+                <div class="modal fade" id="ODFLead">
+                    <div class="modal-dialog">
+                        <apex:outputPanel rendered="{!showForm}">
+                            <!-- BEGIN NEW REGISTRATION FORM STEP 1 thru 3 -->
+                            <div id="registrationPage" class="mainWrapper odgrid_12 gw12 alpha omega">
+                                <!-- Main section -->
+                                <form id="registrationForm" name="registrationForm" class="gw8 register_form" method="post">
+                                    <div id="regStep1" class="reg_step">
+                                        <section class="p24">
+                                            <h1> New User Registration </h1>
+                                            <p class="mb24" id="greyText"> Enter your information to create a new user profile. </p>
+
+                                            <apex:form >
+                                                <div class="{!IF(showAccountSelection == false, 'contentHide','regular')}">
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Account Selection'] }" />
+                                                    <apex:inputText id="setAccountForm" value="{!inpVal}" styleClass="typeahead2 tt-query" onblur=" return SetAccount(this)"
+                                                        html-placeholder="Start typing to search and select an account" />
+                                                    <p class="hintText">> Select an account and press Tab to switch to it</p>
+                                                </div>
+
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Login Name'] }" />
+                                                <input type="text" minlength="6" maxlength="80" name="regLoginName" id="regLoginName" required="required" onkeypress="return IsLoginName(event);"
+                                                    onfocus="type1CoreM('{!pageid}','Step1of3','CommunitiesRegistration')" />
+                                                <span id="regLoginNameEM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsLoginName(e) {
+                                                        document.getElementById('regLoginName').style.border = '1px solid Silver';
+                                                        document.getElementById('regLoginName').style.backgroundColor = '';
+                                                        document.getElementById('regLoginNameEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <div class="{!IF(selectedGroup.private__c == true,'contentHide','')}">
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Password'] }" />
+                                                    <input type="password" name="regPassword" id="regPassword" class="check_password_strength" maxlength="30" onkeypress="return Ispwd1(event);"
+                                                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$" required="required"
+                                                        onfocus="type1CoreM('{!pageid}','Step1of3','CommunitiesRegistration')"
+                                                    />
+                                                    <span id="regPasswordEM" style="color: #f00; display: none">Enter password</span>
+                                                    <script type="text/javascript">
+                                                        function Ispwd1(e) {
+                                                            document.getElementById('regPassword').style.border = '1px solid Silver';
+                                                            document.getElementById('regPassword').style.backgroundColor = '';
+                                                            document.getElementById('regPasswordEM').style.display = 'none';
+                                                            return true;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Confirm Password'] }" />
+                                                    <input type="password" name="regConfirmPassword" id="regConfirmPassword" maxlength="30" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$"
+                                                        required="required" onkeypress="return Ispwd2(event);" onfocus="type1CoreM('{!pageid}','Step1of3','CommunitiesRegistration')"
+                                                    />
+                                                    <span id="regConfirmPasswordEM" style="color: #f00; display: none">Enter confirmation password</span>
+                                                    <script type="text/javascript">
+                                                        function Ispwd2(e) {
+                                                            document.getElementById('regConfirmPassword').style.border = '1px solid Silver';
+                                                            document.getElementById('regConfirmPassword').style.backgroundColor = '';
+                                                            document.getElementById('regConfirmPasswordEM').style.display = 'none';
+                                                            return true;
+                                                        }
+                                                    </script>
+                                                    <div class="odTooltip caretLeft tooltipFix" aria-describedby="regPassword">
+                                                        Password must be 8-30 characters and contain at least one uppercase letter, at least one lower case letter and one number.
+                                                    </div>
+                                                </div>
+                                                <br/>
+                                                <br/>
+
+                                                <h2> Contact Information </h2>
+
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['First Name'] }" />
+                                                <input type="text" value="" name="regFirstName" id="regFirstName" minlength="1" onkeypress="IsFirstName(event)" required="required"
+                                                    maxlength="30" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"
+                                                />
+                                                <span id="regFirstNameEM" style="color: #f00; display: none">Enter first name</span>
+                                                <script type="text/javascript">
+                                                    function IsFirstName(e) {
+                                                        document.getElementById('regFirstName').style.border = '1px solid Silver';
+                                                        document.getElementById('regFirstName').style.backgroundColor = '';
+                                                        document.getElementById('regFirstNameEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Last Name'] }" />
+                                                <input type="text" value="" name="regLastName" id="regLastName" minlength="1" required="required" maxlength="30" onkeypress="return IsLastName(event);"
+                                                    onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')" />
+                                                <span id="regLastNameEM" style="color: #f00; display: none">Enter last name</span>
+                                                <script type="text/javascript">
+                                                    function IsLastName(e) {
+                                                        document.getElementById('regLastName').style.border = '1px solid Silver';
+                                                        document.getElementById('regLastName').style.backgroundColor = '';
+                                                        document.getElementById('regLastNameEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <div class="{!IF(hideCompanyName == true, 'contentHide', 'regular')}">
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Company Name'] }" />
+                                                    <input type="text" value="" name="regCompanyName" id="regCompanyName" minlength="1" required="required" maxlength="30" onkeypress="return IsCompanyName(event);"
+                                                        onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"
+                                                    />
+                                                    <span id="regCompanyNameEM" style="color: #f00; display: none">This field is required</span>
+                                                </div>
+                                                <script type="text/javascript">
+                                                    function IsCompanyName(e) {
+                                                        console.log('in iscompnay');
+                                                        document.getElementById('regCompanyName').style.border = '1px solid Silver';
+                                                        document.getElementById('regCompanyName').style.backgroundColor = '';
+                                                        document.getElementById('regCompanyNameEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Phone'] }" />
+                                                <input type="text" value="" name="regPhone" id="regPhone" minlength="10" required="required" maxlength="10" onkeypress="return IsNumeric(event);"
+                                                    ondrop="return false;" onpaste="return false;" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"
+                                                />
+                                                <span id="regPhoneEM" style="color: #f00; display: none">This field is required </span>
+                                                <span id="phoneError" style="color: Red; display: none">* Input digits (0 - 9)</span>
+                                                <script type="text/javascript">
+                                                    function IsNumeric(e) {
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        var keyCode = e.which ? e.which : e.keyCode;
+                                                        var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("phoneError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('regPhone').style.border = '1px solid Silver';
+                                                        document.getElementById('regPhone').style.backgroundColor = '';
+                                                        document.getElementById('regPhoneEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Email Address'] }" />
+                                                <input type="email" value="" name="regEmail" id="regEmail" required="required" maxlength="78" onkeypress="return IsEmail(event);"
+                                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"
+                                                />
+                                                <span id="regEmailEM" style="color: #f00; display: none">Enter Email address</span>
+                                                <script type="text/javascript">
+                                                    function IsEmail(e) {
+                                                        document.getElementById('regEmail').style.border = '1px solid Silver';
+                                                        document.getElementById('regEmail').style.backgroundColor = '';
+                                                        document.getElementById('regEmailEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+
+                                                <div class="{!IF(hideWebsite == true, 'contentHide', 'regular')}">
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Website'] }" />
+                                                    <input type="text" value="" name="regWebsite1" id="regWebsite1" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"
+                                                    />
+                                                </div>
+
+                                                <div class="{!IF(hideEmployees == true, 'contentHide', 'regular')}">
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Number of Employees'] }" />
+                                                    <select value="" name="regNumEmployees" id="regNumEmployees">
+                                                        <option>1-19</option>
+                                                        <option>20-49</option>
+                                                        <option>50-99</option>
+                                                        <option>100-149</option>
+                                                        <option>150-199</option>
+                                                        <option>200-249</option>
+                                                        <option>250-500</option>
+                                                        <option>500+</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="{!IF(hideNotes == true, 'contentHide', 'regular')}">
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Notes'] }" />
+                                                    <input type="text" value="" name="regNotes" id="regNotes" maxlength="255" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"
+                                                    />
+                                                </div>
+                                                <br/>
+                                                <div class="{!IF(showApproverSection == true, 'regular', 'contentHide')}">
+                                                    <h2>Approving Manager Information</h2>
+
+                                                    <apex:outputLabel value="First Name" />
+                                                    <input type="text" value="" id="ManagerFirstName" maxlength="30" />
+
+                                                    <apex:outputLabel value="Last Name" />
+                                                    <input type="text" value="" id="ManagerLastName" maxlength="30" />
+
+                                                    <apex:outputLabel value="Job Title" />
+                                                    <input type="text" value="" id="ManagerJobTitle" maxlength="30" />
+
+                                                    <apex:outputLabel value="Phone Number" />
+                                                    <input type="text" value="" id="ManagerPhoneNumber" maxlength="10" onkeypress="return IsNumeric2(event);" />
+                                                    <span id="ManagerPhoneError" style="color: Red; display: none">* Input digits (0 - 9)</span>
+                                                    <script type="text/javascript">
+                                                        function IsNumeric2(e) {
+                                                            var specialKeys = new Array();
+                                                            specialKeys.push(8); //Backspace
+                                                            specialKeys.push(9); //Tab
+                                                            var keyCode = e.which ? e.which : e.keyCode;
+                                                            var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("ManagerPhoneError").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('ManagerPhoneNumber').style.border = '1px solid Silver';
+                                                            document.getElementById('ManagerPhoneNumber').style.backgroundColor = '';
+                                                            //document.getElementById('regPhoneEM').style.display ='none';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="Email Address" />
+                                                    <input type="email" value="" id="ManagerEmailAddress" maxlength="70" onkeypress="return IsEmail2(event);" />
+                                                    <span id="regEmailEM" style="color: #f00; display: none">Enter Email address</span>
+                                                    <script type="text/javascript">
+                                                        function IsEmail2(e) {
+                                                            document.getElementById('regEmail').style.border = '1px solid Silver';
+                                                            document.getElementById('regEmail').style.backgroundColor = '';
+                                                            document.getElementById('regEmailEM').style.display = 'none';
+                                                            return true;
+                                                        }
+                                                    </script>
+                                                </div>
+                                                <!-----NAIT-21032------start---------->
+                                                <div class="{!IF(grp_Allow_ShipTo_Address_Selection_Flag == true, 'regular', 'contentHide')}">
+                                                    <h2>ShipTo Address Selection</h2>
+                                                    <apex:inputtext value="{!inpVal}" styleClass="typeahead tt-query " onblur="return SetShipToAddress(this)" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                        html-placeholder="Start typing to search and select an address" />
+                                                    <p class="hintText">> Select an address and press Tab to fill in the fields</p>
+                                                </div>
+                                            </apex:form>
+                                            <!-----NAIT-21032-----end----------->
+                                            <h2> Shipping Address </h2>
+
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 1'] }" />
+                                            <input type="text" value="" name="regAddress1" id="regAddress1" minlength="1" required="required" maxlength="25" onkeypress="return IsAddress1(event);"
+                                                ondrop="return false;" onpaste="return true;" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                            />
+                                            <span id="regAddress1EM" style="color: #f00; display: none">This field is required.</span>
+                                            <script type="text/javascript">
+                                                function IsAddress1(e) {                                                    
+document.getElementById('regAddress1').style.border = '1px solid Silver';
+                                                    document.getElementById('regAddress1').style.backgroundColor = '';
+                                                    document.getElementById('regAddress1EM').style.display = 'none';
+                                                    return true;
+                                                }
+                                            </script>
+
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 2'] }" />
+                                            <input type="text" value="" name="regAddress2" id="regAddress2" maxlength="25" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                            />
+
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['City'] }" />
+                                            <input type="text" value="" name="regCity" id="regCity" minlength="1" required="required" maxlength="25" onkeypress="return IsCity(event);"
+                                                ondrop="return false;" onpaste="return false;" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                            />
+                                            <span id="regCityEM" style="color: #f00; display: none">This field is required.</span>
+                                            <span id="cityError" style="color: #f00; display: none">
+                                                <br/>* Invalid Character</span>
+                                            <script type="text/javascript">
+                                                var specialKeys = new Array();
+                                                specialKeys.push(8); //Backspace
+                                                specialKeys.push(9); //Tab
+                                                function IsCity(e) {
+                                                    var keyCode = e.which ? e.which : e.keyCode
+                                                    var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || (keyCode == 32) || (specialKeys.indexOf(keyCode) != -1));
+                                                    document.getElementById("cityError").style.display = ret ? "none" : "inline";
+                                                    document.getElementById('regCity').style.border = '1px solid Silver';
+                                                    document.getElementById('regCity').style.backgroundColor = '';
+                                                    document.getElementById('regCityEM').style.display = 'none';
+                                                    return ret;
+                                                }
+                                            </script>
+
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['State'] }" />
+                                            <input type="text" value="" name="regState" id="regState" minlength="2" maxlength="2" required="required" onkeypress="return IsState(event);"
+                                                ondrop="return false;" onpaste="return false;" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                            />
+                                            <span id="regStateEM" style="color: #f00; display: none">This field is required.</span>
+                                            <span id="stateError" style="color: #f00; display: none">* Invalid Character</span>
+                                            <script type="text/javascript">
+                                                var specialKeys = new Array();
+                                                specialKeys.push(8); //Backspace
+                                                specialKeys.push(9); //Tab
+                                                function IsState(e) {
+                                                    var keyCode = e.which ? e.which : e.keyCode
+                                                    var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || specialKeys.indexOf(keyCode) != -1);
+                                                    document.getElementById("stateError").style.display = ret ? "none" : "inline";
+                                                    document.getElementById('regState').style.border = '1px solid Silver';
+                                                    document.getElementById('regState').style.backgroundColor = '';
+                                                    document.getElementById('regStateEM').style.display = 'none';
+                                                    return ret;
+                                                }
+                                            </script>
+
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['Zip Code'] }" />
+                                            <input type="text" value="" name="regBillingZip" id="regBillingZip" minlength="5" required="required" maxlength="5" onkeypress="return IsZip(event);"
+                                                ondrop="return false;" onpaste="return false;" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                            />
+                                            <span id="regBillingZipEM" style="color: #f00; display: none">This field is required.</span>
+                                            <span id="zipError" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                            <script type="text/javascript">
+                                                var specialKeys = new Array();
+                                                specialKeys.push(8); //Backspace
+                                                specialKeys.push(9); //Tab
+                                                //specialKeys.push(45); //Dash
+                                                function IsZip(e) {
+                                                    var keyCode = e.which ? e.which : e.keyCode
+                                                    var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                    document.getElementById("zipError").style.display = ret ? "none" : "inline";
+                                                    document.getElementById('regBillingZip').style.border = '1px solid Silver';
+                                                    document.getElementById('regBillingZip').style.backgroundColor = '';
+                                                    document.getElementById('regBillingZipEM').style.display = 'none'
+                                                    return ret;
+                                                }
+
+                                            </script>
+
+
+
+
+                                            <!-----NAIT-21034---------------->
+                                            <apex:pageBlock title="" id="MultipleShipTo_pb_id">
+                                                <div class="{!IF(DefaultHideMultipleShipTo_Flag == false, 'regular', 'contentHide')}">
+                                                    <div class="{!IF(hideMultipleShipTo_Flag == false, 'regular', 'contentHide')}">
+                                                        <apex:pageBlockSection id="MultipleShipTo_pbs_id5">
+                                                            <input type="checkbox" id="regmultipleshiptoid" onclick="return showAddAddress() ;" />
+                                                            <apex:outputLabel style="padding-left:10px" value="{!UserRegistrationFieldsMap['Multiple Ship To'] }" />
+                                                            <script type="text/javascript">
+                                                                function showAddAddress(e) {
+                                                                    if (document.getElementById('regmultipleshiptoid').checked && {!showAdditionalAddresses                                                                
+} == true) {
+                                                                    document.getElementById('AddDiv').style.display = '';
+                                                                }
+                                                                                            else {
+                                                                    document.getElementById('AddDiv').style.display = 'none';
+                                                                }
+                                                                                        }
+                                                            </script>
+                                                        </apex:pageBlockSection>
+                                                    </div>
+                                                </div>
+
+                                                <div id="AddDiv" style="display: none">
+                                                    <h2>Additional Shipping Addresses</h2>
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 1'] }" />
+                                                    <input type="text" value="" id="1AdditionalAddress1" maxlength="25" />
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 2'] }" />
+                                                    <input type="text" value="" id="1AdditionalAddress2" maxlength="25" />
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['City'] }" />
+                                                    <input type="text" value="" id="1AdditionalCity" minlength="1" maxlength="25" onkeypress="return IsCityA1(event);" />
+                                                    <span id="cityErrorA1" style="color: #f00; display: none">
+                                                        <br/>* Invalid Character</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsCityA1(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || (keyCode == 32) || (specialKeys.indexOf(keyCode) != -1));
+                                                            document.getElementById("cityErrorA1").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('1AdditionalCity').style.border = '1px solid Silver';
+                                                            document.getElementById('1AdditionalCity').style.backgroundColor = '';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['State'] }" />
+                                                    <input type="text" value="" id="1AdditionalState" minlength="2" maxlength="2" onkeypress="return IsStateA1(event);" />
+                                                    <span id="stateErrorA1" style="color: #f00; display: none">* Invalid Character</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsStateA1(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("stateErrorA1").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('1AdditionalState').style.border = '1px solid Silver';
+                                                            document.getElementById('1AdditionalState').style.backgroundColor = '';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Zip Code'] }" />
+                                                    <input type="text" value="" id="1AdditionalZip" minlength="5" maxlength="5" onkeypress="return IsZipA1(event);" />
+                                                    <span id="zipErrorA1" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsZipA1(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("zipErrorA1").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('1AdditionalZip').style.border = '1px solid Silver';
+                                                            document.getElementById('1AdditionalZip').style.backgroundColor = '';
+                                                            return ret;
+                                                        }
+                                                    </script>
+                                                    <br />
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 1'] }" />
+                                                    <input type="text" value="" id="2AdditionalAddress1" maxlength="25" />
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 2'] }" />
+                                                    <input type="text" value="" id="2AdditionalAddress2" maxlength="25" />
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['City'] }" />
+                                                    <input type="text" value="" id="2AdditionalCity" minlength="1" maxlength="25" onkeypress="return IsCityA2(event);" />
+                                                    <span id="cityErrorA2" style="color: #f00; display: none">
+                                                        <br/>* Invalid Character</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsCityA2(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || (keyCode == 32) || (specialKeys.indexOf(keyCode) != -1));
+                                                            document.getElementById("cityErrorA2").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('2AdditionalCity').style.border = '1px solid Silver';
+                                                            document.getElementById('2AdditionalCity').style.backgroundColor = '';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['State'] }" />
+                                                    <input type="text" value="" id="2AdditionalState" minlength="2" maxlength="2" onkeypress="return IsStateA2(event);" />
+                                                    <span id="stateErrorA2" style="color: #f00; display: none">* Invalid Character</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsStateA2(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("stateErrorA2").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('2AdditionalState').style.border = '1px solid Silver';
+                                                            document.getElementById('2AdditionalState').style.backgroundColor = '';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Zip Code'] }" />
+                                                    <input type="text" value="" id="2AdditionalZip" minlength="5" maxlength="5" onkeypress="return IsZipA2(event);" />
+                                                    <span id="zipErrorA2" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsZipA2(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("zipErrorA2").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('2AdditionalZip').style.border = '1px solid Silver';
+                                                            document.getElementById('2AdditionalZip').style.backgroundColor = '';
+                                                            return ret;
+                                                        }
+                                                    </script>
+                                                    <br />
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 1'] }" />
+                                                    <input type="text" value="" id="3AdditionalAddress1" maxlength="25" />
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 2'] }" />
+                                                    <input type="text" value="" id="3AdditionalAddress2" maxlength="25" />
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['City'] }" />
+                                                    <input type="text" value="" id="3AdditionalCity" minlength="1" maxlength="25" onkeypress="return IsCityA3(event);" />
+                                                    <span id="cityErrorA3" style="color: #f00; display: none">
+                                                        <br/>* Invalid Character</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsCityA3(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || (keyCode == 32) || (specialKeys.indexOf(keyCode) != -1));
+                                                            document.getElementById("cityErrorA3").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('3AdditionalCity').style.border = '1px solid Silver';
+                                                            document.getElementById('3AdditionalCity').style.backgroundColor = '';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['State'] }" />
+                                                    <input type="text" value="" id="3AdditionalState" minlength="2" maxlength="2" onkeypress="return IsStateA3(event);" />
+                                                    <span id="stateErrorA3" style="color: #f00; display: none">* Invalid Character</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsStateA3(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("stateErrorA3").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('3AdditionalState').style.border = '1px solid Silver';
+                                                            document.getElementById('3AdditionalState').style.backgroundColor = '';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Zip Code'] }" />
+                                                    <input type="text" value="" id="3AdditionalZip" minlength="5" maxlength="5" onkeypress="return IsZipA3(event);" />
+                                                    <span id="zipErrorA3" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                    <script type="text/javascript">
+                                                        var specialKeys = new Array();
+                                                        specialKeys.push(8); //Backspace
+                                                        specialKeys.push(9); //Tab
+                                                        function IsZipA3(e) {
+                                                            var keyCode = e.which ? e.which : e.keyCode
+                                                            var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                            document.getElementById("zipErrorA3").style.display = ret ? "none" : "inline";
+                                                            document.getElementById('3AdditionalZip').style.border = '1px solid Silver';
+                                                            document.getElementById('3AdditionalZip').style.backgroundColor = '';
+                                                            return ret;
+                                                        }
+                                                    </script>
+
+                                                </div>
+                                            </apex:pageBlock>
+                                            <!-----NAIT-21040---------------->
+                                            <br/>
+                                            <div class="{!IF(DefaultHideSSO_Id_Flag == false, 'regular', 'contentHide')}">
+                                                <div class="{!IF(hideSSO_Id_Flag == false, 'regular', 'contentHide')}">
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['SSO Id'] }" />
+                                                    <input type="text" value="" name="regAddress2" id="regssoid_id" maxlength="100" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div class="{!IF(DefaultHideCustomCatalogCode_Flag == false, 'regular', 'contentHide')}">
+                                                <div class="{!IF(hideCustomCatalogCode_Flag == false, 'regular', 'contentHide')}">
+                                                    <div class="{!IF(grp_CustomCatalogCode_Val_Flag == true, 'regular', 'contentHide')}">
+                                                        <apex:outputLabel value="{!UserRegistrationFieldsMap['Custom Catalog Code'] }" />
+                                                        <input type="text" value="{!grp_CustomCatalogCode}" disabled="true" name="regAddress2" id="regcccode_id" maxlength="6" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!----------------NAIT-21026-------------------sTART----------->
+                                            <!-- <apex:outputLabel value="{!DefaulthideGrp_PO_Num_Flag}" />
+                                                                <apex:outputLabel value="{!DefaulthideGrp_CCenter_Flag}" />
+                                                                <apex:outputLabel value="{!DefaulthideGrp_Release_Flag}" />
+                                                                <apex:outputLabel value="{!DefaulthideGrp_Desktop_Flag}" />
+                                                                
+                                                                <apex:outputLabel value="{!hideGrp_PO_Num_Flag}" />
+                                                                <apex:outputLabel value="{!hideGrp_CCenter_Flag}" />
+                                                                <apex:outputLabel value="{!hideGrp_Release_Flag}" />
+                                                                <apex:outputLabel value="{!hideGrp_Desktop_Flag}" /> -->
+
+                                            <br/>
+                                            <!-- <div class="{!IF(((DefaulthideGrp_PO_Num_Flag == false && hideGrp_PO_Num_Flag == true) || (DefaulthideGrp_PO_Num_Flag == true)
+                                                                                   || (DefaulthideGrp_CCenter_Flag == false && hideGrp_CCenter_Flag == true) || (DefaulthideGrp_CCenter_Flag == true)
+                                                                                   || (DefaulthideGrp_Release_Flag == false && hideGrp_Release_Flag == true) || (DefaulthideGrp_Release_Flag == true)
+                                                                                   || (DefaulthideGrp_Desktop_Flag == false && hideGrp_Desktop_Flag == true) || (DefaulthideGrp_Desktop_Flag == true)
+                                                                            ), 'contentHide', 'regular')}">
+                                                                    <h2> Soft Header Fields </h2>
+                                                                </div> -->
+
+                                            <div class="{!IF(DefaulthideGrp_PO_Num_Flag == false, 'regular', 'contentHide')}">
+                                                <div class="{!IF(hideGrp_PO_Num_Flag == true, 'contentHide', 'regular')}">
+                                                    <div class="{!IF(Grp_PO_Num_Setting == true, 'regular', 'contentHide')}">
+                                                        <apex:outputLabel value="{!InvoiceUserRegFieldsMap['PO Number']}" />
+                                                        <div class=" {!IF(Grp_PO_Num_Flag == false,'regular','contentHide')}">
+                                                            <input type="text" value="" name="ponum" id="regponumid" minlength="0" maxlength="22" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                            />
+                                                        </div>
+                                                        <div class=" {!IF(Grp_PO_Num_Flag == true,'regular','contentHide')}">
+                                                            <select value="" name="PO_Num" id="regponumid1">
+                                                                <apex:repeat value="{!Grp_PO_Num_str_list}" var="po_num_id">
+                                                                    <option>{!po_num_id.label}</option>
+                                                                </apex:repeat>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="{!IF(Grp_PO_Num_Setting == false, 'regular', 'contentHide')}">
+                                                        <apex:outputLabel value="{!InvoiceUserRegFieldsMap['PO Number']}" />
+                                                        <div class=" {!IF(Grp_PO_Num_Flag == false,'regular','contentHide')}">
+                                                            <select value="" name="ponum" id="regponumidu">
+                                                                <!--  <option>-None-</option> -->
+                                                            </select>
+                                                        </div>
+                                                        <div class=" {!IF(Grp_PO_Num_Flag == true,'regular','contentHide')}">
+                                                            <select value="" name="PO_Num" id="regponumidu1">
+                                                                <apex:repeat value="{!Grp_PO_Num_str_list}" var="po_num_id">
+                                                                    <option>{!po_num_id.label}</option>
+                                                                </apex:repeat>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!------------------------------------->
+                                            <!-- <apex:outputLabel value="{!DefaulthideGrp_CCenter_Flag}" />
+                                                                    <apex:outputLabel value="{!hideGrp_CCenter_Flag}" />
+                                                                    <apex:outputLabel value="{!Grp_CCenter_Setting}" />
+                                                                    <apex:outputLabel value="{!Grp_CCenter_Flag}" /> -->
+
+                                            <div class="{!IF($CurrentPage.parameters.PortalCode != null, 'regular', 'contentHide')}">
+
+                                                <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Cost Center'] }" />
+                                                <input type="text" readonly="true" value="{!$CurrentPage.parameters.PortalCode}" />
+                                            </div>
+
+
+                                            <div class="{!IF(DefaulthideGrp_CCenter_Flag == false && $CurrentPage.parameters.PortalCode == null, 'regular', 'contentHide')}">
+                                                <div class="{!IF(hideGrp_CCenter_Flag == true, 'contentHide', 'regular')}">
+                                                    <div class="{!IF(Grp_CCenter_Setting == true, 'regular', 'contentHide')}">
+                                                        <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Cost Center'] }" />
+                                                        <div class=" {!IF(Grp_CCenter_Flag == false,'regular','contentHide')}">
+                                                            <input type="text" value="" name="cc" id="regccid" minlength="0" maxlength="20" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                            />
+                                                        </div>
+                                                        <div class=" {!IF(Grp_CCenter_Flag == true,'regular','contentHide')}">
+                                                            <select value="" name="CC_Num" id="regccid1">
+                                                                <apex:repeat value="{!Grp_CCenter_str_list}" var="ccenter_id">
+                                                                    <option>{!ccenter_id.label}</option>
+                                                                </apex:repeat>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="{!IF(Grp_CCenter_Setting == false, 'regular', 'contentHide')}">
+                                                        <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Cost Center']}" />
+                                                        <div class=" {!IF(Grp_CCenter_Flag == false,'regular','contentHide')}">
+                                                            <select value="" name="cc" id="regccidu">
+                                                                <!--  <option>-None-</option> -->
+                                                            </select>
+                                                        </div>
+                                                        <div class=" {!IF(Grp_CCenter_Flag == true,'regular','contentHide')}">
+
+                                                            <select value="" name="CC_Num" id="regccidu1">
+                                                                <apex:repeat value="{!Grp_CCenter_str_list}" var="ccenter_id">
+                                                                    <option>{!ccenter_id.label}</option>
+                                                                </apex:repeat>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <!------------------------------------->
+                                            <div class="{!IF(DefaulthideGrp_Release_Flag == false, 'regular', 'contentHide')}">
+                                                <div class="{!IF(hideGrp_Release_Flag == true, 'contentHide', 'regular')}">
+                                                    <div class="{!IF(Grp_Release_Setting == true, 'regular', 'contentHide')}">
+                                                        <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Release'] }" />
+                                                        <div class=" {!IF(Grp_Release_Flag == false,'regular','contentHide')}">
+                                                            <input type="text" value="" name="release" id="regreleaseid" minlength="0" maxlength="12" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                            />
+                                                        </div>
+
+                                                        <div class=" {!IF(Grp_Release_Flag == true,'regular','contentHide')}">
+                                                            <select value="" name="Rls_Num" id="regreleaseid1">
+                                                                <apex:repeat value="{!Grp_Release_str_list}" var="release_id">
+                                                                    <option>{!release_id.label}</option>
+                                                                </apex:repeat>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="{!IF(Grp_Release_Setting == false, 'regular', 'contentHide')}">
+                                                        <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Release']}" />
+                                                        <div class=" {!IF(Grp_Release_Flag == false,'regular','contentHide')}">
+                                                            <select value="" name="release" id="regreleaseidu">
+                                                                <!--  <option>-None-</option> -->
+                                                            </select>
+                                                        </div>
+                                                        <div class=" {!IF(Grp_Release_Flag == true,'regular','contentHide')}">
+                                                            <select value="" name="Rls_Num" id="regreleaseidu1">
+                                                                <apex:repeat value="{!Grp_Release_str_list}" var="release_id">
+                                                                    <option>{!release_id.label}</option>
+                                                                </apex:repeat>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!------------------------------------->
+                                            <div class="{!IF(DefaulthideGrp_Desktop_Flag == false, 'regular', 'contentHide')}">
+                                                <div class="{!IF(hideGrp_Desktop_Flag == true, 'contentHide', 'regular')}">
+                                                    <div class="{!IF(Grp_Desktop_Setting == true, 'regular', 'contentHide')}">
+                                                        <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Desktop'] }" />
+                                                        <div class=" {!IF(Grp_Desktop_Flag == false,'regular','contentHide')}">
+                                                            <input type="text" value="" name="desktop" id="regdesktopid" minlength="0" maxlength="20" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"
+                                                            />
+                                                        </div>
+                                                        <div class=" {!IF(Grp_Desktop_Flag == true,'regular','contentHide')}">
+                                                            <select value="" name="Dtp_Num" id="regdesktopid1">
+                                                                <apex:repeat value="{!Grp_Desktop_str_list}" var="desktop_id">
+                                                                    <option>{!desktop_id.label}</option>
+                                                                </apex:repeat>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="{!IF(Grp_Desktop_Setting == false, 'regular', 'contentHide')}">
+                                                        <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Desktop'] }" />
+                                                        <div class=" {!IF(Grp_Desktop_Flag == false,'regular','contentHide')}">
+                                                            <select value="" name="desktop" id="regdesktopidu">
+                                                                <!--  <option>-None-</option> -->
+                                                            </select>
+                                                        </div>
+                                                        <div class=" {!IF(Grp_Desktop_Flag == true,'regular','contentHide')}">
+                                                            <select value="" name="Dtp_Num" id="regdesktopidu1">
+                                                                <apex:repeat value="{!Grp_Desktop_str_list}" var="desktop_id">
+                                                                    <option>{!desktop_id.label}</option>
+                                                                </apex:repeat>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!------------------------------------->
+                                            <!-- <apex:outputLabel value="{!DefaulthideGrp_PO_Num_Flag}" />
+                                                                <apex:outputLabel value="{!hideGrp_PO_Num_Flag}" />
+                                                                <apex:outputLabel value="{!DefaultMultihideGrp_PO_Num_Flag}" />
+                                                                <apex:outputLabel value="{!MultihideGrp_PO_Num_Flag}" /> -->
+
+                                            <apex:pageBlock title="" id="SHMultiFields_pb_id">
+
+                                                <div class="{!IF(DefaultMultihideGrp_PO_Num_Flag == false, 'regular', 'contentHide')}">
+                                                    <div class="{!IF(MultihideGrp_PO_Num_Flag == false, 'regular', 'contentHide')}">
+                                                        <apex:pageBlockSection id="SHMultiFields_pbs_id1">
+                                                            <input type="checkbox" id="regmultiponumsid" />
+                                                            <apex:outputLabel style="padding-left:10px" value="{!UserRegistrationFieldsMap['Multiple PO Numbers'] }" />
+                                                        </apex:pageBlockSection>
+                                                    </div>
+                                                </div>
+
+                                                <div class="{!IF(DefaultMultihideGrp_CCenter_Flag == false, 'regular', 'contentHide')}">
+                                                    <div class="{!IF(MultihideGrp_CCenter_Flag == false, 'regular', 'contentHide')}">
+                                                        <apex:pageBlockSection id="SHMultiFields_pbs_id2">
+                                                            <input type="checkbox" id='regmulticcsid' onclick="return showAddCC();" />
+                                                            <apex:outputLabel style="padding-left:10px" value="{!UserRegistrationFieldsMap['Multiple Cost Centers'] }" />
+                                                        </apex:pageBlockSection>
+                                                    </div>
+                                                </div>
+                                                <script type="text/javascript">
+                                                    function showAddCC(e) {
+                                                        if (document.getElementById('regmulticcsid').checked && {!showAdditionalCostCenters                                                    
+} == true) {
+                                                        document.getElementById('CCDiv').style.display = '';
+                                                    }
+                                                                            else {
+                                                        document.getElementById('CCDiv').style.display = 'none';
+                                                    }
+                                                                        }
+                                                </script>
+
+                                                <div class="{!IF(DefaultMultihideGrp_Release_Flag == false, 'regular', 'contentHide')}">
+                                                    <div class="{!IF(MultihideGrp_Release_Flag == false, 'regular', 'contentHide')}">
+                                                        <apex:pageBlockSection id="SHMultiFields_pbs_id3">
+                                                            <input type="checkbox" id='regmultireleasesid' />
+                                                            <apex:outputLabel style="padding-left:10px" value="{!UserRegistrationFieldsMap['Multiple Releases'] }" />
+                                                        </apex:pageBlockSection>
+                                                    </div>
+                                                </div>
+
+                                                <div class="{!IF(DefaultMultihideGrp_Desktop_Flag == false, 'regular', 'contentHide')}">
+                                                    <div class="{!IF(MultihideGrp_Desktop_Flag == false, 'regular', 'contentHide')}">
+                                                        <apex:pageBlockSection id="SHMultiFields_pbs_id4">
+                                                            <input type="checkbox" id='regmultidesktopsid' />
+                                                            <apex:outputLabel style="padding-left:10px" value="{!UserRegistrationFieldsMap['Multiple Desktops'] }" />
+                                                        </apex:pageBlockSection>
+                                                    </div>
+                                                </div>
+                                                <div id="CCDiv" style="display: none">
+                                                    <h2>Additional Cost Centers</h2>
+
+                                                    <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Cost Center']}" />
+                                                    <input type="text" id="AdditionalCostCenter1" />
+                                                    <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Cost Center']}" />
+                                                    <input type="text" id="AdditionalCostCenter2" />
+                                                    <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Cost Center']}" />
+                                                    <input type="text" id="AdditionalCostCenter3" />
+                                                </div>
+
+
+
+                                                <!---NAIT-11785---------------------->
+                                                <div class="{!IF(Account_SPC_Allowed_Flag == 'Y', 'regular', 'contentHide')}">
+                                                    <apex:pageBlockSection >
+                                                        <h2>Store Purchasing Card</h2>
+                                                        <input type="checkbox" id='regregforspcid' onclick="return showTerms();" />
+                                                        <outputLabel id="spclabel" style="padding-left:10px">Register for a Store Purchasing Card</outputLabel>
+                                                        <img src="{!URLFOR($Resource.communities_tool_tip_img)}" title="Store Purchasing Card allows you to receive the lower of the retail store price or your custom business account pricing when you shop in our retail stores. You may pay by cash, check, credit card or account billing (if you have account billing on your business account.) Any single transaction may not exceed $1,000. Daily Transactions are limited to 5 per day and may not exceed a total of $2,000.
+To request different payment options or transaction limits, please contact your account manager." />
+                                                        <script type="text/javascript">
+                                                            function showTerms(e) {
+                                                                console.log('show');
+                                                                if (document.getElementById('regregforspcid').checked) {
+                                                                    document.getElementById('spcDiv').style.display = '';
+                                                                }
+                                                                else {
+                                                                    document.getElementById('spcDiv').style.display = 'none';
+                                                                }
+                                                            }
+                                                        </script>
+                                                        <container id="spcDiv" style="display:none">
+                                                            <br/>
+                                                            <input type="checkbox" id='requestPrintedSPC' />
+                                                            <outputLabel style="padding-left:10px">Please mail me a Printed Card</outputLabel>
+                                                            <textarea name="textarea" rows="8" cols="70">STORE PURCHASING CARD TERMS AND CONDITIONS
+                                                                                
+In consideration of issuance of an Office Depot Store Purchasing Card ("Card") to you, ("Cardholder"), Cardholder agrees to be bound to the following Terms and Conditions applicable to the use of the Card:
+
+1.  The Card is not a revolving or any other type of credit card and does not establish any new account, nor does it extend credit to the Cardholder. The Card is an identification card only and allows the Cardholder to receive their custom discount pricing when making purchases at Office Depot's retail stores.
+
+2.  Payment options for purchases made with Cards issued to Office Depot Business Solutions Division ("BSD") business account clients ("BSD Client") are (a) account billing, (b) account billing and other types of payment at the point of sale (cash, check, credit card), or (c) other types of payment at the point-of sale only. The default payment option is (b) above. To select another payment option, please notify your Office Depot BSD account manager.
+
+For account billing purchases, per transaction and per day dollar limits will be established for the Card. These limits may be adjusted only upon the BSD Client's submission of a revised application. The Cards cannot be used once the dollar limits have been exceeded.
+Any restrictions or exclusions imposed on the purchase of products pursuant to a written contract between the BSD Client and Office Depot shall not apply to those purchases made in Office Depot retail stores using the Card.
+The Card is non-transferable. The BSD Client may authorize its employees or other individuals to utilize the Card. However, the BSD Client remains fully responsible for the payment of all purchases made by use of the Card, whether the use is authorized by the BSD Client or not, or if the card is lost or stolen.
+In the event the Card is lost or stolen, the BSD Client must contact Office Depot immediately at 888.438.4037 so that Office Depot can place a hold on the account to prevent further transactions.
+3.  Payment options for purchases made with Cards issued by a BSD Client to Cardholders through a group or employee purchasing organization are cash, check and credit card only.
+
+The Card is non-transferable and Cardholder is responsible for all purchases made by any use of this Card. In the event the card is lost or stolen it is the Cardholder's responsibility to contact Office Depot immediately at 888.438.4037. Upon receipt of notification by Office Depot, an immediate hold will be placed on the account preventing any further transactions via use of the Card
+4.  Office Depot coupons valid at retail stores and used in conjunction with a Card will provide the Cardholder with a discount off of the retail store price only. The Card will permit the Cardholder to receive either its custom discounted pricing or the retail store price after discounts, whichever is lower.
+
+5.  The Card must be presented at the point of sale in order for the Cardholder to receive its custom discounted pricing.
+
+6.  Office Depot reserves the right to unilaterally revoke or terminate the Card for any reason. Upon the receipt of notice that the Card has been terminated, the Cardholder must destroy the Card.
+
+7.  If the BSD Client is issued more than one (1) Card, all Cards issued shall be subject to these Terms and Conditions.
+
+8.  Office Depot reserves the right, at any time, to revise these Terms and Conditions. Any modifications to these Terms and Conditions shall be effective upon posting of the modified terms and conditions at https://business.officedepot.com or any successor website.
+</textarea>
+                                                            <br/>
+                                                            <input type="checkbox" id='regSpcTermsBox' onclick="return IsTermsTrue(event);" />
+                                                            <outputLabel style="padding-left:10px" id="regSpcTerms">Terms and Conditions</outputLabel>
+                                                            <script type="text/javascript">
+                                                                function IsTermsTrue(e) {
+                                                                    document.getElementById("regerrormessage").innerHTML = '';
+                                                                    return true;
+                                                                }
+                                                            </script>
+                                                        </container>
+                                                    </apex:pageBlockSection>
+                                                </div>
+                                            </apex:pageBlock>
+                                            <br/>
+                                            <br/>
+
+
+                                            <div id="cid">
+                                                <div id="recaptcha1" class="g-recaptcha" onchange="return IsCaptcha(event);"></div>
+                                                <script type="text/javascript">
+                                                    function IsCaptcha(e) {
+                                                        document.getElementById("regerrormessage").innerHTML = '';
+                                                    }
+                                                </script>
+                                            </div>
+
+                                            <p id="regerrormessage" style="color:red"></p>
+                                            <!-- modified by ivarada 4/9/2018 additional parameter passed {!$CurrentPage.parameters.a}-->
+                                            <input type="button" id="submitRegFormBtn" onclick="return saveGPOLead('{!$CurrentPage.parameters.id}','{!$CurrentPage.parameters.a}');"
+                                                value="Submit" class="primary btn btn-block" />
+                                        </section>
+                                        <div class="col-md-12 small">
+                                            <ul class="list-inline pull-left">
+                                                <li class="border-none">
+                                                    <a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp">Privacy Policy</a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/trackingtools.jsp">Online Tracking Tools</a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp">Terms of Use</a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp">Terms &amp; Conditions</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+                <!-- END New Custom Registration -->
+            </apex:define>
+        </apex:composition>
+
+
+    </body>
+
+    </html>
+
+</apex:page>

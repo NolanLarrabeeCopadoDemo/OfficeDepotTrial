@@ -1,0 +1,20 @@
+<template>
+  <lightning-card >
+    <span class={cssDisplay}>
+      <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>	
+    </span>	
+    <div if:false={errormessage}>
+
+<p class="slds-p-horizontal_medium"> <span class= "text">Collection Collector Name </span>: {resultObj.cus_coll_name} </p>
+<p class="slds-p-horizontal_medium"> <span class= "text">Collection Collector Phone </span>:{resultObj.cus_coll_phn}</p>
+<p class="slds-p-horizontal_medium"><span class= "text">Collection Collector Email</span>: {resultObj.cus_coll_email}</p>
+<p class="slds-p-horizontal_medium"><span class= "text">Collection Lead Name</span>: {resultObj.cus_lead_name} </p>
+<p class="slds-p-horizontal_medium"><span class= "text">Collection Lead Phone </span>:{resultObjcus_lead_phn}</p>
+<p class="slds-p-horizontal_medium"><span class= "text">Collection Lead Email</span>: {resultObj.cus_lead_email} </p>
+<p class="slds-p-horizontal_medium"><span class= "text">Collection Manager Name</span>: {resultObj.cus_mgr_name}</p>
+<p class="slds-p-horizontal_medium"><span class= "text">Collection Manager Phone</span>: {resultObj.cus_mgr_phn}</p>
+<p class="slds-p-horizontal_medium"><span class= "text">Collection Manager Email</span>: {resultObj.cus_mgr_email}</p>
+</div>
+<div if:true={errormessage} > <span class="text1">{errorMessageContent} </span></div>
+</lightning-card>
+</template>

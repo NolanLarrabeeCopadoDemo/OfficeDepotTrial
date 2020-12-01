@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that they have chosen the wrong request type</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Incorrect Request Type</name>
+    <style>freeForm</style>
+    <subject>WRF Incorrect Request Type: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+Thank you for your Work Request submission for {!Case.Account}.
+
+
+Unfortunately, the request type you have selected in the Work Request Form does not match the details of your request.  Selecting the appropriate request type ensures we gather all the appropriate information to assign and complete your request.  Please resubmit your WRF with the correct selection in order for us to proceed.
+
+
+Suggested Request Type:
+
+
+
+Thank you,
+
+BSD BIDS</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

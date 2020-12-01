@@ -1,0 +1,91 @@
+<template>
+	<div class="slds-box">
+		<div class="slds-grid">
+			<template if:true={factSheetData}>
+				<table class="slds-m-right_medium">
+					<tr>
+						<td>Forms of Order Entry</td>
+						<td>{factSheetData.Forms_of_Order_Entry__c}</td>
+					</tr>
+					<tr>
+						<td>Can restrictions be overridden without approval?</td>
+						<td>{factSheetData.Can_Restrictions_Be_Overridden_Without_A__c}</td>
+					</tr>
+					<tr>
+						<td>Can Customer Care maintain account?</td>
+						<td>{factSheetData.Can_Customer_Care_Maintain_Account__c}</td>
+					</tr>
+					<tr>
+						<td>Additional Account Handling Comments</td>
+						<td>{factSheetData.Additional_Account_Handling_Comments__c}</td>
+					</tr>
+					<tr>
+						<td>Price Variance</td>
+						<td>{factSheetData.Price_Variance__c}</td>
+					</tr>
+					<tr>
+						<td>Miscellaneous Credit</td>
+						<td>{factSheetData.MISC__c}</td>
+					</tr>
+					<tr>
+						<td>Tier 1</td>
+						<td>{factSheetData.Tier_1__c}</td>
+					</tr>
+					<tr>
+						<td>Ordering Platform</td>
+						<td>{factSheetData.Ordering_Platform__c}</td>
+					</tr>
+					<tr>
+						<td>Price Match</td>
+						<td>{factSheetData.Price_Match__c}</td>
+					</tr>
+					<tr>
+						<td>Proprietary Flag</td>
+						<td>{factSheetData.Proprietary_Flag__c}</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td>EDI Customer Name</td>
+						<td>{factSheetData.EDI_Customer_Name__c}</td>
+					</tr>
+					<tr>
+						<td>EDI Customer Phone</td>
+						<td>{factSheetData.EDI_Customer_Phone__c}</td>
+					</tr>
+					<tr>
+						<td>EDI Customer Email</td>
+						<td>{factSheetData.EDI_Customer_Email__c}</td>
+					</tr>
+					<tr>
+						<td>EDI Exception Name</td>
+						<td>{factSheetData.EDI_Exceptions_Name__c}</td>
+					</tr>
+					<tr>
+						<td>EDI Exception Phone</td>
+						<td>{factSheetData.EDI_Exceptions_Phone__c}</td>
+					</tr>
+					<tr>
+						<td>EDI Exception Email</td>
+						<td>{factSheetData.EDI_Exceptions_Email__c}</td>
+					</tr>
+					<tr>
+						<td>EDI Restrictions</td>
+						<td>{factSheetData.EDI_Restrictions__c}</td>
+					</tr>
+					<tr>
+						<td>Special Instructions</td>
+						<td>{factSheetData.Special_Instructions__c}</td>
+					</tr>
+					<tr>
+						<td>Cust must clear credit prior to rebill</td>
+						<td>{factSheetData.Custmustclearcreditpriortorebill__c}</td>
+					</tr>
+				</table>
+			</template>
+			<template if:false={factSheetData}>
+				Couldn't find any fact sheet data for this account.
+			</template>
+		</div>
+	</div>
+</template>

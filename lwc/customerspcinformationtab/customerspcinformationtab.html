@@ -1,0 +1,96 @@
+<template>
+	<div>
+		<div class="slds-box">
+			<div class="slds-text-heading_small slds-m-bottom_medium">SPC Information</div>
+			<div if:false={hasError} class="slds-grid slds-grid_vertical">
+				<table class="slds-grow">
+					<tr>
+						<td>
+							Last 4 of SPC #
+						</td>
+						<td>
+							Creation Date
+						</td>
+						<td>
+							PO #
+						</td>
+						<td>
+							Address Sequence
+						</td>
+						<td>
+							Department
+						</td>
+						<td>
+							Daily Dollar Limit
+						</td>
+						<td>
+							Daily Transaction Limit
+						</td>
+						<td>
+							Order Limit
+						</td>
+						<td>
+							Card Holder Name
+						</td>
+						<td>
+							Card Holder Phone
+						</td>
+						<td>
+							Credit Code
+						</td>
+					</tr>
+
+					<template for:each={_spcCardInfo} for:item="item">
+						<template for:each={item.CardDetails} for:item="item1">
+							<template for:each={item.ContactInfo} for:item="item2">
+								<template for:each={item.CardLimitDetails} for:item="item3">
+									<tr key={item1.CardNumber}>
+										<td>
+											{item1.CardNumber}
+										</td>
+										<td>
+											{item1.CreateDate}
+										</td>
+										<td>
+											{item2.PONumber}
+										</td>
+										<td>
+											{item2.AddressSequence}
+										</td>
+										<td>
+											{item2.DepartmentDescription}
+										</td>
+										<td>
+											{item3.DailyDollarLimit}
+										</td>
+										<td>
+											{item3.DailyTransactionLimit}
+										</td>
+										<td>
+											{item3.OrderLimit}
+										</td>
+										<td>
+											{item2.SPCCardHolderName}
+										</td>
+										<td>
+											{item2.CardholderPhone}
+										</td>
+										<td>
+											{item2.CreditCode}
+										</td>
+									</tr>
+								</template>
+							</template>
+						</template>
+					</template>
+				</table>
+				<div if:false={hasCustomerInfo}>No data to display</div>
+			</div>
+		</div>
+	</div>
+	<template if:true={hasError}>
+		<div class="slds-m-top_medium">
+			No data to display
+		</div>
+	</template>
+</template>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>For Tammy Troy</description>
+    <filter>
+        <booleanFilter>((1 AND 2) AND (3 OR 4 OR 5)) AND 6</booleanFilter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Case.Account_Maintenance,Case.Support,Case.SCOE</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Enterprise Support,SCOE Escalations,Customer Service,General Maint Requests Queue,Restrictions/Xref Queue,Projects Queue,Open General Maintenance HCL Queue,TAM Solutions</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Support_Sub_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Address Add/Updates</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.SCOE_Support_Sub_type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Add/Change/Inactivate/Reactivate an Address,Add/Change/Inactivate/Reactivate a Single Address,Add/Change/Inactivate Multiple Addresses,Change Accounting Field Requirements,Desktop Maintenance,Lifting Restrictions,MOV (Minimum Order Value) Maintenance,Release Maintenance</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.WRF_Request_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Add/Change/Inactivate Consignee,Add Ship To Address(es),Change Consignee Address,Change Primary Bill To Address,Change Ship To Address(es),Communities - MultipleShipTo Address Request,Inactivate Consignee</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.WRF_Request_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>FiscalWeek</dateGranularity>
+        <field>CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>OWNER</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Case.Support_Sub_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Support Sub-Types for 2019</name>
+    <params>
+        <name>units</name>
+        <value>h</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <endDate>2019-12-28</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2018-12-30</startDate>
+    </timeFrameFilter>
+</Report>

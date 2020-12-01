@@ -1,0 +1,29 @@
+<template>
+    <template if:false={isLoaded}>
+        <lightning-spinner alternative-text={labels.loading} size="small"></lightning-spinner>
+    </template>
+    <template if:true={isLoaded}>
+        <template if:true={error}>
+            <c-error-panel errors={error} friendly-message={labels.friendlyError}>
+            </c-error-panel>
+        </template>
+        <template if:false={error}>
+            <div class="slds-grid slds-gutters slds-wrap">
+                <template for:each={field_list} for:item="field">
+                    <div key={field.field_name}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        <lightning-input name={field.field_name} label={field.field_label} value={field.value}
+                            type={field.field_type} onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+                </template>
+                <div class="slds-col slds-size_1-of-1 slds-p-vertical_xx-small">
+                    <button class="slds-button slds-button_brand slds-col_bump-left" onclick={handleSearch}
+                        disabled={search_disabled}>{labels.search}
+                    </button>
+                </div>
+
+            </div>
+        </template>
+    </template>
+</template>

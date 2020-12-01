@@ -1,0 +1,112 @@
+<apex:page id="GPOLead" sidebar="false" showHeader="false" standardStylesheets="false" docType="html-5.0" language="en" controller="GPOLead">
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=9" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+ <div class="container">
+  <apex:image url="{!$Resource.GPOBanner}" height="80px"/>
+  <br/><br/>
+  <apex:form >
+   <div class="row">
+         <div class="col-xs-6">
+         <apex:outputPanel id="sMsg">
+          <apex:outputText rendered="{!successMsg}" styleClass="alert alert-success" value="Confirmation:Lead Successfully Submitted!" />
+          <apex:outputText rendered="{!errorMsg}" styleClass="alert alert-danger" value="{!ErrorText}" />
+          <br/><br/>
+          <apex:commandbutton styleclass="btn btn-success" value="Close" rendered="{!successMsg}" onclick="window.close();"/>
+         </apex:outputPanel>
+         </div>
+         </div>
+   </apex:form>
+ 
+    <apex:form Styleclass="form-vertical" id="submissionForm">
+        
+       <apex:outputPanel rendered="{!showForm}" >
+       <div class="row">
+       <div class="col-xs-2">
+       <label for="inputlg">
+        First Name
+       </label>
+       </div>
+       <div class="col-xs-3">
+      <!-- <input class="form-control" id="fname" type="text" value="First Name"/> -->
+       <apex:inputField value="{!glead.name}" styleClass="form-control">
+         
+       </apex:InputField>
+       </div>
+       </div>
+       <div class="row">
+       <div class="col-xs-2">
+       <label for="inputlg">Last Name</label>
+       </div>
+       <div class="col-xs-3">
+       <input class="form-control" id="lname" type="text" value="Last Name"/>
+        </div>
+        </div>
+        <div class="row">
+       <div class="col-xs-2">
+       <label for="inputlg">Phone</label>
+       </div>
+       <div class="col-xs-3">
+       <apex:inputField value="{!glead.Phone__c}" styleClass="form-control"/>
+        </div>
+        </div>
+        <div class="row">
+       <div class="col-xs-2">
+       <label for="inputlg">Email</label>
+       </div>
+       <div class="col-xs-3">
+       <apex:inputField value="{!glead.Email__c}" styleClass="form-control"/>
+        </div>
+        </div>
+        <div class="row">
+       <div class="col-xs-2">
+       <label for="inputlg">Business Name</label>
+       </div>
+       <div class="col-xs-3">
+      
+      <apex:inputField value="{!glead.Business_Name__c}" styleClass="form-control"/>
+       
+        </div>
+        </div>
+       <div class="row">
+       <div class="col-xs-2">
+       <label for="inputlg">Zip Code</label>
+       </div>
+       <div class="col-xs-3">
+       <apex:inputField value="{!glead.Zip__c}" styleClass="form-control"/>
+        </div>
+        </div>
+        <div class="row">
+       <div class="col-xs-2">
+       <label for="inputlg">Number of Employees</label>
+       </div>
+       <div class="col-xs-3">
+       <apex:inputField value="{!glead.WCW_Range__c}" styleClass="form-control"/>
+        </div>
+        </div>
+        <div class="row">
+       <div class="col-xs-2">
+       <label for="inputlg">Additional Notes</label>
+       </div>
+       <div class="col-xs-3">
+       <apex:inputField value="{!glead.Notes__c}" styleClass="form-control"/>
+        </div>
+        </div>
+       <br/><br/>
+       <apex:commandButton value="Save" action="{!saveLead}" styleclass="btn btn-primary" reRender="sMsg,submissionForm"/>
+      
+       <button type="button" class="btn btn-warning">Cancel</button>
+       </apex:outputPanel>
+   </apex:form>   
+
+ 
+ </div>
+</body>
+ </apex:page>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.First_Order_Date__c</field>
+    </columns>
+    <columns>
+        <field>Account.MTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>Account.QTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>Account.YTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>Account.Rolling_12_month_sales__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>USERS.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>teresa adams,candice felix,Ettienne Zak,Holly Irving,Krystal Beltran,Clint Barnes,Angela Kostecki,Teri Mims,Brent Klauss,James Howard,Andrea Berkebile,Virgil Roumo</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Director Cole-Hall Net-New Sales</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>USERS.NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

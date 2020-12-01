@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>SiteContacts__c$Name</field>
+    </columns>
+    <columns>
+        <field>SiteContacts__c$Account__c</field>
+    </columns>
+    <columns>
+        <field>SiteContacts__c$Contact__c</field>
+    </columns>
+    <columns>
+        <field>SiteContacts__c$Is_GT__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>SiteContacts__c$Is_GT__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Site Contact G&amp;T</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Site_Contact_New__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>SiteContacts__c$CreatedDate</dateColumn>
+        <endDate>2018-06-18</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2018-06-18</startDate>
+    </timeFrameFilter>
+</Report>

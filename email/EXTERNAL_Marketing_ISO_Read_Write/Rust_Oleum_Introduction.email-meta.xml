@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>CBFS Rust-Oleum Intro (Customer Contact)</name>
+    <style>promotionRight</style>
+    <subject>Office Depot features “If There’s a Surface, There’s a Rust-Oleum”</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+Thanks so much for speaking with me today!  Per our conversation, Office Depot now carries Rust-Oleum to provide you with innovative products that helps maintain and protect surfaces!
+
+I have attached our catalog to provide you with the power to transform your surfaces and substrates.
+
+Featured Products:
+
+Anti-Slip Tape and Paint Solutions
+
+Write-On Paints and Testor Spray Chalk
+
+Industrial Inverted Marking &amp; Striping Paint
+
+LeakSeal rubber Coatings &amp; Silicone Tape
+
+InstaPatch and Putty patch concrete and surface repair
+
+
+If you have any questions feel free to reach out to me.
+
+Best,
+{!User.Name}
+
+Account Manager
+
+{!User.Email}
+
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

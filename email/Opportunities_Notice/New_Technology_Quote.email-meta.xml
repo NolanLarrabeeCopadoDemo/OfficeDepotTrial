@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>An email that gets sent to a rep when a new Technology quote is created.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tech</letterhead>
+    <name>New Technology Quote</name>
+    <style>formalLetter</style>
+    <subject>New Quote Request: {!Opportunity.Account}</subject>
+    <textOnly>Dear {!Opportunity.OwnerFullName} A new quote has just been submitted by one of your customers from BSD.net
+Please see below for the details.
+
+Opportunity Created Date:{!Opportunity.CreatedDate}
+Opportunity Name: {!Opportunity.Name}
+Account Name : {!Opportunity.Account}
+Opportunity Amount : {!Opportunity.Amount}
+
+
+Click the Link below to get to the quote
+{!Opportunity.Link}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,21 @@
+<apex:page standardController="CPM__c">
+
+<style type="text/css">
+.tftable {color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+.tftable th {font-size:16px;background-color:#acc8cc;border-width: 1px;padding: 2px;border-style: solid;border-color: #729ea5;text-align:center;}
+.tftable tr {background-color:#d4e3e5;}
+.tftable td {border-width: 1px;padding: 3px;border-style: solid;border-color: #729ea5;text-align:right;}
+.tftable .leftalign{text-align:left}
+.tftable .align{text-align:center}
+.tftable tr:hover {background-color:#ffffff;}
+</style>
+
+<table class="tftable" border="1">
+<tr><th colspan="7">Cashflow Summary</th></tr>
+<tr><td class="align" width="16%"><b>Type</b></td><td class="align" width="14%"><b>Year 1</b></td><td class="align" width="14%"><b>Year 2</b></td><td class="align" width="14%"><b>Year 3</b></td><td class="align" width="14%"><b><apex:outputField value="{!CPM__c.Year_4__c}"/></b></td><td class="align" width="14%"><b><apex:outputField value="{!CPM__c.Year_5__c}"/></b></td><td class="align" width="14%"><b>Total</b></td></tr>
+<tr><td class="align"><b>Cash Outflow</b></td><td class="align"><apex:outputField value="{!CPM__c.Year_1_Cash_Outflow__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_2_Cash_Outflow__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_3_Cash_Outflow__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_4_Cash_Outflow__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_5_Cash_Outflow__c}"/></td><td class="align"><b><apex:outputField value="{!CPM__c.Total_Cash_Outflow__c}"/></b></td></tr>
+<tr><td class="align"><b>Net Inflow</b></td><td class="align"><apex:outputField value="{!CPM__c.Year_1_Net_Inflow__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_2_Net_Inflow__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_3_Net_Inflow__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_4_Net_Inflow__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_5_Net_Inflow__c}"/></td><td class="align"><b><apex:outputField value="{!CPM__c.Total_Net_Inflow__c}"/></b></td></tr>
+<tr><td class="align"><b>Net Present Value</b></td><td class="align"><apex:outputField value="{!CPM__c.Year_1_NPV__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_2_NPV__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_3_NPV__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_4_NPV__c}"/></td><td class="align"><apex:outputField value="{!CPM__c.Year_5_NPV__c}"/></td><td class="align"><b><apex:outputField value="{!CPM__c.Total_NPV__c}"/></b></td></tr>
+</table>
+
+</apex:page>

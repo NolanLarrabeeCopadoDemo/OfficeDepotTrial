@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Unlock Change Approval</name>
+    <style>freeForm</style>
+    <subject>{!ACE_Customer_Price_Changes__c.Name}: Unlock Customer Record – Request Approved</subject>
+    <textOnly>Dear {!ACE_Customer_Price_Changes__c.Account_Owner_Name__c},
+
+Your Unlock request on {!ACE_Customer_Price_Changes__c.L1_Mgr_Approval_Start_Date__c} for {!ACE_Customer_Price_Changes__c.Customer_Name__c}, customer number {!ACE_Customer_Price_Changes__c.Owning_Customer_ID__c}, was approved.
+
+For more information, please refer to Salesforce.com.
+
+https://officedepot.my.salesforce.com/{!ACE_Customer_Price_Changes__c.Id} 
+
+Thank you!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

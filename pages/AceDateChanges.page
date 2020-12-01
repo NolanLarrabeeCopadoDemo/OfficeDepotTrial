@@ -1,0 +1,145 @@
+<apex:page standardController="ACE_Customer_Price_Changes__c" extensions="aceDateChanges">
+ <style>
+     .btn1{width:50%;text-align: left; align:left;}
+     .btn2 {width:50%;text-align: right; align:right;}
+ </style>
+ 
+ <apex:form >
+  <apex:pageBlock Title="Date Exception Request">
+  <apex:pagemessages id="msg"></apex:pagemessages>
+  <!--apex:pageblockButtons >
+        <apex:commandButton onclick="showOverlay3(); return false;" value="Submit Request For Date Exception" style="color:white;background-color:#FF6666;background-image:none;"/>
+        <apex:commandButton onclick="showOverlayCan(); return false;"  value="Cancel" style="color:white;background-color:#0B2F3A;background-image:none;"/>
+  </apex:pageblockButtons -->
+  
+   <b>You have indicated that you would like to request a date exception.</b>
+    <br></br><br></br>
+      
+      <apex:panelgrid columns="4" width="700px">
+         <apex:outputText value="Customer:" style="font-weight:bold;"/>
+         <apex:outputField value="{!pchangeOb.customer__r.name}"/>
+         <apex:outputText value=""/>
+         <apex:outputText value=""/>
+         <apex:outputText value="Customer #:" style="font-weight:bold;"/>
+         <apex:outputField value="{!pchangeOb.Owning_Customer_ID__c}"/><apex:outputText value=""/>
+         <apex:outputText value=""/>
+         <apex:outputText value="Current Price Change Effective Date:" style="font-weight:bold;"/>
+         <apex:outputField value="{!pchangeOb.Sales_Price_Change_Effective_Date_Min__c}"/>
+         <apex:outputText value=""/>
+         <apex:outputText value=""/>
+          <!--   <apex:outputText value="{!IF(revImpact!=null,'$',null)}{0,number, ###,###,###,###}" ID="PriceEff" style="color:red;font-weight: bold;font-size:15px">
+              <apex:param value="{!revenueImpactInteger}"/>
+          </apex:outputText> -->
+          <!--<apex:outputText value="{!revenueImpact}" ID="PriceEff" style="color:red;font-weight: bold;font-size:15px"/>  -->
+          <apex:outputText value="Proposed Price Change Effective Date:" style="font-weight:bold;"/>
+          <apex:actionRegion >
+            <apex:inputField value="{!pchangeOb.Sales_Price_Change_Effective_Date_Rep__c}" label="Exception Date" onchange="calculate()"/>
+          </apex:actionRegion>
+          <apex:outputText value="OD Revenue Impact of Date Change:" style="font-weight:bold;"/>
+          <apex:outputText value="{!revenueImpact}" ID="PriceEff" style="color:red;font-weight: bold;font-size:15px"/>
+      </apex:panelgrid>
+      <br></br><br></br>
+      <apex:panelgrid columns="2" width="500px">
+          <apex:outputText value="Reason for Exception Request:" style="font-weight:bold;"/>
+          <apex:inputField value="{!pchangeOb.Exception_Date_Request_Reason__c}" required="true"/>
+          <!-- <apex:outputText value="Is this the earliest date that the WA allows Office Depot to pass?"/>
+          <apex:inputField value="{!pchangeOb.Earliest_Date_Flag__c}"/>  -->
+         <!--  <apex:outputText value="My plan to make up the margin"/>
+          <apex:inputField value="{!pchangeOb.Margin_Makeup_Plan__c}"/>  -->
+          <apex:outputText value="Additional Comments:" style="font-weight:bold;"/>
+          <apex:inputField value="{!pchangeOb.Date_Exception_Additional_Comments__c}" style="width:200px"/>
+      </apex:panelgrid>
+       <br></br><br></br>
+       <b>Please be aware that any change is subject to <font color="red">DSM, RSD, and potentially RVP approval </font> depending on the margin impact of the change you are requesting.  All exceptions will be reported to Sales leadership.</b>      
+        <br/>
+        <center>
+                <apex:commandButton onclick="showOverlay3(); return false;" value="Submit Request For Date Exception" style="color:white;background-color:#FF6666;background-image:none;"/>
+                <apex:commandButton onclick="showOverlayCan(); return false;"  value="Cancel" style="color:white;background-color:#0B2F3A;background-image:none;"/>
+        </center>
+  </apex:pageBlock>              
+     <apex:actionFunction name="calculate" action="{!CalculateRevenueImpact}" reRender="PriceEff,msg"/>
+     
+     <div id="overlayDiv3" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+      <apex:outputPanel id="confirmPanel3" layout="block" style="">  
+                <left><b>CONFIRMATION:</b></left><br/> 
+                <hr style="width:100%; color:#0099CC;"/>            
+                <center><b>The proposed date will be submitted for date exception approval. Do you wish to continue?</b></center><br/><br/>                        
+                <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                    <apex:commandButton value="Yes" id="submitRequest3" onclick="hideOverlay3();" action="{!saveChanges}"/>
+                    <apex:commandButton value="Cancel" id="closeOverlay3" onclick="hideOverlay3(); return false;" /> <!-- onclick="hideOverlay3(); return false;"/> -->
+                </apex:panelGrid>   
+      </apex:outputPanel>
+     </div>
+     
+     <div id="overlayDivCan" style="display:none;position:fixed; background-color:white; left:45%; top:250px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+      <apex:outputPanel id="confirmPanelCan" layout="block" style="">  
+                <left><b>CONFIRMATION:</b></left><br/> 
+                <hr style="width:100%; color:#0099CC;"/>            
+                <center><b>Do you want to cancel this request?</b></center><br/><br/>                        
+                <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                    <apex:commandButton value="Yes" id="submitRequestCan" onclick="hideOverlayCan();" action="{!cancelChanges}"/>
+                    <apex:commandButton value="No" id="closeOverlayCan" onclick="hideOverlayCan(); return false;"/>
+                </apex:panelGrid>   
+      </apex:outputPanel>
+     </div>
+     
+     <div id="overlayDivCan1" style="display:none;position:fixed; background-color:white; left:45%; top:250px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+      <apex:outputPanel id="confirmPanelCan1" layout="block" style="">  
+                <left><b>CONFIRMATION:</b></left><br/> 
+                <hr style="width:100%; color:#0099CC;"/>            
+                <center><b>Do you want to cancel this request?</b></center><br/><br/>                        
+                <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                    <apex:commandButton value="Yes" id="submitRequestCan1" onclick="hideOverlayCan2(); return false;"/>
+                    <apex:commandButton value="No" id="closeOverlayCan1" onclick="hideOverlayCan1(); return false;"/>
+                </apex:panelGrid>   
+      </apex:outputPanel>
+     </div>
+     
+    </apex:form> 
+    
+    <script>
+     function hideOverlay3(){
+         var e = document.getElementById("overlayDiv3");                 
+            e.style.display = 'none';  
+                            
+     }
+     
+     function showOverlay3(){
+         var e = document.getElementById("overlayDiv3"); 
+         e.style.display = 'block';                 
+     }
+     
+     function hideOverlayCan(){
+         var e = document.getElementById("overlayDivCan");                 
+            e.style.display = 'none';  
+                            
+     }
+     
+     function showOverlayCan(){
+         var e = document.getElementById("overlayDivCan"); 
+         e.style.display = 'block';                 
+     }
+     
+     
+     function hideOverlayCan1(){
+         var e = document.getElementById("overlayDivCan1");                 
+            e.style.display = 'none';  
+                            
+     }
+     
+     function hideOverlayCan2(){
+         var e = document.getElementById("overlayDivCan1");                 
+            e.style.display = 'none';
+            
+         var e1 = document.getElementById("overlayDiv3");                 
+            e1.style.display = 'none';  
+                            
+                            
+     }
+     
+     function showOverlayCan1(){
+         var e = document.getElementById("overlayDivCan1"); 
+         e.style.display = 'block';                 
+     }
+     </script>
+</apex:page>

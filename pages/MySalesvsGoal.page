@@ -1,0 +1,135 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" docType="html-5.0" applyHtmlTag="false" >
+
+    <html xmlns:ng="http://angularjs.org" ng-app="hello" lang="en">
+
+        <head>
+             <apex:includeScript value="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"/>
+  
+        <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+  <script>
+
+  </script>
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+  
+
+        jQuery(document).ready(function($) {
+
+      // Pull 10 Accounts via the REST API
+var uid= '{!$User.Id}';
+//uid='005E0000005UukJ';
+var muid= (uid.substr(0,15));
+      $.ajax('/services/data/v29.0/query?q=SELECT+sum(Q4_Margin_Goal__c)+Q4_Margin_Goal__c+,+sum(Q4_Margin__c)+Q4_Margin__c+,+sum(Q4_Sales_Goal__c)+Q4_Sales_Goal__c+,+sum(Q4_Sales__c)+Q4_Sales__c+,+sum(Q1_Margin_Goal__c)+Q1_Margin_Goal__c+,+sum(Q1_Margin__c)+Q1_Margin__c+,+sum(Q1_Sales_Goal__c)+Q1_Sales_Goal__c+,+sum(Q1_Sales__c)+Q1_Sales__c+,+sum(Q2_Margin_Goal__c)+Q2_Margin_Goal__c+,+sum(Q2_Margin__c)+Q2_Margin__c+,+sum(Q2_Sales_Goal__c)+Q2_Sales_Goal__c+,+sum(Q2_Sales__c)+Q2_Sales__c+,+sum(Q3TD_Margin_goal__c)+Q3_MGoal__c+,+sum(Q3TD_MArgin__c)+Q3_Margin__c+,+sum(Q3TD_Sales_Goal__c)+Q3_Sales_Goal__c+,+sum(Q3TD_Actual_Sales__c)+Q3_Sales__c+,+sum(Sales_Goal__c)+Sales_Goal__c+,+sum(Total_Actual_Sales__c)+Total_Actual_Sales__c+,+sum(Margin_Goal__c)+Margin_Goal__c+,+sum(YTD_Sales_Goal__c)+YTD_Sales_Goal__c,+sum(YTD_SRM__c)+YTD_SRM__c,+sum(TY_Actual_Margin__c)+TY_Actual_Margin__c+from+goal__c+where+ownerid+=\''+uid+'\''+'+or+mgrid__c+=\''+uid+'\'',
+        {
+
+          beforeSend: function(xhr) {
+
+            // Set the OAuth header from the session ID
+
+            xhr.setRequestHeader('Authorization', 'Bearer {!$Api.Session_ID}');
+
+          },
+
+          success: function(response) {
+
+
+//alert(JSON.stringify( response.records));
+    
+     var data = new google.visualization.DataTable();
+  // Add columns
+  data.addColumn('string', 'Quarter');
+  data.addColumn('number', 'Margin Goal');
+  data.addColumn('number', 'Margin Actual');
+
+   var data1 = new google.visualization.DataTable();
+  // Add columns
+  data1.addColumn('string', 'Quarter');
+  data1.addColumn('number', 'Sales Goal');
+  data1.addColumn('number', 'Sales Actual');
+
+
+
+            $.each(response.records, function(index, record) {
+              var x= ('"Q1",'+record.Q1_Margin_Goal__c+','+record.Q1_Margin__c+'');
+var arrayx=JSON.parse("["+x+"]");
+  data.addRow(arrayx);
+           x= ('"Q2",'+record.Q2_Margin_Goal__c+','+record.Q2_Margin__c+'');
+arrayx=JSON.parse("["+x+"]");
+  data.addRow(arrayx);
+      x= ('"Q3",'+record.Q3_MGoal__c+','+record.Q3_Margin__c+'');
+arrayx=JSON.parse("["+x+"]");
+  data.addRow(arrayx);
+ //     x= ('"YTD",'+record.YTD_SRM__c+','+record.TY_Actual_Margin__c+'');
+  x= ('"Q4",'+record.Q4_Margin_Goal__c+','+record.Q4_Margin__c+'');
+arrayx=JSON.parse("["+x+"]");
+  data.addRow(arrayx);
+            x= ('"Q1",'+record.Q1_Sales_Goal__c+','+record.Q1_Sales__c+'');
+arrayx=JSON.parse("["+x+"]");
+  data1.addRow(arrayx);
+            x= ('"Q2",'+record.Q2_Sales_Goal__c+','+record.Q2_Sales__c+'');
+arrayx=JSON.parse("["+x+"]");
+  data1.addRow(arrayx);
+      x= ('"Q3",'+record.Q3_Sales_Goal__c+','+record.Q3_Sales__c+'');
+arrayx=JSON.parse("["+x+"]");
+  data1.addRow(arrayx);
+   //   x= ('"YTD",'+record.YTD_Sales_Goal__c+','+record.Total_Actual_Sales__c+'');
+     x= ('"Q4",'+record.Q4_Sales_Goal__c+','+record.Q4_Sales__c+'');
+arrayx=JSON.parse("["+x+"]");
+  data1.addRow(arrayx);
+            
+            });
+     
+        var options = {
+          title: 'My YTD SRM Performance',
+           hAxis: {title: 'Quarter',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+  var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+
+        chart.draw(data , options);
+ var options2 = {
+          title: 'My YTD Sales Performance',
+           hAxis: {title: 'Quarter',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+          var chart1 = new google.visualization.AreaChart(document.getElementById('chart_div_g'));
+
+        chart1.draw(data1 , options2);
+
+          },
+
+          error: function(jqXHR, textStatus, errorThrown) {
+            // Oops - what went wrong?
+            alert(jqXHR.status + ': ' + errorThrown);
+          }
+        }
+      );
+    });
+
+      }
+    </script>
+</head>
+<body>
+ 
+<div id ="x">
+
+
+ <button onclick="parent.location.href='https://officedepot.my.salesforce.com/00OE0000002TTBG'">Detailed Acct Level Goal vs Actual Reporting </Button>
+ 
+    <div id="chart_div" style="width: 400px; height: 250px;"></div>
+    
+    <div id="chart_div_g" style="width: 400px; height: 250px;"></div>
+    </div>
+
+
+  </body>
+  </html>
+
+
+</apex:page>

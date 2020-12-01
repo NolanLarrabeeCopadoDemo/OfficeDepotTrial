@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Activity$Subject</field>
+    </columns>
+    <columns>
+        <field>Activity$Disposition_Code__c</field>
+    </columns>
+    <columns>
+        <field>Activity$What</field>
+    </columns>
+    <columns>
+        <field>Activity$CreatedDate</field>
+    </columns>
+    <description>This is my prism rankings report</description>
+    <filter>
+        <criteriaItems>
+            <column>Activity$Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>salesPRISM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$Subject</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notContain</operator>
+            <value>Account Note</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$CreatedBy.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$CreatedBy</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Michael Massey,Jessica Burdine,Leticia Arrington,Kyle Averette,Scott Pearson,Benjamin Rodgers,Brittney Berding,Quincy Hill,Lindsay Grove,Nathan Sichali,Guadalupe Monroy,Ashley Nava,Tiffani Neumann,Spencer Sampson</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>salesPRISM - Interested,salesPRISM - New Opportunity</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity$CreatedBy</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Prism Dispositions</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activities_Tasks_Events__c</reportType>
+    <roleHierarchyFilter>Support</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Activity$CreatedDate</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Activity$CreatedDate</dateColumn>
+        <interval>INTERVAL_YESTERDAY</interval>
+    </timeFrameFilter>
+</Report>

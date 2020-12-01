@@ -1,0 +1,110 @@
+<apex:page standardController="Lead" extensions="Create_Edit_Lead_extension" readOnly="false">
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="/soap/ajax/15.0/connection.js" type="text/javascript"></script>
+<script src="/soap/ajax/15.0/apex.js" type="text/javascript"></script>
+<script>
+//var sid = document.cookie.match(' sid=([^;]*)')[1];
+sforce.debug.trace=false;
+//sforce.connection.sessionId = sid;
+var sid ='{!GETSESSIONID()}';
+sforce.connection.sessionId =sid; 
+var test;
+var stages = sforce.apex.execute("opportunitySearch","getFieldValues",{});
+var staheArray = stages.toString().split("+");
+j$ = jQuery.noConflict();  
+j$(function()     {
+   
+   var availableTags = staheArray;
+     previousValue = ""; 
+     var tags= staheArray; 
+ j$('[id$=curprovider]').bind('dblclick', function() {
+j$( '[id$=curprovider]' ).autocomplete({  change: function( event, ui ) {val = j$(this).val(); exists = j$.inArray(val,tags);  if (exists<0) {   j$(this).val("Other");    return false;  }}, autoFocus: true, source: function( request, response )   {            var matcher = new RegExp( "^" + j$.ui.autocomplete.escapeRegex( request.term ), "i" );    response( j$.grep( tags, function( item ){                return matcher.test( item );          }) );  }    
+ });  
+ }); 
+ j$( '[id$=curprovider]' ).autocomplete({  change: function( event, ui ) {val = j$(this).val(); exists = j$.inArray(val,tags);  if (exists<0) {    j$(this).val("Other");    return false;  }}, autoFocus: true, source: function( request, response )   {            var matcher = new RegExp( "^" + j$.ui.autocomplete.escapeRegex( request.term ), "i" );    response( j$.grep( tags, function( item ){                return matcher.test( item );          }) );  }    
+ }); 
+ }); 
+ </script>
+
+
+
+
+
+
+<apex:sectionHeader title="{!$Label.Lead_Edit}" subtitle="{!Lead.name}"/>
+<apex:form >
+<apex:pagemessages id="msg"></apex:pagemessages>
+
+<apex:pageBlock title="{!$Label.Lead_Edit}" mode="edit">
+<apex:pageBlockButtons location="top">
+<apex:commandButton value="{!$Label.Save_Btn_Label}" action="{!SaveAllData}"/>
+<!--<apex:commandButton value="Save & New" action="{!save}" />-->
+<apex:commandButton value="{!$Label.Cancel_Btn_Label}" action="{!cancel}"/>
+</apex:pageBlockButtons>
+
+<apex:pageBlockButtons location="bottom">
+<apex:commandButton value="{!$Label.Save_Btn_Label}" action="{!SaveAllData}"/>
+<!--<apex:commandButton value="Save & New" action="{!save}" />-->
+<apex:commandButton value="{!$Label.Cancel_Btn_Label}" action="{!cancel}"/>
+</apex:pageBlockButtons>
+
+<apex:pageBlockSection title="{!$Label.Lead_Information_Label}" columns="2">
+<apex:inputField taborderhint="1" value="{!Lead.FirstName}" required="false"/>
+<apex:inputField taborderhint="8" value="{!Lead.Company}" required="true"/>
+<apex:inputField taborderhint="2" value="{!Lead.LastName}" required="true"/>
+<apex:inputField taborderhint="9" value="{!Lead.OwnerId}" required="false"/>
+<apex:inputField taborderhint="4" value="{!Lead.Title}" required="true"/>
+<apex:inputField taborderhint="10" label="{!$ObjectType.Lead.Fields.Product__c.Label}" value="{!Lead.Product__c}" required="false"/>
+<apex:inputField taborderhint="5" value="{!Lead.Phone}" required="false"/>
+<apex:inputField taborderhint="11" label="{!$ObjectType.Lead.Fields.CurrentProvider__c.Label}" value="{!Lead.CurrentProvider__c}" required="false" id="curprovider"/>
+<apex:inputField taborderhint="6" label="{!$Label.Lead_Email_lbl}" value="{!Lead.Email}" required="false"/>
+
+<apex/>
+<apex:inputField taborderhint="7" value="{!Lead.Website}" required="false"/>
+<apex/>
+<!--<apex:inputField taborderhint="3" value="{!Lead.Cust_ID__c}" required="false"/>
+<apex:outputtext label="Lead Record Type" value="{!Recordtype}"/> 
+<apex:outputField value="{!Lead.Status}"/>
+<apex:inputField value="{!Lead.Account__c}" required="false"/>
+<apex:inputField value="{!Lead.Lead_Age__c}" required="false"/>-->
+
+
+
+</apex:pageBlockSection>
+
+<apex:pageBlockSection title="{!$Label.Address_Information_Label}" columns="2">
+
+
+<apex:inputField taborderhint="11" value="{!Lead.Address1__c}" required="false"/>
+<apex:inputField taborderhint="13" value="{!Lead.City__c}" required="false"/>
+<apex:inputField taborderhint="12" value="{!Lead.Address2__c}" required="false"/>
+<apex:inputField taborderhint="14" value="{!Lead.State__c}" required="false"/>
+<apex/>
+<apex:inputField taborderhint="15" value="{!Lead.Zip__c}" required="false"/>
+<apex/>
+<apex:inputField taborderhint="16" value="{!Lead.Country__c}" required="false"/>
+
+</apex:pageBlockSection>
+
+
+<apex:pageBlockSection title="{!$Label.Additional_Information_Label}" columns="2">
+
+<apex:inputField taborderhint="17" value="{!Lead.LeadSource}" required="true"/>
+<apex:inputField taborderhint="21" value="{!Lead.WCW_Count__c}" required="true"/>
+<!--<apex:inputField taborderhint="20" value="{!Lead.Amount__c}" required="false"/>
+<apex:inputField taborderhint="18" value="{!Lead.Closed_Date__c}" required="false"/>
+<apex:inputField taborderhint="19" value="{!Lead.Close_Reason__c}" required="false"/>-->
+<apex/>
+<apex:outputField label="{!$Label.Created_By_Label}" value="{!Lead.createdby.name}">{!$User.FirstName} {!$User.LastName}</apex:outputField>
+<apex/>
+<apex:outputField label="{!$Label.Last_Modified_Label}" value="{!Lead.lastmodifiedby.name}">{!$User.FirstName} {!$User.LastName}</apex:outputField>
+</apex:pageBlockSection>
+
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>

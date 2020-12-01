@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Used to manage license allocation automatically.</description>
+    <fields>
+        <fullName>Package_Namespace__c</fullName>
+        <description>The package namespace is used to specify the package that licenses are being managed for.</description>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <inlineHelpText>Choose the package namespace for the license yo want to manage.</inlineHelpText>
+        <label>Package Namespace</label>
+        <required>true</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>seismic</fullName>
+                    <default>true</default>
+                    <label>seismic</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>User_Profile_API_Names__c</fullName>
+        <description>Holds a list of comma separated values used to allocate user licenses.</description>
+        <externalId>false</externalId>
+        <fieldManageability>SubscriberControlled</fieldManageability>
+        <inlineHelpText>Enter user profile api/developer names separated by commas.</inlineHelpText>
+        <label>User Profile API Names</label>
+        <length>10000</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>License Manager</label>
+    <pluralLabel>License Manager</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

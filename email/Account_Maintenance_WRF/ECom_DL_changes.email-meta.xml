@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>ECom DL changes</name>
+    <style>freeForm</style>
+    <subject>ECom DL changes - {!Case.Subject}</subject>
+    <textOnly>Customer Name: {!Case.ACCT_Name__c}&lt;?xml:namespace prefix = o ns = &quot;urn:schemas-microsoft-com:office:office&quot; /&gt;
+Account Number: {!Case.ACCT_Account_Number__c}
+Requestor Name:  {!Case.WRF_Requestor_Name__c}
+Account Owner: {!Account.OwnerFullName}
+
+Click here to go to the support case
+
+* Follow up requested **
+Please login to SalesForce to review this case and attachments. In the case, review the attached .zip file which includes procedural documentation and excel file. Make your changes on the user download and submit it in a reply email. If you have a question about a column&apos;s use, review the procedural documentation which is also included in the zip file. Make your corrections to the excel file and return the modified excel file in a reply to this email.
+
+Thank you,
+
+Account Maintenance Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

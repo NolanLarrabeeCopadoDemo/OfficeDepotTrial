@@ -1,0 +1,250 @@
+<!--
+    Copyright (c)2008, Matthew Friend, Sales Engineering, Salesforce.com Inc.
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. 
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+          Neither the name of the?salesforce.com nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. 
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+    EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+
+<apex:page standardController="account"  extensions="AccountStructure" sidebar="False" tabStyle="Account" id="page" readOnly="true">  
+
+<html>
+     <head> 
+        <style>         
+            th {
+                background: url("/img/alohaSkin/grid_headerbg.gif") repeat-x scroll 0 bottom #FFFFFF;
+                border-width: 0 0 0px 0px;
+                color: #000000;
+                font-size: 0.9em; 
+                font-weight: bold;
+                padding: 5px 2px 4px 0px;
+            }       
+            .headerClass{
+                background-color:#6ED3FF;
+                width: 100%;                
+            } 
+            .messageClass{
+                border-color: #FF9900;
+                background-color: #FFFFCC;
+                border-style: solid;
+                border-width: 1px;
+                color: #000000;
+                margin: 4px 20px;
+                padding: 6px 8px 6px 6px;               
+            }
+            .messageClass1{
+                border-color: #FF9900;
+                background-color: #FFFFCC;
+                border-style: solid;
+                border-width: 1px;
+                color: #000000;
+                margin: 4px 20px;
+                padding: 6px 8px 6px 6px;
+                width:400px;                
+            }
+            
+            td {
+            font-size: 95%;
+            color: #333333;
+            }
+            
+            .redText {
+                color :red;
+            } 
+        </style> 
+        <script type="text/javascript">
+            function checkAll(checkAll)
+            {
+                var inputElem = document.getElementsByTagName("input"); 
+                for(i=0 ; i < inputElem.length; i++) {
+                    if(inputElem[i].type == 'checkbox') {
+                        inputElem[i].checked = checkAll;
+                    }
+                }
+            }
+            function validateCheckbox()
+            {
+                var inputElem = document.getElementsByTagName("input");
+                var count = 0; 
+                for(i=0 ; i < inputElem.length; i++) {
+                    if(inputElem[i].type == 'checkbox') {
+                        if(inputElem[i].checked == true){
+                            count = count + 1;
+                        }
+                    }
+                }
+                
+                if(count > 999){                                
+                    document.getElementById('selectedCheckboxCount').innerHTML = count;
+                    document.getElementById('checkboxSelectionValidate').style.display = "none"; 
+                    document.getElementById('checkboxSelectionValidateMax').style.display = "block"; 
+                    return false;
+                }
+                else if(count > 0 && count < 1000){
+                    return true;
+                }
+                else if(count < 1){
+                    document.getElementById('checkboxSelectionValidateMax').style.display = "none";
+                    document.getElementById('checkboxSelectionValidate').style.display = "block";  
+                    return false;
+                }
+            }
+            
+        </script>
+     </head>
+   </html>
+ <apex:outputLabel styleClass="messageClass" style="margin: 4px 20px 300px 400px;" rendered="{!ObjectStructure.size > 2249}" > 2250 account limit reached - list below is abbreviated</apex:outputLabel>
+ <div id="checkboxSelectionValidate" class ="messageClass" style="display:none" > Please select at least one checkbox</div>
+ <div id="checkboxSelectionValidateMax" class ="messageClass" style="display:none" > Only 1000 reps can be notified for each email - you currently have <span id = 'selectedCheckboxCount'></span>  selected</div><div></div>   
+
+<br/>
+<apex:Form id="theform">
+   <apex:pageblock >
+    <apex:pageBlockButtons location="top">
+     <apex:commandButton value="{!$Label.Send_Email_lbl}" onclick="return validateCheckbox();" action="{!selectedAccounts}" />          
+  </apex:pageBlockButtons> 
+ <table border="1" cellspacing="2" width="2000px" cellpadding="0">
+    <tr class="headerClass" >
+    <th width="80px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<apex:inputCheckbox onclick="checkAll(this.checked)" /></th>
+    <th width="210px">&nbsp;<apex:outputLabel value="{!$Label.Name_lbl}"/></th>
+    <th width="80px">&nbsp;<apex:outputLabel value="{!$Label.Cust_ID_lbl}"/></th>
+    <th width="80px">&nbsp;<apex:outputLabel value="{!$Label.OMXPrimaryKey_lbl}"/></th>
+    <th width="100px">&nbsp;<apex:outputLabel value="{!$Label.Segment_lbl}"/></th>
+    <th width="150px">&nbsp;<apex:outputLabel value="{!$Label.Belongs_To_lbl}"/></th>
+    <th width="160px">&nbsp;<apex:outputLabel value="{!$Label.Acount_owner_Manager_lbl}"/></th>
+    <th width="125px">&nbsp;<apex:outputLabel value="{!$Label.Owner_lbl}"/></th>
+    <th width="70px">&nbsp;<apex:outputLabel value="{!$Label.Diversity_Partner_lbl}"/></th>
+    <th width="70px">&nbsp;<apex:outputLabel value="{!$Label.OD_Title_lbl}"/></th>
+    <th align="right" width="60px">&nbsp;&nbsp;<apex:outputLabel style="text-align:right" value="{!$Label.YTD_Sales_TY_lbl}"/></th>
+    <th align="right" width="60px">&nbsp;&nbsp;<apex:outputLabel style="text-align:right" value="{!$Label.YTD_IMU_TY_lbl}"/></th>
+    <th align="right" width="70px">&nbsp;&nbsp;<apex:outputLabel style="text-align:right" value="{!$Label.YTD_Sales_LY_lbl}"/></th>
+    <th align="right" width="70px">&nbsp;&nbsp;<apex:outputLabel style="text-align:right" value="{!$Label.YTD_IMU_LY_lbl}"/></th>
+    <th align="right" width="70px">&nbsp;&nbsp;<apex:outputLabel style="text-align:right" value="{!$Label.YTD_Sales_Diff_lbl}"/></th>
+    <th width="100px">&nbsp;<apex:outputLabel value="{!$Label.City_State_lbl}"/></th>
+    <th align="right" width="90px">&nbsp;<apex:outputLabel value="{!$Label.Last_Order_lbl}"/></th>
+    <th align="right" width="90px">&nbsp;<apex:outputLabel value="{!$Label.Last_Activity_lbl}"/></th>
+    </tr> 
+ </table>
+ 
+    <div class="treeNode" style="border:1px solid gray;padding:0px;" width="100%" >
+      <apex:repeat value="{!ObjectStructure}" var="pos" >
+       <table cellpadding="1" cellspacing="1" border="0" width="100%">
+          <tr  bgColor = '#FFFFFF' onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'">
+            <td width="40px" >
+                <apex:repeat value="{!pos.levelFlag}" var="flag" first="0">
+                  <apex:image url="/img/tree/empty.gif" height="12" width="18" rendered="{!IF(flag,false,true)}"/>
+                  <apex:image url="/s.gif" alt="" width="3" height="9" rendered="{!IF(flag,true,false)}"/>                  
+                </apex:repeat>
+                <apex:outputText rendered="{!IF(pos.nodeType=='start',true,false)}">
+                    <apex:image id="tree_start" url="/img/tree/minusStart.gif" height="12" width="18" title="Click to expand/collapse nested items." onClick="TreeNodeElement.prototype.toggle(this,'{!pos.nodeId}')"/>                  
+                </apex:outputText>
+                <apex:outputText rendered="{!IF(OR(pos.nodeType=='parent',pos.nodeType=='parent_end'),true,false)}">
+                    <apex:image id="Tree_parent" url="/img/tree/minus.gif" rendered="{!IF(pos.nodeType=='parent',true,false)}" height="12" width="18" title="Click to expand/collapse nested items." onClick="TreeNodeElement.prototype.toggle(this,'{!pos.nodeId}')"/>
+                    <apex:image id="Tree_parent_end" url="/img/tree/minusEnd.gif" rendered="{!IF(pos.nodeType=='parent_end',true,false)}" height="12" width="18" title="Click to expand/collapse nested items." onClick="TreeNodeElement.prototype.toggle(this,'{!pos.nodeId}')"/>  
+                </apex:outputText>                
+              </td>
+              <td width="40">
+                <input type="checkbox" name="{!pos.account.Id}" id="{!pos.account.Id}" value="1" />
+              </td>
+    
+              <td width="210">
+                <apex:outputLink value="/{!pos.account.id}" style="{!IF(pos.currentNode,'font-weight: bold;font-size: 90%','font-size: 90%')}" styleClass="columnHeadActiveBlack" target="_top">{!pos.account.name}</apex:outputLink>
+                  <apex:outputText rendered="{!IF(OR(pos.nodeType=='child',pos.nodeType=='child_end'),true,false)}">
+                    <apex:image id="Icon_child_current" url="/img/icon/star16.png" width="18" height="12" rendered="{!IF(pos.currentNode,true,false)}"/>
+                  </apex:outputText>
+              </td>
+              <td width="80px">&nbsp;
+                <apex:outputText style="{!IF(pos.currentNode,'font-weight: bold','')}" value="{!pos.account.Cust_ID__c}" />
+              </td>
+              <td width="120px">&nbsp;
+                <apex:outputText style="{!IF(pos.currentNode,'font-weight: bold','')}" value="{!pos.account.OMX_Primary_Key__c}" />
+              </td>
+              <td width="100px">&nbsp;
+                <apex:outputText style="{!IF(pos.currentNode,'font-weight: bold','')}" value="{!pos.account.Segment__c}" />
+              </td>
+              <td width="150px">&nbsp;
+                <apex:outputText style="{!IF(pos.currentNode,'font-weight: bold','')}" value="{!pos.account.Buying_Group__c}" />
+              </td>
+              <td width="180px">&nbsp;
+                <apex:outputText style="{!IF(pos.currentNode,'font-weight: bold','')}" value="{!pos.account.Account_Owner_Manager_Name__c}" />
+              </td>
+              <td width="125px">&nbsp;
+                <apex:outputText >
+                  <apex:outputLink value="/_ui/core/email/author/EmailAuthor?p3_lkid={!pos.account.id}&retURL=/{!pos.account.id}&p24={!pos.account.owner.email}&p5=" style="{!IF(pos.currentNode,'font-weight: bold','')}" styleClass="columnHeadActiveBlack" target="_blank">{!pos.account.owner.name}</apex:outputLink>
+                </apex:outputText>
+              </td>
+              <td width="140px">&nbsp;
+                <apex:outputLink value="/{!pos.account.Tier_1_Partner__c}" target="_blank" style="{!IF(pos.currentNode,'font-weight: bold','')}" styleClass="columnHeadActiveBlack">{!pos.account.Tier_1_Partner__r.name}</apex:outputLink>
+              </td>
+              <td width="70px">&nbsp;
+                <apex:outputText style="{!IF(pos.currentNode,'text-align: left; font-weight: bold','text-align: left;')}" value="{!pos.account.owner.Short_Title__c}" />
+              </td>
+              <td align="right" width="80px">            
+                <apex:outputText styleclass="{!IF(pos.currentNode,'text-align: right; font-weight: bold', IF(pos.account.YTD_Sales_TY__c < 0,'redText','text-align: right'))}" value="{0, Number, $#,###}" rendered="True" >
+                <apex:param value="{!pos.account.YTD_Sales_TY__c}"/>
+                </apex:outputText>
+              </td>
+              <td align="right" width="70px">            
+                <apex:outputText styleclass="{!IF(pos.currentNode,'text-align: right; font-weight: bold','text-align: right' )}" value="{!pos.account.YTD_Sales_TY_IMU2__c}%" rendered="True" >
+                </apex:outputText>
+              </td>
+              <td align="right" width="80px">
+                <apex:outputText styleclass="{!IF(pos.currentNode,'text-align: right; font-weight: bold', IF(pos.account.YTD_Sales_LY__c < 0,'redText','text-align: right'))}" value="{0, Number, $#,###}" rendered="True" >
+                    <apex:param value="{!pos.account.YTD_Sales_LY__c}"/>             
+                </apex:outputText>
+              </td>
+              <td align="right" width="70px">            
+                <apex:outputText styleclass="{!IF(pos.currentNode,'text-align: right; font-weight: bold','text-align: right' )}" value="{!pos.account.YTD_Sales_LY_IMU2__c}%" rendered="True" >
+                </apex:outputText>
+              </td>
+              <td align="right" width="80px">
+                <apex:outputText styleclass="{!IF(pos.currentNode,'text-align: right; font-weight: bold', IF(pos.account.YTD_Sales_Diff__c < 0,'redText','text-align: right'))}" value="{0, Number, $#,###}" rendered="True">                  
+                <apex:param value="{!pos.account.YTD_Sales_Diff__c}"/>             
+                </apex:outputText>
+              </td>
+              <td width="120px">&nbsp;
+                <apex:outputText style="{!IF(pos.currentNode,'font-weight: bold','')}" value="{!pos.account.City__c}, {!pos.account.State__c}" rendered="True"/>
+              </td>
+              <td align="right" width="90px">    
+                <apex:outputText style="{!IF(pos.currentNode,'font-weight: bold','')}" value="{0,date,MM'/'dd'/'yyyy}" rendered="true">
+              <apex:param value="{!pos.account.Last_Order_Date__c}"/> 
+                </apex:outputText>
+              </td>            
+              <td align="right" width="110px">
+                <apex:outputText style="{!IF(pos.currentNode,'font-weight: bold','')}" value="{0,date,MM'/'dd'/'yyyy}" rendered="true">
+                    <apex:param value="{!pos.account.lastactivitydate}"/>               
+                </apex:outputText>
+              </td> 
+            </tr>
+            </table>
+           
+         
+            
+            <div> </div>
+            <apex:outputText rendered="{!IF(OR(pos.nodeType=='child_end',pos.nodeType=='child'),false,true)}">
+                <div id='{!pos.nodeId}'></div>
+            </apex:outputText>
+            <apex:outputText rendered="{!IF(OR(pos.nodeType=='child_end',pos.nodeType=='child'),true,false)}">
+                <div id='{!pos.nodeId}'><apex:image url="/s.gif" alt="" width="1" height="1"/></div>
+            </apex:outputText>
+            <apex:repeat value="{!pos.closeFlag}" var="close">
+                
+            </apex:repeat> 
+        </apex:repeat>
+    </apex:Pageblock>
+    <br/><br/><br/>
+    </div>
+    
+</apex:Form>    
+</apex:page>

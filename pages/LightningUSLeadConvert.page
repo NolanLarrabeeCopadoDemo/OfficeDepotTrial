@@ -1,0 +1,17 @@
+<apex:page standardController="Lead" standardStylesheets="false" showHeader="false" sidebar="false">
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    <script>
+        $Lightning.use("c:US_ConvertApp", function() {
+          $Lightning.createComponent("c:US_Convert",
+          {recordId : '{!Lead.Id}'},
+          "lightning",
+          function(cmp) {
+          });
+        });
+    </script>
+    <div id="lightning">
+    </div>
+</apex:page>

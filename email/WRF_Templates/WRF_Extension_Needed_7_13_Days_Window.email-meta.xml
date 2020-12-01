@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that an extension is needed for 7-13 days for a RFP</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Extension Needed 7-13 Days Window</name>
+    <style>freeForm</style>
+    <subject>WRF Extension Needed 7-13 Days Window: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+Thank you for your Work Request submission for {!Case.Account}.  We appreciate the opportunity to work with you.
+
+
+This bid is due {!Case.WRF_Prpsl_Deadln__c}. Our standard turn around time to complete a bid request is 10 to 13 business days. We have tasked the applicable support teams; however, in order to guarantee a quality and completed response, please try to secure an extension to be completed.  Please let the individuals tasked to this support know if you are able to obtain an extension of the due date.
+
+
+Thank you
+
+
+BSD BIDS</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

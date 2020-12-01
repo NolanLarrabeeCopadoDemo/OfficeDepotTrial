@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account.Contracts.Contract_Pricing_Terms__r$Id</field>
+    </columns>
+    <columns>
+        <field>Account.Contracts.Contract_Pricing_Terms__r$Departments__c</field>
+    </columns>
+    <columns>
+        <field>Account.Contracts.Contract_Pricing_Terms__r$Department_Groups__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>CPT Production Data</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Contract_Pricing_Terms__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account$CBS_Last_Order__c</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

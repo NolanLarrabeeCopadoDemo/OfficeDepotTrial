@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_19751543</developerName>
+        <masterLabel>Rep Type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>CREATED</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Barbara Graves</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Dylan Savage</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Janice Landree</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Lanae Neal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Peyton Engh</sourceValue>
+            </sourceValues>
+            <value>SA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Eduardo Hernandez</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jennifer Docker</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Kevin Neal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Richard Coan</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Roderick Henderson</sourceValue>
+            </sourceValues>
+            <value>SSA</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Ethan Jorgenson</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jonah Beukman</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ryan Peltier</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Timothy Masiello</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tyler Thomann</sourceValue>
+            </sourceValues>
+            <value>Reveneer</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>TITLE</field>
+    </columns>
+    <columns>
+        <field>COMPANY</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>LEAD_SOURCE</field>
+    </columns>
+    <columns>
+        <field>EMAIL</field>
+    </columns>
+    <description>Leads created by rep type</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_19751543</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>BizBox Sales- Leads Created Today-Rep</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>LeadList</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_TODAY</interval>
+    </timeFrameFilter>
+</Report>

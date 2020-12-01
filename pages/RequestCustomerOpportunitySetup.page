@@ -1,0 +1,169 @@
+<apex:page id="myPage" standardController="Opportunity" extensions="RequestCustomerOpportunitySetupExtension" action="{!getRedir}"  showHeader="{!!isValid}" sidebar="{!!isValid}">
+
+  <apex:sectionHeader title="Request Customer Opportunity Setup" subtitle="{!relevantAccount.Name}" rendered="{!!isValid}"/>  
+  <apex:pageMessages rendered="{!!isValid}"/>
+  <apex:outputPanel rendered="{!isValid}" >
+    <apex:outputText id="myStatus" value="Please Wait ..."/>
+    <script>
+      var errTxt;
+      var ct = 1;
+      var sleepMs = 500;
+      var startMs;
+      var acctId = "{!relevantAccount.Id}";
+      var acctUrl1 = "{!relevantAccount.Setup_URL1__c}";
+      //alert(acctUrl1);
+      if(acctUrl1 != null && acctUrl1 != '') {  // no longer used  && acctUrl2 != null && acctUrl2 != '') 
+        window.location.href = acctUrl1; 
+      }
+      else {
+        startMs = new Date().getTime();
+        window.setTimeout(checkUrls,sleepMs);
+      }
+      
+      function wrtStatus(pMsg) {
+        var newMsg1 = decodeURIComponent(pMsg.replace(/\+/g,  " "));
+        var newMsg2 = newMsg1.replace("\n","<br/>");
+        document.getElementById('{!$Component.myPage.myStatus}').innerHTML = newMsg2;
+        alert(newMsg1);
+      }
+
+      function checkUrls() {
+        var endMs = new Date().getTime();
+        if ((endMs - startMs) < (sleepMs*0.9)) {
+          errTxt = "INTERNAL ERROR:  Unexpected timeout values.  Cannot start Customer Setup.\nTimeout  start=" + startMs + " end=" + endMs;
+          wrtStatus(errTxt);
+          return;
+        }
+        
+        RequestCustomerOpportunitySetupExtension.checkUrls(acctId,
+          function(result, event){
+            
+            if (event.status && result[0] != null) {  // no longer used  && result[1] != null)
+              if (result[0].search("^http") < 0) {
+                errTxt = "INTERNAL ERROR: Expected URL in account.Setup_URL1 but found\nlen=" + result[0].length + " val=" + result[0];
+                wrtStatus(errTxt);
+                return;
+              }
+              
+              goToCTWithDefaultParms(result[0]);  // no longer used  result[1]);
+            } else {
+              ++ct;
+      
+              if (ct >= 20) {
+                errTxt = "There is an issue with ClickTools Survey processing.  Please try again.";
+                wrtStatus(errTxt);
+              } else {
+                startMs = new Date().getTime();
+                window.setTimeout(checkUrls,sleepMs);
+              }
+            }
+          }
+        , {escape:true});
+      }
+    
+      function goToCTWithDefaultParms(url1) {
+        var urlparts = "";  
+        urlparts += "&q1={!relevantAccount.Id}";
+        urlparts += "&q2={!pricingTemp.Acct_Auto_Setup__c}";
+        //urlparts += "&q2=I";
+        urlparts += "&q3={!URLENCODE(relevantAccount.Name)}";
+        urlparts += "&q4={!URLENCODE(relevantAccount.Owner.Id)}";
+        urlparts += "&q5={!relevantAccount.Phone}";
+        urlparts += "&q6={!relevantAccount.Est_Spend__c}";
+        urlparts += "&q7={!relevantAccount.Org_WCW_Count_Rep__c}";
+        urlparts += "&q10={!URLENCODE(relevantAccount.Segment__c)}";
+        urlparts += "&q12={!URLENCODE(relevantAccount.Name)}";
+        urlparts += "&q13={!URLENCODE(siteAccount.Address1__c)}";
+        urlparts += "&q14={!URLENCODE(siteAccount.Address2__c)}";
+        urlparts += "&q15={!URLENCODE(siteAccount.City__c)}";
+        urlparts += "&q16={!URLENCODE(siteAccount.State__c)}";
+        urlparts += "&q17={!URLENCODE(siteAccount.Zip__c)}";
+        urlparts += "&q18={!URLENCODE(siteAccount.Country__c)}";
+        urlparts += "&q20={!URLENCODE(siteAccount.Name)}";
+        urlparts += "&q21={!URLENCODE(siteAccount.Address1__c)}";
+        urlparts += "&q22={!URLENCODE(siteAccount.Address2__c)}";
+        urlparts += "&q23={!URLENCODE(siteAccount.City__c)}";
+        urlparts += "&q24={!URLENCODE(siteAccount.State__c)}";
+        urlparts += "&q25={!URLENCODE(siteAccount.Zip__c)}";
+        urlparts += "&q26={!URLENCODE(siteAccount.Country__c)}";
+        urlparts += "&q27={!URLENCODE(primaryContact.Salutation)}";
+        urlparts += "&q28={!URLENCODE(primaryContact.FirstName)}";
+        urlparts += "&q29={!URLENCODE(primaryContact.LastName)}";
+        urlparts += "&q30={!URLENCODE(primaryContact.Title)}";
+        urlparts += "&q31={!URLENCODE(primaryContact.Role__c)}";
+        urlparts += "&q32={!primaryContact.Phone}";
+        urlparts += "&q33={!primaryContact.Fax}";
+        urlparts += "&q34={!URLENCODE(primaryContact.Email)}";
+        urlparts += "&q37={!URLENCODE(relevantAccount.Duns_Number__c)}";
+        urlparts += "&q38={!URLENCODE(relevantAccount.Ultimate_Duns_Number__c)}";
+        //urlparts += "&q39={!pricingTemp.Parent_Id__c}";
+        // Parent Account gets passed from related prospect account based on pricing template -- Kjena 08/26/2013
+        urlparts += "&q39={!relevantAccount.Related_Parent_Account__c}";
+        urlparts += "&q40={!pricingTemp.Cust_Prod_Xref__c}";
+        urlparts += "&q41={!pricingTemp.Off_Contract_Code__c}";
+        urlparts += "&q42={!pricingTemp.Off_Contract_Percent__c}";
+        urlparts += "&q43={!pricingTemp.Off_Wholesale_Code__c}";
+        urlparts += "&q44={!pricingTemp.Off_Wholesale_Percent__c}";
+        urlparts += "&q45={!pricingTemp.GP_Floor_Percernt__c}";
+        urlparts += "&q46={!pricingTemp.Price_Plan_Id__c}";
+        urlparts += "&q47={!pricingTemp.Exclude_Universal_Pricing__c}";// Added this for Case # 12356 - Mohan
+        urlparts += "&q50={!pricingTemp.Loyalty__c}";
+        urlparts += "&q61={!pricingTemp.Minimum_Order_Value__c}";
+        urlparts += "&q62={!pricingTemp.Freight_Charge__c}";
+        urlparts += "&q63={!pricingTemp.Delivery_Code__c}";
+        urlparts += "&q82={!relevantAccount.Payment_Term__c}"; 
+        urlparts += "&q85={!relevantAccount.Est_Spend__c}";      
+      
+       // urlparts += "&q79={!URLENCODE(NewPayable.Salutation)}";
+       // urlparts += "&q80={!URLENCODE(NewPayable.FirstName)}";
+       // urlparts += "&q81={!URLENCODE(NewPayable.LastName)}";
+       // urlparts += "&q82={!URLENCODE(NewPayable.Title)}";
+       // urlparts += "&q83={!NewPayable.Phone}";
+       // urlparts += "&q84={!NewPayable.Fax}";
+        //urlparts += "&q89={!URLENCODE(NewPayable.Email)}";
+        //urlparts += "&q88={!URLENCODE(NewPayable.Role__c)}";
+        //urlparts += "&q92={!URLENCODE(NewEbilling.Salutation)}";
+        //urlparts += "&q93={!URLENCODE(NewEbilling.FirstName)}";
+        //urlparts += "&q94={!URLENCODE(NewEbilling.LastName)}";
+        //urlparts += "&q87={!URLENCODE(NewEbilling.Title)}";
+        //urlparts += "&q95={!NewEbilling.Phone}";
+        //urlparts += "&q97={!NewEbilling.Fax}";
+        //urlparts += "&q96={!URLENCODE(NewEbilling.Email)}";
+        urlparts += "&q122={!pricingTemp.Contract_Number_1__c}";
+        urlparts += "&q124={!pricingTemp.Priority_1__c}";
+        urlparts += "&q125={!pricingTemp.Contract_Number_2__c}";
+        urlparts += "&q127={!pricingTemp.Priority_2__c}";
+        urlparts += "&q128={!pricingTemp.Contract_Number_3__c}";
+        urlparts += "&q130={!pricingTemp.Priority_3__c}";
+        urlparts += "&q131={!pricingTemp.Contract_Number_4__c}";
+        urlparts += "&q133={!pricingTemp.Priority_4__c}";
+        urlparts += "&q134={!pricingTemp.Contract_Number_5__c}";
+        urlparts += "&q136={!pricingTemp.Priority_5__c}";
+        urlparts += "&q137={!pricingTemp.Contract_Number_6__c}";
+        urlparts += "&q139={!pricingTemp.Priority_6__c}";
+        urlparts += "&q140={!pricingTemp.Contract_Number_7__c}";
+        urlparts += "&q142={!pricingTemp.Priority_7__c}";
+        urlparts += "&q143={!pricingTemp.Contract_Number_8__c}";
+        urlparts += "&q145={!pricingTemp.Priority_8__c}";
+        urlparts += "&q146={!pricingTemp.Contract_Number_9__c}";
+        urlparts += "&q148={!pricingTemp.Priority_9__c}";
+        urlparts += "&q149={!pricingTemp.Contract_Number_10__c}";
+        urlparts += "&q151={!pricingTemp.Priority_10__c}";
+        // Automatic Account Setup is passed from pricing template -- By kjena 08/26/2013
+        urlparts += "&q162={!URLENCODE(relevantAccount.Sales_PersonID__r.name)}";
+        urlparts += "&q163={!URLENCODE(relevantAccount.Oracle_Party_ID__c)}";
+        urlparts += "&q164={!URLENCODE(siteAccount.Oracle_Party_Site_ID__c)}";
+        urlparts += "&q167={!URLENCODE(pricingTemp.Revenue_Band__c)}";
+        urlparts += "&q168={!pricingTemp.Account_Setup_Notes_c__c}";
+        //alert(decodeURIComponent(url1)+urlparts);
+        window.location.href = decodeURIComponent(url1)+urlparts;   
+      }
+    </script>
+  </apex:outputPanel>
+  
+  <apex:outputPanel rendered="false">
+    {!Opportunity.StageName}
+    {!Opportunity.AccountId}
+  </apex:outputPanel>
+  
+</apex:page>

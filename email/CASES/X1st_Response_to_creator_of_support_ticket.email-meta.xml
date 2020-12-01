@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>1st Response to creator of support ticket</name>
+    <style>freeForm</style>
+    <subject>Regarding Support Request #{!Case.CaseNumber} Subject {!Case.Subject}</subject>
+    <textOnly>Dear {!Case.Support_Requester__c},
+
+
+
+This is confirmation that your support case has been received and work has begun on your issue/request. You may review the progress on this case by referring to the link below. You will be contacted with any questions/concerns, and will also be notified when your case has been completed.
+
+
+
+
+
+Support #: {!Case.CaseNumber}
+
+Support Subject: {!Case.Subject}
+
+
+
+
+
+Regards,
+
+Sales Enablement Team
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

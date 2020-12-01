@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>DML_Relation_History__c.DML_Relation_Modified_By__c</field>
+    </columns>
+    <columns>
+        <field>DML_Relation_History__c.DML__c</field>
+    </columns>
+    <columns>
+        <field>DML_Relation_History__c.Effective_Start_Date__c</field>
+    </columns>
+    <columns>
+        <field>CUST_LAST_UPDATE</field>
+    </columns>
+    <columns>
+        <field>DML_Relation_History__c.Effective_End_Date__c</field>
+    </columns>
+    <columns>
+        <field>DML_Relation_History__c.CUSTOMERID__c</field>
+    </columns>
+    <columns>
+        <field>DML_Relation_History__c.Current_DML__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>DML Changes: Accounts</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$DML_Relation_History__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_LAST_UPDATE</dateColumn>
+        <interval>INTERVAL_LASTMONTH</interval>
+    </timeFrameFilter>
+</Report>

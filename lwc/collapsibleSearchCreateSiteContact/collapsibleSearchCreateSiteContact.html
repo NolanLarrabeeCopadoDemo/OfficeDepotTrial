@@ -1,0 +1,15 @@
+<template>
+    <template if:true={isCollapsible}>
+        <lightning-accordion allow-multiple-sections-open active-section-name={active_section}>
+            <lightning-accordion-section name="SearchCreateSite" label={labels.Search_Or_Create_Site_Contact_Title}>
+                <c-search-or-create-site-contact record-id={recordId}></c-search-or-create-site-contact>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </template>
+    <template if:false={isCollapsible}>
+        <lightning-card title={labels.Search_Or_Create_Site_Contact_Title} label={labels.Search_Or_Create_Site_Contact_Title}>
+            <c-search-or-create-site-contact record-id={recordId}></c-search-or-create-site-contact>
+        </lightning-card>
+    </template>
+
+</template>

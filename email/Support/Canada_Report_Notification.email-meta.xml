@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Canada Report Notification - When a request request arrives</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Canada Report Notification</name>
+    <style>freeForm</style>
+    <subject>{!Case.Support_Requester__c} has requested a {!Case.Support_Type__c} - {!Case.Support_Sub_Type__c}</subject>
+    <textOnly>You have a new report request:
+
+Language: {!Case.GT_Report_Language__c}
+Your Province:  {!Case.Related_Acct_State__c}
+Customer&apos;s Name-Nom du client: {!Case.Account}
+Request Date:  {!Case.CreatedDate}
+From: {!Case.Support_Requester__c}
+Account #:  {!Case.ACCT_Account_Number__c}
+Type of Request 1-Type de demande 1:
+Options for Usage Report: {!Case.Support_Sub_Type__c}
+Core Flag (Y/N): {!Case.AM_Core_Action_1__c}
+Additional Information: {!Case.Description}
+Report Time Frame: {!Case.Report_Timeframe__c}
+Status:  {!Case.Status}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

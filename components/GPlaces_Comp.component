@@ -1,0 +1,214 @@
+<apex:component allowDML="true" >
+    
+    
+    <script type="text/javascript">
+    function reload_country_state(){        
+            document.getElementById(statusmessage).value = "Google Address Found";                          
+        }
+    </script>      
+    
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={!$Label.Google_Place_Key}&libraries=places"></script>
+     
+     <apex:attribute name="address1_id" description="Address1 id from page" type="String" required="true"/>
+     <apex:attribute name="state_id" description="state id from page" type="String" required="true"/>
+     <apex:attribute name="address2_id" description="Address2 id from paged" type="String" required="true"/>
+     <apex:attribute name="zip_id" description="zip id from page" type="String" required="true"/>
+     <apex:attribute name="city_id" description="city id from page" type="String" required="true"/>
+     <apex:attribute name="country_id" description="country id from page" type="String" required="true"/>
+     <apex:attribute name="acc_name_id" description="acc name id from page" type="String" required="true"/>
+     <apex:attribute name="phone_id" description="phone id from page" type="String" required="true"/>
+     
+     <apex:outputLabel value="Global Address Search" for="field" style="font-weight:bold;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <apex:inputText label="" size="60" id="addressfield">                       
+         <apex:actionSupport event="onchange" oncomplete="reload_country_state();return false;"  rerender="country_id">  
+         </apex:actionSupport>
+     </apex:inputText>
+     <div id="statusmessage" value=' '></div>
+               
+      <script type="text/javascript">  
+        // initialize the google places components
+        initialize();
+                   
+        // This example displays an address form, using the autocomplete feature
+        // of the Google Places API to help users fill in the information.
+        var autocomplete;
+        var componentForm = {
+            name: 'long_name',
+            international_phone_number: 'long_name',
+            locality: 'long_name',
+            postal_town: 'long_name',
+            administrative_area_level_1: 'short_name',
+            administrative_area_level_2: 'short_name',
+            country: 'short_name',
+            postal_code: 'short_name',
+            route: 'long_name',
+            street_number: 'long_name',
+            street: 'long_name',
+            website: 'long_name',
+        };
+                 
+        function initialize() {
+            // Create the autocomplete object, restricting the search
+            // to geographical location types.
+            var input = document.getElementById('{!$Component.addressfield}');
+            var options = {types: [], fields:['address_components', 'formatted_address', 'geometry', 'name']};
+            autocomplete = new google.maps.places.Autocomplete(input, options);
+            // When the user selects an address from the dropdown,
+            // populate the address fields in the form.
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            // call back function after user clicks on a location
+            fillInAddress();
+            });
+        }
+    
+    
+        function fillInAddress() {
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+            
+            // Get each component of the address from the place details
+            // and fill the corresponding field on the form.
+            var street_number = '', route = '', administrative_area_level_1 = '';
+            var administrative_area_level_2 = '', country = '', postal_code = '',locality='';
+            var GAddr_Flag= false;
+            
+            if(place.address_components.length > 0)
+                GAddr_Flag = true;
+            
+            //alert(JSON.stringify(place.address_components));            
+            //alert(place.address_components.length);
+            
+            for (var i = 0; i < place.address_components.length; i++) {
+                
+                var addressType = place.address_components[i].types[0];                           
+                //alert(addressType +'-----' + place.address_components[i][componentForm[addressType]]);                
+                
+                if (addressType === 'street_number')// get the street number
+                {                    
+                    if(place.address_components[i][componentForm[addressType]] === 'undefined')
+                        street_number = '';
+                    else
+                        street_number = place.address_components[i][componentForm[addressType]];
+                    //alert('street_number: ' + street_number);
+                }
+                else if (addressType === 'route') // get the street name
+                {   
+                    if(place.address_components[i][componentForm[addressType]] === 'undefined')
+                        route = '';
+                    else
+                        route = place.address_components[i][componentForm[addressType]];
+                    //alert('route: ' + route);
+                }
+                else if(addressType === 'locality')//city
+                {
+                    if(place.address_components[i][componentForm[addressType]] === 'undefined')
+                        locality = '';
+                    else
+                        locality = place.address_components[i][componentForm[addressType]];
+                    //alert('locality: ' + locality);
+                }
+                /*else if (addressType === 'administrative_area_level_2')// get the county
+                {
+                    if(place.address_components[i][componentForm[addressType]] === 'undefined')
+                        administrative_area_level_2 = '';
+                    else
+                        administrative_area_level_2 = place.address_components[i][componentForm[addressType]];                    
+                }*/
+                else if (addressType === 'administrative_area_level_1')// get the state
+                {
+                    if(place.address_components[i][componentForm[addressType]] === 'undefined')
+                        administrative_area_level_1 = '';
+                    else
+                        administrative_area_level_1 = place.address_components[i][componentForm[addressType]];
+                    //alert('administrative_area_level_1: ' + administrative_area_level_1);
+                }                
+                else if (addressType === 'country') // get the country
+                {
+                    if(place.address_components[i][componentForm[addressType]] === 'undefined')
+                        country = '';
+                    else
+                        country = place.address_components[i][componentForm[addressType]];
+                    //alert('country: ' + country);
+                }
+                else if (addressType === 'postal_code') // get the postal code
+                {
+                    if(place.address_components[i][componentForm[addressType]] === 'undefined')
+                        postal_code = '';
+                    else
+                        postal_code = place.address_components[i][componentForm[addressType]];
+                    //alert('postal_code: ' + postal_code);
+                }                            
+                
+            } 
+            
+            //--------passing the addr values to page-----start
+            document.getElementById("{!address1_id}").value = street_number + ' ' + route;
+            //document.getElementById("{!address2_id}").value = ' ';            
+            document.getElementById("{!city_id}").value = locality;
+                       
+            document.getElementById("{!zip_id}").value = postal_code;            
+            
+            //set the country           
+            if(country === 'US')
+                country = 'USA';
+            else if(country === 'CA')
+                country = 'CAN';
+            //alert('Setting the Country value next: ' + country);
+            document.getElementById("{!country_id}").value = country;//(US,CA,)
+            
+            //alert('Setting the state value next: ' + administrative_area_level_1);
+            document.getElementById("{!state_id}").value = administrative_area_level_1;
+            
+            
+            //-------------Company Name-----------Start------
+            var street_len = street_number.length;            
+            //alert('place - name: ' + place['name']);
+            //if(!document.getElementById("{!acc_name_id}").value)
+            // commenting the code jira#NAIT-9702
+          /*  {
+                if(typeof(place['name'])  === 'undefined') 
+                    document.getElementById("{!acc_name_id}").value = '';
+                else if(place['name'].substring(0,street_len) == street_number)            
+                    document.getElementById("{!acc_name_id}").value = '';
+                else
+                    document.getElementById("{!acc_name_id}").value = place['name'];
+            }*/
+            //-------------Company Name-----------End------
+            
+            
+            //-------------PHone Number-----------Start------
+            //var phone_sub_str = place['international_phone_number'].substring(3,15);
+            //var undefined_str;
+            //alert('place - international_phone_number: ' + phone_sub_str.length);
+            //alert(place['international_phone_number']);
+            //alert('phone_str.typeof:' + typeof place['international_phone_number']);
+            
+            //if(!document.getElementById("{!phone_id}").value)
+            // commenting the code jira#NAIT-9702
+           /* {            
+                 
+                if(typeof(place['international_phone_number']) === 'undefined')                
+                {
+                    //alert('undefined phone number');
+                    document.getElementById("{!phone_id}").value = '';
+                }
+                else
+                {
+                    document.getElementById("{!phone_id}").value = place['international_phone_number'].substring(3,15);
+                    
+                }
+            } */
+            //-------------PHone Number-----------End------
+            
+        
+        }//end of for
+        //--------passing the addr values to page---------end
+    
+    /*$('html').on('keypress', function(e) {
+            return e.which !== 13;
+        });*/                           
+
+        
+    </script>
+    
+</apex:component>

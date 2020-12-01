@@ -1,0 +1,47 @@
+<apex:page controller="ProspectReassignController" action="{!AccessAllowed}">
+
+    <head>
+        <style>
+        .activeTab {
+    
+    font-weight: bold;
+    background-color: #85C1E9;
+    color: White;
+    width: 150px;
+    background-image: none
+}
+
+.inactiveTab {
+    
+    font-style: normal;
+    background-color: #EAECEE;
+    color: grey;
+    width: 150px;
+    background-image: none
+}
+        </style>
+    </head>
+    <br/><br/>
+    <apex:outputPanel rendered="{!NOT(pAccess)}">
+        <center>
+            <apex:image id="theImage" url="{!URLFOR($Resource.GraphicsPack,'32/tangodesktopproject/theme/process-stop.png')}" width="40" height="40" style="text-align: right;"/>
+            <br/><br/>
+           
+             <apex:outputText value="Access Denied. Your Title Does Not Allow Access To This Functionality. " ></apex:outputText> 
+           
+        </center>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    </apex:outputPanel>
+    
+
+    <apex:tabPanel switchType="client" value="{!selectedTab}" id="theTabPanel" width="100%"
+            tabClass="activeTab" inactiveTabClass="inactiveTab" rendered="{!pAccess}">
+        <apex:tab label="Assignments" name="Assignments" id="Assignments"><c:ProspectReassignC /></apex:tab>
+     <apex:tab label="Approval Requests" name="ApprovalRequests" id="ApprovalRequests"><c:ApproveRejectProspectC /></apex:tab>
+          <apex:tab label="Admin Access" name="AdminAccess" id="AdminAccess" rendered="{!AdminAccess}">
+    <apex:form >
+    <apex:commandLink value=" Click here to Access the Pending Approval Records" onclick="window.open('{!$Label.ProspectReassignAdminReport}')"/>   
+    </apex:form>
+       </apex:tab>
+
+    </apex:tabPanel>
+</apex:page>

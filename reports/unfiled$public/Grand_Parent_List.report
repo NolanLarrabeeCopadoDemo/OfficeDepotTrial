@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Account__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.OMX_Primary_Key__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.AOPS_Assigned_AOPS_Account_ID__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Written_Agreement__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Written_Agreement_ID__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>CUST_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>Grandparent</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Grand Parent List</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Customer_Transition__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Customer_Transition__c.X14_Days_before_Review_Start_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

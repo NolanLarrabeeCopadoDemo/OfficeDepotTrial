@@ -1,0 +1,28 @@
+<aura:component implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName" controller="Lead_Override">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="validRecordId" type="Boolean" default="false"/>
+    <aura:attribute name="recordTypeId" type="String"/>
+    <!-- <aura:attribute name="loaded" type="Boolean" default="false"/> -->
+    <aura:handler value="{!this}" name="init" action="c.hasRecordID" />
+    <aura:handler name="onSaveSuccess" event="force:recordSaveSuccess" action="{!c.doCloseWindow}"/>
+
+    <div class="slds-grid slds-gutters">
+        <div class="slds-large-size_1-of-6 slds-medium-size_1-of-4 slds-small-size_1-of-12"></div>
+        <lightning:card class="slds-large-size_2-of-3 slds-medium-size_1-of-2 slds-small-size_5-of-6" title="{!'Edit ' + v.sObjectName}">
+            <aura:if isTrue="{!v.validRecordId}">
+                <force:recordEdit aura:id="edit" recordId="{!v.recordId}"/>
+                <div style="height: 180px;">
+                    <div class="slds-docked-form-footer">
+                        <lightning:button label="Cancel" class="slds-button slds-button_neutral" onclick="{!c.doCloseWindow}"/>
+                        <lightning:button label="Save" class="slds-button slds-button_brand" onclick="{!c.doSave}" />
+                    </div>
+                </div>
+                <aura:set attribute="else">
+                    <div></div>
+                </aura:set>
+            </aura:if>
+        </lightning:card>
+        <div class="slds-large-size_1-of-6 slds-medium-size_1-of-4 slds-small-size_1-of-12"></div>
+    </div>
+</aura:component>

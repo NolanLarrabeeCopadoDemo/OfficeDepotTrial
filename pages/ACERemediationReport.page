@@ -1,0 +1,172 @@
+<apex:page readOnly="true" title="Remediation Reporting" controller="ACEReporting_RevMarg_WaterFall" action="{!loadDataRemediation}">
+ 
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        
+        .expandCollapse{
+        -moz-border-radius:5px 5px 5px 5px;
+        -webkit-border-radius:5px 5px 5px 5px;
+        border-radius:5px 5px 5px 5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        align:center; 
+        text-align:center; 
+        font-weight:bold;
+        background-color:#3D8C8C;
+        background-image:none;
+        width:auto;
+        height:auto;
+        color:white;
+        }
+        .borderLeft{
+            border-left: solid 1px black;
+        }
+        .borderRight{
+            border-right: solid 1px black;
+        }
+    </Style>
+    
+    <apex:outputPanel id="bucketPanel">
+        <apex:form >    
+           <apex:sectionHeader title="Reports" id="reports1" subtitle="BSD Price Change Remediation Reporting"/>
+                
+            <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%">    
+                <apex:outputPanel style="text-align: right;float:right;">
+                           <!-- <a href="/servlet/servlet.FileDownload?file=015M0000000ACus" target="_blank"> <apex:image id="theImage" value="{!$Resource.TalkingPointImage}" width="40" height="18" style="text-align: right;"/></a>-->
+                           &nbsp; 
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!loadDataRemediation}"  status="search_Status_main"/>
+                                        <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid>
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                 <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/>
+             </div>
+         </div>
+         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                 
+             <!-- Revenue Block -->
+             <div style="width:100%;background-color:white;">
+               <apex:outputPanel id="componentPanel" >   
+               <apex:pageBlock id="block">              
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                         
+                         <div class="expandCollapse" width="100%" style="width:100%">
+                             <apex:outputText value="Remediation Report" style="color:white;"/>
+                             <!-- <apex:commandLink value="Revenue" action="{!doExpand}" rendered="true" style="color:white;" rerender="block"/>-->
+                         </div>  
+                         <br/>  
+                       
+                         <apex:pageBlockTable value="{!lRemediationDataCls}" var="a" border="1">
+                             
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Pre-<br/>Quals</apex:facet><!--SfDC 00910708 -- and added listtype in the belowline-->
+                                   <a href="/apex/ACERemediationReportCustList?reportType=Remediation&listtype=Pre-Quals&quarter={!quarterValue}" target="_blank"> 
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.AutoRouteRecCount}"/>
+                                     </apex:outputText>
+                                  </a>
+                             </apex:column>
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Pre-Quals<br/>Completed</apex:facet><!--SfDC 00910708  -- and added listtype in the belowline-->
+                                   <a href="/apex/ACERemediationReportCustList?reportType=Remediation&listtype=Completed-Pre-Quals&quarter={!quarterValue}" target="_blank"> 
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.CompletedRouteRecCount}"/>
+                                     </apex:outputText>
+                                   </a>
+                             </apex:column>
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Avg Time<br/>to Complete<br/>Pre-Quals</apex:facet><!--SfDC 00910708  -->
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.AvgTimeAutoRoutes}"/>
+                                     </apex:outputText>
+                                
+                             </apex:column>
+                             
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Sales Support<br/>Requests</apex:facet>
+                                  <a href="/apex/ACERemediationReportCustList?reportType=Remediation&listtype=Sales-Support&quarter={!quarterValue}" target="_blank"> 
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.SalesSupportReq}"/>
+                                     </apex:outputText>
+                                   </a>
+                             </apex:column>
+                             
+                             
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Rejected<br/>Requests</apex:facet>
+                                   <a href="/apex/ACERemediationReportCustList?reportType=Remediation&listtype=Rejected-Requests&quarter={!quarterValue}" target="_blank"> 
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.RejectedReq}"/>
+                                     </apex:outputText>
+                                  </a>
+                             </apex:column>
+                             
+                             
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Approved<br/>Requests</apex:facet>
+                                  <a href="/apex/ACERemediationReportCustList?reportType=Remediation&listtype=Approved-Requests&quarter={!quarterValue}" target="_blank"> 
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.ApprovedReq}"/>
+                                     </apex:outputText>
+                                  </a>
+                             </apex:column>
+                             
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Completed<br/>Requests</apex:facet>
+                                   <a href="/apex/ACERemediationReportCustList?reportType=Remediation&listtype=Completed-Requests&quarter={!quarterValue}" target="_blank"> 
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.CompletedReq}"/>
+                                     </apex:outputText>
+                                  </a>
+                             </apex:column>
+                             
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Avg Time<br/>to Complete<br/>Requests</apex:facet>
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.AvgTimeCompReq}"/>
+                                     </apex:outputText>
+                                  
+                             </apex:column>
+                         </apex:pageBlockTable>    
+                                             
+                 </apex:pageBlock> 
+                 </apex:outputPanel>
+                    
+        </div>  
+      </apex:form>
+         
+          
+           
+    </apex:outputPanel>
+    
+    <script>
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script>
+
+</apex:page>

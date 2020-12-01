@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Customer_Transition__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Account__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.OMX_Primary_Key__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Case.IT_Case_Date__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Case.Age_in_Days__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.WRF_Status__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Customer_Transition__c.Customer_Disposition__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Customer agrees to transition</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Customer_Transition__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>On Deck</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>On-Deck Cases with Rep Dispositions</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Customer_Transition__c@Customer_Transition__c.Related_WRF_Case__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Customer_Transition__c.Review_Start_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

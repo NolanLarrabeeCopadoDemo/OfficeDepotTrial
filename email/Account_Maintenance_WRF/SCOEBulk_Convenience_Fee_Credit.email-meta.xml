@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>SCOE Bulk Convenience Fee Credit</name>
+    <style>freeForm</style>
+    <subject>Bulk Convenience Fee Credit</subject>
+    <textOnly>Customer Name: {!Case.Account}
+
+Account Number:  {!Case.ACCT_Account_Number__c}
+
+Case # {!Case.CaseNumber}
+
+Subject: {!Case.Subject} 
+
+
+
+Hello and thank you for your request. 
+Per the announcement of the bulk convenience fee, there is no way to credit, remove or override the fee. Please work with Pricing to review your account and the fee that is applied to certain SKUs.
+
+
+
+Thank you,
+
+{!Case.LastModifiedBy}
+
+Sales Support Team 
+
+
+
+
+
+------- Original Case -------
+
+From: {!Case.WRF_Requestor_Email__c}
+
+Subject: {!Case.Subject}
+
+Description: {!Case.Description}
+
+New Request: {!Case.New_Request__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

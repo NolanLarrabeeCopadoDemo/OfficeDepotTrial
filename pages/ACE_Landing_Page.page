@@ -1,0 +1,140 @@
+﻿<apex:page readOnly="true" controller="ACELandingPageController" title="Customer Price Changes Batches" showChat="true"
+                       showHeader="false" sidebar="false">
+
+ <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />  
+<apex:sectionHeader subtitle="Customer Price Changes"/> 
+         <apex:form >
+             <script type="text/javascript">
+                 //$.noConflict();
+                
+                 function clickme(){
+                     var e = document.getElementById("div1");
+                     var a = document.getElementById("touch1"); //-
+                     var b = document.getElementById("touch2"); //+
+                     
+                     if(e.style.display == 'block') {
+                        e.style.display = 'none';
+                        a.style.display = 'none';
+                        b.style.display = 'block';
+                    } else {
+                        e.style.display = 'block';                
+                        a.style.display = 'block';
+                        b.style.display = 'none';                                
+                    }
+                 }
+                 
+                 function clickme1(){
+                     var ee = document.getElementById("div2");
+                     var aa = document.getElementById("touch3"); //-
+                     var bb = document.getElementById("touch4"); //+
+                     
+                     if(ee.style.display == 'block') {
+                        ee.style.display = 'none';
+                        aa.style.display = 'none';
+                        bb.style.display = 'block';
+                    } else {
+                        ee.style.display = 'block';                
+                        aa.style.display = 'block';
+                        bb.style.display = 'none';                                
+                    }
+                 }
+                 
+                 function clickme2(){
+                     var ee = document.getElementById("div3");
+                     var aa = document.getElementById("touch5"); //-
+                     var bb = document.getElementById("touch6"); //+
+                     
+                     if(ee.style.display == 'block') {
+                        ee.style.display = 'none';
+                        aa.style.display = 'none';
+                        bb.style.display = 'block';
+                    } else {
+                        ee.style.display = 'block';                
+                        aa.style.display = 'block';
+                        bb.style.display = 'none';                                
+                    }
+                 }
+                 
+             </script>
+             <style>         
+                 .expandCollapse{
+                    -moz-border-radius:5px 5px 5px 5px;
+                    -webkit-border-radius:5px 5px 5px 5px;
+                    border-radius:5px 5px 5px 5px;
+                    padding-top:5px;
+                    padding-bottom:5px;
+                    align:center; 
+                    text-align:center; 
+                    font-weight:bold;
+                    background-color:#0099CC;
+                    background-image:none;
+                    width:auto;
+                    height:auto;
+                    color:white;
+                }
+                .col1{width:90%}
+                .col2{width:10%}
+             </style> 
+                    
+        
+        <apex:tabPanel switchType="Server" selectedTab="PINFO" id="theTabPanel" width="100%" >
+            <apex:tab label="Pricing Information" name="PINFO" id="tabOne">
+            
+                 <apex:pageBlock title="Price Changes By Period">    
+             <apex:pageBlockTable value="{!clsCusListTable}" var="bat">
+                 <apex:column headerValue="Period">
+                     <apex:outputLink rendered="{!NOT(IsRemedyOrHosted)}" value="/apex/ACE_Summary_Grid_New?batch={!bat.BATCH}" target="_blank">{!bat.BATCH}</apex:outputLink> 
+                     <apex:outputLink rendered="{!IsRemedyOrHosted}" value="/apex/ACE_Customer_List_Page?batch={!bat.BATCH}" target="_blank">{!bat.BATCH}</apex:outputLink>
+                 </apex:column>             
+                 <apex:column headerValue="# of Impacted Customers" value="{!bat.CUSCOUNT}"/>              
+                    
+                 <apex:column headerValue="Estimated Total Annual Spend Change">
+                     <apex:outputText value="${0, number, ###,###,###,###.00}">
+                         <apex:param value="{!bat.ANNSPND}"/>
+                     </apex:outputText>                    
+                 </apex:column>
+                 <apex:column headerValue="Average SKU Increase Amount">     
+                     <apex:outputText value="{0, number, ###,###,###,###.00}%">
+                         <apex:param value="{!bat.PERCENTINC}"/>
+                     </apex:outputText>                    
+                 </apex:column>
+                 <apex:column headerValue="Total SRM Impact"> 
+                     <apex:outputText value="${0, number, ###,###,###,###.00}">
+                         <apex:param value="{!bat.SRMTOT}"/>
+                     </apex:outputText>                    
+                 </apex:column>                       
+             </apex:pageBlockTable>
+         </apex:pageBlock>
+         
+            </apex:tab>
+            <apex:tab label="Pending Approvals" name="PAPPR" id="tabTwo">
+              <apex:iframe src="/apex/Generic_Approval_List" frameborder="false" height="700px" width="100%" scrolling="true" id="approvalFrame"/>
+            </apex:tab>
+            
+            <apex:tab label="Approval History" name="APPHIST" id="tabThree">
+             <br/>
+             <apex:tabPanel switchType="Client"> 
+                 <apex:tab label="History - Date Changes">
+                   <apex:iframe src="/apex/ACE_Customer_Approval_History_HomePage" frameborder="false" height="700px" width="100%" scrolling="true" id="DateHistFrame"/>
+                 </apex:tab>
+                 <apex:tab label="History - Price Changes">
+                   <apex:iframe src="/apex/ACE_SKU_Approval_History_HomePage" frameborder="false" height="1000px" width="100%" scrolling="true" id="SKUHistFrame"/>
+                 </apex:tab>
+                 <apex:tab label="History - Unlock Changes">
+                   <apex:iframe src="/apex/ACE_Cust_Approval_Un_History_HomePage" frameborder="false" height="1000px" width="100%" scrolling="true" id="SKUUnHistFrame"/>
+                 </apex:tab>
+              </apex:tabPanel> 
+            </apex:tab>
+            
+            <apex:tab label="Unlocked Accounts" name="UNLOCKACC" id="tabfour">
+              <apex:iframe src="/apex/AceUnlockedCustomers_Homepg" frameborder="false" height="700px" width="100%" scrolling="true" id="UnlockAccnts"/>     
+            </apex:tab>
+            <apex:tab label="My Reporting" name="REPORT" id="tabfive">
+              <apex:iframe src="/apex/ACEReportHomePage" frameborder="false" height="700px" width="100%" scrolling="true" id="ReportFrame"/>
+            </apex:tab>
+        </apex:tabPanel>  
+                                           
+      
+     
+    </apex:form>
+</apex:page>

@@ -1,0 +1,148 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recId" type="String" access="Global" /> 
+    <aura:attribute name="isClone" type="Boolean" access="Global"/>
+    <div class="slds-truncate">Item count threshold/tier</div>
+    <lightning:recordEditForm aura:id="myForm11" recordId="{!v.recId}" onsubmit="{!c.onRecordSubmit}" objectApiName="Contract">
+        <lightning:messages />
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="From ($)">From ($)</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="To ($)">To ($)</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Count">Count</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div  >
+                            <lightning:inputField aura:id="PointOfSalesFrom1" fieldName="Item_count_threshold_tier_From1__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div >
+                            <lightning:inputField aura:id="PointOfSalesTo1" fieldName="Item_count_threshold_tier_To1__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div  >
+                            <lightning:inputField aura:id="PointOfSalesDiscount1" fieldName="Item_count_threshold_tier_Count1__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom2" fieldName="Item_count_threshold_tier_From2__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo2" fieldName="Item_count_threshold_tier_To2__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount2" fieldName="Item_count_threshold_tier_Count2__c" variant="label-hidden"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom3" fieldName="Item_count_threshold_tier_From3__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo3" fieldName="Item_count_threshold_tier_To3__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount3" fieldName="Item_count_threshold_tier_Count3__c" variant="label-hidden"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                       <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom4" fieldName="Item_count_threshold_tier_From4__c" variant="label-hidden" />
+                        </div>
+                           
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo4" fieldName="Item_count_threshold_tier_To4__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount4" fieldName="Item_count_threshold_tier_Count4__c" variant="label-hidden"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom5" fieldName="Item_count_threshold_tier_From5__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo5" fieldName="Item_count_threshold_tier_To5__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount5" fieldName="Item_count_threshold_tier_Count5__c" variant="label-hidden"/>
+                        </div>
+                    </td>
+                </tr>
+                 <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom6" fieldName="Item_count_threshold_tier_From6__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo6" fieldName="Item_count_threshold_tier_To6__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount6" fieldName="Item_count_threshold_tier_Count6__c" variant="label-hidden"/>
+                        </div>
+                    </td>
+                </tr>
+                 <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesFrom7" fieldName="Item_count_threshold_tier_From7__c" variant="label-hidden" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="PointOfSalesTo7" fieldName="Item_count_threshold_tier_To7__c" variant="label-hidden" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="PointOfSalesDiscount7" fieldName="Item_count_threshold_tier_Count7__c" variant="label-hidden"/>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div align="center">
+            <lightning:button variant="brand" label="Save" type="submit" disabled="{!v.isClone}"/>
+        </div>
+    </lightning:recordEditForm>
+</aura:component>

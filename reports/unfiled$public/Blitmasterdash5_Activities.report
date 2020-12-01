@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_22195522</developerName>
+        <masterLabel>Shortrolename</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>OWNER_ROLE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 1 - NthE Rep</sourceValue>
+            </sourceValues>
+            <value>SMB 1</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 2 - SthE Rep</sourceValue>
+            </sourceValues>
+            <value>SMB 2</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO- ENT - Global 1 Rep</sourceValue>
+            </sourceValues>
+            <value>Global 1</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 2 Rep</sourceValue>
+            </sourceValues>
+            <value>ACQ</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OWNER_ROLE</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <description>All todays Activities
+ISO - ENT - Global 2 Rep,ISO - ENT - Global 3 Rep,ISO - ENT - GPO 1 Rep,ISO- ENT - Global 1 Rep</description>
+    <filter>
+        <booleanFilter>(1 or 3) AND 2</booleanFilter>
+        <criteriaItems>
+            <column>OWNER_ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>ISO - SMB 2,ISO - SMB 1,ISO - SMB - ACQ</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER_ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>G&amp;T</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ASSIGNED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Gabriel Escobar,Khristina George,Alex Jansen,MONICA TAME</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_22195522</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CREATED_BY</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>TASK_TYPE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Blitmasterdash2-Activities</name>
+    <params>
+        <name>closed</name>
+        <value>closed</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>ContactActivity@Contact.Account_Extension_Name__c</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_TODAY</interval>
+    </timeFrameFilter>
+</Report>

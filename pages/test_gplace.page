@@ -1,0 +1,60 @@
+<apex:page showHeader="false" sidebar="false">
+  <script type="text/javascript">
+    function reload_country_state(){        
+            document.getElementById(statusmessage).value = "Google Address Found";                          
+        }
+    </script>      
+    
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={!$Label.Google_Place_Key}&libraries=places"></script>
+     
+    <apex:form >
+     
+     <apex:outputLabel value="Global Address Search" for="field" style="font-weight:bold;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <apex:inputText label="" size="60" id="addressfield">                       
+         <apex:actionSupport event="onchange" oncomplete="reload_country_state();return false;"  rerender="country_id">  
+         </apex:actionSupport>
+     </apex:inputText>
+     <div id="statusmessage" value=' '></div>
+    </apex:form>
+      <script type="text/javascript">  
+        // initialize the google places components
+        initialize();
+                   
+        // This example displays an address form, using the autocomplete feature
+        // of the Google Places API to help users fill in the information.
+        var autocomplete;
+        var componentForm = {
+            name: 'long_name',
+            international_phone_number: 'long_name',
+            locality: 'long_name',
+            postal_town: 'long_name',
+            administrative_area_level_1: 'short_name',
+            administrative_area_level_2: 'short_name',
+            country: 'short_name',
+            postal_code: 'short_name',
+            route: 'long_name',
+            street_number: 'long_name',
+            street: 'long_name',
+            website: 'long_name',
+        };
+                 
+        function initialize() {
+            // Create the autocomplete object, restricting the search
+            // to geographical location types.
+            var input = document.getElementById('{!$Component.addressfield}');
+            var options = {types: []};
+            autocomplete = new google.maps.places.Autocomplete(input, options);
+            // When the user selects an address from the dropdown,
+            // populate the address fields in the form.
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            // call back function after user clicks on a location
+            //fillInAddress();
+            });
+        }
+    
+    
+      
+
+        
+    </script>
+</apex:page>

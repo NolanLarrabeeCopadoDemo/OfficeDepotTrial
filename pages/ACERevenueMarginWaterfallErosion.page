@@ -1,0 +1,272 @@
+<apex:page readOnly="true" title="Revenue & Margin Waterfall Erosion" controller="ACEReporting_RevMarg_WaterFall" action="{!loadErosionData}">
+ <head>
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        
+        .expandCollapse{
+        -moz-border-radius:5px 5px 5px 5px;
+        -webkit-border-radius:5px 5px 5px 5px;
+        border-radius:5px 5px 5px 5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        align:center; 
+        text-align:center; 
+        font-weight:bold;
+        background-color:#3D8C8C;
+        background-image:none;
+        width:auto;
+        height:auto;
+        color:white;
+        }
+        .borderLeft{
+            border-left: solid 1px black;
+        }
+        .borderRight{
+            border-right: solid 1px black;
+        }
+    </Style>
+   </head>  
+    <apex:outputPanel id="bucketPanel">
+        <apex:form >    
+           <apex:sectionHeader title="Reports" id="reports3" subtitle="BSD Price Change Process - Revenue & Margin Waterfall {!ReportName} By {!SegmentName} {!reportType} for {!SegmentType}" rendered="{!SegmentName != null && SegmentType != null}"/> 
+           <apex:sectionHeader title="Reports" id="reports2" subtitle="BSD Price Change Process - Revenue & Margin Waterfall {!ReportName} By {!SegmentName} {!reportType}" rendered="{!SegmentName != null && SegmentType == null}"/>   
+           <apex:sectionHeader title="Reports" id="reports1" subtitle="BSD Price Change Process - Revenue & Margin Waterfall By {!reportType}" rendered="{!SegmentName == null}"/>  
+           <!-- <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%">    
+                <apex:outputPanel style="text-align: right;float:right;">                           
+                           &nbsp; 
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!loadErosionData}"  status="search_Status_main"/>
+                                        <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid> -->
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                 <!-- Added apex image tag S-346420 by  Rahul  <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/> --> 
+                 <apex:image id="ajax_loading" value="{!$Resource.Ajax_Loading}" height="100" width="100" alt="Loading graphic" />
+             </div>
+         </div>
+         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                 
+       
+             <!-- Revenue Block -->
+             <div style="{!IF((reportType == 'By Industry'||SegmentName == 'Private'||SegmentName=='Public'), 'background-color:white;', 'background-color:white;')}">
+               <apex:pageBlock id="block">                  
+               
+               <apex:outputPanel id="componentPanel" >                
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                         
+                         <div class="expandCollapse">
+                             <apex:outputText value="Revenue" style="color:white;"/>
+                         </div>  
+                         <br/>  
+                         
+                             <table border="1" style="border-collapse:collapse;">
+                                 <tr style="font-weight:bold;">
+                                    <th style="border: 1px solid #000;text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;" rowspan="3"> &nbsp;  </th>                                                                                   
+                                    <apex:repeat value="{!lErosionFinalReportData}" var="a">  
+                                       <apex:outputPanel rendered="{!a.ReportName == 'Revenue'}"> 
+                                        <apex:repeat value="{!a.lColNames}" var="b">
+                                           
+                                            <th style="text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">                                                                                      
+                                                {!b}
+                                            </th>
+                                        </apex:repeat>
+                                       </apex:outputPanel> 
+                                    </apex:repeat> 
+                              
+                                 </tr> 
+                                 <tr>
+                                     
+                                     <apex:repeat value="{!lErosionFinalReportData}" var="a">  
+                                        <apex:outputPanel rendered="{!a.ReportName == 'Revenue'}"> 
+                                            <apex:repeat value="{!a.lColNames}" var="b">
+                                                <td style="text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">                                                                                      
+                                                  <apex:outputPanel rendered="{!b != 'Amount lost due to Field Delay' && b != 'Amount lost due to Field Markdown'}">
+                                                    <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                          <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                    </apex:outputText>
+                                                  </apex:outputPanel>
+                                                  <apex:outputPanel rendered="{!b == 'Amount lost due to Field Delay'}">
+                                                      <a href="/apex/ACEErosionDateExceptionReport?ErosionType=Date&Val=Erosion&reportType={!reporttype}&Segment={!segmentName}&SegmentType={!SegmentType}&quarter={!quarterValue}" target="_blank">
+                                                            <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                                  <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                            </apex:outputText>
+                                                      </a> 
+                                                  </apex:outputPanel>
+                                                  
+                                                  <apex:outputPanel rendered="{!b == 'Amount lost due to Field Markdown'}">
+                                                      <a href="/apex/ACEErosionPriceExceptionReport?ErosionType=Price&Val=Erosion&reportType={!reporttype}&Segment={!segmentName}&SegmentType={!SegmentType}&quarter={!quarterValue}" target="_blank">
+                                                        <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                              <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                        </apex:outputText>
+                                                      </a>
+                                                  </apex:outputPanel>     
+                                                </td>
+                                            </apex:repeat> 
+                                          </apex:outputPanel>         
+                                     </apex:repeat> 
+                                 </tr>   
+                                 <tr>
+                                     
+                                     <apex:repeat value="{!lErosionFinalReportData}" var="a">  
+                                         <apex:outputPanel rendered="{!a.ReportName == 'Revenue'}"> 
+                                                <td colspan="{!a.lColNames.size}" style="text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">                                                                                      
+                                                    <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                          <apex:param value="{!a.TotalValue}"/>
+                                                    </apex:outputText> 
+                                                </td>
+                                            </apex:outputPanel>    
+                                     </apex:repeat> 
+                                 </tr>   
+                                 <tr>
+                                     <td style="border-style: solid;text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">Rolling Total</td>
+                                       <apex:repeat value="{!lErosionFinalReportData}" var="a">  
+                                         <apex:outputPanel rendered="{!a.ReportName == 'Revenue'}"> 
+                                            <apex:repeat value="{!a.lColNames}" var="b">
+                                                <td style="text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">                                                                                      
+                                                    <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                          <apex:param value="{!m_RollingTotal[b]}"/>
+                                                    </apex:outputText> 
+                                                </td>
+                                            </apex:repeat>    
+                                        </apex:outputPanel>        
+                                     </apex:repeat> 
+                                 </tr>     
+                                 
+                                 
+                                  
+                             </table>
+                    </apex:outputPanel>     
+                    <br/><br/>
+                 <apex:outputPanel id="componentPanel1" >                
+                         <apex:pageMessages id="pageMsg1"></apex:pageMessages>
+                         
+                         <div class="expandCollapse">
+                             <apex:outputText value="Margin" style="color:white;"/>
+                         </div>  
+                         <br/>  
+                         
+                             <table border="1" style="border-collapse:collapse;">
+                                 <tr style="font-weight:bold;">
+                                    <th style="border: 1px solid #000;text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;" rowspan="3"> &nbsp;  </th>                                                                                   
+                                    <apex:repeat value="{!lErosionFinalReportData}" var="a">  
+                                     <apex:outputPanel rendered="{!a.ReportName == 'Margin'}"> 
+                                        <apex:repeat value="{!a.lColNames}" var="b">
+                                            <th style="text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">                                                                                      
+                                                {!b}
+                                            </th>
+                                        </apex:repeat>
+                                       </apex:outputPanel> 
+                                    </apex:repeat> 
+                              
+                                 </tr> 
+                                 <tr>
+                                     
+                                     <apex:repeat value="{!lErosionFinalReportData}" var="a">
+                                         <apex:outputPanel rendered="{!a.ReportName == 'Margin'}">   
+                                            <apex:repeat value="{!a.lColNames}" var="b">
+                                                <td style="text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">                                                                                      
+                                                  
+                                                  <apex:outputPanel rendered="{!b != 'Amount lost due to Field Delay' && b != 'Amount lost due to Field Markdown'}">
+                                                    <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                          <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                    </apex:outputText>
+                                                  </apex:outputPanel>
+                                                  
+                                                  <apex:outputPanel rendered="{!b == 'Amount lost due to Field Delay'}">
+                                                      <a href="/apex/ACEErosionDateExceptionReport?ErosionType=Date&Val=Erosion&reportType={!reporttype}&Segment={!segmentName}&SegmentType={!SegmentType}&quarter={!quarterValue}" target="_blank">
+                                                            <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                                  <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                            </apex:outputText>
+                                                      </a> 
+                                                  </apex:outputPanel>
+                                                  
+                                                  <apex:outputPanel rendered="{!b == 'Amount lost due to Field Markdown'}">
+                                                      <a href="/apex/ACEErosionPriceExceptionReport?ErosionType=Price&Val=Erosion&reportType={!reporttype}&Segment={!segmentName}&SegmentType={!SegmentType}&quarter={!quarterValue}" target="_blank">
+                                                        <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                              <apex:param value="{!a.map_sect_Val[b]}"/>
+                                                        </apex:outputText>
+                                                      </a>
+                                                  </apex:outputPanel>
+                                                </td>
+                                            </apex:repeat>        
+                                         </apex:outputPanel>
+                                     </apex:repeat> 
+                                 </tr>   
+                                 <tr>
+                                     
+                                     <apex:repeat value="{!lErosionFinalReportData}" var="a"> 
+                                         <apex:outputPanel rendered="{!a.ReportName == 'Margin'}">  
+                                                <td colspan="{!a.lColNames.size}" style="text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">                                                                                      
+                                                    <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                          <apex:param value="{!a.TotalValue}"/>
+                                                    </apex:outputText> 
+                                                </td>
+                                                
+                                         </apex:outputPanel>       
+                                     </apex:repeat> 
+                                 </tr>   
+                                 <tr>
+                                     <td style="border-style: solid;text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">Rolling Total</td>
+                                     <apex:variable var="c" value="0" />
+                                     <apex:repeat value="{!lErosionFinalReportData}" var="a">  
+                                         <apex:outputPanel rendered="{!a.ReportName == 'Margin'}"> 
+                                            <apex:repeat value="{!a.lColNames}" var="b">
+                                                <td style="text-align:center;width:20px;word-wrap:break-word;height:25px;white-space:nowrap;">                                                                                      
+                                                    <apex:outputText value="${!a.formatType}" style="white-space:nowrap;">
+                                                          <apex:param value="{!m_RollingTotal_Margin[b]}"/>
+                                                    </apex:outputText> 
+                                                </td>
+                                            </apex:repeat>  
+                                         </apex:outputPanel>         
+                                     </apex:repeat> 
+                                 </tr>     
+                                 
+                                 
+                                  
+                             </table>
+                    </apex:outputPanel>   
+                    
+                                         
+                 </apex:pageBlock> 
+                <!-- Revenue Block End Here -->  
+         
+        <br/><br/>
+        
+        
+        </div>  
+      </apex:form>
+         
+          
+           
+    </apex:outputPanel>
+    
+    <script>
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script>
+
+</apex:page>

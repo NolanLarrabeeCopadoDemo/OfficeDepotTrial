@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Customer Maintenance: General Account Maintenance</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>User Download and Custom Shopping List Request</name>
+    <style>formalLetter</style>
+    <subject>User Download and Custom Shopping List Request on Account {!Account.Cust_ID__c} - {!Account.Name}</subject>
+    <textOnly>NEW PROCESS!!!
+
+All Contract Customer Maintenance, Pricing, SPC and ECommerce requests can now be submitted easily right from Salesforce.com!  Beginning February 4, no further requests will be accepted via email.  Please search &quot;Account Maint&quot; in the Answers tab to learn more information.
+
+
+&lt;Please send this to ECSetup@officedepot.com and remove this section.  Also, put your email in the CC section.&gt;
+
+
+Team,
+
+
+Please send me a User Download and Custom Shopping List for the following account:
+
+
+
+Account # {!Account.Cust_ID__c}
+
+Customer Name: {!Account.Name}
+
+
+
+Regards,
+
+{!User.Name}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

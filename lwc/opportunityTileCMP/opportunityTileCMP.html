@@ -1,0 +1,38 @@
+<template>
+    <lightning-card 
+          title="Open Opportunities" 
+          icon-name="standard:product">
+  <lightning-layout multiple-rows="true" vertical-align="end">
+  <lightning-layout-item size="12" 
+            small-device-size="10" 
+            medium-device-size="8" 
+            large-device-size="12" 
+            padding="around-small">
+  
+  </lightning-layout-item>
+</lightning-layout>
+        
+<lightning-datatable class="slds-table slds-table_cell-buffer slds-table_bordered"
+             key-field="Id" 
+             data={data} 
+             hide-checkbox-column=true
+             columns={columns}>
+</lightning-datatable>
+<br/>
+<div style="align-items: center;">
+<p style="padding-left: 200px;">
+  Page {page} of {totalPage}. </p>
+</div>
+<div class="slds-m-around_medium">
+  
+<br/>
+<c-paginator  
+  hidepreviousbutton={noPrevious}
+  hidenextbutton={noNext}
+  onprevious={previousHandler} 
+  onnext={nextHandler}>
+</c-paginator>
+
+</div>
+ </lightning-card>
+</template>

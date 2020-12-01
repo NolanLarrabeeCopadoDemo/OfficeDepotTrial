@@ -1,0 +1,28 @@
+<aura:component controller="NewContractButtonController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.fetchListOfRecordTypes}"/>
+    <aura:attribute name="lstOfRecordType" type="String[]" />
+    <aura:attribute name="isOpen" type="boolean" default="false" />
+    <aura:attribute name="recordId" type="String" />
+     <aura:attribute name="isStandardFlow" type="boolean" default="false" />
+    
+    <aura:if isTrue="{!v.isStandardFlow}">
+    <lightning:flow aura:id="flowData" />
+    <aura:set attribute="else">
+      
+    
+    Select a Record Type    
+    <br></br>
+    <br></br>
+    
+    <div class="slds-size--1-of-2 slds-large-size--1-of-2">
+        <ui:inputSelect aura:id="selectedRecordType">
+        </ui:inputSelect>
+    </div>
+    <br></br>
+    <br></br>
+    <br></br>
+    <lightning:button class="slds-button slds-button--brand" onclick="{!c.createRecord}">Continue</lightning:button>
+        </aura:set>
+    </aura:if>
+</aura:component>

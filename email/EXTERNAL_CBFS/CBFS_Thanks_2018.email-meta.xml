@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Cleaning Breakroom &amp; Facility Solutions</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>CBFS - Thanks 2018</name>
+    <style>none</style>
+    <subject>Cleaning Breakroom &amp; Facility Solutions</subject>
+    <textOnly>Office Depot Cleaning Facilities
+
+Hi {!Contact.FirstName},
+Thank you again for taking the time to speak with me today.
+As I explained during our conversation, I am excited to further discuss your cleaning, breakroom and facility supply needs. Being one of the largest sanitary supply and office coffee service providers in the industry, we hope to offer your organization our unlimited network of solutions.
+From the breakroom to the boardroom, you can count on us for high-quality cleaning and facilities supplies, in the quantities you need, from brands you trust, at prices you can afford.
+• Full coffee service and breakroom essentials
+• Commercial cleaning and chemical solutions
+• Diverse selection of towel and tissue systems
+• Hand care, including soap and sanitizers
+• Heavy- and light-duty cleaning equipment and accessories
+• Trash liners, waste receptacles and recycling solutions
+• Matting and floor care programs
+• Sustainable products and services
+Office Depot has leveraged a unique supply chain and service model over the last decade — continuing to evolve the industry’s service expectations. The core of this new business approach focuses on three key differentiators:
+Expertise and Service — Every customer is afforded industry experts and dedicated services teams that can propose unique solutions and the ability to service those offerings nationwide with service and installation teams.
+Ease of Ordering and Delivery — Save time and money with customized shopping lists, comparison shopping with lower-cost alternatives, managed purchasing tools and more. You can also view real-time inventory at your local warehouse and have your order delivered right to your office.
+Visibility and Reporting — Our state-of-the-art, real-time user dashboard offers full access to your purchase history and financial metrics across all locations in your organization. Achieve compliance through tracking spend, reviewing purchases by category and viewing additional savings opportunities instantly. You can also track your shipping behaviors and see recommendations for decreasing your shipping costs.
+I will follow up with you in the next few days to confirm a time when we can discuss this in depth.
+Ready to get started? Click the button below to begin shopping through our website.
+Thanks again for your business! Meeting and exceeding your needs is our #1 goal.
+Sincerely,
+{!User.Name}
+{!User.TitleTrimmed__c}
+
+{!User.Street} | {!User.City}, {!User.State} {!User.PostalCode}
+{!if(!ISBLANK(User.My_Customer_Contact__c), &apos;Tel: &apos;+User.My_Customer_Contact__c,&apos;&apos; )}
+Email: {!User.Email}
+
+Office Depot is a trademark of The Office Club, Inc. OfficeMax is a trademark of OMX, Inc. © 2018 Office Depot, Inc.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,51 @@
+<apex:page standardController="CameleonCPQ__QuoteRelease__c" extensions="CameleonCPQ.PA_SetActiveRelease_VFCtrl" showHeader="false" sidebar="false" docType="html-5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <apex:slds />
+    <style type="text/css">
+        .apexMsg td {
+            font-size:16px;
+            font-weight:bold;
+            text-align:center;
+            color:red;
+        }
+    </style>
+
+    <apex:messages layout="table" styleClass="apexMsg"/>
+    <div id="loadingStatus" class="slds-spinner_container hide">
+      <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+        <span class="slds-assistive-text" id="_gModal_Message"/>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+      </div>
+    </div>
+
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jQuery2.0.3.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jquery.touchwipe.min.js')}"/>
+
+    <script type="text/javascript">
+        $jq = jQuery.noConflict(); 
+        function setActiveRelease() {
+            $jq("#loadingStatus").toggleClass("hide");
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.PA_SetActiveRelease_VFCtrl.setActiveRelease}',
+                '{!CameleonCPQ__QuoteRelease__c.CameleonCPQ__QuoteId__c}',
+                '{!CameleonCPQ__QuoteRelease__c.CameleonCPQ__ReleaseNumber__c}',
+                function(result, event) {
+                    if(event.type=='exception') {
+                        alert(event.message);
+                    }
+                    if((typeof sforce != 'undefined') && (sforce != null)) {
+                      sforce.one.navigateToSObject('{!CameleonCPQ__QuoteRelease__c.CameleonCPQ__QuoteId__c}','detail');
+                       $A.get('e.force:refreshView').fire();
+                    } 
+                    else {
+                      top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__QuoteRelease__c.Id,URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__QuoteRelease__c.CameleonCPQ__QuoteId__c))}";
+                    }
+                }
+            );
+        }
+        $jq(document).ready(function() {
+            setActiveRelease();
+        });
+    </script>
+</apex:page>

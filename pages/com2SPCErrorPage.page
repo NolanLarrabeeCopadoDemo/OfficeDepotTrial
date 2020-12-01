@@ -1,0 +1,62 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false"  applyHtmlTag="false"  controller="com2SPCCardController">
+<html>
+<head>
+<title> Office Depot </title>
+
+<link rel="shortcut icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" type="/image/x-ico" href="https://bsdsqs8.officedepot.com/favicon.ico"/>
+
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/style.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tips.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/registration.css')}"></link>
+<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/bootstrap.min.css')}" />
+<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/main.css')}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/GPOforms.css')}"></link>
+
+<script>
+    document.title="Office Depot" 
+</script>
+
+<style>
+    .contentHide{
+        display:none;
+    }
+</style> 
+</head>
+    
+<body>
+     <div class="container-fluid header">
+        <header class="container">
+            <div class="col-md-12">
+                <a target="_blank" href="https://business.officedepot.com/"><img src="{!URLFOR($Resource.CommunitiesAssets,'images/OD-Biz-Logo.png')}" title="Office Depot Business - We provide Smart Solutions that help you take care of business."/></a>
+            </div>
+        </header>
+    </div>
+    <div class="container padding-md">
+        <div class="col-md-3">
+            <img src="{!URLFOR($Resource.CommuStaticResources,'images/happyGirls.png')}"/>
+        </div>
+        <div class="col-md-9">
+            <h1> SPC Card Not Available</h1>
+            <p> Please contact your Community Administrator. Click here to go back:
+                <a href="{!commSetup.URL_Insert__c}GPOHome?id={!$CurrentPage.parameters.id}"> CLICK HERE </a>
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <footer class="row padding-md footer border-top">
+            <div class="col-md-6 small">Copyright &copy; {!currentYear} by Office Depot, Inc. All rights reserved. </div>
+            <div class="col-md-6 small">
+                    <ul class="list-inline pull-right">
+                        <li class="border-none"><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp">Privacy Policy</a></li>
+                        <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/trackingtools.jsp">Online Tracking Tools</a></li>
+                        <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp">Terms of Use</a></li>
+                        <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp">Terms &amp; Conditions</a></li>
+                    </ul>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+</apex:page>

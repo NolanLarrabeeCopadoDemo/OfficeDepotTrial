@@ -1,0 +1,591 @@
+<!-- Admin Header -->
+<apex:page standardStylesheets="false" cache="false" sidebar="false" showHeader="false" applyHtmlTag="false" controller="xGPOCommunityAuthLandingController" extensions="xGPOSiteTemplate1ConExt">
+<head>
+   <!-- <apex:includeScript value="{!URLFOR($Resource.CommuStaticResources,'js/lib/jquery1.11.2.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.CommuStaticResources,'js/lib/jqueryui1.11.4.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.BSGPO, 'js/bootstrap.min.js')}" /> -->
+    <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/AccessRequest.js')}" />
+    
+    
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.BSGPO,'css/bootstrap.css')}"></link>
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.BSGPO,'css/bootstrap-theme.min.css')}"></link>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/buttons.css')}"></link>
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/grid.css')}"></link>
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/helper.css')}"></link>
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/distributorBrand.css')}"></link>
+ <!--   <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResourcesGPO,'css/GPOstyle.css')}"></link> -->
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/forms.css')}"></link>
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/tips.css')}"></link>
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/registration.css')}"></link>
+    <link rel="stylesheet" href="{!URLFOR($Resource.CommunityStaticResourcesApproval,'css/accessRequestsPage.css')}"></link>
+
+    <script>
+       // var $ = jQuery.noConflict();
+        Visualforce.remoting.timeout = 120000;
+
+        function appLinkdisplay() {
+            document.getElementById('MyApprovalsLink').style.display = '{!displayApprovalLink}';
+            document.getElementById('AppLinkDiv').style.display = '{!displayApprovalLink}';
+        }
+        window.onload = appLinkdisplay;
+
+        function ChboxVal(apptype) {
+            var selchbox = []; // array that will store the value of selected checkboxes
+            // gets all the input tags in frm, and their number
+
+            //var inpfields = $frm.getElementsByTagName('input');
+            var inpfields = $("#accessRequestForm :input");
+            var $accessRequestForm = $('#accessRequestForm');
+            $accessRequestForm.find('.btn').toggleClass('is_disabled', true);
+            var nr_inpfields = inpfields.length;
+
+            // traverse the inpfields elements, and adds the value of selected (checked) checkbox in selchbox
+            for (var i = 0; i < nr_inpfields; i++) {
+                if (inpfields[i].type == 'checkbox' && inpfields[i].checked == true) {
+                    selchbox.push(inpfields[i].value);
+                }
+            }
+
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.xGPOCommunityAuthLandingController.ApproveLe}', selchbox, apptype,
+                function(result, event) {
+                    console.log(event.status);
+                    console.log(result);
+                    if (event.status) {
+                        var retval = location.reload(true);
+                        console.log(retval);
+                    } else {
+                        $accessRequestForm.find('.btn').toggleClass('is_disabled', false);
+                        //location.href = 'www.google.com';
+                    }
+            });
+        }
+
+        function checkApply(f1, f2, f3) {
+            var myRet = true;
+            if (document.getElementById(f1).value.length > 990) {
+                var textarea = document.getElementById(field);
+                document.getElementById(field).value = textarea.value.substring(0, 990);
+                myRet = false;
+            }
+
+            if (document.getElementById(f1).value.length < 1) {
+                document.getElementById(f1).style.border = '1px solid #f00';
+                document.getElementById(f1).style.backgroundColor = '#f2bfbf';
+                document.getElementById('WelcomeMsgEM').style.display = 'inline-block';
+                myRet = false;
+            } else {
+                document.getElementById(f1).style.border = '1px solid Silver';
+                document.getElementById(f1).style.backgroundColor = '';
+                document.getElementById('WelcomeMsgEM').style.display = 'none';
+            }
+
+            if (document.getElementById(f2).value.length < 1) {
+                document.getElementById(f2).style.border = '1px solid #f00';
+                document.getElementById(f2).style.backgroundColor = '#f2bfbf';
+                document.getElementById('WelcomeTitleEM').style.display = 'inline-block';
+                myRet = false;
+            } else {
+                document.getElementById(f2).style.border = '1px solid Silver';
+                document.getElementById(f2).style.backgroundColor = '';
+                document.getElementById('WelcomeTitleEM').style.display = 'none';
+            }
+
+            if (document.getElementById(f3).value.length < 1) {
+                document.getElementById(f3).style.border = '1px solid #f00';
+                document.getElementById(f3).style.backgroundColor = '#f2bfbf';
+                document.getElementById('123456789').style.display = 'inline-block';
+                myRet = false;
+            } else {
+                document.getElementById(f3).style.border = '1px solid Silver';
+                document.getElementById(f3).style.backgroundColor = '';
+                document.getElementById('123456789').style.display = 'none';
+            }
+            return myRet;
+        }
+
+        function formatPhone(pnum) {
+            var unfmtPhn = pnum;
+            if (unfmtPhn != null)
+                unfmtPhn = pnum.replace(/\D/g, '');
+            if (unfmtPhn != null && unfmtPhn.length == 10)
+                var formatPhone = unfmtPhn.substring(0, 3) + '.' + unfmtPhn.substring(3, 6) + '.' + unfmtPhn.substring(6, 10);
+            else
+                return pnum;
+            return formatPhone;
+        }
+
+        function limitfieldvalue(field) {
+            if (document.getElementById(field).value.length > 990) {
+                var textarea = document.getElementById(field);
+                document.getElementById(field).value = textarea.value.substring(0, 990);
+                return false;
+            }
+
+            if (document.getElementById(field).value.length < 1) {
+                document.getElementById(field).style.border = '1px solid #f00';
+                document.getElementById(field).style.backgroundColor = '#f2bfbf';
+                document.getElementById('WelcomeMsgEM').style.display = 'inline-block';
+                myRet = false;
+            } else {
+                document.getElementById(field).style.border = '1px solid Silver';
+                document.getElementById(field).style.backgroundColor = '';
+                document.getElementById('WelcomeMsgEM').style.display = 'none';
+            }
+        }
+
+        </script>
+
+        <style>
+            body {
+                background-color: white;
+            }
+            .navbar-right {
+                float: right !important;
+                margin-right: 0px;
+            }
+            
+            .GPOTableHeader {
+                text-align: left;
+            }
+            
+            .GPODisabled a[href^="mailto:"] {
+                color: black;
+                pointer-events: none;
+                cursor: vertical-text;
+                text-decoration: none;
+            }
+            
+            body .pbBody table.list tr.dataRow.highlight td {
+                background-color: white!important;
+            }
+        </style>
+
+</head>
+
+    <nav class="navbar navbar-default" style="background-color: #b0c4de;">
+        <div class="container-fluid" >
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{!$User.FirstName} {!$User.LastName} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a onclick="$('#QuickSetup').modal('show');" href="#">Setup</a></li>
+                        <li class="divider" id="AppLinkDiv"></li>
+                        <li id="MyApprovalsLink"><a onclick="document.getElementById('appReqLabel').style.display='{!displayAppForm}';document.getElementById('appNoReqLabel').style.display='{!displayNoAppMsg}';document.getElementById('accessRequestForm').style.display='{!displayAppForm}';$('#UserApproval').modal('show');"
+                                href="#">My Approvals</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{!commSetup.logout_link__c}?cm_sp={!LogoutCM}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <b>{!IF(selectedGroup.Activated__c, "", "** Community Not Active")}</b>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{!selectedGroup.Community_Name__c} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{!commSetup.URL_insert__c}GPOSiteSwitcher?id={!ultimateparentgroup.Current__c}">{!ultimateparentgroup.Community_Name__c} (Home)</a></li>
+                        <apex:repeat value="{!ActiveNodes}" var="node" id="theRepeat">
+                            <li><a href="{!commSetup.URL_Insert__c}GPOSiteSwitcher?id={!node.Account__c}">{!node.Community_Name__c}</a></li>
+                        </apex:repeat>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <div class="modal fade" id="QuickSetup">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="gridSystemModalLabel">Configure {!selectedGroup.Community_Name__c} Community</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div role="tabpanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#generaladmintab" aria-controls="general"
+                                        role="tab" data-toggle="tab">General</a></li>
+                                <li role="presentation"><a href="#imageadmintab" aria-controls="#image" role="tab"
+                                        data-toggle="tab">Image</a></li>
+                            <!--    <li role="presentation"><a href="#newsadmintab" aria-controls="#news" role="tab"
+                                        data-toggle="tab">News</a></li> -->
+                                <li role="presentation"><a href="#pageadmintab" aria-controls="#page_control" role="tab"
+                                        data-toggle="tab">Page Control</a></li>
+                            </ul>
+
+                            <apex:form enctype="multipart/form-data">
+                                <apex:pageBlock title="">
+                                    <apex:pageBlockButtons location="bottom">
+                                        <apex:commandButton action="{!NewsSave}" value="Apply" onclick="return checkApply('{!$Component.WelcomeMsg}','{!$Component.WelcomeTitle}','{!$Component.CommuName}');"
+                                            styleClass="primary btn" />
+                                    </apex:pageBlockButtons>
+
+
+
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="generaladmintab">
+                                            <br></br>
+                                            <!-- BEGIN Community Name -->
+                                            <div class="reg_step">
+                                                <section>
+                                                    <h3>Community Name <!-- and Welcome Text --></h3>
+                                                    * Required Information
+                                                    <br/>
+                                                    <br/>
+                                                    <label>* Name </label>
+                                                    <br/>
+                                                    <apex:inputField onkeyup="checkApply('{!$Component.WelcomeMsg}','{!$Component.WelcomeTitle}','{!$Component.CommuName}');"
+                                                        onkeydown="checkApply('{!$Component.WelcomeMsg}','{!$Component.WelcomeTitle}','{!$Component.CommuName}');"
+                                                        Id="CommuName" value="{!selectedGroup.Community_Name__c}"
+                                                        style="width: 420px;" />
+                                                    <br/>
+                                                    <span id="123456789" style="color: #f00; display: none">Please enter a Community Name.</span>
+                                                    <br/>
+                                                    <br/>
+                                               <!--     <label>* Title </label>
+                                                    <br/>
+                                                    <apex:inputField onkeyup="checkApply('{!$Component.WelcomeMsg}','{!$Component.WelcomeTitle}','{!$Component.CommuName}');"
+                                                        onkeydown="checkApply('{!$Component.WelcomeMsg}','{!$Component.WelcomeTitle}','{!$Component.CommuName}');"
+                                                        Id="WelcomeTitle" value="{!selectedGroup.Welcome_Title__c}"
+                                                        style="width: 420px;" />
+                                                    <span id="WelcomeTitleEM" style="color: #f00; display: none">Please enter a Community Title.</span>
+                                                    <br/>
+                                                    <br/>
+                                                    <label>* Message </label>
+                                                    <br/>
+                                                    <apex:inputField Id="WelcomeMsg" onkeydown="limitfieldvalue('{!$Component.WelcomeMsg}');"
+                                                        onkeyup="limitfieldvalue('{!$Component.WelcomeMsg}');"
+                                                        value="{!selectedGroup.Welcome_Message__c}"
+                                                        style="width: 429px; height: 110px;border: 1px solid #ccc;border-radius: 6px;"
+                                                    />
+                                                    <br/>
+                                                    <span id="WelcomeMsgEM" style="color: #f00; display: none">Please enter a Community Message.</span> -->
+                                                </section>
+                                            </div>
+                                            <!-- END Community Name -->
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane" id="imageadmintab">
+                                            <br></br>
+                                            <apex:pageBlockSection title="Current Image" columns="1">
+                                                <apex:image width="360"  url="/servlet/servlet.FileDownload?file={!selectedGroup.Community_Image__c}&blah={!selectedGroup.LastModifiedDate}"/>
+                                            </apex:pageBlockSection>
+                                            <br></br>
+                                            <br></br>
+                                            <apex:pageBlockSection title="Update Image" columns="1">
+                                                <apex:inputFile value="{!brandimage.body}" filename="{!brandimage.name}" />
+                                            </apex:pageBlockSection>
+                                            <p><strong>Please Note:</strong> Recommended
+                                                image dimensions are 360W X 36H (Width
+                                                x Height).<br/>Recommended image
+                                                format of PNG or GIF with a transparent
+                                                background.</p>
+                                            <br /><p> Note: It may take a few minutes for the image/logo to update on your Communities page.</p>
+                                        </div>
+
+
+                                        <!-- TODO - Move to static resource or include, given that these tabs are template specific.  Site Template 1 tabs -->
+                                   <!--    <div role="tabpanel" class="tab-pane" id="newsadmintab">
+                                            <apex:pageBlockTable value="{!NewsItems}" var="newsItem"> -->
+                                                <!-- The pageBlockTable iterates through the list of the custom Class -->
+                                         <!--       <apex:column >
+                                                    <apex:inputField value="{!newsItem.Value1__c}"
+                                                    /></apex:column>
+                                                <apex:column >
+                                                    <apex:inputField value="{!newsItem.Value2__c}"
+                                                        styleClass="reg_step" style="width: 325px;"
+                                                    /> </apex:column>
+                                            </apex:pageblocktable>
+
+                                                </div> -->
+                                        <div role="tabpanel" class="tab-pane" id="pageadmintab">
+                                            <apex:pageBlockSection columns="1">
+                                                <h4>Pre-Login Show/Hide Sections</h4>
+                                                <div>
+                                                    <apex:inputField label="" value="{!selectedGroup.hideSections__c} "/>
+                                                </div>
+                                                <br />
+                                                <h4>Post-Login Show/Hide Sections</h4>
+                                                <div>
+                                                    <apex:inputField label="" value="{!selectedGroup.hideSectionsPost__c} "/>
+                                                </div>
+                                                <br />
+                                            </apex:pageBlockSection>
+                                            <apex:actionRegion >
+                                                <apex:pageBlockSection columns="1">
+                                                    <h4>Greeting Message</h4>
+                                                <apex:selectList value="{!messageId}" onchange="changeMsg();">
+                                                    <apex:selectOptions id="picklistValue" value="{!Items}"/>
+                                                </apex:selectList><br />
+                                                <apex:actionFunction name="changeMsg" rerender="output" />
+                                                <apex:outputText id="output" escape="false" value="{!selected}" />
+                                                </apex:pageBlockSection>
+                                            </apex:actionRegion>
+                                        </div>
+
+                                    </div>
+
+                                    <br/>
+                                </apex:pageBlock>
+                            </apex:form>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="back_step_btn secondary btn" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!--  TODO - This section is not implemnted to scale to a grandparent with 1,0000s of children nodes.  This UI needs to be refactored to support this Paginiation and lazy loading should be a key part of the new design -->
+    <div class="modal fade" id="CreateCommunity" role="dialog" aria-labelledby="gridSystemModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" styleClass="reg_step" style="width: 690px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Enable {!selectedGroup.Community_Name__c} Children Communities</h4>
+                </div>
+                <div class="modal-body" styleClass="reg_step" style="width: 675px;">
+                    <div class="container-fluid">
+                        <div class="tree well">
+                            <ul>
+                                <li>
+                                    <span><i class="icon-folder-open"></i> {!selectedGroup.Community_Name__c}</span>
+                                    <apex:repeat value="{!childAccountDetails}" var="childnode" id="nodeRepeat">
+                                        <ul>
+                                            <li>
+                                                <span><i class="icon-minus-sign"></i>{!childnode.childAccountName}</span>                                                <a href="/GPOenablecommunity?id={!childnode.childaccountid}&up={!gpoAccount.ID}">{!IF(childnode.enabled, "", "Enable")}</a>{!IF(childnode.enabled,
+                                                "Already Enabled", "")}
+                                                <apex:repeat value="{!childnode.grandChildren}" var="grandchildnode" id="grandnodeRepeat">
+                                                    <ul>
+                                                        <li>
+                                                            <span><i class="icon-leaf"></i>{!grandchildnode.childAccountName}</span>                                                            <a href="/GPOenablecommunity?id={!grandchildnode.childAccountId}&up={!gpoAccount.ID}">{!IF(grandchildnode.enabled, "", "Enable")}</a>{!IF(grandchildnode.enabled,
+                                                            "Already Enabled", "")}
+                                                        </li>
+                                                    </ul>
+                                                </apex:repeat>
+                                            </li>
+                                        </ul>
+                                    </apex:repeat>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!--<apex:form id="accessRequestForm"> -->
+
+    <div id="accessRequestsPage" class="mainWrapper odgrid_12 gw12 alpha omega">
+        <div class="modal fade" id="UserApproval">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h1>Community Portal</h1>
+                        <h2>Access Requests</h2>
+                        <p id="appReqLabel">The following person(s) request access to your Office Depot community page:</p>
+
+                        <p id="appNoReqLabel">There are no pending requests at this time.</p>
+
+                        <form id="accessRequestForm" name="accessRequestForm" class="" method="post">
+                            <section>
+                                <table id="approvaltbl">
+                                    <tr>
+                                        <th class="select_all">
+                                            SELECT ALL
+                                            <br/>
+                                            <input type="checkbox" id="selectAllCheckBox" class="request_checkbox" />
+                                            <label for="selectAllCheckBox">
+                                                <span></span>
+                                            </label>
+                                        </th>
+                                        <th>
+                                            NAME / COMPANY
+                                        </th>
+                                        <th>
+                                            EMAIL
+                                        </th>
+                                        <th>
+                                            PHONE
+                                        </th>
+                                    </tr>
+                                    <apex:variable var="color" value="gray_row" />
+                                    <apex:variable var="chkboxCounter" value="{!1}" />
+
+                                    <apex:repeat value="{!MyApprovals}" var="a" id="tblConstruct">
+                                        <tr class="{!color}">
+                                            <td>
+
+                                                <input type="checkbox" value="{!a.id}" class="request_checkbox" id="request_checkbox{!chkboxCounter}"/>
+                                                <label for="request_checkbox{!chkboxCounter}">
+                                                <span></span>
+                                            </label>
+                                            </td>
+                                            <td>
+                                                <strong>{!a.first_name__c} {!a.Last_Name__c}</strong>
+                                                <br/>
+                                                <span class="company_name">{!a.Business_Name__c}</span>
+                                            </td>
+                                            <td>
+                                                <a href="mailto:{!a.Email__c}">{!a.Email__c}</a>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <script>
+                                                        document.write(
+                                                            formatPhone(
+                                                                '{!a.Phone__c}'
+                                                            ))
+
+                                                    </script>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <apex:variable var="color" value="{!IF(color == 'gray_row', '', 'gray_row')}" />
+                                        <apex:variable var="chkboxCounter" value="{!chkboxCounter+1}" />
+                                    </apex:repeat>
+
+                                </table>
+                                <BR/>
+
+
+                                <div class="actions">
+                                    <div class="button_set">
+
+                                        <!-- <apex:commandButton action="{!ApproveLe}" value="Approve"   styleClass="primary btn is_disabled"/> -->
+                                        <a href="#" id="appbtn" onclick="var e=document.getElementById('appbtn');var cs=document.defaultView.getComputedStyle(e,null);var bg=cs.getPropertyValue('background-color');if (bg != 'rgb(230, 231, 235)') {var r = confirm('Are You Sure?');if (r==true) ChboxVal('A');}"
+                                            class="primary btn is_disabled">
+                                            Approve
+                                        </a>
+
+                                        <a href="#" id="denybtn" onclick="var e=document.getElementById('denybtn');var cs=document.defaultView.getComputedStyle(e,null);var bg=cs.getPropertyValue('background-color');if (bg != 'rgb(230, 231, 235)') {var r = confirm('Are You Sure?');if (r==true) ChboxVal('R');}"
+                                            class="primary btn is_disabled">
+                                            Deny
+                                        </a>
+
+
+                                    </div>
+                                </div>
+
+                            </section>
+
+                        </form>
+
+
+
+                        <!--  </div>
+                </main>
+                </div> -->
+                        <!--  <apex:pageblock id="userBlock">
+                  <apex:pageBlockTable value="{!MyApprovals}" var="a" style="background-color:#fff; width:100%; margin:6px 0 4px;" id="appTab">
+                <apex:column headerValue="Action" headerClass="GPOTableHeader">
+
+                   <apex:commandLink action="{!ActionVariables}"  value="Approve" reRender="userBlock" oncomplete="j$('#UserConfirm').modal('show');">
+                      <apex:param name="gpoLeadId" value="{!a.Id}"/>
+                      <apex:param name="appType" value="A"/> 
+                   </apex:commandLink>
+                   &nbsp;|&nbsp;
+                   <apex:commandLink action="{!ActionVariables}" value="Reject"  reRender="userBlock" oncomplete="j$('#UserConfirm').modal('show');">
+                      <apex:param name="gpoLeadId" value="{!a.Id}"/>
+                      <apex:param name="appType" value="R"/>
+                   </apex:commandLink>
+                </apex:column>
+                <apex:column headervalue="Name" headerClass="GPOTableHeader" value="{!a.first_name__c} {!a.Last_Name__c}"/>
+
+                  <apex:column headervalue="Phone" headerClass="GPOTableHeader" value="{!a.Phone__c}"/>
+                   <apex:column styleClass="GPODisabled" headervalue="Email" headerClass="GPOTableHeader" value="{!a.Email__c}"/>
+                    <apex:column headervalue="Zip" headerClass="GPOTableHeader" value="{!a.Zip__c}"/>
+                  </apex:pageBlockTable> 
+                  </apex:pageblock>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--  TODO - This section is not implemnted to scale to a grandparent with 1,0000s of children nodes.  This UI needs to be refactored to support this Paginiation and lazy loading should be a key part of the new design -->
+    <div class="modal fade" id="CreateCommunity2" role="dialog" aria-labelledby="gridSystemModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Enable {!selectedGroup.Community_Name__c} Children Communities</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+
+
+
+
+
+                        <apex:form >
+                            <apex:pageBlock title="Paging through Categories of Stuff">
+
+                                <apex:pageBlockButtons location="top">
+                                    <apex:commandButton action="{!process}" value="Process Selected" />
+                                    <apex:commandButton styleClass="back_step_btn secondary btn" action="{!cancel}" value="Cancel"
+                                    />
+                                </apex:pageBlockButtons>
+                                <apex:pageMessages />
+
+                                <apex:pageBlockSection title="Category Results -  Page #{!pageNumber}" columns="1">
+                                    <apex:pageBlockTable value="{!PagedAccounts}" var="a">
+                                        <apex:column value="{!a.childAccountName}" />
+
+                                    </apex:pageBlockTable>
+                                </apex:pageBlockSection>
+                            </apex:pageBlock>
+
+                            <apex:panelGrid columns="4">
+                                <apex:commandLink action="{!first}">First</apex:commandlink>
+                                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}">Previous</apex:commandlink>
+                                <apex:commandLink action="{!next}" rendered="{!hasNext}">Next</apex:commandlink>
+                                <apex:commandLink action="{!last}">Last</apex:commandlink>
+                            </apex:panelGrid>
+
+                        </apex:form>
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+</apex:page>

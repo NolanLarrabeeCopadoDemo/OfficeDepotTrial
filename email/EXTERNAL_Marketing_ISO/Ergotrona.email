@@ -1,0 +1,628 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html style="" xmlns="http://www.w3.org/1999/xhtml">
+	<head><meta property="og:url" content="http://www.icontact-archive.com/gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V?w=4" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="static/css/jquery-ui-1.8.11-c.custom.css" type="text/css" media="all" />
+<script>
+	
+	var shortUrls = {"0":{"archiveUrl":"http:\/\/www.icontact-archive.com\/gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V?w=0","shortenedUrl":"http:\/\/icont.ac\/3wCRO"},"1":{"archiveUrl":"http:\/\/www.icontact-archive.com\/gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V?w=1","shortenedUrl":"http:\/\/icont.ac\/3wCRP"},"2":{"archiveUrl":"http:\/\/www.icontact-archive.com\/gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V?w=2","shortenedUrl":"http:\/\/icont.ac\/3wCRQ"},"3":{"archiveUrl":"http:\/\/www.icontact-archive.com\/gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V?w=3","shortenedUrl":"http:\/\/icont.ac\/3wCRR"},"4":{"archiveUrl":"http:\/\/www.icontact-archive.com\/gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V?w=4","shortenedUrl":"http:\/\/icont.ac\/3w4NS"},"6":{"archiveUrl":"http:\/\/www.icontact-archive.com\/gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V?w=6","shortenedUrl":"http:\/\/icont.ac\/3wCRS"},"7":{"archiveUrl":"http:\/\/www.icontact-archive.com\/gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V?w=7","shortenedUrl":"http:\/\/icont.ac\/3wCRT"}};
+	
+	(function($) {
+		$.extend({
+			getUrlVars: function()
+			{
+				var vars = [];
+				if(window.location.search.length == 0) {
+					return vars;
+				}
+				var hashes = window.location.search.slice(window.location.search.indexOf('?') + 1).split('&');
+				for (var i = 0; i < hashes.length; i++) {
+					var hash = hashes[i].split('=');
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			},
+
+			getUrlVar: function(name)
+			{
+				return $.getUrlVars()[name];
+			},
+
+			getShortUrl:  function()
+			{
+				var wParameter = $.getUrlVar('w');
+				if (wParameter !== undefined && shortUrls[wParameter] !== undefined) {
+					return shortUrls[wParameter]['shortenedUrl'];
+				}
+				return shortUrls[0]['shortenedUrl'];
+			},
+
+			urlEncodeParameters: function(o)
+			{
+				tail = [];
+				$.each(o, function(key, value)
+				{
+					tail.push(key + "=" + encodeURIComponent(value));
+				})
+				return tail.join("&");
+			},
+
+           processClick: function(key,statType,baseUrl)
+           {
+               	var data = {
+						"d"  : key,
+						"t"  : statType
+					}
+
+					var w = $.getUrlVar('w');
+					if (w !== null && w !== undefined){
+						data.w = w;
+					}
+
+					var params = $.urlEncodeParameters(data);
+
+					$.getJSON(baseUrl + "/rtrack.php?" + params, '&jsoncallback=?', function(data){});
+           }
+
+		});
+
+	})(jQuery);
+
+</script>
+
+<style>
+	#addThisBar {
+		width: 100%;
+		margin: 0 0 1em 0;
+		padding: 0;
+		background-color: #f2f2f2;
+		border-bottom: 1px solid #ccc;
+		position: fixed;
+		z-index: 100;
+	}
+
+	#addThisBar ul {
+		list-style: none;
+		width: 600px;
+		margin: 0 auto;
+		padding: 0;
+	}
+
+	#addThisBar li {
+		float: left;
+		margin-top: 2px;
+	}
+
+	#addThisBar li a {
+		text-decoration: none;
+		font-weight: bold;
+		color: #069;
+	}
+
+	#addThisBar .shareBar {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 13px;
+		margin-top: 5px;
+		margin-left: 10px;
+		font-weight: bold;
+		color: #069;
+	}
+
+    .buttons {
+        width: 250px;
+        margin-left: 90px;
+    }
+
+	#messageMainContent {
+		position: absolute;
+		top: 25px;
+		left: 0px;
+		width: 100%;
+	}
+
+	#poweredBy {
+		float: right;
+		margin-top: 2px;
+		margin-right: 5px;
+	}
+
+	body {
+		margin: 0;
+	}
+</style>
+<meta property="og:image" content="http://app.icontact.com/icp/static/images/spacer.gif" />
+<meta property="og:title" content="Thank You For Your Time" />
+<meta property="og:type" content="company" />
+<meta property="fb:app_id" content="217374801631195" />
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+		
+		<title>Ergotron Email</title>
+		<style type="text/css">
+body, #bodyTable, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;}
+      table{border-collapse:collapse;}
+      img, a img{border:0; outline:none; text-decoration:none;}
+      h1, h2, h3, h4, h5, h6{margin:0; padding:0;}
+      p{margin: 1em 0;}
+      
+      
+      
+      .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} 
+      .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div{line-height:100%;} 
+      table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} 
+      #outlook a{padding:0;} 
+      img{-ms-interpolation-mode: bicubic;} 
+      body, table, td, p, a, li, blockquote{-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%;} 
+      
+      
+      
+      
+      .Headline, .introductionContent, .callToActionContent, .callToActionButtonContent, .MarketTaglineContent, .footerContent, .3columnA, .3columnB, .3columnC {font-family:Arial, Helvetica, sans-serif;}
+      
+      h1, h2, h3{font-family:Arial, Helvetica, sans-serif; letter-spacing:-1px;}
+      h1, h1 a{color:#06C; font-size:35px; font-weight:100; line-height:115%; text-align:center; letter-spacing:-1px;}
+      h2, h2 a{color:#606060; font-size:34px; font-weight:100; line-height:100%; text-align:left;}
+      h3, h3 a{color:#06C; font-size:22px; font-weight:100; line-height:115%; text-align:center;}
+      
+      body, #bodyTable{background-color:#ffffff; font-family:Arial, Helvetica, sans-serif;}
+      #emailContainer{width:100%;}
+      
+      #ViewInBrowserContainer, #ViewInBrowserContainer a {padding:15px; font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333; text-decoration:none;}
+      
+      #HeadlineContainer { padding-top:20px; padding-bottom:20px;}
+      .Headline{color:#666; font-family:Arial, Helvetica, sans-serif; font-size:25px; font-weight:normal; line-height:115%; letter-spacing:-1px;}
+      
+      #heroImageContainer{padding:0px;}
+      
+      .ContentBlockContainer {padding-top: 10px; padding-bottom: 10px;}
+      .RightColumn {padding-left:20px; padding-right:20px; padding-top: 0px; padding-bottom: 20px;}
+      .RightColumn p {font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:115%; color:#333;}
+      
+      #ThreecolumnContainer {line-height:normal;} 
+      #ThreecolumnContainer a {line-height:normal; color:#06C; text-decoration:none;} 
+      .ThreecolumnBlock, .ThreecolumnBlock a {font-family:Arial, Helvetica, sans-serif; font-size:13px; line-height:normal; color:#06C; text-decoration:none; background-color:#FFFFFF;}
+      
+      .CaptionCopyCell {padding: 5px; text-align:center; font-size:12px; line-height:normal; color:#606060;}
+      .CaptionCopyCell a { text-align:center; font-size:12px; line-height:normal; color:#606060;}
+      
+      
+      
+      #MarketTaglineContainer {padding-bottom:30px; padding-top:0px;}
+      .MarketTaglineContent {border-top-style: solid; border-top-color:#CCC; border-top-width: 2px;}
+      .MarketTaglineCopy {font-family:Arial, Helvetica, sans-serif; color:#06C; font-size: 14px; padding-top:15px;}
+      
+      
+      .callToActionButton{background-color:#F44A31; border-radius:4px; box-shadow:0 5px 0 #F45361;}
+      .callToActionButtonContent, .callToActionButtonContent a{color:#F44A31; font-size:15px; font-weight:bold; line-height:100%; letter-spacing:0px; padding:10px; text-align:center; text-decoration:none;}
+      
+      
+      @media only screen and (max-width: 480px){
+      /*////// RESET STYLES //////*/
+      td[id="introductionContainer"], td[id="callToActionContainer"], td[id="eventContainer"], td[id="merchandiseContainer"], td[id="footerContainer"]{padding-right:10px !important; padding-left:10px !important;}
+      table[id="introductionBlock"], table[id="callToActionBlock"], table[id="eventBlock"], table[id="merchandiseBlock"], table[id="footerBlock"]{max-width:480px !important; width:100% !important;}		</style>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+	<body style="height:100% !important;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;width:100% !important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;background-color:#ffffff;font-family:Arial, Helvetica, sans-serif;">
+<script type="text/javascript">
+(function() {
+    $(document).ready(function() {
+            var share = $("script[type='IN/Share']").each(function(){
+				$(this).attr('data-url', $.getShortUrl());
+			});
+            var po = document.createElement('script');
+            po.type = 'text/javascript';
+            po.async = true;
+            po.src = 'http://platform.linkedin.com/in.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(po, s);
+
+            var showDialogBox = (window.location.hash == '#linkedinshare' ? true : false);
+            if(showDialogBox) {
+                var linkedinshareDialog = $( "#linkedIn-dialog-modal" ).dialog({
+                        height: 150,
+                        width: 370,
+                        resizable: false,
+                        draggable: false,
+                        modal: true
+                });
+
+                //Work around for jQuery UI to allow limiting CSS to just the dialog and overlay
+                linkedinshareDialog.parent().wrap('<div class="__dialog_theme linkedIn"></div>')
+                         .parent().next().wrap('<div class="__dialog_theme"></div>');//the next element is the overlay
+			}
+    });
+
+    })();
+
+
+function handleLinkedInShareEvent(){
+                
+                    $.processClick("gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V","500","https://app.icontact.com/icp");
+                   
+                if((window.location.hash == '#linkedinshare' ? true : false)) {
+			$('#linkedInInstructions').hide();
+			$('#linkedInThankYou').show();
+			$("#linkedIn-dialog-modal").parent().delay(1000).fadeOut(function() {
+			$("#linkedIn-dialog-modal").dialog('close');
+			});
+		}
+        }
+</script>
+
+
+<div id="linkedIn-dialog-modal" class="linkedin dialogue"  style="display:none;">
+	<span id="linkedInInstructions">
+		<h2>Share this message</h2>
+		<p>Click the button below to share this on LinkedIn.</p>
+	</span>
+	<span id="linkedInThankYou" style="display:none;">
+		<h2>Thank you</h2>
+		<p>Thank you for sharing our message on LinkedIn.</p>
+	</span>
+	<div id="dialoglinkedIn" class="ui-corner-all"><script type="IN/Share" data-url="http://icont.ac/3wCRO" data-onSuccess="handleLinkedInShareEvent"></script></div>
+</div>
+<script type="text/javascript">
+window.___gcfg = {
+    lang: 'en-US'
+};
+
+(function() {
+    $(document).ready(function() {
+        var googleplusone = $("g\\:plus").each(function() {
+            $(this).attr('href', $.getShortUrl());
+        });
+        var po = document.createElement('script');
+        po.type = 'text/javascript';
+        po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+        var showDialogBox = (window.location.hash == '#googleplusone' ? true : false);
+        if (showDialogBox) {
+            var googleDialog = $("#google-dialog-modal").dialog({
+                height: 150,
+                width: 375,
+                resizable: false,
+                draggable: false,
+                modal: true
+            });
+
+            //Work around for jQuery UI to allow limiting CSS to just the dialog and overlay
+            googleDialog.parent().wrap('<div class="__dialog_theme googlePlusOne"></div>')
+                    .parent().next().wrap('<div class="__dialog_theme"></div>');//the next element is the overlay
+        }
+
+    }); //end doc ready
+})(); //end function
+
+function handleGooglePlusOneEvent(l, s){
+        if (s != 'off') {
+					
+                    $.processClick("gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V","400","https://app.icontact.com/icp");
+                    
+        }
+        if ((window.location.hash == '#googleplusone' ? true : false)) {
+            $('#googleInstructions').hide();
+            $('#googleThankYou').show();
+            $("#google-dialog-modal").parent().delay(1000).fadeOut(function() {
+                $("#google-dialog-modal").dialog('close');
+            });
+        }
+}
+</script>
+
+
+<div id="google-dialog-modal" class="google dialogue" style="display:none;">
+	<span id="googleInstructions">
+		<h2>+1 this message</h2>
+		<p>Click the button below to +1 this on Google+.</p>
+	</span>
+	<span id="googleThankYou" style="display:none;">
+		<h2>Thank you</h2>
+		<p>Thank you for sharing our message on Google+.</p>
+	</span>
+
+    <div id="dialogGoogle" class="ui-corner-all"><g:plusone size="tall" annotation="none" callback="handleGooglePlusOneEvent" href="http://icont.ac/3wCRO"></g:plusone></div>
+</div>
+<script>
+	(function($) {
+
+		$(document).ready(function() {
+			$('a[class="twitter-share-button"]').each(function()
+			{
+				$(this).attr('data-url', $.getShortUrl());
+			});
+
+		$.getScript("http://platform.twitter.com/widgets.js", function(){
+			var data = {
+			
+				"d"  : "gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V",
+				"t"  : "300"
+			
+			}
+
+			var w = $.getUrlVar('w');
+			if (w !== null && w !== undefined) {
+				data.w = w;
+			}
+
+			var params = $.urlEncodeParameters(data);
+
+			function handleTweetEvent(event){
+						
+							$.getJSON("https://app.icontact.com/icp/rtrack.php?" + params, '&jsoncallback=?',
+						
+								function(data){}
+								);
+			}
+
+			if($.browser.msie) {
+				twttr.events.bind('click',
+					handleTweetEvent
+				);
+			}
+			else {
+				twttr.events.bind('tweet',
+					handleTweetEvent
+				);
+			}
+		})
+});
+})(jQuery);
+
+
+</script>
+<div id="fb-root"></div>
+
+<script>
+	(function()	{
+		$(document).ready(function() {
+			var fblike = $("fb\\:like").each(function(){
+				$(this).attr('href', $.getShortUrl());
+			});
+			var e = document.createElement('script');
+			var showDialogBox = (window.location.hash == '#fblike' ? true : false);
+			e.type = 'text/javascript';
+			e.src = document.location.protocol + i18n.global.facebook.api_url;
+			e.async = true;
+			document.getElementById('fb-root').appendChild(e);
+
+			window.fbAsyncInit = function()	{
+				FB.init({appId:'217374801631195', status: true, cookie: true,xfbml: true, oauth: true});
+
+				FB.Event.subscribe('edge.create', function(href, widget) {
+					if(showDialogBox) {
+							$('#likeInstructions').hide();
+							$('#likeThankYou').show();
+							$("#dialog-modal").parent().delay(1000).fadeOut(function() {
+								$("#dialog-modal").dialog('close');
+							});
+					}
+					
+                    $.processClick("gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V","200","https://app.icontact.com/icp");
+                    
+				});
+
+			};
+
+			if(showDialogBox) {
+				var likeDialog = $( "#dialog-modal" ).dialog({
+					height: 150,
+					width: 370,
+					resizable: false,
+					draggable: false,
+					modal: true
+				});
+
+				//Work around for jQuery UI to allow limiting CSS to just the dialog and overlay
+				likeDialog.parent().wrap('<div class="__dialog_theme facebook"></div>')
+					 .parent().next().wrap('<div class="__dialog_theme"></div>');//the next element is the overlay
+			}
+		});
+	}());
+
+
+</script>
+
+<div id="dialog-modal" class="facebook dialogue" style="display:none;">
+	<span id="Instructions">
+		<h2>Like this message.</h2>
+		<p>Click the button below to like this on Facebook.</p>
+	</span>
+	<span id="likeThankYou" style="display:none;">
+		<h2>Thank you</h2>
+		<p>Thank you for sharing our message on Facebook.</p>
+	</span>
+	<div id="dialogLike" class="ui-corner-all"><span style="width:50px;height:20px;overflow:hidden;display:inline-block;"><fb:like href="http://icont.ac/3wCRO" show_faces="false" width="50" font="" layout="button_count" ref=""></fb:like></span></div>
+
+</div><!-- AddThis Button BEGIN -->
+
+<script>
+i18n={global:{facebook:{api_url:'//connect.facebook.net/en_US/all.js'}}};
+</script>
+
+
+<div id="addThisBar">
+	<div id="poweredBy">
+		&nbsp;&nbsp; <a href=http://www.icontact.com target="_blank"><img height="20" border="0" src="https://app.icontact.com/icp/login/static/images/poweredby/poweredBy_iContact_105x20.png" /></a>
+	</div>
+	<ul>
+		<div class = "addthis_toolbox addthis_default_style">
+			<li class="buttons">
+				<a class="at300b">
+					<span class="facebooklikespan">
+						<span style="width:50px;height:20px;overflow:hidden;display:inline-block;"><fb:like href="http://icont.ac/3wCRO" show_faces="false" width="50" font="" layout="button_count" ref=""></fb:like></span>
+					</span>
+				</a>
+				<a class="at300b">
+					<span class="twittertweetspan">
+						<a href="http://twitter.com/intent/tweet" data-url="http://icont.ac/3wCRO" class="twitter-share-button" data-count="horizontal" data-text="Thank You For Your Time">Tweet</a>
+					</span>
+				</a>
+				<a class="at300b">
+                    <div style="height:20px">
+					<span class="googleplusonespan">
+						<g:plusone size="tall" annotation="none" callback="handleGooglePlusOneEvent" href="http://icont.ac/3wCRO"></g:plusone>
+					</span></div>
+				</a>
+				<a class="at300b">
+   					<span class="lnkdinshare">
+						<script type="IN/Share" data-url="http://icont.ac/3wCRO" data-onSuccess="handleLinkedInShareEvent"></script>
+					</span>
+				</a>
+			</li>
+
+			<li class="shareBar">
+				Share this Page:			</li>
+			<li class="shareBar">
+				<a class="addthis_button">
+					<img width="16" height="16" border="0" align="top" src="http://s7.addthis.com/static/btn/sm-plus.gif" alt="Share">
+				</a>
+			</li>
+		</div>
+	</ul>
+</div>
+<script type = "text/javascript">
+	var addthis_share = {
+			templates: {twitter: "Check out " + $.getShortUrl() + " via " }
+	};
+	var addthis_config = {
+		"data_track_clickback": true,
+		services_compact: 'email,print,facebook,linkedin,google,digg,stumbleupon,favorites,more',
+		ui_cobrand: "<a href='http://www.icontact.com'>iContact</a>"
+	};
+</script>
+<script type = "text/javascript" src ="http://s7.addthis.com/js/250/addthis_widget.js#username=iContactCorp" ></script>
+<!-- AddThis Button END --><div id="messageMainContent">
+		<center>
+			<p style="margin-top:1em;margin-bottom:1em;margin-right:0;margin-left:0;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
+				&nbsp;</p>
+			<table border="0" cellpadding="0" cellspacing="0" height="100%" id="bodyTable" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;height:100% !important;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;width:100% !important;background-color:#ffffff;font-family:Arial, Helvetica, sans-serif;" width="100%">
+				<tbody>
+					<tr>
+						<td align="center" id="bodyCell" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;height:100% !important;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;width:100% !important;" valign="top">
+							<!-- // BEGIN EMAIL -->
+							<table border="0" cellpadding="0" cellspacing="0" id="emailContainer" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;width:100%;" width="100%">
+								<!---View in browser start- -->
+								<tbody>
+									<tr>
+										<td align="center" id="ViewInBrowserContainer" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#333;text-decoration:none;" valign="top">
+											<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="600">
+												<tbody>
+													<tr>
+														<td align="center" id="viewinbrowser" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="100%">
+															<a href="#" style="-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;font-family:Arial, Helvetica, sans-serif;font-size:12px;color:#333;text-decoration:none;">View as a web page</a></td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+									<!---View in browser end- --><!---EMAIL HEADER IMAGE start- -->
+									<tr>
+										<td align="center" height="80" id="headerImageContainer" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;padding-top:30px" valign="top">
+											<a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=http%3A%2F%2Fwww.officedepot.com%2Fcatalog%2Fsearch.do%3FNtt%3Dergotron" style="-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" target="_blank"><img alt="Office Depot. Office Max." height="115" id="HeaderImage" src="https://staticapp.icpsc.com/icp/loadimage.php/mogile/1547144/d1b376966bda605c1ddb04fade1eb2c0/image/png?token=4c7c8c1d846204ec04f70e132e37a7af&amp;" style="-ms-interpolation-mode:bicubic;border-width:0;outline-style:none;text-decoration:none;" width="600" /></a></td>
+									</tr>
+									<!---EMAIL HEADER IMAGE end- --><!---HERO IMAGE start- -->
+									<tr>
+										<td align="center" id="HeroImageContainer" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;padding-top:30px;padding-bottom:0px;padding-right:0px;padding-left:0px;" valign="top">
+											<a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=http%3A%2F%2Fwww.officedepot.com%2Fa%2Fproducts%2F347951%2FErgotron-WorkFit-T-Sit-Stand-Desktop%2F" style="-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" target="_blank"><img alt="WorkFit-TL Sit-Stand Desktop Workstation" height="382" id="HeroImage" src="https://staticapp.icpsc.com/icp/loadimage.php/mogile/1547144/565ff388d0b6f76d90b551275c445cf1/image/jpeg?token=4c7c8c1d846204ec04f70e132e37a7af&amp;" style="-ms-interpolation-mode:bicubic;border-width:0;outline-style:none;text-decoration:none;" width="600" /></a></td>
+									</tr>
+									<!---HERO IMAGE end- --><!---CONTENT start- -->
+									<tr>
+										<td align="center" id="ContentBlockContainer" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" valign="top" width="100%">
+											<table border="0" cellpadding="0" cellspacing="0" class="ContentBlockContainer" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;padding-top:10px;padding-bottom:10px;" width="600">
+												<tbody>
+													<tr>
+														<td align="center" class="ContentBlockContainer" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;padding-top:10px;padding-bottom:10px;" valign="top" width="100%">
+															<table align="center" border="0" cellpadding="0" cellspacing="0" class="ContentBlock" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="600">
+																<tbody>
+																	<tr valign="top">
+																		<td align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="600">
+																			<table align="left" cellpadding="0" cellspacing="0" id="RightColumnContainer" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">
+																				<tbody>
+																					<tr>
+																						<td class="RightColumn" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;padding-left:20px;padding-right:20px;padding-top:0px;padding-bottom:20px;" valign="top">
+																							<h1 style="font-family: Helvetica, sans-serif; color: rgb(102, 102, 102); font-size: 20px; line-height: 100%; letter-spacing: -1px; margin: 0px; padding: 0px;">
+																								<span style="font-size:26px;">Place the WorkFit-TL on an open&nbsp;</span><span style="font-size: 26px; line-height: 150%;">surface,&nbsp;</span><span style="font-size: 26px; line-height: 150%;">stand up and you're ready to work!</span></h1>
+																							<p style="margin-top:1em;margin-bottom:1em;margin-right:0;margin-left:0;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-family:Arial, Helvetica, sans-serif;font-size:15px;line-height:115%;color:#333;">
+																								The industry leading provider in Ergonomics and the ability to sit or stand easily is Ergotron. One of our best-selling solutions is the WorkFt-T - <a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=http%3A%2F%2Fwww.officedepot.com%2Fa%2Fproducts%2F347951%2FErgotron-WorkFit-T-Sit-Stand-Desktop%2F" style="text-decoration:none;color:#666;font-family:Arial; Helvetica, sans-serif;font-weight:bold;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">Item number 347951</a> or WorkFit-TL - <a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=http%3A%2F%2Fwww.officedepot.com%2Fa%2Fproducts%2F887538%2FErgotron-WorkFit-TL-Sit-Stand-Desktop%2F" style="text-decoration:none;color:#666;font-family:Arial; Helvetica, sans-serif;font-weight:bold;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">Item number 887538</a>. No assembly required! Just place it on your existing desk and it easily and safely adjusts from sitting to standing.</p>
+																							<p style="margin-top:1em;margin-bottom:1em;margin-right:0;margin-left:0;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-family:Arial, Helvetica, sans-serif;font-size:15px;line-height:115%;color:#333;">
+																								Find the right fit for your retrofit project. View our <a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=http%3A%2F%2Fwww.ergotron.com%2Fportals%2F0%2Femail%2F16%2FWorkFit-T-TL-Brochure-ODOM.pdf" style="text-decoration:none;color:#666;font-family:Arial; Helvetica, sans-serif;font-weight:bold;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;">WorkFit-T brochure</a>.&nbsp;</p>
+																							<br />
+																							<table align="center" border="0" cellpadding="0" cellspacing="0" class="callToActionButton" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;background-color:#F44A31;border-radius:4px;box-shadow:0 5px 0 #F45361;">
+																								<tbody>
+																									<tr>
+																										<td align="center" class="callToActionButtonContent" style="mso-table-lspace:20pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-family:Arial, Helvetica, sans-serif;color:#F44A31;font-size:15px;font-weight:bold;line-height:100%;letter-spacing:1px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;text-align:center;text-decoration:none;" valign="top">
+																											<a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=http%3A%2F%2Fwww.officedepot.com%2Fcatalog%2Fsearch.do%3FNtt%3Dergotron" style="-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#FFFFFF;font-size:15px;font-weight:bold;line-height:100%;letter-spacing:0px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;text-align:center;text-decoration:none;" target="_blank">Meet the WorkFit Product Family »</a></td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+									<!---CONTENT end- -->
+									<tr>
+										<td align="center" id="footerContainer" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" valign="top">
+											<table cellpadding="0" cellspacing="0" class="social" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="600">
+												<tbody>
+													<tr>
+														<td style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;padding-top:10px;padding-bottom:0px;background-color:#fff;">
+															<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="600">
+																<tbody>
+																	<tr>
+																		<td align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="98">
+																			<a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=http%3A%2F%2Fwww.ergotron.com%2F" style="-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" target="_blank"><img alt="Ergotron" height="77" src="https://staticapp.icpsc.com/icp/loadimage.php/mogile/1547144/f01bd7d2b347995eedd4563e3b766378/image/jpeg?token=2c9b00b4cc508767030273954b1a30b8&amp;" style="-ms-interpolation-mode:bicubic;border-width:0;outline-style:none;text-decoration:none;" title="Ergotron" width="400" /></a></td>
+																		<td align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="98">
+																			<a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=https%3A%2F%2Ftwitter.com%2Fergotron" style="-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" target="_blank"><img alt="Twitter" height="32" src="https://staticapp.icpsc.com/icp/loadimage.php/mogile/1547144/018c8e21d220464720b69b621abc3f7e/image/jpeg?token=2c9b00b4cc508767030273954b1a30b8&amp;" style="-ms-interpolation-mode:bicubic;border-width:0;outline-style:none;text-decoration:none;" title="Twitter" width="32" /></a></td>
+																		<td align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="98">
+																			<a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=https%3A%2F%2Fwww.youtube.com%2Fuser%2FErgotronGuy" style="-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" target="_blank"><img alt="Youtube" height="32" src="https://staticapp.icpsc.com/icp/loadimage.php/mogile/1547144/84f2c2a2696dd77576effeb446e68c5a/image/jpeg?token=2c9b00b4cc508767030273954b1a30b8&amp;" style="-ms-interpolation-mode:bicubic;border-width:0;outline-style:none;text-decoration:none;" title="Youtube" width="32" /></a></td>
+																		<td align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" width="98">
+																			<a href="http://click.icptrack.com/icp/rclick.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V&amp;destination=https%3A%2F%2Fwww.facebook.com%2FErgotronInc" style="color:#0000FF!important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;" target="_blank"><img alt="Facebook" height="32" src="https://staticapp.icpsc.com/icp/loadimage.php/mogile/1547144/323c25133a72c1b7108ec07f5c516cb6/image/jpeg?token=2c9b00b4cc508767030273954b1a30b8&amp;" style="-ms-interpolation-mode:bicubic;border-width:0;outline-style:none;text-decoration:none;" title="Facebook" width="32" /></a></td>
+																	</tr>
+																</tbody>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- END EMAIL // --></td>
+					</tr>
+				</tbody>
+			</table>
+		</center>
+		<p>
+			&nbsp;</p>
+	
+
+
+
+<!-- <img src="http://click.icptrack.com/icp/rtrack.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V" width="1" height="1"> -->
+</div><script type="text/javascript">
+//<![CDATA[
+(function() {
+var _analytics_scr = document.createElement('script');
+_analytics_scr.type = 'text/javascript'; _analytics_scr.async = true; _analytics_scr.src = '/_Incapsula_Resource?SWJIYLWA=2977d8d74f63d7f8fedbea018b7a1d05&ns=1';
+var _analytics_elem = document.getElementsByTagName('script')[0]; _analytics_elem.parentNode.insertBefore(_analytics_scr, _analytics_elem);
+})();
+// ]]>
+</script></body>
+<script type="text/javascript">var query = document.location.href.substring(document.location.href.indexOf("gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V")).replace("?","&");var hashTag = query.indexOf("#");if(hashTag > -1) { query = query.substring(0, hashTag); }document.body.innerHTML = document.body.innerHTML.replace(/gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V/g,query);var img = new Image();img.src = "https://app.icontact.com/icp/rtrack.php?d="+query;img.width = 1;img.height = 1;document.body.appendChild(img);</script><noscript><img src="https://app.icontact.com/icp/rtrack.php?d=gkR_CVldWcq-4Q2n54mJ0ClgzE780r8V" width="1" height="1" /></noscript></html>

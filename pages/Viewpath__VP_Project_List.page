@@ -1,0 +1,45 @@
+<apex:page standardController="Viewpath__VP_Project__c" extensions="Viewpath.VP_Project_List_Extension" recordSetVar="VP_Project__c" >
+<style>
+div#massEditFieldDiv input {
+    width:200px;
+}
+</style>
+
+<apex:outputPanel >
+ <!--- Begin of attempt to get a Launch button on the VP Projects tab.  DID NOT SHOW ANTHING BELOW  
+  <script type="text/javascript"> 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Project vars/urls from Apex
+        ////////////////////////////////////////////////////////////////////////////////////////////////////   
+        ViewpathApiUrl = '<apex:outputText value="{!ViewpathAPIUrl}"/>';
+        LocalApiUrl = '<apex:outputText value="{!LocalAPIUrl}"/>';
+        AccessLevel = <apex:outputText value="{!AccessLevel}"/>;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //End Project Vars
+        //////////////////////////////////////////////////////////////////////////////////////////////////// 
+  </script>
+  
+    <apex:pageBlock title="Test" rendered="{!AccountActivated}">
+    This is inside of pageBlock!<br />
+    <input type="button" class="btn" onClick="popUp('{!ViewpathLaunchAppUrl}?Method=LaunchApplication');" value="Launch Viewpath"/>
+    Launch URL is getViewpathLaunchAppUrl();
+  </apex:pageBlock>
+  
+ End of attempt to get a Launch button on the VP Projects tab  
+ -->         
+  </apex:outputPanel>  
+
+<!--   Experiments that had no impact on the VP Projects tab UI
+  <apex:sectionHeader title="Your Viewpath Projects" subtitle="List" />
+  <apex:listViews type="VP_Project__c"/>
+  <apex:enhancedList height="600" type="VP_Project__c" rendered="true"/>
+ 
+ -->
+     
+  <apex:enhancedList height="600" type="VP_Project__c" rendered="{!AccountActivated}"/> 
+  
+  <apex:outputPanel rendered="{!(!AccountActivated)}">
+      <p>It looks like your account hasn't been activated yet. Please have your administrator go to the Viewpath Configuration tab and activate the account. Thanks!</p>
+  </apex:outputPanel>
+  
+</apex:page>

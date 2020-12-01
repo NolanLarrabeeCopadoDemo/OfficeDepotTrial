@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>When a sales rep asks to get assigned to an account they are not owners of.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Manager Account Owner Change</name>
+    <style>freeForm</style>
+    <subject>Change Account Owner Instructions - {!Case.Thread_Id}</subject>
+    <textOnly>Hello,
+
+Please have your manager reassign this account in TOPS as this is not managed within Salesforce.
+
+
+Please have your manager review the linked documents below:
+
+
+https://officedepot.gosavo.com/Document/Document.aspx?id=35506612&amp;view=&amp;srlid=35665106&amp;srisprm=False&amp;sritidx=1&amp;srpgidx=0&amp;srpgsz=25
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

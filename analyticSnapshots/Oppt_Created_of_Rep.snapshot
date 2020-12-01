@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>What % of reps have created at least one opportunity</description>
+    <groupColumn>User.Region__c</groupColumn>
+    <mappings>
+        <sourceField>User.Region__c</sourceField>
+        <sourceType>tabular</sourceType>
+        <targetField>Reporting_Snapshot__c.Name</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>FORMULA1</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Reporting_Snapshot__c.Oppt_Created_of_Rep__c</targetField>
+    </mappings>
+    <name>Oppt Created - % of Rep</name>
+    <runningUser>055053@officedepot.com</runningUser>
+    <sourceReport>Certification_Metrics_Report/Cert_Metrics_Opportunities</sourceReport>
+    <targetObject>Reporting_Snapshot__c</targetObject>
+</AnalyticSnapshot>

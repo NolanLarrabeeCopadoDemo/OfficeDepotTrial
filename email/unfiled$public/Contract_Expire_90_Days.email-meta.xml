@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Contract is expiring in 90 days</description>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Contract Expire 90 Days</name>
+    <style>freeForm</style>
+    <subject>A written agreement for {!Account.Name} - {!Account.Cust_ID__c} is expiring in 90 day</subject>
+    <textOnly>Hello {!Account.OwnerFullName},
+
+Please note that a written agreement for {!Account.Name} - {!Account.Cust_ID__c}, Contract Number: {!Contract.ContractNumber} is expiring in 90 days.
+
+Expiration date: {!Contract.Date_current_Legal_Contract_expires__c}
+
+Please note accounts can have multiple written agreement relationships.  If you have questions regarding what relationship is expiring, please follow the process in #2 below.
+
+Please choose from the following next steps:
+
+To submit completed new/renewal documents – open a SCOE ticket from the account HERE.  Choose Compliance → Document submission.
+
+To ask question(s) about the expiring written agreement – open a SCOE ticket from the account HERE.  Choose Compliance → Agreement question.
+
+To initiate extensions/new written agreements - open a WRF from the account.
+
+
+WRF quick reference…
+
+Will this customer / Does this customer have a Written Agreement? → Yes
+What best describes your request? → Account Review
+What is the goal of the account review? → Contract term changes
+The account can be accessed HERE
+
+
+If you have already acted on this, please disregard this notification.
+
+PLEASE DO NOT REPLY TO THIS EMAIL.
+Thank You,
+
+The Pricing Compliance Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

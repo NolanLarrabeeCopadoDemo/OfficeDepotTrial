@@ -1,0 +1,159 @@
+<apex:page standardController="Partner__c"  readOnly="true">
+    <style>
+        .redText {
+            color :red;
+        }
+        .blackText {
+            color :black;
+        }
+    </style>
+    <apex:pageBlock rendered="{!IF(Partner__c.MTD_Sales_TY__c <> null,true,false)}" >
+        <table width="100%" cellspacing="3">
+            <tr>
+                <td>
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="Month to Date Stats" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="Revenue" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="IMU%" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="This Year" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement" ><apex:outputField value="{!Partner__c.MTD_Sales_TY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputtext >{!IF(Partner__c.MTD_Sales_TY__c = 0, 0, TEXT(ROUND(Partner__c.MTD_Sales_TY_IMU__c / Partner__c.MTD_Sales_TY__c,4) * 100))}% </apex:outputtext>
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="Last Year" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.MTD_Sales_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputtext >{!IF(Partner__c.MTD_Sales_LY__c = 0, 0, TEXT(ROUND(Partner__c.MTD_Sales_LY_IMU__c / Partner__c.MTD_Sales_LY__c,4) * 100))}%</apex:outputtext>
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="Difference" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement">
+                                <apex:outputPanel styleClass="{!if(Partner__c.MTD_Sales_TY__c - Partner__c.MTD_Sales_LY__c < 0,'redText','blackText')}" layout="block">
+                                    <apex:outputText value="{0,number,$#,###,###}">
+                                        <apex:param value="{!ROUND(Partner__c.MTD_Sales_TY__c - Partner__c.MTD_Sales_LY__c,0)}" />
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                                <apex:outputPanel styleClass="{!if(Partner__c.MTD_Sales_TY_IMU__c - Partner__c.MTD_Sales_LY_IMU__c < 0,'redText','blackText')}" layout="block">
+                                    <apex:outputText >
+                                        {!IF((Partner__c.MTD_Sales_TY__c - Partner__c.MTD_Sales_LY__c) = 0, 0, TEXT(ROUND((Partner__c.MTD_Sales_TY_IMU__c - Partner__c.MTD_Sales_LY_IMU__c) / (Partner__c.MTD_Sales_TY__c - Partner__c.MTD_Sales_LY__c),4) * 100))}%
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        
+                    </table></td>
+                <td>
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="Quarter to Date Stats" />
+                            </th>
+                            <th class="CurrencyElement" ><apex:outputText value="Revenue" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="IMU%" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="This Year" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement" ><apex:outputField value="{!Partner__c.QTD_Sales_TY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputtext >{!IF(Partner__c.QTD_Sales_TY__c = 0, 0, TEXT(ROUND(Partner__c.QTD_Sales_TY_IMU__c / Partner__c.QTD_Sales_TY__c,4) * 100))}% </apex:outputtext>
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="Last Year" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.QTD_Sales_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputtext >{!IF(Partner__c.QTD_Sales_LY__c = 0, 0, TEXT(ROUND(Partner__c.QTD_Sales_LY_IMU__c / Partner__c.QTD_Sales_LY__c,4) * 100))}%</apex:outputtext>
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="Difference" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement">
+                                <apex:outputPanel styleClass="{!if(Partner__c.QTD_Sales_TY__c - Partner__c.QTD_Sales_LY__c < 0,'redText','blackText')}" layout="block">
+                                    <apex:outputText value="{0,number,$#,###,###}">
+                                        <apex:param value="{!ROUND(Partner__c.QTD_Sales_TY__c - Partner__c.QTD_Sales_LY__c,0)}" />
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                                <apex:outputPanel styleClass="{!if(Partner__c.QTD_Sales_TY_IMU__c - Partner__c.QTD_Sales_LY_IMU__c < 0,'redText','blackText')}" layout="block">
+                                    <apex:outputText >
+                                        {!IF((Partner__c.QTD_Sales_TY__c - Partner__c.QTD_Sales_LY__c) = 0, 0, TEXT(ROUND((Partner__c.QTD_Sales_TY_IMU__c - Partner__c.QTD_Sales_LY_IMU__c) / (Partner__c.QTD_Sales_TY__c - Partner__c.QTD_Sales_LY__c),4) * 100))}%
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                    </table></td>
+                
+                
+                <td>
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="Year to Date Stats" />
+                            </th>
+                            <th class="CurrencyElement" ><apex:outputText value="Revenue" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="IMU%" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="This Year" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement" ><apex:outputField value="{!Partner__c.YTD_Sales_TY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputtext >{!IF(Partner__c.YTD_Sales_TY__c = 0, 0, TEXT(ROUND(Partner__c.YTD_Sales_TY_IMU__c / Partner__c.YTD_Sales_TY__c,4) * 100))}% </apex:outputtext>
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="Last Year" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Partner__c.YTD_Sales_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputtext >{!IF(Partner__c.YTD_Sales_LY__c = 0, 0, TEXT(ROUND(Partner__c.YTD_Sales_LY_IMU__c / Partner__c.YTD_Sales_LY__c,4) * 100))}%</apex:outputtext>
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="Difference" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement">
+                                <apex:outputPanel styleClass="{!if(Partner__c.YTD_Sales_TY__c - Partner__c.YTD_Sales_LY__c < 0,'redText','blackText')}" layout="block">
+                                    <apex:outputText value="{0,number,$#,###,###}">
+                                        <apex:param value="{!Partner__c.YTD_Sales_TY__c - Partner__c.YTD_Sales_LY__c}" />
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                                <apex:outputPanel styleClass="{!if(Partner__c.YTD_Sales_TY_IMU__c - Partner__c.YTD_Sales_LY_IMU__c < 0,'redText','blackText')}" layout="block">
+                                    <apex:outputText >
+                                        {!IF((Partner__c.YTD_Sales_TY__c - Partner__c.YTD_Sales_LY__c) = 0, 0, TEXT(ROUND((Partner__c.YTD_Sales_TY_IMU__c - Partner__c.YTD_Sales_LY_IMU__c) / (Partner__c.YTD_Sales_TY__c - Partner__c.YTD_Sales_LY__c),4) * 100))}%
+                                    </apex:outputText>
+                                </apex:outputPanel>
+                            </td>
+                        </tr>
+                        
+                    </table></td>
+                
+            </tr>
+        </table>
+    </apex:pageBlock>
+    
+    <apex:outputPanel rendered="{!IF(Partner__c.MTD_Sales_TY__c = null,true,false)}">No SalesHistory to display</apex:outputPanel>
+    
+</apex:page>

@@ -1,0 +1,71 @@
+<template>
+	<div>
+		<div class="slds-m-bottom_medium">
+			<div>Tax Exempt Type: {aopsCustMasterDetails.TAX_EXEMPT_TYPE}</div>
+			<div>Tax Geo Code: {aopsCustMasterDetails.TAX_GEO_CODE}</div>
+		</div>
+		<div class="slds-box">
+			<div class="slds-grid slds-m-bottom_small">
+				<span class="slds-m-right_small">
+					<lightning-icon icon-name="standard:drafts" title="Tax Certificates">
+					</lightning-icon>
+				</span>
+				<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Tax Certificates
+				</div>
+			</div>
+			<template if:false={hasError}>
+				<div class="slds-grid">
+					<table class="slds-grow">
+						<tr>
+							<td class="slds-p-right_medium">
+								State
+							</td>
+							<td class="slds-p-right_medium">
+								Country Code
+							</td>
+							<td class="slds-p-right_medium">
+								Expiration Date
+							</td>
+							<td class="slds-p-right_medium">
+								Tax Status
+							</td>
+							<td class="slds-p-right_medium">
+								Federal Exempt Flag
+							</td>
+							<td class="slds-p-right_medium">
+								Tax Certification Number
+							</td>
+						</tr>
+						<template for:each={aopsTaxInfo} for:item="item">
+							<tr key={item.taxCertificateNumber}>
+								<td>
+									{item.state}
+								</td>
+								<td>
+									{item.country}
+								</td>
+								<td>
+									{item.expirationDate}
+								</td>
+								<td>
+									{item.taxStatus}
+								</td>
+								<td>
+									{item.federalExemptionFlag}
+								</td>
+								<td>
+									{item.taxCertificateNumber}
+								</td>
+							</tr>
+						</template>
+					</table>
+				</div>
+			</template>
+			<template if:true={hasError}>
+				<div>
+					No tax certificates found
+				</div>
+			</template>
+		</div>
+	</div>
+</template>

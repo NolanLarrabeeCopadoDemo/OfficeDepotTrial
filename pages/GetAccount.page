@@ -1,0 +1,16 @@
+<apex:page controller="GetAccountCntlr" action="{!frwd}">
+  <apex:form >
+   <apex:pageblock >
+   
+   <apex:pageMessages id="showmsg"></apex:pageMessages>
+   <br/>
+  <apex:outputPanel rendered="{!renderMsg}">
+  <h1>Please Wait few seconds for Account to Show up..... </h1>
+  If you see this issue recurring, please open a support case. 
+  Thank You 
+  SFDC Administrator
+  </apex:outputPanel>
+  
+</apex:pageblock>
+ </apex:form>
+</apex:page>

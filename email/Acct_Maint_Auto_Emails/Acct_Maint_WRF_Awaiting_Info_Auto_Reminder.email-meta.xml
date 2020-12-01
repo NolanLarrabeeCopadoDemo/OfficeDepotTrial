@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Reminder for rep that the request is still awaiting information</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Acct Maint WRF Awaiting Info Auto Reminder</name>
+    <style>freeForm</style>
+    <subject>Account Maintenance Request Awaiting Information - {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+This is a friendly reminder that your request for {!Case.Account} is still Awaiting Information.  If we do not receive the information soon, we will close the request.
+
+Your Support # is {!Case.CaseNumber}
+You can click here to view the request in Salesforce.com.
+
+Thank you,
+Account Maintenance Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

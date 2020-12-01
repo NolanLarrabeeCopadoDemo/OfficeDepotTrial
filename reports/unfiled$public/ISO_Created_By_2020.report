@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_23874961</developerName>
+        <masterLabel>ISO Type</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>FK_$Sales_Person__c.User_Role__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 1 - NthE Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 2 - SthE Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 3 - Cntl Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 4 - MidW Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 5 - CA Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 6 - Chmb Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO Director - Chad Graham</sourceValue>
+            </sourceValues>
+            <value>Retention SMB</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 3 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Tech 3 Rep</sourceValue>
+            </sourceValues>
+            <value>ACQ/Piranha</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - Public 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 3 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 4 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 5 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 6 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - Public 7 Rep</sourceValue>
+            </sourceValues>
+            <value>Retention Pub</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - ENT - GPO 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 4 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 5 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Global 3 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Med 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT- Med 2 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - ENT - Med 1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO Director - David Henson</sourceValue>
+            </sourceValues>
+            <value>Retention ENT/GPO</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>CREATED</field>
+    </columns>
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Sales_Person__c.User_Role__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>Account.MindMatrix__Expected_Revenue__c</field>
+    </columns>
+    <columns>
+        <field>Account.Est_Spend__c</field>
+    </columns>
+    <columns>
+        <field>Account.Open_Opp_Amt__c</field>
+    </columns>
+    <description>customer typeISO Created By</description>
+    <filter>
+        <criteriaItems>
+            <column>TYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Customer</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FK_$Sales_Person__c.User_Role__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>ISO</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_23874961</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <name>ISO Created By DATE</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList@Account.Sales_PersonID__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CREATED</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_LAST30</interval>
+    </timeFrameFilter>
+</Report>

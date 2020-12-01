@@ -1,0 +1,150 @@
+<template>
+    <article id="gridContainer" class="slds-card_boundary">      
+        <lightning-card title="Contract Audit History Compare"  icon-name="custom:custom66"> 
+            <lightning-button label="Contract Audit History Report" slot="actions" onclick={handleReportClick}></lightning-button>       
+        </lightning-card>        
+    </article>
+    
+    <article  class="slds-card slds-card_boundary">
+    <lightning-layout>
+        <lightning-layout-item padding="around-small">
+            <div class="header-column">
+                <p></p>
+                <p>Contract History versions:</p>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <div class="header-column" style="width: 30rem;">     
+                <p class="field-title" title="Version 1">Version: {value1}</p>
+                <p><lightning-combobox
+                    name="progress"
+                    label=""
+                    variant="label-hidden"
+                    value={value1}
+                    options={options}
+                    onchange={handleChange1} ></lightning-combobox>
+                </p>
+
+                <p class="field-title" title="Version 2">Version: {value2}</p>
+                <p><lightning-combobox
+                    name="progress"
+                    label=""
+                    variant="label-hidden"
+                    value={value2}
+                    options={options}
+                    onchange={handleChange2} ></lightning-combobox>
+                </p>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <div class="header-column">
+               
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="around-small">
+            <div class="header-column">
+                <p class="field-title" title="Version 2">Only show changed values</p>
+                <p><lightning-input 
+                    type="checkbox" 
+                    variant="label-hidden" 
+                    label=""  
+                    onchange={handleChange3}
+                    name="input1"></lightning-input>
+                </p>
+               
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="around-small">
+           <div class="header-column">
+                <p></p>
+                <p class="slds-p-top_medium"><lightning-button label="Compare" variant="brand" onclick={handleClick}></lightning-button></p>
+            </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item padding="around-small">
+            <div class="header-column">
+                 <p></p>
+                 <p class="slds-p-top_medium"><lightning-button label="Clear" variant="brand" onclick={handleClearClick}></lightning-button></p>
+             </div>
+         </lightning-layout-item>
+
+    </lightning-layout>
+    
+    <lightning-layout>          
+        <lightning-layout-item padding="around-small">
+            <div class="header-column">
+                <p class="field-title" title="Version 1">Version: {value1}</p>
+                <p>Last Modified Date: {v2createddate}  </p>
+                <p>Last Modified By: {v2modifiedby}</p>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+            <div class="header-column">
+                <p class="field-title" title="Version 2">Version: {value2}</p>
+                <p>Last Modified Date: {v1createddate} </p>
+                <p>Last Modified By: {v1modifiedby}</p> 
+            </div>
+        </lightning-layout-item>         
+        <lightning-layout-item padding="around-small">
+            <div class="header-column">
+                <p class="field-title" title="Version 1">Select fields for compare</p>
+                <p><lightning-button variant="brand" label="Open field selection" onclick={handlePopup}></lightning-button>  </p>
+               
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+    
+    <!-- DATATABLE -->
+    <lightning-datatable
+            key-field="id"
+            columns={columns}
+            data={data}
+            hide-checkbox-column
+            default-sort-direction={defaultSortDirection}
+            sorted-direction={sortDirection}
+            sorted-by={sortedBy}
+            onsort={onHandleSort}>
+    </lightning-datatable>   
+    </article>
+    
+    <!-- POPUP for field selection 
+    <div class="chart slds-m-around_medium" lwc:dom="manual"></div>-->
+    <section
+        id="modal"
+        role="dialog"
+        tabindex="-1"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open slds-hide"
+    >
+        <div class="slds-modal__container">
+        <header class="slds-modal__header">       
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                Field Selection Modal
+            </h2>
+        </header>
+
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+           <lightning-dual-listbox id="selectOptions"
+                name="Select Options"
+                label="Select Options"
+                source-label="Available Options"
+                selected-label="Selected Options"
+                options={listOptions}
+                value={defaultOptions}               
+                onchange={handleChange}>
+            </lightning-dual-listbox>            
+        </div>
+
+        <footer class="slds-modal__footer slds-modal__footer_directional">
+            <button class="slds-button slds-button_neutral" onclick={handleSkip}>
+                Close
+            </button>            
+        </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open slds-hide modalBackdrops" id="modalBackdrops"></div>
+</template>

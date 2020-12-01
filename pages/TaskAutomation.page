@@ -1,0 +1,39 @@
+<apex:page standardController="Case" extensions="ITTaskAutomationController" sidebar="false" showHeader="true">
+
+ <apex:sectionHeader title="Task" subtitle="Tasks Creation"/>
+ <apex:form >
+   <apex:pageBlock title="Create Support Tasks">
+    <apex:pageBlockButtons location="top"> 
+    <apex:commandButton value="Save" action="{!save}"/>
+    <apex:commandButton value="Cancel" action="{!cancel}"/>
+  
+   </apex:pageBlockButtons> 
+  
+
+   
+
+   
+  <apex:pageblockTable value="{!Tasklst}" var="t2"  id="table" >
+      <apex:column headerValue="Select" width="20">
+           <apex:inputCheckbox value="{!t2.isSelected}" />
+       </apex:column>   
+       <apex:column headerValue="TASK Type"  value="{!t2.Label1}" / >        
+       <apex:column headerValue="Assigned To">
+           <apex:inputField value="{!t2.T1.OwnerID}" required="false"/>
+       </apex:column>
+       <apex:column headerValue="Estimated LOE">
+           <apex:inputField value="{!t2.T1.Estimated_LOE__c}" required="false"/>  
+       </apex:column>
+       <apex:column headerValue="Due Date" > 
+            <apex:inputField value="{!t2.T1.ActivityDate}" required="false"/>    
+       </apex:column> 
+       
+   </apex:pageblockTable> 
+   
+    
+  </apex:pageBlock>
+ 
+ 
+ </apex:form>
+
+</apex:page>

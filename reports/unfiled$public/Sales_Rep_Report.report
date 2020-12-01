@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Sales_Person__c.Primary__c</field>
+    </columns>
+    <columns>
+        <field>Sales_Person__c.OMX_Rep_ID__c</field>
+    </columns>
+    <columns>
+        <field>Sales_Person__c.Role_Relate_Id__c</field>
+    </columns>
+    <columns>
+        <field>Sales_Person__c.ODP_Employee_Id__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Sales_Person__c.ODP_Employee_Id__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>52991</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Sales Rep Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Sales_Person__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

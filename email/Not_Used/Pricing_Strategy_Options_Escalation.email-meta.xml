@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>ISO Pricing Strategy Options - Escalation to Manager</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Pricing Strategy Options Escalation</name>
+    <style>freeForm</style>
+    <subject>Pricing Strategy Options Escalation - Account {!Account.Cust_ID__c} - {!Account.Name}</subject>
+    <textOnly>Dear {!User.Manager},
+
+
+
+The following customer is not happy with their current pricing:
+
+
+
+Name: {!Contact.FirstName} {!Contact.LastName}
+
+Title: {!Contact.Title}
+
+Phone: {!Contact.Phone}
+
+Email: {!Contact.Email}
+
+
+
+Account ID: {!Account.Cust_ID__c}
+
+Account Name: {!Account.Name}
+
+
+Please discuss other Options and let me know how this issue has been resolved.
+
+Thanks.
+
+{!User.FirstName} {!User.LastName}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

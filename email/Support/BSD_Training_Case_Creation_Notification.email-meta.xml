@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>BSD Training Email Template for New Support Cases</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>BSD Training Case Creation Notification</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} - {!Case.Status}</subject>
+    <textOnly>Dear {!Case.Support_Requester__c},
+
+
+We have received your email. The below case has been created for your reference.
+
+Support Details:
+Support Type: {!Case.Support_Type__c}
+Support Subject: {!Case.Subject}
+Status: {!Case.Status}
+
+
+For more details, please click the link below while logged onto the network:
+https://officedepot.my.salesforce.com/{!Case.Id}
+
+Thank you,
+
+BSD Training Team
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

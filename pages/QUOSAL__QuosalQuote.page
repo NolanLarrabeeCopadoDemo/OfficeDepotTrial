@@ -1,0 +1,4 @@
+<apex:page standardController="Opportunity">
+
+<apex:iframe scrolling="true" height="10000" width="100%" src="{!$Setup.QUOSAL__SellSettings__c.QUOSAL__Server_Name__c}/QuosalWeb{!$Setup.QUOSAL__SellSettings__c.QUOSAL__Server_Mode__c}/picktemplate.quosalweb?opportunityid={!Opportunity.Id}&sfusername={!$User.Username}&sfsession={!$Api.Session_ID}&sfurl={!$Api.Partner_Server_URL_250}&accesskey={!$Setup.QUOSAL__SellSettings__c.QUOSAL__Access_Key__c}&datatheme=a&skin=quosal&skiplayout=yes" />
+</apex:page>

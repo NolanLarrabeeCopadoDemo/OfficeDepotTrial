@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account  Setup - Special Delivery Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>SPC Cards</name>
+    <style>freeForm</style>
+    <subject>SF SPC Card Request- {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Request for Store Purchase Cards :
+
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Account Number: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Account Manager: {!Account_Setup_Request__c.OwnerFullName}
+Sales ID: {!Account_Setup_Request__c.Rep_ID__c}
+
+Please provide the attached form to the customer.  Communicate to them to follow the instructions on the form.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

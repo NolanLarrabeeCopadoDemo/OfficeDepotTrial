@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification to Partner of Closed Lost Oppty</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>PRM_Email_Letterhead</letterhead>
+    <name>PRM Email Notification to Partner of Closed Lost Oppty</name>
+    <style>freeForm</style>
+    <subject>{!Opportunity.Name}- Update : Closed Lost</subject>
+    <textOnly>Hi {!Opportunity.Partner_Sub_Agent_Contact__c},
+
+Unfortunately, your sales opportunity {!Opportunity.Name} was Closed Lost due to {!Opportunity.Loss_Reason__c}. Let us know if this opportunity presents itself again. We look forward to working on other opportunities in the future.
+
+Thanks,
+Channel Support</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

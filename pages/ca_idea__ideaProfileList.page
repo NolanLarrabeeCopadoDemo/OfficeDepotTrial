@@ -1,0 +1,22 @@
+<apex:page extensions="ca_idea.IdeaProfileListController" standardController="Idea" recordSetVar="setIdeas" showHeader="false" action="{!redirectWithCommunityId}">
+	<apex:outputPanel rendered="false">Copyright (c) 2010 salesforce.com, inc. and its licensors.</apex:outputPanel>
+	<apex:composition template="ca_idea__ideaProfileLayout">
+		<apex:define name="profileContent">
+
+			<h2><apex:outputText value="Profile: {!currentProfileListType}" /></h2>
+
+			<apex:outputPanel layout="block" rendered="{!(ideasWithVotes.size==0)}" styleClass="ibtNoItemMessage">
+				<apex:outputText value="No {!currentProfileListType}" />
+			</apex:outputPanel>
+
+			<apex:dataList rendered="{!(ideasWithVotes.size!=0)}" value="{!ideasWithVotes}" var="ideaWithVote" styleClass="ibtIdeaList">
+				<c:ideaDetailsInProfile idea="{!ideaWithVote.idea}" howUserVoted="{!ideaWithVote.howUserVoted}" listType="{!currentProfileListType}" vote="{!ideaWithVote.vote}" />
+			</apex:dataList>
+
+			<apex:outputPanel styleClass="ibtIdeaListPaginationLinks" layout="block">
+				<ideas:profileListOutputLink communityId="{!communityId}" rendered="{!hasPreviousPage}" styleClass="ibtPagePrevious" page="{!pageName}" pageOffset="-1">Previous Page</ideas:profileListOutputLink>
+				<ideas:profileListOutputLink communityId="{!communityId}" rendered="{!hasNextPage}" styleClass="ibtPageNext" page="{!pageName}" pageOffset="1">Next Page</ideas:profileListOutputLink>
+			</apex:outputPanel>
+		</apex:define>
+	</apex:composition>
+</apex:page>

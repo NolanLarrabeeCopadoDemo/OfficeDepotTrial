@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to Requestor when closing ticket</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Case Completed - Closed Ticket Email Nofitication</name>
+    <style>freeForm</style>
+    <subject>Regarding Support Request #{!Case.CaseNumber}</subject>
+    <textOnly>Dear {!Case.Support_Requester__c},
+
+
+
+The support case you submitted has been completed. We hope this issue has been resolved to your satisfaction.
+
+
+
+If you require further assistance with this issue, please reply and a team member will respond promptly.
+We look forward to supporting you in the future.
+
+
+
+Support #: {!Case.CaseNumber} Subject: {!Case.Subject}
+
+
+Comments/Resolution: {!Case.IT_Resolution__c}
+
+
+Regards,
+
+{!User.Name}
+
+Sales Enablement Technologies
+
+{!User.Email}
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

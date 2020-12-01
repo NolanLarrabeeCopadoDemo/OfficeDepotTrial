@@ -1,0 +1,79 @@
+<!--Communities v2 - Custom GPO Group Creation VF Page -->
+<!-- has a controller: com2GPOGroupCrt -->
+
+<apex:page standardController="GPO_Group__c" extensions="com2GPOGroupCrt" readOnly="false">
+<script>
+
+</script>
+<apex:sectionHeader title="Create GPO Group"  />
+    <apex:form >
+        <apex:pageBlock title="New GPO Group">
+            <apex:pageMessages />
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Save" action="{!Save}"  />
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!Save}" />
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="2">
+                <apex:inputField value="{!newGPO.Community_Name__c}" />
+                <apex:inputField value="{!newGPO.Account__c}"/>
+                <apex:inputField value="{!newGPO.Welcome_Title__c}"/>
+                <apex:inputField required="true" value="{!newGPO.GPO_Template__c}"/>
+                <apex:inputField value="{!newGPO.Community_Image__c}"/>
+                <apex:inputField value="{!newGPO.Private__c}"/>
+                <apex:inputField value="{!newGPO.Welcome_Message__c}"/>
+                <apex:inputField value="{!newGPO.Activated__c}"/>
+                <apex:inputField id="hideSectionPre" value="{!newGPO.hideSections__c}"/>
+                <apex:inputField value="{!newGPO.hideSectionsPost__c}"/>
+                <!---NAIT-21026 --->
+                <apex:inputField value="{!newGPO.Allow_Ship_To_Address_Selection__c}"/>
+                <apex:inputField value="{!newGPO.Custom_Catalog_Code__c}"/>
+                <apex:inputField value="{!newGPO.PO_Number_Setup__c}"/>
+                <apex:inputField value="{!newGPO.Cost_Center_Setup__c}"/>
+                <apex:inputField value="{!newGPO.Desktop_Setup__c}"/>
+                <apex:inputField value="{!newGPO.Release_Setup__c}"/>   
+                <apex:inputField value="{!newGPO.Hide_SPC_Download_Link_Prelogin__c}"/>
+                <apex:inputField value="{!newGPO.Hide_SPC_Download_Link_PostLogin__c}"/>
+                <apex:inputField value="{!newGPO.InheritParentFields__c}"/>
+                <apex:inputField value="{!newGPO.InheritParentGreetingMessage__c}"/>
+                <apex:inputField value="{!newGPO.InheritParentLogo__c}"/>
+                <apex:inputField value="{!newGPO.InheritParentPageComponents__c}"/>
+                <apex:inputField value="{!newGPO.InheritParentPageLinks__c}"/>
+                <apex:inputField value="{!newGPO.Account_Selection__c}"/> <!--NAIT-21041-->
+                <apex:inputField value="{!newGPO.Account_Selection_Disabled__c}"/> <!--NAIT-21041-->
+                <apex:inputField value="{!newGPO.Hide_Register_Link__c}"/> 
+                <apex:inputField value="{!GPO_Group__c.Approver_Information_Section__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Additional_Addresses__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Additional_Cost_Centers__c}"/>
+                <apex:inputField value="{!newGPO.Restrict_Login__c}"/><!-- Added by Rajendra shahane for NAIT-155579 Remove the login option from the following community pages. -->
+            </apex:pageBlockSection>
+            
+                <apex:actionRegion >
+                    <apex:pageBlockSection columns="1">
+                    <apex:selectList label="Greeting Message" value="{!messageId}" onchange="changeMsg();">
+                        <apex:selectOptions id="picklistValue" value="{!Items}"/>
+                    </apex:selectList>
+                    <apex:actionFunction name="changeMsg" rerender="output" />
+                    <apex:outputText id="output" escape="false" label="Selected Message" value="{!selected}" />
+                    </apex:pageBlockSection>
+                </apex:actionRegion>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+ <!--   <apex:form>
+        <apex:pageBlock>
+            <apex:pageBlockSection columns="2">
+                <apex:selectList label="Greeting Message" value="{!messageId}" onchange="changeMsg();">
+                    <apex:selectOptions id="picklistValue" value="{!Items}"/>
+                </apex:selectList>
+                <apex:actionFunction name="changeMsg" rerender="output" />
+                <apex:outputText id="output" escape="false" label="Selected Message" value="{!selected}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form> -->
+    
+</apex:page>

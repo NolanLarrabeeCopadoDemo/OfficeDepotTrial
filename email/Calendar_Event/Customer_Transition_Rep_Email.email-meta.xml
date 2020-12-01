@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Customer Transition Rep Email</name>
+    <style>freeForm</style>
+    <subject>Customer Disposition Alert</subject>
+    <textOnly>Dear {!Customer_Transition__c.Account_Owner__c}, 
+
+It&apos;s time to review our contract agreement with {!Customer_Transition__c.Account__c}, Account # {!Customer_Transition__c.OMX_Primary_Key__c}. Whether the customer would like to transition from OfficeMax®  to Office Depot® or simply renew on the OfficeMax stack, a formal review and new offer must be created to facilitate either option.
+
+Should they choose to transition, the entire Office Depot team will be here to support you and our customer through a seamless process and a customer-focused approach that underscores &quot;Making Business Personal.&quot; 
+
+To get things started, please set up a face-to-face meeting with the decision maker (at the highest level) to confirm his/her desired path (renewal or transition). Once you have met with the customer, please go to your Customer Review and Transition Pipeline Report in SFDC to disposition the customer’s intent by choosing from the drop-down list of options. The list of disposition choices are as follows: 
+
+A.	Customer agrees to transition (Migrating from OMX to ODP platform)
+B.    Customer already transitioned (Please provide the ODP account number in the comments box)
+C.	Customer requests delay (Comments box will open - please provide new review date)
+D.	Customer requests earlier transition date (Comments box will open - please provide new review date)
+E.	Lost account
+
+Your selection will enable us to align the appropriate resources to support the customer’s request and begin working toward a new offer, if applicable. 
+
+As always, this is a total team effort. Should the customer choose to transition, a dedicated implementation project manager will be assigned to manage the transition of the customer from OfficeMax to Office Depot. Once we’ve begun the process, Implementation will be standing by to gather key customer information and begin development of the customer’s customized implementation plan. 
+
+The Customer Migration FAQs will provide you with the answers to frequently asked questions about our migration plans. (Internal Use Only) 
+
+Our customers are excited about our potential to change the industry, and a well-executed review, renewal and transition process is the perfect way to build on that excitement. We are ready to support you and our customer through this process and look forward to partnering with you to create a compelling offer for renewal (regardless of their desire to transition or not). We look forward to working with you. 
+
+
+Best of Luck! 
+
+BSD SALES OPERATIONS TEAM</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

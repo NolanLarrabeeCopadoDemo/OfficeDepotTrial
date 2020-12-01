@@ -1,0 +1,18 @@
+<apex:page standardController="Customer_Transition__c"  extensions="AccountStructure_CT" sidebar="False" tabStyle="Account" id="page" readOnly="false">  
+  <apex:pageBlock title="Customer Transition Launch Error">
+  <apex:pageBlockTable value="{!allErrors}" var="error">
+  <apex:column value="{!error.omxPrimaryKey}">
+     <apex:facet name="header">OMX Primary Key</apex:facet>
+     
+  </apex:column>
+  <apex:column value="{!error.accName}">
+     <apex:facet name="header">Account Name</apex:facet>
+     
+  </apex:column>
+  <apex:column value="{!error.reason}">
+     <apex:facet name="header">Reason of Failure</apex:facet>
+     
+  </apex:column>
+   </apex:pageBlockTable>
+   </apex:pageBlock>
+</apex:page>

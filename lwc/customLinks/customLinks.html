@@ -1,0 +1,40 @@
+<template>
+	<article class="slds-card">
+		<div class="slds-card__header slds-grid">
+			<header class="slds-card__header-title slds-truncate od-title">Links</header>
+		</div>
+		<div class="slds-card__body slds-card__body_inner slds-scrollable_y">
+			<template if:false={isLoading}>
+				<template if:true={hasLinks}>
+					<div class="od-links-container">
+						<template for:each={sections} for:item="section">
+							<div key={section.id} class="od-section">
+								<div class="slds-text-heading_small slds-truncate">{section.label}</div>
+								<div class="slds-grid slds-grid_vertical">
+									<template for:each={section.links} for:item="link">
+										<a key={link.id} href={link.href} target="_blank" class="slds-truncate od-width-fit">{link.label}</a>
+									</template>
+								</div>
+							</div>
+						</template>
+					</div>
+				</template>
+				<template if:false={hasLinks}>
+					<div class="slds-col_bump-left slds-col_bump-right od-width-fit">No links are available.</div>
+				</template>
+			</template>
+			<template if:true={isLoading}>
+				<div class="slds-is-relative od-spinner-container">
+					<div class="slds-spinner_container">
+						<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+							<span class="slds-assistive-text">Loading</span>
+							<div class="slds-spinner__dot-a"></div>
+							<div class="slds-spinner__dot-b"></div>
+						</div>
+					</div>
+				</div>
+			</template>
+		</div>
+		<footer class="slds-card__footer">Links open in a new tab</footer>
+	</article>
+</template>

@@ -1,0 +1,32 @@
+<template>  
+    <lightning-layout class="slds-align_absolute-center">        
+        <lightning-card class="slds-p-horizontal_small">
+            <div class="slds-col_bump-left slds-col_bump-right slds-m-bottom_large">
+                <div>
+                    <img src={odLogoUrl} style="height: 50px;" />
+                </div>
+                <!--<h1 class="slds-text-heading_large">PROS Approval</h1>-->
+            </div>
+            <div if:false={isApprovalSubmitted} >
+                <div class="slds-p-around_medium">
+                    <lightning-textarea name="input1" label="Comments" onchange={handleCommentChange}></lightning-textarea>
+                
+                    <lightning-input type="file" label="Attachment" onchange={handleFileChange}></lightning-input>
+                    <div class="slds-text-body_small slds-text-color_error">{fileName}</div>
+                </div>
+                <div class="slds-align_absolute-center">
+                    <lightning-button variant="destructive" label="Reject" title="Reject" onclick={handleApproveRejectClick} class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button variant="brand" label="Approve" title="Approve" onclick={handleApproveRejectClick} class="slds-m-left_x-small"></lightning-button>    
+                </div>
+            </div>
+
+            <div if:true={isApprovalSubmitted} class="slds-m-top_large slds-text-color_success slds-text-align_center slds-text-heading_medium">
+                Successfully Submitted.
+            </div>             
+        </lightning-card>
+    </lightning-layout>
+
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </template>
+</template>

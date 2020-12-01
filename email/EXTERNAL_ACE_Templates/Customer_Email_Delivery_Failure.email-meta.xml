@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Customer Email Delivery Failure</name>
+    <style>freeForm</style>
+    <subject>{!ACE_Customer_Price_Changes__c.Name} Price Changes – Action Needed: Update Contact(s) and Reinitiate Customer Notification</subject>
+    <textOnly>Dear {!ACE_Customer_Price_Changes__c.Account_Owner_Name__c},
+
+Your action is needed - Salesforce.com was not able to deliver notification of upcoming {!ACE_Customer_Price_Changes__c.Name} price changes for {!ACE_Customer_Price_Changes__c.Customer_Name__c}, customer number {!ACE_Customer_Price_Changes__c.Owning_Customer_ID__c}, due to a problem with the customer’s contact(s) in Salesforce.com. Please take the following actions:
+
+1. Confirm the customer’s contact information:
+a. Confirm that at least one contact has been assigned a “Price Change” role.
+b.  Confirm the email address for each {!ACE_Customer_Price_Changes__c.Customer_Name__c} contact assigned with a Price Change role.
+
+2. Reinitiate the customer notification:  Go back to {!ACE_Customer_Price_Changes__c.Customer_Name__c}’s Customer Core Price Changes Detail page in Salesforce.com and click on the “Release” button. (Please note, this will also resend the notification to any other contacts for that customer assigned with a Price Change role.)
+
+https://officedepot.my.salesforce.com/{!ACE_Customer_Price_Changes__c.Id} 
+
+Delay in the delivery of the price change notification increases Office Depot’s margin erosion, so please correct your contact’s information and reinitiate the customer’s notification ASAP. Please be sure to complete BOTH of the above steps to resolve this issue.
+
+Thank you!
+
+Office Depot Contract Division</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

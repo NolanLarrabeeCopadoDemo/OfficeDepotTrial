@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Generic Template to be used to request customer ACH info</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>SCOE ACH</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber}</subject>
+    <textOnly>Customer Name: {!Case.Account}
+
+Account Number:  {!Case.ACCT_Account_Number__c}
+
+Case # {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+
+
+
+Click here to go to the support case
+
+
+We received a request to provide ACH bank information. For remittance purposes do you know what ACH format the company uses? If you are not sure of the actual format which process below is closest to what you currently do when you make a vendor payment:
+
+
+
+
+CTX820 - this allows you to enter remit advise on the EFT receipt
+CCD+, CCD, PPD - a separate email is sent either by your office or the bank with the remittance
+
+
+
+
+Please let me know so I can give the correct information so that your payments will be applied quickly and accurately.
+
+
+
+Also, if you have an ACH form to be filled out by us, kindly attach the form to this email.
+
+
+Thank you,
+
+{!Case.LastModifiedBy}
+
+Sales Support Team
+
+
+
+
+
+------- Original Case -------
+
+From: {!Case.WRF_Requestor_Email__c}
+
+Subject: {!Case.Subject}
+
+Description: {!Case.Description}
+
+
+
+
+
+
+
+
+
+{!Case.Email_Thread}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

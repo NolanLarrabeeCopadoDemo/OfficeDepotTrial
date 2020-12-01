@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account  Setup - Tier Discount Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Order Level/Tier Discounts</name>
+    <style>freeForm</style>
+    <subject>eProcurement /Tier Discounts Request - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Below new Request for Tier  Discount Request:
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+Order Level Discounts?: {!Account_Setup_Request__c.Order_Level_Discounts__c}
+
+Salesforce Link to Records:
+Salesforce Account Setup Request Record:  https://cs7.salesforce.com/{!Account_Setup_Request__c.Id}
+Salesforce Account Record: https://cs7.salesforce.com/{!Account_Setup_Request__c.AccountId__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

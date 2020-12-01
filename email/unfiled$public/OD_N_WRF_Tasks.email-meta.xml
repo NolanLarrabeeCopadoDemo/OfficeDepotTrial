@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>OD N WRF Tasks</name>
+    <style>freeForm</style>
+    <subject>New Work Request Task - {!Case.Subject}</subject>
+    <textOnly>*** WORK REQUEST TASK ASSIGNMENT NOTIFICATION ***
+
+A Task related to the following Work Request has been assigned to you:
+
+WRF #: {!Case.CaseNumber}
+WRF Subject: {!Case.Subject}
+WRF Region:  {!Case.Region__c}
+
+WRF Task Number: {!WRF_Task__c.Name}
+WRF Task Name:  {!WRF_Task__c.WRF_Task_Name__c}
+WRF Task Type:  {!WRF_Task__c.Disposition_Code__c}
+WRF Task Comments: {!WRF_Task__c.Comments__c}
+
+WHEN APPLICABLE
+Company: {!Account.Name}
+Account #: {!Account.Cust_ID__c}
+
+Click here to go to Work Request: https://officedepot.my.salesforce.com/{!Case.Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

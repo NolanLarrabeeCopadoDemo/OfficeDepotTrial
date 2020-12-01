@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Project__c$Name</field>
+    </columns>
+    <columns>
+        <field>Project__c$Project_Milestone_Lookup__c.Title__c</field>
+    </columns>
+    <columns>
+        <field>Project__c$Project_Metrics_Lookup__c.Baseline_Date__c</field>
+    </columns>
+    <columns>
+        <field>Project__c$Project_Metrics_Lookup__c.Name</field>
+    </columns>
+    <columns>
+        <field>Project__c$Project_Milestone_Lookup__c.Owner__c</field>
+    </columns>
+    <columns>
+        <field>Project__c$Project_Milestone_Lookup__c.Mile_Stone_Date__c</field>
+    </columns>
+    <columns>
+        <field>Project__c$Project_Milestone_Lookup__c.Description__c</field>
+    </columns>
+    <columns>
+        <field>Project__c$Project_Milestone_Lookup__c.Comments__c</field>
+    </columns>
+    <columns>
+        <field>Project__c$Project_Milestone_Lookup__c.Action__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Project Test Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Projects__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Project__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

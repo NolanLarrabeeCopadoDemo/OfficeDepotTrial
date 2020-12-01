@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>BSD: Billing Issues (Issues with Content on the Bill)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Billing Issues</name>
+    <style>formalLetter</style>
+    <subject>Billing Issues - Account {!Account.Cust_ID__c}} - {!Account.Name}</subject>
+    <textOnly>NEW PROCESS!!!
+All Contract Customer Maintenance, Pricing, SPC and ECommerce requests can now be submitted easily right from Salesforce.com!  Beginning February 4, no further requests will be accepted via email.  Please search &quot;Account Maint&quot; in the Answers tab to learn more information.
+
+&lt;Please put bsd.ecr@officedepot.com in the additional cc field and remove this section&gt;
+
+
+Team,
+
+Please address customer issues outlined below for Account {!Account.Cust_ID__c} - {!Account.Name}.
+
+
+&lt;Enter billing issues here&gt;</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

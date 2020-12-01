@@ -1,0 +1,17 @@
+<apex:page standardcontroller="Account" standardStylesheets="false" showHeader="false" sidebar="false">
+    <apex:includeScript value="/lightning/lightning.out.js" />
+    <div id="lightning" />
+    <script>
+        $Lightning.use("c:AllAccountsVf", function() {
+            $Lightning.createComponent(
+                "c:AccountSummaryVf",
+                {subrecordId:'{!$CurrentPage.parameters.Id}'},
+                "lightning",
+                function(cmp) {
+                    console.log("Component created!");
+                    console.log(cmp);
+                });
+            });
+    </script>
+    
+</apex:page>

@@ -1,0 +1,46 @@
+<!-- Site Template 1 - VF Template-->
+
+<!-- Defines core structure and dynamic elements for Site Template 1 --> 
+
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" cache="false" applyHtmlTag="false"  controller="xGPOCommunityAuthLandingController" extensions="xGPOSiteTemplate1ConExt"> 
+
+    <apex:insert name="adminheader"/>
+
+    <div class="container-fluid header">
+        <header class="container">
+            <div class="col-md-12">
+                <apex:insert name="ODLogo"/>
+                <apex:insert name="CustomBrand"/>
+            </div>
+            <apex:insert name="LogOut" />
+        </header>
+    </div>
+
+    <div class="container">       
+        <div class="row">            
+            <div class="col-md-7 lead font-size-18">
+                
+                <apex:insert name="Greeting" /> 
+                <p class="padding-md">
+                    <apex:insert name="ShopButton" />
+                </p>
+            </div> 
+            <div class="col-md-5">
+                <apex:insert name="NonBrandedImage" />
+            </div>
+            <div class="row padding-lg"></div>
+        </div>
+        
+            <apex:insert name="bottomRow" />            
+           
+        
+        <footer class="row padding-md footer border-top">
+            <apex:insert name="Footer"/>
+        </footer>
+    </div>
+
+  <apex:insert name="userSubmission"/> 
+  <apex:insert name="InvoiceRequestApp" />
+    <apex:insert name="UserMaintenance" />    
+  
+</apex:page>

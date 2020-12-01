@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Log</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Logs</value>
+    </caseValues>
+    <fields>
+        <label><!-- Class Name --></label>
+        <name>Class_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Full Message --></label>
+        <name>Full_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Message --></label>
+        <name>Message__c</name>
+    </fields>
+    <fields>
+        <help><!-- The name of the web service method submitting the log record. --></help>
+        <label><!-- Service Name --></label>
+        <name>Service_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Severity --></label>
+        <name>Severity__c</name>
+        <picklistValues>
+            <masterLabel>CRITICAL</masterLabel>
+            <translation><!-- CRITICAL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ERROR</masterLabel>
+            <translation><!-- ERROR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>INFO</masterLabel>
+            <translation><!-- INFO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WARNING</masterLabel>
+            <translation><!-- WARNING --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Timestamp --></label>
+        <name>Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- UserId --></label>
+        <name>UserId__c</name>
+        <relationshipLabel><!-- Logs --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- The status code returned by the service in the response. --></help>
+        <label><!-- Status --></label>
+        <name>status__c</name>
+    </fields>
+    <recordTypes>
+        <description><!-- RecordType for Apex Logs --></description>
+        <label><!-- Apex --></label>
+        <name>Apex</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- The RecordType for logs related to batch classes. --></description>
+        <label><!-- Batch --></label>
+        <name>Batch</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

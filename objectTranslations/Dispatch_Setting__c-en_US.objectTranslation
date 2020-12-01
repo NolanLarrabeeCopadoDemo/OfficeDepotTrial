@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Dispatch Setting</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Dispatch Settings</value>
+    </caseValues>
+    <fields>
+        <help><!-- Should the queue continue chaining? --></help>
+        <label><!-- Chain --></label>
+        <name>Chain__c</name>
+    </fields>
+    <fields>
+        <help><!-- The query used to select records to dispatch. --></help>
+        <label><!-- Dispatch Query --></label>
+        <name>Dispatch_Query__c</name>
+    </fields>
+    <fields>
+        <help><!-- Headers in json format passed to the callout. --></help>
+        <label><!-- Headers --></label>
+        <name>Headers__c</name>
+    </fields>
+    <fields>
+        <help><!-- The API name of the field to order by. --></help>
+        <label><!-- Order By Field API Name --></label>
+        <name>Order_By_Field_API_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Sort direction for records consumed bu the dispatch process. --></help>
+        <label><!-- Order Direction --></label>
+        <name>Order_Direction__c</name>
+        <picklistValues>
+            <masterLabel>ASC</masterLabel>
+            <translation><!-- ASC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DESC</masterLabel>
+            <translation><!-- DESC --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The URL of the site to post messages to. --></help>
+        <label><!-- Remote URL --></label>
+        <name>Remote_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- The API name of the field used to track the status. Defaults to Status__c --></help>
+        <label><!-- Status Field API Name --></label>
+        <name>Status_Field_API_Name__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,44 @@
+<!-- Site Template 1 - VF Template-->
+
+<!-- Defines core structure and dynamic elements for Site Template 1 --> 
+
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" applyHtmlTag="false" controller="com2GPOCommunityLandingController">
+    
+    <div class="container-fluid header">
+        <header class="container">
+            <div class="col-md-12">
+                <apex:insert name="ODLogo"/>
+                <apex:insert name="CustomBrand"/>
+            </div>
+        </header>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 lead font-size-18">
+                <apex:insert name="Greeting" />
+                <p class="padding-md">
+                    <apex:insert name="LoginButton"/>
+                </p>
+                 <apex:insert name="RegisterLink" />
+            </div>
+            <div class="col-md-5">
+                <apex:insert name="NonBrandedImage"/>
+            </div>
+        </div>
+        <apex:insert name="bottomRow" />
+        <div class="row border-top padding-lg benefits-section">
+            <apex:insert name="Messaging" />
+        </div>
+        <div class="row padding-md">
+            <apex:insert name="RegisterLoginLinks"/>
+        </div>
+        
+        <footer class="row padding-md footer border-top">
+            <apex:insert name="Footer"/>
+        </footer>
+    </div>
+    
+    <apex:insert name="NewCustomerRegistration"/>
+    <apex:insert name="InvoiceRequestApp" />
+    <apex:insert name="UserMaintenance" />
+</apex:page>

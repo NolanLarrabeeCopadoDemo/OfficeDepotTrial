@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>SCOE Copy &amp; Print Case Notification</name>
+    <style>freeForm</style>
+    <subject>New Case # {{!Case.CaseNumber}} {{!Case.Thread_Id}}</subject>
+    <textOnly>New Case Created
+
+This is to notify you a case was added to Queue {!Case.OwnerFullName}
+
+Support Details:
+Support Case: {!Case.CaseNumber}
+Subject: {!Case.Subject}
+Status :{!Case.Status}
+
+
+
+DO NOT REPLY to this email
+
+
+
+For more details, please click the link below while logged onto the network:
+
+https://officedepot.my.salesforce.com/</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

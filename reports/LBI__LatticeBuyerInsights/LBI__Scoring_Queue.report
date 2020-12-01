@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>LBI__ScoringQueue__c$Name</field>
+    </columns>
+    <columns>
+        <field>LBI__ScoringQueue__c$LBI__ErrorMessage__c</field>
+    </columns>
+    <columns>
+        <field>LBI__ScoringQueue__c$LBI__Priority__c</field>
+    </columns>
+    <columns>
+        <field>LBI__ScoringQueue__c$LBI__Object__c</field>
+    </columns>
+    <columns>
+        <field>LBI__ScoringQueue__c$LBI__LinkToRecord__c</field>
+    </columns>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>LBI__ScoringQueue__c$LBI__ErrorMessageShort__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LBI__ScoringQueue__c$LBI__ErrorCount__c</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <name>Scoring Queue</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>LBI__Lattice_Scoring_Queue__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>LBI__ScoringQueue__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

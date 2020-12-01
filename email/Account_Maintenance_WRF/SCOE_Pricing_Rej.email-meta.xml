@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SCOE Pricing rejection reply</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>SCOE_Pricing_Rej</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} - {!Case.Subject}</subject>
+    <textOnly>Customer Name: {!Case.Account}
+
+Account Number: {!Case.ACCT_Account_Number__c}
+
+Case#: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+
+
+Hello {!Case.WRF_Requestor_Name__c}
+
+
+
+Unfortunately, due to SOX compliance and Vendavo approvals all pricing requests and parent changes must be submitted at the account level under the SCOE button &gt; Pricing Maintenance.
+
+
+
+A project is underway to evaluate and streamline the current pricing processes, including CPM, WRF, etc. – more information on what that means will be communicated.
+
+
+Please submit a new case with the proper selections:
+SCOE button &gt; Pricing Maintenance
+
+
+
+
+
+
+
+Thank you,
+
+
+
+
+Sales Support Lead
+
+
+
+------- Original Case -------
+
+From: {!Case.WRF_Requestor_Email__c}
+
+Subject: {!Case.Subject}
+
+Description: {!Case.Description}
+
+{!Case.Email_Thread}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

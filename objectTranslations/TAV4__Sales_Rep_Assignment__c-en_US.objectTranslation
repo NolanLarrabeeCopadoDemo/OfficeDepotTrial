@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Alignment --></label>
+        <name>TAV4__Alignment__c</name>
+        <relationshipLabel><!-- Sales Rep Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Is Record Owner --></label>
+        <name>TAV4__Is_Owner__c</name>
+    </fields>
+    <fields>
+        <label><!-- Role --></label>
+        <name>TAV4__Role__c</name>
+        <picklistValues>
+            <masterLabel>Sales Engineer</masterLabel>
+            <translation><!-- Sales Engineer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sales Rep</masterLabel>
+            <translation><!-- Sales Rep --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Sales Area --></label>
+        <name>TAV4__Sales_Area__c</name>
+        <relationshipLabel><!-- Sales Rep Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Sales Rep --></label>
+        <name>TAV4__Sales_Rep__c</name>
+        <relationshipLabel><!-- Sales Rep Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>TAV4__User__c</name>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- A sales manager may not be assigned to a sales rep position, and a sales rep may not be assigned to a non-assignable position in the sales hierarchy. --></errorMessage>
+        <name>TAV4__Manager_Assignments</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The sales rep must be assigned to the alignment that the sales area is part of. --></errorMessage>
+        <name>TAV4__Sales_rep_in_alignment</name>
+    </validationRules>
+</CustomObjectTranslation>

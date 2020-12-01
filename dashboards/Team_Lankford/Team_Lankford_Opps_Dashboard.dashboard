@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dashboard xmlns="http://soap.sforce.com/2006/04/metadata">
+    <backgroundEndColor>#006600</backgroundEndColor>
+    <backgroundFadeDirection>LeftToRight</backgroundFadeDirection>
+    <backgroundStartColor>#333333</backgroundStartColor>
+    <dashboardType>SpecifiedUser</dashboardType>
+    <isGridLayout>false</isGridLayout>
+    <leftSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opportunities Owned by you in SFDC</footer>
+            <groupingSortProperties/>
+            <header>----Everyday (1) --- Opportunities - Need Action Today!</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_DASH_Report</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>Bookings or Close Date TODAY or older</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <axisBinding>y</axisBinding>
+                <column>RowCount</column>
+            </chartSummary>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>ALL OPEN Opps in QUALIFY STAGE - 90-135 Days &amp; OppActivity&gt;60</footer>
+            <groupingColumn>FULL_NAME</groupingColumn>
+            <groupingSortProperties/>
+            <header>------------ MONDAY (1) - Stage Report - Time To Act! --------</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_Dash_Report4</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>MONDAY - Qualify Focus (90-135 Days)</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>ALL OPEN Opps in QUALIFY STAGE &gt;135 Days &amp; OppActivity&gt;50</footer>
+            <groupingSortProperties/>
+            <header>-------------TUESDAY (1) - Stage Report - Time To Act!----</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_Dash_Report7</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>TUESDAY - Qualify Focus (135+ Days)</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>ALL OPEN Opps in PURSUE STAGE&gt;45 days &amp; OppActivity&gt;30</footer>
+            <groupingSortProperties/>
+            <header>-------WEDNESDAY (1) - Stage Report - Time To Act!---</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_Dash_Report8</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>WEDNESDAY - Pursue Focus (45+ Days)</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>ALL OPEN Opps in PROPOSE STAGE&gt;30 days &amp; OppActivity&gt;20</footer>
+            <groupingSortProperties/>
+            <header>-------THURSDAY (1) - Stage Report - Time To Act!---</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_Dash_Report9</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>THURSDAY - PROPOSE Focus (30+ Days)</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>ALL OPEN VERBAL WIN STAGE &gt;2 days, OppActivity&gt;6 - Time to close?</footer>
+            <groupingSortProperties/>
+            <header>-------------FRIDAY (1) - Stage Report - Time To Act!---</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_Dash_Report10</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>FRIDAY - VERBAL WIN FOCUS - (close?)</title>
+            <useReportChart>false</useReportChart>
+        </components>
+    </leftSection>
+    <middleSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Correct Close Date Or Close/Lost update needed</footer>
+            <groupingSortProperties/>
+            <header>Past Due Opps - Blank is Good!</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_Dash_Report2</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>Need Immediate Action</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opp Loses 30-37 days ago (w/o fod,canx/dup) Owned Acct</footer>
+            <groupingSortProperties/>
+            <header>----------------MONDAY (2) - Prospect LM, TW Loses ------</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_Dash_Report5</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>MONDAY Prospect - Lost LM (30-37 Days)</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opp Wins 30-30 days ago, in your Owned Accounts</footer>
+            <groupingSortProperties/>
+            <header>-----------------TUESDAY (2) - Prospect LM, TY Wins -------</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_Dash_Report6</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>TUESDAY Prospect - Won LM (30-37 DAYS)</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opp Loses 330-337 days ago (No fod,canx/dup) Owned Accts</footer>
+            <groupingSortProperties/>
+            <header>------------WEDNESDAY (2) - Prospect LY, NM Lost</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_P_DashReport_WPros</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>WED Prospect - Lost LY (330-337 Days)</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opp Wins 330-337 days ago close date, Owned Accounts</footer>
+            <groupingSortProperties/>
+            <header>------------Thursday (2) - Prospect LY, NM Won</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/O_p_Dash_Report_ThuPros</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>THUR Prospect - WON LY (330-337 Days)</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <axisBinding>y</axisBinding>
+                <column>RowCount</column>
+            </chartSummary>
+            <componentType>Bar</componentType>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>New Sites (w/oSeq1&amp;2) or Customer crtd last 14 days - No $$</footer>
+            <groupingColumn>USERS.NAME</groupingColumn>
+            <groupingSortProperties/>
+            <header>----------Friday (2) - Prospecting - New Sites and Accounts</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/Opp_Dash_Report_Fripros</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>New Accounts &amp; Sites TY - Focus</title>
+            <useReportChart>false</useReportChart>
+        </components>
+    </middleSection>
+    <rightSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>All Plays Created this Month Trigger related.</footer>
+            <groupingSortProperties/>
+            <header>Trigger plays generated this month (open)</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/Prism_Trigger_plays_Urgent</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>Urgent Trigger Plays - NOT TOUCHED</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>false</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Plays created this month with triggers that are still IN PRogress</footer>
+            <groupingSortProperties/>
+            <header>Trigger plays generated this month (Still In-Progress)</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/Prism_Trigger_plays_in_progress</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>Urgent - Trigger Plays In Prg - Prism</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>true</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>false</enableHover>
+            <expandOthers>false</expandOthers>
+            <groupingSortProperties/>
+            <header>Trigger plays still open OLDER than current month</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>unfiled$public/Prism_Trigger_Plays_Past_Due</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>true</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>Lost Urgency Trigger Plays</title>
+            <useReportChart>false</useReportChart>
+        </components>
+    </rightSection>
+    <runningUser>883643@officedepot.com</runningUser>
+    <textColor>#33FF33</textColor>
+    <title>Team Lankford Opps Dashboard</title>
+    <titleColor>#3333FF</titleColor>
+    <titleSize>14</titleSize>
+</Dashboard>

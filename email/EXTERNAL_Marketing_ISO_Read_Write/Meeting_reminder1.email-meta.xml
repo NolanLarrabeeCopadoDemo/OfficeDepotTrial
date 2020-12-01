@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Meeting reminder</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Meeting reminder</name>
+    <style>freeForm</style>
+    <subject>Reminder! Scheduled BSD site walk thru</subject>
+    <textOnly>Hi {!Contact.FirstName},
+
+
+
+I wanted to remind you of our phone meeting that we have scheduled on X to discuss how your pricing plan works and handy tips to get the most from your customized bsd website.
+
+
+
+If you ever have any questions or concerns, please do not hesitate to call me.  I am here to assist you with anything you may need and I look forward to speaking with you.
+
+
+
+Warm Regards,
+
+{!User.Name}
+
+Account Manager
+
+{!User.Email}
+
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

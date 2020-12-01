@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Grand_Toy</letterhead>
+    <name>Multiple Lead Assignment Notification - G&amp;T</name>
+    <style>freeForm</style>
+    <subject>Multiple leads have been assigned to you</subject>
+    <textOnly>LEAD ASSIGNMENT NOTIFICATION
+
+Hello {!Lead.OwnerFullName},
+
+Multiple leads have just been assigned to you.
+
+Click here to view your new leads:
+
+https://officedepot.my.salesforce.com/00Q?fcf=00BE00000059NEH
+
+This is a system generated email.  Please do not reply.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Rapid Response - COI</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} {!Case.Thread_Id} {!Account.Name} {!WRF.Type} - Action Required</subject>
+    <textOnly>Description: {!Case.Description}
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+
+
+Click here to go to the support case
+
+
+
+Good Morning/Afternoon,
+
+
+
+Certificate of Insurance Forms are available as part of Rapid Response - no WRF or bid writer needed. Please access the Proposal Team Seismic Resource page (link below) - specifically the COI Certificate of Insurance for a customer facing copy. If you need a customer specific form please see the COI Request Form. Follow the instructions on the form, submit to Hub International, and the customer specific COI will be emailed to you for delivery to the customer. It&apos;s that easy!
+
+
+
+Click here for Seismic Resources (Vendor Form Guide, W-9, Certificate of Insurance, etc)
+
+
+
+Best regards,
+
+Your Name
+
+Proposal Team
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

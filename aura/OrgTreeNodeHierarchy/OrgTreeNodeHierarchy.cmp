@@ -1,0 +1,54 @@
+<!--
+   (c) Appirio
+   Provides a way to display Account Details in folder view.
+   2017-10-16    Nehal Maheshwari    Original
+-->
+
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable,force:lightningQuickAction" controller="OrgHierarchyDetailsControllerUpdates" >
+    <!-- Attributes -->
+    <aura:attribute name="accounts" type="List" description="List of accounts" />
+    <aura:attribute name="name" type="String" description="Name of account"/>
+    <aura:attribute name="id" type="String" description="Id of account"/>
+    <aura:attribute name="subrecordId" type="Id" access="global"/>
+    <aura:attribute name="subaccountId" type="Id" access="global"/>
+    
+    
+     <aura:attribute name="idEvent" type="Id" />
+     <aura:attribute name="chkAllEvent" type="boolean" />
+     <aura:attribute name="chkProspectEvent" type="boolean" />
+     <aura:attribute name="chkCustomerEvent" type="boolean" />
+     <aura:attribute name="chkSiteEvent" type="boolean" />
+     <aura:attribute name="chkOrphanEvent" type="boolean" />
+    
+
+    <!-- Handlers -->    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:handler  event="c:HandleSelectEvent" action="{!c.filterData}" />
+
+    <!--<aura:handler name="Result" event="c:ACSLC_SelectAccountEvt" action="{!c.showResult}" /> -->
+    
+    <!-- Iteration to fetch account hierarchy details from AccountHierarchyController.apxcs -->
+    
+    <div style="background-color:white; height:750px; margin-top:-5%">
+        <!--
+        <h1 class="slds-text-heading_medium" style="margin-left:10%; padding-top:15px">Choose Item</h1> <br/>
+        
+        <div class="slds-p-around_xx-small visibleDiv" style="float:left; width:50%">  -->
+            <aura:iteration items="{!v.accounts}" var="account" indexVar="index">
+                
+                <c:OrgTreeNode account="{!account}" subrecordId="{!v.subrecordId}" />
+            </aura:iteration>   
+      <!--  </div>  -->
+        <!--
+        <div style=" margin-left:60%" >
+            <h1 class="slds-text-heading_medium" style="margin-top:-3.3%; position:fixed">
+             Selected Items</h1> <br/>
+            <p>
+ <a class="slds-text-link_reset" target="_blank" href="{!'/one/one.app?#/sObject/'+ v.id + '/view'}">
+<span aura:id="output">{!v.name} </span></a>
+            </p>
+        </div>                -->
+       
+        
+    </div>
+</aura:component>

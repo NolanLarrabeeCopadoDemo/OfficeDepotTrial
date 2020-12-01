@@ -1,0 +1,48 @@
+<apex:page controller="CameleonCPQ.CPQError_VFCtrl" standardStyleSheets="{!NOT(isLightningUI)}" showHeader="{!NOT(isLightningUI)}" sidebar="{!NOT(isLightningUI)}">
+<apex:outputPanel rendered="{!NOT(isLightningUI)}">
+  <script type="text/javascript">
+     if(window.opener)
+       window.setTimeout('self.close() ',6000)
+  </script>
+
+  <apex:form id="maintenanceForm">
+    <apex:pageBlock >
+        <apex:pageMessage severity="error" strength="3" summary="{!msg}" detail="{!errMsg}"/>
+        <apex:pageBlockButtons location="bottom" rendered="{!entityType!=null}">
+            <apex:commandButton value="Back to {!entityType}" action="{!redirect}" />
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+  </apex:form>
+</apex:outputPanel>
+<apex:outputPanel rendered="{!isLightningUI}">
+    <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/css/lightning/app.css')}"/>
+    <apex:includeLightning />
+    <div id="CPQError_LEX_Component" />
+
+    <script>
+        $Lightning.use("CameleonCPQ:SmartCPQ", function() {
+          $Lightning.createComponent("CameleonCPQ:LEX_CPQError",
+          {
+              "entityId" : "{!JSENCODE(entityId)}",
+              "entityType" : "{!JSENCODE(entityType)}",
+              "msg" : "{!JSENCODE(msg)}",
+              "errMsg" : "{!JSENCODE(errMsg)}"
+          },
+          "CPQError_LEX_Component",
+          function(cmp) {
+              $A.eventService.addHandler({
+                  event: 'CameleonCPQ:navigateToURL',
+                  handler: function(event) {
+                      if((typeof sforce != 'undefined') && (sforce != null)) {
+                          sforce.one.navigateToURL(event.getParam('url'), true); // Works better with redirect set to true.        
+                      } 
+                      else {
+                         top.location.href = event.getParam('url');
+                      }
+                  }
+              });
+          }
+        )});
+    </script>
+</apex:outputPanel>
+</apex:page>

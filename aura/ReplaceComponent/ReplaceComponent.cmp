@@ -1,0 +1,63 @@
+<aura:component >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+ 
+    <aura:attribute name="items" type="String" />
+    <aura:attribute name="element" type="String" />
+    <aura:attribute name="conditionProspect" type="Boolean" />  
+    <aura:attribute name="conditionCustomer" type="Boolean" />  
+    <aura:attribute name="conditionSite" type="Boolean" />  
+    <aura:attribute name="conditionOrg" type="Boolean" /> 
+        <aura:attribute name="conditionOrgMaster" type="Boolean" />  
+
+    
+    <aura:if isTrue="{!v.conditionOrgMaster}">
+                <span class="slds-avatar slds-avatar--x-small">       
+                    <lightning:icon size="x-small" iconName="custom:custom11" />
+                  <!--  <img src="{!$Resource.Prospect}"/> -->
+                </span> 
+        </aura:if>
+    
+    
+        <aura:if isTrue="{!v.conditionProspect}">
+                <span class="slds-avatar slds-avatar--x-small">       
+                    <!--<lightning:icon size="x-small" iconName="standard:opportunity" />-->
+                    <lightning:icon size="x-small" iconName="custom:custom47"/>
+                  <!--  <img src="{!$Resource.Prospect}"/> -->
+                </span> 
+        </aura:if>
+    
+    
+       <aura:if isTrue="{!v.conditionCustomer}">
+                <span class="slds-avatar slds-avatar--x-small">    
+                    <lightning:icon size="x-small" iconName="standard:account"/>
+
+                 <!--    <img src="{!$Resource.Customer}"/> -->
+                </span>
+        </aura:if>
+        <aura:if isTrue="{!v.conditionSite}">
+                <span class="slds-avatar slds-avatar--x-small">   
+                    <lightning:icon size="x-small" iconName="standard:address"/>
+                  <!--  <img src="{!$Resource.Site}"/> -->
+                </span>
+        </aura:if>
+            <aura:if isTrue="{!v.conditionOrg}">
+                <span class="slds-avatar slds-avatar--x-small">   
+                   <!-- <img class="Image" src="{!$Resource.Business_Icon}"/>  -->
+                    
+                    <lightning:icon size="x-small" iconName="custom:custom61"/>
+                    <!--<img src="{!$Resource.Org}"/> -->
+                </span>
+        </aura:if>
+    &nbsp;{!v.items} 
+      <aura:if isTrue="{!v.conditionCustomer}">
+             &nbsp;   
+           <span class="slds-avatar slds-avatar--x-small"> 
+            <!-- <lightning:icon size="x-small" iconName="standard:partner_marketing_budget"/> --></span> 
+            &nbsp;   
+        </aura:if>
+        <aura:if isTrue="{!v.conditionSite}">
+                &nbsp;   
+               <span class="slds-avatar slds-avatar--x-small">                  
+            <!--   <lightning:icon size="x-small" iconName="standard:partner_marketing_budget"/> --> </span>
+        </aura:if>
+</aura:component>

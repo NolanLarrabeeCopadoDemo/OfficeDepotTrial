@@ -1,0 +1,26 @@
+<template>
+    <lightning-card  title="Cross Match Recommendations">
+            <div class="slds-clearfix"> 
+                <lightning-button variant="brand" label="Save" title="Successful action" onclick={handleSave} class="slds-m-right_x-small header-buttons slds-float_right"></lightning-button>
+                <lightning-button variant="destructive" label="Decline" title="Decline action" onclick={handleDeclineButton} class="slds-m-right_x-small header-buttons slds-float_right"></lightning-button>
+                <lightning-button variant="success" label="Approve" title="Approve action" onclick={handleApproveButton} class="slds-m-right_x-small header-buttons slds-float_right"></lightning-button>
+                <select class="slds-select slds-m-right_x-small slds-float_right" name="optionSelect" onchange={handlexRefTypeSelect} style="width:200px;">
+                    <option value="">Select row(s) and choose one</option>
+                    <option value="Exact Match">Exact Match</option>
+                    <option value="Functional Match">Functional Match</option>
+                    <option value="Preferred Matchone">Preferred Matchone</option>
+                </select>
+            </div>
+            <br/>
+            <lightning-datatable 
+                key-field="recommendation_id" 
+                data={recoms} 
+                columns={columns}
+                sorted-by={sortBy}
+                sorted-direction={sortDirection}
+                onsort={handleSortdata}
+                onrowselection={getSelectedRecords}
+                onrowaction={handleRowAction}>
+            </lightning-datatable>
+    </lightning-card>
+</template>

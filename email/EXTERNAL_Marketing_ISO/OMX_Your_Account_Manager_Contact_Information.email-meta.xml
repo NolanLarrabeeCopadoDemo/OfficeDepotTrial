@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>OMX Your Account Manager Contact Information</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>OMX Your Account Manager Contact Information</name>
+    <style>freeForm</style>
+    <subject>New Account Manager Contact Information</subject>
+    <textOnly>YOUR ACCOUNT MANAGERCONTACT INFORMATION
+
+
+Dear {!Contact.FirstName},
+
+
+As your new Business Development Manager, I would like to thank you for your business. For over 50 years, OfficeMax® has led the industry in delivering innovative workplace solutions that drive efficiency,cost savings and control throughout your small to midsize business. Through one source, you have access to the products and services you need to streamline your workplace, every day.
+
+
+I look forward to meeting with you to learn more about your company’s needs and to help your organization get the most out of your partnership with us.  In the meantime, my contact information is below, and I urge you to contact me with questions or concerns.
+
+
+Thank you again for choosing OfficeMax Workplace for all of your office solutions needs!
+
+I look forward to receiving your input and talking to you soon.
+
+
+
+{!User.Name}
+Account Manager
+{!User.Email}
+888-265-9144 x{!User.Extension}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

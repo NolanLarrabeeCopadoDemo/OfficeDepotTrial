@@ -1,0 +1,87 @@
+<apex:page showHeader="true" sidebar="true" standardController="Case" extensions="ProductionReadinessChecklistController">
+
+<style>
+	.col1{
+		text-align: right;
+	}
+	.col2{
+		text-align: left;
+	}
+</style>
+	<apex:form >
+		<apex:pageBlock title="Case Details " mode="maindetail">
+			<apex:facet name="header">
+				<h3 class="maindetail">Case Details&nbsp;&nbsp;&nbsp;</h3>
+			</apex:facet>
+			<apex:pageBlockSection columns="2"  >
+					<apex:pageblocksectionItem >
+						<apex:outputLabel value="Case Number"/>
+						<apex:outputLabel value="{!supportCase.CaseNumber}"/>
+					</apex:pageblocksectionItem>
+					<apex:pageBlockSectionItem >
+						<apex:outputlabel value="Code Review Completed By"/>
+						<apex:outputLink value="/{!codeReviewCompletedBy.Id}" >{!codeReviewCompletedBy.Name}</apex:outputLink>
+					</apex:pageBlockSectionItem>
+
+					<apex:outputField value="{!supportCase.IT_BU_Reviewer__c}"/>
+
+					<apex:pageBlockSectionItem >
+						<apex:outputlabel value="QA Completed By"/>
+						<apex:outputLink value="/{!qaCompletedBy.Id}" >{!qaCompletedBy.Name}</apex:outputLink>
+					</apex:pageBlockSectionItem>
+
+					<apex:outputField value="{!supportCase.IT_Assignment__c}"/>
+
+					<apex:pageBlockSectionItem >
+						<apex:outputlabel value="UAT Completed By"/>
+						<apex:outputLink value="/{!uatCompletedBy.Id}" >{!uatCompletedBy.Name}</apex:outputLink>
+					</apex:pageBlockSectionItem>
+					
+					
+					<apex:outputField value="{!supportCase.IT_Production_Date__c}"/>
+
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+		<apex:pageBlock title="Production Readiness" mode="maindetail">
+			<apex:facet name="header">
+				<h3 class="maindetail">Production Readiness&nbsp;&nbsp;&nbsp;</h3>
+				<img src="{!productionReadinessURL}" style = "vertical-align: middle;"/>
+			</apex:facet>
+			<apex:pageBlockSection >
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Production Date Added  " />
+					<apex:image id="dateAdded" value="{!productionDateURL}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="QA Completed  " />
+					<apex:image id="qaCompleted" value="{!qaCompletedURL}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Code Review Completed  " />
+					<apex:image id="CodeReview" value="{!codeReviewURL}"/>
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="QA Test Cases/Scripts  " />
+					<apex:image id="qaTestScriptsOrCases" value="{!qaTestScriptsURL}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Manifest Items Added  " />
+					<apex:image id="manifestItemsAdded"  value="{!manifestItemsAddedURL}"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="UAT Completed  " />
+					<apex:image id="uatCompleted"  value="{!uatCompletedURL}"/>
+				</apex:pageBlockSectionItem>
+				
+				
+			
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+
+</apex:page>

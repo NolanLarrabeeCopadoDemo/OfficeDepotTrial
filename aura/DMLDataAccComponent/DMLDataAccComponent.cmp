@@ -1,0 +1,74 @@
+<aura:component controller="Orgdmlcontroller" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">   
+    <aura:handler name="init" value="{!this}" action="{!c.doAction}" />  
+    <aura:attribute name="we" type="String"/>
+    <aura:method name="reInitAccDMLAcc" action="{!c.doAction}" description="Runs the init method again ">
+        <aura:attribute name="param1" type="String"/>
+    </aura:method>
+    
+    <aura:attribute name="subrecordId" type="String" access="global"/>
+    
+    <aura:attribute name="CustomerColumns" type="List"/>
+    <aura:attribute name="customerList" type="Account" />
+    <aura:attribute name="countCustomer" type="String" />
+    <aura:attribute name="recentCustomer" type="Account" />
+    <aura:attribute name="showCustomerInfo" type="boolean" default="false"/>
+    
+    <aura:attribute name="currentIdRec" type="String"/>   
+    
+    <aura:attribute name="currentId" type="String"/>   
+    <aura:attribute name="accountId" type="Id"/>
+    <aura:attribute name="isAccountOrOrg" type="boolean"/>
+    <aura:attribute name="showModel" type="boolean" default="false"/>
+  <!--   
+ <lightning:card title="DML Relationship  Information" iconName="standard:announcement" >    
+    </lightning:card>
+   <br></br>
+                <ul class="slds-has-dividers_around-space" style="auto-width:50px">
+                   
+                    <aura:iteration items="{! v.customerList }" var="item">
+                        <li class="slds-item"  >
+                            <lightning:icon iconName="standard:Account"/>
+                            <lightning:tile  label="{!item.Account__r.Name}" href="{!item.Id}" class="slds-tile_board" >
+                              -->  <!--      <p class="slds-truncate">Rolling 12 months Sales</p>-->
+                  <!--              <p class="slds-text-heading_small"> <a href="#"> Decision Maker ID:{!item.DECISIONMAKERID__c}</a></p>
+                                <p class="slds-truncate" > <a href="#"> CustomerID:{!item.CUSTOMERID__c}</a></p>
+                                <p class="slds-truncate"><a href="#"> Decision Maker ID:{!item.DECISIONMAKERID__c}</a></p>
+                            </lightning:tile>
+                            
+                        </li>    
+                    </aura:iteration>
+                    
+                    
+                </ul>
+      <br></br>-->
+                                 <lightning:card title="Account Information" iconName="standard:account" >
+                         </lightning:card>
+    <br></br>
+<div class="slds-table--header-fixed_container" style="height:450px;">
+    <div class="slds-scrollable_y" style="height:100%;">
+   <table class="slds-table_bordered slds-table_col-bordered slds-table--header-fixed">
+            <thead>
+           <tr class="slds-text-title--caps">
+                  <th scope="col"><div class="slds-truncate" title="Id">Account Name</div></th> 
+                  <th scope="col"><div class="slds-truncate" title="Account Name">Account AOPS#</div></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+             <!--### display all records of AccountList attribute one by one by aura:iteration ###-->
+                <aura:iteration items="{!v.customerList}" var="acc" indexVar="sNo">
+                   <!-- Child Lightning Component --> 
+                <tr>
+                    <td>{!acc.Name}</td>
+                    <td>{!acc.AOPS_Cust_Id__c}</td>
+                </tr>
+                </aura:iteration>
+
+          </tbody>  
+    </table>
+    </div>
+    </div>
+    
+    
+    
+</aura:component>

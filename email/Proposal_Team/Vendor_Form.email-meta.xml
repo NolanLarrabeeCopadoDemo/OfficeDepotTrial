@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Vendor Form</name>
+    <style>freeForm</style>
+    <subject>Vendor Form: Case # {!Case.CaseNumber} {!Case.Thread_Id} {!Account.Name} {!WRF.Type} - Action Required</subject>
+    <textOnly>Description: {!Case.Description}
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+
+Click Here to go to the support case
+
+
+Good Morning/Afternoon {!Case.WRF_Requestor_Name__c},
+
+
+Attached is the partially completed vendor form draft for you to
+review/update.
+
+
+Use the Seismic Resources if you need help completing the documents.
+
+Click here for Seismic Resource Page (Vendor Form Guide, W-9, Certificate of Insurance, etc).
+
+
+
+To meet the due date, please return the completed documents to me by (insert DATE) for signature coordination.
+
+
+Best regards,
+
+(insert Signature)
+
+Proposal Team
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

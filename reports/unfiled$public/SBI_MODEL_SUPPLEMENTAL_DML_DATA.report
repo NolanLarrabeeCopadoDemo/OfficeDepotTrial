@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>DML__c.DUNS_Number__c</field>
+    </columns>
+    <columns>
+        <field>DML__c.Decision_Maker_Rep__c</field>
+    </columns>
+    <columns>
+        <field>DML__c.DECISION_MAKER_TEAMING_IND__c</field>
+    </columns>
+    <columns>
+        <field>DML__c.DML_Teaming_Sales_ID__c</field>
+    </columns>
+    <columns>
+        <field>DML__c.DECISION_MAKER_SEGMENT_CD__c</field>
+    </columns>
+    <columns>
+        <field>DML__c.DECISION_MAKER_SEGMENT__c</field>
+    </columns>
+    <columns>
+        <field>DML__c.Notes__c</field>
+    </columns>
+    <description>Supplemental DML information used to create the input data for the customer segmentation model</description>
+    <format>Tabular</format>
+    <name>SBI_MODEL_SUPPLEMENTAL_DML_DATA</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$DML__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DML__c.Effective_End_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

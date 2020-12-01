@@ -1,0 +1,123 @@
+<apex:page standardController="Lead" extensions="GT_LeadConversionController" title="Convert Lead-{!Lead.Name}" id="page">
+  <script type="text/javascript">
+  function getProspectValue(){
+    var isCreateProspectValue = document.getElementById('page:form:pgBlock:pgBlockSection:prospectValue');
+    isCreateProspectValue.value = true;
+  }
+  
+  function getCreateNewContactValue(){
+    var isCreateNewContactValue = document.getElementById('page:form:contactPgBlock:contactPageBlockSection:contactValue');
+    isCreateNewContactValue.value = true;
+  }
+  </script>
+  <style>
+    .button {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+   }
+  </style>
+  <apex:sectionHeader title="{!$Label.GT_Lead_Conversion_lbl_3}" subTitle="{!Lead.Name}"/>
+  <apex:outputLink style="font-family: 'Verdana','Geneva',sans-serif; font-size: 91.3%; height: 15px; margin-bottom: -15px;
+      vertical-align: middle; color:#1468B6;padding-bottom:10px;" value="/{!lead.Id}">{!$Label.Back_to_Lead_lbl}: {!Lead.Name}</apex:outputLink>
+  <apex:pageMessages />
+
+
+<apex:form id="form"> 
+<apex:pageblock >
+ <apex:pageBlockButtons > 
+        <apex:commandButton value="{!$Label.GT_Lead_Conversion_lbl_5}" action="{!GenerateRecords}" />
+        <apex:commandButton value="{!$Label.Cancel_Btn_Label}"  action="{!Cancel}" />
+  </apex:pageBlockButtons> 
+<apex:outputPanel >
+  
+  <apex:pageBlock rendered="{!notvalidadd}">
+  
+       <apex:pageblocksection columns="1">
+            <apex:commandlink style="font-family: 'Verdana','Geneva',sans-serif; font-size: 91.3%; height: 15px; margin-bottom: -15px;
+      vertical-align: middle; color:#1468B6;padding-bottom:10px;" value="{!$Label.GT_Lead_Conversion_lbl_6}" action="{!validateLead}" >
+                <apex:param name="ProceedCoversion" value="true"/>
+            </apex:commandlink>
+       </apex:pageblocksection>
+  </apex:pageBlock>
+  
+  <apex:pageBlock title="{!$Label.GT_Lead_Conversion_lbl_7}" rendered="{!AND(lstMatchingGTAccount.size > 0, ISNULL(Lead.Account__c), !notvalidadd=true)}"  id ="pgBlock">
+     
+     
+    <!-- Matching Account -->
+    <apex:pageBlockSection columns="1" title="{!$Label.GT_Lead_Conversion_lbl_1}" collapsible="false" id="pgBlockSection" > 
+    <apex:pageBlockTable value="{!lstMatchingGTAccount}" var="account" >
+    
+    <!-- <apex:column style="width:40px;">      
+        <input type="radio" name="prospectAccountRadio" value="{!account.Id}" onclick="relatedContacts('{!account.Id}')" />                   
+      </apex:column> -->
+      
+      <apex:column headerValue="{!$Label.Name_lbl}">             
+        <apex:outputLink value="/{!account.Id}">{!account.Name}</apex:outputLink> 
+      </apex:column>     
+      <apex:column value="{!account.Address1__c}"/>  
+      <apex:column value="{!account.City__c}"/>  
+      <apex:column value="{!account.State__c}"/>         
+      <apex:column value="{!account.RecordTypeId}" />         
+      <apex:column value="{!account.Cust_ID__c}" />  
+      <apex:column value="{!account.OwnerId}" />  
+      <apex:column value="{!account.YTD_Sales_TY__c}" /> 
+    </apex:pageBlockTable>
+    </apex:pageBlockSection>   
+  </apex:pageBlock>
+    
+    
+  <!-- Opportunity Block -->
+    <apex:pageBlock id="buttonrender" rendered="{!!notvalidadd}" >      
+      <apex:pageBlockSection columns="1" title="{!$Label.GT_Lead_Conversion_lbl_2}"  collapsible="false" >      
+        <apex:pageBlockSectionItem >   
+          <apex:outputLabel value="{!$Label.GT_Lead_Conversion_lbl_4}" />
+          <apex:inputCheckbox value="{!isCreateOpportunity}" />
+        </apex:pageBlockSectionItem>  
+      </apex:pageBlocksection>
+      <apex:Pageblocksection collapsible="false" columns="2" title="{!$Label.Additional_Information_Label}">
+        <apex:inputField taborderhint="1" value="{!lead.FirstName}"  required="true"/>
+        <apex:inputField taborderhint="8" value="{!tmpAccount.Location_Type__c}" required="true"/>
+        <apex:inputField taborderhint="2" value="{!lead.LastName}"/>
+        <apex:inputField taborderhint="9" value="{!lead.Address1__c}" required="true"/>
+        <apex:inputField taborderhint="3" value="{!lead.Company}"/>
+        <apex:inputField taborderhint="10" value="{!lead.Address2__c}"/>
+        <apex:inputField taborderhint="4" value="{!lead.Phone}" required="true"/>
+        <apex:inputField taborderhint="11" value="{!lead.City__c}" required="true"/>
+        <apex:inputField taborderhint="5" value="{!lead.WCW_Count__c}" required="true"/>
+        <apex:inputField taborderhint="12" value="{!lead.State__c}" required="true"/>
+        <apex:inputField taborderhint="6" value="{!lead.Amount__c}" required="true"/>
+        <apex:inputField taborderhint="13" value="{!lead.Zip__c}" required="true"/>
+        <apex:inputField taborderhint="7" value="{!lead.Industry}" required="true"/>
+        <apex/>
+        <apex:inputField taborderhint="14" value="{!lead.Country__c}" required="true"/>
+         <apex/>
+           <apex:inputField taborderhint="15" value="{!tmpAccount.GT_Segment__c}" required="true"/>
+         <apex/>
+        <apex:inputField taborderhint="16" value="{!tmpAccount.Industry_OD_SIC_Rep__c}" required="true"/>
+         <apex/>
+        <apex:inputField taborderhint="17" value="{!tmpAccount.Verticals__c}" required="true"/>
+         <apex/>
+                <apex:inputField taborderhint="18" value="{!tmpAccount.Buying_Group__c}" required="true"/>
+             </apex:Pageblocksection>
+    </apex:pageBlock>    
+  <!-- End of Opportunity Block -->
+  
+  </apex:outputPanel> 
+ </apex:pageblock>
+</apex:form>
+
+
+<!-- List of Lead fields used on the page -->
+<apex:outputText rendered="false">
+    {!Lead.Account__c},{!Lead.City__c},{!Lead.State__c},{!Lead.Country__c},{!Lead.Amount__c},{!Lead.Address1__c},{!Lead.Address2__c},{!Lead.Zip__c},{!Lead.Phone},{!Lead.FirstName},{!Lead.LastName},{!Lead.WCW_Count__c}, 
+    {!Lead.OwnerId},{!Lead.Zip_5digit__c},{!Lead.Title}, {!Lead.LeadSource}, {!Lead.Store__c}, {!Lead.Product__c}, {!Lead.Company}, {!Lead.Email}, 
+    {!Lead.Industry},{!Lead.Sales_Person_ID__c},{!Lead.Current_Supplier__c},{!Lead.CreatedById}, {!lead.account__r.Related_Account__c}
+</apex:outputText>
+</apex:page>

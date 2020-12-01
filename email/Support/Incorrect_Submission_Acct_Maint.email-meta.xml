@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>If a rep submits a Support or IT Support case for an Acct Maint Request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Incorrect Submission - Acct Maint</name>
+    <style>freeForm</style>
+    <subject>Incorrect Submission Type - Support # {!Case.CaseNumber}</subject>
+    <textOnly>Re:  {!Case.Subject}
+By:  {!Case.WRF_Requestor_Name__c}
+
+Click Here to see the support request.
+
+{!Case.CreatedBy},
+
+This request was submitted incorrectly and cannot be processed.  This type of request should have been submitted as an Account Maintenance Request.  Please submit a new request using the Account Maintenance button on the Account page or the Account Maintenance Request link in Quick Links.
+
+If this is an emergency and needs immediate attention because the customer cannot order, you can submit an email to ContractMaint@officedepot.com.  **However, upon review, ContractMaint may still require you to submit through the Salesforce.com Account Maintenance process.
+
+For further information about Account Maintenance requests you can search Account Maintenance in the Answers tab of Salesforce.com.
+
+Thank you,
+Salesforce Support Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

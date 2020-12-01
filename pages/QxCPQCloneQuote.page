@@ -1,0 +1,90 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="QxVFCPQCloneQuoteController" showHeader="false" sidebar="false" docType="html-5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/> 
+
+  <apex:slds />
+ <!-- <apex:outputPanel id="CPQxWaitingScreen" layout="block">
+     <div id="loadingStatus" class="slds-spinner_container">
+       <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+         <span class="slds-assistive-text" id="_gModal_Message"/>
+         <div class="slds-spinner__dot-a"></div>
+         <div class="slds-spinner__dot-b"></div>
+       </div>
+     </div>
+  </apex:outputPanel>-->
+   <!-- <apex:form>-->
+        <p>
+            Please enter Clone Quote Name
+        </p>
+        <!--<apex:inputText value="{!cloneQuoteName}" />-->
+        <input type="text" id="cloneQuoteName" />
+        <button onclick="cloneSfdcQuote()" title="Clone" id="cloneBtn" value="Clone">Clone</button>
+    <!--</apex:form>-->
+  
+  <script type="text/javascript">
+
+    function cloneSfdcQuote() {
+        var cloneQuoteName = document.getElementById("cloneQuoteName").value;
+        var obj = document.getElementById("cloneBtn");
+        var obj2 = document.getElementById("cloneQuoteName")
+        obj.disabled=true;
+        obj2.disabled=true;
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxVFCPQCloneQuoteController.cloneSfdcQuote}',
+          '{!CameleonCPQ__QxQuote__c.Id}',
+          cloneQuoteName,
+          function(sfdcCloneResult, event) {
+              console.log(JSON.stringify(event));
+            if(event.type=='exception') {
+               alert('Exception raised when attempting to clone the quote');
+                alert(JSON.stringify(event));
+               if((typeof sforce != 'undefined') && (sforce != null)) {
+                 sforce.one.navigateToSObject('{!CameleonCPQ__QxQuote__c.Id}','detail');
+               } 
+               else {
+                 top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__QxQuote__c.Id,URLFOR($Action.CameleonCPQ__QxQuote__c.View, CameleonCPQ__QxQuote__c.Id))}";
+               }
+            }
+            if(event.status) {
+               cloneQxQuote(sfdcCloneResult);
+            }
+          },
+          {escape: false}
+      );
+    }
+
+    function cloneQxQuote(sfdcCloneResult) {
+      var sfdcClonedQuoteId = sfdcCloneResult.targetId;
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxVFCPQCloneQuoteController.cloneQxQuote}',
+          '{!CameleonCPQ__QxQuote__c.Id}',
+          sfdcClonedQuoteId,
+          function(qxCloneResult, event) {
+            if(event.type=='exception') {
+                console.log(JSON.stringify(event));
+               alert('Exception raised when attempting to clone the quote');
+               if((typeof sforce != 'undefined') && (sforce != null)) {
+                 sforce.one.navigateToSObject('{!CameleonCPQ__QxQuote__c.Id}','detail');
+               } 
+               else {
+                 top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__QxQuote__c.Id,URLFOR($Action.CameleonCPQ__QxQuote__c.View, CameleonCPQ__QxQuote__c.Id))}";
+               }
+            }
+            if(event.status) {
+                if((typeof qxCloneResult.targetId != 'undefined') && qxCloneResult.targetId!=null) {
+                   if((typeof sforce != 'undefined') && (sforce != null)) {
+                      sforce.one.navigateToSObject(sfdcClonedQuoteId,'detail');
+                   } 
+                   else {
+                      top.location.href = '/'+sfdcClonedQuoteId;
+                   }
+                }
+            }
+          },
+          {escape: false}
+      );
+    }
+
+    //cloneSfdcQuote();
+
+  </script>
+</apex:page>

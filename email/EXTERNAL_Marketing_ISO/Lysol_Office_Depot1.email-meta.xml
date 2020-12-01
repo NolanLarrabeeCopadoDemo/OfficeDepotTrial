@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Lysol Office Depot</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Lysol Office Depot</name>
+    <style>freeForm</style>
+    <subject>Cold and Flu Season – Lysol</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+As always thank you for being a loyal Office Depot customer! &lt;?xml:namespace prefix = o ns = &quot;urn:schemas-microsoft-com:office:office&quot; /&gt;
+
+
+As we move into cold and flu season, I want to share the attached Lysol Workplace Products guide, which highlights the most popular Lysol workplace products that my customers are buying.  It seems that this year, more than previous years, my customers are using these Lysol products to keep their offices clean and employees healthy.
+
+
+If you have questions or would like more information on workplace hygiene, please call or email.  For your reference, your account number is {!Account.Cust_ID__c}.
+
+
+Thank you again for your time and your continued business!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,32 @@
+<apex:page standardController="PROS_Agreement__c" extensions="QxCPQAgreementCustomActionCtrl"  showHeader="false" showQuickActionVfHeader="false" sidebar="false" docType="html-5.0">
+    <!--<apex:stylesheet value="{!URLFOR($Resource.SF1Resources,'custom/css/app.css')}"/>-->
+    <style type="text/css">
+        .forceGlobalModalIndicator .indicatorContainer .message {
+            background: #354452;
+            border: none;
+            color: #FFFFFF;
+        }
+        .apexMsg {
+            font-size:12px;
+            font-weight:bold;
+            text-align:center;
+            color:red;
+        }
+    </style>
+    <script type="text/javascript">
+    </script>
+     <apex:form >        
+        <apex:pageBlock title="Agreement information">
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!a.Start_Date__c}"/>
+                <apex:inputField value="{!a.End_Date__c}"/>
+                <!--<apex:pageBlockSectionItem>-->
+                    <apex:outputLabel value="{!ERROR_MSG}" styleClass="apexMsg" for="error_log"/>
+                <!--</apex:pageBlockSectionItem>-->
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom" >
+                <apex:commandButton action="{!publishAction}" value="Publish"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>        
+    </apex:form>
+</apex:page>

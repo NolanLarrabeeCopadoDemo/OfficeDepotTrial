@@ -1,0 +1,150 @@
+<aura:component controller="Orgdmlcontroller" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">   
+    <aura:handler name="init" value="{!this}" action="{!c.doAction}" />  
+    
+    <aura:method name="reInitRepresents" action="{!c.doAction}" description="Runs the init method again ">
+        <aura:attribute name="param1" type="String"/>
+    </aura:method>
+    
+        <aura:attribute name="subrecordId" type="String" access="global"/>
+
+    <aura:attribute name="salesRepColumns" type="List"/>
+    <aura:attribute name="salesRepList" type="Sales_Person__c" />
+    <aura:attribute name="countRep" type="String" />
+    <aura:attribute name="recentRep" type="Sales_Person__c" />
+    <aura:attribute name="showRepInfo" type="boolean" default="false"/>
+        
+    <aura:attribute name="currentIdRec" type="String"/>   
+    
+    <aura:attribute name="currentId" type="String"/>   
+    <aura:attribute name="accountId" type="Id"/>
+    <aura:attribute name="isAccountOrOrg" type="boolean"/>
+    <aura:attribute name="showModel" type="boolean" default="false"/>
+    
+    
+        <ul class="slds-has-dividers_around-space slds-p-around_x-small" style="width:215px; float:left;margin-left: 3px;margin-top: 3px; ">
+            <li class="slds-item" style ="background-color: rgb(225, 231, 237); ">
+                
+                
+                
+                
+  <article class="slds-tile slds-media slds-tile_board ">
+   
+ 
+
+                
+                
+                
+                
+                   
+                    
+              
+                    
+                    <div class="slds-tile__detail">
+                        
+                    <h3 class="slds-tile__title slds-truncate" title="Number Of Reps"><a href="javascript:void(0);">Reps</a></h3>
+                        <p class="slds-text-heading_medium">{!v.countRep}</p>
+                        <p class="slds-truncate" title="Recent Rep"><a href="javascript:void(0);">Recent Rep</a></p>
+                        <p class="slds-truncate" title="Recent Rep">
+                            <aura:if isTrue="{!and(v.recentRep.User_Name__c != null, v.recentRep.User_Name__c != '')}">
+                                {!v.recentRep.User_Name__c}
+
+
+
+                       
+
+                                <aura:set attribute="else">No Data </aura:set>
+                            </aura:if>
+
+
+                            
+                        </p>
+                         <h3 class="slds-tile__title slds-truncate" title="Show More Details"><a href="javascript:void(0);" onclick="{!c.showRep}">Show More Details</a></h3>
+                    </div>
+                        <div class="slds-media__figure">
+      <span class="slds-avatar slds-avatar_circle slds-avatar_medium">
+                     <aura:if isTrue="{!and(v.recentRep.SmallPhotoUrl__c != null, v.recentRep.SmallPhotoUrl__c != '')}">
+        <img alt="" src="{!v.recentRep.SmallPhotoUrl__c}" title="{!v.recentRep.User_Name__c}" />
+                         <aura:set attribute="else"><img alt="" src="/assets/images/avatar2.jpg"  /> </aura:set>
+                            </aura:if>
+      </span>
+    </div>
+                   
+                </article>
+            </li>
+        </ul>
+        
+        <aura:if isTrue="{!v.showModel}">
+        <div class="demo-only" style="height: 640px;">
+            
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeModel}">
+                            X
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                            
+                            <aura:if isTrue="{!v.showRepInfo}"> SalesRep Information</aura:if>
+                        </h2>
+                    </header>
+                    
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-Rep">
+                        <aura:if isTrue="{!v.showRepInfo}">
+                            <div style="background-color:white; width:100%; padding: 10px; font-weight: 900;">
+                                <div style="height:130px;">
+                            <!-- <lightning:datatable data="{! v.salesRepList }"
+                                                         columns="{! v.salesRepColumns }"
+                                                         keyField="Id" hideCheckboxColumn="true" /> -->
+                                    
+      <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+         <thead>
+            <tr class="slds-text-title_caps">                               
+                    <th scope="col"><div class="slds-truncate" title="User Name">User Name</div></th>                                
+                    <th scope="col"><div class="slds-truncate" title="Rep Id">Employee Id</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Short Title">Short Title</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Region">Region</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Market">Market</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Market">Manager</div></th>
+
+
+            </tr>
+         </thead>
+         <tbody>       
+            
+            <aura:iteration items="{!v.salesRepList}" var="obj">                                              
+               <tr>              
+                 <td><div class="slds-truncate">{!obj.User_Name__c}</div></td>
+                  <td><div class="slds-truncate">{!obj.ExtIDSalesPerson__c}</div></td>
+                  <td><div class="slds-truncate">{!obj.User_Short_Title__c}</div></td>
+                  <td><div class="slds-truncate">{!obj.User_Region__c}</div></td>
+                  <td><div class="slds-truncate">{!obj.User_Market__c}</div></td>
+                  <td><div class="slds-truncate">{!obj.User_Manager__c}</div></td>
+
+                <!-- <td><div class="slds-truncate">  
+                 <lightning:avatar src="{!obj.SmallPhotoUrl__c}" alternativeText="Replist"/>  
+                 </div></td>-->
+                 
+               </tr>
+            </aura:iteration>
+         </tbody>
+      </table>     
+                                    
+                                </div>
+                            </div>
+                        </aura:if>
+
+                    </div>
+                    
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeModel}">Cancel</button>
+                    </footer>
+                    
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+            </aura:if>
+    
+    
+</aura:component>

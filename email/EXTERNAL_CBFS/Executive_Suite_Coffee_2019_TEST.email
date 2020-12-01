@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> Office Depot </title>
+</head>
+
+<style>
+  @media only screen and (max-width:715px)
+  {
+    table.body center
+    {
+        min-width: 0!important;
+    }
+    
+    .container 
+    {
+      width: 95% !important;
+    }
+  }
+</style>
+
+<body>
+
+  <table class="body" border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+    <tr>
+      <td align="center" style="width:100% !important;border-collapse:collapse;">
+        <div align="center">
+
+          <center data-parsed="" style="min-width:640px;width:100%">
+
+            <table class="container" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="width:640px;">
+              <tr>
+                <td align="center" style="font-family:Helvetica, Arial, sans-serif; font-size:30px; color:#cccccc;border-collapse:collapse;" bgcolor="#FFFFFF">
+
+                  <table align="center" style="background-color:#ffffff;width:100%;" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td align="center" valign="top" style="padding-bottom:20px;">
+                        <img src="http://email.gerardagency.com/officedepot/ofd0430-marketing-portal-emails/executive-suite-coffee/executive_suite_header_640.jpg" alt="Executive Suite" width="640" height="255" style="display:block;width:auto;max-width:100%;height:auto;">
+                      </td>
+                    </tr>
+                  </table>
+
+                  <table align="center" style="background-color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111; margin-bottom:10px; width:100%;" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td align="left" valign="top" style="padding-left:20px;padding-right:20px;">Hi {!Contact.FirstName},</td>
+                    </tr>
+                    <tr>
+                      <td align="left" valign="top" style="padding-left:20px;padding-right:20px;padding-top:15px">I want to take a minute to let you know about a delicious way to save! Our exclusive brand of coffee,
+                        Executive Suite<sup style="font-size: 10px; line-height: 0; vertical-align: 4px">&reg;</sup>, offers the national brand quality that your employees are craving &mdash; at a price that
+                        you and your budget will love.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" valign="top" style="padding-left:20px;padding-right:20px;padding-top:15px">From the rich boldness of Seattle Roast to the delightful fusion of Donut Shop Blend, there&rsquo;s a
+                        gourmet flavor to satisfy everyone in the office.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" valign="top" style="padding-left:20px;padding-right:20px;padding-top:15px;margin-bottom:20px;">Plus we roast, grind and package every order on a weekly basis &mdash; so each one achieves its full potential and taste profile.
+                      </td>
+                    </tr>
+                  </table>
+
+                  <table align="center" style="background-color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#111111; margin-bottom:5px;width:100%;" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td align="left" valign="top" style="padding-left:20px;padding-right:20px;margin-bottom:20px;">Ready to get started? Click the button below to begin shopping through our website.</td>
+                    </tr>
+                  </table>
+
+                  <table align="center" style="background-color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#111111; margin-bottom:0px;width:100%;" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td align="left" style="padding-left:20px; padding-right:20px; padding-bottom:20px;">
+                        <a href="https://business.officedepot.com/catalog/search.do?Ntt=executive+suite" style="font-size:31px;line-height:31px;display:block;">
+                          <img src="http://email.gerardagency.com/officedepot/ofd0430-marketing-portal-emails/executive-suite-coffee/cta_shopnow.gif"
+                            width="135" height="31" alt="Shop Now" style="display:block;margin-right:30px; margin-top:20px;">
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <table align="center" style="background-color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:20px; color:#111111; margin-bottom:20px;width:100%;" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td align="left" valign="top" style="padding-left:20px;padding-right:20px;">Let me know if you&rsquo;d like any more information or if you&rsquo;d like to try a sample or two.
+                        I&rsquo;d be happy to send them to you!</td>
+                    </tr>
+                    <tr>
+                      <td align="left" valign="top" style="padding-left:20px;padding-right:20px;padding-top:15px">Sincerely,<br> 
+
+<div>
+	<span style="font-size: 14px; font-family: arial, helvetica, sans-serif; font-weight: bold; line-height: 30px;">{!User.Name}</span><br>
+  <span style="font-size: 12px; font-family: arial, helvetica, sans-serif; font-weight: bold; font-style: italic; line-height: 24px;">{!User.TitleTrimmed__c}</span><br>
+  <img src="http://email.gerardagency.com/officedepot/signature/images/ofd-siglogo.jpg" width="347" height="23" alt=""/><br>
+  <span style="font-size: 12px; font-family: arial, helvetica, sans-serif; font-weight: normal; line-height: 24px;"> {!User.Street} | {!User.City}, {!User.State} {!User.PostalCode}<br>
+{!if(!ISBLANK(User.My_Customer_Contact__c), 'Tel: '+User.My_Customer_Contact__c,'' )} {!if(!ISBLANK(User.ISO_Extension__c), 'x:'+User.ISO_Extension__c,'' )}
+Email: {!User.Email}
+</span>
+</div>
+						  
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+              </tr>
+            </table>
+            
+          </center>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <center>
+    <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #6D6E71; font-size: 8px; line-height: 12px; font-weight: normal; letter-spacing: -.3px; width: 98%; margin: 10px 0px 0px;">Office Depot is a trademark of The Office Club, Inc. OfficeMax is a trademark of OMX, Inc. © 2018 Office Depot, Inc.</p>
+  </center>
+
+</body>
+
+</html>

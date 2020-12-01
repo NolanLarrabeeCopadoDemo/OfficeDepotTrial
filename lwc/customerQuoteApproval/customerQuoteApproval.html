@@ -1,0 +1,55 @@
+<template>
+   <template if:true={showLoadingSpinner}>
+      <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+   </template>
+   <center>
+   <div if:true={responseRecived} style="font-size: 35px;font-weight: bold;">
+     Thank You For Your response 
+   </div>
+   </center>
+    <center if:true={defaultpage}>
+        <!--Header of the page-->
+         <div class="slds-page-header">
+          <img src={odlogo} style="height:80px;"></div>
+            <br/>
+            <!--Comments box for customer-->
+             <div style="font-size: 15px;font-weight: bold;padding-right :600px;color : blue;">Enter Your Comments Below</div>
+                 <div style="width : 800px;">
+                 <lightning-input type="text" rows="5" value ={customerComments} onchange={customercommentschange}></lightning-input>
+                  </div>
+                  <!---notes from customer-->
+                  <!--div style="font-size: 15px;font-weight: bold;padding-right:640px;"><p>Notes For Customer:{Notes}</p></div>-->
+                     <!--customer response button-->
+                       <br/>
+                  <div if:true={showThreeButtons}>
+                    <lightning-button variant="success" label="Approve" title="Approve" onclick={handleClickApproval} class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button variant="Destructive" label="Reject" title="Reject" onclick={handleClickReject} class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button variant="brand" label="Require More Information" title="Require More Information" onclick={handleClickMore} class="slds-m-left_x-small"></lightning-button>
+                  </div>
+                     <br/>
+
+                      <!--Question for uploading document -->
+                    <div if:true={showUploadPDF}>Do you have a PO document to upload ?
+                      <lightning-button variant="success" label="Yes" title="Yes" onclick={handleUploadDocument} class="slds-m-left_x-small"></lightning-button>
+                      <lightning-button variant="Destruvtive" label="No" title="No" onclick={handleNoUploadDocument} class="slds-m-left_x-small"></lightning-button>
+                    </div>
+                    <br/>
+                     
+                     <br/>
+                    <!--upload a PO document-->
+                     <div if:true={uploadButton}>
+                       <div style="margin-left:4%">
+                              <div><lightning-input label="" name="file uploader" onchange={handleFilesChange} type="file" multiple></lightning-input></div><br/>
+                          <div class="slds-text-body_small slds-text-color_error">{fileName}</div><br/>
+                           <div>
+                               <lightning-button class="slds-m-top--medium" label={UploadFile} onclick={handleSave} variant="brand" disabled={isTrue}></lightning-button>
+                          </div>
+                         </div><br/><br/>
+                        </div>
+                         <div if:true={showSubmitButton}><lightning-button variant="success" label="Submit" title="Submit" onclick={handleSubmit} class="slds-m-left_x-small"></lightning-button></div>
+                      <!--Document displayed-->
+                       <div><iframe  width="1000" height="600" src={quotecd.data}></iframe></div>
+                       <br/>
+                   
+       </center>
+</template>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Customer Denial Quote Rejection</name>
+    <style>freeForm</style>
+    <subject>Your Customer Has Denied Quote {!CameleonCPQ__QxQuote__c.Quote_Number__c}</subject>
+    <textOnly>Hello {!CameleonCPQ__QxQuote__c.Denial_Recipient__c}
+
+Your quote has been denied by your customer. Please review the notes below for reasons/next steps.
+
+Denial reason - {!CameleonCPQ__QxQuote__c.Customer_Response__c}
+
+Please note: If any changes are made to this offer or construct of this deal, Sales will be required to clone, update and resubmit the quote for approvals. If no changes are required, please resend the customer approval email.
+
+Best regards,
+Office Depot</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

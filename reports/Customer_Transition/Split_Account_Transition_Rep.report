@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Split_Account_Detail__c.OMX_ACCT_NAME__c</field>
+    </columns>
+    <columns>
+        <field>Split_Account_Detail__c.SHIP_TO_CONSIGNEE__c</field>
+    </columns>
+    <columns>
+        <field>Split_Account_Detail__c.Master_Account__c</field>
+    </columns>
+    <columns>
+        <field>Split_Account_Detail__c.Main_Account_Name__c</field>
+    </columns>
+    <columns>
+        <field>Split_Account_Detail__c.Linked_Customer_Transition__c</field>
+    </columns>
+    <columns>
+        <field>Split_Account_Detail__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>Split_Account_Detail__c.Error_Message__c</field>
+    </columns>
+    <description>Run this report to show MOD 5 accounts that result in error upon upload.</description>
+    <filter>
+        <criteriaItems>
+            <column>Split_Account_Detail__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>Error</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Split_Account_Detail__c.OMX_ACCOUNT__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Split Account Transition Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Split_Account_Detail__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

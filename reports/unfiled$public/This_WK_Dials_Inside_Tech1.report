@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>CALLDURATION:SUM/(3600*31.5)</calculatedFormula>
+        <datatype>percent</datatype>
+        <description>Weekly</description>
+        <developerName>FORMULA2</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Monthly%Talktime</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_22800038</developerName>
+        <masterLabel>CJP Marked</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>CALLDISPOSITION</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>1554:z.DO NOT USE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1628:Internal Call</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2733:A-Not Mine</sourceValue>
+            </sourceValues>
+            <value>Other Call</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2973:A-No Answer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6112:Audio - Static or Noise</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2740:A-Wrong Number</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>5531:R-Refusal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007806:Bad or No Connection</sourceValue>
+            </sourceValues>
+            <value>No Connection</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2734:P-Plan and Engage</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2759:A-Follow-Up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>3287:S- Appt Secured</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Follow up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007690:S-Advising</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007691:S-Propose</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007692:S-Executing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007689:S-Discovery</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1006488:A-Follow-Up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007688:S-Qualifying</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2741:S-Introduction</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2743:S-Conversion</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2745:R-Retention</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>3289:S-Presentation</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>3308:S-Technology Quote</sourceValue>
+            </sourceValues>
+            <value>A Sales Call</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2755:A-Acct Maint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1006487:A-Acct Maint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2760:A-Dlvry issues</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>4805:Placed Order</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>4784:Account Manager</sourceValue>
+            </sourceValues>
+            <value>CS - Acct Maintenance</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>&quot;&quot; (No Selection)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>&quot;&quot;</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Current Option</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>(No Selection)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>-</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>&quot; &quot;</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>&quot;-&quot;</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>No Selection</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Empty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>0</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>null</sourceValue>
+            </sourceValues>
+            <value>Email</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2972:A-Left VMail</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Left a Voicemail</sourceValue>
+            </sourceValues>
+            <value>Sales Voicemail</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CALLDISPOSITION</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Unique</aggregateTypes>
+        <field>CALLOBJECT</field>
+    </columns>
+    <columns>
+        <field>CALLDURATIONFORMATTED</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>CALLDURATION</field>
+    </columns>
+    <columns>
+        <field>Activity.Task_Type__c</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <columns>
+        <field>WHAT_NAME</field>
+    </columns>
+    <columns>
+        <field>CONTACT</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>CDF1</field>
+    </columns>
+    <customDetailFormulas>
+        <calculatedFormula>CALLDURATION/60</calculatedFormula>
+        <dataType>Double</dataType>
+        <description>sec to min</description>
+        <developerName>CDF1</developerName>
+        <label>Callmin</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <description>last 30 days</description>
+    <filter>
+        <criteriaItems>
+            <column>CALLOBJECT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>BucketField_22800038</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>A Sales Call,CS - Acct Maintenance,Sales Voicemail</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ASSIGNED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_22800038</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <name>This WK Dials - Inside Tech</name>
+    <params>
+        <name>closed</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activity</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>DUE_DATE</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>THIS_FISCALWEEK</interval>
+    </timeFrameFilter>
+</Report>

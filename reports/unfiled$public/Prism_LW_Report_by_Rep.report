@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>CALLDURATION:SUM/(3600*1.5)</calculatedFormula>
+        <datatype>percent</datatype>
+        <description>By Sec of call (1.5 Hrs Goal)</description>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Daily%Talktime</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>RowCount/25</calculatedFormula>
+        <datatype>percent</datatype>
+        <description>% to 25 Plays Per Week</description>
+        <developerName>FORMULA2</developerName>
+        <downGroupingContext>ASSIGNED</downGroupingContext>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>%PrismWeek</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_22800038</developerName>
+        <masterLabel>CJP Marked</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>CALLDISPOSITION</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>2972:A-Left VMail</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Left a Voicemail</sourceValue>
+            </sourceValues>
+            <value>Voice Mail</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2734:P-Plan and Engage</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2759:A-Follow-Up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>3287:S- Appt Secured</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Follow up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007690:S-Advising</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007691:S-Propose</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007806:Bad or No Connection</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007692:S-Executing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007689:S-Discovery</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1006488:A-Follow-Up</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1007688:S-Qualifying</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2741:S-Introduction</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2743:S-Conversion</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2745:R-Retention</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>3289:S-Presentation</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>3308:S-Technology Quote</sourceValue>
+            </sourceValues>
+            <value>Sales Call</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2755:A-Acct Maint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1006487:A-Acct Maint</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2760:A-Dlvry issues</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>4805:Placed Order</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>4784:Account Manager</sourceValue>
+            </sourceValues>
+            <value>Acct Maintenance</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>1554:z.DO NOT USE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>1628:Internal Call</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2733:A-Not Mine</sourceValue>
+            </sourceValues>
+            <value>Other Call</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>2973:A-No Answer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>6112:Audio - Static or Noise</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>2740:A-Wrong Number</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>5531:R-Refusal</sourceValue>
+            </sourceValues>
+            <value>No Connection</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>WHAT_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Activity.Task_Type__c</field>
+    </columns>
+    <columns>
+        <field>DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>CONTACT</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Activity.Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>SalesPrism</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ASSIGNED</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>SUBJECT</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Activity.Disposition_Code__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Prism LW Report by Rep</name>
+    <params>
+        <name>closed</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activity</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>LAST_FISCALWEEK</interval>
+    </timeFrameFilter>
+</Report>

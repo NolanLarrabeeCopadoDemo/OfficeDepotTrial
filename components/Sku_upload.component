@@ -1,0 +1,7 @@
+<apex:component controller="SkubuildMain" allowDML="true">
+<apex:form >
+    <apex:inputFile fileName="CustomerSKU" value="{!customerSKUfile}"></apex:inputFile>
+  <BR/><BR/>
+    <apex:commandButton value="Upload" action="{!itemload}"/>
+</apex:form>
+</apex:component>

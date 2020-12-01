@@ -1,0 +1,12 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="GLOBAL">
+    <aura:attribute name="currentStepName" type="String"/>
+    <aura:handler event="c:ProcessIndicatorEvent" action="{!c.handleProcessIndicatorEvent}"/>
+	<lightning:progressIndicator type="path" currentStep="{!v.currentStepName}">
+            <lightning:progressStep label="Search Org Information" value="Search Org Information"/>
+            <lightning:progressStep label="Org Results" value="Org Results"/>
+            <lightning:progressStep label="Prospect Info" value="Prospect Info"/>
+        <!-- <lightning:progressStep label="Opportunity Info" value="Opportunity Info"/> -->
+        <lightning:progressStep label="Prospect Created	" value="Prospect Created"/>
+        </lightning:progressIndicator>
+      
+</aura:component>

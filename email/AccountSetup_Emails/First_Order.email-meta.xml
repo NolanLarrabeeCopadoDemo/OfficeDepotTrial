@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account Places their first order</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>First Order Placed</name>
+    <style>freeForm</style>
+    <subject>First Purchase from - {!Account.Name}</subject>
+    <textOnly>Your new Account {!Account.Name} made their First Purchase
+
+Customer Name: {!Account.Name}
+Customer AOPS: {!Account.Cust_ID__c}
+Purchase Date: {!Account.First_Order_Date__c}
+
+Great Job!!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

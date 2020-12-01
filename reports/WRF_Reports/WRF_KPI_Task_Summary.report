@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>(WRF_Task__c.Hours_Not_Started__c:AVG+WRF_Task__c.Hours_Not_Started_Current__c:AVG)/24</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA3</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Avg # of Days - Not Started</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>(WRF_Task__c.Hours_In_Progress__c:AVG+WRF_Task__c.Hours_In_Progress_Current__c:AVG)/24</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA6</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Avg # of Days - In Progress</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>(WRF_Task__c.Hours_Final_Review__c:AVG+WRF_Task__c.Hours_Final_Review_Current__c:AVG)/24</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA7</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Avg # of Days - Final Review</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>WRF_Task__c.Hours_Total__c:AVG/24</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA8</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Avg # of Days - Completed</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>WRF_Task__c.Age__c:AVG/24</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA9</developerName>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Avg # of Days - Open but not Complete</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <columns>
+        <field>WRF_Task__c.Task_Age_in_Days__c</field>
+    </columns>
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>Case.ACCT_Name__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>Case.WRF_Request_Type__c</field>
+    </columns>
+    <columns>
+        <field>WRF_Task__c.Assigned_To__c</field>
+    </columns>
+    <description>Summary of tasks by Disposition Code with turnaround times.</description>
+    <filter>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>New,Open,Closed,Cancelled,Awaiting Information</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Case.Work_Request</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Month</dateGranularity>
+        <field>CUST_CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>WRF_Task__c.Disposition_Code__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>WRF - KPI - Task Summary</name>
+    <params>
+        <name>units</name>
+        <value>h</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseCustomEntity$WRF_Task__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <endDate>2013-12-31</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2012-10-01</startDate>
+    </timeFrameFilter>
+</Report>

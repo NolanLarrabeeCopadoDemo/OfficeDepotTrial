@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Identifies the users who have not logged in within the past 7 days</description>
+    <groupColumn>User.Region__c</groupColumn>
+    <mappings>
+        <sourceField>User.Region__c</sourceField>
+        <sourceType>tabular</sourceType>
+        <targetField>Reporting_Snapshot__c.Name</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>RowCount</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Reporting_Snapshot__c.Record_Counts_Not_Login__c</targetField>
+    </mappings>
+    <name>Not Login Users Snapshot</name>
+    <runningUser>055053@officedepot.com</runningUser>
+    <sourceReport>Certification_Metrics_Report/Certification_Metric_Login_Wall_of_Shame</sourceReport>
+    <targetObject>Reporting_Snapshot__c</targetObject>
+</AnalyticSnapshot>

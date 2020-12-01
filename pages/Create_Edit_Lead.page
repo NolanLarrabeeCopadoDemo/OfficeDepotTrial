@@ -1,0 +1,151 @@
+<apex:page id="leadPage" standardController="Lead"
+    extensions="Create_Edit_Lead_extension" readOnly="false">
+    <script>
+ var Company = '{!$User.CompanyName}'
+  
+  var current_typename = '{!Lead.RecordTypeid}';
+
+     if ({!$User.Business_Pro_User__c} == true) {
+
+          window.location = "/00Q/e?nooverride=1&retURL=%2F00Q%2Fo";
+     }
+
+     if(current_typename == '01244000000RcxP' || Company.toUpperCase()== 'REVENEER' ){
+              window.location = "/00Q/e?nooverride=1&retURL=%2F00Q%2Foe&RecordType=01244000000RcxP";
+     }
+ 
+
+     if (Company.toUpperCase()== 'GRAND & TOY')
+     {
+        window.location = "/apex/Create_Edit_Lead_GT"; 
+     }
+
+     //Support:02716516  - Sandesh Ganjare
+     if(current_typename == '0121k000000SJlW' ){
+              window.location = "/00Q/e?nooverride=1&retURL=%2F00Q%2Foe&RecordType=0121k000000SJlW";
+     }
+     
+</script>
+
+  <!--NAIT-2822 --start--to stop default enterkey load page-->
+    <script type="text/javascript">    
+    function stopRKey(evt) { 
+      var evt = (evt) ? evt : ((event) ? event : null); 
+      var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+      if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+    } 
+    document.onkeypress = stopRKey;
+    </script>
+    <!--NAIT-2822 --end---->   
+
+ 
+    
+    <apex:sectionHeader title="Lead Edit" subtitle="{!Lead.name}" />
+    <apex:form id="leadForm">
+        <apex:pagemessages id="msg"></apex:pagemessages>
+        <apex:messages />
+        <apex:pageBlock id="leadBlock" title="Lead Edit" mode="edit">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Save" action="{!SaveAllData}" />
+                <!--<apex:commandButton value="Save & New" action="{!save}" />-->
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!SaveAllData}" />
+                <!--<apex:commandButton value="Save & New" action="{!save}" />-->
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+            
+            <!--NAIT-2822 --start---->  
+            <apex:pageBlockSection id="leadAddressSearch" title="Business/Address Search" columns="1" > 
+                <apex:pageBlockSectionItem >
+                  <c:GPlaces_Comp address1_id="leadPage:leadForm:leadBlock:leadSection:address1" address2_id="leadPage:leadForm:leadBlock:leadSection:address2"
+                   state_id="leadPage:leadForm:leadBlock:leadSection:state" zip_id="leadPage:leadForm:leadBlock:leadSection:zip"
+                   city_id="leadPage:leadForm:leadBlock:leadSection:city" country_id="leadPage:leadForm:leadBlock:leadSection:country"
+                   acc_name_id="leadPage:leadForm:leadBlock:leadSection:cname" phone_id="leadPage:leadForm:leadBlock:leadSection:phone"/> 
+               
+               </apex:pageBlockSectionItem>
+            </apex:PageBlockSection> 
+            <!--NAIT-2822 --end---->  
+            
+            <apex:pageBlockSection id="leadSection" title="Lead Information" columns="2">
+                <apex:inputField id="fname" value="{!Lead.FirstName}" required="false" />
+                <apex:inputField id="cname" value="{!Lead.Company}" required="true" />
+                <apex:inputField value="{!Lead.LastName}" required="true" />
+                <apex:inputField value="{!Lead.Account__c}" required="false" />
+                <apex:inputField value="{!Lead.Title}" required="false" />
+                <apex:inputField id="phone" value="{!Lead.Phone}" required="false" />
+                 <apex:inputField value="{!Lead.Email}" required="false" />
+                <apex:inputField value="{!Lead.Website}" required="false" />
+                
+                <apex:inputField id="address1" value="{!Lead.Address1__c}" required="false" />
+                
+                <apex:inputField id="address2" value="{!Lead.Address2__c}" required="false" />
+                <apex:inputField value="{!Lead.Duns_Number__c}" required="false" />
+                <apex:inputField id="city" value="{!Lead.City__c}" required="false" />
+                <apex:inputField value="{!Lead.Industry}" required="false" />
+                <apex:inputField id="state" value="{!Lead.State__c}" required="false" />
+                <apex:inputField value="{!Lead.WCW_Count__c}" required="false" />
+                <apex:inputField id="zip" value="{!Lead.Zip__c}" required="false" />
+                <apex:inputField value="{!Lead.Amount__c}" required="false" />
+                <apex:inputField id="country" value="{!Lead.Country__c}" required="false" />
+                <apex:inputField value="{!Lead.Address_ID__c}" required="false" />
+                <apex:inputField value="{!Lead.Decision_Maker__c}" required="false" />
+                <apex:inputField value="{!Lead.Source__c}" required="false" />
+                <apex:inputField value="{!Lead.Department__c}" required="false" />
+                <apex:inputField value="{!Lead.Products__c}" required="false" />
+            </apex:pageBlockSection>
+            
+            
+   
+
+
+            <apex:pageBlockSection title="Lead Status" columns="2">
+                <apex:inputField value="{!Lead.OwnerId}" required="false" />
+                <apex:inputField value="{!Lead.Status}" required="true" />
+                <apex:inputField value="{!Lead.Sales_Person_ID__c}" required="false" />
+                <apex:inputField value="{!Lead.Closed_Date__c}" required="false" />
+                <apex:inputField value="{!Lead.Auto_Assign__c}" required="false" />
+                <apex:inputField value="{!Lead.Close_Reason__c}" required="false" />
+                <apex:inputField value="{!Lead.LeadSource}" required="false" />
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="Additional Information" columns="2">
+                <apex:inputField value="{!Lead.AnnualRevenue}" required="false" />
+                <!--<apex:inputField value="{!Lead.Product__c}" required="false" /> -->
+                <apex:inputField value="{!Lead.Referrar__c}" required="false" />
+                <apex:inputField value="{!Lead.Current_Supplier__c}"
+                    required="false" />
+                <apex:inputField value="{!Lead.Description}" required="false" />
+                <apex:inputField value="{!Lead.Store__c}" required="false" />
+                <apex:inputField value="{!Lead.Contractor__c}" required="false" />
+                <apex:inputField value="{!Lead.OneSource__OSKeyID__c}"
+                    required="false" />
+                <apex:inputField value="{!Lead.ADD_TO_QUEUE__c}" required="false" />
+            </apex:pageBlockSection>
+
+
+        </apex:pageBlock>
+    </apex:form>
+ 
+  <!--NAIT-2822 --start-----change the focus from the first text field to other--->  
+    <script>
+    function init() {                
+        // set focus on your element here <br>
+        document.getElementById('{!$Component.leadPage.leadForm.leadBlock.leadSection.fname}').focus();
+    }
+    
+    var previousOnload = window.onload;        
+    window.onload = function() { 
+        if (previousOnload) { 
+            previousOnload();
+        }
+    
+        init();
+    }
+    </script>
+    <!--NAIT-2822 --end---->  
+
+</apex:page>

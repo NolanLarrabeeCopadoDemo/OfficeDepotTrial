@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account  Setup - Export Doc Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Tax Cert Reminder</name>
+    <style>freeForm</style>
+    <subject>Tax Exempt Reminder - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Customer Info:
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+
+Tax Information:
+
+Tax Exempt: {!Account_Setup_Request__c.Tax_Exempt__c}
+IRS W9 Required for AP?: {!Account_Setup_Request__c.Is_IRS_W9_Required_for_AP__c}
+Tax Exempt States:{!Account_Setup_Request__c.Tax_Exempt_States__c}
+Why are you Tax Exempt: {!Account_Setup_Request__c.Why_are_you_tax_exempt__c}
+Government Branch: {!Account_Setup_Request__c.Goverment_Branch__c}
+Direct Pay Permit: {!Account_Setup_Request__c.Direct_Pay_Permit_ID__c}
+Employer TIN:   {!Account_Setup_Request__c.Employer_TIN__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

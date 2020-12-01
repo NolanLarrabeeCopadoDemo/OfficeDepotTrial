@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_19910629</developerName>
+        <masterLabel>Group</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>OWNER</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>L1 Support Queue</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>L2 Support Queue</sourceValue>
+            </sourceValues>
+            <value>Help Desk</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>SalesOps Queue</sourceValue>
+            </sourceValues>
+            <value>Business</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>IT Queue</sourceValue>
+            </sourceValues>
+            <value>IT</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_15553785</developerName>
+        <masterLabel>Sub Group IT</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Case.IT_Assignment__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Prasad Devar</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Indra Varada</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Kishore Jena</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Luis Mazuera</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Kevin Burch</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Phil Price</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sandeep Patel</sourceValue>
+            </sourceValues>
+            <value>IT Onsite</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Sunil Bansal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ankur Pradhan</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Subhrajyoti Chakraborty</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Apeksha Goel</sourceValue>
+            </sourceValues>
+            <value>IT Offshore</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Suneil Moonasar</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>kumar kalidindi</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Khaled Ziadeh</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Josh Reigner</sourceValue>
+            </sourceValues>
+            <value>Business</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>VerticalColumnGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>CREATED_DATEONLY</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_TOP</location>
+        <secondaryGroupingColumn>BucketField_19910629</secondaryGroupingColumn>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Large</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>Case.Age_in_Days__c</field>
+    </columns>
+    <columns>
+        <field>Case.IT_Status__c</field>
+    </columns>
+    <columns>
+        <field>Case.IT_BU_Reviewer__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Case.IT_Target_Development_Complete_Date__c</field>
+    </columns>
+    <columns>
+        <field>Case.IT_BU_Review_Date__c</field>
+    </columns>
+    <columns>
+        <field>Case.IT_Expected_Production_Date__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>CLOSED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Case.IT_Cases,Case.Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>SUBJECT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notContain</operator>
+            <value>transera</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_19910629</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>STATUS</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>CREATED_DATEONLY</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>All Closecases By Group</name>
+    <params>
+        <name>units</name>
+        <value>d</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Case.Age_in_Days__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

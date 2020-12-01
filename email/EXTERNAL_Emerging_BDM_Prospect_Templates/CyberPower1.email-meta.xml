@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CyberPower</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>CyberPower</name>
+    <style>freeForm</style>
+    <subject>Your Ultimate Ally in Power</subject>
+    <textOnly>Hi {!Contact.FirstName},
+
+
+
+Please take a look at the attachments to learn more about CyberPower and their UPS Evaluation Program.
+
+
+
+STAY PROTECTED WITH PROFESSIONAL-GRADE POWER PROTECTION, SUPERIOR WARRANTY TERMS AND LEADING SUPPORT FROM CYBERPOWER.
+
+
+If you ever have any questions or concerns, please do not hesitate to call me.  I am here to assist you with anything you may need and I look forward to speaking with you.
+
+
+
+Warm Regards,
+
+{!User.Name}
+
+Technology Account Manager
+
+{!User.Email}
+
+(888)707-7040 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

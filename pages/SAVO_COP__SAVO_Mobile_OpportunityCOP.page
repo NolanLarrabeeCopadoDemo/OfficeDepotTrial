@@ -1,0 +1,71 @@
+<apex:page standardController="Opportunity" extensions="SAVO_COP.SAVO_COPController">
+
+<apex:stylesheet value="{! URLFOR($Resource.SAVO_COPStyles, 'salesforce.opportunity.css')} "/>
+<apex:includeScript value="{!URLFOR($Resource.SAVO_COP__SAVO_COPScripts, 'jquery-1.8.2.js')}"  />
+<apex:includeScript value="{!URLFOR($Resource.SAVO_COP__SAVO_COPScripts, 'postmessage.js')}"  />
+
+<style>
+    #widgetCOPiFrame body{
+        background-color:transparent !imporatant;
+    }
+</style>
+<script>
+
+    $j = jQuery.noConflict();
+    
+    window.onload = loadIframe;
+
+    var topProtocol = window.location.protocol;
+    var topHost = window.location.host;
+    var opprtunityId = '{!objOpportunity.Id}';
+    var organizationId = '{!$Organization.Id}';
+    var ifrm = null, sectionHeight = 0;
+    var params;
+    var userAgent = getUserAgent();
+
+    function loadIframe()
+    {
+        sectionHeight = $j(window).innerHeight();
+        sectionHeight = (!sectionHeight || sectionHeight === 0) ? 400 : sectionHeight;
+        
+        ifrm = document.getElementById('widgetCOPiFrame');       
+        var jsonParam = {integration: 'Salesforce', organizationId: organizationId, objectType:'Opportunity', objectId:opprtunityId, userAgent:userAgent};
+        params = 'contextParams='+JSON.stringify(jsonParam);
+        
+        var sessionId =  '{!$Api.Session_ID}';
+        var serverUrl = '{!$Api.Partner_Server_URL_290}';
+
+        var returnUrl = '{!PlatformUrl}' + '/Chromeless/Integration/Widgets/GetWidgets?'+params;     
+        
+        var ssoUrl = '{!ClassicUrl}' + '/SingleSignOn/Salesforce.ashx?absolute=y&sessionid='+sessionId+'&url='+serverUrl+'&returnurl='+returnUrl;
+
+        ifrm.setAttribute("src", ssoUrl );
+    }  
+    
+    function getUserAgent(){
+        var agent = navigator.userAgent.toLowerCase();
+        var userDevice = 'browser';
+        if(agent.match(/ipad/i) != null){
+            userDevice = 'iPad';
+        }
+        else if(agent.match(/iphone/i) != null){
+            userDevice = 'iPhone';
+        }
+        else if(agent.match(/android/i) != null){
+            userDevice = 'Android';
+        }
+        
+        return userDevice;
+    }
+    
+    pm.bind("reloadCOP", function(data) {            
+      loadIframe();
+    }, 
+    '{!PlatformUrl}');      
+       
+</script>
+    <div> 
+        <iframe id="widgetCOPiFrame" name="iFrameCOP" frameborder="0" style="height:100%" class="coplistframe">
+        </iframe>        
+    </div>
+</apex:page>

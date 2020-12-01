@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_9391105</developerName>
+        <masterLabel>Acct Header - Roll Up</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>FK_$Account.Account_Owner_Manager_2__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Chad Graham - ISO Director</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Chad Graham- ISO Director</sourceValue>
+            </sourceValues>
+            <value>Graham</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Michael Crawford - ISO Director</sourceValue>
+            </sourceValues>
+            <value>Crawford</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>David Reuter - ISO Director</sourceValue>
+            </sourceValues>
+            <value>Reuter</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>West Region</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>W Strat Partner</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>W Region S Cal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>W Region Public Southwest</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>W Region PNW/SoCal/AZ</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>W Region PACIFIC NW - WA/ID/OR/MT</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>W Region N Cal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>W Region HAWAII / ALASKA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>W Region Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>W Major Partner HAWAII / ALASKA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales - West LRG/ENT</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales - West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Public Sector West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Public Partner West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Hawaii/Alaska</sourceValue>
+            </sourceValues>
+            <value>Field West</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>E Strat Partner</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NE Region E PA/MD/VA/W VA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NE Region IL/WI</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NE Region MD/VA/W PA/OH/DC</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NE Region MI/OH</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NE Region NE/PHILLY-E PA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NE Region NY/NJ</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>NE Region OH/KY/IN</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Northeast Region</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SE Region Carolinas/VA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SE Region N FL/AR/AL/MS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SE Region Public TX</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SE Region S FL</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SE Region S TX/S LA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>SE Region TX/OK/N LA</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Sales - East</sourceValue>
+            </sourceValues>
+            <value>Field East</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__Play__c</field>
+    </columns>
+    <columns>
+        <field>BucketField_9391105</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.YTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.QTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__Name__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.Last_Order_Date__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>LBI__Recommendation__c.LBI__Play__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>P-001739,P-001740,P-001741,P-001742,P-001743,P-001744</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LBI__Recommendation__c.Last_Order_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>lessOrEqual</operator>
+            <value>8/24/2019</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FK_ACC_RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Account.Parent</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_ACC_RECORDTYPE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>BH5 Reporting TY Sales</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$LBI__Recommendation__c@LBI__Recommendation__c.LBI__Account__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>LBI__Recommendation__c.LBI__DisqualificationDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,104 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false"  applyHtmlTag="false"  controller="GPOCommunityLandingController">
+
+<html>
+    <head>
+        <title>
+            Office Depot
+        </title>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/buttons.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/grid.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/helper.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/distributorBrand.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/style.css')}"></link>
+
+<link rel="shortcut icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" type="/image/x-ico" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/forms.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/tips.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/thankYou.css')}"></link>
+<script>
+document.title="Office Depot" 
+</script>
+
+<style>
+.contentHide{
+display:none;
+}
+</style> 
+    </head>
+    <body>
+        
+        <div id="thankYouPage" class="mainWrapper odgrid_12 gw12 alpha omega">
+            <!--  OD Global header -->
+            <div class="header clearfix">
+                <div class="logoContainer gw3">
+                    <a href="http://business.officedepot.com">
+                        <!--
+                        <img src="images/brand.png" alt="Office Depot Business - We provide Smart Solutions that help you take care of business." title="Office Depot Business - We provide Smart Solutions that help you take care of business.">
+                        -->
+                        <img src="{!URLFOR($Resource.CommuStaticResources,'images/brand.png')}" alt="Office Depot Business - We provide Smart Solutions that help you take care of business." title="Office Depot Business - We provide Smart Solutions that help you take care of business."/>
+                    </a>
+                    <p class="business_soln_label">
+                        Business Solutions Division
+                    </p>
+                </div>
+                <div class="gw9">
+                    <apex:image url="{!ImageRootPath}{!selectedGroup.Community_Image__c}&blah={!selectedGroup.LastModifiedDate} " width="360" height="110" style="float: right;" /> 
+                </div>
+            </div>
+            <div class="sub_header gw12 alpha omega">
+            </div>
+
+            <!-- Main section -->
+            <div id="main" class="gw12 alpha omega">
+                <main>
+                    <div class="gw3 alpha">
+                        <img src="{!URLFOR($Resource.CommuStaticResources,'images/happyGirls.png')}"/>
+                    </div>
+                    <div class="{!IF(selectedGroup.private__c!=false,'gw9 omega','contentHide')}">  
+                        <h1>
+                            Thank you for registering.
+                        </h1>
+                        <p>
+                            
+                            The Community Administrator will review your request and provide feedback soon. If approved, you will receive a notification via email. Learn more about how Office Depot makes business personal. 
+                            <a href="/GPOHome?id={!$CurrentPage.parameters.id}">
+                            &#60;CLICK HERE&#62;
+                            </a>
+                
+
+                        </p>
+                        <!-- 
+                        <a href="/gpo/GPOHome?id={!$CurrentPage.parameters.id}" class="back_btn">
+                            Return to home page
+                        </a>
+                        -->
+                    </div>
+                  <div class="{!IF(selectedGroup.private__c!=true,'gw9 omega','contentHide')}">  
+                           <h1>
+                               Thank you for registering. 
+                           </h1>
+                           <p>
+                            
+                            
+                            To begin exploring how Office Depot makes business personal 
+                            <a href="{!commSetup.signin_link__c}">
+                            &#60;CLICK HERE&#62;
+                            </a>                
+
+                        </p>
+                        <!--
+                        <a href="/gpo/GPOHome?id={!$CurrentPage.parameters.id}" class="back_btn">
+                            Return to home page
+                        </a>
+                        -->
+                    </div>                    
+                </main>
+            </div>
+        </div>
+
+    </body>
+</html>
+</apex:page>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Full Service Proposal Task Detail - Tier 1</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} {!Case.Thread_Id} {!Account.Name} {!WRF.Type} - Action Required</subject>
+    <textOnly>Description: {!Case.Description}
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+
+
+Click here to go to the support case
+
+
+
+Hi (insert name),
+
+
+
+I am the assigned Proposal Writer for (add customer name). Based on the WRF this is a Tier 1 bid request through (Tier 1 name). I will serve as the Project Manager to ensure all deliverables are met and the bid is submitted to the customer by (add due date). There are certain guidelines that must be followed without exception when a Tier 1 partner is submitting the response to the RFP. The guidelines are in place to ensure there are no misunderstandings between the parties and are required by our legal department for all formal Tier 1 proposals such as this opportunity. The RFP protocols are consistent with the diversity purchasing relationship between the parties when the contract is awarded. Below are the action items for each party:
+
+
+
+Tier 1 Partner Action Items:
+
+
+
+1. Tier 1 partner responds to the proposal, not Office Depot. In the same way that they are responsible for reviewing the Terms and Conditions to which they will be committing, they are responsible for the written response provided in the RFP.
+
+
+
+2. Office Depot collaborates closely with the Tier 1 to develop the response.
+
+
+
+Proposal Writer Action Items:
+
+
+
+1. Proposal Writer will provide materials and assistance to the Tier 1 partner for their proposal, as needed.
+
+
+
+2. Office Depot may provide a cover letter on our letterhead to be included with their proposal. In such event, I will need to review the Office Depot cover letter before it can be submitted.
+
+
+
+Sales Action Items:
+
+
+
+1. Review all proposal documents and answer any outstanding questions that require sales response with the Tier 1 Partner.
+
+
+
+2. Ensure pricing is completed by the pricing analyst and the final written and pricing is given to the 3rd party.
+
+
+
+3. Request a final copy of the bid from the Tier 1 Partner before they submit to the customer and send to everyone working the bid for their records.
+
+
+
+Compliance Manager/Legal Action Items:
+
+
+
+1. Tier 1 partner must review the T&amp;Cs in the bid and respond to them, not Office Depot legal department. We do not respond to the T&amp;Cs, those are obligations the Tier 1 commits to the customer but legal may send a list of concerns for consideration.
+
+
+
+2. Office Depot&apos;s contract compliance is to receive a copy of the final proposal submitted to the customer for archiving purposes.
+
+
+
+Pricing Analyst Action Items:
+
+
+
+1. Leading initial pricing call with sales
+
+
+
+2. Complete pricing file provided by sales
+
+
+
+3. Launch CPM after pricing approval
+
+
+
+4. Place pricing in customer format if an excel document.
+
+
+
+I look forward to working with you!
+
+
+
+
+Best regards,
+
+Your Name
+
+Proposal Writer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

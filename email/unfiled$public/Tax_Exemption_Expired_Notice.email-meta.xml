@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Tax Exemption Expired Notice</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Tax Exemption Expired Notice</name>
+    <style>freeForm</style>
+    <subject>TAX EXEMPTION EXPIRED NOTIFICATION - {!Account.Cust_ID__c}</subject>
+    <textOnly>Dear {!Account.OwnerFullName} and {!Account.Account_Owner_Manager_Name__c} and {!Account_Profile__c.Account_Owner_Manager_lvl_3__c},
+
+
+This is the 3rd and final notice is to advise you that your customer, {!Account.Name}, Account # {!Account.Cust_ID__c} was tax exempt. This certificate will expire tomorrow. The customer will now be charged tax tomorrow.
+
+
+
+Therefore, it is critical that you obtain a new tax exemption certificate from your customer and provide it to the Tax Department immediately. Failure to provide an updated certificate will result in your customer being viewed as a taxable entity until a new tax certificate is submitted.
+
+Fax or email the certificate to the tax department: BSD-TaxExemption@officedepot.com
+
+
+Fax # 561-438-2406
+
+
+Questions? Call 800-848-8100
+
+
+Thank you for your assistance in this matter.
+
+
+Sincerely,
+
+
+Office Depot Tax Department</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Finance Template to be used for most email responses to requests. SCOE Support</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Finance Auto Notification to Rep</name>
+    <style>freeForm</style>
+    <subject>Case# {!Case.CaseNumber} - {!Case.Account} - Status: {!Case.Status} {!Case.Thread_Id}</subject>
+    <textOnly>Dear {!Case.Support_Requester__c},
+
+
+The below case has been created for your reference. Please do not reply back to this email. Someone will notify you regarding your request.
+
+Support Details:
+Support Case: {!Case.CaseNumber}
+Support Subject: {!Case.Subject}
+Status: {!Case.Status}
+
+
+Customer Details:
+Customer Name: {!Case.Account}
+Account Number: {!Case.ACCT_Account_Number__c}
+Account Owner: {!Account.OwnerFullName}
+
+For more details, please click the link below while logged onto the network:
+https://officedepot.my.salesforce.com/{!Case.Id}
+
+Thank you,
+
+Finance
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

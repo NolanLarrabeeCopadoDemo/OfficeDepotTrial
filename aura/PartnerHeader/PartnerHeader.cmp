@@ -1,0 +1,24 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+	 <div class="demo-only demo-only--sizing slds-grid slds-wrap" style="background:#f4f4f4">
+         <div class="slds-size_2-of-3">
+             <p style="text-align: justify;padding: 0px 40px 0 10px;font-size: 16px">
+                 <br/>
+             <lightning:formattedRichText value="{!$Label.c.PRM_Head_Text}"></lightning:formattedRichText> 
+               <!--  <a href="{!$Label.c.PRM_Contact_Email}">{!$Label.c.PRM_Contact_Email}</a> -->
+            <div class="button-container">
+                <a href="/ODPartnerProgram/s/createrecord/NewDeal" class="enroll-button">Deal Registration</a>
+			</div>
+             </p>
+          </div>
+
+         <div class="slds-size_1-of-3">
+            
+             <p align="right">
+               <img src="{!$Resource.PRMIcons+'/iStock-611786146.jpg'}" style="opacity: 0.6" /> 
+             
+             </p>
+             
+         </div>
+
+     </div>
+</aura:component>

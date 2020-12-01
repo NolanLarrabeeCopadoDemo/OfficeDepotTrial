@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>The details in the data matter most.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Website Data and Reporting</name>
+    <style>freeForm</style>
+    <subject>The details in the data matter most.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+I wanted to follow up today and highlight advantages of partnering with us. All of us on the Business Solutions team at Office Depot bring more than just office services to our customers – we bring value. One way we do this is via on-demand reporting through your personalized ordering website business.officedepot.com.
+
+
+
+We pride ourselves on providing you with robust information to help you manage your business. Your Customer Dashboard is accessible within your online account. This exclusive and innovative self-service tool gives you real-time access to your account information and spending patterns so you can quickly identify savings opportunities and manage your bottom line. You no longer need to wait weeks for the reports you need. At Office Depot, we believe strongly that your data belongs in your hands! Your dashboards along with quarterly business reviews with your account manager, allow us to partner and reduce your spend. We work with you to ensure you stay on track and accomplish your goals.
+
+
+
+I’d love the opportunity to demonstrate the impact we can make through a partnership. Thank you for your time and I look forward to hearing from you soon.
+
+
+
+Thank you,
+
+
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

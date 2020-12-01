@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>To be used for rejection email response to proprietary requests.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>SCOE Prop Rejection</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber}</subject>
+    <textOnly>Customer Name: {!Case.Account}
+
+Account Number:  {!Case.ACCT_Account_Number__c}
+
+Case # {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+
+
+
+Click here to go to the support case
+
+
+Your request for Proprietary item creation has been rejected as your customer does not qualify. Please use the non-code form in Salesforce to request a non-code quote.
+
+
+Thank you,
+
+{!Case.LastModifiedBy}
+
+Sales Support Team
+
+
+
+
+
+------- Original Case -------
+
+From: {!Case.WRF_Requestor_Email__c}
+
+Subject: {!Case.Subject}
+
+Description: {!Case.Description}
+
+
+
+
+
+
+
+
+
+{!Case.Email_Thread}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

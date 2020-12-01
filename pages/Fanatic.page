@@ -1,0 +1,353 @@
+<apex:page controller="fanaticUtil" showHeader="false" sidebar="false">
+<head>
+<style>
+.pbSubheader{
+background-color: #3090C7 !important;
+color: white !important;
+border-color: none !important;
+}
+</style>
+</head>
+<font size="2">
+<apex:form >
+
+<apex:pageblock title="Fanatic Search">
+<apex:pagemessages id="msg"></apex:pagemessages>
+<apex:panelgrid columns="2" width="600px">
+<apex:panelgrid columns="1" width="300px">
+<apex:pageblocksection columns="2">
+<apex:pageblocksectionitem >
+ <apex:outputlabel value="Customer Number"/>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:outputPanel >
+                    <div class="requiredInput">
+                        <div class="requiredBlock"></div>
+<apex:inputtext ID="CustomerNumber" value="{!picst}"/></div>
+</apex:outputPanel>
+</apex:pageblocksectionitem>
+<!--<apex:pageblocksectionitem >
+<apex:selectList value="{!selected_option}" size="1">
+ <apex:selectOption itemValue="Address Sequence" itemLabel="Address Sequence"/>
+ <apex:selectOption itemValue="Address Key" itemLabel="Address Key"/>
+ <apex:selectOption itemValue="Inventory Location" itemLabel="Inventory Location"/>
+</apex:selectList>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:inputtext value="{!selected_value}"/>
+</apex:pageblocksectionitem>-->
+
+<apex:pageblockSectionItem >
+<apex:commandButton action="{!getData}" value="Search" status="processing_msg"/>
+</apex:pageblockSectionItem>
+</apex:pageblocksection>
+</apex:panelgrid>
+
+ <apex:chart height="200" width="500" data="{!datag}">
+          <apex:axis type="Numeric" position="left" fields="data1" 
+            title="Orders Amount" grid="true"/>
+          <apex:axis type="Category" position="bottom" fields="name" 
+            title="Month of the Year">
+        </apex:axis>
+        <apex:lineSeries axis="left" fill="true" xField="name" yField="data1"
+          markerType="cross" markerSize="4" markerFill="#FF0000"/>
+   </apex:chart>
+ 
+</apex:panelgrid>
+<apex:pageblock title="Customer Details">
+ <apex:panelgrid columns="3" id="custpanel" width="100%" >
+  <apex:panelgrid columns="1" id="custpanel1">
+ <apex:panelgrid columns="2" id="custpane111">
+  <apex:outputtext value="Tech Depot ID: " style="font-weight:bold"/>
+  <apex:outputtext value="{!customer.CustomerID}" />
+   <apex:outputtext value="Company Name: " style="font-weight:bold"/>
+  <apex:outputtext value="{!customer.CompanyName}" />
+  <apex:outputtext value="Sales Rep Name: " style="font-weight:bold"/>
+   <apex:outputtext value="{!customer.SalesRepName}" />
+  <apex:outputtext value="OD Account Number: " style="font-weight:bold"/>
+   <apex:outputtext value="{!customer.ODAccountNumber}" />   
+   <!--  <apex:outputtext value="ZipCode: " style="font-weight:bold"/>
+   <apex:outputtext value="{!customer.ZipCode}" />-->
+  </apex:panelgrid>
+  </apex:panelgrid>
+   <apex:panelgrid columns="1" id="custpanel12">
+  <apex:panelgrid columns="2" id="custpanel2">
+<!--    <apex:outputtext value="CreditLimit: " style="font-weight:bold"/>
+  <apex:outputtext value="{!customer.CreditLimit}" />-->
+ <!--  <apex:outputtext value="CredAllowAmt: " style="font-weight:bold"/>
+  <apex:outputtext value="{!customer.CredAllowAmt}" /> -->
+  <apex:outputtext value="Tax Exempt Code: " style="font-weight:bold"/>
+   <apex:outputtext value="{!customer.TaxExemptCode}" />
+  <apex:outputtext value="Tax Exempt Epr Date: " style="font-weight:bold"/>
+   <apex:outputtext value="{!customer.TaxExemptEprDate}" /> 
+    <apex:outputtext value="Payment Term Code: " style="font-weight:bold"/>
+   <apex:outputtext value="{!customer.PaymentTermCode}" /> 
+
+  </apex:panelgrid>
+  </apex:panelgrid>
+ 
+<!--
+ <apex:panelgrid columns="1" id="custpanel3">
+    <apex:panelgrid columns="2" id="custpanel13">
+    <apex:outputtext value="BusinessType: " style="font-weight:bold"/>
+    <apex:selectList id="recent" size="1" value="{!customer.BusinessType}" >
+                <apex:selectoption itemLabel="0" itemValue="0"></apex:selectoption>
+                <apex:selectoption itemLabel="1" itemValue="1"></apex:selectoption>
+         </apex:selectList>    
+ ->     
+ <!-- <apex:outputtext value="{!customer.BusinessType}" />-->
+ <!--
+   <apex:outputtext value="Industry: " style="font-weight:bold"/>
+  <apex:outputtext value="{!customer.Industry}" />
+  <apex:outputtext value="UseThirdPartyFreight: " style="font-weight:bold"/>
+   <apex:outputtext value="{!customer.UseThirdPartyFreight}" />
+  <apex:outputtext value="StockSymbol: " style="font-weight:bold"/>
+   <apex:outputtext value="{!customer.StockSymbol}" /> 
+  </apex:panelgrid>
+   </apex:panelgrid>
+   -->
+</apex:panelgrid>
+</apex:pageblock>
+</apex:pageBlock>
+
+
+<apex:tabPanel switchType="client" selectedTab="opportunities2" id="theTabPanel">
+<apex:tab label="Addresses" name="Addresses1" id="tabOne">
+<apex:pageBlock id="results"  title="Addresses" >
+
+    <apex:pageBlockTable value="{!addresses}" var="ad" id="pb1" title="Addresses"  >
+                
+                
+           <apex:column > <apex:facet name="header"> <apex:commandLink value="Shopper Profile ID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ad.ShopperProfileID}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Address Type" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ad.AddressType}" /> </apex:column>
+<!--
+    <apex:column > <apex:facet name="header"> <apex:commandLink value="Is Primary" >  </apex:commandLink> </apex:facet> 
+        <apex:outputText value="{!ad.IsPrimary}" />
+        <apex:selectList id="IsPrimary" size="1" value="{!ad.IsPrimary}" >
+                <apex:selectoption itemLabel="No" itemValue="0"></apex:selectoption>
+                <apex:selectoption itemLabel="Yes" itemValue="1"></apex:selectoption>
+         </apex:selectList>    
+    </apex:column>
+--> 
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Is Primary" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!IF(ad.IsPrimary == '1', 'Yes', 'No')}" /> </apex:column>
+
+
+
+
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Street" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ad.Street1}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="City" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ad.City}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="State" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ad.State}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Zip" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ad.Zip}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Country" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ad.Country}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Sequence Number" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ad.SequenceNumber}" /> </apex:column>
+                
+ 
+        </apex:pageBlockTable>
+        </apex:pageBlock>
+</apex:tab>
+<apex:tab label="Contacts" name="Contacts2" id="tabTwo">
+  <apex:pageBlock id="cntresults" title="Contacts" >
+
+    <apex:pageBlockTable value="{!contacts}" var="cnt" id="cn1" title="Contacts"   >
+                
+                
+           <apex:column > <apex:facet name="header"> <apex:commandLink value="Contact ID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!cnt.ContactID}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Full Name" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!cnt.FullName}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Title" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!cnt.Title}" /> </apex:column>
+<!--<apex:column > <apex:facet name="header"> <apex:commandLink value="Buyer" >  </apex:commandLink> </apex:facet>
+  <apex:selectList id="Buyer" size="1" value="{!cnt.Buyer}" >
+            <apex:selectoption itemLabel="No" itemValue="0"></apex:selectoption>
+            <apex:selectoption itemLabel="Yes" itemValue="1"></apex:selectoption>
+     </apex:selectList>  
+  </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Role" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!cnt.Role}" /> </apex:column>
+-->
+
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Buyer" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!IF(cnt.Buyer == '1', 'Yes', 'No')}" /> </apex:column>
+
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Email" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!cnt.Email}" /> </apex:column>
+<!--<apex:column > <apex:facet name="header"> <apex:commandLink value="DoNotMail" >  </apex:commandLink> </apex:facet> 
+<apex:selectList id="DoNotMail" size="1" value="{!cnt.DoNotMail}" >
+            <apex:selectoption itemLabel="No" itemValue="0"></apex:selectoption>
+            <apex:selectoption itemLabel="Yes" itemValue="1"></apex:selectoption>
+     </apex:selectList>  
+</apex:column>
+-->
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Do Not Mail" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!IF(cnt.DoNotMail == '1', 'Yes', 'No')}" /> </apex:column>
+
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Cell " >  </apex:commandLink> </apex:facet> <apex:outputText value="{!cnt.Cell }" /> </apex:column>
+
+ 
+        </apex:pageBlockTable>
+        </apex:pageBlock>
+</apex:tab>
+
+<apex:tab label="Quotes" name="Quote1" id="tab4">
+    <apex:pageBlock id="ordresults1" title="Quote History" >
+    
+
+    <apex:pageBlockTable value="{!orderHdrQuote}" var="ohr" id="cn2" title="Quote History"   >
+        
+        <apex:column > <apex:facet name="header"> <apex:commandLink value="Cust Order No" >  </apex:commandLink> </apex:facet> <apex:commandLink value="{!ohr.CustOrderNo}" action="{!getOrderDetails}" target="_blank"><apex:param value="{!ohr.CustOrderNo}" name="id" assignTo="{!selectedoh}" ></apex:param> </apex:commandLink></apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Order Type" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.OrderType}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Order Status" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.OrderStatus}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Email" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.Email}" /> </apex:column>
+<!--<apex:column > <apex:facet name="header"> <apex:commandLink value="ShopperID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShopperID}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="BasketID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.BasketID}" /> </apex:column>
+-->
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship To City" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToCity}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship To State" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToState}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship To Zip" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToZip}" /> </apex:column>
+<!--
+<apex:column > <apex:facet name="header"> <apex:commandLink value="BillToProfileID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.BillToProfileID}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="ShipToProfileID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToProfileID}" /> </apex:column>
+-->
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Enter Date" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!LEFT(ohr.EnterDate, 10)}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship Method" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipMethod}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="BGEPO" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.BGEPO}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Billed" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!ohr.Billed}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Handling Total" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!ohr.HandlingTotal}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Handling Tax" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!ohr.HandlingTax}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Handling Total Display" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!ohr.HandlingTotalDisplay}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Order Status ID" >  </apex:commandLink> </apex:facet>
+
+
+ <apex:selectList id="OrderStatusID" size="1" value="{!ohr.OrderStatusID}" >
+ <apex:selectoption itemValue="1" itemLabel="Accepted" ></apex:selectoption>
+<apex:selectoption itemValue="3" itemLabel="Weight Hold" ></apex:selectoption>
+<apex:selectoption itemValue="4" itemLabel="Call me" ></apex:selectoption>
+<apex:selectoption itemValue="6" itemLabel="Order sent to vendor" ></apex:selectoption>
+<apex:selectoption itemValue="8" itemLabel="Waiting to process CC" ></apex:selectoption>
+<apex:selectoption itemValue="10" itemLabel="Pending RMA Release" ></apex:selectoption>
+<apex:selectoption itemValue="11" itemLabel="Order Declined" ></apex:selectoption>
+<apex:selectoption itemValue="12" itemLabel="Credit Card Hold" ></apex:selectoption>
+<apex:selectoption itemValue="13" itemLabel="NSF credit decline" ></apex:selectoption>
+<apex:selectoption itemValue="17" itemLabel="Credit Hold" ></apex:selectoption>
+<apex:selectoption itemValue="18" itemLabel="Address Verification" ></apex:selectoption>
+<apex:selectoption itemValue="19" itemLabel="Credit Hold" ></apex:selectoption>
+<apex:selectoption itemValue="20" itemLabel="New Ship to" ></apex:selectoption>
+<apex:selectoption itemValue="21" itemLabel="Cancelled" ></apex:selectoption>
+<apex:selectoption itemValue="22" itemLabel="Pending Internal AVS check" ></apex:selectoption>
+<apex:selectoption itemValue="23" itemLabel="Ship To Address Wrong" ></apex:selectoption>
+<apex:selectoption itemValue="30" itemLabel="Pre-pay hold" ></apex:selectoption>
+<apex:selectoption itemValue="31" itemLabel="Check Received" ></apex:selectoption>
+<apex:selectoption itemValue="40" itemLabel="Shipped" ></apex:selectoption>
+<apex:selectoption itemValue="50" itemLabel="Invoiced" ></apex:selectoption>
+<apex:selectoption itemValue="60" itemLabel="Canceled manually" ></apex:selectoption>
+<apex:selectoption itemValue="70" itemLabel="Refund Requested -- Preinvoice" ></apex:selectoption>
+<apex:selectoption itemValue="80" itemLabel="Pending Refund -- Post Invoice" ></apex:selectoption>
+<apex:selectoption itemValue="90" itemLabel="Pending Collection" ></apex:selectoption>
+<apex:selectoption itemValue="100" itemLabel="Pending" ></apex:selectoption>
+<apex:selectoption itemValue="200" itemLabel="Pending Bid Review" ></apex:selectoption>
+<apex:selectoption itemValue="201" itemLabel="Pending Customer Bid Approval" ></apex:selectoption>
+<apex:selectoption itemValue="202" itemLabel="Bid Accepted" ></apex:selectoption>
+<apex:selectoption itemValue="203" itemLabel="Bid Rejected" ></apex:selectoption>
+<apex:selectoption itemValue="300" itemLabel="Government/Education Hold" ></apex:selectoption>
+<apex:selectoption itemValue="301" itemLabel="CXML Hold" ></apex:selectoption>
+<apex:selectoption itemValue="302" itemLabel="Inbound Vendor Hold" ></apex:selectoption>
+<apex:selectoption itemValue="303" itemLabel="Customer Validation Failure" ></apex:selectoption>
+<apex:selectoption itemValue="400" itemLabel="Pending Customer Release" ></apex:selectoption>   
+<apex:selectoption itemValue="401" itemLabel="Pending Quote Pricing " ></apex:selectoption>
+<apex:selectoption itemValue="402" itemLabel="Pending Quote Approval" ></apex:selectoption> 
+<apex:selectoption itemValue="500" itemLabel="ACI Hold" ></apex:selectoption>   
+<apex:selectoption itemValue="600" itemLabel="OD Store Hold" ></apex:selectoption>  
+<apex:selectoption itemValue="601" itemLabel="OD Store Exception" ></apex:selectoption> 
+<apex:selectoption itemValue="700" itemLabel="Contract Hold" ></apex:selectoption>
+ </apex:selectList>    
+ </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Billed Total" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.BilledTotal}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship To Search" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToSearch}" /> </apex:column>
+   </apex:pageBlockTable>
+        </apex:pageBlock>
+        </apex:tab>
+        <apex:tab label="Orders" name="Order1" id="tab5">
+    <apex:pageBlock id="ordresults2" title="Orders" >
+
+    <apex:pageBlockTable value="{!orderHdrInv}" var="ohr" id="cn3" title="Orders"   >
+        
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Cust Order No" >  </apex:commandLink> </apex:facet> <apex:commandLink value="{!ohr.CustOrderNo}" action="{!getOrderDetails}" target="_blank"><apex:param value="{!ohr.CustOrderNo}" name="id" assignTo="{!selectedoh}" ></apex:param> </apex:commandLink> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Order Type" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.OrderType}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Order Status" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.OrderStatus}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Email" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.Email}" /> </apex:column>
+<!--
+<apex:column > <apex:facet name="header"> <apex:commandLink value="ShopperID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShopperID}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="BasketID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.BasketID}" /> </apex:column>
+-->
+
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship To City" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToCity}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship To State" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToState}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship To Zip" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToZip}" /> </apex:column>
+
+<!--<apex:column > <apex:facet name="header"> <apex:commandLink value="Bill To ProfileID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.BillToProfileID}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship To ProfileID" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToProfileID}" /> </apex:column>
+-->
+
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Enter Date" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!LEFT(ohr.EnterDate, 10)}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship Method" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipMethod}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="BGEPO" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.BGEPO}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Billed" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!ohr.Billed}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Handling Total" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!ohr.HandlingTotal}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Handling Tax" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!ohr.HandlingTax}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Handling Total Display" >  </apex:commandLink> </apex:facet> <apex:outputText value="${!ohr.HandlingTotalDisplay}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Order Status ID" >  </apex:commandLink> </apex:facet>
+ <apex:selectList id="OrderStatusID1" size="1" value="{!ohr.OrderStatusID}"  >
+ <apex:selectoption itemValue="1" itemLabel="Accepted" ></apex:selectoption>
+<apex:selectoption itemValue="3" itemLabel="Weight Hold" ></apex:selectoption>
+<apex:selectoption itemValue="4" itemLabel="Call me" ></apex:selectoption>
+<apex:selectoption itemValue="6" itemLabel="Order sent to vendor" ></apex:selectoption>
+<apex:selectoption itemValue="8" itemLabel="Waiting to process CC" ></apex:selectoption>
+<apex:selectoption itemValue="10" itemLabel="Pending RMA Release" ></apex:selectoption>
+<apex:selectoption itemValue="11" itemLabel="Order Declined" ></apex:selectoption>
+<apex:selectoption itemValue="12" itemLabel="Credit Card Hold" ></apex:selectoption>
+<apex:selectoption itemValue="13" itemLabel="NSF credit decline" ></apex:selectoption>
+<apex:selectoption itemValue="17" itemLabel="Credit Hold" ></apex:selectoption>
+<apex:selectoption itemValue="18" itemLabel="Address Verification" ></apex:selectoption>
+<apex:selectoption itemValue="19" itemLabel="Credit Hold" ></apex:selectoption>
+<apex:selectoption itemValue="20" itemLabel="New Ship to" ></apex:selectoption>
+<apex:selectoption itemValue="21" itemLabel="Cancelled" ></apex:selectoption>
+<apex:selectoption itemValue="22" itemLabel="Pending Internal AVS check" ></apex:selectoption>
+<apex:selectoption itemValue="23" itemLabel="Ship To Address Wrong" ></apex:selectoption>
+<apex:selectoption itemValue="30" itemLabel="Pre-pay hold" ></apex:selectoption>
+<apex:selectoption itemValue="31" itemLabel="Check Received" ></apex:selectoption>
+<apex:selectoption itemValue="40" itemLabel="Shipped" ></apex:selectoption>
+<apex:selectoption itemValue="50" itemLabel="Invoiced" ></apex:selectoption>
+<apex:selectoption itemValue="60" itemLabel="Canceled manually" ></apex:selectoption>
+<apex:selectoption itemValue="70" itemLabel="Refund Requested -- Preinvoice" ></apex:selectoption>
+<apex:selectoption itemValue="80" itemLabel="Pending Refund -- Post Invoice" ></apex:selectoption>
+<apex:selectoption itemValue="90" itemLabel="Pending Collection" ></apex:selectoption>
+<apex:selectoption itemValue="100" itemLabel="Pending" ></apex:selectoption>
+<apex:selectoption itemValue="200" itemLabel="Pending Bid Review" ></apex:selectoption>
+<apex:selectoption itemValue="201" itemLabel="Pending Customer Bid Approval" ></apex:selectoption>
+<apex:selectoption itemValue="202" itemLabel="Bid Accepted" ></apex:selectoption>
+<apex:selectoption itemValue="203" itemLabel="Bid Rejected" ></apex:selectoption>
+<apex:selectoption itemValue="300" itemLabel="Government/Education Hold" ></apex:selectoption>
+<apex:selectoption itemValue="301" itemLabel="CXML Hold" ></apex:selectoption>
+<apex:selectoption itemValue="302" itemLabel="Inbound Vendor Hold" ></apex:selectoption>
+<apex:selectoption itemValue="303" itemLabel="Customer Validation Failure" ></apex:selectoption>
+<apex:selectoption itemValue="400" itemLabel="Pending Customer Release" ></apex:selectoption>   
+<apex:selectoption itemValue="401" itemLabel="Pending Quote Pricing " ></apex:selectoption>
+<apex:selectoption itemValue="402" itemLabel="Pending Quote Approval" ></apex:selectoption> 
+<apex:selectoption itemValue="500" itemLabel="ACI Hold" ></apex:selectoption>   
+<apex:selectoption itemValue="600" itemLabel="OD Store Hold" ></apex:selectoption>  
+<apex:selectoption itemValue="601" itemLabel="OD Store Exception" ></apex:selectoption> 
+<apex:selectoption itemValue="700" itemLabel="Contract Hold" ></apex:selectoption>
+ </apex:selectList>
+ </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Billed Total" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.BilledTotal}" /> </apex:column>
+<apex:column > <apex:facet name="header"> <apex:commandLink value="Ship To Search" >  </apex:commandLink> </apex:facet> <apex:outputText value="{!ohr.ShipToSearch}" /> </apex:column>
+   </apex:pageBlockTable>
+        </apex:pageBlock>
+        </apex:tab>
+        
+       
+        
+        
+</apex:tabPanel>
+
+      
+        
+           
+        
+</apex:form>
+</font>
+</apex:page>

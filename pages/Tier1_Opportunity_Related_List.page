@@ -1,0 +1,22 @@
+<apex:page standardController="Partner__c" extensions="Tier1_Extension" readOnly="true">
+<apex:pageBlock >
+  <apex:pageBlockTable value="{!lstAccountOpportunities}" var="accountOpps" rendered="{!IF(lstAccountOpportunities.size=0,false,true)}">
+      <apex:column headerValue="Opportunity Name">
+          <apex:outputLink value="../{!accountOpps.id}" target="_blank">{!accountOpps.Name}</apex:outputLink>
+      </apex:column>
+      <apex:column headerValue="Account Name">
+          <apex:outputLink value="../{!accountOpps.account.id}" target="_blank">{!accountOpps.Account.Name}</apex:outputLink>
+      </apex:column>
+      <apex:column value="{!accountOpps.StageName}" headerValue="Stage"></apex:column>
+      <apex:column value="{!accountOpps.Product__c}" headerValue="Product"></apex:column>
+      <apex:column value="{!accountOpps.Opportunity_Amount__c}" headerValue="Amount"></apex:column>
+      <apex:column value="{!accountOpps.Account.YTD_Sales_TY__c}" headerValue="YTD Sales TY"></apex:column>
+      <apex:column value="{!accountOpps.IMU__c}" headerValue="IMU%"></apex:column>
+      <apex:column value="{!accountOpps.Owner.Name}" headerValue="Owner Full Name"></apex:column>
+      <apex:column value="{!accountOpps.LastModifiedDate}" headerValue="Last Modified Date"></apex:column>
+  </apex:pageBlockTable>
+  
+  <apex:outputPanel rendered="{!IF(lstAccountOpportunities.size=0,true,false)}">No opportunities to display</apex:outputPanel>
+  
+</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that a request was received</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Acct Maint WRF BSD Pricing</name>
+    <style>freeForm</style>
+    <subject>Maintenance Request Received:{!Case.CaseNumber} - {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+Thank you for your Maintenance Request submission for {!Case.Account}.  We appreciate the opportunity to work with you.
+
+
+The expected completion date/time for this type of request is {!Case.AM_Expected_Due_Date__c}.  If this request is complex and qualifies as a Project, you will be notified of an updated turnaround time.
+
+
+
+Your Support # is {!Case.CaseNumber}
+
+You can click here to view the request in Salesforce.com.
+
+
+Thank you,
+
+
+Account Maintenance Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

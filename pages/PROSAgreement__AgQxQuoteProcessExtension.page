@@ -1,0 +1,57 @@
+<!--
+  == Copyright (c) 2019 by PROS, Inc. All Rights Reserved.
+  == This software is the confidential and proprietary information of
+  == PROS, Inc. ("Confidential Information").
+  == You may not disclose such Confidential Information, and may only
+  == use such Confidential Information in accordance with the terms of
+  == the license agreement you entered into with PROS.
+  -->
+
+<!--
+  -  Visualforce page to render the CPQ Quote content from the Extension object
+  -
+  -  @author bgupta
+  -->
+<apex:page standardController="PROSAgreement__Agreement_Extension__c" extensions="PROSAgreement.AgVFProcessController" showHeader="false" sidebar="false" docType="html-5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/> 
+  <apex:slds />
+  <apex:outputPanel id="CPQxQuoteContent" layout="block">
+     <div id="loadingStatus" class="slds-spinner_container">
+       <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+         <span class="slds-assistive-text" id="_gModal_Message"/>
+         <div class="slds-spinner__dot-a"></div>
+         <div class="slds-spinner__dot-b"></div>
+       </div>
+     </div>
+  </apex:outputPanel>
+    <script type="text/javascript">
+    function initQxProcess() {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.AgVFProcessController.initQxProcess}',
+          '{!Agreement_Extension__c.Id}',
+          function(cpqInfo, event) {
+              if(cpqInfo.success) {
+                  initQxUI(cpqInfo);
+              }
+          },
+          {escape: false}
+      );
+    }
+
+    function initQxUI(cpqInfo) {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.AgVFProcessController.initUI}',
+          cpqInfo,
+          function(uiContent, event) {
+            if(event.status) {
+               document.open();
+               document.write(uiContent);
+               document.close();
+            }
+          },
+          {escape: false}
+      );
+    }
+    initQxProcess();
+  </script>
+</apex:page>

@@ -1,0 +1,7 @@
+<apex:page >
+    <apex:outputPanel id="custPanel">
+        <!-- Space for All Customer View -->
+        <apex:sectionHeader title="Customer List : {!$CurrentPage.parameters.batch}" subtitle="Customers With Core Price Changes"/>
+        <c:ACE_Customer_List />
+    </apex:outputPanel>
+</apex:page>

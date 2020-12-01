@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>DML__c.DML_Relations__r$Account__c</field>
+    </columns>
+    <columns>
+        <field>DML__c.DML_Relations__r$Customer_ID__c</field>
+    </columns>
+    <columns>
+        <field>DML__c$Name</field>
+    </columns>
+    <columns>
+        <field>DML__c.DML_Relations__r$Name</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>DML__c$Name</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>DML-0061265</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Customers for DML-0061265</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>DML_DML_Relationship__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>DML__c$Name</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>DML__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

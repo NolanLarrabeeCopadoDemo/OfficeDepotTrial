@@ -1,0 +1,77 @@
+<template>
+    <template if:true={contacts}>
+        <!-- <div class="slds-border_bottom slds-m-bottom_medium" style="height: 175px">
+            <lightning-datatable key-field="Id" columns={contact_header} data={contacts} min-column-width="200" hide-checkbox-column>
+            </lightning-datatable>
+        </div> -->
+        <div class="slds-border_bottom slds-m-bottom_medium" style="height: 175px">
+            <c-cjp-datatable key-field="Id" columns={contact_header} data={contacts} min-column-width="200"
+                hide-checkbox-column>
+            </c-cjp-datatable>
+        </div>
+    </template>
+    <c-object-search-component search_fields="FirstName,LastName,Email,Phone" search_filters={search_filters}
+        search_object="Contact" search_title="Contact Search" onsearch={onSearch} onsearchstart={onSearchStart}
+        onsearchend={onSearchEnd}>
+    </c-object-search-component>
+
+    <template if:true={search_started}>
+        <template if:true={show_result_modal}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                            {labels.createSiteContactTitle}</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                        <template if:true={operation_in_progress}>
+                            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                        </template>
+                        <template if:false={operation_in_progress}>
+                            <template if:true={search_error}>
+                                <c-error-panel errors={search_error} friendly-message={friendly_error}></c-error-panel>
+                            </template>
+                            <template if:false={search_error}>
+                                <lightning-datatable key-field="Id" columns={result_header} data={result_data}
+                                    max-row-selection="1" onrowselection={handleSelectedRow}>
+
+                                </lightning-datatable>
+                            </template>
+                        </template>
+
+
+                    </div>
+                    <footer class="slds-modal__footer slds-modal__footer">
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 slds-clearfix">
+                                <button class="slds-button slds-button_text-destructive slds-float_left"
+                                    onclick={handleCloseModal}>{labels.cancel}</button>
+                                <button class="slds-button slds-button_brand slds-float_left"
+                                    disabled={contact_not_selected}
+                                    onclick={handleSubmission}>{labels.createFromSelection}
+                                </button>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-clearfix">
+                                <button class="slds-button slds-button_brand slds-float_right"
+                                    onclick={createNewContact}>{labels.createFromNewContact}
+                                </button>
+                            </div>
+
+                        </div>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+
+        </template>
+    </template>
+
+    <template if:true={create_new_contact}>
+        <c-create-site-contact account_id={recordId} backdrop="true" is-flow={isFlow}
+            onclose={handleCreateContactClose}>
+        </c-create-site-contact>
+    </template>
+</template>

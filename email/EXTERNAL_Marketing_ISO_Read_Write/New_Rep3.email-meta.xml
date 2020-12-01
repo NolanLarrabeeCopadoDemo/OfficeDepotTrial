@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>2019 TCPN Teacher Form</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>2019 Region 4 Teacher Form</name>
+    <style>freeForm</style>
+    <subject>Office Depot Region 4 Teacher Order Form</subject>
+    <textOnly>{!Contact.FirstName},
+
+
+ Office Depot is pleased to provide your teachers discounted pricing on school and office supplies through the Region 4 pricing cooperative (TCPN). I have attached a 2019 Teacher Order Form in excel format to share with your teachers and admins. This excel file details deeply discounted items in multiple categories. Your staff can also enter their quantities on the form and the extended price will calculate. The sizes and quantities are those most frequently purchased. I look forward to working with you for back to school purchasing needs. Please contact me if you have any questions.
+   
+
+
+Warm Regards,
+
+{!User.Name}
+
+Account Manager
+
+{!User.Email}
+
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

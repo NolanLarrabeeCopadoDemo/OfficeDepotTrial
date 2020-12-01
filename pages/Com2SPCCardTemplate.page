@@ -1,0 +1,194 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" applyHtmlTag="false" id="Com2SPCCardTemplate" controller="com2SPCCardController" action="{!check}">
+    <html>
+        <head>
+            <meta charset="utf-8" ></meta>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" ></meta>
+            <meta name="viewport" content="width=device-width, initial-scale=1" ></meta>
+            <title> Store Purchasing Power - Office Depot / OfficeMax </title>
+            
+            <apex:stylesheet value="{!URLFOR($Resource.CommunitiesAssetsPart2,'css/couponPdf.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.CommunitiesAssetsPart2,'css/thankYou.css')}"/>
+            <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/buttons.css')}"></link>
+            <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/grid.css')}"></link>
+            <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/helper.css')}"></link>
+            <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tooltip.css')}"></link>
+          <!--  <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/style.css')}"></link> -->
+            <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tips.css')}"></link>
+            <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/distributorBrand.css')}"></link>
+            <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/forms.css')}"></link>
+         <!--    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/bootstrap.min.css')}" />
+           <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/main.css')}" /> -->
+           <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/bootstrap-iso.css')}" />
+            <link rel="shortcut icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+            <link rel="icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+            <link rel="icon" type="/image/x-ico" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+            
+            <style>
+                .contentHide {
+                    display: none;
+                }
+                .regular {
+                    
+                }
+                h2 {
+                    width: 90%;
+                    text-align:center;
+                }
+            </style>
+            
+        </head>
+        
+<body>
+<apex:composition template="Com2SPCCardVFTemplate">
+                <apex:define name="main">
+                    <div id="mainPage" class="regular">
+                    <!-- <apex:define name="start"> -->
+                        <div class="wrapper">
+                            <header>
+                                <img src="{!URLFOR($Resource.CommunitiesAssetsPart2,'images/OD-Logo-145x141.png')}" id="odLogo" alt="Office Depot OfficeMax" />
+                                <h2 class="green"> Your Store Purchasing Card is here! </h2>
+                            </header>
+                        </div>
+                    <!--</apex:define>    -->
+                    
+                    <!--<apex:define name="mid"> -->
+                        <main class="content">
+                            <section class="bgPeople">
+                                <span class="white_bg"></span>
+                                <div class="module first">
+                                    <div>
+                                        <img src="{!URLFOR($Resource.CommunitiesAssetsPart2,'images/OD-168x54.png')}" class="odomLogo"/>
+                                    </div>
+                                    <div>
+                                    <apex:image url="{!commSetup.Image_Path__c}{!selectedGroup.Community_Image__c}" width="180" height="54"></apex:image>
+                                    </div>
+                                    <h3 class="db fleft center mt22 black f20">
+                                        Store Purchasing Program
+                                    </h3>
+                                    <h3 class="light fleft center">
+                                        SPC Account # <span>{!spcNumber}</span>
+                                    </h3>
+                        
+                                    <h4 class="mt22 fleft font_size10">
+                                        CARDHOLDER INSTRUCTIONS:
+                                    </h4>
+                                    <p class="font_size10 fleft">
+                                        Card must be presented at checkout in your local Office Depot® or OfficeMax® Store.
+                                        Must prepay for Copy &amp; Print services. See reverse for details.
+                                    </p>
+                                </div>
+                        
+                                <div class="module">
+                                    <h5>
+                                        Office Depot® OfficeMax® Associate Instructions:
+                                    </h5>
+                                    <ol>
+                                        <li> Begin normal sale transaction. Self Service copies must be prepaid at the register for discount. </li>
+                                        <li> Press, "Total" and then select, "Charge" or, "F1> SPC Account" (touch screen only). </li>
+                                        <li> Enter SPC # and wait for register to re-price. </li>
+                                        <li> Purchases with card do not qualify for Office Depot® OfficeMax® Rewards. </li>
+                                    </ol>
+                                    <span class="second_module"></span>
+                                    <p> Use of this card constitutes acceptance of the terms and conditions.<br />
+                                        Please visit business.officedepot.com/tcspc for terms and conditions.</p>
+                                    <p class="center mt69">
+                                        <img src="{!URLFOR($Resource.CommunitiesAssetsPart2,'images/OD-230x22.png')}" class="db center mb8"/>
+                                        Office Depot is a trademark of The Office Club, Inc. OfficeMax is a trademark of OMX, Inc.<br/>
+                                        &copy; {!currentYear} Office Depot, Inc. All rights reserved.
+                                    </p>
+                                </div>
+                            </section>
+                        </main>
+                    <!--</apex:define> -->
+                    
+                    <!--<apex:define name="bottom"> -->
+                        <div class="wrapper pad0 padb24">
+                            <section class="bottomSection">
+                                <h2 class="sm_txt green "> {!gpoAccount.Name}, get custom-discounted pricing and more with your Store Purchasing Card </h2>
+                                <div class="bottom_wrapper">
+                                    <div class="col1">
+                                        <section class="sub_module pl12 pb12">
+                                            <h3 class="txtleft">Savings</h3>
+                                            <p>When you shop at any Office Depot or OfficeMax* store,<br /> you'll always get the lower of the
+                                                retail
+                                                store price or your custom-discounted price.</p>
+                                        </section>
+                                        <section class="sub_module pl12 pb12">
+                                            <h3 class="txtleft">Flexibility</h3>
+                                            <p>Shop the way you want: online at business.officedepot.com,<br /> on the go with our mobile app
+                                                or in Office Depot and OfficeMax* stores with your card.</p>
+                                        </section>
+                                        <section class="sub_module pl12 pb12">
+                                            <h3 class="txtleft">Convenience</h3>
+                                            <p>Need something right away?<br/>
+                                                Now get it same day in store with your card.
+                                            </p>
+                                            <p class="pt12">Plus, get discounts on black &amp; white copies, color copies, binding, folding and cutting
+                                                at our Copy and Print center.</p>
+                                            <p class="pt12"> Visit <strong>stores.officedepot.com</strong> to find a store near you.</p>
+                                        </section>
+                        
+                                    </div>
+                                    <div class="col2" >
+                                        <section class="{!IF( (accountOwner.isactive != True) || (accountOwner.System_User__c == True),'contentHide','sub_module pb12')}">
+                                        <!-- <section class="{!IF( (accountOwner.isactive != True) || (accountOwner.System_User__c == True),'contentHide','sub_module pb12')}"> -->
+                                            <h3 class="normal">Contact your Account Manager for more information.</h3>
+                                            <p>
+                                                <span class="bold green w15">Contact:</span> <span>{!accountOwner.Name}</span>
+                                            </p>
+                                            <p>
+                                                <span class="bold green w15">Phone:</span> <span>{!accountOwner.Phone}</span>
+                                            </p>
+                                            <p>
+                                                <span class="bold green w15">Email:</span> <span>{!accountOwner.Email}</span>
+                                            </p>
+                                        </section>
+                                        <div class="coupon clear">
+                                            <h3>
+                                                FREE
+                                            </h3>
+                                            <p class="sideText">
+                                                Lamination of your
+                                                <br />
+                                                Store Purchasing Card
+                                            </p>
+                        
+                                            <p class="clear coupon_terms">
+                                                This coupon entitles the Office Depot Business Solutions Customer to free lamination of their Store Purchasing Card only. Not valid for lamination of any other product(s). <br/>
+                                                <span class="padt4 fleft"> <strong> Valid in store.</strong> Must present this original coupon and your program card to cashier.
+                                                    Photocopies/reproductions not valid. Not valid for purchases made at Office Depot OfficeMax convenience/clearance/closing stores.
+                                                    Coupon is good for one-time use only, is not transferable, is not for resale or auction and cannot be combined with other offers or promotions.
+                                                    No cash back. Void where prohibited. Limit 1 coupon per customer.</span>
+                                            </p>
+                        
+                                            <div class="fleft clear">
+                                                <p class="medTxt coupon_code">
+                                                    Coupon Code 82677141
+                                                </p>
+                                            </div>
+                        
+                                            <p class="printServiceTxt">
+                                                Print Services
+                                            </p>
+                                            <br class="clear" />
+                                        </div>
+                                        <p class="font_size8 pt12">*<span>As we continue to harmonize the common assortment of products in both Office Depot and OfficeMax stores
+                                                , you will receive your discounted/contract pricing in either store for terms that are exact matches, item number and unit of measure packaging,
+                                                by manufacturer. At this time, your contract pricing for our exclusive private brands and copy and print services are not available in both stores.
+                                                </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </section>
+                            <footer class="clear">
+                                Office Depot is a trademark of The Office Club, Inc. OfficeMax is a trademark of OMX, Inc. © {!currentYear} Office Depot,
+                                Inc. All rights reserved.
+                            </footer>
+                        </div>
+                    <!--</apex:define> -->
+                </div> <!-- END MAIN PAGE -->
+            </apex:define>
+            </apex:composition>
+        </body>
+    </html>
+</apex:page>

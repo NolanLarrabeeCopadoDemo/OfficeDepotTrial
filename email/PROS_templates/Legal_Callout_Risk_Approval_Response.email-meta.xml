@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Legal Callout Risk Approval Response</name>
+    <style>freeForm</style>
+    <subject>[{!Case.Account},{!Case.CaseNumber}] Terms and Conditions Approval Response</subject>
+    <textOnly>Team,
+
+Sales leadership has provided feedback on the terms and conditions for the [{!Case.Account}] matter.
+
+Thank you.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

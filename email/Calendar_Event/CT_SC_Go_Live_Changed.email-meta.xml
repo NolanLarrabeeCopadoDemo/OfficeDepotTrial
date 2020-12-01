@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Supply Chain -  Go Live Changed Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>CT SC Go Live Changed</name>
+    <style>freeForm</style>
+    <subject>{!Customer_Transition__c.Account_OMX_Key__c} - {!Customer_Transition__c.Account_Name__c} Go-Live Date Alert</subject>
+    <textOnly>Dear Supply Chain Team:
+
+A Go-Live date has been set or changed for Account #{!Customer_Transition__c.Account_OMX_Key__c}, {!Customer_Transition__c.Account_Name__c}. Please review the account information.
+
+Link to Customer: {!Customer_Transition__c.Account_Name__c}
+
+Thank you for your support.
+
+BSD SALES OPERATIONS TEAM</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

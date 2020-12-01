@@ -1,0 +1,48 @@
+<template>
+    <template if:true={isLoaded} >
+        <lightning-spinner
+            alternative-text="Loading..." size="medium">
+        </lightning-spinner>
+    </template>
+
+    <template if:true={showError}>
+        <div class="slds-m-around_medium">
+            Please click below to access the 
+            <lightning-formatted-url value={ReportLink} label="Error Report"></lightning-formatted-url>            
+        </div>
+    </template>
+   
+    <!-- Button group: simple buttons -->   
+    <div class="slds-align_absolute-center slds-m-around_medium">
+        <lightning-layout>
+            <lightning-layout-item padding="around-small">
+                <lightning-combobox
+                name="progress"
+                label=""
+                variant="label-hidden"
+                value={value}
+                options={typeofView}
+                onchange={handleChange}>
+                </lightning-combobox>
+            </lightning-layout-item>
+    
+            <lightning-layout-item padding="around-small">
+                <lightning-button-group>
+                    <template if:true={showapproval}>
+                        <lightning-button label="Approve"  onclick={handleApproveClick}>></lightning-button>
+                        <lightning-button label="Reject"  onclick={handleRejectClick}>></lightning-button>                                
+                    </template>
+                    <template if:false={showapproval}>
+                        <lightning-button label="Cancel"  onclick={handleCancelClick}>></lightning-button>
+                    </template>                   
+                </lightning-button-group>
+            </lightning-layout-item>
+        </lightning-layout>        
+    </div>
+    <lightning-datatable
+        key-field="id"
+        data={data}
+        columns={columns}
+        onrowselection={getSelectedName}>
+    </lightning-datatable>
+</template>

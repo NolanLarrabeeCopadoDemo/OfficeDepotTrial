@@ -1,0 +1,18 @@
+<apex:page standardcontroller="Account" standardStylesheets="false" showHeader="false" sidebar="false">
+    <apex:includeScript value="/lightning/lightning.out.js" />
+    <div id="lightning" />
+
+    <script>
+        $Lightning.use("c:OrgTreeHierarchyApp", function() {
+            $Lightning.createComponent(
+                "c:OrgTreeHierarchy",
+                {subrecordId:'{!$CurrentPage.parameters.OrgId}',subaccountId:'{!$CurrentPage.parameters.AccId}'},
+                "lightning",
+                function(cmp) {
+                    console.log("Component created!");
+                    console.log(cmp);
+                });
+            });
+    </script>
+    
+</apex:page>

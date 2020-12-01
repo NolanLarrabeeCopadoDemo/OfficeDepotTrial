@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification to Rep for when Auto Redirect is set to True</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>CT AutoRedirect</name>
+    <style>freeForm</style>
+    <subject>{!Customer_Transition__c.Account_OMX_Key__c} - {!Customer_Transition__c.Account_Name__c} AutoRedirect has been activated.</subject>
+    <textOnly>Dear {!Customer_Transition__c.OwnerFullName}:
+
+Account number {!Customer_Transition__c.Account_OMX_Key__c}, {!Customer_Transition__c.Account_Name__c} has been migrated to OD South. The OD North account has been set to auto redirect. The Workplace site is now being redirected to the BSD website. The account will be set to Do Not Sell (DNS) in 14 days.
+
+Link to Customer: {!Customer_Transition__c.Account_Name__c}
+
+Thank you for your support.
+
+BSD SALES OPERATIONS TEAM</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

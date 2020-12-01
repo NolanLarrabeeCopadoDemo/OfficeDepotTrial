@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Grand_Toy</letterhead>
+    <name>GT Case Assigned To</name>
+    <style>freeForm</style>
+    <subject>GT Support- {!Case.CaseNumber} has been assigned to you {!Case.Email_Thread}</subject>
+    <textOnly>Dear {!Case.AM_Assigned_To__c},
+
+
+Support # {!Case.AM_Card_Number__c} has been assigned to you.
+
+Support Details:
+Support Case: {!Case.CaseNumber}
+Support Subject: {!Case.Subject}
+Status: {!Case.Status}
+
+
+For more details, please click the link below while logged into the network:
+https://officedepot.my.salesforce.com/{!Case.Id}
+
+
+
+{!Case.Email_Thread}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

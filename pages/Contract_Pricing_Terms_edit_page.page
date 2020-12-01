@@ -1,0 +1,779 @@
+<apex:page standardController="Contract_Pricing_Terms__c" extensions="Contract_Pricing_Terms_Extension"> 
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.3.custom/js/jquery-1.9.1.js')}"  />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js')}"  />
+<script>
+    function refreshGroup(){
+        ContractPricing();
+    }
+    function ChangeValue()
+      {
+        document.getElementById('chkValueChange').value="true";
+        document.getElementById('chkValueChange1').value="true";
+      }
+    function isconfirmvalue(){
+    if(document.getElementById('chkValueChange1').value=="true"){
+        var del=confirm("You have unsaved changes. Do you still want to continue?")
+        if (del==true)
+        {
+          return true;             
+        }else{
+          return false;
+       }
+       }
+    }
+    function isbacktoCSF(){
+       if(document.getElementById('chkValueChange').value=="true"){
+        var del=confirm("You have unsaved changes. Do you still want to continue?")
+        if (del==true)
+        {
+            //window.location.href='https://officedepot--uat.cs7.my.salesforce.com/home/home.jsp';
+            //window.location.href='https://officedepot--uat--c.cs7.visual.force.com/apex/springcmContract2?id={!Contract_Pricing_Terms__c.Contract__c}';
+            return true;        
+        }else{
+          return false;
+       }
+       }
+    }
+</script>
+<script language="javascript">           
+             $varPT = jQuery.noConflict();
+             $varPT(document).ready(function () {           
+                $varPT(function() {                  
+                    $varPT('select.RemoveNone option[value=]').remove();  
+                });
+            });
+            function removenoneval() {
+             //alert("called!");
+            jQuery( 'select.RemoveNone option[value=]' ).remove(); 
+            }
+
+       
+        </script>
+<style type="text/css">      
+    .labelCol {
+        white-space: normal !important;
+        width:40%!important;
+    }
+    .chcol1 {width:40%!important;padding-left:2% !important;}
+    .myclass{
+        
+    }
+    .labelclass{width:50%}
+</style>
+
+ <script type='text/javascript' src= '//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'>
+        </script>
+        <script language="javascript">
+            $(function() {        
+                $('select.RemoveNoneValue option[value=]').remove();       
+            });
+        </script>    
+        
+<apex:form id="form1">
+<apex:pageBlock title="Custom Core Pricing Terms" id="pgblck">
+<apex:pageBlockButtons location="both">
+<apex:commandButton value="Save" action="{!saveRecord}"/>
+<apex:commandButton value="Save & New" action="{!saveAndNew}" />
+<apex:commandButton value="Back to CSF" onclick="return isbacktoCSF()" immediate="true" action="{!backToContract}"/>
+<input type="hidden" id='chkValueChange' />
+<apex:commandButton value="Cancel" onclick="return isconfirmvalue();" action="{!cancel}"/>
+<input type="hidden" id='chkValueChange1' />
+</apex:pageBlockButtons>
+<!--<apex:messages styleClass="message"/>-->
+<apex:pageMessages ></apex:pageMessages>
+<apex:pageBlockSection title="General Information" columns="1" id="pgblcksec">
+<apex:inputField value="{!Contract_Pricing_Terms__c.Name}" onchange="ChangeValue();" required="true"/>
+<apex:pageBlockSectionItem >
+<apex:outputLabel >Relevant customer level(s) for this pricing terms group</apex:outputLabel>
+<apex:actionRegion >
+<apex:inputField label="Relevant customer level(s) for this pricing terms group" required="true"  value="{!Contract_Pricing_Terms__c.Relevant_Customer_Level__c}">
+    <apex:actionSupport action="{!disableDepartment}" event="onchange" oncomplete="ChangeValue();" reRender="wrapperlist"/>
+    <!-- <apex:inputCheckbox title="test"/><apex:outputLabel value="Private brand"></apex:outputLabel> -->
+</apex:inputField>
+</apex:actionRegion>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputLabel >Private Brand</apex:outputLabel>
+<apex:actionRegion >
+<apex:inputField value="{!Contract_Pricing_Terms__c.Private_Brand__c}">
+    <apex:actionSupport action="{!disableDepartment}" event="onclick" oncomplete="ChangeValue();" reRender="wrapperlist"/>
+</apex:inputField>
+</apex:actionRegion>
+</apex:pageBlockSectionItem>
+ <apex:inputField value="{!Contract_Pricing_Terms__c.Non_standard_terms__c}" onchange="ChangeValue();"/><!-- Added for 02401254-->
+</apex:pageBlockSection>
+<apex:pageBlockSection columns="1" >  
+<apex:actionFunction name="ContractPricing" id="ContractPricing" reRender="Contract_Pricing"/>
+
+<apex:pageBlockSectionItem >
+    <apex:outputLabel >Department Groups</apex:outputLabel>
+    <apex:outputPanel id="Contract_Pricing" >
+    <apex:actionRegion >
+   
+     <apex:inputField value="{!Contract_Pricing_Terms__c.Department_Groups__c}" required="false">
+        <apex:actionSupport event="onchange" action="{!PopulateCheckBox}" oncomplete="refreshGroup();ChangeValue()" reRender="wrapperlist,Contract_Pricing"/>
+
+
+
+    </apex:inputField>
+    </apex:actionRegion>
+    </apex:outputPanel>
+    </apex:pageBlockSectionItem>
+    
+     <!--<apex:outputPanel layout="block" style="overflow:auto;width:500px;height:700px" > 
+    <apex:pageBlockTable columns="3" id="wrapperlist" value="{!wrapperlist}" var="dept" >    
+        <apex:column >
+            
+            <apex:inputcheckbox value="{!dept.checked}" />
+            
+        </apex:column>
+        
+        <apex:column headerValue="Department Name" value="{!dept.departmentName}">
+        </apex:column>
+        
+    </apex:pageBlockTable>
+    </apex:outputPanel>-->
+    <br/><br/>    
+    
+    <apex:pageBlock id="wrapperlist" title="Departments" >
+      <table class="list" border="0" cellpadding="0" cellspacing="0">
+            <apex:repeat value="{!rowWrappers}" var="row">
+           <tr>
+             <apex:repeat value="{!row.values}" var="value">
+              <td>
+                 <apex:inputcheckbox onclick="ChangeValue()"  disabled="{!value.disable}" value="{!value.checked}" />
+               </td>
+    
+               <td>
+                 {!value.departmentName}
+               </td>
+             </apex:repeat>
+           </tr>
+        </apex:repeat>
+      </table>
+  </apex:pageBlock>
+
+</apex:pageBlockSection>
+<apex:pageBlockSection columns="1" title="Details">
+<apex:outputField value="{!Contract_Pricing_Terms__c.Contract__c}" />
+<apex:pageBlockSectionItem helpText="If contract silent, enter 0. For one quarter enter 90. For 6 months enter 180. For one year enter 365. For two years enter 730. Etc" >
+<apex:outputLabel value="Initial Price Freeze Period (in days)"></apex:outputLabel>
+<apex:inputField value="{!Contract_Pricing_Terms__c.CC_Initial_Freeze_Period_in_days__c}" onchange="ChangeValue()" required="true"/>
+</apex:pageBlockSectionItem>
+
+    <apex:pageBlockSectionItem >
+   <apex:outputLabel value="{!$ObjectType.Contract_Pricing_Terms__c.fields.How_frequently_can_we_pass_increases__c.label}" />
+ <apex:actionRegion >
+   <apex:inputField required="true" value="{!Contract_Pricing_Terms__c.How_frequently_can_we_pass_increases__c}">
+<apex:actionSupport action="{!conditionaldisplay}" event="onchange" reRender="howwepassCalendar,howwepassdays,othercalendar,specificdate" />
+</apex:inputField>
+
+</apex:actionRegion>
+</apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+<apex:outputpanel id="howwepassdays">
+    <apex:pageBlockSection rendered="{!(ContractPricing.How_frequently_can_we_pass_increases__c=='Numeric')}" columns="1">
+<apex:pageBlockSectionItem >
+  <apex:outputLabel value="{!$ObjectType.Contract_Pricing_Terms__c.fields.In_days__c.label}"  rendered="{!if(Contract_Pricing_Terms__c.How_frequently_can_we_pass_increases__c='Numeric',true,false)}"/>
+<apex:inputField styleClass="RemoveNone" value="{!Contract_Pricing_Terms__c.In_days__c}" rendered="{!if(Contract_Pricing_Terms__c.How_frequently_can_we_pass_increases__c='Numeric',true,false)}"/>
+</apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:outputpanel>  
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+<apex:outputpanel id="howwepassCalendar">
+    <apex:pageBlockSection rendered="{!(ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar')}" columns="1">
+<apex:pageBlockSectionItem >
+  <apex:outputLabel value="{!$ObjectType.Contract_Pricing_Terms__c.fields.Calendar_period__c.label}"  rendered="{!if(Contract_Pricing_Terms__c.How_frequently_can_we_pass_increases__c='Calendar',true,false)}"/>
+    <apex:actionRegion >
+<apex:inputField styleClass="RemoveNone" value="{!Contract_Pricing_Terms__c.Calendar_period__c}" rendered="{!if(Contract_Pricing_Terms__c.How_frequently_can_we_pass_increases__c='Calendar',true,false)}">
+        <apex:actionSupport action="{!conditionaldisplay}" event="onchange" reRender="othercalendar,specificdate" />
+        </apex:inputField>
+    </apex:actionRegion>
+</apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:outputpanel>  
+    </apex:pageBlockSectionItem>
+       <apex:pageBlockSectionItem >       
+<apex:outputpanel id="othercalendar">
+        <apex:pageBlockSection rendered="{!(ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && ContractPricing.Calendar_period__c=='Other')}" columns="1">
+<apex:pageBlockSectionItem >  
+     <apex:outputLabel value="{!$ObjectType.Contract_Pricing_Terms__c.fields.Other_calendar_period__c.label}"  rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Other'),true,false)}"/>
+<apex:inputField styleClass="RemoveNone" value="{!Contract_Pricing_Terms__c.Other_calendar_period__c}" rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Other'),true,false)}"/>
+</apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:outputpanel>  
+    </apex:pageBlockSectionItem> 
+     <apex:pageBlockSectionItem >       
+<apex:outputpanel id="specificdate">
+        <apex:pageBlockSection rendered="{!(ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && ContractPricing.Calendar_period__c=='Specific date')}" columns="1">
+<apex:pageBlockSectionItem >  
+     <apex:outputLabel value="{!$ObjectType.Contract_Pricing_Terms__c.fields.Date_1__c.label}"  rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Specific date'),true,false)}"/>
+<apex:inputField styleClass="RemoveNone" required="true" value="{!Contract_Pricing_Terms__c.Date_1__c}" rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Specific date'),true,false)}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >  
+     <apex:outputLabel value="{!$ObjectType.Contract_Pricing_Terms__c.fields.Date_2__c.label}"  rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Specific date'),true,false)}"/>
+<apex:inputField styleClass="RemoveNone" value="{!Contract_Pricing_Terms__c.Date_2__c}" rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Specific date'),true,false)}"/>
+            </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >  
+     <apex:outputLabel value="{!$ObjectType.Contract_Pricing_Terms__c.fields.Date_3__c.label}"  rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Specific date'),true,false)}"/>
+<apex:inputField styleClass="RemoveNone" value="{!Contract_Pricing_Terms__c.Date_3__c}" rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Specific date'),true,false)}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >  
+     <apex:outputLabel value="{!$ObjectType.Contract_Pricing_Terms__c.fields.Date_4__c.label}"  rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Specific date'),true,false)}"/>
+<apex:inputField styleClass="RemoveNone" value="{!Contract_Pricing_Terms__c.Date_4__c}" rendered="{!if((ContractPricing.How_frequently_can_we_pass_increases__c=='Calendar' && Contract_Pricing_Terms__c.Calendar_period__c='Specific date'),true,false)}"/>
+</apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+</apex:outputpanel>  
+    </apex:pageBlockSectionItem> 
+<apex:pageBlockSectionItem >
+<apex:outputLabel value="Does the contract specify a specific month(s) that pricing for custom core SKUs must be updated?"/>
+<apex:outputPanel >
+<apex:inputfield value="{!Contract_Pricing_Terms__c.Required_Timing_Of_CC_Updates__c}" label="Does the contract specify a specific month(s) that pricing for custom core SKUs must be updated?" required="true" onchange="ChangeValue()"/>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputLabel value="Vendor letter required for core increase?"></apex:outputLabel>
+<apex:outputPanel >
+<apex:inputField label="Vendor letter required for core increase?" value="{!Contract_Pricing_Terms__c.Vendor_Letter_Required_For_CC_Increase__c}" required="true" onchange="ChangeValue()"/>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<!--
+       <apex:pageBlockSectionItem >
+                        <apex:outputtext value="Is customer notification required upon discontinuation of a custom core SKU?" />
+                        <apex:actionRegion >
+                         <apex:inputfield styleClass="RemoveNone" required="true" value="{!Contract_Pricing_Terms__c.Notification_process_for_disco_items__c}"  >
+                             <apex:actionSupport event="onchange" reRender="Notification_time_disco_items_Other" />
+                           </apex:inputfield>
+                            </apex:actionRegion>
+                         </apex:pageBlockSectionItem>
+    
+                          <apex:outputPanel id="Notification_time_disco_items_Other">
+                              <apex:outputPanel rendered="{!if(Contract_Pricing_Terms__c.Notification_process_for_disco_items__c='Yes',true,false)}">
+                              
+                                  
+                                   <apex:panelgrid id="Notification_time_for_disco_items_grid"
+                        columns="2" width="102.5%" columnClasses="col1,col2">
+                      
+                            
+                          <apex:outputtext value="Discontinued Product Notification Language" style="font-size:12px; position: relative; left: 50%;" /> 
+                           
+                            <apex:inputfield required="true"
+                                value="{!Contract_Pricing_Terms__c.Notification_time_disco_items_Other__c}"
+                                styleClass="myClass" onchange="ChangeValue()" style="width: 360px; height: 40px"/>
+                    </apex:panelgrid>
+
+                                  </apex:outputPanel>
+                                
+                     </apex:outputPanel>
+                        <apex:pageBlockSectionItem >
+                         <apex:outputtext value="What additional action must be taken when a custom core list SKU has been discontinued?" />
+                         <apex:inputfield styleClass="RemoveNone" required="true" value="{!Contract_Pricing_Terms__c.Action_requirements_for_deleted_or_disco__c}" onchange="ChangeValue()" />
+                         </apex:pageBlockSectionItem>
+                         
+                          <apex:pageBlockSectionItem >
+                         <apex:outputtext value="What restrictions exist regarding the pricing of added alternate custom core SKUs?" />
+                         <apex:inputfield styleClass="RemoveNone" required="true" value="{!Contract_Pricing_Terms__c.Price_requirements_for_added_or_alternat__c}" onchange="ChangeValue()" />
+                         </apex:pageBlockSectionItem>
+                          <apex:pageBlockSectionItem >
+                         <apex:outputtext value="What type of customer communication is required to permit deletion of a SKU on the custom core?" />
+                         <apex:inputfield styleClass="RemoveNone" required="true" value="{!Contract_Pricing_Terms__c.Is_notification_required_to_delete_a_cus__c}" onchange="ChangeValue()" />
+                             </apex:pageBlockSectionItem>
+                              <apex:pageBlockSectionItem >
+                         <apex:outputtext value="What type of customer communication is required to permit the addition of a SKU onto the custom core?" />
+                         <apex:inputfield styleClass="RemoveNone" required="true" value="{!Contract_Pricing_Terms__c.What_type_of_customer_communication_is_r__c}" onchange="ChangeValue()" />
+                    </apex:pageBlockSectionItem>
+     -->
+                      
+    
+<apex:pageBlockSectionItem >
+<apex:outputLabel value="What type of customer communication is required to permit pricing changes on the custom core?"></apex:outputLabel>
+<apex:actionRegion >
+<apex:inputField styleClass="RemoveNone" value="{!Contract_Pricing_Terms__c.Comm_Req_CC_Price_Chg__c}" label="What type of customer communication is required to permit pricing changes on the custom core?" required="true">
+    <apex:actionSupport event="onchange" reRender="CC_Prc_Chg,CC_Prc_Chg1" oncomplete="ChangeValue()"/> <!--reRender="CC_Prc_Chg"-->
+</apex:inputField>
+</apex:actionRegion>
+</apex:pageBlockSectionItem>
+    
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="CC_Prc_Chg1">
+<apex:pageBlockSection rendered="{!(ContractPricing.Comm_Req_CC_Price_Chg__c=='Notification and customer approval'||ContractPricing.Comm_Req_CC_Price_Chg__c=='Notification only')}" columns="1">
+<apex:pageblockSectionItem >
+<apex:outputLabel value="How much notice must be provided before pricing changes can be made? (in days)"></apex:outputLabel>
+<apex:outputPanel >
+<apex:inputField required="true" value="{!Contract_Pricing_Terms__c.CC_Prc_Chg_Notice_Reqd_days__c}" onchange="ChangeValue()" label="How much notice must be provided before pricing changes can be made? (in days)"/>
+</apex:outputPanel>
+</apex:pageblockSectionItem>
+</apex:pageBlockSection>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+ 
+<apex:inputField value="{!Contract_Pricing_Terms__c.Addition_communication_requirements__c}" styleClass="RemoveNoneValue"  />
+<apex:inputField value="{!Contract_Pricing_Terms__c.Deletion_communication_requirements__c}" styleClass="RemoveNoneValue"  />
+<apex:inputField value="{!Contract_Pricing_Terms__c.Alternate_restrictions__c}" styleClass="RemoveNoneValue"  />
+<apex:inputField value="{!Contract_Pricing_Terms__c.DISCO_communication_requirements__c}" styleClass="RemoveNoneValue"  />
+<apex:inputField value="{!Contract_Pricing_Terms__c.Additional_DISCO_action__c}" styleClass="RemoveNoneValue"  />
+
+<apex:pageBlockSectionItem >
+   <apex:outputLabel value="Are we obligated to pass on cost decreases?"/>
+ <apex:actionRegion >
+   <apex:inputField styleClass="RemoveNone" value="{!Contract_Pricing_Terms__c.Are_obligated_to_pass_on_cost_decreases__c}" >
+        <apex:actionSupport event="onchange" reRender="Whenselectingyes" oncomplete="ChangeValue();removenoneval();" />
+</apex:inputField>
+</apex:actionRegion>
+</apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem >
+    <apex:outputPanel id="Whenselectingyes">
+        <apex:pageBlockSection rendered="{!if(Contract_Pricing_Terms__c.Are_obligated_to_pass_on_cost_decreases__c='Yes',true,false)}" columns="1">
+            <apex:pageblockSectionItem >
+            <apex:outputLabel value="How frequently must we pass decreases?"></apex:outputLabel>
+            <apex:outputPanel >
+            <apex:actionRegion >
+                <apex:inputField value="{!Contract_Pricing_Terms__c.How_frequently_must_we_pass_decreases__c}" rendered="{!if(Contract_Pricing_Terms__c.Are_obligated_to_pass_on_cost_decreases__c='Yes',true,false)}" onchange="ChangeValue()" styleClass="RemoveNone">
+                    <apex:actionSupport event="onchange" oncomplete="ChangeValue();removenoneval();"/>
+                </apex:inputField>
+                </apex:actionRegion>
+            </apex:outputPanel>
+            </apex:pageblockSectionItem>
+        </apex:pageBlockSection>
+    </apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem >
+<apex:outputLabel value="Effective date of this language"></apex:outputLabel>
+<apex:outputPanel >
+<apex:inputField label="Effective date of this language" value="{!Contract_Pricing_Terms__c.Effective_Date_of_this_language__c}" required="true" onchange="ChangeValue()"/>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+<!--<apex:outputPanel id="CC_Prc_Chg">
+<apex:outputLabel rendered="{!(ContractPricing.Comm_Req_CC_Price_Chg__c=='Notification and customer approval'||ContractPricing.Comm_Req_CC_Price_Chg__c=='Notification only')}"  value="How much notice must be provided before pricing changes can be made? (in days)"></apex:outputLabel>
+</apex:outputPanel>
+</apex:outputPanel>
+<apex:pageBlockSectionItem>helpText="If contract silent, enter 0"
+</apex:pageBlockSectionItem>-->
+<!--<apex:pageBlockSectionItem >
+<apex:outputPanel id="CC_Prc_Chg1">
+<apex:pageBlockSection rendered="{!(ContractPricing.Comm_Req_CC_Price_Chg__c=='Notification and customer approval'||ContractPricing.Comm_Req_CC_Price_Chg__c=='Notification only')}" columns="1">
+<apex:pageblockSectionItem >
+<apex:outputLabel value="How much notice must be provided before pricing changes can be made? (in days)"></apex:outputLabel>
+<apex:outputPanel >
+<apex:inputField required="true" value="{!Contract_Pricing_Terms__c.CC_Prc_Chg_Notice_Reqd_days__c}" onchange="ChangeValue()" label="How much notice must be provided before pricing changes can be made? (in days)"/>
+</apex:outputPanel>
+</apex:pageblockSectionItem>
+</apex:pageBlockSection>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>-->
+<!--<apex:inputHidden value="{!Contract_Pricing_Terms__c.Active__c}" />
+<apex:pageBlockSectionItem >
+<apex:outputLabel >Active</apex:outputLabel>
+<apex:outputPanel id="activeval" >
+<apex:actionRegion >
+<apex:inputcheckbox value="{!Contract_Pricing_Terms__c.Active__c}" required="false" disabled="{!(Contract_Pricing_Terms__c.Active__c==false && $CurrentPage.parameters.clone!='1')}">
+    <apex:actionSupport action="{!disableDepartment}" 
+    ="onclick" oncomplete="ChangeValue()" reRender="wrapperlist"/>
+</apex:inputcheckbox>
+</apex:actionRegion>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>-->
+</apex:pageBlockSection>
+
+
+<apex:pageBlockSection columns="1" title="Price Increase Cap Information">
+<apex:pageBlockSectionItem >
+<apex:outputLabel value="Are price increases capped?"></apex:outputLabel>
+<apex:actionRegion >
+<apex:inputField styleClass="RemoveNone" value="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c}" required="true">
+    <apex:actionSupport event="onchange" action="{!conditionaldisplay}" oncomplete="ChangeValue();removenoneval();" reRender="checkchange,parentPanel,price1,price2,price3,price4,price5,price6,price7,price8,Other1,Other2,ConsumerPri2,ConsumerPri3,ConsumerPriceIndex2,ConsumerPriceIndex3,Index_region21,Index_region2,Index_region22,Index_region3,Producer_Price2,Producer_Price3,PPI_index2,PPI_index3,priceinc2,priceinc3,ConsumerPriceIndex,ConsumerPriceIndex1,PPI_index,PPI_index1,Index_region11,Index_region,languagestating,languagestating1,Index_region,Index_region12,Index_region1,Producer_Price,Producer_Price1,Price,priceinc,priceinc1,PriceIncCap,PriceIncCap1,PriceIncCap11,PriceIncCap12,PriceIncCap13,PriceIncCap2,PriceIncCap21,PriceIncCap22,PriceIncCap23,ConsumerPri,ConsumerPri1,CapTypeUnits,CapTypeUnits1,Cap_App_Scope,Cap_App_Scope1,ncr_Cap_Calc,ncr_Cap_Calc1,Incr_Cap_Period,Incr_Cap_Period1,incrcapped1,incrcapped,priceCapLanguage,priceCapLanguage1"/>
+</apex:inputField>
+</apex:actionRegion>
+</apex:pageBlockSectionItem>
+<!--<apex:pageBlockSectionItem >
+<apex:outputPanel id="ConsumerPri1">
+<apex:inputField required="true" label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index are price increases pegged to for the first cap value?','Which Consumer Price Index are price increases pegged to?')}" styleClass="myclass" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.CPI_Price_Incr_Pegd_To__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>-->
+
+
+<apex:outputPanel id="parentPanel"  >
+<apex:pageblockSection columns="1">
+<!-- <apex:pageBlockSectionItem >
+<apex:outputPanel id="price1">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price Increase Cap Application Level"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="price2">
+<apex:inputField required="true" styleClass="myclass" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Level__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="price3">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price Increase Cap Calculation Scope"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="price4">
+<apex:inputField required="true" styleClass="myclass" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Calc_Scope__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="price5">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price Increase Cap Period"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="price6">
+<apex:inputField required="true" styleClass="myclass" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Period__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="price7">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price Increase Cap Application Scope"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="price8">
+<apex:inputField required="true" styleClass="myclass" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Scope__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem> -->
+<!--<apex:outputPanel id="Price" >
+<apex:pageBlockSection columns="1"  rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}">
+    <!--<apex:inputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Type_Unit__c}" required="true"/>    
+    <apex:inputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Period__c}" required="true"/>
+    <apex:pageBlockSectionItem >
+    <apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price_Incr_Cap_App_Level"></apex:outputLabel>
+    <apex:inputField label="Price_Incr_Cap_App_Level" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Level__c}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" required="true"/>
+    </apex:pageBlockSectionItem>
+    <apex:inputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Calc_Scope__c}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" required="true"/>
+    <apex:inputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Period__c}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" required="true"/>
+    <apex:inputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Scope__c}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" required="true"/>
+<!--</apex:pageBlockSection>
+</apex:outputPanel>
+-->
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="priceCapLanguage">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price Cap Language"></apex:outputLabel>
+</apex:outputPanel>
+
+<apex:outputPanel id="priceCapLanguage1">
+<apex:actionRegion >
+<apex:inputField required="true"  label="Price Cap Language" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}"  value="{!Contract_Pricing_Terms__c.Price_cap_language__c}">
+    <apex:actionSupport event="onchange" action="{!conditionaldisplay}" reRender="Other1,Other2,ConsumerPri2,ConsumerPri3,ConsumerPriceIndex2,ConsumerPriceIndex3,Index_region21,Index_region2,Index_region22,Index_region3,Producer_Price2,Producer_Price3,PPI_index2,PPI_index3,priceinc,priceinc1,priceinc2,Index_region2,Index_region21,Index_region11,Index_region22,Index_region3,priceinc3,Index_region,Index_region12,Index_region1,Producer_Price,Producer_Price1,PPI_index,PPI_index1,Producer_Price,Producer_Price1,ConsumerPri,ConsumerPri1,PriceIncCap,PriceIncCap1,PriceIncCap11,PriceIncCap12,PriceIncCap13,PriceIncCap2,PriceIncCap21,PriceIncCap22,PriceIncCap23,ConsumerPriceIndex,ConsumerPriceIndex1" oncomplete="ChangeValue();removenoneval();"/>
+</apex:inputField>
+</apex:actionRegion>
+</apex:outputPanel> 
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="languagestating">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Is there language stating that the applicable cap should be the lesser of two values?"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="languagestating1">
+<apex:actionRegion >
+<apex:inputField id="checkchange" styleClass="RemoveNone" label="Is there language stating that the applicable cap should be the lesser of two values?" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}"  value="{!Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c}" required="true">
+    <apex:actionSupport event="onchange"  action="{!conditionaldisplay}" reRender="parentPanel,OtherF1,Other1,Other2,ConsumerPri2,ConsumerPri3,ConsumerPriceIndex2,ConsumerPriceIndex3,Index_region21,Index_region2,Index_region22,Index_region3,Producer_Price2,Producer_Price3,PPI_index2,PPI_index3,priceinc,priceinc1,priceinc2,Index_region2,Index_region21,Index_region11,Index_region22,Index_region3,priceinc3,Index_region,Index_region12,Index_region1,Producer_Price,Producer_Price1,PPI_index,PPI_index1,Producer_Price,Producer_Price1,ConsumerPri,ConsumerPri1,PriceIncCap,PriceIncCap1,PriceIncCap11,PriceIncCap12,PriceIncCap13,PriceIncCap2,PriceIncCap21,PriceIncCap22,PriceIncCap23,ConsumerPriceIndex,ConsumerPriceIndex1" oncomplete="ChangeValue();removenoneval();" />
+</apex:inputField>
+</apex:actionRegion>
+</apex:outputPanel> 
+</apex:pageBlockSectionItem>
+</apex:pageBlockSection>
+
+
+
+<apex:pageBlockSection columns="1">
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="priceinc">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="What is the price increase cap pegged to?"></apex:outputLabel>
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="What is the First price increase cap pegged to?"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="priceinc1">
+<apex:actionRegion >
+<apex:inputField styleClass="RemoveNone" label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'What is the First price increase cap pegged to?','What is the price increase cap pegged to?')}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c}" required="true">
+       <apex:actionSupport event="onchange"  action="{!conditionaldisplay}" reRender="OtherF1,OtherF2,Index_region,Index_region21,Index_region11,Index_region12,Index_region1,Producer_Price,Producer_Price1,PPI_index,PPI_index1,Producer_Price,Producer_Price1,ConsumerPri,ConsumerPri1,PriceIncCap,PriceIncCap1,PriceIncCap11,PriceIncCap12,PriceIncCap13,ConsumerPriceIndex,ConsumerPriceIndex1" oncomplete="ChangeValue();removenoneval();"/>
+</apex:inputField>
+</apex:actionRegion>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+<apex:pageBlockSection columns="1">
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="ConsumerPri">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' ) && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index are price increases pegged to for the first cap value?','Which Consumer Price Index are price increases pegged to?')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="ConsumerPri1">
+<apex:inputField required="true" label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index are price increases pegged to for the first cap value?','Which Consumer Price Index are price increases pegged to?')}" styleClass="myclass" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.CPI_Price_Incr_Pegd_To__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="ConsumerPriceIndex">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'What level is the Consumer Price Index applied for the first cap value?','What level is the Consumer Price Index applied?')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="ConsumerPriceIndex1">
+<apex:actionRegion >
+<apex:inputField styleClass="RemoveNone" label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'What level is the Consumer Price Index applied for the first cap value?','What level is the Consumer Price Index applied?')}" required="true" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}"  value="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c}">
+<apex:actionSupport event="onchange" reRender="Index_region,Index_region1,Index_region12,Index_region21,Index_region11" oncomplete="ChangeValue()"/>
+</apex:inputField>
+</apex:actionRegion>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="Index_region11">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c=='Region' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index region is the first cap pegged to?','Which Consumer Price Index region?')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="Index_region">
+<apex:inputField label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index region is the first cap pegged to?','Which Consumer Price Index region?')}" styleClass="myclass" value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_region__c}" rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c=='Region' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="Index_region12">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c=='Local Area' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index local area is the first cap pegged to?','Which Consumer Price Index local area?')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="Index_region1">
+<apex:inputField label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index local area is the first cap pegged to?','Which Consumer Price Index local area?')}" styleClass="myclass" value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_local_area__c}" rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c=='Local Area' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="Producer_Price">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Producer Price Index structure is applied for the first cap value?','Which Producer Price Index structure is applied?')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="Producer_Price1">
+<apex:inputField label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Producer Price Index structure is applied for the first cap value?','Which Producer Price Index structure is applied?')}" styleClass="myclass" value="{!Contract_Pricing_Terms__c.Which_Producer_Price_Index_structure__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+    
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="OtherF1">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' ) &&  (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Other') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="Other cap basis"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="OtherF2">
+<apex:inputField label="Other cap basis" styleClass="myclass" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Other' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' ) }" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Other_cap_basis__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<!--<apex:pageBlockSectionItem >
+<apex:outputPanel id="PPI_index">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract Silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Detail of PPI index structure indicated for the first cap value','Detail of PPI index structure indicated')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="PPI_index1">
+<apex:inputField label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Detail of PPI index structure indicated for the first cap value','Detail of PPI index structure indicated')}" value="{!Contract_Pricing_Terms__c.Detail_of_PPI_index_structure_indicated__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="PriceIncCap1">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Amount','Price Increase Cap Amount')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="PriceIncCap11">
+<apex:inputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Amt__c}" label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Amount','Price Increase Cap Amount')}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract Silent')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>-->
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="PPI_index">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Detail of PPI index structure indicated for the first cap value','Detail of PPI index structure indicated')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="PPI_index1">
+<apex:inputField label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Detail of PPI index structure indicated for the first cap value','Detail of PPI index structure indicated')}" value="{!Contract_Pricing_Terms__c.Detail_of_PPI_index_structure_indicated__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="PriceIncCap1">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Amount','Price Increase Cap Amount')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="PriceIncCap11">
+<apex:inputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Amt__c}" label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Amount','Price Increase Cap Amount')}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="PriceIncCap12">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Type/Units','Price Increase Cap Type/Units')}"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="PriceIncCap13">
+<apex:inputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Type_Unit__c}" label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Type/Units','Price Increase Cap Type/Units')}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+</apex:pageBlockSection>
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="priceinc2">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' && Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes'}" value="What is the Second price increase cap pegged to?"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="priceinc3">
+<apex:actionRegion >
+<apex:inputField styleClass="RemoveNone" label="What is the Second price increase cap pegged to?" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' && Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes'}" value="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c}" required="true">
+    <apex:actionSupport event="onchange" reRender="Other1,Other2,ConsumerPri2,PriceIncCap2,PriceIncCap21,PriceIncCap22,PriceIncCap23,ConsumerPri3,PPI_index2,PPI_index3,ConsumerPriceIndex2,ConsumerPriceIndex3,Producer_Price2,Producer_Price3,Index_region2,Index_region22,Index_region3" oncomplete="ChangeValue();removenoneval();"/>
+</apex:inputField>
+</apex:actionRegion>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="Other1">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Other' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' ) && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="Second cap basis"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="Other2">
+<apex:inputField label="Second cap basis" styleClass="myclass" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Other' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Second_cap_basis__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+    
+    
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="ConsumerPri2">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' ) && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="Which Consumer Price Index are price increases pegged to for the second cap value?"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="ConsumerPri3">
+<apex:inputField required="true" label="Which Consumer Price Index are price increases pegged to for the second cap value?" styleClass="myclass" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.CPI_Price_Incr_Pegd2To__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="ConsumerPriceIndex2">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="What level is the Consumer Price Index applied for the second cap value?"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="ConsumerPriceIndex3">
+<apex:actionRegion >
+<apex:inputField styleClass="RemoveNone" required="true" label="What level is the Consumer Price Index applied for the second cap value?" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"  value="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index2__c}">
+<apex:actionSupport event="onchange" reRender="Index_region2,Index_region22,Index_region3,Index_region21,Index_region11" oncomplete="ChangeValue()"/>
+</apex:inputField>
+</apex:actionRegion>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="Index_region21">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index2__c=='Region' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="Which Consumer Price Index region is the second cap pegged to?"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="Index_region2">
+<apex:inputField styleClass="myclass" label="Which Consumer Price Index region is the second cap pegged to?" rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index2__c=='Region' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_region2__c}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="Index_region22">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index2__c=='Local Area' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="Which Consumer Price Index local area is the second cap pegged to?"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="Index_region3">
+<apex:inputField styleClass="myclass" label="Which Consumer Price Index local area is the second cap pegged to?" value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_local_area2__c}" rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index2__c=='Local Area' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="Producer_Price2">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="Which Producer Price Index structure is applied for the second cap value?"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="Producer_Price3">
+<apex:inputField label="Which Producer Price Index structure is applied for the second cap value?" styleClass="myclass" value="{!Contract_Pricing_Terms__c.Which_Producer_Price_Index_structure2__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="PPI_index2">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="Detail of PPI index structure indicated for the second cap value"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="PPI_index3">
+<apex:inputField label="Detail of PPI index structure indicated for the second cap value" value="{!Contract_Pricing_Terms__c.Detail_of_PPI_index_structure_indicated2__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="PriceIncCap2">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="Price Increase Second Cap Amount"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="PriceIncCap21">
+<apex:inputField label="Price Increase Second Cap Amount" value="{!Contract_Pricing_Terms__c.Price_Increase_Cap_Amount_2__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="PriceIncCap22">
+<apex:outputLabel rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="Price Increase Second Cap Type/Units"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="PriceIncCap23">
+<apex:inputField label="Price Increase Second Cap Type/Units" value="{!Contract_Pricing_Terms__c.Price_Increase_Cap_2_Type_Units__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"  onchange="ChangeValue()" required="true"/>    
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+</apex:pageblockSection>
+</apex:outputPanel>
+</apex:pageBlockSection>
+
+<!--<apex:pageBlockSection columns="1">
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="PriceIncCap1">
+<apex:pageBlockSection columns="1" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}">
+    <apex:inputField label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Amount','Price Increase Cap Amount')}" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Amt__c}" onchange="ChangeValue()" required="true"/>
+    <apex:inputField label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Type/Units','Price Increase Cap Type/Units')}" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Type_Unit__c}" onchange="ChangeValue()" required="true"/>    
+  
+</apex:pageBlockSection>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="PriceIncCap2">
+<apex:pageBlockSection columns="1" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}">
+    <apex:inputField value="{!Contract_Pricing_Terms__c.Price_Increase_Cap_Amount_2__c}" onchange="ChangeValue()" required="true"/>
+    <apex:inputField value="{!Contract_Pricing_Terms__c.Price_Increase_Cap_2_Type_Units__c}" onchange="ChangeValue()" required="true"/>    
+
+</apex:pageBlockSection>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>-->
+<apex:pageBlockSection columns="1">
+
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="price1">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price Increase Cap Application Level"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="price2">
+<apex:inputField required="true" styleClass="myclass" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Level__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<!--<apex:outputPanel id="price3">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price Increase Cap Calculation Scope"></apex:outputLabel>
+</apex:outputPanel>
+
+<apex:outputPanel id="price4">
+<apex:inputField required="true" styleClass="myclass" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Calc_Scope__c}"/> 
+</apex:outputPanel>
+-->
+</apex:pageBlockSectionItem>
+<apex:pageBlockSectionItem >
+<apex:outputPanel id="price5">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price Increase Cap Period"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="price6">
+<apex:inputField required="true" styleClass="myclass" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Period__c}"/> 
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+<!--<apex:pageBlockSectionItem >
+<apex:outputPanel id="price7">
+<apex:outputLabel rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" value="Price Increase Cap Application Scope"></apex:outputLabel>
+</apex:outputPanel>
+<apex:outputPanel id="price8">
+<apex:inputField required="true" styleClass="myclass" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" onchange="ChangeValue()" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Scope__c}"/>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>-->
+    <!-- added by Rohini -->
+    <div style="display:none;"> 
+<apex:pageBlockSection columns="1">
+<apex:inputField value="{!Contract_Pricing_Terms__c.Active__c}" rendered="false"/>
+</apex:pageBlockSection>
+    </div>
+
+<!--
+<apex:inputHidden value="{!Contract_Pricing_Terms__c.Active__c}" />
+<apex:pageBlockSectionItem >
+<apex:outputLabel >Active</apex:outputLabel>
+<apex:outputPanel id="activeval" >
+<apex:actionRegion >
+<apex:inputcheckbox value="{!Contract_Pricing_Terms__c.Active__c}" required="false" disabled="{!(Contract_Pricing_Terms__c.Active__c==false && $CurrentPage.parameters.clone!='1')}">
+    <apex:actionSupport action="{!disableDepartment}" event="onclick" oncomplete="ChangeValue()" reRender="wrapperlist"/>
+</apex:inputcheckbox>
+</apex:actionRegion>
+</apex:outputPanel>
+</apex:pageBlockSectionItem>
+-->
+</apex:pageBlockSection>
+
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Lead$Id</field>
+    </columns>
+    <columns>
+        <field>Lead$FirstName</field>
+    </columns>
+    <columns>
+        <field>Lead$LastName</field>
+    </columns>
+    <columns>
+        <field>Lead$Email</field>
+    </columns>
+    <columns>
+        <field>Lead$Owner.Name</field>
+    </columns>
+    <columns>
+        <field>Lead$Extension__c</field>
+    </columns>
+    <columns>
+        <field>Lead$Owner.Phone</field>
+    </columns>
+    <columns>
+        <field>Lead$Owner.Email</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Lead$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$Sub_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Not Interested</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$LeadSource</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>BSD NET,Web Lead,Customer Service,Store Lead</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead$Industry</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Accounting,Business Services,Construction/Contractors,Engineering/Architecture/Consulting,Finance,Legal,Manufacturing/Printing,Other,Real Estate,Retail/Restaurants,Transportation/Communications/Utilities,Wholesale Trade</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Not Interested - Journey</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Leads_and_Lead_Owner__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Lead$Closed_Date__c</dateColumn>
+        <interval>LAST_FISCALWEEK</interval>
+    </timeFrameFilter>
+</Report>

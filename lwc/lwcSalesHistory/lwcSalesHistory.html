@@ -1,0 +1,299 @@
+<template>
+	<template if:true={error}>
+		<div style="display: flex">
+			<lightning-icon icon-name="utility:warning" alternative-text="Warning!" title="Warning"></lightning-icon>
+			<div class="slds-text-color_error-heading_medium">Sales data could not be retrieved for the account.</div>
+		</div>
+	</template>
+	<template if:false={error}>
+		<template if:true={currencyCode}>
+			<lightning-accordion allow-multiple-sections-open active-section-name={tabName}>
+				<lightning-accordion-section name={tabName} label={tabName}>
+
+					<!-- Grid 1 -->
+					<div class="slds-grid slds-gutters slds-wrap">
+						<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-3">
+							<lightning-datatable key-field={id} data={monthStats.data} columns={monthStats.columns}
+								hide-checkbox-column>
+							</lightning-datatable>
+						</div>
+						<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-3">
+							<lightning-datatable key-field={id} data={quarterStats.data} columns={quarterStats.columns}
+								hide-checkbox-column>
+							</lightning-datatable>
+						</div>
+						<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-3">
+							<lightning-datatable key-field={id} data={yearStats.data} columns={yearStats.columns}
+								hide-checkbox-column>
+							</lightning-datatable>
+						</div>
+					</div>
+
+					<!-- Grid 2 -->
+					<div class="another_grid slds-grid slds-gutters slds-wrap">
+						<!-- Section 1 Details -->
+
+						<template if:true={show_account_details_metrics}>
+							<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-3">
+								<lightning-card title={labels.accountDetails}>
+									<div class="slds-grid slds-wrap">
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.customerCreationDate}>
+												{labels.customerCreationDate}
+											</div>
+											<div class="slds-float_right" title={labels.customerCreationDate}>
+												{accountDetails.customerCreationDate}
+											</div>
+										</div>
+
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.firstOrderDate}>
+												{labels.firstOrderDate}
+											</div>
+											<div class="slds-float_right" title={labels.firstOrderDate}>
+												{accountDetails.firstOrderDate}
+											</div>
+										</div>
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.weeksSinceFirstOrder}>
+												{labels.weeksSinceFirstOrder}
+											</div>
+											<div class="slds-float_right" title={labels.weeksSinceFirstOrder}>
+												{accountDetails.weeksSinceFirstOrder}
+											</div>
+										</div>
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.weeksSinceLastOrder}>
+												{labels.weeksSinceLastOrder}
+											</div>
+											<div class="slds-float_right" title={labels.lastOrderDate}>
+												{accountDetails.lastOrderDate}</div>
+										</div>
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.weeksSinceLastOrder}>
+												{labels.weeksSinceLastOrder}
+											</div>
+											<div class="slds-float_right" title={labels.weeksSinceLastOrder}>
+												{accountDetails.weeks_since_last_order_new}
+											</div>
+										</div>
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.totalOrders}>
+												{labels.totalOrders}
+											</div>
+											<div class="slds-float_right" title={labels.totalOrders}>
+												{accountDetails.totalOrders}
+											</div>
+										</div>
+									</div>
+								</lightning-card>
+							</div>
+						</template>
+
+						<!-- Section 2 Conversion -->
+						<template if:true={show_account_retention_metrics}>
+							<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+								<lightning-card title={labels.retentionMetrics}>
+
+									<div class="slds-grid slds-wrap">
+
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.monthlySales}>
+												{labels.monthlySales}
+											</div>
+											<template if:true={retentionMetrics.monthlySales}>
+												<div class="slds-float_right" title={labels.indicatorBad}>
+													<lightning-icon icon-name="utility:close"
+														alternative-text={labels.indicatorBad} variant="error"
+														size="x-small">
+													</lightning-icon>
+												</div>
+											</template>
+											<template if:false={retentionMetrics.monthlySales}>
+												<div class="slds-float_right" title={labels.indicatorGood}>
+													<lightning-icon icon-name="utility:check"
+														alternative-text={labels.indicatorGood} variant="success"
+														size="x-small">
+													</lightning-icon>
+												</div>
+											</template>
+										</div>
+
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.weeklySales}>
+												{labels.weeklySales}
+											</div>
+											<template if:true={retentionMetrics.weeklySales}>
+												<div class="slds-float_right" title={labels.indicatorBad}>
+													<lightning-icon icon-name="utility:close"
+														alternative-text={labels.indicatorBad} variant="error"
+														size="x-small">
+													</lightning-icon>
+												</div>
+											</template>
+											<template if:false={retentionMetrics.weeklySales}>
+												<div class="slds-float_right" title={labels.indicatorGood}>
+													<lightning-icon icon-name="utility:check"
+														alternative-text={labels.indicatorGood} variant="success"
+														size="x-small">
+													</lightning-icon>
+												</div>
+											</template>
+										</div>
+
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.numberOfOrders}>
+												{labels.numberOfOrders}
+											</div>
+											<template if:true={retentionMetrics.numberOfOrders}>
+												<div class="slds-float_right" title={labels.indicatorBad}>
+													<lightning-icon icon-name="utility:close"
+														alternative-text={labels.indicatorBad} variant="error"
+														size="x-small">
+													</lightning-icon>
+												</div>
+											</template>
+											<template if:false={retentionMetrics.numberOfOrders}>
+												<div class="slds-float_right" title={labels.indicatorGood}>
+													<lightning-icon icon-name="utility:check"
+														alternative-text={labels.indicatorGood} variant="success"
+														size="x-small">
+													</lightning-icon>
+												</div>
+											</template>
+										</div>
+
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.predictivePurchase}>
+												{labels.predictivePurchase}
+											</div>
+											<template if:true={retentionMetrics.predictivePurchase}>
+												<div class="slds-float_right" title={labels.indicatorBad}>
+													<lightning-icon icon-name="utility:close"
+														alternative-text={labels.indicatorBad} variant="error"
+														size="x-small">
+													</lightning-icon>
+												</div>
+											</template>
+											<template if:false={retentionMetrics.predictivePurchase}>
+												<div class="slds-float_right" title={labels.indicatorGood}>
+													<lightning-icon icon-name="utility:check"
+														alternative-text={labels.indicatorGood} variant="success"
+														size="x-small">
+													</lightning-icon>
+												</div>
+											</template>
+										</div>
+									</div>
+								</lightning-card>
+							</div>
+						</template>
+
+
+						<!-- Section 3 Retention -->
+						<template if:true={show_account_conversion_metrics}>
+							<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3">
+								<lightning-card title={labels.conversionMetrics}>
+									<div class="slds-grid slds-wrap">
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.numberOfOrdersSinceStart}>
+												{labels.numberOfOrdersSinceStart}
+											</div>
+											<template if:false={conversionMetrics.number_of_orders_check}>
+												<div class="slds-float_right" title={labels.indicatorBad}>
+													<lightning-icon icon-name="utility:close"
+														alternative-text={labels.indicatorBad} variant="error"
+														size="x-small">
+													</lightning-icon>
+													{conversionMetrics.numberOfOrdersSinceStart}
+												</div>
+											</template>
+											<template if:true={conversionMetrics.number_of_orders_check}>
+												<div class="slds-float_right" title={labels.indicatorGood}>
+													<div class="slds-float_right">
+														<lightning-icon icon-name="utility:check"
+															alternative-text={labels.indicatorGood} variant="success"
+															size="x-small">
+														</lightning-icon>
+														{conversionMetrics.numberOfOrdersSinceStart}
+													</div>
+												</div>
+											</template>
+										</div>
+
+
+										<div class="slds-size_1-of-1 slds-clearfix">
+											<div class="slds-float_left slds-text-color_weak"
+												title={labels.numberOfCategories}>
+												{labels.numberOfCategories}
+											</div>
+											<template if:false={conversionMetrics.has_number_of_categories}>
+												<div class="slds-float_right" title={labels.indicatorBad}>
+													<lightning-icon icon-name="utility:close"
+														alternative-text={labels.indicatorBad} variant="error"
+														size="x-small">
+													</lightning-icon>
+													{conversionMetrics.numberOfCategories}
+
+												</div>
+											</template>
+											<template if:true={conversionMetrics.has_number_of_categories}>
+												<div class="slds-float_right" title={labels.indicatorGood}>
+
+													<lightning-icon icon-name="utility:check"
+														alternative-text={labels.indicatorGood} variant="success"
+														size="x-small">
+													</lightning-icon>
+													{conversionMetrics.numberOfCategories}
+												</div>
+											</template>
+										</div>
+
+										<div class="slds-size_1-of-1 slds-clearfix">
+
+											<div class="slds-float_left slds-text-color_weak" title={labels.sales}>
+												{labels.sales}
+											</div>
+											<template if:false={conversionMetrics.has_sales_check}>
+												<div class="slds-float_right" title={labels.indicatorBad}>
+
+													<lightning-icon icon-name="utility:close"
+														alternative-text={labels.indicatorBad} variant="error"
+														size="x-small">
+													</lightning-icon>
+													{conversionMetrics.sales}
+
+												</div>
+											</template>
+											<template if:true={conversionMetrics.has_sales_check}>
+												<div class="slds-float_right" title={labels.indicatorGood}>
+													<lightning-icon icon-name="utility:check"
+														alternative-text={labels.indicatorGood} variant="success"
+														size="x-small">
+													</lightning-icon>
+													{conversionMetrics.sales}
+												</div>
+											</template>
+										</div>
+									</div>
+								</lightning-card>
+							</div>
+						</template>
+					</div>
+
+				</lightning-accordion-section>
+			</lightning-accordion>
+		</template>
+	</template>
+</template>

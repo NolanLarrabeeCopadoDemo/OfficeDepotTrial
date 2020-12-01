@@ -1,0 +1,17 @@
+<apex:page showheader="false" sidebar="false">
+    <!--aura:attribute name="sku" type="String"/-->
+    <apex:includeLightning />
+    <div id="sku360" />
+    <script>
+    	var sku_num = "{!$CurrentPage.parameters.sku}";
+    	console.log(sku_num);
+        $Lightning.use("c:skuDetailsApp", function ()
+        {
+            $Lightning.createComponent(
+                "c:skuDetails",
+                {"sku_num": sku_num},
+                "sku360",
+            );
+        });
+    </script>
+</apex:page>

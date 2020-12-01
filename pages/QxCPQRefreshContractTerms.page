@@ -1,0 +1,51 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="QxVFCPQCloneQuoteController" showHeader="false" sidebar="false" docType="html-5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/> 
+
+  <apex:slds />
+  <apex:outputPanel id="CPQxWaitingScreen" layout="block">
+     <div id="loadingStatus" class="slds-spinner_container">
+       <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+         <span class="slds-assistive-text" id="_gModal_Message"/>
+         <div class="slds-spinner__dot-a"></div>
+         <div class="slds-spinner__dot-b"></div>
+       </div>
+     </div>
+  </apex:outputPanel>
+  
+  <script type="text/javascript">
+
+    function createAgreement() {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxVFCPQCloneQuoteController.refreshContractTerms}',
+          '{!CameleonCPQ__QxQuote__c.Id}',
+          function(publishResult, event) {
+            if(event.type=='exception') {
+               alert('Exception raised when attempting to refresh contract terms on the quote');
+               if((typeof sforce != 'undefined') && (sforce != null)) {
+                 sforce.one.navigateToSObject('{!CameleonCPQ__QxQuote__c.Id}','detail');
+               } 
+               else {
+                 top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__QxQuote__c.Id,URLFOR($Action.CameleonCPQ__QxQuote__c.View, CameleonCPQ__QxQuote__c.Id))}";
+               }
+            }
+            if(event.status) {
+               if (publishResult != 'OK'){
+                   alert(publishResult);                   
+               }
+               if((typeof sforce != 'undefined') && (sforce != null)) {
+                 sforce.one.navigateToSObject('{!CameleonCPQ__QxQuote__c.Id}','detail');
+               } 
+               else {
+                 top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__QxQuote__c.Id,URLFOR($Action.CameleonCPQ__QxQuote__c.View, CameleonCPQ__QxQuote__c.Id))}";
+               }              
+            }
+          },
+          {escape: false}
+      );
+    }
+
+    
+    createAgreement();
+
+  </script>
+</apex:page>

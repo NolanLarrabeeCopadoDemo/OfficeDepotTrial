@@ -1,0 +1,38 @@
+<template>
+    <div class="spinner">
+        <template if:true={isLoading}>
+             <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+             </lightning-spinner>
+        </template>
+    </div>
+    <div class="container" style="height: 500px;width: 2500px">
+    <lightning-card  title="SKU 360">
+        <div class="slds-clearfix">
+            <div class="slds-p-around_medium lgc-bg slds-grid slds-grid_vertical-align-end">
+                <select class="slds-select slds-m-right_x-small slds-float_right" name="optionSelect" onchange={handleSearchTypeSelect} style="width:200px;">
+                    <option value="sku">Sku</option>
+                </select>
+                <lightning-input type="text" id="search_by" value={searchBy} label="Search By" onchange={searchBy} class="slds-p-right_xx-small slds-col"></lightning-input>
+                <lightning-button variant="brand" label="Search" title="Search" onclick={handleSearch} class="slds-m-right_x-small header-buttons slds-col"></lightning-button> 
+            </div>
+        </div>
+        <br/>
+        <div class="container" style="height: 200px;width: 2500px">
+            <lightning-datatable 
+                key-field="item_class_id" 
+                data={skuSearchRecords} 
+                columns={columns}
+                onrowaction={handleRowAction}
+                hide-checkbox-column="true">
+            </lightning-datatable>
+        </div>
+        <br/>
+        <div class="container" style="height: 200px;width: 2500px">
+            <lightning-button variant="brand" label="Download" title="Download" onclick={download} class="slds-m-right_x-small header-buttons slds-col"></lightning-button>
+            <c-sku-details></c-sku-details>
+        </div>
+        <br/>
+    </lightning-card>
+    </div>
+    
+</template>

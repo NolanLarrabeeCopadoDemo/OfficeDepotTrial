@@ -1,0 +1,3254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>AddProduct</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AddProduct</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AddProduct</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChoosePricebook</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChoosePricebook</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ChoosePricebook</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EditAllProduct</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EditAllProduct</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EditAllProduct</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>TZ_Opportunity_Product</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>TZ_Opportunity_Product</fullName>
+        <fields>Product2Id</fields>
+        <fields>Description</fields>
+        <fields>Quantity</fields>
+        <fields>UnitPrice</fields>
+        <fields>TotalPrice</fields>
+        <fields>Monthly_Recurring_Unit_Price__c</fields>
+        <fields>Monthly_Recurring_Total_Price__c</fields>
+        <label>TZ Opportunity Product</label>
+    </compactLayouts>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Annual_Recurring_Total_Gross_Profit__c</fullName>
+        <externalId>false</externalId>
+        <formula>Monthly_Recurring_Total_Gross_Profit__c * 12</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Annual Recurring Total Gross Profit</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Recurring_Total_Price__c</fullName>
+        <externalId>false</externalId>
+        <formula>Monthly_Recurring_Total_Price__c * 12</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Annual Recurring Total Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Bookings_Date__c</fullName>
+        <description>Story# 02533060</description>
+        <externalId>false</externalId>
+        <label>Bookings Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Calculations_for_Picklist__c</fullName>
+        <externalId>false</externalId>
+        <label>Calculations for Picklist</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Total</fullName>
+                    <default>false</default>
+                    <label>Total</label>
+                </value>
+                <value>
+                    <fullName>Percent</fullName>
+                    <default>false</default>
+                    <label>Percent</label>
+                </value>
+                <value>
+                    <fullName>Acculuated</fullName>
+                    <default>false</default>
+                    <label>Acculuated</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+    </fields>
+    <fields>
+        <fullName>Discount</fullName>
+    </fields>
+    <fields>
+        <fullName>Green_Opportunity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Green Opportunity</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IMU__c</fullName>
+        <description>Story# 02533060</description>
+        <externalId>false</externalId>
+        <label>IMU %</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Initiatives__c</fullName>
+        <description>Story# 02533060</description>
+        <externalId>false</externalId>
+        <label>Initiatives</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>CompuCom: Bus Wireless Plans</fullName>
+                    <default>false</default>
+                    <label>CompuCom: Bus Wireless Plans</label>
+                </value>
+                <value>
+                    <fullName>CompuCom: Get-10</fullName>
+                    <default>false</default>
+                    <label>CompuCom: Get-10</label>
+                </value>
+                <value>
+                    <fullName>CompuCom: ITAD &amp; Resell</fullName>
+                    <default>false</default>
+                    <label>CompuCom: ITAD &amp; Resell</label>
+                </value>
+                <value>
+                    <fullName>CompuCom: Lifecycle Services</fullName>
+                    <default>false</default>
+                    <label>CompuCom: Lifecycle Services</label>
+                </value>
+                <value>
+                    <fullName>CompuCom: Managed Mobile Expenses</fullName>
+                    <default>false</default>
+                    <label>CompuCom: Managed Mobile Expenses</label>
+                </value>
+                <value>
+                    <fullName>CompuCom: Mobile Services</fullName>
+                    <default>false</default>
+                    <label>CompuCom: Mobile Services</label>
+                </value>
+                <value>
+                    <fullName>Enterprise Pursuit</fullName>
+                    <default>false</default>
+                    <label>Enterprise Pursuit</label>
+                </value>
+                <value>
+                    <fullName>Govt - Fed</fullName>
+                    <default>false</default>
+                    <label>Govt - Fed</label>
+                </value>
+                <value>
+                    <fullName>GPO - Amerinet</fullName>
+                    <default>false</default>
+                    <label>GPO - Amerinet</label>
+                </value>
+                <value>
+                    <fullName>GPO - MedAssets</fullName>
+                    <default>false</default>
+                    <label>GPO - MedAssets</label>
+                </value>
+                <value>
+                    <fullName>GPO - Novation</fullName>
+                    <default>false</default>
+                    <label>GPO - Novation</label>
+                </value>
+                <value>
+                    <fullName>HP Supply - Hardware Target</fullName>
+                    <default>false</default>
+                    <label>HP Supply - Hardware Target</label>
+                </value>
+                <value>
+                    <fullName>HP Target Account</fullName>
+                    <default>false</default>
+                    <label>HP Target Account</label>
+                </value>
+                <value>
+                    <fullName>HP White Space-TECH ONLY</fullName>
+                    <default>false</default>
+                    <label>HP White Space-TECH ONLY</label>
+                </value>
+                <value>
+                    <fullName>Inscape Flip</fullName>
+                    <default>false</default>
+                    <label>Inscape Flip</label>
+                </value>
+                <value>
+                    <fullName>Interiors Annuity</fullName>
+                    <default>false</default>
+                    <label>Interiors Annuity</label>
+                </value>
+                <value>
+                    <fullName>Interiors Pursuit</fullName>
+                    <default>false</default>
+                    <label>Interiors Pursuit</label>
+                </value>
+                <value>
+                    <fullName>K-12 California Department of Education</fullName>
+                    <default>false</default>
+                    <label>K-12 California Department of Education</label>
+                </value>
+                <value>
+                    <fullName>K-12 Georgia Vision Project</fullName>
+                    <default>false</default>
+                    <label>K-12 Georgia Vision Project</label>
+                </value>
+                <value>
+                    <fullName>K-12 One-to-One Initiatives</fullName>
+                    <default>false</default>
+                    <label>K-12 One-to-One Initiatives</label>
+                </value>
+                <value>
+                    <fullName>K-12 TCPN Strategy</fullName>
+                    <default>false</default>
+                    <label>K-12 TCPN Strategy</label>
+                </value>
+                <value>
+                    <fullName>TAP</fullName>
+                    <default>false</default>
+                    <label>TAP</label>
+                </value>
+                <value>
+                    <fullName>TCPN - Education</fullName>
+                    <default>false</default>
+                    <label>TCPN - Education</label>
+                </value>
+                <value>
+                    <fullName>TCPN - Local/State/Non-Profit</fullName>
+                    <default>false</default>
+                    <label>TCPN - Local/State/Non-Profit</label>
+                </value>
+                <value>
+                    <fullName>Teknion Grandfathered</fullName>
+                    <default>false</default>
+                    <label>Teknion Grandfathered</label>
+                </value>
+                <value>
+                    <fullName>WIG</fullName>
+                    <default>false</default>
+                    <label>WIG</label>
+                </value>
+                <value>
+                    <fullName>CDEF Rollout-Tech Only</fullName>
+                    <default>false</default>
+                    <label>CDEF Rollout-Tech Only</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Latest_Product_sub_type__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedDate == Opportunity.Most_recent_Product__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Latest Product sub type</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ListPrice</fullName>
+    </fields>
+    <fields>
+        <fullName>Monthly_Recurring_Total_Gross_Profit__c</fullName>
+        <externalId>false</externalId>
+        <formula>Monthly_Recurring_Total_Price__c - ( Monthly_Recurring_Unit_Cost__c * Quantity )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly Recurring Total Gross Profit</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Recurring_Total_Price__c</fullName>
+        <externalId>false</externalId>
+        <formula>Monthly_Recurring_Unit_Price__c * Quantity</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly Recurring Total Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Recurring_Unit_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Monthly Recurring Unit Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Recurring_Unit_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Monthly Recurring Unit Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+    </fields>
+    <fields>
+        <fullName>Needs_Assessment_Completed__c</fullName>
+        <description>Story# 02533060</description>
+        <externalId>false</externalId>
+        <label>Needs Assessment Completed</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Non_Code__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Case# 02720329</description>
+        <externalId>false</externalId>
+        <label>Non-Code</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Devices__c</fullName>
+        <description>Story# 02533060</description>
+        <externalId>false</externalId>
+        <label>Number of Devices</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OpportunityId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Product_ID_Case_Safe__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID(Id)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opportunity Product ID (Case Safe)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order_Booked__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Story# 02533060</description>
+        <externalId>false</externalId>
+        <label>Order Booked</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <description>Story# 02533060</description>
+        <externalId>false</externalId>
+        <label>Order #</label>
+        <length>155</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Competitor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Case# 02533060</description>
+        <externalId>false</externalId>
+        <label>Primary Competitor</label>
+        <referenceTo>OpportunityCompetitor__c</referenceTo>
+        <relationshipLabel>Opportunity Product</relationshipLabel>
+        <relationshipName>Opportunity_Product</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product2Id</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ProductCode</fullName>
+    </fields>
+    <fields>
+        <fullName>Product_BSD__c</fullName>
+        <externalId>false</externalId>
+        <label>Selected BSD Product</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>All Supplies</fullName>
+                    <default>false</default>
+                    <label>All Supplies</label>
+                </value>
+                <value>
+                    <fullName>CBFS</fullName>
+                    <default>false</default>
+                    <label>CBFS</label>
+                </value>
+                <value>
+                    <fullName>Furniture</fullName>
+                    <default>false</default>
+                    <label>Furniture</label>
+                </value>
+                <value>
+                    <fullName>Ink &amp; Toner</fullName>
+                    <default>false</default>
+                    <label>Ink &amp; Toner</label>
+                </value>
+                <value>
+                    <fullName>MPS</fullName>
+                    <default>false</default>
+                    <label>MPS</label>
+                </value>
+                <value>
+                    <fullName>Paper</fullName>
+                    <default>false</default>
+                    <label>Paper</label>
+                </value>
+                <value>
+                    <fullName>Print Services</fullName>
+                    <default>false</default>
+                    <label>Print Services</label>
+                </value>
+                <value>
+                    <fullName>Tech</fullName>
+                    <default>false</default>
+                    <label>Tech</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Product_GT__c</fullName>
+        <externalId>false</externalId>
+        <label>Selected GT Product</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>All Supplies</fullName>
+                    <default>false</default>
+                    <label>All Supplies</label>
+                </value>
+                <value>
+                    <fullName>CBFS</fullName>
+                    <default>false</default>
+                    <label>CBFS</label>
+                </value>
+                <value>
+                    <fullName>Ergonomics</fullName>
+                    <default>false</default>
+                    <label>Ergonomics</label>
+                </value>
+                <value>
+                    <fullName>Furniture - Catalog</fullName>
+                    <default>false</default>
+                    <label>Furniture - Catalog</label>
+                </value>
+                <value>
+                    <fullName>Furniture - Interiors</fullName>
+                    <default>false</default>
+                    <label>Furniture - Interiors</label>
+                </value>
+                <value>
+                    <fullName>Ink &amp; Toner</fullName>
+                    <default>false</default>
+                    <label>Ink &amp; Toner</label>
+                </value>
+                <value>
+                    <fullName>MPS</fullName>
+                    <default>false</default>
+                    <label>MPS</label>
+                </value>
+                <value>
+                    <fullName>Office Products</fullName>
+                    <default>false</default>
+                    <label>Office Products</label>
+                </value>
+                <value>
+                    <fullName>Paper</fullName>
+                    <default>false</default>
+                    <label>Paper</label>
+                </value>
+                <value>
+                    <fullName>Tech</fullName>
+                    <default>false</default>
+                    <label>Tech</label>
+                </value>
+                <value>
+                    <fullName>Print Services</fullName>
+                    <default>false</default>
+                    <label>Print Services</label>
+                </value>
+                <value>
+                    <fullName>Print and Promo</fullName>
+                    <default>false</default>
+                    <label>Print and Promo</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Product_Manufacturer_OEM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Case# 02722351</description>
+        <externalId>false</externalId>
+        <label>Product Manufacturer/OEM</label>
+        <referenceTo>Product_Manufacturer__c</referenceTo>
+        <relationshipLabel>Opportunity Product</relationshipLabel>
+        <relationshipName>Opportunity_Product</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product_Subtype_BSD__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity Product Subtype</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Product_BSD__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>3 Ply Masks</fullName>
+                    <default>false</default>
+                    <label>3 Ply Masks</label>
+                </value>
+                <value>
+                    <fullName>Accessories (Tech)</fullName>
+                    <default>false</default>
+                    <label>Accessories (Tech)</label>
+                </value>
+                <value>
+                    <fullName>Accessories – Cabling</fullName>
+                    <default>false</default>
+                    <label>Accessories – Cabling</label>
+                </value>
+                <value>
+                    <fullName>Accessories - I/O</fullName>
+                    <default>false</default>
+                    <label>Accessories - I/O</label>
+                </value>
+                <value>
+                    <fullName>Accessories - PC &amp; Server Upgrades</fullName>
+                    <default>false</default>
+                    <label>Accessories - PC &amp; Server Upgrades</label>
+                </value>
+                <value>
+                    <fullName>All Supplies</fullName>
+                    <default>false</default>
+                    <label>All Supplies</label>
+                </value>
+                <value>
+                    <fullName>Antibacterial Soap</fullName>
+                    <default>false</default>
+                    <label>Antibacterial Soap</label>
+                </value>
+                <value>
+                    <fullName>Audio</fullName>
+                    <default>false</default>
+                    <label>Audio</label>
+                </value>
+                <value>
+                    <fullName>Audio / Video</fullName>
+                    <default>false</default>
+                    <label>Audio / Video</label>
+                </value>
+                <value>
+                    <fullName>Automatic Toner Replenishment (ATR)</fullName>
+                    <default>false</default>
+                    <label>Automatic Toner Replenishment (ATR)</label>
+                </value>
+                <value>
+                    <fullName>Binding/Booklet Services</fullName>
+                    <default>false</default>
+                    <label>Binding/Booklet Services</label>
+                </value>
+                <value>
+                    <fullName>Both</fullName>
+                    <default>false</default>
+                    <label>Both</label>
+                </value>
+                <value>
+                    <fullName>Brand Identity</fullName>
+                    <default>false</default>
+                    <label>Brand Identity</label>
+                </value>
+                <value>
+                    <fullName>Breakroom</fullName>
+                    <default>false</default>
+                    <label>Breakroom</label>
+                </value>
+                <value>
+                    <fullName>Cameras</fullName>
+                    <default>false</default>
+                    <label>Cameras</label>
+                </value>
+                <value>
+                    <fullName>Canon Hardware</fullName>
+                    <default>false</default>
+                    <label>Canon Hardware</label>
+                </value>
+                <value>
+                    <fullName>Canon Services</fullName>
+                    <default>false</default>
+                    <label>Canon Services</label>
+                </value>
+                <value>
+                    <fullName>Catalog</fullName>
+                    <default>false</default>
+                    <label>Catalog</label>
+                </value>
+                <value>
+                    <fullName>Checks, forms, Envelopes, and Stamps</fullName>
+                    <default>false</default>
+                    <label>Checks, forms, Envelopes, and Stamps</label>
+                </value>
+                <value>
+                    <fullName>Chemicals</fullName>
+                    <default>false</default>
+                    <label>Chemicals</label>
+                </value>
+                <value>
+                    <fullName>Cleaning</fullName>
+                    <default>false</default>
+                    <label>Cleaning</label>
+                </value>
+                <value>
+                    <fullName>Coffee Solution</fullName>
+                    <default>false</default>
+                    <label>Coffee Solution</label>
+                </value>
+                <value>
+                    <fullName>Collaborative Classroom</fullName>
+                    <default>false</default>
+                    <label>Collaborative Classroom</label>
+                </value>
+                <value>
+                    <fullName>Computing - Chromebooks</fullName>
+                    <default>false</default>
+                    <label>Computing - Chromebooks</label>
+                </value>
+                <value>
+                    <fullName>Computing - Desktops</fullName>
+                    <default>false</default>
+                    <label>Computing - Desktops</label>
+                </value>
+                <value>
+                    <fullName>Computing - Laptops</fullName>
+                    <default>false</default>
+                    <label>Computing - Laptops</label>
+                </value>
+                <value>
+                    <fullName>Computing - Tablets</fullName>
+                    <default>false</default>
+                    <label>Computing - Tablets</label>
+                </value>
+                <value>
+                    <fullName>Computing - Workstations</fullName>
+                    <default>false</default>
+                    <label>Computing - Workstations</label>
+                </value>
+                <value>
+                    <fullName>Config-to-Order</fullName>
+                    <default>false</default>
+                    <label>Config-to-Order</label>
+                </value>
+                <value>
+                    <fullName>Consulting and Campaign Analytics</fullName>
+                    <default>false</default>
+                    <label>Consulting and Campaign Analytics</label>
+                </value>
+                <value>
+                    <fullName>Content Management Platform Svcs</fullName>
+                    <default>false</default>
+                    <label>Content Management Platform Svcs</label>
+                </value>
+                <value>
+                    <fullName>Curriculum Materials</fullName>
+                    <default>false</default>
+                    <label>Curriculum Materials</label>
+                </value>
+                <value>
+                    <fullName>Data Center - Cooling &amp; Rack</fullName>
+                    <default>false</default>
+                    <label>Data Center - Cooling &amp; Rack</label>
+                </value>
+                <value>
+                    <fullName>Data Center - Power</fullName>
+                    <default>false</default>
+                    <label>Data Center - Power</label>
+                </value>
+                <value>
+                    <fullName>Data Center - Servers</fullName>
+                    <default>false</default>
+                    <label>Data Center - Servers</label>
+                </value>
+                <value>
+                    <fullName>Data Center - Storage</fullName>
+                    <default>false</default>
+                    <label>Data Center - Storage</label>
+                </value>
+                <value>
+                    <fullName>Design Services</fullName>
+                    <default>false</default>
+                    <label>Design Services</label>
+                </value>
+                <value>
+                    <fullName>Desktop / Laptop</fullName>
+                    <default>false</default>
+                    <label>Desktop / Laptop</label>
+                </value>
+                <value>
+                    <fullName>Digital Printing: Color &amp; BW Printing</fullName>
+                    <default>false</default>
+                    <label>Digital Printing: Color &amp; BW Printing</label>
+                </value>
+                <value>
+                    <fullName>Digital Publishing</fullName>
+                    <default>false</default>
+                    <label>Digital Publishing</label>
+                </value>
+                <value>
+                    <fullName>Direct Mail</fullName>
+                    <default>false</default>
+                    <label>Direct Mail</label>
+                </value>
+                <value>
+                    <fullName>Disinfectant Wipes</fullName>
+                    <default>false</default>
+                    <label>Disinfectant Wipes</label>
+                </value>
+                <value>
+                    <fullName>Displays &amp; Signage</fullName>
+                    <default>false</default>
+                    <label>Displays &amp; Signage</label>
+                </value>
+                <value>
+                    <fullName>EduTech</fullName>
+                    <default>false</default>
+                    <label>EduTech</label>
+                </value>
+                <value>
+                    <fullName>Flash &amp; Portable Storage</fullName>
+                    <default>false</default>
+                    <label>Flash &amp; Portable Storage</label>
+                </value>
+                <value>
+                    <fullName>Full Signage Solution (Design to Installation)</fullName>
+                    <default>false</default>
+                    <label>Full Signage Solution (Design to Installation)</label>
+                </value>
+                <value>
+                    <fullName>Gloves</fullName>
+                    <default>false</default>
+                    <label>Gloves</label>
+                </value>
+                <value>
+                    <fullName>Hand Sanitizers</fullName>
+                    <default>false</default>
+                    <label>Hand Sanitizers</label>
+                </value>
+                <value>
+                    <fullName>Headsets</fullName>
+                    <default>false</default>
+                    <label>Headsets</label>
+                </value>
+                <value>
+                    <fullName>HP Hardware</fullName>
+                    <default>false</default>
+                    <label>HP Hardware</label>
+                </value>
+                <value>
+                    <fullName>Instructional Solutions</fullName>
+                    <default>false</default>
+                    <label>Instructional Solutions</label>
+                </value>
+                <value>
+                    <fullName>Interiors</fullName>
+                    <default>false</default>
+                    <label>Interiors</label>
+                </value>
+                <value>
+                    <fullName>Kids 3-ply Masks</fullName>
+                    <default>false</default>
+                    <label>Kids 3-ply Masks</label>
+                </value>
+                <value>
+                    <fullName>Labor Law</fullName>
+                    <default>false</default>
+                    <label>Labor Law</label>
+                </value>
+                <value>
+                    <fullName>Lexmark Hardware</fullName>
+                    <default>false</default>
+                    <label>Lexmark Hardware</label>
+                </value>
+                <value>
+                    <fullName>Mobile Accessories</fullName>
+                    <default>false</default>
+                    <label>Mobile Accessories</label>
+                </value>
+                <value>
+                    <fullName>Mobility</fullName>
+                    <default>false</default>
+                    <label>Mobility</label>
+                </value>
+                <value>
+                    <fullName>Monitor / Displays</fullName>
+                    <default>false</default>
+                    <label>Monitor / Displays</label>
+                </value>
+                <value>
+                    <fullName>Monitors</fullName>
+                    <default>false</default>
+                    <label>Monitors</label>
+                </value>
+                <value>
+                    <fullName>Mounts &amp; Ergonomics</fullName>
+                    <default>false</default>
+                    <label>Mounts &amp; Ergonomics</label>
+                </value>
+                <value>
+                    <fullName>pMPS</fullName>
+                    <default>false</default>
+                    <label>MPS</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>Office Depot 360</fullName>
+                    <default>false</default>
+                    <label>Office Depot 360</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Peripherals</fullName>
+                    <default>false</default>
+                    <label>Peripherals</label>
+                </value>
+                <value>
+                    <fullName>Power</fullName>
+                    <default>false</default>
+                    <label>Power</label>
+                </value>
+                <value>
+                    <fullName>Printers</fullName>
+                    <default>false</default>
+                    <label>Printers</label>
+                </value>
+                <value>
+                    <fullName>Printers - 3D</fullName>
+                    <default>false</default>
+                    <label>Printers - 3D</label>
+                </value>
+                <value>
+                    <fullName>Printers - Ink</fullName>
+                    <default>false</default>
+                    <label>Printers - Ink</label>
+                </value>
+                <value>
+                    <fullName>Printers - Large Format</fullName>
+                    <default>false</default>
+                    <label>Printers - Large Format</label>
+                </value>
+                <value>
+                    <fullName>Printers - Laser</fullName>
+                    <default>false</default>
+                    <label>Printers - Laser</label>
+                </value>
+                <value>
+                    <fullName>Printing - MPS Hardware</fullName>
+                    <default>false</default>
+                    <label>Printing - MPS Hardware</label>
+                </value>
+                <value>
+                    <fullName>Projectors</fullName>
+                    <default>false</default>
+                    <label>Projectors</label>
+                </value>
+                <value>
+                    <fullName>Promotional Products</fullName>
+                    <default>false</default>
+                    <label>Promotional Products</label>
+                </value>
+                <value>
+                    <fullName>Safety</fullName>
+                    <default>false</default>
+                    <label>Safety</label>
+                </value>
+                <value>
+                    <fullName>Safety Shields</fullName>
+                    <default>false</default>
+                    <label>Safety Shields</label>
+                </value>
+                <value>
+                    <fullName>Scanners</fullName>
+                    <default>false</default>
+                    <label>Scanners</label>
+                </value>
+                <value>
+                    <fullName>Security - Endpoint</fullName>
+                    <default>false</default>
+                    <label>Security - Endpoint</label>
+                </value>
+                <value>
+                    <fullName>Security - Network</fullName>
+                    <default>false</default>
+                    <label>Security - Network</label>
+                </value>
+                <value>
+                    <fullName>Security - Physical</fullName>
+                    <default>false</default>
+                    <label>Security - Physical</label>
+                </value>
+                <value>
+                    <fullName>Services</fullName>
+                    <default>false</default>
+                    <label>Services</label>
+                </value>
+                <value>
+                    <fullName>Services (CompuCom)</fullName>
+                    <default>false</default>
+                    <label>Services (CompuCom)</label>
+                </value>
+                <value>
+                    <fullName>Services (General)</fullName>
+                    <default>false</default>
+                    <label>Services (General)</label>
+                </value>
+                <value>
+                    <fullName>Services - Compucom</fullName>
+                    <default>false</default>
+                    <label>Services - Compucom</label>
+                </value>
+                <value>
+                    <fullName>Services - Compucom Subscription</fullName>
+                    <default>false</default>
+                    <label>Services - Compucom Subscription</label>
+                </value>
+                <value>
+                    <fullName>Services - Compucom Wireless Service</fullName>
+                    <default>false</default>
+                    <label>Services - Compucom Wireless Service</label>
+                </value>
+                <value>
+                    <fullName>Services - Data Protection</fullName>
+                    <default>false</default>
+                    <label>Services - Data Protection</label>
+                </value>
+                <value>
+                    <fullName>Services - HaaS</fullName>
+                    <default>false</default>
+                    <label>Services - HaaS</label>
+                </value>
+                <value>
+                    <fullName>Services - Installation &amp; White Glove</fullName>
+                    <default>false</default>
+                    <label>Services - Installation &amp; White Glove</label>
+                </value>
+                <value>
+                    <fullName>Services - ITAD</fullName>
+                    <default>false</default>
+                    <label>Services - ITAD</label>
+                </value>
+                <value>
+                    <fullName>Services - MPS</fullName>
+                    <default>false</default>
+                    <label>Services - MPS</label>
+                </value>
+                <value>
+                    <fullName>Services - Powered by Compucom</fullName>
+                    <default>false</default>
+                    <label>Services - Powered by Compucom</label>
+                </value>
+                <value>
+                    <fullName>Services - SaaS</fullName>
+                    <default>false</default>
+                    <label>Services - SaaS</label>
+                </value>
+                <value>
+                    <fullName>Services - Support &amp; Renewals</fullName>
+                    <default>false</default>
+                    <label>Services - Support &amp; Renewals</label>
+                </value>
+                <value>
+                    <fullName>Services - Warranty</fullName>
+                    <default>false</default>
+                    <label>Services - Warranty</label>
+                </value>
+                <value>
+                    <fullName>Shredding &amp; Storage</fullName>
+                    <default>false</default>
+                    <label>Shredding &amp; Storage</label>
+                </value>
+                <value>
+                    <fullName>Signs &amp; Graphics</fullName>
+                    <default>false</default>
+                    <label>Signs &amp; Graphics</label>
+                </value>
+                <value>
+                    <fullName>Skincare</fullName>
+                    <default>false</default>
+                    <label>Skincare</label>
+                </value>
+                <value>
+                    <fullName>SN MPS</fullName>
+                    <default>false</default>
+                    <label>SN MPS</label>
+                </value>
+                <value>
+                    <fullName>Software</fullName>
+                    <default>false</default>
+                    <label>Software</label>
+                </value>
+                <value>
+                    <fullName>Storage / Servers</fullName>
+                    <default>false</default>
+                    <label>Storage / Servers</label>
+                </value>
+                <value>
+                    <fullName>Telephony</fullName>
+                    <default>false</default>
+                    <label>Telephony</label>
+                </value>
+                <value>
+                    <fullName>Thermometers</fullName>
+                    <default>false</default>
+                    <label>Thermometers</label>
+                </value>
+                <value>
+                    <fullName>Toner Fulfillment</fullName>
+                    <default>false</default>
+                    <label>Toner Fulfillment</label>
+                </value>
+                <value>
+                    <fullName>Towel Dispensers</fullName>
+                    <default>false</default>
+                    <label>Towel Dispensers</label>
+                </value>
+                <value>
+                    <fullName>Truckload Paper</fullName>
+                    <default>false</default>
+                    <label>Truckload Paper</label>
+                </value>
+                <value>
+                    <fullName>Xerox Hardware</fullName>
+                    <default>false</default>
+                    <label>Xerox Hardware</label>
+                </value>
+                <value>
+                    <fullName>Xerox XPPS</fullName>
+                    <default>false</default>
+                    <label>Xerox XPPS</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>All Supplies</controllingFieldValue>
+                <valueName>All Supplies</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>All Supplies</controllingFieldValue>
+                <valueName>Collaborative Classroom</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>All Supplies</controllingFieldValue>
+                <valueName>Instructional Solutions</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>All Supplies</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>3 Ply Masks</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Antibacterial Soap</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Both</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Breakroom</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Chemicals</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Cleaning</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Coffee Solution</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Disinfectant Wipes</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Gloves</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Hand Sanitizers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Kids 3-ply Masks</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Safety</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Safety Shields</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Skincare</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Thermometers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Towel Dispensers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture</controllingFieldValue>
+                <valueName>Catalog</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture</controllingFieldValue>
+                <valueName>Interiors</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ink &amp; Toner</controllingFieldValue>
+                <valueName>Automatic Toner Replenishment (ATR)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ink &amp; Toner</controllingFieldValue>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>Toner Fulfillment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>Canon Hardware</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>Canon Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>HP Hardware</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>Lexmark Hardware</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>pMPS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>N/A</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Software</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>Xerox Hardware</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>Xerox XPPS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Paper</controllingFieldValue>
+                <valueName>Truckload Paper</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Binding/Booklet Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Brand Identity</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Checks, forms, Envelopes, and Stamps</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Consulting and Campaign Analytics</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Content Management Platform Svcs</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Curriculum Materials</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Design Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Digital Printing: Color &amp; BW Printing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Digital Publishing</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Direct Mail</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Full Signage Solution (Design to Installation)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Labor Law</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Office Depot 360</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Promotional Products</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Shredding &amp; Storage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Signs &amp; Graphics</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Accessories – Cabling</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Accessories - I/O</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Accessories - PC &amp; Server Upgrades</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Audio</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Cameras</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Computing - Chromebooks</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Computing - Desktops</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Computing - Laptops</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Computing - Tablets</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Computing - Workstations</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Data Center - Cooling &amp; Rack</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Data Center - Power</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Data Center - Servers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Data Center - Storage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Displays &amp; Signage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>EduTech</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Flash &amp; Portable Storage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Headsets</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Mobile Accessories</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Monitors</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Mounts &amp; Ergonomics</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Networking</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Power</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Printers - 3D</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Printers - Ink</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Printers - Large Format</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Printers - Laser</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Printing - MPS Hardware</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Projectors</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Scanners</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Security - Endpoint</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Security - Network</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Security - Physical</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - Compucom</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - Compucom Subscription</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - Compucom Wireless Service</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - Data Protection</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - HaaS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - Installation &amp; White Glove</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - ITAD</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - MPS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - Powered by Compucom</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - SaaS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - Support &amp; Renewals</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services - Warranty</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Telephony</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Product_Subtype_GT__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity Product Subtype</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Product_GT__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>3 Ply Masks</fullName>
+                    <default>false</default>
+                    <label>3 Ply Masks</label>
+                </value>
+                <value>
+                    <fullName>Accessories</fullName>
+                    <default>false</default>
+                    <label>Accessories</label>
+                </value>
+                <value>
+                    <fullName>Antibacterial Soap</fullName>
+                    <default>false</default>
+                    <label>Antibacterial Soap</label>
+                </value>
+                <value>
+                    <fullName>Automatic Toner Replenishment (ATR)</fullName>
+                    <default>false</default>
+                    <label>Automatic Toner Replenishment (ATR)</label>
+                </value>
+                <value>
+                    <fullName>Batteries</fullName>
+                    <default>false</default>
+                    <label>Batteries</label>
+                </value>
+                <value>
+                    <fullName>Both</fullName>
+                    <default>false</default>
+                    <label>Both</label>
+                </value>
+                <value>
+                    <fullName>Breakroom</fullName>
+                    <default>false</default>
+                    <label>Breakroom</label>
+                </value>
+                <value>
+                    <fullName>Charging Carts</fullName>
+                    <default>false</default>
+                    <label>Charging Carts</label>
+                </value>
+                <value>
+                    <fullName>Cleaning</fullName>
+                    <default>false</default>
+                    <label>Cleaning</label>
+                </value>
+                <value>
+                    <fullName>Cleaning &amp; Maintenance</fullName>
+                    <default>false</default>
+                    <label>Cleaning &amp; Maintenance</label>
+                </value>
+                <value>
+                    <fullName>Client</fullName>
+                    <default>false</default>
+                    <label>Client</label>
+                </value>
+                <value>
+                    <fullName>Disinfectant Wipes</fullName>
+                    <default>false</default>
+                    <label>Disinfectant Wipes</label>
+                </value>
+                <value>
+                    <fullName>Ergo Accessories</fullName>
+                    <default>false</default>
+                    <label>Ergo Accessories</label>
+                </value>
+                <value>
+                    <fullName>Gloves</fullName>
+                    <default>false</default>
+                    <label>Gloves</label>
+                </value>
+                <value>
+                    <fullName>Hand Sanitizers</fullName>
+                    <default>false</default>
+                    <label>Hand Sanitizers</label>
+                </value>
+                <value>
+                    <fullName>Hardware</fullName>
+                    <default>false</default>
+                    <label>Hardware</label>
+                </value>
+                <value>
+                    <fullName>Installation Services</fullName>
+                    <default>false</default>
+                    <label>Installation Services</label>
+                </value>
+                <value>
+                    <fullName>Managed Inventory</fullName>
+                    <default>false</default>
+                    <label>Managed Inventory</label>
+                </value>
+                <value>
+                    <fullName>Medical Carts</fullName>
+                    <default>false</default>
+                    <label>Medical Carts</label>
+                </value>
+                <value>
+                    <fullName>Monitor Mounts</fullName>
+                    <default>false</default>
+                    <label>Monitor Mounts</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>N95 Masks</fullName>
+                    <default>false</default>
+                    <label>N95 Masks</label>
+                </value>
+                <value>
+                    <fullName>OEM Toner Fulfillment</fullName>
+                    <default>false</default>
+                    <label>OEM Toner Fulfillment</label>
+                </value>
+                <value>
+                    <fullName>One Time</fullName>
+                    <default>false</default>
+                    <label>One Time</label>
+                </value>
+                <value>
+                    <fullName>Online Brand Manager</fullName>
+                    <default>false</default>
+                    <label>Online Brand Manager</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+                <value>
+                    <fullName>Other(s)</fullName>
+                    <default>false</default>
+                    <label>Other(s)</label>
+                </value>
+                <value>
+                    <fullName>pMPS</fullName>
+                    <default>false</default>
+                    <label>pMPS</label>
+                </value>
+                <value>
+                    <fullName>Print/Promotional</fullName>
+                    <default>false</default>
+                    <label>Print/Promotional</label>
+                </value>
+                <value>
+                    <fullName>Printers</fullName>
+                    <default>false</default>
+                    <label>Printers</label>
+                </value>
+                <value>
+                    <fullName>Project Allseating</fullName>
+                    <default>false</default>
+                    <label>Project Allseating</label>
+                </value>
+                <value>
+                    <fullName>Project Artopex</fullName>
+                    <default>false</default>
+                    <label>Project Artopex</label>
+                </value>
+                <value>
+                    <fullName>Project Bouty</fullName>
+                    <default>false</default>
+                    <label>Project Bouty</label>
+                </value>
+                <value>
+                    <fullName>Project Ergo Industrial</fullName>
+                    <default>false</default>
+                    <label>Project Ergo Industrial</label>
+                </value>
+                <value>
+                    <fullName>Project Global</fullName>
+                    <default>false</default>
+                    <label>Project Global</label>
+                </value>
+                <value>
+                    <fullName>Project Heartwood</fullName>
+                    <default>false</default>
+                    <label>Project Heartwood</label>
+                </value>
+                <value>
+                    <fullName>Project HON</fullName>
+                    <default>false</default>
+                    <label>Project HON</label>
+                </value>
+                <value>
+                    <fullName>Project Humanscale</fullName>
+                    <default>false</default>
+                    <label>Project Humanscale</label>
+                </value>
+                <value>
+                    <fullName>Project Inscape</fullName>
+                    <default>false</default>
+                    <label>Project Inscape</label>
+                </value>
+                <value>
+                    <fullName>Project Keilhauer</fullName>
+                    <default>false</default>
+                    <label>Project Keilhauer</label>
+                </value>
+                <value>
+                    <fullName>Project KI</fullName>
+                    <default>false</default>
+                    <label>Project KI</label>
+                </value>
+                <value>
+                    <fullName>Project Kimball</fullName>
+                    <default>false</default>
+                    <label>Project Kimball</label>
+                </value>
+                <value>
+                    <fullName>Project Krueger</fullName>
+                    <default>false</default>
+                    <label>Project Krueger</label>
+                </value>
+                <value>
+                    <fullName>Project Krug</fullName>
+                    <default>false</default>
+                    <label>Project Krug</label>
+                </value>
+                <value>
+                    <fullName>Project Lacasse</fullName>
+                    <default>false</default>
+                    <label>Project Lacasse</label>
+                </value>
+                <value>
+                    <fullName>Project Mitybilt</fullName>
+                    <default>false</default>
+                    <label>Project Mitybilt</label>
+                </value>
+                <value>
+                    <fullName>Project Multi-Vendor</fullName>
+                    <default>false</default>
+                    <label>Project Multi-Vendor</label>
+                </value>
+                <value>
+                    <fullName>Project National</fullName>
+                    <default>false</default>
+                    <label>Project National</label>
+                </value>
+                <value>
+                    <fullName>Project Rouillard</fullName>
+                    <default>false</default>
+                    <label>Project Rouillard</label>
+                </value>
+                <value>
+                    <fullName>Project Safco</fullName>
+                    <default>false</default>
+                    <label>Project Safco</label>
+                </value>
+                <value>
+                    <fullName>Project Spec</fullName>
+                    <default>false</default>
+                    <label>Project Spec</label>
+                </value>
+                <value>
+                    <fullName>Project Tayco</fullName>
+                    <default>false</default>
+                    <label>Project Tayco</label>
+                </value>
+                <value>
+                    <fullName>Project Teknion</fullName>
+                    <default>false</default>
+                    <label>Project Teknion</label>
+                </value>
+                <value>
+                    <fullName>Project Three H</fullName>
+                    <default>false</default>
+                    <label>Project Three H</label>
+                </value>
+                <value>
+                    <fullName>Project Trendway</fullName>
+                    <default>false</default>
+                    <label>Project Trendway</label>
+                </value>
+                <value>
+                    <fullName>Project West Elm</fullName>
+                    <default>false</default>
+                    <label>Project West Elm</label>
+                </value>
+                <value>
+                    <fullName>Remanufactured Toner</fullName>
+                    <default>false</default>
+                    <label>Remanufactured Toner</label>
+                </value>
+                <value>
+                    <fullName>Safety Shields</fullName>
+                    <default>false</default>
+                    <label>Safety Shields</label>
+                </value>
+                <value>
+                    <fullName>Server &amp; Storage</fullName>
+                    <default>false</default>
+                    <label>Server &amp; Storage</label>
+                </value>
+                <value>
+                    <fullName>Services</fullName>
+                    <default>false</default>
+                    <label>Services</label>
+                </value>
+                <value>
+                    <fullName>Share of Wallet</fullName>
+                    <default>false</default>
+                    <label>Share of Wallet</label>
+                </value>
+                <value>
+                    <fullName>Software</fullName>
+                    <default>false</default>
+                    <label>Software</label>
+                </value>
+                <value>
+                    <fullName>Standing Desks</fullName>
+                    <default>false</default>
+                    <label>Standing Desks</label>
+                </value>
+                <value>
+                    <fullName>Thermometers</fullName>
+                    <default>false</default>
+                    <label>Thermometers</label>
+                </value>
+                <value>
+                    <fullName>Print and Promo</fullName>
+                    <default>false</default>
+                    <label>Print and Promo</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Managed Inventory</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Online Brand Manager</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <controllingFieldValue>Ergonomics</controllingFieldValue>
+                <valueName>Other(s)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Print Services</controllingFieldValue>
+                <valueName>Print/Promotional</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>3 Ply Masks</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Antibacterial Soap</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Batteries</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Both</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Breakroom</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Cleaning</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Cleaning &amp; Maintenance</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Disinfectant Wipes</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Gloves</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Hand Sanitizers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>N95 Masks</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Safety Shields</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>CBFS</controllingFieldValue>
+                <valueName>Thermometers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ergonomics</controllingFieldValue>
+                <valueName>Charging Carts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ergonomics</controllingFieldValue>
+                <valueName>Ergo Accessories</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ergonomics</controllingFieldValue>
+                <valueName>Installation Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ergonomics</controllingFieldValue>
+                <valueName>Medical Carts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ergonomics</controllingFieldValue>
+                <valueName>Monitor Mounts</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ergonomics</controllingFieldValue>
+                <valueName>Standing Desks</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Allseating</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Artopex</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Bouty</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Ergo Industrial</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Global</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Heartwood</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project HON</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Humanscale</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Inscape</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Keilhauer</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project KI</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Kimball</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Krueger</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Krug</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Lacasse</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Mitybilt</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Multi-Vendor</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project National</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Rouillard</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Safco</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Spec</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Tayco</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Teknion</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Three H</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project Trendway</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Furniture - Interiors</controllingFieldValue>
+                <valueName>Project West Elm</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ink &amp; Toner</controllingFieldValue>
+                <valueName>Automatic Toner Replenishment (ATR)</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ink &amp; Toner</controllingFieldValue>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <controllingFieldValue>Paper</controllingFieldValue>
+                <valueName>N/A</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ink &amp; Toner</controllingFieldValue>
+                <valueName>OEM Toner Fulfillment</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Ink &amp; Toner</controllingFieldValue>
+                <valueName>Remanufactured Toner</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>MPS</controllingFieldValue>
+                <valueName>pMPS</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Paper</controllingFieldValue>
+                <valueName>One Time</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Paper</controllingFieldValue>
+                <valueName>Share of Wallet</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Accessories</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Client</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Hardware</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Printers</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Server &amp; Storage</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Services</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Tech</controllingFieldValue>
+                <valueName>Software</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Product_Subtype__c</fullName>
+        <description>Case# 02533060</description>
+        <externalId>false</externalId>
+        <label>Opportunity Product Subtype</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>3 Ply Masks</fullName>
+                    <default>false</default>
+                    <label>3 Ply Masks</label>
+                </value>
+                <value>
+                    <fullName>Accessories</fullName>
+                    <default>false</default>
+                    <label>Accessories</label>
+                </value>
+                <value>
+                    <fullName>Accessories (Tech)</fullName>
+                    <default>false</default>
+                    <label>Accessories (Tech)</label>
+                </value>
+                <value>
+                    <fullName>Accessories – Cabling</fullName>
+                    <default>false</default>
+                    <label>Accessories – Cabling</label>
+                </value>
+                <value>
+                    <fullName>Accessories - I/O</fullName>
+                    <default>false</default>
+                    <label>Accessories - I/O</label>
+                </value>
+                <value>
+                    <fullName>Accessories - PC &amp; Server Upgrades</fullName>
+                    <default>false</default>
+                    <label>Accessories - PC &amp; Server Upgrades</label>
+                </value>
+                <value>
+                    <fullName>All Supplies</fullName>
+                    <default>false</default>
+                    <label>All Supplies</label>
+                </value>
+                <value>
+                    <fullName>Antibacterial Soap</fullName>
+                    <default>false</default>
+                    <label>Antibacterial Soap</label>
+                </value>
+                <value>
+                    <fullName>Art Supplies</fullName>
+                    <default>false</default>
+                    <label>Art Supplies</label>
+                </value>
+                <value>
+                    <fullName>Audio</fullName>
+                    <default>false</default>
+                    <label>Audio</label>
+                </value>
+                <value>
+                    <fullName>Audio / Video</fullName>
+                    <default>false</default>
+                    <label>Audio / Video</label>
+                </value>
+                <value>
+                    <fullName>Automatic Toner Replenishment (ATR)</fullName>
+                    <default>false</default>
+                    <label>Automatic Toner Replenishment (ATR)</label>
+                </value>
+                <value>
+                    <fullName>Batteries</fullName>
+                    <default>false</default>
+                    <label>Batteries</label>
+                </value>
+                <value>
+                    <fullName>Binding/Booklet Services</fullName>
+                    <default>false</default>
+                    <label>Binding/Booklet Services</label>
+                </value>
+                <value>
+                    <fullName>Both</fullName>
+                    <default>false</default>
+                    <label>Both</label>
+                </value>
+                <value>
+                    <fullName>Brand Identity</fullName>
+                    <default>false</default>
+                    <label>Brand Identity</label>
+                </value>
+                <value>
+                    <fullName>Breakroom</fullName>
+                    <default>false</default>
+                    <label>Breakroom</label>
+                </value>
+                <value>
+                    <fullName>Break Room</fullName>
+                    <default>false</default>
+                    <label>Break Room</label>
+                </value>
+                <value>
+                    <fullName>Cameras</fullName>
+                    <default>false</default>
+                    <label>Cameras</label>
+                </value>
+                <value>
+                    <fullName>Canon Hardware</fullName>
+                    <default>false</default>
+                    <label>Canon Hardware</label>
+                </value>
+                <value>
+                    <fullName>Canon Services</fullName>
+                    <default>false</default>
+                    <label>Canon Services</label>
+                </value>
+                <value>
+                    <fullName>Catalog</fullName>
+                    <default>false</default>
+                    <label>Catalog</label>
+                </value>
+                <value>
+                    <fullName>Charging Carts</fullName>
+                    <default>false</default>
+                    <label>Charging Carts</label>
+                </value>
+                <value>
+                    <fullName>Checks, forms, Envelopes, and Stamps</fullName>
+                    <default>false</default>
+                    <label>Checks, forms, Envelopes, and Stamps</label>
+                </value>
+                <value>
+                    <fullName>Chemicals</fullName>
+                    <default>false</default>
+                    <label>Chemicals</label>
+                </value>
+                <value>
+                    <fullName>Cleaning</fullName>
+                    <default>false</default>
+                    <label>Cleaning</label>
+                </value>
+                <value>
+                    <fullName>Cleaning/Breakroom</fullName>
+                    <default>false</default>
+                    <label>Cleaning/Breakroom</label>
+                </value>
+                <value>
+                    <fullName>Cleaning &amp; Maintenance</fullName>
+                    <default>false</default>
+                    <label>Cleaning &amp; Maintenance</label>
+                </value>
+                <value>
+                    <fullName>Client</fullName>
+                    <default>false</default>
+                    <label>Client</label>
+                </value>
+                <value>
+                    <fullName>Coffee Solution</fullName>
+                    <default>false</default>
+                    <label>Coffee Solution</label>
+                </value>
+                <value>
+                    <fullName>Collaborative Classroom</fullName>
+                    <default>false</default>
+                    <label>Collaborative Classroom</label>
+                </value>
+                <value>
+                    <fullName>Computing - Chromebooks</fullName>
+                    <default>false</default>
+                    <label>Computing - Chromebooks</label>
+                </value>
+                <value>
+                    <fullName>Computing - Desktops</fullName>
+                    <default>false</default>
+                    <label>Computing - Desktops</label>
+                </value>
+                <value>
+                    <fullName>Computing - Laptops</fullName>
+                    <default>false</default>
+                    <label>Computing - Laptops</label>
+                </value>
+                <value>
+                    <fullName>Computing - Tablets</fullName>
+                    <default>false</default>
+                    <label>Computing - Tablets</label>
+                </value>
+                <value>
+                    <fullName>Computing - Workstations</fullName>
+                    <default>false</default>
+                    <label>Computing - Workstations</label>
+                </value>
+                <value>
+                    <fullName>Config-to-Order</fullName>
+                    <default>false</default>
+                    <label>Config-to-Order</label>
+                </value>
+                <value>
+                    <fullName>Consulting and Campaign Analytics</fullName>
+                    <default>false</default>
+                    <label>Consulting and Campaign Analytics</label>
+                </value>
+                <value>
+                    <fullName>Content Management Platform Svcs</fullName>
+                    <default>false</default>
+                    <label>Content Management Platform Svcs</label>
+                </value>
+                <value>
+                    <fullName>Curriculum Materials</fullName>
+                    <default>false</default>
+                    <label>Curriculum Materials</label>
+                </value>
+                <value>
+                    <fullName>Data Center - Cooling &amp; Rack</fullName>
+                    <default>false</default>
+                    <label>Data Center - Cooling &amp; Rack</label>
+                </value>
+                <value>
+                    <fullName>Data Center - Power</fullName>
+                    <default>false</default>
+                    <label>Data Center - Power</label>
+                </value>
+                <value>
+                    <fullName>Data Center - Servers</fullName>
+                    <default>false</default>
+                    <label>Data Center - Servers</label>
+                </value>
+                <value>
+                    <fullName>Data Center - Storage</fullName>
+                    <default>false</default>
+                    <label>Data Center - Storage</label>
+                </value>
+                <value>
+                    <fullName>Design Services</fullName>
+                    <default>false</default>
+                    <label>Design Services</label>
+                </value>
+                <value>
+                    <fullName>Desktop / Laptop</fullName>
+                    <default>false</default>
+                    <label>Desktop / Laptop</label>
+                </value>
+                <value>
+                    <fullName>Digital Printing: Color &amp; BW Printing</fullName>
+                    <default>false</default>
+                    <label>Digital Printing: Color &amp; BW Printing</label>
+                </value>
+                <value>
+                    <fullName>Digital Publishing</fullName>
+                    <default>false</default>
+                    <label>Digital Publishing</label>
+                </value>
+                <value>
+                    <fullName>Direct Mail</fullName>
+                    <default>false</default>
+                    <label>Direct Mail</label>
+                </value>
+                <value>
+                    <fullName>Disinfectant Wipes</fullName>
+                    <default>false</default>
+                    <label>Disinfectant Wipes</label>
+                </value>
+                <value>
+                    <fullName>Displays &amp; Signage</fullName>
+                    <default>false</default>
+                    <label>Displays &amp; Signage</label>
+                </value>
+                <value>
+                    <fullName>EduTech</fullName>
+                    <default>false</default>
+                    <label>EduTech</label>
+                </value>
+                <value>
+                    <fullName>Ergo Accessories</fullName>
+                    <default>false</default>
+                    <label>Ergo Accessories</label>
+                </value>
+                <value>
+                    <fullName>Filing &amp; Binding</fullName>
+                    <default>false</default>
+                    <label>Filing &amp; Binding</label>
+                </value>
+                <value>
+                    <fullName>Flash &amp; Portable Storage</fullName>
+                    <default>false</default>
+                    <label>Flash &amp; Portable Storage</label>
+                </value>
+                <value>
+                    <fullName>Forms &amp; Labels</fullName>
+                    <default>false</default>
+                    <label>Forms &amp; Labels</label>
+                </value>
+                <value>
+                    <fullName>Full Signage Solution (Design to Installation)</fullName>
+                    <default>false</default>
+                    <label>Full Signage Solution (Design to Installation)</label>
+                </value>
+                <value>
+                    <fullName>Furniture</fullName>
+                    <default>false</default>
+                    <label>Furniture</label>
+                </value>
+                <value>
+                    <fullName>Gloves</fullName>
+                    <default>false</default>
+                    <label>Gloves</label>
+                </value>
+                <value>
+                    <fullName>Gowns</fullName>
+                    <default>false</default>
+                    <label>Gowns</label>
+                </value>
+                <value>
+                    <fullName>Hand Sanitizers</fullName>
+                    <default>false</default>
+                    <label>Hand Sanitizers</label>
+                </value>
+                <value>
+                    <fullName>Hardware</fullName>
+                    <default>false</default>
+                    <label>Hardware</label>
+                </value>
+                <value>
+                    <fullName>Hardware Multiple Vendor</fullName>
+                    <default>false</default>
+                    <label>Hardware Multiple Vendor</label>
+                </value>
+                <value>
+                    <fullName>Headsets</fullName>
+                    <default>false</default>
+                    <label>Headsets</label>
+                </value>
+                <value>
+                    <fullName>HP Hardware</fullName>
+                    <default>false</default>
+                    <label>HP Hardware</label>
+                </value>
+                <value>
+                    <fullName>Ink &amp; Toner</fullName>
+                    <default>false</default>
+                    <label>Ink &amp; Toner</label>
+                </value>
+                <value>
+                    <fullName>Installation Services</fullName>
+                    <default>false</default>
+                    <label>Installation Services</label>
+                </value>
+                <value>
+                    <fullName>Instructional Solutions</fullName>
+                    <default>false</default>
+                    <label>Instructional Solutions</label>
+                </value>
+                <value>
+                    <fullName>Interiors</fullName>
+                    <default>false</default>
+                    <label>Interiors</label>
+                </value>
+                <value>
+                    <fullName>Kids 3-ply Masks</fullName>
+                    <default>false</default>
+                    <label>Kids 3-ply Masks</label>
+                </value>
+                <value>
+                    <fullName>Labor Law</fullName>
+                    <default>false</default>
+                    <label>Labor Law</label>
+                </value>
+                <value>
+                    <fullName>Lexmark Hardware</fullName>
+                    <default>false</default>
+                    <label>Lexmark Hardware</label>
+                </value>
+                <value>
+                    <fullName>Managed Inventory</fullName>
+                    <default>false</default>
+                    <label>Managed Inventory</label>
+                </value>
+                <value>
+                    <fullName>Medical Carts</fullName>
+                    <default>false</default>
+                    <label>Medical Carts</label>
+                </value>
+                <value>
+                    <fullName>Miscellaneous</fullName>
+                    <default>false</default>
+                    <label>Miscellaneous</label>
+                </value>
+                <value>
+                    <fullName>Mobile Accessories</fullName>
+                    <default>false</default>
+                    <label>Mobile Accessories</label>
+                </value>
+                <value>
+                    <fullName>Mobility</fullName>
+                    <default>false</default>
+                    <label>Mobility</label>
+                </value>
+                <value>
+                    <fullName>Monitor / Displays</fullName>
+                    <default>false</default>
+                    <label>Monitor / Displays</label>
+                </value>
+                <value>
+                    <fullName>Monitor Mounts</fullName>
+                    <default>false</default>
+                    <label>Monitor Mounts</label>
+                </value>
+                <value>
+                    <fullName>Monitors</fullName>
+                    <default>false</default>
+                    <label>Monitors</label>
+                </value>
+                <value>
+                    <fullName>Mounts &amp; Ergonomics</fullName>
+                    <default>false</default>
+                    <label>Mounts &amp; Ergonomics</label>
+                </value>
+                <value>
+                    <fullName>Multiple</fullName>
+                    <default>false</default>
+                    <label>Multiple</label>
+                </value>
+                <value>
+                    <fullName>N/A</fullName>
+                    <default>false</default>
+                    <label>N/A</label>
+                </value>
+                <value>
+                    <fullName>N95 Masks</fullName>
+                    <default>false</default>
+                    <label>N95 Masks</label>
+                </value>
+                <value>
+                    <fullName>Networking</fullName>
+                    <default>false</default>
+                    <label>Networking</label>
+                </value>
+                <value>
+                    <fullName>OEM Toner Fulfillment</fullName>
+                    <default>false</default>
+                    <label>OEM Toner Fulfillment</label>
+                </value>
+                <value>
+                    <fullName>Office Depot 360</fullName>
+                    <default>false</default>
+                    <label>Office Depot 360</label>
+                </value>
+                <value>
+                    <fullName>Office Essentials</fullName>
+                    <default>false</default>
+                    <label>Office Essentials</label>
+                </value>
+                <value>
+                    <fullName>One Time</fullName>
+                    <default>false</default>
+                    <label>One Time</label>
+                </value>
+                <value>
+                    <fullName>Online Brand Manager</fullName>
+                    <default>false</default>
+                    <label>Online Brand Manager</label>
+                </value>
+                <value>
+                    <fullName>OTHER</fullName>
+                    <default>false</default>
+                    <label>OTHER</label>
+                </value>
+                <value>
+                    <fullName>Other(s)</fullName>
+                    <default>false</default>
+                    <label>Other(s)</label>
+                </value>
+                <value>
+                    <fullName>Paper</fullName>
+                    <default>false</default>
+                    <label>Paper</label>
+                </value>
+                <value>
+                    <fullName>Peripherals</fullName>
+                    <default>false</default>
+                    <label>Peripherals</label>
+                </value>
+                <value>
+                    <fullName>pMPS</fullName>
+                    <default>false</default>
+                    <label>pMPS</label>
+                </value>
+                <value>
+                    <fullName>Power</fullName>
+                    <default>false</default>
+                    <label>Power</label>
+                </value>
+                <value>
+                    <fullName>PPE/First Aid</fullName>
+                    <default>false</default>
+                    <label>PPE/First Aid</label>
+                </value>
+                <value>
+                    <fullName>Print/Promotional</fullName>
+                    <default>false</default>
+                    <label>Print/Promotional</label>
+                </value>
+                <value>
+                    <fullName>Printers</fullName>
+                    <default>false</default>
+                    <label>Printers</label>
+                </value>
+                <value>
+                    <fullName>Printers - 3D</fullName>
+                    <default>false</default>
+                    <label>Printers - 3D</label>
+                </value>
+                <value>
+                    <fullName>Printers - Ink</fullName>
+                    <default>false</default>
+                    <label>Printers - Ink</label>
+                </value>
+                <value>
+                    <fullName>Printers - Large Format</fullName>
+                    <default>false</default>
+                    <label>Printers - Large Format</label>
+                </value>
+                <value>
+                    <fullName>Printers - Laser</fullName>
+                    <default>false</default>
+                    <label>Printers - Laser</label>
+                </value>
+                <value>
+                    <fullName>Printing - MPS Hardware</fullName>
+                    <default>false</default>
+                    <label>Printing - MPS Hardware</label>
+                </value>
+                <value>
+                    <fullName>Project Allseating</fullName>
+                    <default>false</default>
+                    <label>Project Allseating</label>
+                </value>
+                <value>
+                    <fullName>Project Artopex</fullName>
+                    <default>false</default>
+                    <label>Project Artopex</label>
+                </value>
+                <value>
+                    <fullName>Project Bouty</fullName>
+                    <default>false</default>
+                    <label>Project Bouty</label>
+                </value>
+                <value>
+                    <fullName>Project Ergo Industrial</fullName>
+                    <default>false</default>
+                    <label>Project Ergo Industrial</label>
+                </value>
+                <value>
+                    <fullName>Project Global</fullName>
+                    <default>false</default>
+                    <label>Project Global</label>
+                </value>
+                <value>
+                    <fullName>Project - Global</fullName>
+                    <default>false</default>
+                    <label>Project - Global</label>
+                </value>
+                <value>
+                    <fullName>Project Heartwood</fullName>
+                    <default>false</default>
+                    <label>Project Heartwood</label>
+                </value>
+                <value>
+                    <fullName>Project HON</fullName>
+                    <default>false</default>
+                    <label>Project HON</label>
+                </value>
+                <value>
+                    <fullName>Project Humanscale</fullName>
+                    <default>false</default>
+                    <label>Project Humanscale</label>
+                </value>
+                <value>
+                    <fullName>Project Inscape</fullName>
+                    <default>false</default>
+                    <label>Project Inscape</label>
+                </value>
+                <value>
+                    <fullName>Project Keilhauer</fullName>
+                    <default>false</default>
+                    <label>Project Keilhauer</label>
+                </value>
+                <value>
+                    <fullName>Project KI</fullName>
+                    <default>false</default>
+                    <label>Project KI</label>
+                </value>
+                <value>
+                    <fullName>Project Kimball</fullName>
+                    <default>false</default>
+                    <label>Project Kimball</label>
+                </value>
+                <value>
+                    <fullName>Project Krueger</fullName>
+                    <default>false</default>
+                    <label>Project Krueger</label>
+                </value>
+                <value>
+                    <fullName>Project Krug</fullName>
+                    <default>false</default>
+                    <label>Project Krug</label>
+                </value>
+                <value>
+                    <fullName>Project Lacasse</fullName>
+                    <default>false</default>
+                    <label>Project Lacasse</label>
+                </value>
+                <value>
+                    <fullName>Project Mitybilt</fullName>
+                    <default>false</default>
+                    <label>Project Mitybilt</label>
+                </value>
+                <value>
+                    <fullName>Project Multi-Vendor</fullName>
+                    <default>false</default>
+                    <label>Project Multi-Vendor</label>
+                </value>
+                <value>
+                    <fullName>Project National</fullName>
+                    <default>false</default>
+                    <label>Project National</label>
+                </value>
+                <value>
+                    <fullName>Projectors</fullName>
+                    <default>false</default>
+                    <label>Projectors</label>
+                </value>
+                <value>
+                    <fullName>Project - Other</fullName>
+                    <default>false</default>
+                    <label>Project - Other</label>
+                </value>
+                <value>
+                    <fullName>Project Rouillard</fullName>
+                    <default>false</default>
+                    <label>Project Rouillard</label>
+                </value>
+                <value>
+                    <fullName>Project Safco</fullName>
+                    <default>false</default>
+                    <label>Project Safco</label>
+                </value>
+                <value>
+                    <fullName>Project Spec</fullName>
+                    <default>false</default>
+                    <label>Project Spec</label>
+                </value>
+                <value>
+                    <fullName>Project Tayco</fullName>
+                    <default>false</default>
+                    <label>Project Tayco</label>
+                </value>
+                <value>
+                    <fullName>Project Teknion</fullName>
+                    <default>false</default>
+                    <label>Project Teknion</label>
+                </value>
+                <value>
+                    <fullName>Project Three H</fullName>
+                    <default>false</default>
+                    <label>Project Three H</label>
+                </value>
+                <value>
+                    <fullName>Project Trendway</fullName>
+                    <default>false</default>
+                    <label>Project Trendway</label>
+                </value>
+                <value>
+                    <fullName>Project West Elm</fullName>
+                    <default>false</default>
+                    <label>Project West Elm</label>
+                </value>
+                <value>
+                    <fullName>Promotional Products</fullName>
+                    <default>false</default>
+                    <label>Promotional Products</label>
+                </value>
+                <value>
+                    <fullName>Remanufactured Toner</fullName>
+                    <default>false</default>
+                    <label>Remanufactured Toner</label>
+                </value>
+                <value>
+                    <fullName>Safety</fullName>
+                    <default>false</default>
+                    <label>Safety</label>
+                </value>
+                <value>
+                    <fullName>Safety Shields</fullName>
+                    <default>false</default>
+                    <label>Safety Shields</label>
+                </value>
+                <value>
+                    <fullName>Scanners</fullName>
+                    <default>false</default>
+                    <label>Scanners</label>
+                </value>
+                <value>
+                    <fullName>School Supplies</fullName>
+                    <default>false</default>
+                    <label>School Supplies</label>
+                </value>
+                <value>
+                    <fullName>Security - Endpoint</fullName>
+                    <default>false</default>
+                    <label>Security - Endpoint</label>
+                </value>
+                <value>
+                    <fullName>Security - Network</fullName>
+                    <default>false</default>
+                    <label>Security - Network</label>
+                </value>
+                <value>
+                    <fullName>Security - Physical</fullName>
+                    <default>false</default>
+                    <label>Security - Physical</label>
+                </value>
+                <value>
+                    <fullName>Server &amp; Storage</fullName>
+                    <default>false</default>
+                    <label>Server &amp; Storage</label>
+                </value>
+                <value>
+                    <fullName>Services</fullName>
+                    <default>false</default>
+                    <label>Services</label>
+                </value>
+                <value>
+                    <fullName>Services (CompuCom)</fullName>
+                    <default>false</default>
+                    <label>Services (CompuCom)</label>
+                </value>
+                <value>
+                    <fullName>Services (General)</fullName>
+                    <default>false</default>
+                    <label>Services (General)</label>
+                </value>
+                <value>
+                    <fullName>Services - Compucom</fullName>
+                    <default>false</default>
+                    <label>Services - Compucom</label>
+                </value>
+                <value>
+                    <fullName>Services - Compucom Subscription</fullName>
+                    <default>false</default>
+                    <label>Services - Compucom Subscription</label>
+                </value>
+                <value>
+                    <fullName>Services - Compucom Wireless Service</fullName>
+                    <default>false</default>
+                    <label>Services - Compucom Wireless Service</label>
+                </value>
+                <value>
+                    <fullName>Services - Data Protection</fullName>
+                    <default>false</default>
+                    <label>Services - Data Protection</label>
+                </value>
+                <value>
+                    <fullName>Services - HaaS</fullName>
+                    <default>false</default>
+                    <label>Services - HaaS</label>
+                </value>
+                <value>
+                    <fullName>Services - Installation &amp; White Glove</fullName>
+                    <default>false</default>
+                    <label>Services - Installation &amp; White Glove</label>
+                </value>
+                <value>
+                    <fullName>Services - ITAD</fullName>
+                    <default>false</default>
+                    <label>Services - ITAD</label>
+                </value>
+                <value>
+                    <fullName>Services - MPS</fullName>
+                    <default>false</default>
+                    <label>Services - MPS</label>
+                </value>
+                <value>
+                    <fullName>Services - Powered by Compucom</fullName>
+                    <default>false</default>
+                    <label>Services - Powered by Compucom</label>
+                </value>
+                <value>
+                    <fullName>Services - SaaS</fullName>
+                    <default>false</default>
+                    <label>Services - SaaS</label>
+                </value>
+                <value>
+                    <fullName>Services - Support &amp; Renewals</fullName>
+                    <default>false</default>
+                    <label>Services - Support &amp; Renewals</label>
+                </value>
+                <value>
+                    <fullName>Services - Warranty</fullName>
+                    <default>false</default>
+                    <label>Services - Warranty</label>
+                </value>
+                <value>
+                    <fullName>Share of Wallet</fullName>
+                    <default>false</default>
+                    <label>Share of Wallet</label>
+                </value>
+                <value>
+                    <fullName>Shipping/Packing</fullName>
+                    <default>false</default>
+                    <label>Shipping/Packing</label>
+                </value>
+                <value>
+                    <fullName>Shredding &amp; Storage</fullName>
+                    <default>false</default>
+                    <label>Shredding &amp; Storage</label>
+                </value>
+                <value>
+                    <fullName>Signs &amp; Graphics</fullName>
+                    <default>false</default>
+                    <label>Signs &amp; Graphics</label>
+                </value>
+                <value>
+                    <fullName>Skincare</fullName>
+                    <default>false</default>
+                    <label>Skincare</label>
+                </value>
+                <value>
+                    <fullName>SN MPS</fullName>
+                    <default>false</default>
+                    <label>SN MPS</label>
+                </value>
+                <value>
+                    <fullName>Software</fullName>
+                    <default>false</default>
+                    <label>Software</label>
+                </value>
+                <value>
+                    <fullName>Standing Desks</fullName>
+                    <default>false</default>
+                    <label>Standing Desks</label>
+                </value>
+                <value>
+                    <fullName>Storage / Servers</fullName>
+                    <default>false</default>
+                    <label>Storage / Servers</label>
+                </value>
+                <value>
+                    <fullName>Telephony</fullName>
+                    <default>false</default>
+                    <label>Telephony</label>
+                </value>
+                <value>
+                    <fullName>Thermometers</fullName>
+                    <default>false</default>
+                    <label>Thermometers</label>
+                </value>
+                <value>
+                    <fullName>Toner Fulfillment</fullName>
+                    <default>false</default>
+                    <label>Toner Fulfillment</label>
+                </value>
+                <value>
+                    <fullName>Towel Dispensers</fullName>
+                    <default>false</default>
+                    <label>Towel Dispensers</label>
+                </value>
+                <value>
+                    <fullName>Truckload Paper</fullName>
+                    <default>false</default>
+                    <label>Truckload Paper</label>
+                </value>
+                <value>
+                    <fullName>Writing &amp; Drafting</fullName>
+                    <default>false</default>
+                    <label>Writing &amp; Drafting</label>
+                </value>
+                <value>
+                    <fullName>Xerox Hardware</fullName>
+                    <default>false</default>
+                    <label>Xerox Hardware</label>
+                </value>
+                <value>
+                    <fullName>Xerox XPPS</fullName>
+                    <default>false</default>
+                    <label>Xerox XPPS</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Product_Supplier_Vendor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Product Supplier/Vendor</label>
+        <referenceTo>Product_Manufacturer__c</referenceTo>
+        <relationshipLabel>Opportunity Product (Product Supplier/Vendor)</relationshipLabel>
+        <relationshipName>Opportunity_Product1</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Quantity</fullName>
+    </fields>
+    <fields>
+        <fullName>Recurring__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Set by a process builder when the product is added or changed.  Allows us to use rollup formulas on opps and accounts to count the number of recurring products sold.</description>
+        <externalId>false</externalId>
+        <label>Recurring</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Rollup_Update_Counter__c</fullName>
+        <externalId>false</externalId>
+        <label>Rollup Update Counter</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ServiceDate</fullName>
+    </fields>
+    <fields>
+        <fullName>Subtotal</fullName>
+    </fields>
+    <fields>
+        <fullName>TotalPrice</fullName>
+    </fields>
+    <fields>
+        <fullName>Total_Gross_Profit__c</fullName>
+        <externalId>false</externalId>
+        <formula>TotalPrice  - ( Unit_Cost__c *  Quantity )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Gross Profit</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>UnitPrice</fullName>
+    </fields>
+    <fields>
+        <fullName>Unit_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Unit Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <validationRules>
+        <fullName>Check_BSD_GT_Product_Update</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(NOT(ISNEW()),OR(ISCHANGED(Product_BSD__c),ISCHANGED(Product_GT__c)))</errorConditionFormula>
+        <errorMessage>Product cannot be edited, please delete and add a new product.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Check_Unit_Price</fullName>
+        <active>true</active>
+        <description>02928433 - Validation Rules for Products Unit Price</description>
+        <errorConditionFormula>IF(CONTAINS($Label.Opportunity_Product_Validation_on_Unit_Price,Opportunity.RecordType_Name__c),IF( UnitPrice = 0.0, true, false) , false)</errorConditionFormula>
+        <errorMessage>Unit Price must be greater than 0.00</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Product_Subtype_Required_for_Tech</fullName>
+        <active>true</active>
+        <description>Product Subtype is required when Tech Product is selected</description>
+        <errorConditionFormula>(IF(AND(ISPICKVAL(Product_BSD__c,&quot;Tech&quot;), ISPICKVAL(Product_Subtype_BSD__c ,&quot;&quot;)),true,false))
+&amp;&amp;
+!CONTAINS(Opportunity.RecordType_Name__c,&apos;(Tech-Zone)&apos;)</errorConditionFormula>
+        <errorMessage>Product Subtype is required</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TZ_Block_recur_cost_non_recur_product</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT(Product2.Recurring__c)
+&amp;&amp; Monthly_Recurring_Unit_Cost__c &gt; 0</errorConditionFormula>
+        <errorDisplayField>Monthly_Recurring_Unit_Cost__c</errorDisplayField>
+        <errorMessage>You cannot specify a Monthly Recurring Cost for a non-recurring product.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TZ_Block_recur_price_non_recur_product</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT(Product2.Recurring__c)
+&amp;&amp; Monthly_Recurring_Unit_Price__c &gt; 0</errorConditionFormula>
+        <errorDisplayField>Monthly_Recurring_Unit_Price__c</errorDisplayField>
+        <errorMessage>You cannot specify a Monthly Recurring Price for a non-recurring product.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TZ_Block_unit_cost_on_recurring_product</fullName>
+        <active>true</active>
+        <errorConditionFormula>Product2.Recurring__c
+&amp;&amp; Unit_Cost__c &gt; 0
+&amp;&amp; ISNEW()</errorConditionFormula>
+        <errorDisplayField>Unit_Cost__c</errorDisplayField>
+        <errorMessage>You cannot specify a Unit Cost for a recurring product.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TZ_Block_unit_price_on_recurring_product</fullName>
+        <active>true</active>
+        <errorConditionFormula>Product2.Recurring__c
+&amp;&amp; UnitPrice &gt; 0
+&amp;&amp; ISNEW()</errorConditionFormula>
+        <errorDisplayField>UnitPrice</errorDisplayField>
+        <errorMessage>You cannot specify a Unit Price for a recurring product.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Add_Option</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Pricing</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>https://od2--uat--c.cs7.visual.force.com/apex/Proto_csv_read?ID={!Opportunity.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Add_Products_GT_US</fullName>
+        <availability>online</availability>
+        <description>Add New Product button for Field Sales (US) and GT Field Sales  opportunity record types</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Add Products</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/apex/createOpportunityProducts?oppId={!Opportunity.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Edit_Products_GT_US</fullName>
+        <availability>online</availability>
+        <description>To edit Products for Field Sales (US) and GT Field Sales opportunity record types</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Edit Products</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/apex/EditOpportunityProducts?oppId={!Opportunity.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>jen_test</fullName>
+        <availability>online</availability>
+        <description>Jen&apos;s test</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>jen test</masterLabel>
+        <openType>noSidebar</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!IF((ISPICKVAL( Account.Segment__c, &apos;SMB $0-24k&apos;) &amp;&amp; ISPICKVAL(Account.Sector__c, &apos;Private&apos;)),&apos;/apex/Proto_csv_read?ID={!Opportunity.Id}&apos;,&apos;/apex/Pricing_above24?ID={!Opportunity.Id}&apos;)}</url>
+    </webLinks>
+</CustomObject>

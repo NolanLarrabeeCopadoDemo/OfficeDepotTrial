@@ -1,0 +1,58 @@
+<apex:page standardController="TAV4__Alignment_Update__c" extensions="TAV4.Alignment_Update_Controller">
+<apex:form >
+<apex:actionPoller action="{!updateStatus}" rerender="batchStatus" interval="5" status="counterStatus"/>
+<apex:pageBlock title="Alignment Manager">
+    <apex:pageMessages />
+    <apex:pageBlockButtons >
+        <apex:commandButton action="{!implement}" value="Implement Alignment Update" disabled="{!NOT(canImplement)}"/>
+        <apex:commandButton action="{!schedule}" value="Schedule Alignment Update" disabled="{!cannotSchedule}"/>
+        <apex:commandButton action="{!deleteAll}" value="Delete Update" disabled="{!NOT(canDelete)}"  onclick="return confirm('Do you really want to delete this update? You cannot undo this action.')"/>
+        <apex:commandButton action="{!list}" value="Exit"/>
+    </apex:pageBlockButtons>
+
+    <apex:pageBlockSection title="Alignment Update" columns="1" collapsible="false">
+         <apex:outputField value="{!alignment.name}"/>
+         <apex:outputField value="{!alignment.Alignment__r.Name}" label="Alignment"/>
+         <apex:outputField value="{!alignment.TAV4__Effective_Date__c}"/>
+         <apex:outputField value="{!alignment.TAV4__Status__c}" />
+    </apex:pageBlockSection> 
+
+    <apex:pageBlockSection title="Assignment Update Tasks" columns="2" id="unitCount">
+        <apex:pageBlockSectionItem rendered="{!hasAccounts}">
+            <apex:outputLabel value="Accounts" /><apex:commandLink action="{!clearAcct}" value="Clear Account Assignments" rendered="{!canDelete}" onclick="return confirm('Do you really want to delete all account updates?')"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem rendered="{!hasLeads}" >
+            <apex:outputLabel value="Leads" /><apex:commandLink action="{!clearLead}" value="Clear Lead Assignments" rendered="{!canDelete}" onclick="return confirm('Do you really want to delete all lead updates?')"/>
+        </apex:pageBlockSectionItem>
+       
+        <apex:pageBlockSectionItem rendered="{!hasReps}" >
+            <apex:outputLabel value="Sales Reps" /><apex:commandLink action="{!clearRep}" value="Clear Sales Rep Assignments" rendered="{!canDelete}" onclick="return confirm('Do you really want to delete all rep updates?')"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem rendered="{!hasGeos}" >
+            <apex:outputLabel value="Geo Units" /><apex:commandLink action="{!clearGeo}" value="Clear Geo Code Assignments" rendered="{!canDelete}" onclick="return confirm('Do you really want to delete all geo unit updates?')"/>
+        </apex:pageBlockSectionItem>
+    </apex:pageBlockSection>
+
+    <apex:outputPanel id="batchStatus">
+        <apex:pageBlockSection title="Batch Processing Status" rendered="{!batchRunning}">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Current Task" /><apex:outputText value="{!jobstatus.ApexClass.Name}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Status" /><apex:outputText value="{!jobStatus.Status}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Message" /><apex:outputText value="{!status}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Updates" />
+                <apex:actionStatus startText=" updating..." stopText="{!counter}" id="counterStatus"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:outputPanel>
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

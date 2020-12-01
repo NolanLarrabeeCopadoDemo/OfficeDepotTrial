@@ -1,0 +1,26 @@
+<apex:page standardcontroller="Lead" sidebar="false" showHeader="false">
+
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <title>Office Depot Sales Force</title>
+    <meta name="author" content="Office Depot" />
+    <meta name="description" content="SFDC" />
+  </head>
+  <apex:includeScript value="{!$Site.BaseUrl}/lightning/lightning.out.js" />
+  <b>
+    <apex:includeLightning />
+  </b>
+  <div id="lightning" />
+
+  <script>
+    $Lightning.use("c:LeadEnrichmentAppli", function () {
+      $Lightning.createComponent("c:LeadEnrichment",
+        {leadRecId:'{!$CurrentPage.parameters.Id}'},
+        "lightning",
+        function (cmp) {
+          // do some stuff
+        });
+    });
+  </script>
+</apex:page>

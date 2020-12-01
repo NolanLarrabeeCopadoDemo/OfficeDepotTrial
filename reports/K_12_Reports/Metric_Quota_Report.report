@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>ILC_Metric_Quota__c.Summary_Stage__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Metric_Quota__c.Type__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Metric_Quota__c.Quota_Value__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Metric_Quota__c.Quota_Period__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Metric_Quota__c.Appointments_Per_Month__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Metric_Quota__c.Amount_Value__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Metric_Quota__c.Month_Past_Training_Date__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Metric Quota Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$ILC_Metric_Quota__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

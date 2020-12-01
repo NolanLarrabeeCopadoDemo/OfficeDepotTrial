@@ -1,0 +1,175 @@
+<template>
+  <!--Spinner starts-->
+  <template if:true={showLoadingSpinner}>
+    <lightning-spinner alternative-text="Loading......" size="medium"></lightning-spinner>
+  </template> 
+  <!--spinner ends-->
+  
+  <!--when the Quote is not valid to send to customer starts-->
+  <center if:false={internal}>
+    <div style="font-size: large;">
+      DOA Status is not approved/Core ID is blank</div>
+  </center>
+  <!--when the Quote is not valid to send to customer ends-->
+  <!-- when the customer comm reqs are none start-->
+  <center if:true={customerCommunication}>
+    <div style="font-size: large;">
+      Customer Communication Auto Approved</div>
+      <br/>
+      <div style="padding-right: 5px;padding-top: 15px">
+        <lightning-button label={backButtonLabel} if:true={backToProsButton} onclick={backToProsQuote} variant="brand">
+        </lightning-button>
+      </div>
+  </center>
+  <!--when the customer comm reqs are none end-->
+  <!--when the Quote is  valid to send to customer starts-->
+  <div if:true={internal}>
+    <div if:false={customerCommunication}>
+    <div class="slds-page-header" style="font-size: large;">
+      <center>Email Quote to Customer</center>
+    </div>
+    <br />
+    <!--when contact or Quote is not selected start-->
+    <center if:true={noDefaultsSelected} style="font-size: large;">
+      <div>Please select Contact Information Of customer to Send An Email and Make sure it has an
+        Email-Id.</div>
+    </center>
+    <!--when contact or Quote is not selected end-->
+    <!--when contact or Quote is not selected for edit start-->
+    <center if:true={noDefaultForEditSelected} style="font-size: large;">
+      <div>Please select Contact Information Of customer to Edit.</div>
+    </center>
+    <!--when contact or Quote is not selected for edit end-->
+    <div if:true={noDocs}>
+      <div class="slds-page-header" style="font-size: large;">
+        <center>Please generate documents to proceed further</center>
+      </div>  </div> 
+    <!--Thank You Message start-->
+    <center if:true={showthankYouMessage} style="font-size: large;">
+      <div>You have now sent an email to the customer. </div>
+    </center>
+    <!--Thank You Message end-->
+    <!--when contact si created start-->
+    <center if:true={contactsuccessful} style="font-size: large;">
+      <div>Your Customer is created successfully.The page will be closed automatically.</div>
+    </center>
+    <center if:false={contactsuccessful} style="font-size: large;color: red;">
+      <div>{contactErrorMsg}</div>
+    </center>
+    <!--when contact is created end-->
+  
+    <!--first block for reps to see the contacts start-->
+    <template if:true={quotesWithcontacts}>
+      <center class="slds-page-header">List Of Customers Associated With the Account</center>
+      <div class="slds-text-align_center">Please Note: Only Contacts with the Role of Price Change Approver or Price Change Notification/Viewer will be displayed. </div>
+      <br>
+      <lightning-datatable key-field="Id" data={defaultcontactsdata} onrowselection={handleContactRowAction}
+        max-row-selection=1 columns={columns}>
+      </lightning-datatable>
+    </template>
+    <!--first block for reps to see the contacts end-->
+  
+    <center>
+      <div if:true={quotesWithNoContacts} style="font-size: large;">
+        There are no customers associated. Please proceed to search customer button below.
+      </div>
+    </center>
+    <!--The results of contact search start-->
+    <div if:true={searchResultsFound}>
+      <div class="slds-page-header" style="font-size: large;">
+        <center>Here are the Search Results Found.</center>
+      </div>
+      <lightning-datatable key-field="Id" data={contactList} onrowselection={handleSearchContactRowAction}
+        max-row-selection=1 columns={columnsSearchCon}>
+      </lightning-datatable>
+      <div if:true={repSatisfactionWithCustomers} style="padding-top:15px;font-size: large;">
+        <center>
+          Did you find the Customer to Email the Quote Document?
+          <lightning-button variant="success" label="Yes" title="Yes" onclick={showDefaultdocuments}
+            class="slds-m-left_x-small"></lightning-button>
+          <lightning-button variant="Destruvtive" label="No" title="No" onclick={ShowSearchForContacts}
+            class="slds-m-left_x-small"></lightning-button>
+        </center>
+      </div>
+    </div>
+    <!--The results of contact search end-->
+    <!--Search fields for contact start-->
+    <center>
+      <div class="slds-box-search" if:true={allowingSearchContactForReps}> You Can Search a Customer with any of the following
+        fields.
+        <lightning-input type="text" value={firstNameEntered} label="First Name" onchange={firstNameSearchKey}>
+        </lightning-input>
+        <lightning-input type="text" value={lastNameEntered} label="Last Name" onchange={lastNameSearchKey}>
+        </lightning-input>
+        <lightning-input type="text" value={emailEntered} label="Email" onchange={emailSearchKey}></lightning-input>
+        <lightning-input type="text" value={phoneEntered} label="Phone" onchange={phoneSearchKey}></lightning-input>
+        <br>
+        <lightning-button label="Search" onclick={handleSearch} variant="brand" disabled={isTrue}></lightning-button>
+        <br>
+      </div>
+    </center>
+    <!--Search fields for contact end-->
+    <!---create contact start-->
+    <center>
+      <div class="slds-box" if:true={allowCreatCon}>
+        <lightning-record-edit-form record-type-id="012E000000093HD" object-api-name="Contact" onsuccess={handleSuccess} onerror={handleError} >
+          <lightning-messages></lightning-messages>
+          <div class="slds-m-around_medium">
+            <lightning-input-field field-name='FirstName' value={firstNameCreation}></lightning-input-field>
+            <lightning-input-field field-name='LastName' value={lastNameCreation}></lightning-input-field>
+            <lightning-input-field field-name='Email' value={emailCreation}></lightning-input-field>
+            <lightning-input-field field-name='Phone' value={phoneCreation}></lightning-input-field>
+            <lightning-input-field field-name='Role__c'></lightning-input-field>
+            <div class="slds-m-top_medium">
+              <lightning-button variant="brand" type="submit" name="save" label="Create Contact"
+                onclick={StartTheSpinner}>
+              </lightning-button>
+            </div>
+          </div>
+        </lightning-record-edit-form>
+      </div>
+
+    </center>
+
+    <!--create contact end-->
+    <!--All three default buttons for the page start-->
+    <br />
+    <div>
+      <center>
+        <div style="padding-right: 5px;padding-top:15px; padding-bottom:15px;">
+          <lightning-button if:true={backToMainScreenBoolean} label="Back" onclick={backtoMainPage}></lightning-button>
+        </div>
+
+        <lightning-button variant="brand" if:true={searchForContactsBoolean} type="submit" label="Search For Customer"
+          class="slds-align-left" onclick={searchForContact} style="padding-right: 5px"></lightning-button>
+        <lightning-button if:true={sendEmailBoolean} label="Send Email" onclick={sendEmailTocustomer} variant="brand"
+          style="padding-right: 5px"></lightning-button>
+        <!--lightning-button if:true={editSelectedContactBoolean} label="Edit" onclick={editSelectedContact}
+          variant="brand" style="padding-right: 5px"></lightning-button>-->
+        <br /><br />
+        <div style="padding-right: 5px;padding-top: 15px">
+          <lightning-button label={backButtonLabel} if:true={backToProsButton} onclick={backToProsQuote} variant="brand">
+          </lightning-button>
+        </div>
+      </center>
+    </div>
+
+    <!--All three default buttons for the page  ends-->
+
+
+
+    <!--when search results for contact are empty start-->
+    <div if:true={nosearchResultsFound} style="font-size: large;">
+      <center>Sorry, we are not able to find the Customer you are looking for. Do you want us to create one?
+        <br />
+        <lightning-button if:true={createContactsBoolean} label="Add Customer" onclick={createContact} variant="brand"
+          class="slds-align-middle" style="padding-left: 5px"></lightning-button>
+      </center>
+    </div>
+    </div>
+  </div>
+  <!--when search results for contact are empty end-->
+  <!--when the internal status is submitted ends-->
+
+  <!--Adding a new contact end-->
+</template>

@@ -1,0 +1,77 @@
+<apex:page controller="MarketBuilderController" sidebar="false" showHeader="false" standardStylesheets="false" docType="html-5.0">
+ <head>
+ <style>
+
+        body {
+  font-family: Arial;
+     font-weight: 300;
+     font-weight: bold;
+}
+        .btn_Start
+{
+  display: block;
+   width:216px; 
+   height:54px;
+   border:none;
+   background: url("http://www.odmarketbuilder.com/Images/RedButton.png") no-repeat 0 0;
+   padding-bottom:10px;
+
+}
+
+        .btn_Start:hover
+  { 
+    background: url("http://www.odmarketbuilder.com/Images/RedButton_MouseOver.png") no-repeat 0 0;
+     border:none;
+     cursor:pointer;
+  }
+
+    </style>
+
+</head>
+      <apex:form >
+       <div>
+        <br /><br />
+    <table id="Table_01" width="790" height="322" border="0" cellpadding="0" cellspacing="0" align="center">
+    <tr>
+        <td width="94" height="92">
+            </td>
+        <td>
+            <img src="http://www.odmarketbuilder.com/images/Splash/Splash_OD_Logo.png" width="172" height="92" alt=""/></td>
+        <td>
+            <img src="http://www.odmarketbuilder.com/images/Splash/Splash_bar.png" width="32" height="92" alt=""/></td>
+        <td>
+            <img src="http://www.odmarketbuilder.com/images/Splash/Splash_OD_MarketBuilder.png" width="398" height="92" alt=""/></td>
+        <td width="94" height="92">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5" width="790" height="29">
+            </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <img src="{!URLFOR($Resource.Market, '/OD011-MarketBuilder_bw.png')}" width="790" height="147" alt=""/></td>
+    </tr>
+    <tr>
+        <td colspan="5" width="790" height="54" align="center">
+            
+            
+             <div id="pnl_invalid">
+    
+               <apex:commandButton action="{!onMBButton}"  image="{!URLFOR($Resource.Market, '/start-button-png-md.png')}">
+    </apex:commandButton>  
+    <br> </br>
+  <h1>Click Above to be redirected to the Market Builder Tool!</h1>
+       
+             
+</div>
+
+        </td>
+    </tr>
+</table>
+</div>
+      
+
+ 
+  </apex:form>
+</apex:page>

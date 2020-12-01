@@ -1,0 +1,33 @@
+<template>
+	<div>
+		<template if:false={hasError}>
+			<div class="slds-box slds-p-around_medium slds-grid">
+				<table class="slds-grow">
+					<tr>
+						<td>
+							Comment Code
+						</td>
+						<td>
+							Comment
+						</td>
+					</tr>
+					<template for:each={aopsCustInstructions} for:item="item">
+						<tr key={item.comment}>
+							<td>
+								{item.commentCode}
+							</td>
+							<td>
+								{item.comment}
+							</td>
+						</tr>
+					</template>
+				</table>
+			</div>
+		</template>
+		<template if:true={hasError}>
+			<div>
+				<span>No customer instructions found</span>
+			</div>
+		</template>
+	</div>
+</template>

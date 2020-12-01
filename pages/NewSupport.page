@@ -1,0 +1,52 @@
+<apex:page standardController="case"  extensions="TestCaseSoprtController"  sidebar="false" showheader="true">
+
+
+   <style type="text/css">
+        .myClass { width: 400px; height: 200px;}
+        .myClass1 { width: 400px; height:90px;}
+    </style>
+
+
+    <apex:form >
+    <apex:pagemessages id="msg"></apex:pagemessages>
+     <apex:pageBlock title="New Support">
+    
+     <apex:pageBlockButtons >
+     <apex:commandButton value="Save" action="{!onsave}" id="saveButton" />
+     
+     </apex:pageBlockButtons>
+     
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.Status}" required="true"/> </apex:pageBlockSection>
+     
+    <apex:pageBlockSection > <apex:inputfield label="Subject" value="{!vv.subject}"  required="true"/>  </apex:pageBlockSection> 
+     
+    <apex:pageBlockSection > <apex:inputField styleClass="myClass" label="Description" value="{!vv.description}" required="true" />  </apex:pageBlockSection>
+    
+    <apex:pageBlockSection > <apex:inputField styleClass="myClass1" label="Impact Description" value="{!vv.IT_Impact__c}" required="false" />  </apex:pageBlockSection>
+     
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.IT_Assignment__c}"  /> </apex:pageBlockSection>
+    
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.IT_BU_Reviewer__c}"  /> </apex:pageBlockSection> 
+    
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.priority}" required="true"/> </apex:pageBlockSection>
+    
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.Rank__c}" required="false"/> </apex:pageBlockSection>
+    
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.Support_Type__c}"/>  </apex:pageBlockSection>
+    
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.Support_Sub_Type__c}"/> </apex:pageBlockSection>
+     
+     <apex:pageBlockSection > <apex:inputfield value="{!vv.IT_Environment__c}" required="true" /> </apex:pageBlockSection>
+     
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.IT_Classification__c}" required="true" /> </apex:pageBlockSection>
+     
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.IT_Track__c}" required="true" />  </apex:pageBlockSection>
+    
+    <apex:pageBlockSection > <apex:inputfield value="{!vv.IT_Sprint_Numb__c }"/> </apex:pageBlockSection>
+     
+    
+    </apex:pageBlock>
+    
+   </apex:form>
+ 
+</apex:page>

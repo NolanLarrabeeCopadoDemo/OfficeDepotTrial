@@ -1,0 +1,22 @@
+<apex:page lightningStylesheets="true" standardStylesheets="false" showHeader="false" sidebar="false">
+      <apex:includeScript value="/lightning/lightning.out.js" />
+    <apex:slds />
+    <div id="lightning" />
+    <script>
+     
+        $Lightning.use("c:ContractPricingTermsEditPageApp", function() {
+            $Lightning.createComponent(
+                "c:ContractPricingTermsEditPage",
+                {recordId:'{!$CurrentPage.parameters.Id}',
+                 parentrecordId:'{!$CurrentPage.parameters.ParentId}',
+                 Displaymode:'{!$CurrentPage.parameters.mode}',
+                 Newsave:'{!$CurrentPage.parameters.varsave}'
+                },
+                "lightning",
+                function(cmp) {
+                    console.log("Component created!");
+                    console.log(cmp);
+                });
+            });
+    </script>
+</apex:page>

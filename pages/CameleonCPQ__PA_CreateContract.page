@@ -1,0 +1,201 @@
+<apex:page standardController="CameleonCPQ__Quote__c" extensions="CameleonCPQ.PA_CreateContract_VFCtrl" standardStylesheets="{!AND(NOT($User.UIThemeDisplayed == 'Theme4d'),NOT($User.UIThemeDisplayed == 'Theme4t'))}" showHeader="false" sidebar="false" docType="html-5.0">
+<apex:outputPanel rendered="{!OR($User.UIThemeDisplayed == 'Theme4d',$User.UIThemeDisplayed == 'Theme4t')}">
+    <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/css/lightning/app.css')}"/>
+    <apex:includeLightning />
+    
+    <div id="CreateContract_LEX_Component" />
+
+    <script>
+        $Lightning.use("CameleonCPQ:SmartCPQ", function() {
+          $Lightning.createComponent("CameleonCPQ:LEXQA_CreateContract",
+          {
+              "recordId" : "{!Quote__c.Id}",
+              "contractStartDate" : "{!contract.CameleonCPQ__ContractStartDate__c}",
+              "contractEndDate" : "{!contract.CameleonCPQ__ContractEndDate__c}"
+          },
+          "CreateContract_LEX_Component",
+          function(cmp) {
+              $A.eventService.addHandler({
+                  event: 'CameleonCPQ:navigateToURL',
+                  handler: function(event) {
+                      if((typeof sforce != 'undefined') && (sforce != null)) {
+                         sforce.one.navigateToURL(event.getParam('url'));
+                      } 
+                      else {
+                         top.location.href = event.getParam('url');
+                      }
+                  }
+              });
+          }
+        )});
+
+        setTimeout(removeLightningStyles, 1000);
+
+        function removeLightningStyles() {
+           var headLinks = document.head.getElementsByTagName('link');
+           var ltngLnk = '/app.css';
+           for (var i = 0; i < headLinks.length; i++) {
+               var url=headLinks[i].href;
+               if(url.substring(url.length - ltngLnk.length, url.length ) === ltngLnk && url.indexOf("SF1Resources",0) == -1) {
+                  headLinks[i].parentNode.removeChild(headLinks[i]);
+               }
+           }
+        }
+    </script>
+</apex:outputPanel>
+<apex:outputPanel rendered="{!AND(NOT($User.UIThemeDisplayed == 'Theme4d'),NOT($User.UIThemeDisplayed == 'Theme4t'))}">
+    <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'custom/css/app.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jQuery2.0.3.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jquery.touchwipe.min.js')}"/>
+    <style type="text/css">
+    .forceGlobalModalIndicator .indicatorContainer .message {
+        background: #354452;
+        border: none;
+        color: #FFFFFF;
+    }
+    .apexMsg td {
+        font-size:16px;
+        font-weight:bold;
+        text-align:center;
+        color:red;
+    }
+    .editPage > div > div > div > * {
+        padding: 5px;
+    }
+    </style>
+    <apex:messages layout="table" styleClass="apexMsg"/>
+    
+    <script type="text/javascript">
+    $jq=jQuery.noConflict(); 
+    function toggleWaitingScreen(){
+        $jq("#loadingStatus").toggleClass("hidden");
+        $jq("#_gModal_Message").html("In progress..");
+    }
+    function createContractFromQuote() {
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.PA_CreateContract_VFCtrl.getNewOptions}',
+            function(cFqParams, event) {
+                if (event.status) {
+                    cFqParams.quoteID = '{!Quote__c.Id}';
+                    cFqParams.contractStartDateString = $jq("[id$='contractStartDate']").val(); 
+                    cFqParams.contractEndDateString = $jq("[id$='contractEndDate']").val();
+                    toggleWaitingScreen();
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.PA_CreateContract_VFCtrl.createContractFromQuote}',
+                        cFqParams,
+                        function(clmInfo, event1) {
+                            if(event1.status) {
+                              if((typeof clmInfo.errorMessage != 'undefined') && (clmInfo.errorMessage != null) && (clmInfo.errorMessage.length > 0)) {
+                                alert('{!$Label.MSG_CLM_CFQ_ERROR} '+clmInfo.errorMessage);
+                                top.location.href = '{!URLFOR($Action.Quote__c.View, Quote__c.Id)}';
+                              }
+                              else if((typeof sforce != 'undefined') && (sforce != null)) {
+                                 sforce.one.navigateToSObject(clmInfo.objectId,'detail');
+                              } 
+                              else {
+                                 top.location.href = '/'+clmInfo.objectId;
+                              }
+                            }
+                            if(event1.type=='exception') {
+                              alert('{!$Label.MSG_CLM_CFQ_ERROR} '+event1.message);
+                              top.location.href = '{!URLFOR($Action.Quote__c.View, Quote__c.Id)}';
+                            }
+                        }
+                    );
+                }
+                if (event.type == 'exception') {
+                    alert('{!$Label.MSG_CLM_CFQ_ERROR} (3)' + event.message);
+                    top.location.href = '{!URLFOR($Action.Quote__c.View, Quote__c.Id)}';
+                }
+            },
+            { buffer: false, escape: true, timeout: 120000 }
+        );
+    }
+    function normalizeDate(dateVal) {
+        dateVal = dateVal == null || dateVal.length == 0 ? new Date() : new Date(dateVal);
+        return new Date(Date.UTC(dateVal.getFullYear(), dateVal.getMonth(), dateVal.getDate())).toUTCString();
+    }
+    function validateContract() {
+        var contractStartDate = null;
+        var contractEndDate = null;
+        
+        var dateStr = $jq("[id$='contractStartDate']").val();
+        try {
+            contractStartDate = (dateStr==null || dateStr.length == 0) ? new Date() : new Date(dateStr);
+        }
+        catch(e) {
+            console.log(e);
+        }
+         
+        dateStr = $jq("[id$='contractEndDate']").val();
+        if(dateStr != null && dateStr.length >0) {
+           try {
+               contractEndDate = new Date(dateStr);            
+           }
+           catch(e) {
+               console.log(e);
+           }
+        }
+                                 
+        if(contractEndDate!=null && contractStartDate!=null && contractStartDate>contractEndDate) {
+           alert('{!$Label.MSG_CLM_CFQ_ERROR} '+'{!$Label.MSG_CLM_INVALID_DATES}');
+           return false;
+        }
+        return true;
+    }
+    function hideContractOptionsPopup() {
+        $jq("[id$='contractOptionsPopup']").hide();
+    }
+    function goBackToQuote() {
+        if((typeof sforce != 'undefined') && (sforce != null)) {
+           sforce.one.navigateToSObject('{!Quote__c.Id}','detail');
+        } 
+        else {
+           top.location.href = '{!URLFOR($Action.Quote__c.View, Quote__c.Id)}';
+        }
+    }
+    </script>
+    <div id="loadingStatus" class="hidden forceGlobalModalIndicator oneStyle oneOne">
+    <div class="modal-glass">&nbsp;</div>
+    <div class="indicatorContainer" role="alert">
+        <img class="spinnerIcon icon uiImage" alt="" src="/auraFW/resources/aura/s.gif"/>
+        <div class="message" id="_gModal_Message"/>
+    </div>
+    </div>
+    <apex:form >
+    <apex:actionFunction name="openContractOptionsPopup" action="{!openContractOptionsPopup}"/>   
+    <apex:outputPanel id="contractOptionsPopup" rendered="{!ContractOptionsPopupDisplayed}">
+    <apex:outputPanel styleClass="contractOptionsPopupBg" layout="block" />
+    <apex:outputPanel id="overlayDialog" layout="block" style="width: 350px;">
+        <apex:outputPanel styleClass="topRight" layout="block">
+            <apex:outputPanel styleClass="topLeft" layout="block">
+                <h2><apex:outputText value="{!$Label.cameleoncpq__clm_create_contract}"/></h2>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:pageBlock mode="edit">
+            <apex:outputPanel layout="block"> 
+                <apex:outputPanel layout="block"> 
+                    <apex:outputText styleClass="labelCol" value="{!$Label.cameleoncpq__clm_contract_type}"/>
+                    <apex:selectList id="contractType" disabled="true" value="{!contract.CameleonCPQ__ContractType__c}" size="1">
+                    <apex:selectOptions value="{!contractTypes}"/>
+                    </apex:selectList>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block"> 
+                    <apex:outputText styleClass="labelCol" value="{!$Label.cameleoncpq__clm_contract_start_date}"/>
+                    <apex:inputField value="{!contract.CameleonCPQ__ContractStartDate__c}" id="contractStartDate" />
+                </apex:outputPanel>
+                <apex:outputPanel layout="block"> 
+                    <apex:outputText styleClass="labelCol" value="{!$Label.cameleoncpq__clm_contract_end_date}"/>
+                    <apex:inputField value="{!contract.CameleonCPQ__ContractEndDate__c}" id="contractEndDate" />
+                </apex:outputPanel>
+            </apex:outputPanel>
+            <apex:outputPanel styleClass="buttons" layout="block">                 
+                <apex:commandButton value="{!$Label.cameleoncpq__btn_ok}" action="{!closeContractOptionsPopup}" onclick="if(validateContract())hideContractOptionsPopup(); else return false;" oncomplete="createContractFromQuote();" />
+                <apex:commandButton value="{!$Label.cameleoncpq__btn_cancel}" action="{!closeContractOptionsPopup}" onclick="goBackToQuote();"/>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:outputPanel>
+    </apex:outputPanel>
+    </apex:form>
+</apex:outputPanel>
+</apex:page>

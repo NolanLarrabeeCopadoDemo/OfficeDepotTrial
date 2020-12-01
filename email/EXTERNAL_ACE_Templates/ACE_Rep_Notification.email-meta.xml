@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>ACE Rep Notification</name>
+    <style>freeForm</style>
+    <subject>{!ACE_Notification_PriceChanges__c.batchId__c} Price Changes Now Available for Review</subject>
+    <textOnly>Dear {!ACE_Notification_PriceChanges__c.User__c},
+
+Your customer price changes for {!ACE_Notification_PriceChanges__c.batchId__c} are now visible in Salesforce.com. Click Here (https://officedepot.my.salesforce.com/servlet/servlet.Integration?lid=01rE0000000DGWA&amp;ic=1) to view your customers’ price changes. You do not need to do anything for these changes to be effective.
+
+Salesforce.com will automatically notify any customers whose written agreements require either approval or notification about these price changes. You can choose to send courtesy notifications to any customer without the written agreement notification requirement.
+
+- You will have until {!ACE_Notification_PriceChanges__c.Notification_Date_Email__c} to make optional changes to any customers whose written agreements require either approval or notification
+- You will have until {!TODAY()+30} to make optional changes to any customers without required notification per a written agreement but with annual sales exceeding $75,000
+- You will have until {!TODAY()+45} to make optional changes to any customers without required notification per a written agreement but with annual sales below $75,000
+
+All customer notifications will be sent via email to the contact(s) you have indicated via the “Role” field on the contact in Salesforce.com, so please ensure that your customers have at least one contact with either the “Price Change Approver” or “Price Change Notification/Viewer” role, as well as a valid email address for each contact with that role.
+
+Thank you!
+
+Office Depot Contract Division</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

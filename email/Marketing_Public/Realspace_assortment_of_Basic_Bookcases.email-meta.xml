@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Realspace assortment of Basic Bookcases</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Realspace assortment of Basic Bookcases</name>
+    <style>freeForm</style>
+    <subject>Realspace assortment of Basic Bookcases</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+
+
+As always thank you for being a loyal Office Depot customer.  Attached is a handy reference guide on our Realspace assortment of Basic Bookcases.  Many of my TCPN customers have found this document handy in selecting the right bookcase for their office.
+
+
+If you have any questions, please don&apos;t hesitate to contact me at the below number. For your reference, your account number is {!Account.Cust_ID__c}
+
+Thank you again for your time and your continued business with Office Depot.
+
+
+Regards,
+{!User.Name}
+Account Manager
+855-DEPOT11 x{!User.ISO_Extension__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

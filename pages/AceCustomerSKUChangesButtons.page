@@ -1,0 +1,17 @@
+<apex:page standardController="Ace_Customer_SKU_Changes__c" extensions="ACE_StdCustUserAccess,AceCustomerSKUChangesButtons">
+  <apex:form >
+    <CENTER>
+   <apex:outputPanel id="redirectPanel" >
+     <apex:outputText rendered="{!Redirect}">
+          <script type="text/javascript">
+               window.top.location.href = '{!redirecturl}';
+          </script>
+     </apex:outputText>
+   </apex:outputPanel>
+   
+   <apex:panelgrid columns="4">
+<!--     <apex:commandbutton action="{!PriceeExceptionButton}" value="Request Price Exception" rerender="redirectPanel" rendered="{!IF((renderMap['PRICEEXCEPTION'] || (STDCore&&AceAccess)),true,false)}"/>  ADDED MM-->
+   </apex:panelgrid>
+   </CENTER>
+  </apex:form>
+</apex:page>

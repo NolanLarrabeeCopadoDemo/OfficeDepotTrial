@@ -1,0 +1,41 @@
+<apex:page standardController="Case" recordSetVar="Cases" extensions="SendToAcceleratorController">  
+    <apex:pageMessages />
+    
+    <script>
+        function onCompleteSend(sprintElemId) {
+            window.open('{!$Label.AgileAcceleratorLink}' + document.getElementById(sprintElemId).value);
+            window.history.back();
+        }
+    </script>
+    
+    <apex:form >
+        <apex:pageBlock title="Send Stories to Agile Accelerator">        
+            <div align="center">
+                <apex:outputLabel ><b>Select sprint to load to:</b></apex:outputLabel><br/>
+                <apex:selectList size="1" value="{!selectedSprintId}" onchange="FetchData(this.options[this.selectedIndex].value" id="sprintSelectList">
+                    <apex:SelectOptions value="{!Sprints}"></apex:SelectOptions>
+                </apex:selectList>
+                <br/><br/>
+                <apex:outputLabel ><b>Select product tag to assign:</b></apex:outputLabel><br/>
+                <apex:selectList size="1" value="{!selectedTagId}" onchange="FetchData(this.options[this.selectedIndex].value">
+                    <apex:SelectOptions value="{!Tags}"></apex:SelectOptions>
+                </apex:selectList>
+                <br/><br/>
+                <apex:commandButton value="Send" status="savingMes" action="{!sendToAccelerator}" onComplete="onCompleteSend('{!$Component.sprintSelectList}');" />
+                &nbsp;&nbsp;&nbsp;
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+                <br/>
+                <apex:actionStatus id="savingMes" startText="Saving..."/>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:pageBlock title="Selected Cases">
+        <apex:pageBlockTable value="{!Selected}" var="SelectedCase">
+            <apex:column value="{!SelectedCase.CaseNumber}"/>
+            <apex:column value="{!SelectedCase.Subject}"/>
+            <apex:column value="{!SelectedCase.IT_Sprint_Numb__c}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    
+</apex:page>

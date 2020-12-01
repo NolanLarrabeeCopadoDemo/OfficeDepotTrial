@@ -1,0 +1,22 @@
+<apex:page standardcontroller="Lead" standardStylesheets="false" showHeader="false" sidebar="false">
+    <!--<apex:includeLightning/>-->
+    <apex:includeScript value="/lightning/lightning.out.js" />
+    <apex:slds />
+    <div id="lightning" />
+    <script>
+    
+    $Lightning.use("c:LeadProspectApp", function() {
+           
+            $Lightning.createComponent( 
+                "c:ProspectSetUpComponent",
+                {leadRecId:'{!$CurrentPage.parameters.Id}'},
+                "lightning",
+                function(cmp) {
+                    console.log("Component created!");
+                    console.log(cmp);
+                });
+            });
+    
+    </script>
+    
+</apex:page>

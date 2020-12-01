@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Teacher Order Forms</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Teacher Order Forms</name>
+    <style>freeForm</style>
+    <subject>Teacher Order Forms</subject>
+    <textOnly>Hi {!Contact.FirstName},
+
+
+
+Please take a look at the attached order form with the updated TCPN pricing on our most popular school supplies.  I think you will find this to be a very handy tool to help your teachers and staff to get organized and save money.
+
+We also offer a wide variety of solutions exclusively for education, from furniture to professional development and much more. If you ever have any questions or concerns, please do not hesitate to call me.  I am here to assist you with anything you may need and I look forward to speaking with you.
+
+
+
+
+
+
+
+
+
+Warm Regards,
+
+{!User.Name}
+
+Account Manager
+
+{!User.Email}
+
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

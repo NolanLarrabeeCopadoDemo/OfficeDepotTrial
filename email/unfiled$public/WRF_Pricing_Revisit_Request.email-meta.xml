@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Request Pricing Team to revisit pricing for potential opportunity</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>WRF Pricing Revisit Request</name>
+    <style>freeForm</style>
+    <subject>Support# {!Case.CaseNumber}: Pricing Revisit Request</subject>
+    <textOnly>*** PRICING REVISIT REQUEST *** 
+
+Customer has rejected pricing proposal.
+Please revisit pricing analysis for the following opportunity: 
+
+
+Support#: {!Case.CaseNumber}
+Subject: {!Case.Subject}
+
+Account Name: {!Case.Account}
+Opportunity Name: {!Case.WRF_Opportunity__c}
+Opportunity Amount: {!Case.WRF_Oppty_Amount__c}
+Customer Accepts Pricing Setup or Change: NO 
+Details: ADD TEXT... 
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+Requestor Mobile: {!Case.WRF_Requestor_Mobile__c}
+
+
+Thank you, 
+{!User.Name}
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

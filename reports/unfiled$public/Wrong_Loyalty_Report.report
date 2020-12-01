@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Loyatly_Number__c</field>
+    </columns>
+    <columns>
+        <field>Account.Status__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Account.Customer_Business_Pro</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Loyatly_Number__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>56433444442966,13281314754,LYNDA@HUNTFAMILYI,15512875823,FEDESIGNANDCONSUL,ORBITSLIGHTWAVE,BAHIA PROPERTY 14,56714255618,MOLLY@ONSITESANIT,56508044890,NICK SHUNDO,17589886036,JUNGLEBREAD,56599453301,ARTEIVAZ1964@GMAI,56005114979,30,15556130968,56651283266,437,923,752,#1886686573,14573613333,19100305323,51556808726,56432288504,56441774529,616,477,455,56552298296,11051303053,195792929308,(310) 225 - 3967,56538798931,5665294210 M,19637003960,12304967440,COMMERCIAL PROPER,(661) 294-3696,56676344207,40489173356,5649808739v,MMURD2268@GMAIL.C,11253055407,56470401044,56593996503,5599660403E,56555803392,We will be in the,1933340-984,11525888297,16070967502,20190668632,MOVIMIENTO MISONE,19112742247</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Wrong Loyalty Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>USERS.NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

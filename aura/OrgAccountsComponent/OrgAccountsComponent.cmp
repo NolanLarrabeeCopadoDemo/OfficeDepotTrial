@@ -1,0 +1,51 @@
+<aura:component controller="OrgHierarchyDetailsController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">   
+    <aura:handler name="init" value="{!this}" action="{!c.doAction}" />  
+    
+    <aura:method name="reInitCustomer" action="{!c.doAction}" description="Runs the init method again ">
+        <aura:attribute name="param1" type="String"/>
+    </aura:method>
+    
+        <aura:attribute name="subrecordId" type="String" access="global"/>
+
+    <aura:attribute name="CustomerColumns" type="List"/>
+    <aura:attribute name="customerList" type="Account" />
+    <aura:attribute name="countCustomer" type="String" />
+    <aura:attribute name="recentCustomer" type="Account" />
+    <aura:attribute name="showCustomerInfo" type="boolean" default="false"/>
+        
+    <aura:attribute name="currentIdRec" type="String"/>   
+    
+    <aura:attribute name="currentId" type="String"/>   
+    <aura:attribute name="accountId" type="Id"/>
+    <aura:attribute name="isAccountOrOrg" type="boolean"/>
+    <aura:attribute name="showModel" type="boolean" default="false"/>
+     <aura:attribute name="Showmessage" type="String"/>   
+    <ul class="slds-has-dividers_around-space">
+          <aura:if isTrue="{!v.Showmessage}">
+      <div class="recordError">
+        <ui:message  closable="false">
+         No Customer Records Found
+        </ui:message>
+      </div>
+    </aura:if>
+   
+                
+                <aura:iteration items="{! v.customerList }" var="item">
+                     <li class="slds-item"  >
+                         <lightning:icon iconName="standard:Account"/>
+                         <lightning:tile  label="{!item.Name}" href="{!item.Id}" class="slds-tile_board" >
+                              <p class="slds-truncate">Rolling 12 months Sales</p>
+                        <p class="slds-text-heading_medium"> ${!item.Rolling_12_month_sales__c}</p>
+                <p class="slds-truncate" title="Rep Name"><a href="#"> Account Owner : {!item.Owner.Name}</a></p>
+                <p class="slds-truncate">AOPS Customer ID #  {!item.AOPS_Cust_Id__c}</p>
+                       
+                             
+            </lightning:tile>
+                          </li>    
+    </aura:iteration>
+           
+       
+    </ul>
+   
+    
+</aura:component>

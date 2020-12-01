@@ -1,0 +1,638 @@
+<aura:component controller="DMLRelationController" implements="force:appHostable,flexipage:availableForAllPageTypes"
+    access="global">
+    <!-- Search filters  -->
+    <ltng:require styles="{!$Resource.popupCSS}" />
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}" />
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}" />
+    <aura:attribute name="NewSalesId" type="String" default="" />
+    <aura:attribute name="NewSalesIdVal" type="String" default="" />
+    <aura:attribute name="segment" type="String" default="" />
+
+    <aura:attribute name="grandparent_id_list" type="String" default="" />
+    <aura:attribute name="parent_id_list" type="String" default="" />
+    <aura:attribute name="customer_id_list" type="String" default="" />
+    <aura:attribute name="salesrep_id_list" type="String" default="" />
+    <aura:attribute name="duns_number_list" type="String" default="" />
+    <aura:attribute name="dml_id_list" type="String" default="" />
+    <aura:attribute name="dml_name" type="String" default="" />
+    <aura:attribute name="DML" type="sobject" 
+           default="{ 'sobjectType': 'DML__c' }"/>
+    <aura:attribute name="picvalue" type="List"/>
+    <aura:attribute name="segment_overide_reason" type="String" default="" />
+    <aura:attribute name="segmentoverridereasonerror" type="boolean" default="false" />
+    <aura:attribute name="showErrorsegoverreason" type="boolean" default="false"/>
+    <aura:attribute name="search_input_valid" type="Boolean" default="false" />
+
+    <aura:attribute name="NewDMLId" type="String" default="" />
+    <aura:attribute name="NewDMLIdVal" type="String" default="" />
+    <aura:attribute name="countDml" type="String" />
+    <aura:attribute name="DMLColumns" type="List" />
+    <aura:attribute name="DMLList" type="DML_Relation__c" />
+    <aura:attribute name="sortedBy" type="String" default="Name" />
+    <aura:attribute name="sortedDirection" type="String" default="asc" />
+    <aura:attribute name="rowsSelected" type="List" />
+    <aura:attribute name="rowsApprovalSelected" type="List" />
+    <aura:attribute name="rowsRejectionSelected" type="List" />
+    <aura:attribute name="showSalesRep" type="boolean" default="false" />
+    <aura:attribute name="showDate" type="boolean" default="false" />
+    <aura:attribute name="DMLNewList" type="DML_Relation__c" />
+    <aura:attribute name="myDate" type="date" />
+    <aura:attribute name="myupdateDate" type="date" />
+    <aura:attribute name="errorMessages" type="String" />
+    <aura:attribute name="DMLApprovalList" type="Case" />
+    <aura:attribute name="DMLApprovalColumns" type="List" />
+
+    <aura:attribute name="DMLRejectionList" type="Case" />
+    <aura:attribute name="DMLRejectionColumns" type="List" />
+    <aura:attribute name="validationError" type="boolean" default="false" />
+    <aura:attribute name="validationErrorfinal" type="boolean" default="false" />
+    <aura:attribute name="validationErrors" type="String" />
+    <aura:attribute name="inputError" type="boolean" default="false" />
+    <aura:attribute name="requiredinputError" type="boolean" default="false" />
+
+    <aura:attribute name="Spinner" type="boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="showSearchData" type="boolean" default="false" />
+    <aura:attribute name="showNewData" type="boolean" default="false" />
+    <aura:attribute name="showSearch" type="boolean" default="false" />
+    <aura:attribute name="shownotes" type="boolean" default="false" />
+    <aura:attribute name="Notes" type="String" />
+    <aura:attribute name="showError" type="boolean" default="false" />
+    <aura:attribute name="requiredRowError" type="boolean" default="false" />
+
+    <aura:attribute name="selectedRelationId" type="String" />
+    <aura:attribute name="dmlRelationList" type="DML_Relation_History__c" />
+    <aura:attribute name="relationColumns" type="List" />
+    <aura:attribute name="showModel" type="boolean" default="false" />
+    
+    <aura:attribute name="recordToDisply" type="integer" default="100" description="total number of records to display"/>
+    <aura:attribute name="page" type="integer" default="1" description="using for store page Number"/>
+    <aura:attribute name="pages" type="integer" description="using for store All Pages page Number"/>
+    <aura:attribute name="total" type="integer" description="total records count store "/>
+    <aura:attribute name="pageDMLUpdate" type="integer" default="1" description="using for store page Number"/>
+    <aura:attribute name="pagesDMLUpdate" type="integer" description="using for store All Pages page Number"/>
+    <aura:attribute name="totalDMLUpdate" type="integer" description="total records count store "/>
+
+    <aura:handler name="PaginationEvent" event="c:PaginationEvent" action="{!c.handlePaginationEvent}" />
+
+    <lightning:tabset>
+        <lightning:layout class="slds-page-header slds-page-header--object-home">
+            <lightning:layoutItem padding="horizontal-small" size="10" class="right-align">
+
+                <lightning:button label="Cancel" onclick="{! c.navigatetohomepage }" />
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:tab label="DML Update">
+
+
+
+            <div style="margin: auto;width: 75%;">
+
+                <aura:if isTrue="{!v.inputError}">
+                    <div class="recordError">
+                        <ui:message title="Error" severity="error" closable="false">
+                            Please enter at least one filter .
+                        </ui:message>
+                    </div>
+                </aura:if>
+            </div>
+            <!-- Org Search -->
+            <div style="margin: auto;width: 75%;">
+                <fieldset class="slds-form--compound">
+                    <legend class="slds-text-heading--small slds-p-vertical--medium">DML Search Information</legend>
+                    <div class="form-element__group">
+
+
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2">
+                                <lightning:input 
+                                    label="GrandParent ID" 
+                                    value="{!v.grandparent_id_list}" 
+                                    onchange="{!c.handle_search_input_change}"
+                                />
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-2">
+                                <lightning:input 
+                                    label="Parent ID" 
+                                    value="{!v.parent_id_list}" 
+                                    onchange="{!c.handle_search_input_change}"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2">
+                                <lightning:input 
+                                    label="Customer ID" 
+                                    value="{!v.customer_id_list}" 
+                                    onchange="{!c.handle_search_input_change}"
+                                />
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-2">
+                                <lightning:input 
+                                    label="Sales Rep ID" 
+                                    value="{!v.salesrep_id_list}"
+                                    onchange="{!c.handle_search_input_change}" 
+                                />
+
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2">
+                                <lightning:input label="DML ID" value="{!v.dml_id_list}" onchange="{!c.handle_search_input_change}"/>
+
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-2">
+                                <lightning:input 
+                                    label="DML Name" 
+                                    value="{!v.dml_name}" 
+                                    onchange="{!c.handle_search_input_change}"
+                                    />
+                            </div>
+                        </div>
+                        <div class="slds-form-element__row">
+                            <div class="slds-form-element slds-size--1-of-2">
+                                <lightning:input 
+                                    label="DUNS Number" 
+                                    value="{!v.duns_number_list}"
+                                    onchange="{!c.handle_search_input_change}" 
+                                />
+                            </div>
+                            </div>
+                        </div>
+
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size--1-of-1">
+                            <lightning:button 
+                            label="Search DML Data" 
+                            class="slds-m-top--medium" 
+                            variant="brand"
+                            onclick="{!c.search_for_dml_data}" 
+                            disabled="{! not(v.search_input_valid)}"/>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <!-- Ends Here -->
+            <aura:if isTrue="{!v.showSearchData}">
+
+
+                <aura:if isTrue="{!v.showSearch}">
+                    <div class="demo-only" style="height: 400px; width:100%;">
+                        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <!--      <lightning:input label="New DML Id" value="{!v.NewDMLId}" />  -->
+                                <header class="slds-modal__header" style="width:100%;">
+                                    <button class="slds-button slds-modal__close slds-button--icon-inverse"
+                                        title="Close" onclick="{!c.closeModel}">
+                                        X
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                </header>
+                                <div style="background-color:white; width:100%; padding: 10px; font-weight: 900;">
+                                    <c:customLookup objectAPIName="DML__c" fieldsToShow="Name,DECISION_MAKER_NM__c"
+                                        searchField="Name,DECISION_MAKER_NM__c" IconName="standard:DML__c"
+                                        selectedRecord="{!v.NewDMLId}" label="Select Specific DML"
+                                        aura:id="DMLReassignId" />
+                                    <aura:if isTrue="{!v.validationError}">
+                                        <div class="recordError">
+                                            <ui:message title="Error" severity="error" closable="false">
+                                                Please Choose DML Of Status Other Than Rejected or Draft.
+                                            </ui:message>
+                                        </div>
+                                    </aura:if>
+
+                                    <aura:if isTrue="{!v.showError}">
+                                        <aura:if isTrue="{!v.requiredinputError}">
+                                            <div class="recordError">
+                                                <ui:message title="Error" severity="error" closable="false">
+                                                    Please enter New DML ID or Name .
+                                                </ui:message>
+                                            </div>
+                                        </aura:if>
+                                    </aura:if>
+
+                                </div>
+                                <footer class="slds-modal__footer" style="width:100%;">
+                                    <button class="slds-button slds-button_neutral"
+                                        onclick="{!c.ReassignSelectedRows}">Ok</button>
+                                </footer>
+
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </div>
+
+                </aura:if>
+
+                <aura:if isTrue="{!v.DMLList.length==0}">
+                    <div class="recordError">
+                        <ui:message title="Information" severity="info" closable="false">
+                            No Data found.
+                        </ui:message>
+                    </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.DMLList.length>0}">
+                    <div style=" width:100%; padding: 10px; font-weight: 900;">
+
+                        <lightning:button label="Update DML" variant="brand" onclick="{!c.ReassignSalesRep}" />
+                        <lightning:button label="Reassign DML Relationship" variant="brand"
+                            onclick="{!c.ReassignDMLDate}" />
+                            <aura:if isTrue="{!v.countDml > v.recordToDisply}">
+                                <c:PaginationComponent label="DML Update" total="{!v.countDml}" page ="{!v.pageDMLUpdate}" pages="{!v.pagesDMLUpdate}" />
+                            </aura:if>                            
+                    </div>
+                    <aura:if isTrue="{!v.requiredRowError}">    
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false">
+                                Please select a record to reassign.
+                            </ui:message>
+                        </div>
+                    </aura:if>
+                    <br />
+                    <h3 class="slds-tile__title slds-truncate" title="Number Of DML"><b><u>Number Of
+                                DML:{!v.countDml}</u></b></h3>
+                                      
+                    <div class="slds-is-sorted" style=" width:100%; padding: 10px; font-weight: 900;">
+                        <div style="height:300px;">
+                            <lightning:datatable data="{! v.DMLList }" columns="{! v.DMLColumns}" keyField="Id"
+                                onrowselection="{!c.UpdateSelectedRows}" onrowaction="{! c.handleRowAction }"
+                                minColumnWidth="200" hideCheckboxColumn="false" onsort="{!c.updateColumnSorting}"
+                                sortedBy="{!v.sortedBy}" sortedDirection="{!v.sortedDirection}" />
+                        </div>
+                    </div>
+
+                </aura:if>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <aura:if isTrue="{!v.showSalesRep}">
+                    <div class="demo-only" style="height: 400px; width:100%;">
+                        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <!--      <lightning:input label="New DML Id" value="{!v.NewDMLId}" />  -->
+                                <header class="slds-modal__header" style="width:100%;">
+                                    <button class="slds-button slds-modal__close slds-button--icon-inverse"
+                                        title="Close" onclick="{!c.closeModel}">
+                                        X
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                </header>
+                                <div style="background-color:white; width:100%; padding: 10px; font-weight: 900;">
+                                    <!-- <c:strike_lookup label="New DML Sales Rep"
+                                                         value="{!v.NewSalesId}"    
+                                                         object="Sales_Person__c"
+                                                         searchField="Name"
+                                                         placeholder="Select Sales Person Id"
+                                                         order="Name"
+                                                         limit="10"
+                                                         loadingMessage="Loading..."
+                                                         errorMessage="Invalid input"
+                                                         aura:id="DMLReassignId"
+                                                         
+                                                         /> 
+                                       -->
+
+                                    <c:customLookup objectAPIName="Sales_Person__c" fieldsToShow="Name,User_Name__c"
+                                        searchField="Name,User_Name__c" IconName="standard:Sales_Person__c"
+                                        selectedRecord="{!v.NewSalesId}" lookupFilter="IsActive__c=true"
+                                        label="New DML Sales Rep" aura:id="RepReassignId" />
+
+                                    <c:customLookup objectAPIName="Sales_Person__c" fieldsToShow="Name,User_Name__c"
+                                        searchField="Name,User_Name__c" lookupFilter="IsActive__c=true"
+                                        IconName="standard:Sales_Person__c" selectedRecord="{!v.NewSalesIdVal}"
+                                        label="New DML Teaming Sales Rep" aura:id="TeamingSalesRep" />
+
+                                    <!--   <c:strike_lookup label="New DML Teaming Sales Rep"
+                                                         value="{!v.NewSalesIdVal}"    
+                                                         object="Sales_Person__c"
+                                                         searchField="Name"
+                                                         placeholder="Select Sales Person Id"
+                                                         order="Name"
+                                                         limit="10"
+                                                         loadingMessage="Loading..."
+                                                         errorMessage="Invalid input"
+                                                         aura:id="DMLReassignIdVal"
+                                                         
+                                                         /> -->
+                                    <div class="slds-form-element slds-size--1-of-1">
+                                        <lightning:select aura:id="Segment" value="{!v.segment}" label="Select Segment">
+                                            <option value="">Choose one Segment
+                                            </option>
+                                            <option value="Small &lt; $10K">Small &lt; $10K
+                                            </option>
+                                            <option value="Small $10K-$75K">Small $10K-$75K
+                                            </option>
+                                            <option value="Medium $75K-$150K">Medium $75K-$150K
+                                            </option>
+                                            <option value="Standard $150K-$250K">Standard $150K-$250K
+                                            </option>
+                                            <option value="Key $250K-$500K">Key $250K-$500K
+                                            </option>
+                                            <option value="Major $500K-$1M">Major $500K-$1M
+                                            </option>
+                                            <option value="K-12">K-12
+                                            </option>
+                                            <option value="Higher-Ed">Higher-Ed
+                                            </option>
+                                            <option value="Federal">Federal
+                                            </option>
+                                            <option value="State">State
+                                            </option>
+                                            <option value="Local">Local
+                                            </option>
+                                            <option value="Non-Profit">Non-Profit
+                                            </option>
+                                            <option value="Enterprise $1M+">Enterprise $1M+
+                                            </option>
+
+                                        </lightning:select>
+										 
+                                          <lightning:select aura:id="segmentoverride" value="{!v.DML.segmentoverride}" label="TGS Segment Override" onchange="{!c.validateSegmentOverrideReason}">       
+                                                <option value="">Choose one...</option> 
+                                                    <aura:iteration items="{!v.picvalue}" var="s">
+                                                        <option value="{!s}">{!s}</option>
+                                                    </aura:iteration>
+                                            </lightning:select>
+                                        <aura:if isTrue="{!v.segmentoverridereasonerror}">
+                                            
+                                            <lightning:select aura:id="inputfield" value="{!v.segment_overide_reason}" label="TGS Segment Override Reason" required="true">
+                                                <option value="">Choose one...
+                                                </option>
+                                                <option value="Account Exception">Account Exception </option>
+                                                <option value="Rep Input">Rep Input </option>
+                                                <option value="Bad Data">Bad Data</option>
+                                            </lightning:select>
+                                        </aura:if>
+                                       <!-- <aura:if isTrue="{!v.requiredinputError}">
+                                            <div class="recordError">
+                                                <ui:message title="Error" severity="error" closable="false">
+                                                    Please choose a Segment Override Reason .
+                                                </ui:message>
+                                            </div>
+                                        </aura:if>-->
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-4">
+                                        <lightning:input aura:id="inputfield" type="date" label="Proposed Start Date"
+                                            value="{!v.myupdateDate}" name="date"
+                                            required="true"/>
+
+                                    </div>
+
+
+                                   <!-- <aura:if isTrue="{!v.requiredinputError}">
+                                        <div class="recordError">
+                                            <ui:message title="Error" severity="error" closable="false">
+                                                Date Field Cannot Be Blank
+                                            </ui:message>
+                                        </div>
+                                    </aura:if>-->
+
+                                </div>
+                                <footer class="slds-modal__footer" style="width:100%;">
+                                    <button class="slds-button slds-button_neutral"
+                                        onclick="{!c.ReassignSelectedSalesRows}">Ok</button>
+                                </footer>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </div>
+                </aura:if>
+
+                <aura:if isTrue="{!v.showDate}">
+                    <div class="demo-only" style="height: 400px; width:100%;">
+                        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <!--      <lightning:input label="New DML Id" value="{!v.NewDMLId}" />  -->
+                                <header class="slds-modal__header" style="width:100%;">
+                                    <button class="slds-button slds-modal__close slds-button--icon-inverse"
+                                        title="Close" onclick="{!c.closeModel}">
+                                        X
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                </header>
+                                <div style="background-color:white; width:100%; padding: 10px; font-weight: 900;">
+                                    <!--  <c:strike_lookup label="Proposed DML "
+                                                         value="{!v.NewDMLIdVal}"    
+                                                         object="DML__C"
+                                                         searchField="Name"
+                                                         placeholder="Select Proposed DML"
+                                                         order="Name"
+                                                         limit="10"
+                                                         loadingMessage="Loading..."
+                                                         errorMessage="Invalid input"
+                                                         aura:id="DMLReassignVal"
+                                                         
+                                                         />   
+                                                        -->
+                                    <c:customLookup objectAPIName="DML__c" fieldsToShow="Name,DECISION_MAKER_NM__c"
+                                        searchField="Name,DECISION_MAKER_NM__c" IconName="standard:DML__c"
+                                        selectedRecord="{!v.NewDMLIdVal}" label="Select Specific DML"
+                                        aura:id="DMLReassignVal" />
+
+
+
+
+                                    <div class="slds-form-element slds-size--1-of-4">
+                                        <lightning:input type="date" label="New start Date" value="{!v.myDate}"
+                                            name="date" />
+
+                                    </div>
+                                    <aura:if isTrue="{!v.validationError}">
+                                        <div class="recordError">
+                                            <ui:message title="Error" severity="error" closable="false">
+                                                Please Choose DML Of Status Other Than Rejected or Draft.
+                                            </ui:message>
+                                        </div>
+                                    </aura:if>
+                                    <aura:if isTrue="{!v.showError}">
+                                        <aura:if isTrue="{!v.requiredinputError}">
+                                            <div class="recordError">
+                                                <ui:message title="Error" severity="error" closable="false">
+                                                    Field Cannot Be Blank
+                                                </ui:message>
+                                            </div>
+                                        </aura:if>
+                                    </aura:if>
+                                </div>
+                                <footer class="slds-modal__footer" style="width:100%;">
+                                    <button class="slds-button slds-button_neutral"
+                                        onclick="{!c.ReassignSelectedDateRows}">Ok</button>
+                                </footer>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </div>
+                </aura:if>
+
+            </aura:if>
+            <aura:if isTrue="{!v.validationErrorfinal}">
+                <div class="recordError">
+                    <ui:message title="Error" severity="error" closable="false">
+                        {!v.errorMessages}
+                    </ui:message>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.showNewData}">
+                <div style=" width:100%; padding: 10px; font-weight: 900;">
+                    <div style="height:300px;">
+                        <lightning:datatable data="{! v.DMLNewList }" columns="{! v.DMLColumns}"
+                            onrowaction="{! c.handleRowActionResult}" minColumnWidth="200" keyField="Id"
+                            hideCheckboxColumn="true" />
+                    </div>
+                </div>
+            </aura:if>
+
+
+
+
+
+            <aura:if isTrue="{!v.showModel}">
+
+                <div class="demo-only" style="height: 640px;">
+
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close"
+                                    onclick="{!c.closeModelDML}">
+                                    X
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+
+                                    DML History Information
+                                </h2>
+                            </header>
+
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-Case">
+                                <aura:if isTrue="{!v.dmlRelationList !=null}">
+                                    <div style="background-color:white; width:100%; padding: 10px; font-weight: 900;">
+                                        <div style="height:130px;width:1200px;">
+                                            <lightning:datatable data="{! v.dmlRelationList}"
+                                                columns="{! v.relationColumns}" keyField="Id"
+                                                hideCheckboxColumn="true" />
+                                        </div>
+                                    </div>
+
+                                    <aura:set attribute="else">No Data </aura:set>
+
+                                </aura:if>
+
+
+
+                            </div>
+
+                            <footer class="slds-modal__footer">
+                                <button class="slds-button slds-button_neutral"
+                                    onclick="{!c.closeModelDML}">Cancel</button>
+                            </footer>
+
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </div>
+            </aura:if>
+
+            <!-- loading spinner start... style=Brand Medium (blue dots)-->
+
+
+        </lightning:tab>
+        <lightning:tab label="DML Approvals">
+            <aura:if isTrue="{!v.DMLApprovalList.length==0}">
+                <div class="recordError">
+                    <ui:message title="Information" severity="info" closable="false">
+                        No Data found.
+                    </ui:message>
+                </div>
+            </aura:if>
+
+            <aura:if isTrue="{!v.DMLApprovalList.length>0}">
+                <div style=" width:100%; padding: 10px; font-weight: 900;">
+                    <aura:if isTrue="{!v.total > v.recordToDisply}">
+                        <c:PaginationComponent label="DML Approvals" total="{!v.total}" page ="{!v.page}" pages="{!v.pages}" />
+                    </aura:if>
+                    <lightning:button variant="brand" label="Approve DML Data" onclick="{! c.ApproveDML}" />
+                    <lightning:button variant="brand" label="Reject DML Data" onclick="{! c.RejectDML}" />
+      
+                    <aura:if isTrue="{!v.shownotes}">
+                        <div class="demo-only" style="height: 400px; width:100%;">
+                            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                <div class="slds-modal__container">
+                                    <!--      <lightning:input label="New DML Id" value="{!v.NewDMLId}" />  -->
+                                    <header class="slds-modal__header" style="width:100%;">
+                                        <button class="slds-button slds-modal__close slds-button--icon-inverse"
+                                            title="Close" onclick="{!c.closeModel}">
+                                            X
+                                            <span class="slds-assistive-text">Close</span>
+                                        </button>
+                                    </header>
+                                    <div style="background-color:white; width:100%; padding: 10px; font-weight: 900;">
+                                        <div class="slds-form-element__row">
+                                            <div class="slds-form-element slds-size--1-of-2">
+                                                <span style="font-weight:bold;">Comments</span>
+                                                <lightning:textarea aura:id="notes" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <footer class="slds-modal__footer" style="width:100%;">
+                                        <button class="slds-button slds-button_neutral"
+                                            onclick="{!c.RejectDMLOK}">Ok</button>
+                                    </footer>
+
+                                </div>
+                            </section>
+                            <div class="slds-backdrop slds-backdrop_open"></div>
+                        </div>
+
+                    </aura:if>
+
+
+
+
+                    <div style="height:500px;">
+                        <lightning:datatable data="{! v.DMLApprovalList }" columns="{! v.DMLApprovalColumns}"
+                            keyField="Id" onrowselection="{!c.UpdateSelectedAppRows}" hideCheckboxColumn="false" />
+
+                    </div>
+
+                </div>
+            </aura:if>
+        </lightning:tab>
+
+    </lightning:tabset>
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+
+                <div class="slds-spinner__dot-a">
+                </div>
+                <div class="slds-spinner__dot-b">
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <!-- Loading spinner end -->
+</aura:component>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Request for Quote Update - ET</name>
+    <style>freeForm</style>
+    <subject>{!QxQuote_Note__c.Account_Name__c} - {!QxQuote_Note__c.Quote_number__c} - {!QxQuote_Note__c.Request_For_Quote_Update_Types__c}</subject>
+    <textOnly>Hello {!QxQuote_Note__c.Pricing_Analyst_Name__c},
+
+This is a notification of a request for {!QxQuote_Note__c.Request_For_Quote_Update_Types__c} on Quote ID: {!QxQuote_Note__c.Quote_number__c} by {!QxQuote_Note__c.CreatedBy}. Please take appropriate actions to resolve. Please see requestor’s comments below:
+
+{!QxQuote_Note__c.Comment__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

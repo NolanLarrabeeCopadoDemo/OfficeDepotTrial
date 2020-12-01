@@ -1,0 +1,72 @@
+<template>
+	<lightning-card title="Tech Quote Wizard" icon-name="standard:data_integration_hub">
+		<lightning-button label="Edit" slot="actions" onclick={onEditClick}></lightning-button>
+		<template if:false={isLoading}>
+			<div class="slds-grid slds-grid_align-spread slds-p-horizontal_medium fieldsContainer slds-is-relative">
+				<template if:true={costCenter.isVisible}>
+					<div>
+						<div class="slds-text-color_weak">
+							Cost Center
+						</div>
+						<div class="slds-form-element__static">
+							{costCenter.value}
+						</div>
+					</div>
+				</template>
+				<template if:true={poNumber.isVisible}>
+					<div>
+						<div class="slds-text-color_weak">
+							PO Number
+						</div>
+						<div class="slds-form-element__static">
+							{poNumber.value}
+						</div>
+					</div>
+				</template>
+				<template if:true={desktopNumber.isVisible}>
+					<div>
+						<div class="slds-text-color_weak">
+							Desktop Number
+						</div>
+						<div class="slds-form-element__static">
+							{desktopNumber.value}
+						</div>
+					</div>
+				</template>
+				<template if:true={releaseNumber.isVisible}>
+					<div>
+						<div class="slds-text-color_weak">
+							Release Number
+						</div>
+						<div class="slds-form-element__static">
+							{releaseNumber.value}
+						</div>
+					</div>
+				</template>
+				<div>
+					<div class="slds-text-color_weak">
+						Ship To
+					</div>
+					<div class="slds-form-element__static">
+						<a href={shipTo.url} target="_blank">{shipTo.value}</a>
+					</div>
+				</div>
+				<div>
+					<div class="slds-text-color_weak">
+						Contact
+					</div>
+					<div class="slds-form-element__static">
+						<a href={contact.url} target="_blank">{contact.value}</a>
+					</div>
+				</div>
+			</div>
+		</template>
+	</lightning-card>
+
+	<template if:true={isEditing}>
+		<c-endless-aisle-quote-setup-popup onclose={onPopupCloseClick} onsave={onPopupSaveChangesClick}
+			record-id={recordId} cost-center={costCenter} po-number={poNumber} desktop-number={desktopNumber}
+			release-number={releaseNumber} ship-to={shipTo} contact={contact}>
+		</c-endless-aisle-quote-setup-popup>
+	</template>
+</template>

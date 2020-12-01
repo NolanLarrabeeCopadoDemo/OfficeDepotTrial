@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Public Churches SF E-mail Template</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Public Churches SF E-mail Template</name>
+    <style>freeForm</style>
+    <subject>Follow-up Info - Community Partnership with Office Depot</subject>
+    <textOnly>Dear {!Contact.FirstName}, &lt;?xml:namespace prefix = o ns = &quot;urn:schemas-microsoft-com:office:office&quot; /&gt;
+
+As we approach the end of the year, I was thinking about you, and I know that Community and Fellowship are stepping stones that strengthen the foundation of a Church. At Office Depot, we understand the importance of creating a welcoming environment, which is why we thoughtfully bring together everything needed to present a gathering area that is inviting and hospitable.
+
+Your relationship with Office Depot gives you access to premium coffee, the latest cash-management technology, and all of the items in-between to help you serve your congregation and visitors.
+
+Please see the attachment that shows several ways that we’ve been able to help churches in the past. If you are interested, please take a picture of your current coffee set-up and send it to me. I would love to give you a customized coffee solution for your organization.
+
+As always, thank you for being a loyal Office Depot customer and for allowing me to help you build your community.
+
+
+Best Regards,
+
+
+{!User.Name}
+
+Business Account Manager |Inside Sales BSD
+
+9501 Amberglen Blvd., Building H, Suite 200, Austin, TX 78729
+
+Tel: 855-337-6811 Ext: {!User.ISO_Extension__c} | Fax: 561.438.9719 | {!User.Email}
+
+&lt;?xml:namespace prefix = v ns = &quot;urn:schemas-microsoft-com:vml&quot; /&gt;</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

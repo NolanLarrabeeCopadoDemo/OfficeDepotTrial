@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Customer Maintenance: New AB Credit Request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>New AB Credit Request</name>
+    <style>freeForm</style>
+    <subject>Account Re-activation - Account {!Account.Cust_ID__c} - {!Account.Name}</subject>
+    <textOnly>&lt;Please send to BSDNewAcctReq@officedepot.com and remove this section&gt; Team
+
+Please add a new AB Credit Request to the following Account: 
+
+Account - {!Account.AOPS_Cust_Id__c}
+Account Name - {!Account.Name}
+AP Contact Name - 
+Phone - 
+Fax - 
+AP contact Email - 
+DUNS number - {!Account.Duns_Number__c}
+Company website - {!Account.Website}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

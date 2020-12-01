@@ -1,0 +1,105 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" docType="html-5.0" applyHtmlTag="false" >
+
+    <html xmlns:ng="http://angularjs.org" ng-app="hello" lang="en">
+
+        <head>
+             <apex:includeScript value="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"/>
+  
+        <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+  <script>
+
+  </script>
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["table"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+  
+
+        jQuery(document).ready(function($) {
+
+      // Pull 10 Accounts via the REST API
+var uid= '{!$User.Id}';
+var muid= (uid.substr(0,15));
+//uid='005E0000005UukJ';
+      $.ajax('/services/data/v29.0/query?q=SELECT account_name1__C name,sum(YTD_Performance_vs_SRM_Plan__c) srmplan,sum(YTD_SRM__c) srmtot from goal__c where ownerid=\''+uid+'\''+ '+or+mgrid__c =\''+uid+'\''+' group by account_name1__C order by sum(YTD_Performance_vs_SRM_Plan__c) limit 20',
+        {
+
+          beforeSend: function(xhr) {
+
+            // Set the OAuth header from the session ID
+
+            xhr.setRequestHeader('Authorization', 'Bearer {!$Api.Session_ID}');
+
+          },
+
+          success: function(response) {
+
+
+//alert(JSON.stringify( response.records));
+    
+     var data = new google.visualization.DataTable();
+  // Add columns
+  data.addColumn('string', 'Account Name');
+  data.addColumn('number', 'YTD SRM$ Under Plan');
+  data.addColumn('number', 'YTD SRM% Under Plan ');
+
+
+
+
+            $.each(response.records, function(index, record) {
+            var avgg=0;
+            var plan =record.srmplan;
+            var gl = record.srmtot;
+             if(gl  == 0)
+             {
+             gl=plan ;
+              } else  
+              {
+              avgg = Math.round((plan/gl)*100,4);
+              }
+           var  x= ('"'+record.name+'",'+record.srmplan+','+avgg  +'');
+var arrayx=JSON.parse("["+x+"]");
+  data.addRow(arrayx);
+              
+            
+            });
+     
+             var table = new google.visualization.Table(document.getElementById('table_div'));
+     var formatter = new google.visualization.NumberFormat(
+      {prefix: '$', negativeColor: 'red', negativeParens: true});
+  formatter.format(data, 1); // Apply formatter to second column
+  
+      var formatter1 = new google.visualization.NumberFormat(
+      {suffix: '%', negativeColor: 'red', negativeParens: true});
+  formatter1.format(data, 2); // Apply formatter to third column
+  table.draw(data, {allowHtml: true, showRowNumber: false});
+     
+
+          },
+
+          error: function(jqXHR, textStatus, errorThrown) {
+            // Oops - what went wrong?
+            alert(jqXHR.status + ': ' + errorThrown);
+          }
+        }
+      );
+    });
+
+      }
+    </script>
+</head>
+<body>
+<div id ="x">
+
+    <div id="table_div" style="width: 390px; height: 1000px;"></div>
+    
+    </div>
+
+
+  </body>
+  </html>
+</apex:page>

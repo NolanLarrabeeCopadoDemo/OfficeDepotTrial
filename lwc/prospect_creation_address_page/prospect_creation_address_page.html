@@ -1,0 +1,37 @@
+<template>
+    <!-- // Start : Modified by Rajendra Shahane for NAIT-146087 - Implement SFDC Out of the Box Address Search for Prospects -->
+    <!--lightning-record-edit-form object-api-name="Account">
+        <lightning-input value={nameOutput} onkeyup={nameChanged} label="Prospect Name" placeholder="Prospect Name" required></lightning-input>
+        
+        <c-google_maps_autocomplete onaddressselected={addressSelected}></c-google_maps_autocomplete>
+        <lightning-input value={address1Output} onkeyup={address1Changed} label="Address 1" placeholder="Address 1" required></lightning-input>
+        <lightning-input value={address2Output} onkeyup={address2Changed} label="Address 2" placeholder="Address 2"></lightning-input>
+        <lightning-input value={cityOutput} onkeyup={cityChanged} label="City" placeholder="City" required></lightning-input>
+        <lightning-input value={zipOutput} onkeyup={zipChanged} label="Zip" placeholder="Zip/Postal Code" required></lightning-input>
+        <lightning-input-field value={stateOutput} onchange={stateChanged} field-name="State__c" variant="label-stacked" required></lightning-input-field>
+        <lightning-input-field value={countryOutput} onchange={countryChanged} field-name="Country__c" variant="label-stacked" required></lightning-input-field>
+    </lightning-record-edit-form-->
+    <!-- // End : Modified by Rajendra Shahane for NAIT-146087 - Implement SFDC Out of the Box Address Search for Prospects -->
+    <!-- // Start : Added by Rajendra Shahane for NAIT-146087 - Implement SFDC Out of the Box Address Search for Prospects -->
+    <lightning-input value={nameOutput} onkeyup={nameChanged} label="Prospect Name" placeholder="Prospect Name" required></lightning-input>
+    <lightning-input-address
+    show-address-lookup = "true"
+    address-label="Address Search"
+            street-label="Address 1"
+            city-label="City"
+            country-label="Country"
+            province-label="State/Province"
+            postal-code-label="Zip"
+            street={address1Output}
+            city={cityOutput}
+            country={countryOutput}
+            province ={stateOutput}
+            postal-code={zipOutput}
+            onchange={handleChange}
+            country-options={countryOptions}
+            province-options={stateOptions}
+            required>
+        </lightning-input-address>
+        <lightning-input value={address2Output} onkeyup={address2Changed} label="Address 2" placeholder="Address 2"></lightning-input>
+        <!-- // End : Added by Rajendra Shahane for NAIT-146087 - Implement SFDC Out of the Box Address Search for Prospects -->
+    </template>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Game Changer</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Goose the Chamber</name>
+    <style>freeForm</style>
+    <subject>Office Depot Chamber Promotion</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+
+
+
+I WANT YOU BACK! IT’S AS SIMPLE AS 1…2…3
+
+
+available to you now
+
+
+
+$30 off a $200 order !!!
+
+
+Step 1: Log into your business website at http://business.officedepot.com.  Click on the bulletin board tab to find your coupon code.  Enter this coupon code when placing your order online.  Please call me if you need your login / password info.
+
+
+
+Step 2: Call me with your order # for a…
+
+
+
+FREE TIN OF BUTTER COOKIES !!!
+
+
+
+Step 3: Let’s rekindle our partnership.  I want you to take full advantage of the exclusive benefits we have to offer through the Office Depot Chamber of Commerce program!  Give me a chance to earn your business back and let Office Depot be the “one stop shop” for all your business needs.
+
+
+
+For your reference, your account number is {!Account.Cust_ID__c}
+
+
+
+Warm regards,
+
+
+{!User.Name}
+Account Manager
+855-DEPOT11 x{!User.ISO_Extension__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

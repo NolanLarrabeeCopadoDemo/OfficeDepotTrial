@@ -1,0 +1,43 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="CameleonCPQ.QxVFActiveQuoteInfoController" showHeader="false" sidebar="false" docType="html-5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/> 
+  <style>
+  .dot {
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      display: inline-block;
+  }
+  .green {
+      background-color: green;
+  }
+  .grey {
+      background-color: grey;
+  }
+  </style>
+  <apex:outputPanel layout="block">
+     <span id="activeIcon"></span>
+  </apex:outputPanel>
+  
+  <script type="text/javascript">
+
+    function displayActive() {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxVFActiveQuoteInfoController.isActiveQuote}',
+          '{!CameleonCPQ__QxQuote__c.Id}',
+          function(isActive, event) {
+            if(event.status) {
+               var iconColor = 'grey';
+               if(isActive) {
+                  iconColor = 'green';
+               }
+               var iconActive = document.getElementById("activeIcon");
+               iconActive.className = "dot " + iconColor;
+            }
+          },
+          {escape: false}
+      );
+    }
+    displayActive();
+
+  </script>
+</apex:page>

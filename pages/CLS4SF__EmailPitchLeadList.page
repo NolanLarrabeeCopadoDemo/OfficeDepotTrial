@@ -1,0 +1,14 @@
+<apex:page standardController="Lead" extensions="CLS4SF.LeadUtils" showHeader="false" sidebar="false">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<script type="text/javascript">
+    window.onload=function(){
+        document.getElementById("cspost").submit();
+        };
+</script>
+<form name="cspost" id="cspost" action="{!postURL}/manage/email/external_link_post" method="POST">
+<input  id="email" name="email" value="{!emails}" type="hidden" />
+<input  id="company" name="company" value="{!company}" type="hidden" />
+<input  id="csrf_token" name="csrf_token" value="{!csrf}" type="hidden" />
+</form>
+</META>
+</apex:page>

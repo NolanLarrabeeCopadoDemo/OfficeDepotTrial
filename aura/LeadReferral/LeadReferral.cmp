@@ -1,0 +1,152 @@
+<aura:component controller="ReferralController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="customername" type="string"/>
+    <aura:attribute name="displaymessage" type="boolean" default="false"/>
+    <aura:attribute name="objRef" type="Third_Party_Referrals__c" default="{'sobjectType':'Third_Party_Referrals__c'}" />
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute name="message" type="boolean" default="false"/>
+    <aura:attribute name="showFields" type="boolean" default="false"/>
+    <aura:attribute name="showPicklist" type="boolean" default="false"/>
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!--If the referral already exists-->
+    <aura:if isTrue="{!v.displaymessage}">
+        <div class="slds-text-align_center slds-text-title_bold" style="padding-top:75px;">This contact has already been shared with the selected third party.</div>     
+        <aura:set attribute="else">
+            <aura:if isTrue="{!v.showPicklist}">
+                <!-- The Referral Type picklist-->
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-large-size_4-of-12"/>
+                    <div class="slds-col slds-large-size_4-of-12">
+                        <lightning:select name="select1" aura:id="select1" label="Referral Type" >
+                            <option value="">choose one...</option>
+                            <option value="1">Alibaba</option>
+                        </lightning:select>
+                    </div>
+                    <div class="slds-col slds-large-size_4-of-12"/>
+                    <div class="slds-col slds-large-size_5-of-12"/>
+                    <div class="slds-col slds-large-size_2-of-12" style="padding-left:100px;padding-top:20px;">
+                        <lightning:button variant="brand" label="Next" onclick="{!c.handleNext }" />
+                    </div>
+                    <div class="slds-col slds-large-size_5-of-12"/>
+                </div>
+            </aura:if>
+            <!-- Showing the Confirmation message-->
+            <aura:if isTrue="{!v.message}">
+                <div class="slds-text-align_center slds-text-title_bold" style="padding-top:75px;">Thank you for creating a Third Party Partnership record.  Please click on the link in the email notification to see the record details.</div>
+                <aura:set attribute="else">
+                      <!-- Displaying the fields-->
+                    <aura:if isTrue="{!v.showFields}">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                            <div class="slds-col slds-large-size_2-of-12" style="padding-right:20px;">
+                                <lightning:input 
+                                                 label="Referrers Employee ID"
+                                                 disabled="true"
+                                                 value="{!v.objRef.Referrers_Employee_ID__c}"
+                                                 aura:id="refemp_id"/>
+                            </div>
+                            <div class="slds-col slds-large-size_2-of-12">
+                                <lightning:input 
+                                                 label="Employee Name"
+                                                 disabled="true"
+                                                 value="{!v.objRef.Employee_Name__c}"
+                                                 aura:id="refername_id"/>
+                            </div>
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                            <div class="slds-col slds-large-size_2-of-12" style="padding-right:20px;">
+                                <lightning:input 
+                                                 label="Employee Phone"
+                                                 disabled="true"
+                                                 value="{!v.objRef.Employee_Phone__c}"
+                                                 aura:id="refphn_id"/>
+                            </div>
+                            <div class="slds-col slds-large-size_2-of-12">
+                                <lightning:input 
+                                                 label="Customer Name"
+                                                 disabled="true"
+                                                 value="{!v.objRef.Customer_Name__c}"
+                                                 aura:id="custnme_id"/>
+                            </div>
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                            <div class="slds-col slds-large-size_2-of-12" style="padding-right:20px;">
+                                <lightning:input 
+                                                 label="Contact Name"
+                                                 disabled="true"
+                                                 value="{!v.objRef.Contact_Name__c}"
+                                                 aura:id="refrdcon_id"/>
+                            </div>
+                            <div class="slds-col slds-large-size_2-of-12">
+                                <lightning:input 
+                                                 label="Contact Email"
+                                                 disabled="true"
+                                                 value="{!v.objRef.Contact_Email__c}"
+                                                 aura:id="custemail_id"/>
+                            </div>
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                            <div class="slds-col slds-large-size_2-of-12" style="padding-right:20px;">
+                                <lightning:input 
+                                                 label="Customer Phone # "
+                                                 disabled="true"
+                                                 value="{!v.objRef.Customer_Phone__c}"
+                                                 aura:id="custphn_id"/>
+                            </div>
+                            <div class="slds-col slds-large-size_2-of-12">
+                                <lightning:input 
+                                                 label="Cust Id "
+                                                 disabled="true"
+                                                 value="{!v.objRef.Cust_Id__c}"
+                                                 aura:id="cust_id"/> 
+                            </div>
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                            <div class="slds-col slds-large-size_4-of-12">
+                                <lightning:textarea 
+                                                    label="Best Time for Contact"
+                                                    value="{!v.objRef.Best_Time_for_Contact__c}"
+                                                    aura:id="bsttme_id"/>
+                            </div>
+                            
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                            <div class="slds-col slds-large-size_4-of-12">
+                                <lightning:textarea 
+                                                    label="Lead Info and Details "
+                                                    value="{!v.objRef.Lead_Info_and_Details__c}"
+                                                    aura:id="leadinfoanddetails_id"/> 
+                            </div>
+                            <div class="slds-col slds-large-size_4-of-12"/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-large-size_5-of-12"/>
+                            <div class="slds-col slds-large-size_2-of-12" style="padding-left:100px;padding-top:20px;">
+                                <lightning:button variant="brand" label="Submit" onclick="{!c.handleSubmit }" />
+                            </div>
+                            <div class="slds-col slds-large-size_5-of-12"/>
+                        </div>
+                    </aura:if>
+                </aura:set>
+            </aura:if> 
+        </aura:set>
+    </aura:if>
+</aura:component>

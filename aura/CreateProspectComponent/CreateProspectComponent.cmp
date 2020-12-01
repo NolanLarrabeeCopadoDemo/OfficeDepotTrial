@@ -1,0 +1,644 @@
+<aura:component controller="CreateProspectCmpController"  implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <!-- prospect record from the screen 1 -->
+    <aura:attribute name="prospectRec" type="Account"/>
+    
+    <!-- Show Customer serach Results when data is return from the other component -->
+    <aura:attribute name="showResults" type="boolean" default="false"/>
+    <aura:attribute name="isSfOrgs" type="boolean" default="false"/>
+    <aura:attribute name="isAventionOrgs" type="boolean" default="false"/>
+    <aura:attribute name="disableProceedBtn" type="boolean" default="true"/>
+    
+    <!-- Holds Customer/Org data which is return from the other Component -->
+    <aura:attribute name="orgRecList" type="Org__c"/>
+    <!-- Diplsy columns Names in Data table-->
+    <aura:attribute name="OrgColumns" type="List"/>
+    <!-- Handles to disply when there are no records -->
+    <aura:attribute name="noRecs" type="Boolean"/>
+    
+    <!-- To hold the selected org Id from the data List-->
+    <aura:attribute name="selectedOrgRec" type="Org__c"/>
+    <!-- Calling handler from customer serach component-->
+    <aura:handler event="c:CustomerSearchEvent" action="{!c.handleCustSerachEvent}"/>
+    <aura:handler event="c:CustomerToProspectSearchEvent" action="{!c.handleCusToProsSearchEvent}"/>
+    <!-- Registering event when clisk o back to org serach componeont-->
+    <aura:registerEvent name="ProspectBackToSearch" type="c:ProspectBackToCustSearchEvent"/>
+    
+    <!-- Lead Record from Screen 1-->
+    <aura:attribute name="leadRecId" type="Id" access="global"/>
+    <aura:attribute name="leadRec" type="Lead"/>
+    
+    <!-- loggedin User Information-->
+    <aura:attribute name="currentUserInfo" type="String"/>
+    <aura:attribute name="AssignSpecOwnerName" type="String"/>
+    
+    <!--Show Prospect Info Section-->
+    <aura:attribute name="showProspectSection" type="Boolean" default="false"/>
+    <aura:attribute name="selectedRows" type="List" /> <!-- The rows to be displayed. -->
+    
+    <!-- Error Message handling Attributes-->
+    <aura:attribute name="errorMessage" type="String" />
+    <aura:attribute name="requiredError" type="Boolean" default="false"/>
+    <aura:attribute name="validationError" type="Boolean" default="false"/>
+    
+    <!-- Decision Making InformationSection  Attributes-->
+    <aura:attribute name="locDecisionMaking" type="List" default="[{'label': 'Yes', 'value': 'Yes'},
+                                                                   {'label': 'No', 'value': 'No'}]"/>
+    <aura:attribute name="parentOrgRec" type="Org__c"/>
+    <aura:attribute name="newOrgRec" type="Org__c"/>
+    <aura:attribute name="accRecinfo" type="Account" default="{'sobjectType': 'Account' }"/>
+    <aura:attribute name="noFamilyRecs" type="Boolean" default="false"/>
+    <aura:attribute name="selectedFamilyOrgRec" type="Org__c"/>
+    <aura:attribute name="createOrgbtnEnable" type="boolean" default="false"/>
+    <aura:attribute name="familyOrgSelected" type="Boolean" default="false"/>
+    <aura:attribute name="createNewOrg" type="Boolean" default="false"/>
+    <!--<aura:attribute name="showReasonForDuplicate" type="Boolean" default="false"/>hide by anand-->
+    <aura:attribute name="showDuplicateDisposition" type="Boolean" default="false"/>
+    <aura:attribute name="backToOrgResultsEnable" type="Boolean" default="false"/>
+    <aura:attribute name="isDecisionLocationSelected" type="String" default="None"/>
+    
+    <!-- Contact Information Section Attributes-->
+    <aura:attribute name="contactRec" type="Contact"/>
+    <aura:attribute name="tempContactRec" type="Contact"/>
+    <aura:attribute name="showContactInfo" type="Boolean" default="false"/>
+    <aura:attribute name="addMorePhones" type="boolean" default="false"/>
+    <aura:attribute name="ctDecisionMaker" type="boolean" default="false"/>
+    <aura:attribute name="ctLastNameRequired" type="boolean" default="false"/>
+    <aura:attribute name="errorMsg" type="String"/>
+    <!-- Account/Prospect information-->
+    
+    <aura:attribute name="accRecTypeName" type="String"/>
+    <aura:attribute name="accDuplicatDispositionVal" type="String[]" />
+    <aura:attribute name="accIndustryRepVal" type="String[]" />
+    <aura:attribute name="accVerticalVal" type="String[]" />
+    <aura:attribute name="accVerticalsActive" type="boolean" default="true"/>
+    <aura:attribute name="accVerticalsRequired" type="boolean" default="false"/>
+    <!-- Opportunity Information -->
+    <aura:attribute name="showOppInfo" type="Boolean" default="false"/>
+    <aura:attribute name="oppRec" type="Opportunity"/>
+    <aura:attribute name="oppRecordTypeId" type="String"/>
+    <aura:attribute name="oppRecordTypeName" type="String"/>
+    <aura:attribute name="selctedOppPrimaryCompetitor" type="String"/>
+    <aura:attribute name="isCreateOpp" type="Boolean" default="false"/> 
+    
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute name="isRecordCreated" type="Boolean" default="false"/> 
+    
+    <!-- Register Events-->
+    <aura:registerEvent name="processIndicatorEvent" type="c:ProcessIndicatorEvent"/>
+    
+    <!-- Handle event fires from Org results section when Org is selected-->
+ 
+    <!--<aura:handler event="c:OrgFamilyWebServiceEvent" action="{!c.handleOrgFamilySearchEvent}"/>-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+     
+    <aura:handler name="change" value="{!v.isCreateOpp}" action="{!c.AssignSpecificOwnerName}"/>
+    <aura:attribute name="OrgInfoPanel"  type="Boolean"/>
+    
+    <div style="margin: auto;width: 80%;">
+        <!-- <aura:if isTrue="{!v.showResults}">-->
+        <div class="{!v.showResults? '': 'slds-hide'}">
+            <div class="{!v.isSfOrgs? '': 'slds-hide'}">
+                <lightning:datatable data="{!v.orgRecList}"
+                                     columns="{! v.OrgColumns }"
+                                     keyField="Id"
+                                     selectedRows="{!v.selectedRows}"
+                                     onrowselection="{!c.getSelectedRecord }" maxRowSelection="1" style="width:80%;"/>
+            </div>
+            <div class="{!v.isAventionOrgs? '': 'slds-hide'}">
+                <lightning:datatable data="{!v.orgRecList}"
+                                     columns="{! v.OrgColumns }"
+                                     keyField="D_B_ID__c"
+                                     selectedRows="{!v.selectedRows}"
+                                     onrowselection="{!c.getSelectedRecord }" maxRowSelection="1" style="width:80%;"/>
+            </div>
+            <aura:if isTrue="{!v.noRecs}"> 
+                <ui:message title="Information" severity="info" closable="false">
+                    No org Records
+                </ui:message>
+            </aura:if>
+            <div style="margin-top: 15px;">
+                <lightning:button variant="brand" label="Back to Customer Search" onclick="{! c.backToOrgSearch}" />
+                <lightning:button variant="brand" label="Proceed" disabled="{!v.disableProceedBtn}" onclick="{! c.ProceedOrg}" />
+            </div>
+        </div>
+       <!-- </aura:if>-->
+    </div>
+    <div>
+        <aura:if isTrue="{!v.showProspectSection}">
+            <aura:if isTrue="{!v.requiredError}">
+                <div class="recordError">
+                    <ui:message title="Error" severity="error" closable="false">
+                        Required Fields are missing.
+                    </ui:message>
+                </div>
+                <aura:if isTrue="{!v.ctLastNameRequired}">
+                    <div class="recordError">
+                    <ui:message title="Error" severity="error" closable="false">
+                        {!v.errorMsg}
+                    </ui:message>
+                </div>
+                </aura:if>
+            </aura:if>
+             <aura:if isTrue="{!v.validationError}">
+                    <div class="recordError">
+                    <ui:message title="Error" severity="error" closable="false">
+                        {!v.errorMessage}
+                    </ui:message>
+                </div>
+             </aura:if>
+            
+            <!-- Desition Making Information--> 
+            
+              <!-- <lightning:progressIndicator currentStep="3" type="base" hasError="false" variant="base">
+        <lightning:progressStep label="Step 1" value="1">-->
+            <aura:if isTrue="{!v.OrgInfoPanel}">
+                     <c:CollapsiblePanelComponent aura:id="decisionSectionId" cmpId="decisionInfoId" cmpDivId="decisionInfoId_1" collapseIdx="0" header="{!v.showDuplicateDisposition==true?'Duplicate Information':'Org Information'}" prospectRec="{!v.prospectRec}" newOrgRec="{!v.newOrgRec}" parentOrgRecord="{!v.parentOrgRec}" contactRec="{!v.contactRec}" leadRec="{!v.leadRec}" >
+                <aura:set attribute="body">
+                                        
+                    <aura:if isTrue="{!v.showDuplicateDisposition}">
+                                            <lightning:select aura:id="prospectDuplicateDispositionId" name="prospectDuplicateDisposition" label="Duplicate Disposition" value="{!v.prospectRec.Duplicate_Disposition__c}" required="true">
+                                                <option value="">None</option>
+                                                <aura:iteration items="{!v.accDuplicatDispositionVal}" var="option">
+                                                    <option value="{!option}" text="{!option}"></option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                    </aura:if>
+                    
+                    <c:OrgFormComponent createNewOrg="{!v.createNewOrg}" newOrgRec="{!v.newOrgRec}"/>
+                     <!--  hide by anand
+                    <fieldset class="slds-form-compound">
+                        <aura:if isTrue="{!v.showReasonForDuplicate}"> 
+                            <fieldset class="slds-form-element">
+                                <div  class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size-1-of-2">
+                                        <aura:if isTrue="{!v.showDuplicateDisposition}">
+                                            <lightning:select aura:id="prospectDuplicateDispositionId" name="prospectDuplicateDisposition" label="Duplicate Disposition" value="{!v.prospectRec.Duplicate_Disposition__c}">
+                                                <option value="">None</option>
+                                                <aura:iteration items="{!v.accDuplicatDispositionVal}" var="option">
+                                                    <option value="{!option}" text="{!option}"></option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </aura:if>
+                                    </div>
+                                    </div>
+                                <legend class="slds-form-element__legend slds-form-element__label required" style="float:left;"><b>Is this a Decision making Location?</b></legend>
+                                <lightning:radioGroup aura:id="locDecisionMakingId"
+                                                      name="radioButtonGroup"
+                                                      options="{!v.locDecisionMaking}"
+                                                      onchange="{!c.isDescisionMakingLocation }"/>
+                            </fieldset>
+                        </aura:if>
+                        <c:OrgFamiliyWebserviceComponent aura:id="familyWBRec" parentOrgRec="{!v.parentOrgRec}" showfamilySearch="{!v.isDecisionLocationSelected}" noFamilyRecs="{!v.noFamilyRecs}" selectedFamilyOrgRec="{!v.selectedFamilyOrgRec}"/>
+                        <aura:if isTrue="{!v.isDecisionLocationSelected == 'No'}">
+                            <lightning:button label="Create New Org" 
+                                              class="slds-m-top-medium"
+                                              variant="brand"
+                                              onclick="{!c.createNewOrg}"
+                                              disabled="{!v.createOrgbtnEnable}"/>
+                        </aura:if>
+                        <c:OrgFormComponent createNewOrg="{!v.createNewOrg}" newOrgRec="{!v.newOrgRec}"/>
+                    </fieldset>-->
+                </aura:set>
+            </c:CollapsiblePanelComponent>
+                </aura:if>
+            <!--Ends here -->
+                  <!-- </lightning:progressStep>
+        <lightning:progressStep label="Step 2" value="2">-->
+                   
+            <!-- Contact Information-->
+            <c:CollapsiblePanelComponent cmpId="ctInfoId" cmpDivId="ctInfoId_1" collapseIdx="1" header="Contact Information" prospectRec="{!v.prospectRec}" newOrgRec="{!v.newOrgRec}" parentOrgRecord="{!v.parentOrgRec}" contactRec="{!v.contactRec}" leadRec="{!v.leadRec}" dupliatedisosition="{!v.showDuplicateDisposition}" createNewOrg="{!v.createNewOrg}">
+                <aura:set attribute="body">
+                    <aura:if isTrue="{!v.showContactInfo}">
+                        <lightning:recordEditForm  aura:id="contactForm" objectApiName="Contact" onload="{!c.showCtRequiredFields}">
+                            <fieldset class="slds-form--compound">
+                                <div class="slds-form-element__row">
+                                    <lightning:inputField aura:id="ctNameId" fieldName="Name"  onchange="{!c.setContactFields}" disabled="true" class="slds-hide"/>
+                                 </div>
+                                <div class="slds-form-element__row">
+                                    <!--<div class="slds-form-element slds-size-1-of-2">
+                                        <lightning:inputField aura:id="ctSalId" fieldName="Salutation"  onchange="{!c.setContactFields}"/>
+                                    </div>-->
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField aura:id="ctFNameId" fieldName="FirstName" onchange="{!c.setContactFields}" class="customRequired"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField aura:id="ctLNameId" fieldName="LastName" onchange="{!c.setContactFields}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <!--<div class="slds-form-element slds-size-1-of-2">
+                                        <lightning:inputField aura:id="ctLNameId" fieldName="LastName" onchange="{!c.setContactFields}"/>
+                                    </div>-->
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField aura:id="ctTitleId" fieldName="Title"  onchange="{!c.setContactFields}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField aura:id="ctEmailId" fieldName="Email" onchange="{!c.setContactFields}"/><!--class="customRequired none" -->
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <!--<div class="slds-form-element slds-size-1-of-2">
+                                        <lightning:inputField class="customRequired none" aura:id="ctEmailId" fieldName="Email" onchange="{!c.setContactFields}"/>
+                                    </div>-->
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField aura:id="ctDecisionMakerId"  class="customRequired none" fieldName="Decision_Maker__c" onchange="{!c.setContactFields}"/>
+                                        <!--<lightning:inputField class="customRequired none" aura:id="ctPhoneId" fieldName="Phone" onchange="{!c.setContactFields}"/>-->
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField aura:id="ctDepartmentId"  fieldName="Department" onchange="{!c.setContactFields}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <!--<div class="slds-form-element slds-size-1-of-2">
+                                        <lightning:inputField aura:id="ctDepartmentId"  fieldName="Department" onchange="{!c.setContactFields}"/>
+                                    </div>-->
+                                    <div class="slds-form-element slds-size--1-of-2">
+									 <span onkeypress="{!c.validatePhoneNo}">
+                                        <lightning:inputField aura:id="ctPhoneRepId"  fieldName="Phone1_Rep__c" onchange="{!c.setContactFields}"/>
+                                             </span>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+									<lightning:inputField aura:id="ctPhoneType1Id"  fieldName="Phone_Type1__c" onchange="{!c.setContactFields}"/>
+
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <!--<div class="slds-form-element slds-size-1-of-2">
+                                         <span onkeypress="{!c.validatePhoneNo}">
+                                        <lightning:inputField aura:id="ctPhoneRepId"  fieldName="Phone1_Rep__c" onchange="{!c.setContactFields}"/>
+                                             </span>
+                                    </div>-->
+                                    <div class="slds-form-element slds-size--1-of-2">
+										<lightning:inputField aura:id="ctPhoneExtId" fieldName="Phone_Ext__c" onchange="{!c.setContactFields}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <div class="slds-form-element">
+                                            <label class="slds-checkbox_toggle slds-grid">
+                                                <span class="slds-form-element__label slds-m-bottom_none">Add More Phones</span>
+                                                <ui:inputCheckbox change="{!c.showMorePhones}" aura:id="addMorePhonesId" value="{!v.addMorePhones}"/>
+                                                <span id="toggle-desc" class="slds-checkbox_faux_container" aria-live="assertive">
+                                                    <span class="slds-checkbox_faux"></span>
+                                                    <span class="slds-checkbox_on">Show</span>
+                                                    <span class="slds-checkbox_off">Hide</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div aura:id="moreInfoDivId" class="slds-hide">
+                                    <div  class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            <span onkeypress="{!c.validatePhoneNo}">
+                                            <lightning:inputField aura:id="ctPhone2RepId"  fieldName="Phone2_Rep__c" onchange="{!c.setContactFields}"/>
+                                                </span>
+                                        </div>
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            <lightning:inputField aura:id="ctPhoneType2Id"  fieldName="Phone_Type2__c" onchange="{!c.setContactFields}"/>
+                                        </div>
+                                    </div>
+                                    <div  class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            <span onkeypress="{!c.validatePhoneNo}">
+                                            <lightning:inputField aura:id="ctPhone3RepId"  fieldName="Phone3_Rep__c" onchange="{!c.setContactFields}"/>
+                                                </span>
+                                        </div>
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            <lightning:inputField aura:id="ctPhoneType3Id"  fieldName="Phone_Type3__c" onchange="{!c.setContactFields}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField aura:id="ctRoleId"  fieldName="Role__c" onchange="{!c.setContactFields}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                            <lightning:inputField aura:id="ctProductFocusId"  fieldName="Product_Focus__c" onchange="{!c.setContactFields}"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </lightning:recordEditForm>
+                    </aura:if>
+                </aura:set>
+            </c:CollapsiblePanelComponent>
+            
+                   
+                  <!-- </lightning:progressStep>
+        <lightning:progressStep label="Step 3" value="3">-->
+                     <!-- Company/Prospect Information -->
+            <c:CollapsiblePanelComponent cmpId="prospectInfoId" cmpDivId="prospectInfoId_1" collapseIdx="2" header="Company/Prospect Additional Information" prospectRec="{!v.prospectRec}" newOrgRec="{!v.newOrgRec}" parentOrgRecord="{!v.parentOrgRec}" contactRec="{!v.contactRec}" leadRec="{!v.leadRec}">
+                <aura:set attribute="body">
+                    <lightning:recordEditForm  aura:id="AccEditForm" objectApiName="Account" onload="{!c.showProspectReqFields}" recordTypeId="{!v.prospectRec.RecordTypeId}">
+                        <aura:if isTrue="{!v.accRecTypeName == 'Prospect'}">
+                            <fieldset class="slds-form--compound">
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        Owner ID :  <ui:outputText value="{!v.currentUserInfo.FirstName}"/>&nbsp;<ui:outputText value="{!v.currentUserInfo.LastName}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        Record Type :  <ui:outputText value="{!v.accRecTypeName}"/>
+                                    </div>
+                                </div>
+                                <aura:if isTrue="{!or(v.leadRecId == '',v.leadRecId == null) }">
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                   <c:strike_lookup label="Assign Specific Owner"
+                                               value="{!v.prospectRec.Assign_Specific_Owner__c}"    
+                                                         object="User"
+                                                         searchField="Name"
+                                                         filter="IsActive=true and IsPortalEnabled=false"
+                                                         placeholder="Select Specific Owner"
+                                                         order="Name"
+                                                         limit="5"
+                                                         subtitleField="UserRole.Name"
+                                                         loadingMessage="Loading..."
+                                                         errorMessage="Invalid input"
+                                                         aura:id="accSpecificOwnerId"
+                                                         
+                                                         />
+                                    </div>
+                                     <div class="slds-form-element slds-size--1-of-2">
+                                         <lightning:input aura:id="prospectAutoAssignId" type="checkbox" label="Auto Assign" name="autoAssign" onchange="{!c.handleCheck}" checked="{!v.prospectRec.Auto_Assign__c}"/>
+											<!--<lightning:inputField   aura:id="prospectAutoAssignId" fieldName="Auto_Assign__c" onchange="{!c.setUpUSProspectFields}"/>-->
+									       <BR/>
+									 </div>
+                                </div>
+                                </aura:if>
+                                
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <span onkeypress="{!c.validatePhoneNo}">
+                                        <lightning:inputField class="customRequired none" aura:id="prospectPhoneId" fieldName="Phone" onchange="{!c.setUpUSProspectFields}"/>
+                                            </span>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   aura:id="prospectWebsiteid" fieldName="Website" onchange="{!c.setUpUSProspectFields}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField  class="customRequired none" aura:id="prospectSectorId" fieldName="Sector__c" onchange="{!c.setUpUSProspectFields}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+									   <label for="prospectWWId">Employee Count</label>
+                                        <lightning:inputField  class="customRequired none" aura:id="prospectWWId" fieldName="Org_WCW_Count_Rep__c" onchange="{!c.setUpUSProspectFields}" variant="label-hidden"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   aura:id="prospectSegmentId" fieldName="Segment__c" onchange="{!c.setUpUSProspectFields}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField  class="customRequired none" aura:id="prospectEstSpendId" fieldName="Est_Spend__c" onchange="{!c.setUpUSProspectFields}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <label for="prospectBuyingGrpId">Belongs To</label>
+                                        <lightning:inputField   aura:id="prospectBuyingGrpId" fieldName="Buying_Group__c" onchange="{!c.setUpUSProspectFields}" variant="label-hidden"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField  class="customRequired none" aura:id="prospectPaymentTermId" fieldName="Payment_Term__c" onchange="{!c.setUpUSProspectFields}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   aura:id="prospectPricingTempId" fieldName="Pricing_template_cd__c" onchange="{!c.PricingTemplateChange}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField  class="customRequired none" aura:id="prospectPrimaryProductId" fieldName="Primary_Product__c" onchange="{!c.setUpUSProspectFields}"/>
+                                    </div> 
+                                </div>
+                                <div class="slds-form-element__row">  
+								 <div class="slds-form-element slds-size--1-of-2">
+                                      <c:strike_lookup label="Attach to Parent Pricing" value="{!v.prospectRec.Related_Pricing_Template_Account__c}"
+															 object="Account" searchField="AOPS_Cust_Id__c" order="AOPS_Cust_Id__c" subtitleField="Name" filter="recordtype.developerName='Parent'" limit="5" loadingMessage="Loading..."
+															 errorMessage="Invalid input" aura:id="prospectRelParentAccId1" />
+									 </div>
+                                   					
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   aura:id="prospectRepCallDateId" fieldName="Rep_Call_Date__c" onchange="{!c.setUpUSProspectFields}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">  
+								 <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   aura:id="prospectIndustryRepId" fieldName="Industry_OD_SIC_Rep__c" onchange="{!c.setUpUSProspectFields}"/>
+                                    </div>
+								 <div class="slds-form-element slds-size--1-of-2">
+                                      <lightning:inputField aura:id="prospectLocationtypeid" fieldName="Location_Type__c" onchange="{!c.setUpUSProspectFields}"/>
+                                    </div>
+									
+                                </div>
+                                <div class="slds-form-element__row"> 
+                                  
+									<div class="slds-form-element slds-size--1-of-2">
+                                        <c:strike_lookup label="Related OD Account"
+                                                         object="Account"
+                                                         searchField="Name"
+                                                         placeholder="Select Related OD Account"
+                                                         value="{!v.prospectRec.MPS_Parent_Account__c}"  
+                                                         order="Name"
+                                                         limit="5"
+                                                         loadingMessage="Loading..."
+                                                         errorMessage="Invalid input"
+                                                         aura:id="prospectRelatedODAccId"
+                                                         filter="recordType.Name!='Prospect (Tech-Zone)' OR recordType.Name!='Customer (Tech-Zone)'"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </aura:if>
+                        <aura:if isTrue="{!v.accRecTypeName == 'Prospect (GT)'}">
+                            <fieldset class="slds-form--compound">
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        Owner ID :  <ui:outputText value="{!v.currentUserInfo.FirstName}"/>&nbsp;<ui:outputText value="{!v.currentUserInfo.LastName}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        Record Type :  <ui:outputText value="{!v.accRecTypeName}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <span onkeypress="{!c.validatePhoneNo}">
+                                        <lightning:inputField  class="customRequired none" aura:id="prospectGTPhoneId" fieldName="Phone" onchange="{!c.setUpGTProspectFields}"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- If Lead record is not empty -->
+                                <aura:if isTrue="{!v.leadRecId != null}">
+                                    <div class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            <lightning:inputField  class="customRequired none" aura:id="prospectGTLocationTypeId" fieldName="Location_Type__c" onchange="{!c.setUpGTProspectFields}"/>
+                                        </div>
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                             <lightning:inputField  class="customRequired none" aura:id="prospectGTSegmentId" fieldName="GT_Segment__c" onchange="{!c.setUpGTProspectFields}"/>
+                                       </div>
+                                    </div>
+                                    <div class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                        	<lightning:select aura:id="prospectIndustryRepId" name="prospectIndustryRep" label="Industry Rep" value="{!v.prospectRec.Industry_OD_SIC_Rep__c}" onchange="{!c.industryOnchange}" required="true">
+                                                <option value="">--None--</option>    
+                                                <aura:iteration items="{!v.accIndustryRepVal}" var="option">
+                                                    <option value="{!option}" text="{!option}"></option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                            
+                                        </div>
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            <lightning:select aura:id="prospectaccVerticalValId" name="prospectaccVerticalVal" label="Vertical" value="{!v.prospectRec.Verticals__c}" disabled="{!v.accVerticalsActive}" required="{!v.accVerticalsRequired}">
+                                                <option value="">--None--</option>    
+                                                <aura:iteration items="{!v.accVerticalVal}" var="option">
+                                                    <option value="{!option}" text="{!option}"></option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                            </fieldset>
+                        </aura:if>
+                        <aura:if isTrue="{!v.accRecTypeName == 'Customer (Business Pro)'}">
+                            <fieldset class="slds-form--compound">
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        Owner ID :  <ui:outputText value="{!v.currentUserInfo.FirstName}"/>&nbsp;<ui:outputText value="{!v.currentUserInfo.LastName}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        Record Type :  <ui:outputText value="{!v.accRecTypeName}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   aura:id="prospectLoyatlyId" fieldName="Loyatly_Number__c" onchange="{!c.setUpBusinessProProspectFields}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <!--<lightning:inputField   aura:id="prospectBSDAccNumId" fieldName="BSD_Account_Number__c" onchange="{!c.setUpBusinessProProspectFields}"/>-->
+                                    	<c:strike_lookup label="BSD Account Number"
+                                             object="Account"
+                                             searchField="Name"
+                                             placeholder="Select BSD Account"
+                                             order="Name"
+                                             limit="5"
+                                             loadingMessage="Loading..."
+                                             errorMessage="Invalid input"
+                                             aura:id="bSDAccountNumberId"
+                                             required="false"
+                                             value="{!v.prospectRec.BSD_Account_Number__c}"
+                                             filter="recordType.Name='Customer'"        
+                                              />
+                                    </div> 
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   class="customRequired none" aura:id="prospectContactInitiationTypeId" fieldName="Contact_Initiation_Type__c" onchange="{!c.setUpBusinessProProspectFields}" required="true"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   aura:id="prospectVIPCardIssueReqtId" fieldName="VIP_Card_Issue_Reqt__c" onchange="{!c.setUpBusinessProProspectFields}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField    aura:id="prospectLeadSourceId" fieldName="Lead_Source__c" onchange="{!c.setUpBusinessProProspectFields}"/>
+                                    </div> 
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   aura:id="prospectVIPCardEffectiveDateId" fieldName="VIP_Card_Effective_Date__c" onchange="{!c.setUpBusinessProProspectFields}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   aura:id="prospectVIPCardEndDateId" fieldName="VIP_Card_End_Date__c" onchange="{!c.setUpBusinessProProspectFields}"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </aura:if>
+                        <aura:if isTrue="{!v.accRecTypeName == 'Prospect (Tech-Zone)'}">
+                            <fieldset class="slds-form--compound">
+                                <div class="slds-form-element__row">
+									<div class="slds-form-element slds-size--1-of-2">
+                                        Record Type :  <ui:outputText value="{!v.accRecTypeName}"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        Owner ID :  <ui:outputText value="{!v.currentUserInfo.FirstName}"/>&nbsp;<ui:outputText value="{!v.currentUserInfo.LastName}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__row">
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                        <lightning:inputField   class="customRequired none" aura:id="prospectTZTypeId" fieldName="Type" onchange="{!c.setUpTZProspectFields}" required="true"/>
+                                    </div>
+                                    <div class="slds-form-element slds-size--1-of-2">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </aura:if>
+                        <aura:if isTrue="{!v.accRecTypeName == 'Prospect (BizBox)'}">
+								<fieldset class="slds-form--compound">
+                                    <div class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            Record Type :  <ui:outputText value="{!v.accRecTypeName}"/>
+                                        </div>
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            Owner ID :  <ui:outputText value="{!v.currentUserInfo.FirstName}"/>&nbsp;<ui:outputText value="{!v.currentUserInfo.LastName}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row"> 
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            <lightning:inputField   aura:id="prospectBZRepCallDateId" fieldName="Rep_Call_Date__c" onchange="{!c.setUpBizBoxProspectFields}"/>
+                                        </div>
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            <!--<lightning:inputField   aura:id="prospectBZAutoAssignId" fieldName="Auto_Assign__c" onchange="{!c.setUpBizBoxProspectFields}"/>-->
+                                            <lightning:input aura:id="prospectBZAutoAssignId" type="checkbox" label="Auto Assign" name="autoAssign" onchange="{!c.handleCheck}" checked="{!v.prospectRec.Auto_Assign__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row">
+                                        <div class="slds-form-element slds-size--1-of-2">
+                                            <c:strike_lookup label="Related OD Account"
+                                                             object="Account"
+                                                             searchField="Name"
+                                                             placeholder="Select Related OD Account"
+                                                             value="{!v.prospectRec.MPS_Parent_Account__c}"  
+                                                             order="Name"
+                                                             limit="5"
+                                                             loadingMessage="Loading..."
+                                                             errorMessage="Invalid input"
+                                                             aura:id="prospectBZRelatedODAccId"
+                                                             filter="recordType.Name!='Prospect (Tech-Zone)' OR recordType.Name!='Customer (Tech-Zone)'"/>
+                                        </div>
+                                    </div>
+								</fieldset>
+						</aura:if>
+                    </lightning:recordEditForm>
+                </aura:set>
+            </c:CollapsiblePanelComponent>
+            <!-- End of Company/Prospect Information -->
+          
+                  <!-- </lightning:progressStep>-->
+            <!-- </lightning:progressIndicator>-->
+          
+            
+            <div style="margin-top: 10px;">
+                <aura:if isTrue="{!v.backToOrgResultsEnable}">
+                    <lightning:button variant="brand" label="Back to Customer Results" onclick="{! c.backToOrgResults}" />
+                </aura:if>
+				 <lightning:button variant="brand" label="Create Prospect" onclick="{!c.createProspect}" />
+                
+                 
+            </div>
+        </aura:if>
+        
+       
+    </div>
+    <aura:if isTrue="{!v.isRecordCreated}">
+        <div>Record Created Successfully</div>
+    </aura:if>
+    <!-- loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if> 
+    <!-- Loading spinner end -->
+</aura:component>

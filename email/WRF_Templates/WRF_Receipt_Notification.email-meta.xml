@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that a request was received and who is assigned.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Receipt Notification</name>
+    <style>freeForm</style>
+    <subject>WRF Received: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+Thank you for your Work Request submission for {!Case.Account}.  We appreciate the opportunity to work with you.
+
+Please note our standard turnaround time is 7 to 10 business days to complete this type of request.
+
+Anticipated Completion Date:
+
+Region:  {!Case.Region__c}
+Your Support # is {!Case.CaseNumber}
+You can click here to view the request in Salesforce.com.
+
+Note: Manager names may appear in the Pricing or Development task assignment initially.  The specific analyst or CDM assigned will be visible within 24 hrs.
+
+Thank you,
+
+BSD Bids</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

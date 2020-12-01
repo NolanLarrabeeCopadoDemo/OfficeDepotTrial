@@ -1,0 +1,21 @@
+<apex:page sidebar="{!showSidebar}"
+		   controller="LBI.AdminSwitcherController"
+		   action="{!redirectUser}">
+		   
+	<apex:includeScript value="{!URLFOR($Resource.LBI__aptrinsic_library_js)}" loadOnReady="true" />
+	<apex:includeScript value="{!URLFOR($Resource.LBI__aptrinsic_js)}"  />		   
+
+	<script type="text/javascript" >
+		//Aptrinsic configuration
+        initiateAptrinsic({!isProduction}, {!isEnabledMixPanel});
+        
+        aptrinsicModule({!isEnabledMixPanel}, JSON.parse('{!aptrinsicUserJSON}'), JSON.parse('{!aptrinsicAccountJSON}'));
+        
+        aptrinsic("track", "sessionDetails", JSON.parse('{!aptrinsicTrackJSON}'));
+	</script>
+
+<apex:pageMessages />
+
+<apex:outputText style="display:none;" value="{!$Label.lbi__error_accountextensionrecordtracenew}" rendered="false" />
+
+</apex:page>

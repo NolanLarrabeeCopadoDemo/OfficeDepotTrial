@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Activity$Subject</field>
+    </columns>
+    <columns>
+        <field>Activity$What</field>
+    </columns>
+    <columns>
+        <field>Activity$ActivityDate</field>
+    </columns>
+    <columns>
+        <field>Activity$LastModifiedDate</field>
+    </columns>
+    <columns>
+        <field>Activity$CreatedBy.Manager__c</field>
+    </columns>
+    <columns>
+        <field>Activity$CreatedBy</field>
+    </columns>
+    <columns>
+        <field>Activity$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>Activity$DB_Activity_Type__c</field>
+    </columns>
+    <columns>
+        <field>Activity$Status</field>
+    </columns>
+    <columns>
+        <field>Activity$Disposition_Code__c</field>
+    </columns>
+    <columns>
+        <field>Activity$Description</field>
+    </columns>
+    <description>Prism Report format for APP report</description>
+    <filter>
+        <booleanFilter>((1 AND 2 AND 3) or (1 AND 2 AND 3 AND 4)) or (1 and 2 and 3 and 5)</booleanFilter>
+        <criteriaItems>
+            <column>Activity$Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>salesPRISM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$Subject</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notContain</operator>
+            <value>Account Note</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$CreatedBy.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$CreatedBy.Manager__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Kelly Mello</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Activity$CreatedBy</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Richard Ellison</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>APP-Prism report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activities_Tasks_Events__c</reportType>
+    <roleHierarchyFilter>Support</roleHierarchyFilter>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Activity$CreatedBy</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Activity$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

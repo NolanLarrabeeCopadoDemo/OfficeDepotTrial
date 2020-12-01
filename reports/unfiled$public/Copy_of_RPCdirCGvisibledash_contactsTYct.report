@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_51261992</developerName>
+        <masterLabel>shortrolename</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>OWNER_ROLE</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 1 - NthE Rep</sourceValue>
+            </sourceValues>
+            <value>Joe Deaver</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 2 - SthE Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB 2 - SthE</sourceValue>
+            </sourceValues>
+            <value>Chris Lankford</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 3 - Cntl Rep</sourceValue>
+            </sourceValues>
+            <value>Chris Pittman</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 6 - Chmb Rep</sourceValue>
+            </sourceValues>
+            <value>Terry Kendall</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 5 - CA Rep</sourceValue>
+            </sourceValues>
+            <value>Darnell Hamilton</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB 4 - MidW Rep</sourceValue>
+            </sourceValues>
+            <value>Open DSM</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 2 Rep</sourceValue>
+            </sourceValues>
+            <value>Michell Petty</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - ACQ 1</sourceValue>
+            </sourceValues>
+            <value>Talitha Seracy</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 2 Rep</sourceValue>
+            </sourceValues>
+            <value>Gus Parra</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 1</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 1 Rep</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ISO - SMB - Piranha 3 Rep</sourceValue>
+            </sourceValues>
+            <value>Maelyn Rexach</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Contact.Role__c</field>
+    </columns>
+    <columns>
+        <field>Contact.Decision_Maker__c</field>
+    </columns>
+    <columns>
+        <field>Contact.Product_Focus__c</field>
+    </columns>
+    <columns>
+        <field>TITLE</field>
+    </columns>
+    <columns>
+        <field>DEPARTMENT</field>
+    </columns>
+    <columns>
+        <field>Contact.NPX_Primary_Job_Function__c</field>
+    </columns>
+    <columns>
+        <field>FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>LAST_NAME</field>
+    </columns>
+    <columns>
+        <field>PHONE1</field>
+    </columns>
+    <columns>
+        <field>EMAIL</field>
+    </columns>
+    <columns>
+        <field>CONTACT_OWNER</field>
+    </columns>
+    <columns>
+        <field>OWNER_ROLE_DISPLAY</field>
+    </columns>
+    <columns>
+        <field>DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>Account.Year_LY__c</field>
+    </columns>
+    <columns>
+        <field>Account.YTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>Account.AOPS_Cust_Id__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>OWNER_FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>ADDRESS2_STREET</field>
+    </columns>
+    <columns>
+        <field>ADDRESS2_CITY</field>
+    </columns>
+    <columns>
+        <field>ADDRESS2_STATE</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>CONTACT_CREATED</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>System USer,Dataloader</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER_ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>SMB</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER_ROLE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>G&amp;T</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>BucketField_51261992</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Darnell Hamilton</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Copy of RPCdirCGvisibledash-contactsTYct</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>ContactList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CREATED_DATE</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>LAST_FISCALWEEK</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Opportunity Tracking HIstory</relationshipLabel>
+        <relationshipName>Opportunity_Tracking_HIstory</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_text__c</fullName>
+        <externalId>false</externalId>
+        <formula>text(Amount__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Close_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Close Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>CreatedinCurrentFiscalMonth__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Opportunity__r.Created_Fiscal_Month__c== Fiscal_Month__c,true,false)
+&amp;&amp;
+if( Opportunity__r.Fiscal_Year__c == Fiscal_Year__c ,true,false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CreatedinCurrentFiscalMonth</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Month_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Fiscal_Month__c, 
+&apos;1&apos;, &quot;01-January&quot;, 
+&apos;2&apos;, &quot;02-February&quot;, 
+&apos;3&apos;, &quot;03-March&quot;, 
+&apos;4&apos;, &quot;04-April&quot;, 
+&apos;5&apos;, &quot;05-May&quot;, 
+&apos;6&apos;, &quot;06-June&quot;, 
+&apos;7&apos;, &quot;07-July&quot;, 
+&apos;8&apos;, &quot;08-August&quot;, 
+&apos;9&apos;, &quot;09-September&quot;, 
+&apos;10&apos;, &quot;10-October&quot;, 
+&apos;11&apos;, &quot;11-November&quot;, 
+&apos;12&apos;, &quot;12-December&quot;, 
+&quot;None&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Fiscal Month Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Month__c</fullName>
+        <externalId>false</externalId>
+        <label>Fiscal Month</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fiscal_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Fiscal Year</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Holistic_Flow_Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Holistic Flow Stage</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ILC_Owned_Int__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Is_ILC_Owned__c, 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ILC Owned Int</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ILC_Team_Owned_Int__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (Is_ILC_Team_Owned__c, 1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ILC Team Owned Int</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsClosed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>IsClosed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_ILC_Owned__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is ILC Owned</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_ILC_Team_Owned__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is ILC Team Owned</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Watson_Stage_Change__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(PLOC_stage__c!=PLOC_Old_Value__c, true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Watson Stage Change</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Watson__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Watson</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LastModifiedDateforLoad__c</fullName>
+        <externalId>false</externalId>
+        <label>LastModifiedDateforLoad</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>LaterChange__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>LaterChange</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity Owner</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Opportunity_Tracking_HIstory</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Team_Member__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity Team Member</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Opportunity Tracking HIstory</relationshipLabel>
+        <relationshipName>Opportunity_Tracking_HIstory</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>PLOC_Old_Value_F__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( PLOC_Old_Value__c ,
+&apos;Identify Prospect (1.0)&apos;,&quot;01-Identify Prospect (1.0)&quot;,
+&apos;Qualify Appointment Set (1.5)&apos;,&quot;02-Qualify Appointment Set (1.5)&quot;,
+&apos;Qualify Prospect (2.0)&apos;,&quot;03-Qualify Prospect (2.0)&quot;,
+&apos;Solution Appointment Set (3.0)&apos;,&quot;04-Solution Appointment Set (3.0)&quot;,
+&apos;Introduce Solution (4.0)&apos;,&quot;05-Introduce Solution (4.0)&quot;,
+&apos;Solution Introduction Complete (5.0)&apos;,&quot;06-Solution Introduction Complete (5.0)&quot;,
+&apos;Discovery Workshop (Verbal Commitment) (6.0)&apos;,&quot;07-Discovery Workshop (Verbal Commitment) (6.0)&quot;,
+&apos;Virtual Workshop (6.2)&apos;,&quot;08-Virtual Workshop (6.2)&quot;,
+&apos;Onsite Discovery Roundtable (6.3)&apos;,&quot;09-Onsite Discovery Roundtable (6.3)&quot;,
+&apos;Onsite Discovery Workshop (6.5)&apos;,&quot;10-Onsite Discovery Workshop (6.5)&quot;,
+&apos;Present Solution (7.0)&apos;,&quot;11-Present Solution (7.0)&quot;,
+&apos;Due Dilligence &amp; Planning (8.0)&apos;,&quot;12-Due Dilligence &amp; Planning (8.0)&quot;,
+&apos;Negotiate SOW (9.0)&apos;,&quot;13-Negotiate SOW (9.0)&quot;,
+&apos;Finalize SOW (10.0)&apos;,&quot;14-Finalize SOW (10.0)&quot;,
+&apos;Integration and Implementation (11.0)&apos;,&quot;15-Integration and Implementation (11.0)&quot;,
+&apos;Manage Account (12.0)&apos;,&quot;16-Manage Account (12.0)&quot;,
+&apos;District not ready - Leadership changes (200.1)&apos;,&quot;17-District not ready - Leadership changes (200.1)&quot;,
+&apos;District not ready - Data Issues (200.2)&apos;,&quot;18-District not ready - Data Issues (200.2)&quot;,
+&apos;District not ready - Technology Issue (200.3)&apos;,&quot;19-District not ready - Technology Issue (200.3)&quot;,
+&apos;District not ready - Funding Issue (200.4)&apos;,&quot;20-District not ready - Funding Issue (200.4)&quot;,
+&apos;District not interested (200.5)&apos;,&quot;21-District not interested (200.5)&quot;,
+&apos;IBM Target (200.6)&apos;,&quot;22-IBM Target (200.6)&quot;,
+&apos;District Not Ready - Resources (200.7)&apos;,&quot;23-District Not Ready - Resources (200.7)&quot;,
+&apos;District Not Ready - Standards (200.8)&apos;,&quot;24-District Not Ready - Standards (200.8)&quot;,&quot;None&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PLOC Old Value</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PLOC_Old_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>PLOC Old Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PLOC_stage_F__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( PLOC_stage__c,
+&apos;Identify Prospect (1.0)&apos;,&quot;01-Identify Prospect (1.0)&quot;,
+&apos;Qualify Appointment Set (1.5)&apos;,&quot;02-Qualify Appointment Set (1.5)&quot;,
+&apos;Qualify Prospect (2.0)&apos;,&quot;03-Qualify Prospect (2.0)&quot;,
+&apos;Solution Appointment Set (3.0)&apos;,&quot;04-Solution Appointment Set (3.0)&quot;,
+&apos;Introduce Solution (4.0)&apos;,&quot;05-Introduce Solution (4.0)&quot;,
+&apos;Solution Introduction Complete (5.0)&apos;,&quot;06-Solution Introduction Complete (5.0)&quot;,
+&apos;Discovery Workshop (Verbal Commitment) (6.0)&apos;,&quot;07-Discovery Workshop (Verbal Commitment) (6.0)&quot;,
+&apos;Virtual Workshop (6.2)&apos;,&quot;08-Virtual Workshop (6.2)&quot;,
+&apos;Onsite Discovery Roundtable (6.3)&apos;,&quot;09-Onsite Discovery Roundtable (6.3)&quot;,
+&apos;Onsite Discovery Workshop (6.5)&apos;,&quot;10-Onsite Discovery Workshop (6.5)&quot;,
+&apos;Present Solution (7.0)&apos;,&quot;11-Present Solution (7.0)&quot;,
+&apos;Due Dilligence &amp; Planning (8.0)&apos;,&quot;12-Due Dilligence &amp; Planning (8.0)&quot;,
+&apos;Negotiate SOW (9.0)&apos;,&quot;13-Negotiate SOW (9.0)&quot;,
+&apos;Finalize SOW (10.0)&apos;,&quot;14-Finalize SOW (10.0)&quot;,
+&apos;Integration and Implementation (11.0)&apos;,&quot;15-Integration and Implementation (11.0)&quot;,
+&apos;Manage Account (12.0)&apos;,&quot;16-Manage Account (12.0)&quot;,
+&apos;District not ready - Leadership changes (200.1)&apos;,&quot;17-District not ready - Leadership changes (200.1)&quot;,
+&apos;District not ready - Data Issues (200.2)&apos;,&quot;18-District not ready - Data Issues (200.2)&quot;,
+&apos;District not ready - Technology Issue (200.3)&apos;,&quot;19-District not ready - Technology Issue (200.3)&quot;,
+&apos;District not ready - Funding Issue (200.4)&apos;,&quot;20-District not ready - Funding Issue (200.4)&quot;,
+&apos;District not interested (200.5)&apos;,&quot;21-District not interested (200.5)&quot;,
+&apos;IBM Target (200.6)&apos;,&quot;22-IBM Target (200.6)&quot;,
+&apos;District Not Ready - Resources (200.7)&apos;,&quot;23-District Not Ready - Resources (200.7)&quot;,
+&apos;District Not Ready - Standards (200.8)&apos;,&quot;24-District Not Ready - Standards (200.8)&quot;,&quot;None&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PLOC stage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PLOC_stage__c</fullName>
+        <externalId>false</externalId>
+        <label>PLOC stage</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PLS_Key__c</fullName>
+        <externalId>false</externalId>
+        <label>PLS Key</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pillar_Key__c</fullName>
+        <externalId>false</externalId>
+        <label>Pillar Key</label>
+        <length>150</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pillar__c</fullName>
+        <externalId>false</externalId>
+        <label>Pillar</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pipeline_Week__c</fullName>
+        <externalId>false</externalId>
+        <label>Pipeline Week</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Previous_Summary_Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Previous Summary Stage</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Sub_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Sub Type</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage_Age__c</fullName>
+        <externalId>false</externalId>
+        <label>Stage Age</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage_Old_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Stage Old Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Stage</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <formula>text(Account__r.State__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Stage_Old_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Summary Stage Old Value</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Summary Stage</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Weekly</fullName>
+                    <default>false</default>
+                    <label>Weekly</label>
+                </value>
+                <value>
+                    <fullName>Monthly</fullName>
+                    <default>false</default>
+                    <label>Monthly</label>
+                </value>
+                <value>
+                    <fullName>WatsonStageChange</fullName>
+                    <default>false</default>
+                    <label>WatsonStageChange</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Watson_Active__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(CONTAINS(PLOC_stage__c , &apos;200&apos;) ,false, true)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Watson Active</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Watson_Door_Opener__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Watson Door Opener</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Watson_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Watson Notes</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Watson__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Watson__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Watson?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Opportunity Tracking History</label>
+    <nameField>
+        <displayFormat>O-{0000000000}</displayFormat>
+        <label>Opportunity Tracking History Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Opportunity Tracking HIstory</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

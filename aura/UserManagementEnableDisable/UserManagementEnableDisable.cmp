@@ -1,0 +1,49 @@
+<aura:component controller="EnableandDisableuser" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" >
+    <aura:handler name="init" value="this" action="{!c.doInit}"/> 
+    <aura:attribute name="userid" type="string"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute name="useractivation" type="boolean" default="false"/>
+    <aura:attribute name="contactSubmitted" type="boolean" default="false"/>
+    <aura:attribute name="ocontactSubmitted" type="boolean" default="false"/>
+    <force:recordData 
+                      recordId="{!v.recordId}"
+                      targetFields="{!v.record}"
+                      fields="['Name']" 
+                      recordUpdated="{!c.recordLoaded}" />
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <aura:If isTrue="{!v.useractivation}">
+     <div class="slds-text-align_center slds-text-heading_medium">Sorry that you want to Disable your User. Please return after 2 minutes and your User Management directions should be here.If you still dont see the directions please contact your Manager</div>
+    </aura:If>
+        <aura:If isTrue="{!v.contactSubmitted}">
+        <div class="slds-text-align_center slds-text-heading_medium">Your User is Active. Do you want to deactivate it?</div>
+        <br/>
+        <div class="slds-align_absolute-center">
+            <lightning:button variant="destructive" 
+                              class="slds-button slds-button_brand" 
+                              label="Disable User" 
+                              title="Success" 
+                              onclick="{!c.disablepartner}"/> 
+        </div>
+    </aura:If>
+    <aura:if isTrue="{!v.ocontactSubmitted}">
+        <div class="slds-text-align_center slds-text-heading_medium">Your User is InActive. Do you want to activate it?</div>
+        <br/> 
+        <div class="slds-align_absolute-center">
+            <lightning:button variant="success" 
+                              class="slds-button slds-button_brand" 
+                              label="Enable User" 
+                              title="Success" 
+                              onclick="{!c.enablepartner}"/>
+        </div>
+    </aura:if>
+</aura:component>

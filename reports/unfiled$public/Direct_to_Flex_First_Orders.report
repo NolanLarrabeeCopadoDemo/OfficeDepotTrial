@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_7067850</developerName>
+        <masterLabel>Team</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>USERS.NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Eric Warshauer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Malissa Cubberley</sourceValue>
+            </sourceValues>
+            <value>Guzman</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Piper Carter</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Deseree Boyd</sourceValue>
+            </sourceValues>
+            <value>Good</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Jennifer Korte</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Cruzita Solis</sourceValue>
+            </sourceValues>
+            <value>Clark</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Owen Gaffey</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Roger Fairbrother</sourceValue>
+            </sourceValues>
+            <value>Arenson</value>
+        </values>
+    </buckets>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.YTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>ROLLUP_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>Account.Account_Page_Source__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>Account.First_Order_Date__c</field>
+    </columns>
+    <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <filter>
+        <booleanFilter>(1 or 3)  AND 2</booleanFilter>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>BDR Reps</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ACCOUNT_SOURCE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Flex Test</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>USERS.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Talitha Searcy</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>Account.Num_of_Orders_Since_Start__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>USERS.NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Direct to Flex First Orders</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList@Account.Sales_PersonID__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <endDate>2016-08-06</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2016-07-22</startDate>
+    </timeFrameFilter>
+</Report>

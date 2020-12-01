@@ -1,0 +1,70 @@
+<apex:page showHeader="false" standardController="Case" applyBodyTag="false" renderAs="PDF" > <!-- -->
+
+ 
+  <head>
+  <style>
+    
+    </style>
+       
+    </head>
+  
+   
+
+    <body >
+    
+   <table >
+       <tr  style="background-image: url({!$Resource.header}); background-repeat:no-repeat; height:905px; width:700px;"> 
+           <td >
+               <div style=" padding-left: 210px; padding-right:55px; padding-top: 120px; padding-bottom: 5px;text-align:justify;">
+                    
+                     Dear <b>Valued Customer</b>:<br/>
+                     
+                     <p>
+
+                    There are many exciting things going on at the new Office Depot®, Inc. 
+                    That’s why I’m reaching out personally to share a few important details 
+                    with you. As a valued OfficeMax® customer, I’d like to convey some key 
+                    information to prepare you and <b>{!Case.Account.name}</b> for a coordinated transition and several great opportunities that you’ll experience over the coming 
+                    weeks. The most important thing that you need to know is that our team 
+                    is standing by with the process, tools and resources to facilitate a simple 
+                    and seamless transition. </p>
+                    <p>
+                    
+                    The entire Office Depot team is committed to flawless implementation and execution on your behalf. We’ve got the tools and the know-how to build a customized plan that proceeds with the timing and resources that are best 
+                    for you. A dedicated program manager has already been assigned to your 
+                    business, and our implementation team will ensure that you have the best 
+                    customer experience possible — one where you can be involved as much 
+                    or as little as you’d like. </p>
+                    <p>
+                    
+                    To set things in motion, I’d like to set up a meeting with you in the next week to discuss our approach and recommended timing as well as to answer any questions that you may have. Would you be available on 
+                    [Date] for a brief meeting? I’ll confirm your availability as soon as possible.  </p>
+                    
+                   <p>
+                    Remember, throughout this transition, Office Depot is focused on you. 
+                    We appreciate your business and know that we’re better equipped than ever to be your trusted partner.   
+                    </p>
+                    </div>
+                    <div style=" padding-left: 210px;text-align:left;">
+                    Regards,
+                    <br/>
+                    
+                    Signature <br/>
+                    {!Case.WRF_Requestor_Name__c}
+
+
+
+
+   
+               </div>
+         </td>
+     </tr>
+  </table >
+  
+  
+  
+
+    
+  </body>
+ 
+ </apex:page>

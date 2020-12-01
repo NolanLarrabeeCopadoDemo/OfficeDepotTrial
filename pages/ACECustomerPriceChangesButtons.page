@@ -1,0 +1,99 @@
+<apex:page standardController="ACE_Customer_Price_Changes__c" extensions="ACE_StdCustUserAccess,ACECustomerPriceChangesButtons">
+ <Style>         
+    .btn1{width:50%;text-align: left; align:left;}
+    .btn2 {width:50%;text-align: right; align:right;}
+    .btn3{width:50%;text-align: left; align:left;}
+    .btn4 {width:50%;text-align: right; align:right;}
+</Style>
+ 
+  <apex:form id="form" >
+  <apex:outputPanel id="redirectPanel" >
+     <apex:outputText rendered="{!Redirect}">
+          <script type="text/javascript">
+               window.top.location.href = '{!redirecturl}';
+          </script>
+     </apex:outputText>
+</apex:outputPanel>
+  <CENTER>
+  <apex:panelgrid columns="8" id="pg1">
+  <apex:actionFunction action="{!triggerApproval}" name="unlockrec" rerender="redirectPanel" status="mySaveStatus311"/>
+  <apex:actionFunction action="{!reLock}" name="RelockFunction" rerender="redirectPanel" status="mySaveStatus311"/>
+  <apex:actionFunction action="{!customerNotificationButton}" name="sendCusNotFunction" rerender="redirectPanel" status="mySaveStatus311"/>
+<!--ADDED MM
+  <apex:commandbutton action="{!DateExceptionButton}" value="Request Date Exception" rerender="redirectPanel" rendered="{!renderMap['DATEEXCEP']}"/> 
+ADDED MM-->
+                       <apex:actionStatus id="mySaveStatus311" rendered="{!NOT(recordLockRender)}">
+
+                         <apex:facet name="start">
+                             <apex:outputPanel >
+                                   
+                                   <apex:commandButton value="Processing..." status="mySaveStatus311" disabled="true"/>
+                               </apex:outputPanel>
+                           </apex:facet>
+                        </apex:actionStatus>
+  <!-- rendered="{!recordLockRender}" -->
+  <!-- <apex:commandButton value="Unlock Record" action="{!triggerApproval}" rendered="{!recordLockRender}" status="mySaveStatus311" rerender="redirectPanel"/> -->
+                           
+  <!--<apex:commandButton value="Unlock Record" onclick="showOverlay(); return false;" rendered="{!recordLockRender}" />  ADDED MM -->
+  
+  <!-- <apex:commandButton value="Relock Record" action="{!reLock}" rendered="{!recordReLockRender}" status="mySaveStatus311"/>  -->
+  <apex:commandButton value="Relock Record" onclick="showOverlayRelock(); return false;"  rendered="{!recordReLockRender}"/>
+  <!--   <apex:commandbutton action="{!triggerApproval}" value="Unlock Record"  rerender="pg1" rendered="{!recordLockRender}"/>   -->
+  
+  <!-- <apex:commandbutton action="{!customerNotificationButton}" value="Send Customer Notification" rerender="redirectPanel" rendered="{!renderMap['NOTIFY']}"/> -->
+  <apex:commandbutton value="Send Customer Notification" onclick="showOverlayCus(); return false;" rendered="{!renderMap['NOTIFY']}"/>
+  
+  
+  <!-- <apex:commandbutton action="{!releaseButton}" value="Release" rerender="redirectPanel" rendered="{!renderMap['RELEASE']}"/> ADDED MM-->
+  <apex:commandbutton action="{!customerResponseButton}" value="Provide Customer Response" rerender="redirectPanel" rendered="{!renderMap['RESPONSE']}"/>
+  <apex:commandbutton onClick="window.open('/apex/apex/ACE_SKU_Download?id={!aceCustPriceChanges.id}', '_blank');" value="Export SKUS - Internal Use Only" rerender="redirectPanel" />
+  <apex:commandbutton action="{!ReqRemediation}" value="Request Remediation" rerender="redirectPanel" rendered="{!renderMap['REMEDIATION']}"/>  
+  <apex:commandbutton action="{!CancelRemediation}" value="Cancel Remediation Support Request" onclick="CancelRemediation(); return false;" rendered="{!renderMap['CANCELREMEDIATION']}"/>     <!--//MM Rom Item 23B  -->   
+
+  </apex:panelgrid>
+  </CENTER>
+  
+  <LEFT>
+    <apex:commandlink action="{!summaryGridRedirect}" rerender="redirectPanel" value="Back To Summary Of My Customers With Core Price Changes"/>
+  </LEFT>
+  
+  
+   <script type="text/javascript">
+             function showOverlay()
+             {
+                 var r = confirm("Warning: Any changes made during unlock may require additional communication to this customer, and possibly approval. Do you want to continue?");
+                 if (r == true) 
+                 {
+                      unlockrec();
+                 }                   
+             }
+             function showOverlayRelock()
+             {
+                 var r = confirm("Are you sure you want to relock this customer record?");
+                 if (r == true) 
+                 {
+                      RelockFunction();
+                 }                   
+             }  
+             function showOverlayCus()
+             {
+                 var r = confirm("Please confirm. The selected Customer(s) will be sent a notification. You will not be able to make changes to this customer once a notification has been sent.");
+                 if (r == true) 
+                 {
+                      sendCusNotFunction();
+                 }                   
+              }   
+    
+             function CancelRemediation()
+             {
+                 var r = confirm("Please confirm cancellation of remediation request.");
+                 if (r == true) 
+                 {
+                      CancelRem();
+                 }                   
+              }         //MM Rom Item 23B   
+    
+    </script>
+   </apex:form>
+ 
+</apex:page>

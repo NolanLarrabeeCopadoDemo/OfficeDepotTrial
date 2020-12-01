@@ -1,0 +1,30 @@
+<apex:page standardController="GPO_Group__c"   readOnly="false" >
+    
+    <apex:includeScript value="/lightning/lightning.out.js"/>  
+    <div id="lightning" /> 
+
+       
+        
+        <script>
+        $Lightning.use("c:siteSearchApp", function() {
+          $Lightning.createComponent("c:siteSearch",
+          { label : "",
+            aopsID : "{!GPO_Group__c.AOPS_Cust_ID__c}"
+          },
+          "lightning",
+          function(cmp) {
+            // do some stuff
+          });
+        });
+        </script> 
+        
+        <!-- <apex:outputLabel value="{!GPO_Group__c.id}" /> 
+        <br/>
+        <apex:outputLabel value="{!GPO_Group__c.AOPS_Cust_ID__c}" />
+        <apex:outputLabel value="{!$CurrentPage.parameters.aopsID}" /> -->
+        <!--<br/>
+        <apex:outputLabel value="{!listsize}" /> -->
+        
+       
+    
+</apex:page>

@@ -1,0 +1,79 @@
+<apex:page showHeader="true" sidebar="true" standardStylesheets="false">
+    <link class="user" href="/sCSS/23.0/sprites/1317831957000/Theme3/default/forceComHomepage.css" rel="stylesheet" type="text/css" />
+
+
+    <style type="text/css">
+        .listStyle{
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+    </style>
+    
+   
+
+    <apex:outputPanel >
+        <div class="header-right">
+            <div class="bPageTitle">
+                <div class="ptBody secondaryPalette">
+                    <div class="content">
+                        <div class="header-text"></div>
+                    </div>
+                    <div class="links"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="getting-started-block" id="gettingStarted">
+            <table class="gs-links">
+                <tr>
+                    <td class="gs-middle" valign="left">
+                        <div class="steps-header">
+                            Community Administration
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="padding-left:2px">
+                            Use the links below to access the administration pages for Communities.
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="links-block">
+            <div class="linksblock">
+                <ul>
+                <apex:outputPanel layout="block" >
+                    <li>
+                    <apex:outputLink value="{!$Label.Community_Administration}">
+                        Community Administration
+                    </apex:outputLink>
+                    </li>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" >
+                    <li>
+                    <apex:outputLink value="{!$Label.User_Registration}">
+                        User Registration Access
+                    </apex:outputLink>
+                    </li>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" >
+                    <li>
+                    <apex:outputLink value="{!$Label.Communities_User_Maintenance}">
+                        User Maintenance Access
+                    </apex:outputLink>
+                    </li>
+                </apex:outputPanel>
+                <apex:outputPanel layout="block" >
+                    <li>
+                    <apex:outputLink value="{!$Label.News_CRED_Administration_Access}">
+                        News CRED Administration
+                    </apex:outputLink>
+                    </li>
+                </apex:outputPanel>
+                </ul>
+            </div>
+        </div>
+    </apex:outputPanel>
+</apex:page>

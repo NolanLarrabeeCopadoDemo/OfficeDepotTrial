@@ -1,0 +1,17 @@
+<apex:page standardController="Customer_Transition__c" extensions="CTWRFData" readOnly="true">
+<apex:form >
+<apex:pageBlock >
+    <apex:pageBlockTable value="{!cases}" var="l" rendered="{!IF(cases.size=0,false,true)}">
+       <apex:column headerValue="Case Number">      
+       <apex:outputLink value="/{!l.Id}" target="_new" id="theLink">{!l.CaseNumber}</apex:outputLink>
+       </apex:column> 
+       <apex:column value="{!l.subject}" headerValue="Subject"></apex:column> 
+       <apex:column value="{!l.subject}" headerValue="Status"></apex:column> 
+
+    </apex:pageBlockTable>
+
+    <apex:outputPanel rendered="{!IF(cases.size=0,true,false)}">No records to display</apex:outputPanel>
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,24 @@
+<apex:page lightningStylesheets="true"  showheader="false">
+  
+    <apex:includeLightning /> 
+    <apex:slds />
+
+    <div id="lightning" />
+
+    <script>
+    //Tell your Visualforce page to use ExposeVF Lightning app
+        $Lightning.use("c:PROSApprovalPageApp", function() {
+            // Write a function that creates the component on the page
+          $Lightning.createComponent("c:pROSApprovalPage",
+          {
+              "recordId" : "{!$CurrentPage.parameters.id}",
+              "userId" : "{!$CurrentPage.parameters.actorid}"
+           },
+          "lightning",
+          function(cmp) {
+            // do some stuff
+          });
+        });
+    </script>
+
+</apex:page>

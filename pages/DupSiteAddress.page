@@ -1,0 +1,149 @@
+<apex:page standardController="Account" title="Duplicate Site:Matching Group ID" extensions="DupSiteAddressExtension" sidebar="false">
+<apex:sectionHeader subTitle="Duplicate Site " Title="Sites Matching Group ID" />
+
+<apex:form >
+ 
+<apex:actionFunction action="{!Sort}" name="sortData" status="sortStatus" rerender="pbMatchingAccounts">
+  <apex:param name="sortField" assignTo="{!sortField}" value="" />
+</apex:actionFunction>
+<apex:pageMessages escape="false" />
+
+<apex:pageBlock title="Matching Sites" rendered="{!showList}">
+  <apex:pageBlockButtons >
+    <apex:commandButton value="Cancel" action="{!Cancel}" />
+  </apex:pageBlockButtons>
+  
+  <!-- Search Results table -->
+  <apex:pageBlockTable value="{!MatchingAccounts}" var="account" id="pbMatchingAccounts">
+    <!-- Name column -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('Name');">Name<img src="{!IF(sortField = 'Name',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+       <apex:outputLink value="/{!account.Id}" target="_blank">{!account.Name}</apex:outputLink>
+    </apex:column>
+
+    <!-- Shipping Street -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('Address1__c');">Street<img src="{!IF(sortField = 'Address1__c',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+      <apex:outputField value="{!account.Address1__c}" />
+    </apex:column>    
+
+    <!-- Shipping City -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('City__c');">City<img src="{!IF(sortField = 'City__c',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+       <apex:outputField value="{!account.City__c}" />
+    </apex:column> 
+
+    <!-- Shipping State -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('State__c');">State<img src="{!IF(sortField = 'State__c',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+       <apex:outputField value="{!account.State__c}" />
+    </apex:column> 
+
+    <!-- Ranking -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('Ranking__c');">
+        {!$ObjectType.Account.fields.Ranking__c.label}
+        <img src="{!IF(sortField = 'Ranking__c',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+      <apex:outputField value="{!account.Ranking__c}" />
+    </apex:column>
+
+    <!-- Rep Call Date -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('Rep_Call_Date__c');">
+        {!$ObjectType.Account.fields.Rep_Call_Date__c.label} 
+        <img src="{!IF(sortField = 'Rep_Call_Date__c',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+       <apex:outputField value="{!account.Rep_Call_Date__c}" />
+    </apex:column>
+
+    <!-- Last Activity Date -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('LastActivityDate');">
+        {!$ObjectType.Account.fields.LastActivityDate.label} 
+        <img src="{!IF(sortField = 'LastActivityDate',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+      <apex:outputField value="{!account.LastActivityDate}" />
+    </apex:column>
+
+    <!-- 360 View -->
+  <!--  <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('X360_View__c');">
+        {!$ObjectType.Account.fields.X360_View__c.label}  
+        <img src="{!IF(sortField = 'X360_View__c',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+      <apex:outputText value="{!account.X360_View__c}" escape="false" />
+    </apex:column>
+    -->
+    
+    <!-- YTD_Sales_TY__c -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('YTD_Sales_TY__c');">
+        {!$ObjectType.Account.fields.YTD_Sales_TY__c.label}  
+        <img src="{!IF(sortField = 'YTD_Sales_TY__c',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+      <apex:outputText value="{!account.YTD_Sales_TY__c}" escape="false" />
+    </apex:column>
+  
+   
+    
+    <!--Status -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('Status__c');">
+        {!$ObjectType.Account.fields.Status__c.label} 
+        <img src="{!IF(sortField = 'Status__c',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+      <apex:outputField value="{!account.Status__c}" />
+    </apex:column>    
+   
+    <!--Created Date -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('CreatedDate');">Created Date
+        <img src="{!IF(sortField = 'CreatedDate',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+      <apex:outputField value="{!account.CreatedDate}" />
+    </apex:column>  
+
+    <!--Last Modified Date -->
+    <apex:column >
+      <apex:facet name="header">
+        <apex:outputLink value="javascript:void(0);" onclick="sortData('LastModifiedDate');">Last Modified Date
+        <img src="{!IF(sortField = 'LastModifiedDate',IF(isAscending = true, '/img/sort_asc_arrow.gif','/img/sort_desc_arrow.gif'),'/s.gif')}" /></apex:outputLink>
+      </apex:facet>
+       <apex:outputField value="{!account.LastModifiedDate}" />
+    </apex:column>    
+  
+    
+    <!-- Flag Duplicate -->
+    <apex:column headerValue="Action">
+    <apex:outputLink value="/00T/e?00NM0000000H89u=Email&00NM0000000H060={!URLENCODE('Account Maintenance')}&00NM0000000H05v={!URLENCODE('Duplicate Account or Shipto')}&tsk5={!URLENCODE('Duplicate Site Found')}&tsk4={!TODAY()}&tsk1={!URLENCODE($User.FirstName&' '&$User.LastName)}&tsk1_lkid={!$User.Id}&tsk3={!account.Name}&tsk3_lkid={!account.Id}&tsk12=Completed&retURL={!URLENCODE('/apex/DupSiteAddress?Id='+AccountId+'&addressgroupid='+AddressGroup)}">
+    
+    Request Removal
+    </apex:outputLink>
+    <!--  
+      <apex:commandLink action="{!FlagDuplicate}">Request Removal
+        <apex:param name="flagAccountID" value="{!account.Id}" />
+      </apex:commandLink>
+    -->  
+    </apex:column>
+    
+  </apex:pageBlockTable>
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

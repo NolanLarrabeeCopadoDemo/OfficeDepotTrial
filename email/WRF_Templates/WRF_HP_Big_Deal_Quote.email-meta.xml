@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that they need attachment for HP Big Quote</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF HP Big Deal Quote</name>
+    <style>freeForm</style>
+    <subject>WRF HP Big Deal Quote Needed: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+Thank you for your Work Request submission for {!Case.Account}.  We appreciate the opportunity to work with you.
+
+
+In order for us to assign this request, we will need a .txt or pdf version of the HP Quote.
+
+
+For new customers or those who have not participated in an HP Big Deal previously, you may contact Terry Burgos to receive the file.
+
+
+For existing and renewal customers, please proceed to the HP Big Deal Sharepoint Site at the following link:
+
+
+http://sp.na.odcorp.net/sites/WSS3/bsgsops/_layouts/1033/viewlsts.aspx
+
+
+Once you have received the file, please reply to this email with your attachment.
+
+
+Thank you,
+
+
+BSD BIDS</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

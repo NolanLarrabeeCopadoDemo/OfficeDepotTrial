@@ -1,0 +1,187 @@
+<apex:page standardController="Contract_Pricing_Terms__c" extensions="Contract_Pricing_Terms_Extension">
+   
+    <style type="text/css">      
+      .labelCol {
+            white-space: normal !important;  
+            width:40%!important;
+        }
+        .labelclass {
+        width:20% !important;
+        }
+    </style>
+    <script>
+      function isdeletevalue(){
+        var del=confirm("Do you want to Delete?")
+        if (del==true)
+        {
+          return true;             
+        }else{
+          return false;
+       }
+    }  
+    </script>
+<apex:form >
+<apex:pageBlock title="Custom Core Pricing Terms">
+<apex:pageBlockButtons location="both">
+<apex:commandButton value="Edit" action="{!Edit}"/>
+<apex:commandButton value="Delete" onclick="return isdeletevalue();"  action="{!Deleterecord}" rendered="{!deletepermission}"/>
+<apex:commandButton value="Back to Contract" onclick="window.location='/apex/springcmContract2?id={!Contract_Pricing_Terms__c.Contract__c}'; return false;" />
+<apex:commandButton value="Clone" action="{!URLFOR($Action.Contract_Pricing_Terms__c.Clone,Contract_Pricing_Terms__c.id)}"/>
+<!--<input value="Clone" class="btn" name="close" 
+                onclick="navigateToUrl('/apex/Contract_Pricing_Terms_edit_Page?clone=1&retURL=%2F{!Contract_Pricing_Terms__c.id}')" 
+                title="close" type="button" />-->
+</apex:pageBlockButtons>
+
+
+<apex:pageBlockSection title="General Information" columns="1">
+
+<apex:outputField value="{!Contract_Pricing_Terms__c.Name}" />
+<apex:outputField label="Relevant customer level(s) for this pricing terms group" value="{!Contract_Pricing_Terms__c.Relevant_Customer_Level__c}" />
+<apex:outputField value="{!Contract_Pricing_Terms__c.Private_Brand__c}" />
+<apex:outputField value="{!Contract_Pricing_Terms__c.Non_standard_terms__c}" /><!-- Added for 02401254-->
+</apex:pageBlockSection>
+<apex:pageBlockSection columns="1" >    
+    <apex:outputField value="{!Contract_Pricing_Terms__c.Department_Groups__c}" >
+        <apex:actionSupport event="onchange" action="{!PopulateCheckBox}" reRender="wrapperlist"/>    
+    </apex:outputField>
+    <!--<apex:pageBlockTable id="wrapperlist" value="{!wrapperlist}" var="dept">
+        <apex:column >
+            <apex:inputcheckbox disabled="true" value="{!dept.checked}" />
+        </apex:column>
+        <apex:column headerValue="Department Name" value="{!dept.departmentName}"/>
+    </apex:pageBlockTable>-->
+     
+    
+    
+    
+    
+    
+    
+    <apex:pageBlock id="wrapperlist" title="Departments" >
+      <table class="list" border="0" cellpadding="0" cellspacing="0">
+            <apex:repeat value="{!rowWrappers}" var="row">
+           <tr>
+             <apex:repeat value="{!row.values}" var="value">
+              <td>
+                 <apex:inputcheckbox disabled="true" value="{!value.checked}" />
+               </td>
+    
+               <td>
+                 {!value.departmentName}
+               </td>
+             </apex:repeat>
+           </tr>
+        </apex:repeat>
+      </table>
+  </apex:pageBlock>
+</apex:pageBlockSection>
+<apex:pageBlockSection title="Details" columns="1" >
+<apex:outputField value="{!Contract_Pricing_Terms__c.Contract__c}"/>
+<apex:outputField label="Initial Price Freeze Period (in days)" value="{!Contract_Pricing_Terms__c.CC_Initial_Freeze_Period_in_days__c}" />
+<!--code change by Himanshu From Pune team for NAIT-111807-->
+<apex:pageBlockSectionItem >
+    <apex:outputLabel value="How frequently can we pass increases(Days/Period)"/>
+        <apex:outputLabel value="{!Contract_Pricing_Terms__c.Calendar_period__c}{!Contract_Pricing_Terms__c.In_days__c}"/>
+</apex:pageBlockSectionItem>
+<!-- code change End-->
+<!--<apex:outputField label="How frequently can we pass increases (in days)" value="{!Contract_Pricing_Terms__c.CC_Pricing_Update_Frequency_in_days__c}" />-->
+<apex:outputField label="Does the contract specify a specific month(s) that pricing for custom core SKUs must be updated? " value="{!Contract_Pricing_Terms__c.Required_Timing_Of_CC_Updates__c}" />
+<apex:outputField label="Vendor letter required for core increase?" value="{!Contract_Pricing_Terms__c.Vendor_Letter_Required_For_CC_Increase__c}" />
+
+  <!-- <apex:outputField label="Is customer notification required upon discontinuation of a custom core SKU?" value="{!Contract_Pricing_Terms__c.Notification_process_for_disco_items__c}" />
+   <apex:outputField label="Discontinued Product Notification Language" value="{!Contract_Pricing_Terms__c.Notification_time_disco_items_Other__c}"  rendered="{!if(Contract_Pricing_Terms__c.Notification_process_for_disco_items__c='Yes',true,false)}"/>-->
+    <!--<apex:outputField label="What additional action must be taken when a custom core list SKU has been discontinued?" value="{!Contract_Pricing_Terms__c.Action_requirements_for_deleted_or_disco__c}" />
+   <apex:outputField label="What restrictions exist regarding the pricing of added alternate custom core SKUs?" value="{!Contract_Pricing_Terms__c.Price_requirements_for_added_or_alternat__c}" />
+   <apex:outputField label="What type of customer communication is required to permit deletion of a SKU on the custom core?" value="{!Contract_Pricing_Terms__c.Is_notification_required_to_delete_a_cus__c}" />
+   <apex:outputField label="What type of customer communication is required to permit the addition of a SKU onto the custom core?" value="{!Contract_Pricing_Terms__c.What_type_of_customer_communication_is_r__c}" />-->
+
+    
+<apex:outputField label="What type of customer communication is required to permit pricing changes on the custom core?" value="{!Contract_Pricing_Terms__c.Comm_Req_CC_Price_Chg__c}" />
+    
+<apex:outputField value="{!Contract_Pricing_Terms__c.Addition_communication_requirements__c}"/>
+<apex:outputField value="{!Contract_Pricing_Terms__c.Deletion_communication_requirements__c}"/>
+<apex:outputField value="{!Contract_Pricing_Terms__c.Alternate_restrictions__c}"/>
+<apex:outputField value="{!Contract_Pricing_Terms__c.DISCO_communication_requirements__c}"/>
+<apex:outputField value="{!Contract_Pricing_Terms__c.Additional_DISCO_action__c}"/>
+<apex:outputField value="{!Contract_Pricing_Terms__c.Are_obligated_to_pass_on_cost_decreases__c}"/>
+<apex:outputField value="{!Contract_Pricing_Terms__c.How_frequently_must_we_pass_decreases__c}" rendered="{!if(Contract_Pricing_Terms__c.Are_obligated_to_pass_on_cost_decreases__c='Yes',true,false)}"/>  
+
+<apex:outputField label="Effective date of this language" value="{!Contract_Pricing_Terms__c.Effective_Date_of_this_language__c}" />
+
+
+<apex:outputField rendered="{!(ContractPricing.Comm_Req_CC_Price_Chg__c=='Notification and customer approval'||ContractPricing.Comm_Req_CC_Price_Chg__c=='Notification only')}" label="How much notice must be provided before pricing changes can be made? (in days)" value="{!Contract_Pricing_Terms__c.CC_Prc_Chg_Notice_Reqd_days__c}" />
+<!-- <apex:pageBlockSection columns="1">
+<apex:outputField value="{!Contract_Pricing_Terms__c.Active__c}" />
+</apex:pageBlockSection> -->
+</apex:pageBlockSection>
+<apex:pageBlockSection title="Price Increase Cap Information" columns="1" >
+<apex:outputField label="Are price increases capped?" value="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c}" />
+<!-- <apex:pageBlockSection columns="1" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}">
+
+<apex:outputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Level__c}" />
+<apex:outputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Calc_Scope__c}" />
+<apex:outputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Period__c}" />
+<apex:outputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Scope__c}" />
+
+</apex:pageBlockSection> -->
+<apex:outputField rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" label="Price Cap Language" value="{!Contract_Pricing_Terms__c.Price_cap_language__c}" />
+<apex:outputField rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" label="Is there language stating that the applicable cap should be the lesser of two values?" value="{!Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c}" />
+<!--<apex:outputField rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}" label="What is the price increase cap pegged to?" value="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c}" />-->
+</apex:pageBlockSection>
+
+<apex:pageBlockSection columns="1"><!--{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'2','1')}">-->
+<apex:outputField styleClass="labelclass" label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'What is the First price increase cap pegged to?','What is the price increase cap pegged to?')}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}" value="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c}"/>
+<apex:outputField styleClass="labelclass" label="Other cap basis" rendered="{!((Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Other' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' ) &&  Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Contract silent')}" value="{!Contract_Pricing_Terms__c.Other_cap_basis__c}"/>   
+<apex:outputField styleClass="labelclass"  label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index are price increases pegged to for the first cap value?','Which Consumer Price Index are price increases pegged to?')}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}" value="{!Contract_Pricing_Terms__c.CPI_Price_Incr_Pegd_To__c}"/> 
+<apex:outputField styleClass="labelclass"  label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'What level is the Consumer Price Index applied for the first cap value?','What level is the Consumer Price Index applied?')}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}"  value="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c}"/>
+<apex:outputField styleClass="labelclass"  label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index region is the first cap pegged to?','Which Consumer Price Index region?')}" value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_region__c}" rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c=='Region' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}"/>    
+<apex:outputField styleClass="labelclass"  label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Consumer Price Index local area is the first cap pegged to?','Which Consumer Price Index local area?')}" value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_local_area__c}" rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c=='Local Area' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}"  />    
+<apex:outputField styleClass="labelclass"  label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Which Producer Price Index structure is applied for the first cap value?','Which Producer Price Index structure is applied?')}" value="{!Contract_Pricing_Terms__c.Which_Producer_Price_Index_structure__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}"/>    
+<apex:outputField styleClass="labelclass"  label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Detail of PPI index structure indicated for the first cap value','Detail of PPI index structure indicated')}" value="{!Contract_Pricing_Terms__c.Detail_of_PPI_index_structure_indicated__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}"/>    
+<apex:outputField styleClass="labelclass"  label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Amount','Price Increase Cap Amount')}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes')}" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Amt__c}" />
+<apex:outputField styleClass="labelclass"  label="{!if((Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')),'Price Increase First Cap Type/Units','Price Increase Cap Type/Units')}" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' || Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='No/Contract Silent')}" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Type_Unit__c}" />
+
+
+<apex:outputField styleClass="labelclass" label="What is the Second price increase cap pegged to?" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' && Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes'}" value="{!Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c}"/>
+<apex:outputField styleClass="labelclass" label="Second cap basis" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' && Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes' && Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Other'}" value="{!Contract_Pricing_Terms__c.Second_cap_basis__c}"/>
+<apex:outputField styleClass="labelclass"  label="Which Consumer Price Index are price increases pegged to for the second cap value?" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="{!Contract_Pricing_Terms__c.CPI_Price_Incr_Pegd2To__c}"/> 
+<apex:outputField styleClass="labelclass"  label="What level is the Consumer Price Index applied for the second cap value?" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"  value="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index2__c}"/>
+<apex:outputField styleClass="labelclass"  label="Which Consumer Price Index region is the second cap pegged to?" rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index2__c=='Region' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_region2__c}"/>    
+<apex:outputField styleClass="labelclass"  label="Which Consumer Price Index local area is the second cap pegged to?" value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_local_area2__c}" rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index2__c=='Local Area' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"/>    
+<apex:outputField styleClass="labelclass"  label="Which Producer Price Index structure is applied for the second cap value?" value="{!Contract_Pricing_Terms__c.Which_Producer_Price_Index_structure2__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"/>    
+<apex:outputField styleClass="labelclass"  label="Detail of PPI index structure indicated for the second cap value" value="{!Contract_Pricing_Terms__c.Detail_of_PPI_index_structure_indicated2__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Producer Price Index (PPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}"  /> 
+<apex:outputField styleClass="labelclass"  label="Price Increase Second Cap Amount" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="{!Contract_Pricing_Terms__c.Price_Increase_Cap_Amount_2__c}" />
+<apex:outputField styleClass="labelclass"  label="Price Increase Second Cap Type/Units" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd2To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes') && (Contract_Pricing_Terms__c.Is_there_language_stating_thatapplicable__c=='Yes')}" value="{!Contract_Pricing_Terms__c.Price_Increase_Cap_2_Type_Units__c}" />
+</apex:pageBlockSection>
+
+<!--<apex:outputField rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes')}" label="What level is the Consumer Price Index applied?"  value="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c}"/>
+<apex:outputField rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c=='Region' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes')}" value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_region__c}"/>    
+<apex:outputField value="{!Contract_Pricing_Terms__c.Which_Consumer_Price_Index_local_area__c}" rendered="{!Contract_Pricing_Terms__c.What_level_is_the_Consumer_Price_Index__c=='Local Area' && (Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes')}"/>    
+<apex:outputField value="{!Contract_Pricing_Terms__c.Which_Producer_Price_Index_structure__c}" label="Which Producer Price Index structure is applied?" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes')}" />    
+<apex:outputField value="{!Contract_Pricing_Terms__c.Detail_of_PPI_index_structure_indicated__c}" rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes')}"  />    
+<apex:outputField rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Consumer Price Index (CPI)' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes' )}" label="Which Consumer Price Index are price increases pegged to?" value="{!Contract_Pricing_Terms__c.CPI_Price_Incr_Pegd_To__c}" />
+-->
+
+<!--<apex:pageBlockSection columns="1">
+<apex:outputField rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes')}" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Amt__c}" />
+<apex:outputField rendered="{!(Contract_Pricing_Terms__c.CC_Price_Incr_Cap_Pegd_To__c=='Static Amount' && Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes')}" value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Type_Unit__c}" />
+</apex:pageBlockSection> -->
+
+<apex:pageBlockSection columns="1" rendered="{!Contract_Pricing_Terms__c.CC_Price_Incr_Capped__c=='Yes'}">
+<apex:outputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Level__c}" />
+<!--<apex:outputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Calc_Scope__c}" />-->
+<apex:outputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_Period__c}" />
+<!--<apex:outputField value="{!Contract_Pricing_Terms__c.Price_Incr_Cap_App_Scope__c}" />-->
+</apex:pageBlockSection>
+<div style="display:none;">
+    
+
+<apex:pageBlockSection columns="1">
+<apex:outputField value="{!Contract_Pricing_Terms__c.Active__c}" />
+</apex:pageBlockSection>
+    </div>
+
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>

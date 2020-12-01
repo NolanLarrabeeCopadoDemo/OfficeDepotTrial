@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Customer Email (no existing account) Web Lead submitted</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Customer Email (no existing account) Web Lead submitted</name>
+    <style>formalLetter</style>
+    <subject>Thank you for Contacting Office Depot</subject>
+    <textOnly>Dear {!Lead.FirstName}
+
+Thank you for contacting Office Depot. We received the below request to setup a contract account and we look forward to the opportunity of serving all your business needs.
+
+According to our records, your organization already has a contract account. Please contact your Account Manager, Laquetta Morton at 817 358-3054. The Account Manager has the ability to create a login name for you on existing account number 27281050.
+
+Thank you for choosing Office Depot.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

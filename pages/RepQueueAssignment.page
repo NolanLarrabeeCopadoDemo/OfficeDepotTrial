@@ -1,0 +1,272 @@
+<!-- ***********************************************************************************************
+Name       : RepQueueAssignment
+Controller : RepQueueAssignmentController
+Created    : 8/31/2015 [Hemant]
+Story      : S-346407
+Desc       : To manage the priority for Rep Queue assignment uisng custom object - Rep Queue Assignment
+*********************************************************************************************** -->
+<apex:page controller="RepQueueAssignmentController" id="pg">
+    <link class="user" href="/sCSS/23.0/sprites/1317831957000/Theme3/default/forceComHomepage.css" rel="stylesheet" type="text/css" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, '/js/jquery-1.4.2.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, '/js/jquery-ui-1.8.6.custom.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery10, '/jquery-1.10.1.min.js')}" />
+    <style type="text/css">
+.empty-column-content {
+    display: none;
+}
+</style>
+<!-- added for S-429672 -->
+<style>
+.pagination {
+    font-size: 80%;
+}
+
+.pagination a {
+    text-decoration: none;
+    border: solid 1px #AAE;
+    color: #15B;
+}
+
+.pagination a,.pagination span {
+    display: block;
+    float: left;
+    padding: 0.3em 0.5em;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.pagination .current {
+    background: #5E82A3;
+    color: #fff;
+    border: solid 1px #AAE;
+    text-decoration: none;
+}
+
+.pagination .notPrevious,.pagination .notNext {
+    color: #999;
+    border-color: #999;
+    background: #fff;
+    text-decoration: none;
+}
+
+.next {
+    text-decoration: underline
+}
+
+.prev {
+    text-decoration: underline
+}
+</style>
+<!--        end S-429672 -->
+
+    <apex:form id="form">
+
+        <script>
+
+   var isEdited = 'false';
+  //Function to allow only numbers as input
+  function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    //Modified for S-429672
+    if ( (charCode >= 65 && charCode <= 122) || (charCode > 186)) {
+        return false;
+    }else{
+        if( (charCode >= 48 && charCode <= 57)){
+        isEdited = true;
+        }
+    } //End S-429672
+    return true;
+  }
+
+  //Function to valiadte the priority values between 1 to 10
+  function chKPriority(prtTxtBox){
+   var pVal = parseInt(prtTxtBox.value) ;
+   if(prtTxtBox.value != '' && (isNaN(pVal) || pVal < 1 || pVal > 10)){
+     alert('Priority should be between 1 to 10');
+     prtTxtBox.value = null;
+     prtTxtBox.focus();
+   }
+    return false;
+
+  }
+
+  function validatePriority() {
+    //Modified for S-429672
+    /*var noPriorityForQueue = true ;
+    $("table[id$='pgBlockTable']").find("tr:eq(1)").find("td").each(function(i,e){
+          var colID = $(this).attr("id") ;
+          if(colID.indexOf("rptRQALst") > -1) {
+            noPriorityForQueue = true ;
+            $("table[id$='pgBlockTable']").find("tr").each(function(j,ev){
+              if($(this).find("td:eq("+i+")").find("input[id$='prt']").val() > 0) {
+                noPriorityForQueue = false ;
+              }
+            });
+            if(noPriorityForQueue) {
+              alert("Each queue must have atleat one rep priority assigned.") ;
+              return false;
+            }
+          }
+        });
+        if(!noPriorityForQueue)*/
+        isEdited = 'false'; //end S-429672
+        save();
+  }
+  </script>
+        <apex:actionFunction name="save" action="{!Save}" status="status_wait"
+            reRender="form" />
+        <apex:outputPanel rendered="{! !$Setup.Rep_Queue_Assignment_Security__c.Has_Access__c}">
+          <div class="header-right">
+            <div class="bPageTitle">
+                <div class="ptBody secondaryPalette">
+                    <div class="content">
+                        <div class="header-text"></div>
+                    </div>
+                    <div class="links"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <apex:outputText styleClass="steps-header" value="{!$Label.Rep_Queue_Assignment_No_Access}"/>
+        <br/>
+        <apex:outputText styleClass="steps-text" value="{!$Label.Rep_Queue_Assignment_No_Access_Text}"/>
+        </apex:outputPanel>
+        <apex:pageBlock id="pgBlock" title="Priority Assignment" rendered="{!$Setup.Rep_Queue_Assignment_Security__c.Has_Access__c}">
+            <apex:pageblockbuttons location="both">
+                <input type="button" class="btn"
+                    onClick="return validatePriority();" value="Save" />
+                <apex:commandButton action="{!Cancel}" value="Cancel"></apex:commandButton>
+            </apex:pageblockbuttons>
+
+            <apex:pageMessages id="message"></apex:pageMessages>
+            <apex:actionstatus id="status_wait">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading"
+                        style="background-color: #fbfbfb; height: 100%; opacity: 0.65; width: 100%;">
+                        <div class="waitingHolder" style="top: 54.2px; width: 91px;">
+                            <img class="waitingImage" src="/img/loading.gif"
+                                title="Please Wait..." /> <span class="waitingDescription">Please
+                                Wait...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionstatus>
+<!--        added for S-429672 -->
+            <apex:outputPanel rendered="{!IF(repAssignWrapper.size > 0, true, false)}" id="pg">
+                   <table width="100%" style="margin-top: 8px;">
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td style="float: right; vertical-align: middle; font-size: 15px;">
+                        <div id="PaginationDown" class="pagination"><a href="#"
+                            class="notPrevious" id="previousDown"
+                            onClick="previousPage(); return false;">Previous</a> <span
+                            style="IF (isMorePrevious,'display: block; font-size: 14px; color: #5E82A3; ',' display: none;"><b>....</b></span>
+                        <apex:repeat value="{!listOfLinks}" var="number">
+                            <a href="#" style=""
+                                class="{!IF(number == selectedPageNumber,'current','')}"
+                                onClick="setCurrentPage('{!number}');return false;">{!number}</a>
+                        </apex:repeat> <span
+                            style="IF (isMoreNext,'display: block; font-size: 14px; color: #5E82A3; ',' display: none;"><b>....</b></span>
+                        <a id="nextDown" href="#" class="next"
+                            onClick="nextPage(); return false;">Next</a></div>
+                        </td>
+                    </tr>
+                </table>
+             </apex:outputPanel>
+<!--             end S-429672 -->
+
+            <apex:pageBlockSection title="Rep Queue Assignment"
+                collapsible="false" columns="1" id="pgTblSection">
+
+<!--                Modified below line for S-429672     -->
+                <apex:pageBlockTable value="{!repAssignWrapper}" var="rqaCls" width="100%"
+                    id="pgBlockTable" rendered="{!IF(repAssignWrapper.size > 0, true, false)}">
+
+                    <apex:column headerValue="Reps">
+                        <apex:outputText value="{!rqaCls.userName}" />
+                    </apex:column>
+                    <apex:repeat value="{!rqaCls.repQueAssignmentLst}" var="rqa"
+                        id="rptRQALst">
+                        <apex:column headerValue="Priority" style="text-align: center;"
+                            id="prtCol">
+                            <apex:inputText value="{!rqa.Priority__c}" style="width:30px;"
+                                onkeypress="return isNumber(event);"
+                                onblur="return chKPriority(this);" id="prt" />
+                        </apex:column>
+                    </apex:repeat>
+                    <!--Define the headers here and hide the empty cells that are created -->
+                    <apex:repeat var="header" value="{!leadQueueLst}">
+                        <apex:column headerValue="{!header}"
+                            styleClass="empty-column-content" />
+                    </apex:repeat>
+
+                </apex:pageBlockTable>
+
+                <apex:outputPanel >
+                    <apex:outputLabel value="No reps to assign priority."
+                        rendered="{!IF(repAssignWrapper.size > 0, false, true)}" />
+                </apex:outputPanel>
+
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+
+        <!--        added for  S-429672 -->
+               <script>
+    var currentIndex = parseInt('{!selectedPageNumber}');
+    var numberOfLinks = parseInt('{!totalPage}');
+    function setCurrentPage(index) {
+        if(currentIndex != index) {
+            currentIndex = parseInt(index);
+            getPageAfterSave(currentIndex);
+        }
+    }
+    function setStyle() {
+        if(currentIndex == numberOfLinks) {
+            document.getElementById("nextDown").className = "notNext";
+        } else {
+            document.getElementById("nextDown").className = "next";
+        }
+        if(currentIndex == 1) {
+            document.getElementById("previousDown").className = "notPrevious";
+        } else {
+            document.getElementById("previousDown").className = "prev";
+        }
+    }
+
+    function nextPage() {
+        if(currentIndex < numberOfLinks) {
+        currentIndex = currentIndex + 1;
+        getPageAfterSave(currentIndex);
+        }
+    }
+    function previousPage() {
+        if(currentIndex > 1) {
+         currentIndex = currentIndex - 1;
+         getPageAfterSave(currentIndex);
+        }
+    }
+
+
+    function getPageAfterSave(currentIndex){
+      if(isEdited == true){
+        alert('Click save before moving to another page');
+      }else{
+        isEdited = 'false';
+        getpage(currentIndex);
+      }
+
+    }
+
+    </script>
+
+        <apex:actionFunction name="getpage" action="{!getList}"
+            rerender="form" status="status_wait" immediate="true" onComplete="setStyle(); numberOfLinks = parseInt('{!totalPage}'); currentIndex = parseInt('{!selectedPageNumber}'); ">
+            <apex:param value="" assignTo="{!selectedPageNumber}"
+                name="cPageNumber" />
+        </apex:actionFunction>
+<!--   end  S-429672 -->
+
+    </apex:form>
+</apex:page>

@@ -1,0 +1,62 @@
+<apex:page controller="ManageUserRole" tabStyle="User">
+<!-- Begin Default Content REMOVE THIS -->
+<apex:sectionHeader title="User Role Change Report" subtitle="Role Report" />
+    <apex:form > 
+        <apex:pageBlock title="User Role">
+            <apex:outputPanel id="theMessages">
+                <apex:pageMessages />
+            </apex:outputPanel>
+             <apex:pageBlockButtons >
+                <apex:commandButton action="{!ChgRole}" value="Change Role" id="btnChgRole" />
+                <apex:commandButton action="{!ChgFlag}" value="Clear Flag" id="btnChgFlag" />
+                <apex:commandButton action="{!allUserRole}" value="Load Data" id="btnAllData" />
+               </apex:pageBlockButtons>
+<!-- End Default Content REMOVE THIS -->
+   <apex:pageBlockSection title="Report Data">
+                <apex:pageblockTable value="{!UserActivitiesData}" var="actData" border="0">
+                  <apex:column headerValue="select" >   
+                 <apex:inputCheckbox value="{!actData.isRoleSelected}"  />
+                    </apex:column>
+                    <apex:column headerValue="User Name" >
+                        <a href="/{!actData.uid}"><apex:outputText value="{!actData.userName}"/></a>
+                    </apex:column>
+                    <apex:column headerValue="User Role" >
+                        <apex:outputText value="{!actData.userRole}"/>
+                    </apex:column>
+                     <apex:column headerValue="Manager Name" >
+                        <apex:outputText value="{!actData.ManagerName}"/>
+                    </apex:column>
+                    <apex:column headerValue="Manager Role" >
+                        <apex:outputText value="{!actData.managerRole }"/>
+                    </apex:column>
+                    <apex:column headerValue="Prev Manager Name" >
+                        <apex:outputText value="{!actData.PreviousManager }"/>
+                    </apex:column>
+                    <apex:column headerValue="Prev Manager Role" >
+                        <apex:outputText value="{!actData.PreviousTitle }"/>
+                    </apex:column>
+                    
+                    <apex:column headerValue="User Region" >
+                        <apex:outputText value="{!actData.userRegion}"/>
+                    </apex:column>
+                    <apex:column headerValue="User Market" >
+                        <apex:outputText value="{!actData.userMarket}"/>
+                    </apex:column>
+                    <apex:column headerValue="User District" >
+                        <apex:outputText value="{!actData.userDistrict}"/>
+                    </apex:column>
+                    <apex:column headerValue="User Title" >
+                        <apex:outputText value="{!actData.userTitle}"/>
+                    </apex:column>
+                     <apex:column headerValue="Role Changed" >
+                        <apex:inputCheckbox value="{!actData.isRoleChanged }" disabled="true"/>
+                    </apex:column>
+                    <apex:column headerValue="Last Login" >
+                        <apex:outputText value="{!actData.userLastLogin}"/>
+                    </apex:column>
+           </apex:pageblockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+            
+    </apex:form>
+</apex:page>

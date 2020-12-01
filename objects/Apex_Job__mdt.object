@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Category</label>
+        <required>true</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>ACE (Customer Price Changes)</fullName>
+                    <default>true</default>
+                    <label>ACE (Customer Price Changes)</label>
+                </value>
+                <value>
+                    <fullName>AOPS-SFDC Sync</fullName>
+                    <default>false</default>
+                    <label>AOPS-SFDC Sync</label>
+                </value>
+                <value>
+                    <fullName>CCPA</fullName>
+                    <default>false</default>
+                    <label>CCPA</label>
+                </value>
+                <value>
+                    <fullName>Customer Migration</fullName>
+                    <default>false</default>
+                    <label>Customer Migration</label>
+                </value>
+                <value>
+                    <fullName>Customer Migration - Mod 5</fullName>
+                    <default>false</default>
+                    <label>Customer Migration - Mod 5</label>
+                </value>
+                <value>
+                    <fullName>Data Correction &amp; Cleanup</fullName>
+                    <default>false</default>
+                    <label>Data Correction &amp; Cleanup</label>
+                </value>
+                <value>
+                    <fullName>Grand &amp; Toy (Canada)</fullName>
+                    <default>false</default>
+                    <label>Grand &amp; Toy (Canada)</label>
+                </value>
+                <value>
+                    <fullName>K-12 Reporting</fullName>
+                    <default>false</default>
+                    <label>K-12 Reporting</label>
+                </value>
+                <value>
+                    <fullName>Lead Triage</fullName>
+                    <default>false</default>
+                    <label>Lead Triage</label>
+                </value>
+                <value>
+                    <fullName>MDR</fullName>
+                    <default>false</default>
+                    <label>MDR</label>
+                </value>
+                <value>
+                    <fullName>Reassignment</fullName>
+                    <default>false</default>
+                    <label>Reassignment</label>
+                </value>
+                <value>
+                    <fullName>Tier 1 (Partner)</fullName>
+                    <default>false</default>
+                    <label>Tier 1 (Partner)</label>
+                </value>
+                <value>
+                    <fullName>Unknown</fullName>
+                    <default>false</default>
+                    <label>Unknown</label>
+                </value>
+                <value>
+                    <fullName>WRF</fullName>
+                    <default>false</default>
+                    <label>WRF</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Frequency_Metric__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Frequency Metric</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Day</fullName>
+                    <default>true</default>
+                    <label>Day</label>
+                </value>
+                <value>
+                    <fullName>Week</fullName>
+                    <default>false</default>
+                    <label>Week</label>
+                </value>
+                <value>
+                    <fullName>Month</fullName>
+                    <default>false</default>
+                    <label>Month</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Frequency__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Frequency</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Apex Job Monitoring</label>
+    <pluralLabel>Apex Jobs Monitoring</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

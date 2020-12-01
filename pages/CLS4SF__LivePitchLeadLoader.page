@@ -1,0 +1,13 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyBodyTag="false" docType="html-5.0" standardController="Lead">
+
+<apex:includeScript value="https://code.jquery.com/jquery-2.1.4.min.js"/>
+<script>
+	$(document).ready(function(){
+    var a = window.open('/apex/LivePitchLeadDetail?scontrolCaching=1&id={!Lead.Id}', '_blank', 'height=600,location=no,resizable=yes,toolbar=no,status=yes,menubar=no,scrollbars=1', false);
+    a.moveTo(0, 0);
+    a.resizeTo(self.screen.width, self.screen.height);
+ 		window.history.back();
+	})
+</script>
+
+</apex:page>

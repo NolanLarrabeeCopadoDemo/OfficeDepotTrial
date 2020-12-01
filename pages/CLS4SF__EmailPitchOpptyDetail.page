@@ -1,0 +1,17 @@
+<apex:page standardController="Opportunity" extensions="CLS4SF.OpportunityUtils" showHeader="false" sidebar="false">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<script type="text/javascript">
+    window.onload=function(){
+        document.getElementById("cspost").submit();
+        };
+</script>
+<form name="cspost" id="cspost" action="{!postURL}/manage/email/external_link_post" method="POST">
+<input  id="crmid" name="crmid" value="crm://salesforce.com/opportunity/{!Opportunity.AccountId}/{!Opportunity.Id}" type="hidden" />
+<input  id="email" name="email" value="{!emails}" type="hidden" />
+<input  id="accountname" name="accountname" value="{!Opportunity.account.name}" type="hidden" />
+<input  id="opportunity" name="opportunity" value="{!Opportunity.name}" type="hidden" />
+<input  id="company" name="company" value="{!Opportunity.account.name} (Opp: {!Opportunity.name})" type="hidden" />
+<input  id="csrf_token" name="csrf_token" value="{!csrf}" type="hidden" />
+</form>
+</META>
+</apex:page>

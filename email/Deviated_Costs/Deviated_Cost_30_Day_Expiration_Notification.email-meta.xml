@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Deviated Cost 30 Day Expiration Notification</name>
+    <style>freeForm</style>
+    <subject>Deviated Cost 30 Day Expiration Notification: {!Deviated_Cost__c.Account_Name__c}</subject>
+    <textOnly>Dear {!Deviated_Cost__c.Account_Owner_Name__c},
+
+The Deviated Cost Agreement for &apos;{!Deviated_Cost__c.Account_Name__c}&apos; ends in 30 days on {!Deviated_Cost__c.End_Date__c}. It is imperative that you contact the Vendor ({!Deviated_Cost__c.Vendor__c}) to ensure timely renewal to prevent rebate delays.
+
+If the Deviated Cost Agreement is not renewed, then core pricing must be updated to reflect loss of deviation! Please note: this will affect your compensation.
+
+When applicable, please follow the link below to update the &apos;Rep Disposition&apos; field on the Deviated Cost page (disposition options are: Deviated Cost Review, Extension Granted, and No Extension - Deal Ended).
+
+Sincerely,
+Deviated Cost Team
+
+Link to Deviated Cost in SFDC:
+{!Deviated_Cost__c.Link}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,178 @@
+<template>
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                data={jsondata}
+                columns={columns}
+                onrowaction={handleRowAction}
+                hide-checkbox-column>
+        </lightning-datatable>
+    </div> 
+
+    <section
+    id="modal"
+    role="dialog"
+    tabindex="-1"
+    aria-labelledby="modal-heading-01"
+    aria-modal="true"
+    aria-describedby="modal-content-id-1"
+    class="slds-modal slds-fade-in-open slds-hide"
+    >
+    <div class="slds-modal__container">
+        <header class="slds-modal__header">
+            <lightning-button-icon
+                icon-name="utility:close"
+                variant="bare-inverse"
+                onclick={handleClick}
+                alternative-text="Close window"
+                class="slds-modal__close">
+            </lightning-button-icon>       
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                Prospect Information                    
+            </h2>
+        </header>
+
+    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+       <lightning-layout class="c-container">
+        <lightning-card  title="Org Information">
+
+            <p class="slds-p-horizontal_small">
+                    <lightning-layout>
+                        <lightning-layout-item padding="around-small">
+                            <lightning-input type="text" required label="Business Name" value={prospect.Name} name="Name" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" label="Address2" value={prospect.Address2__c} name="Address2__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" required label="State" value={prospect.State__c} name="State__c" onchange={handleChange}></lightning-input>
+
+                        </lightning-layout-item>
+                        <lightning-layout-item padding="around-small">
+                            <lightning-input type="text" required label="Address1" value={prospect.Address1__c} name="Address1__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" required label="City" value={prospect.City__c} name="City__c" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" required label="Zip" value={prospect.Zip__c} name="Zip__c" onchange={handleChange}></lightning-input>
+    
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </p>                    
+            
+        </lightning-card>
+        </lightning-layout>
+
+        <lightning-layout class="c-container">
+        <lightning-card  title="Contact Information">                
+            <p class="slds-p-horizontal_small">
+                <lightning-layout>
+                    <lightning-layout-item padding="around-small">
+                        <lightning-input type="text" required label="First Name" value={prospect.FirstName} name="FirstName" onchange={handleChange}></lightning-input>
+                        <lightning-input type="text" label="Title" value={prospect.Title} name="Title" onchange={handleChange}></lightning-input>
+                        <c-reusepicklistinlwc required selected-value={prospect.Decision_Maker__c} field-a-p-i-name="Decision_Maker__c" obj-a-p-i-name="Contact" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>
+                        <!--<lightning-input type="text" label="Decision Maker" value={prospect.Decision_Maker__c}></lightning-input> -->
+                        <lightning-input type="text" required label="Phone1" value={prospect.Phone1_Rep__c} pattern="[0-9]{10}" pattern-mismatch="Phone number should be 10 digits" name="Phone1_Rep__c" onchange={handleChange}></lightning-input> 
+                        <lightning-input type="text" label="Phone1 Ext" value={prospect.Phone_Ext__c} name="Phone_Ext__c" onchange={handleChange}></lightning-input>
+                        <!--<lightning-input type="text" label="Role" value={prospect.Role__c}></lightning-input> -->
+                        
+
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small">
+                        <lightning-input type="text" required label="Last Name" value={prospect.LastName} name="LastName" onchange={handleChange}></lightning-input>
+                        <lightning-input type="text" required label="Email" value={prospect.Email} name="Email" onchange={handleChange}
+                                message-when-pattern-mismatch="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$"
+                                message-when-bad-input="Please Enter a valid Email address. (Email Address's cannot be an office Depot address)"></lightning-input>
+                        <lightning-input type="text" label="Department" value={prospect.Department} name="Department" onchange={handleChange}></lightning-input>
+                        <!--  <lightning-input type="text" label="Phone1 Type" value={prospect.Phone_Type1__c}></lightning-input> -->
+                        <c-reusepicklistinlwc required selected-value={prospect.Phone_Type1__c}  field-a-p-i-name="Phone_Type1__c" obj-a-p-i-name="Contact" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>           
+                    </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout>
+                    <lightning-layout-item size="12" padding="around-small">
+                        <lightning-dual-listbox id="selectOptions"
+                            name="Role__c"
+                            label="Role"
+                            source-label="Available"
+                            selected-label="Selected"
+                            options={roleOptions}
+                            value={prospect.Role__c}               
+                            onchange={handleChange}>
+                        </lightning-dual-listbox>
+                    </lightning-layout-item>                                           
+                </lightning-layout>
+                <lightning-layout>
+                    <lightning-layout-item size="12" padding="around-small">
+                        <lightning-dual-listbox id="selectOptions1"
+                            name="Product_Focus__c"
+                            label="Product Focus"
+                            source-label="Available"
+                            selected-label="Selected"
+                            options={productFocusOptions} 
+                            value={prospect.Product_Focus__c}               
+                            onchange={handleChange}>
+                        </lightning-dual-listbox>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </p>                           
+        </lightning-card>
+        </lightning-layout>
+
+        <lightning-layout class="c-container">
+            <lightning-card  title="Company/Prospect Additional Information">              
+                <p class="slds-p-horizontal_small">
+
+                    <lightning-layout>
+                        <lightning-layout-item padding="around-small">
+                            <lightning-input required type="text" label="Account Phone" value={prospect.Phone} pattern="[0-9]{10}" pattern-mismatch="Phone number should be 10 digits" name="Phone" onchange={handleChange}></lightning-input>                           
+                            <lightning-combobox required label="Sector" name="Sector__c" onchange={handleCountryChange} options={sectorOptions}  placeholder="--None--" value={prospect.Sector__c}></lightning-combobox>
+                            <!--<c-reusepicklistinlwc required selected-value={prospect.Sector__c} field-a-p-i-name="Sector__c" obj-a-p-i-name="Account" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>-->
+                            <lightning-combobox required label="Segment" disabled={disable_Segment} name="Segment__c" onchange={handleCountryChange} options={segmentOptions}  placeholder="--None--" value={prospect.Segment__c}></lightning-combobox>
+                            <!--<c-reusepicklistinlwc required selected-value={prospect.Segment__c} field-a-p-i-name="Segment__c" obj-a-p-i-name="Account" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>-->
+                            <!--<lightning-input type="text" label="Belong To" value={prospect.Buying_Group__c}></lightning-input>-->
+                            <!--<label style="font-size: 0.75rem;color: rgb(62, 62, 60);">Belongs To</label>-->
+                            <lightning-combobox required label="Belongs To" disabled={disable_Buying_Group} name="Buying_Group__c" onchange={handleCountryChange} options={buyingGroupOptions}  placeholder="--None--" value={prospect.Buying_Group__c}></lightning-combobox>
+                            <!--<c-reusepicklistinlwc required selected-value={prospect.Buying_Group__c} field-a-p-i-name="Buying_Group__c" obj-a-p-i-name="Account" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>-->
+                            <!--<lightning-input type="text" label="Pricing Template" value={prospect.Pricing_template_cd__c}></lightning-input> -->                              
+                            <!--<c-reusepicklistinlwc required selected-value={prospect.Pricing_template_cd__c} field-a-p-i-name="Pricing_template_cd__c" obj-a-p-i-name="Account" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>-->
+                            <lightning-combobox required label="Pricing Template" disabled={disable_Pricing_template} name="Pricing_template_cd__c" onchange={handleCountryChange} options={pricingTemplateOptions}  placeholder="--None--" value={prospect.Pricing_template_cd__c}></lightning-combobox>
+                            <!--<lightning-input type="text" label="Attach to Parent Pricing" value={prospect.Role__c}></lightning-input>-->                           
+                            <label style="font-size: 0.75rem;color: rgb(62, 62, 60);">Attach to Parent Pricing</label>
+                            <c-lightning-custom-lookup label="Attach to Parent Pricing" object="Account" field="AOPS_Cust_Id__c" onselect={handleLookupChange}></c-lightning-custom-lookup>
+                            <!--<lightning-input type="text" label="Industry - Rep" value={prospect.Industry_OD_SIC_Rep__c}></lightning-input>-->
+                            <!--<c-reusepicklistinlwc required selected-value={prospect.Industry_OD_SIC_Rep__c} field-a-p-i-name="Industry_OD_SIC_Rep__c" obj-a-p-i-name="Account" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>-->
+                            <lightning-combobox required label="Industry - Rep" disabled={disable_Industry_OD_SIC_Rep} name="Industry_OD_SIC_Rep__c" onchange={handleCountryChange} options={Industry_OD_SIC_RepOptions}  placeholder="--None--" value={prospect.Industry_OD_SIC_Rep__c}></lightning-combobox>
+                            <!--<lightning-input type="text" label="Related OD Account" value={prospect.Role__c}></lightning-input>-->
+                            <label style="font-size: 0.75rem;color: rgb(62, 62, 60);">Related OD Account</label>
+                            <c-lightning-custom-lookup label="Related OD Account" object="Account" field="Name" onselect={handleLookupChange}></c-lightning-custom-lookup>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item padding="around-small">
+                            <lightning-input type="text" label="Website" value={prospect.Website} name="Website" onchange={handleChange}></lightning-input>
+                            <lightning-input required type="text" label="Employee Count" value={prospect.Org_WCW_Count_Rep__c} name="Org_WCW_Count_Rep__c" onchange={handleChange}></lightning-input>
+                            <lightning-input required type="number" label="Account Potential" value={prospect.Est_Spend__c} name="Est_Spend__c" onchange={handleChange}></lightning-input>
+                            <!--<lightning-input type="text" label="Payment Term" value={prospect.Payment_Term__c}></lightning-input>-->
+                            <c-reusepicklistinlwc required selected-value={prospect.Payment_Term__c} field-a-p-i-name="Payment_Term__c" obj-a-p-i-name="Account" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>
+                            <!--<lightning-input type="text" label="Primary Product" value={prospect.Primary_Product__c}></lightning-input>-->
+                            <c-reusepicklistinlwc required selected-value={prospect.Primary_Product__c} field-a-p-i-name="Primary_Product__c" obj-a-p-i-name="Account" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>
+                            <lightning-input type="date" label="Rep Call Date" value={prospect.Rep_Call_Date__c} name="Rep_Call_Date__c" onchange={handleChange}></lightning-input>
+                            <!--<lightning-input type="text" label="Location Type" value={prospect.Location_Type__c}></lightning-input>-->
+                            <c-reusepicklistinlwc selected-value={prospect.Location_Type__c} field-a-p-i-name="Location_Type__c" obj-a-p-i-name="Account" onprivateitemregister={handlePicklistChange}></c-reusepicklistinlwc>
+
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                </p>                
+            </lightning-card>
+        </lightning-layout>
+                          
+    </div>  
+        <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_brand slds-float_right" onclick={handleUpdateProspect}>
+                Submit
+            </button>
+            <!--<lightning-button type="submit" variant="brand" label="Update Prospect" onchange={handleUpdateProspect}></lightning-button>  -->                         
+        </footer> 
+    </div>
+    </section>
+<div class="slds-backdrop slds-backdrop_open slds-hide modalBackdrops" id="modalBackdrops"></div>
+
+<template if:true={showSpinner}>
+    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+</template> 
+
+</template>

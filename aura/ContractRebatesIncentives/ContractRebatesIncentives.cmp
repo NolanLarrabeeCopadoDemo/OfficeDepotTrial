@@ -1,0 +1,147 @@
+<aura:component implements="force:appHostable,lightning:availableForFlowScreens,force:hasRecordId,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="fields" type="Object" />
+    <force:recordData aura:id="forceRecordCmp"
+                      recordId="{!v.recordId }"
+                      layoutType="FULL"
+                      fields="Name,Is_there_a_clawback_provision__c,Are_there_Rebates_Incentives__c,Point_of_sale_or_rebate_option__c,Rebate_Penalty_Description__c,Penalties_for_late_Rebate_payment__c,Rebate_Penalty_Description__c,Point_of_sale_or_rebate_option_language__c,Clawback_Provision_Language__c"
+                      mode="VIEW"
+                      targetFields="{!v.fields}"
+                      targetError="{!v.error}" />
+    <div class="slds-box">
+        <lightning:recordViewForm recordId= "{!v.recordId}" objectApiName="Contract">
+            <lightning:messages />
+             <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Account Name</Label>
+                            </span>
+                 </div>
+                  
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="AccountId" variant="label-hidden"/>
+                            </span>
+                 </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Customer ID</Label>
+                     </span>
+                 </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Customer_ID__c" variant="label-hidden"/>
+                     </span>
+                 </div>
+            </div>
+                 <br></br>
+            
+            <!-- Rebate Details -->
+            <h3 class="slds-section-title--divider"><b>Rebate Details</b></h3>
+                 <br></br>
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Are there rebates/incentives?</Label>
+                            </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Are_there_Rebates_Incentives__c" variant="label-hidden"/>
+                     </span>
+                </div>
+                
+            <aura:if isTrue="{!v.fields.Are_there_Rebates_Incentives__c =='Yes'}">
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Rebate/Incentive Type</Label>
+                     </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Rebate_Incentive_Type__c" variant="label-hidden"/>
+                     </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Rebate Description (all Rebate Requirements)</Label>
+                     </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Rebate_Description__c" variant="label-hidden"/>
+                     </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Are there penalties for late rebate payment?</Label>
+                     </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Penalties_for_late_Rebate_payment__c" variant="label-hidden"/>
+                     </span>
+                </div>
+                <aura:if isTrue="{!v.fields.Penalties_for_late_Rebate_payment__c =='Yes'}">
+                    <div class="slds-col slds-size_6-of-12">
+                            <span>
+                    <Label class="slds-form-element__label">Rebate Penality Description</Label>
+                        </span>
+                    </div>
+                     <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Rebate_Penalty_Description__c" variant="label-hidden"/>
+                         </span>
+                    </div>
+                         </aura:if>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Is there a clawback provision?</Label>
+                     </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Is_there_a_clawback_provision__c" variant="label-hidden"/>
+                     </span>
+                </div>
+                 
+                <aura:if isTrue="{!v.fields.Is_there_a_clawback_provision__c =='Yes'}">
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                    <Label class="slds-form-element__label">Clawback Provision Language</Label>
+                     </span>
+                    </div>
+                     <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Clawback_Provision_Language__c" variant="label-hidden"/>
+                         </span>
+                    </div>
+                         </aura:if>
+            </aura:if>
+             <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Point of sale or rebate option?</Label>
+                 </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Point_of_sale_or_rebate_option__c" variant="label-hidden"/>
+                     </span>
+                </div>
+                
+            <aura:if isTrue="{!v.fields.Point_of_sale_or_rebate_option__c}">
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Point of sale or rebate option language</Label>
+                     </span>
+                </div>
+                 <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Point_of_sale_or_rebate_option_language__c" variant="label-hidden"/>
+                     </span>
+                </div>
+                     </aura:if>
+            </div> 
+        </lightning:recordViewForm>
+    </div>
+</aura:component>

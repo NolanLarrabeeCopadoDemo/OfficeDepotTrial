@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Template to use when responding to a rep who submitted a request via email.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Acct Maint Soft Launch Response</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber}: Account Maintenance Requests should now go through Salesforce.com!</subject>
+    <textOnly>***PLEASE READ THIS MESSAGE IN ITS ENTIRETY***
+
+Thank you for submitting an Account Maintenance request for {!Case.Account}.  If you are a Salesforce.com user, all Contract Customer Maintenance, Pricing, SPC and ECommerce requests can now be submitted easily right from Salesforce.com!
+
+**Beginning February 4, no further requests will be accepted via email.  Please see below detailing the process.
+
+If you are a Salesforce.com user, you can see this request now by clicking here.
+
+Thank you.
+
+Account Maintenance Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

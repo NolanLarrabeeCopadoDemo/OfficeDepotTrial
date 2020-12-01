@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>BizBox_Sales__c$Account__c.Id</field>
+    </columns>
+    <columns>
+        <field>BizBox_Sales__c$Account__c</field>
+    </columns>
+    <columns>
+        <field>BizBox_Sales__c$Name</field>
+    </columns>
+    <columns>
+        <field>BizBox_Sales__c$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>BizBox_Sales__c$AOPS_ID__c</field>
+    </columns>
+    <columns>
+        <field>BizBox_Sales__c$Email__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>BizBox Sales- David</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>BizBox_Sales__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>BizBox_Sales__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

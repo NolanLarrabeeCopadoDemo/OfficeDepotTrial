@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>We’ve got New Solutions for a New Year.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Start of the Year</name>
+    <style>freeForm</style>
+    <subject>We’ve got New Solutions for a New Year.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+Happy New Year!  Wishing you a great 2019!
+
+
+Recent events in the office products industry have contributed to an increasingly competitive environment and presents an opportune time for clients to evaluate their program. With Office Depot’s recent acquisition of CompuCom, a comprehensive technology services company, we can offer you a rich business platform that includes everything from office supplies and breakroom solutions to furniture and technology services.
+
+
+I understand that INSERT COMPANY NAME is currently in a long-term agreement; however, some clients are exercising the out-clause of their agreement because they see greater value in a partnership with Business Solutions at Office Depot.
+
+Respectfully, I would like to meet to learn about your organizational initiatives and understand the potential to reduce your TCO through greater efficiency, cost savings, and control. If it makes sense, Office Depot can provide a Market Validation to validate savings.
+
+
+
+I am available INSERT DATE and TIME. If there is a more convenient time, please propose. I appreciate your consideration.
+
+
+
+Thank you,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

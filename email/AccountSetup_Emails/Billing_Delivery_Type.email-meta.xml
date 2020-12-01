@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account Setup - Billing Preference other then ePDF</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Billing Delivery Type</name>
+    <style>freeForm</style>
+    <subject>eBilling Delivery Type - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>The customer referenced below is requesting an electronic billing format other than ePDF.  Please follow up with the customer.  Contact Information Below
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner Name: {!Account_Setup_Request__c.OwnerFullName}
+Owner Email: {!Account_Setup_Request__c.OwnerEmail}
+Owner Phone:{!Account_Setup_Request__c.OwnerPhone}
+Accept ePDF: {!Account_Setup_Request__c.Accept_ePDF__c}
+First Name: {!Account_Setup_Request__c.eBilling_Contact_First_Name__c}
+Last Name: {!Account_Setup_Request__c.eBilling_Contact_Last_Name__c}
+Phone: {!Account_Setup_Request__c.eBilling_Contact_Phone__c}
+eMail Address: {!Account_Setup_Request__c.eBilling_Contact_Email__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

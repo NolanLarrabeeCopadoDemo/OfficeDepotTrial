@@ -1,0 +1,64 @@
+<!--<apex:page standardController="Opportunity" extensions="PricingMain" action="{!redir_under24k}">-->
+<apex:page standardController="Opportunity" >
+<!-- <apex:pageBlock >
+  <apex:outputLink value="/apex/Proto_csv_read?ID={!Opportunity.id}">
+</apex:outputLink>
+  <apex:pagemessages id="msg"></apex:pagemessages>
+  <apex:sectionHeader title="Self Service Pricing (0 to 24k) - Step 2"/>
+  <apex:panelGrid columns="4" width="100%">
+  <b>Account Name: </b>
+  <apex:outputLink value="/{!Opportunity.Account.id}">{!Opportunity.Account.name}</apex:outputLink>
+  <!-- <b>Pricing Option: </b> -->
+  <!--   <apex:outputLabel value="{!Opportunity.Account.Pricing_template_cd__c}"></apex:outputLabel> -->
+ <!-- <b>Opportunity Name: </b>
+  <apex:outputLink value="/{!Opportunity.id}">{!Opportunity.name}</apex:outputLink>
+  <b>Probability%: </b>
+  <apex:outputLabel value="{!Opportunity.Probability}"></apex:outputLabel>
+  <b>Amount: </b>
+  <apex:outputLabel value="{!Opportunity.amount}"></apex:outputLabel>
+  <b>Stage Name: </b>
+  <apex:outputLabel value="{!Opportunity.stagename}"></apex:outputLabel>
+  </apex:panelGrid>
+  <br/>
+  <apex:form >
+      <apex:commandButton id="s1" value="Generate Quote" action="{!SaveQ}" reRender="msg,s1"/>
+      <p><font size="3"><b>"You Pick" SKU Information</b></font></p>
+     <apex:pageblock >
+     <apex:outputLink value="www.officedepot.com" target="_blank">OfficeDepot.com - SKU Search</apex:outputLink>
+     <br></br><br></br>
+     <apex:pageblockTable value="{!TestP_PricingC_tab}" var="price" rendered="{!tbrender}" id="out">
+       <apex:column headerValue="SKU - {!skutitle}">
+            <apex:inputfield id="sku1" value="{!price.Product__c}">
+              <apex:actionSupport event="onchange" action="{!proprice_master}" reRender="out,msg"/>
+            </apex:inputfield>
+       </apex:column>
+       <apex:column headerValue="SKU Description" value="{!price.sku_desc_internal__c}"/>
+       <apex:column id="col1" headerValue="Proposed Price ({!under24_discount_percent}% Discount Applied)" value="{!price.Proposed_Price__c}">
+       </apex:column>
+     </apex:pageblockTable>
+     </apex:pageblock>
+     <p><font size="3"><b>Customer SKU Information</b></font></p>
+     <apex:pageblock > 
+     <apex:pageblockTable value="{!aTestP_PricingC_tab}" var="aprice" rendered="{!tbrender}" id="out2">
+       <apex:column headerValue="SKU">
+            <apex:inputfield id="sku1" value="{!aprice.Product__c}">
+              <apex:actionSupport event="onchange" action="{!proprice}" reRender="out2,msg"/>
+            </apex:inputfield>
+       </apex:column>
+       <apex:column headerValue="SKU Description" value="{!aprice.sku_desc_internal__c}"/>
+       <apex:column headerValue="Proposed Price" id="pricecol" value="{!aprice.Proposed_Price__c}">
+       </apex:column>
+     </apex:pageblockTable>
+      <apex:commandButton value="AddRow" action="{!addrow}"/>
+     </apex:pageblock>
+          <p><font size="3"><b>Office Essentials Core </b></font></p>
+     <apex:pageBlock >
+       <apex:pageblockTable value="{!corelist}" var="core" id="core">
+       <apex:column headerValue="SKU" value="{!core.skunum}"/>
+       <apex:column headerValue="SKU Description" value="{!core.skudesc}"/>
+       <apex:column headerValue="Proposed Price" value="{!core.proposed_price}"/>
+     </apex:pageblockTable>
+     </apex:pageBlock>
+  </apex:form>
+  </apex:pageblock>-->
+</apex:page>

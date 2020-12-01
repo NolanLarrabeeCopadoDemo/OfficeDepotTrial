@@ -1,0 +1,87 @@
+<aura:component controller="OrgHierarchyDetailsController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">   
+    <aura:handler name="init" value="{!this}" action="{!c.doAction}" />  
+    
+    <aura:method name="reInitSite" action="{!c.doAction}" description="Runs the init method again ">
+        <aura:attribute name="param1" type="String"/>
+    </aura:method>
+    
+        <aura:attribute name="subrecordId" type="String" access="global"/>
+
+    <aura:attribute name="siteColumns" type="List"/>
+    <aura:attribute name="sitesList" type="Account" />
+    <aura:attribute name="countSites" type="String" />
+    <aura:attribute name="recentSite" type="Account" />
+    <aura:attribute name="showSiteInfo" type="boolean" default="false"/>
+
+
+
+    <aura:attribute name="currentIdRec" type="String"/>   
+    
+    <aura:attribute name="currentId" type="String"/>   
+    <aura:attribute name="accountId" type="Id"/>
+    <aura:attribute name="isAccountOrOrg" type="boolean"/>
+    <aura:attribute name="showModel" type="boolean" default="false"/>
+    
+    
+<ul class="slds-has-dividers_around-space slds-p-around_x-small" style="width:215px; float:left;margin-left: 3px;margin-top: 3px;">
+            <li class="slds-item"  style ="background-color: rgb(242, 218, 218); " >
+                <article class="slds-tile slds-tile_board">
+                    <h3 class="slds-tile__title slds-truncate" title="Number Of Sites"><a href="javascript:void(0);">Sites</a></h3>
+                    <div class="slds-tile__detail">
+                        <p class="slds-text-heading_medium">{!v.countSites}</p>
+                        <p class="slds-truncate" title="Recent Site"><a href="javascript:void(0);">Recent Site</a></p>
+                        <p class="slds-truncate" title="Recent Site">
+                            <aura:if isTrue="{!and(v.recentSite.Name != null, v.recentSite.Name != '')}">{!v.recentSite.Name}
+                                <aura:set attribute="else">No Data </aura:set>
+                            </aura:if>
+                        </p>
+                    </div>
+                    
+                    <h3 class="slds-tile__title slds-truncate" title="Show More Details"><a href="javascript:void(0);" onclick="{!c.showSites}">Show More Details</a></h3>
+                </article>
+            </li>
+        </ul> 
+        
+        <aura:if isTrue="{!v.showModel}">
+        <div class="demo-only" style="height: 640px;">
+            
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeModel}">
+                            X
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                            
+                            <aura:if isTrue="{!v.showSiteInfo}"> Site Information</aura:if>
+                        </h2>
+                    </header>
+                    
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-Site">
+
+                        <aura:if isTrue="{!v.showSiteInfo}">
+                            <div style="background-color:white; width:100%; padding: 10px; font-weight: 900;">
+                                <div style="height:130px;">
+                                    <lightning:datatable data="{! v.sitesList}"
+                                                         columns="{! v.siteColumns}"
+                                                         keyField="Id" hideCheckboxColumn="true" />  
+                                </div>
+                            </div>
+                        </aura:if>
+
+
+                    </div>
+                    
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeModel}">Cancel</button>
+                    </footer>
+                    
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+            </aura:if>
+    
+    
+</aura:component>

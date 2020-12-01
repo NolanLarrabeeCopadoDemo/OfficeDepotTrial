@@ -1,0 +1,396 @@
+<apex:page StandardController="Account">
+  <style>
+        .redChar{
+            color: #117822;
+            font-size: 12px;
+            font-weight:bold         
+        }
+        </style>
+    <apex:pageBlock >
+        <table width="100%" cellspacing="20">
+            <tr>
+                <td>
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="Month Stats" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="Rev" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="IMU%" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="MTD TY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement" ><apex:outputField value="{!Account.MTD_Sales_TY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MTD_Sales_TY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="MTD LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MTD_Sales_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MTD_Sales_LY_IMU2__c}" />
+                             
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="MTD Diff" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MTD_Sales_Diff__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="Monthly LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Monthly_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Monthly_LY_IMU_Per__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="ADS for Current Month" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Current_Month__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="ADS for Last Month" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Last_Month__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="AOV for Current Month" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Current_Month__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even last">
+                            <td><apex:outputText value="AOV for Last Month" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Last_Month__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                    </table></td>
+
+
+
+                <td>
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="Quarter Stats" />
+                            </th>
+                            <th class="CurrencyElement" ><apex:outputText value="Rev" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="IMU%" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="QTD TY" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_TY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_TY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="QTD LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_LY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="QTD Diff" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.QTD_Sales_Diff__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="Quarter LY" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Quarter_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Quarter_LY_IMU_per__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="ADS for Current Qtr" />
+                            
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Current_Qtr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="ADS for Last Qtr" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Last_Qtr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="AOV for Current Qtr" />                            
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Current_Qtr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even last">
+                            <td><apex:outputText value="AOV for Last Qtr" />                            
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Last_Qtr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                    </table></td>
+
+
+                <td>
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="Year Stats" />
+                            </th>
+                            <th class="CurrencyElement" ><apex:outputText value="Rev" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="IMU%" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="YTD TY" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_TY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_TY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="YTD LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_LY_IMU2__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="YTD Diff" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.YTD_Sales_Diff__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="Year LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Year_LY__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Year_LY_IMU_per__c}" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="ADS for Current Yr" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Current_Yr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="ADS for Last Yr" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.ADS_Last_Yr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="AOV for Current Yr" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Current_Yr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even last">
+                            <td><apex:outputText value="AOV for Last Yr" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.AOV_Last_Yr__c}" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText value="" />
+                            </td>
+                        </tr>
+
+                    </table></td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <table width="100%">
+                        <tr>
+                            <td colspan="2">
+                            <b>                         
+                              <apex:outputText style="text-decoration: underline;" value="Account Details" /></b><br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="Customer Creation Date" /></td>
+                            <td><apex:outputText value="{0,date,MM/dd/yyyy}"><apex:param value="{!Account.Legacy_CreatedDate__c}"/></apex:outputtext></td>
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="First Order Date" /></td>
+                            <td><apex:outputField value="{!Account.First_Order_Date__c}" /></td>                           
+                        </tr>
+                       <!-- <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Weeks_Since_1st_Order__c.Label}" />
+                            </td>
+                            <td><apex:outputField value="{!Account.Weeks_Since_1st_Order__c}" /></td>
+                        </tr> -->
+                        <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Weeks_since_1st_Order_new__c.Label}" />
+                            </td>
+                            <td><apex:outputField value="{!Account.Weeks_since_1st_Order_new__c}" /></td>
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="Last Order Date" /></td>
+                            <td><apex:outputField value="{!Account.Last_Order_Date__c}" /></td>
+                        </tr>
+                       <!-- <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Weeks_Since_Last_Order__c.Label}" />
+                            </td>
+                            <td><apex:outputField value="{!Account.Weeks_Since_Last_Order__c}" /></td>
+                        </tr> -->
+                        <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Weeks_since_last_order_new__c.Label}" />
+                            </td>
+                            <td><apex:outputField value="{!Account.Weeks_since_last_order_new__c}" /></td>
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="Total Orders" /></td>
+                            <td><apex:outputField value="{!Account.Total_Order__c}" /></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        </table>
+
+                        </td>
+                        <td>
+                        
+                        <table width="100%">
+                        <tr>
+                            <td colspan="2">
+                            <b>                         
+                              <apex:outputText style="text-decoration: underline;" value="Retention Metrics" /></b><br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Monthly_Sales__c.Label}" /></td>
+                            <td><apex:image value="{!IF(Account.Monthly_Sales__c = false,$Resource.checksymbol,$Resource.xsymbol)}" width="10" height="10"/></td>                                                       
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Weekly_Sales__c.Label}" /></td>
+                            <td><apex:image value="{!IF(Account.Weekly_Sales__c = false,$Resource.checksymbol,$Resource.xsymbol)}" width="10" height="10"/></td> 
+                           
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Number_of_Orders__c.Label}" /></td>
+                            <td><apex:image value="{!IF(Account.Number_of_Orders__c = false,$Resource.checksymbol,$Resource.xsymbol)}" width="10" height="10"/></td>                             
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Predictive_Purchase__c.Label}" /></td>
+                            <td><apex:image value="{!IF(Account.Predictive_Purchase__c = false,$Resource.checksymbol,$Resource.xsymbol)}" width="10" height="10"/></td>                                                         
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>                        
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        </table>
+                        
+                        </td>
+                        <td>
+                        <table width="100%">
+                        <tr>
+                            <td colspan="5">
+                           <b>
+                              <apex:outputText style="text-decoration: underline;" value="Conversion Metrics" /></b>&nbsp;&nbsp;
+                              <apex:outputText value="{!IF(Account.Number_of_Orders_Check__c = true && Account.Number_of_Categories_Check__c = true && Account.Sales_Check__c = true ,"Complete!", "")}" styleClass="redChar"/>
+                              
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Num_of_Orders_Since_Start__c.Label}" /></td>
+                            <td><apex:image value="{!IF(Account.Number_of_Orders_Check__c = true,$Resource.checksymbol,$Resource.xsymbol)}" width="10" height="10"/>
+                            &nbsp;&nbsp;<apex:outputField value="{!Account.Num_of_Orders_Since_Start__c}" />                                                  
+                            </td>    
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Num_of_Categories__c.Label}" /></td>
+                            <td><apex:image value="{!IF(Account.Number_of_Categories_Check__c = true,$Resource.checksymbol,$Resource.xsymbol)}" width="10" height="10"/>
+                            &nbsp;&nbsp;<apex:outputField value="{!Account.Num_of_Categories__c}" />                                                  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><apex:outputLabel value="{!$ObjectType.Account.Fields.Sales__c.Label}" />
+                            </td>
+                            
+                            <td><apex:image value="{!IF(Account.Sales_Check__c = true,$Resource.checksymbol,$Resource.xsymbol)}" width="10" height="10"/>
+                            &nbsp;&nbsp;<apex:outputField value="{!Account.Sales__c}" />                                                  
+                           </td>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        </tr>
+                        </table>                        
+                        </td>
+                        
+                        
+                        </tr><br></br>
+                    </table>
+    </apex:pageBlock>
+    
+    
+</apex:page>

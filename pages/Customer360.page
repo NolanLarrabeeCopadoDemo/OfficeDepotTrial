@@ -1,0 +1,27 @@
+<apex:page showheader="false" sidebar="false">
+    <apex:includeLightning />
+    <div class="slds-scope">
+        <div id="spinner" class="slds-spinner_container slds-is-relative" style="min-width: 100vw; min-height: 100vh;">
+            <div role="status" class="slds-spinner slds-spinner--large slds-spinner--brand">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+    <div id="customerTabs" />
+    <script>
+        // # sourceURL=customerTabsScript.js
+        $Lightning.use("c:Customer360", function ()
+        {
+            $Lightning.createComponent("c:customerTabs",
+                {recordId: '{!$CurrentPage.parameters.Id}'},
+                "customerTabs",
+                function ()
+                {
+                    document.getElementById('spinner').classList.add('slds-hide');
+                }
+            );
+        });
+    </script>
+</apex:page>

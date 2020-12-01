@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>MBDM Template 2</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>MBDM Template 2</name>
+    <style>freeForm</style>
+    <subject>MBDM Template 2</subject>
+    <textOnly>Dear {!Contact.Name},
+
+“Taking Care of Business” blends the expertise, knowledge and resources of our company to provide you with a highest level of service and value.
+
+
+Office Depot has become a leader in the office products industry by listening to our clients and creating programs that differentiate them from their competition.
+
+
+I respectfully ask for the opportunity to start a discovery conversation to explore how Office Depot can take care of your business.
+
+
+Thank you for your consideration and I look forward to your reply or feel free to call me to discuss how we can start discovering opportunities.
+
+
+
+Thank you,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

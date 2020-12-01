@@ -1,0 +1,50 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="CameleonCPQ.QxRefreshActionController" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+  <apex:includeLightning />
+  <apex:slds />
+  <style type="text/css">
+    .slds-scope .slds-spinner_container {
+       width: 101%;
+    }
+    .skiplink {
+        display: none;
+    }
+  </style>  
+
+  <div id="loadingStatus" class="slds-spinner_container __hide">
+    <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+      <span class="slds-assistive-text" id="_gModal_Message"/>
+      <div class="slds-spinner__dot-a"></div>
+      <div class="slds-spinner__dot-b"></div>
+    </div>
+  </div>
+  
+  <script type="text/javascript">
+    function refreshQuote() {
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.QxRefreshActionController.executeAction}',
+          '{!QxQuote__c.Id}',
+          function(result, event) {
+            if(event.type=='exception') {
+               alert('{!$Label.cameleoncpq__qx_refresh_error}');
+               if((typeof sforce != 'undefined') && (sforce != null)) {
+                 sforce.one.navigateToSObject('{!QxQuote__c.Id}','detail');
+               } 
+               else {
+                 top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+QxQuote__c.Id,URLFOR($Action.QxQuote__c.View, QxQuote__c.Id))}";
+               }
+            }
+            if(event.status) {
+               if((typeof sforce != 'undefined') && (sforce != null)) {
+                  sforce.one.navigateToSObject('{!QxQuote__c.Id}','detail');
+               } 
+               else {
+                  top.location.href = '/{!QxQuote__c.Id}';
+               }
+            }
+          });
+    }
+
+    refreshQuote();
+
+  </script>
+</apex:page>

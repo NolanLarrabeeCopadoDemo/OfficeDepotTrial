@@ -1,0 +1,20 @@
+<apex:page showheader="false" sidebar="false" standardcontroller="Quote">
+  <apex:includeScript value="/lightning/lightning.out.js" />
+    <apex:slds />
+    <div id="lightning" />
+<script>
+$Lightning.use("c:SendForCustomer", function()
+{
+$Lightning.createComponent(
+"c:SendForApprovalTS",
+{recordId:'{!$CurrentPage.parameters.Id}',
+                flag:'nav'
+                },
+                "lightning",
+                function(cmp) {
+                    console.log("Component created!");
+                    console.log(cmp);
+                });
+            });
+</script>
+</apex:page>

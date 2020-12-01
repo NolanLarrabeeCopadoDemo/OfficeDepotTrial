@@ -1,0 +1,16 @@
+<apex:page sidebar="false">
+    <apex:includeScript value="/lightning/lightning.out.js"/>
+    <div id="lightning" />
+    <script>
+        $Lightning.use("c:QuoteApprovalRequestEmail", function() {
+          $Lightning.createComponent("c:QuoteApprovalRequest",
+              {
+                  "recordId" : '{!$CurrentPage.parameters.Id}'
+              },
+              "lightning",
+              function(cmp) {
+              }
+          );
+        });
+    </script>
+</apex:page>

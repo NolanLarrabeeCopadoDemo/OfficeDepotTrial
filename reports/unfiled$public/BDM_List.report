@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>Account.AOPS_Seq_ID__c</field>
+    </columns>
+    <columns>
+        <field>Account.AOPS_Cust_Id__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Account.First_Order_Date__c</field>
+    </columns>
+    <columns>
+        <field>Account.Total_TY_Sales_to_Date__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>USERS.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Kyle Martinez,Todd Sensenbach,Lauren Barron,Lauren Etherton,Mark Matranga,Jana McClinton,Julie McKibbon,Kimberly McMahon,Christopher Michaels,Vincent morris,Gregory Mosbacher,Jerome Nesbitt,Danielle Nurick,Steve O&apos;Connell,Andrea Oertel,Jeffrey Pederson,Julie Pemberton,Lisa Peranio,Traci Peters,Jerry Pettijohn,Christopher Platt,Farrah Ratchford,Wendy Rawitz,Tammy Rehm,Michael Richards,Anthony Rita,Steve Rosati,Jon Rutter,Julie Salvatori,Jessica Samp,Jaime Seranella,Christopher Shepard,Linsey Shields,Troy Shultz,Sally Smalldon,Andrew Smith,Heidi Steeves,Paul Stumpfig,Michael Taylor,Regina Thomas,James Ty,Carrie Vaughn,Marisa Volino,Ashley Vu,Chris Webb,Ronald White,Michael Whitewolf,Lindsey Whitmore,Kevin Wicker,Regina Winebarger,Erin Winnicki,Kathleen Wondolkowski,Ronald Wood,Eric Woytek,Chad Yats,Mark Youngquist,Ettienne Zak,Pete Zakos</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>BDM List</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

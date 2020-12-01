@@ -1,0 +1,118 @@
+<aura:component controller="ContactsOptInController">
+    <ltng:require styles="/resource/SLDS_1_0/assets/styles/salesforce-lightning-design-system-ltng.css" />
+    <aura:attribute name="contacts" type="List" />    
+    <aura:attribute name="contactsp" type="List" />
+    <aura:attribute name="contactsm" type="List" />
+    <aura:attribute name="contactsn" type="List" />
+    <aura:attribute name="channelpref" type="List" />
+    <aura:attribute name="contactsocial" type="List" />
+    <aura:attribute name="recordId" type="String" access="Global" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+<!-- NAME AND CHANNEL PREFERENCE START-->
+    <table class="slds-table slds-table--cell-buffer slds-table_bordered slds-table--fixed-layout slds-cell-buffer_left slds-text-body_regular">
+        <tr class="bottom-border">
+            <td class="name slds-border_bottom">
+                <aura:iteration items="{!v.contactsn}" var="contactsn">
+                    <div class="label" > Name:</div>
+                    <div class="data"> {!contactsn.Acxiom_Full_Name__c}</div>
+                </aura:iteration>
+            </td>
+            
+            <td class="channel preference slds-border_bottom">
+                <aura:iteration items="{!v.channelpref}" var="channelpref">
+                    <div class="label"> Channel Preference:</div>
+                    <div class="data"> {!channelpref.Channel_Preference__c}</div>
+                </aura:iteration>
+            </td>
+        </tr>
+        <!-- NAME AND CHANNEL PREFERENCE END -->
+        
+        <!-- DIRECT MAIL AND OPT IN START -->
+        <tr>
+            <td class="direct mail slds-border_bottom">
+                <aura:iteration items="{!v.contactsm}" var="contactsm">
+                    <div class="label" > Direct Mail:</div>
+                    <div class="data"> {!contactsm.Direct_Mail__c}</div>
+                </aura:iteration>
+            </td>
+           
+            <td class="direct mail opt in slds-border_bottom">
+ <!--Hiding/removing from UI until later per NAIT-17268 
+                <aura:iteration items="{!v.contactsm}" var="contactsm">
+                    <div class="label"> Opt In:</div>
+                    <div class="data"> {!contactsm.D_M_OptIn__c}</div>
+                </aura:iteration>
+End Hiding/removing NAIT-17268 -->
+            </td>
+          
+        </tr>
+        <!-- DIRECT MAIL AND OPT IN END -->
+        
+        <!-- EMAIL AND OPT IN START -->
+        <tr>
+            <td class="email slds-border_bottom">
+                <div class="label"> Email:</div>
+                <div class="data">
+                    <aura:iteration items="{!v.contacts}" var="contact">
+                        <ul class="emails">
+                            <li>{!contact.Email1__c}</li>
+                        </ul>
+                    </aura:iteration>
+                </div>
+            </td>
+            <td class="email opt in slds-border_bottom">
+<!-- Hiding/removing from UI until later per NAIT-17268 
+                <div class="label"> Opt In:</div>
+                <div class="data">
+                    <aura:iteration items="{!v.contacts}" var="contact">
+                        <ul>
+                            <li>{!contact.E_OptIn1__c}</li>
+                        </ul>
+                    </aura:iteration>
+                </div>  
+End Hiding/removing NAIT-17268-->
+            </td>
+        </tr>
+        <!-- EMAIL AND OPT IN END -->
+        
+        <!-- PHONE AND OPT IN START -->   
+        <tr>
+            <td class="phone slds-border_bottom">
+                <div class="label"> Phone:</div>
+                <div class="data">
+                    <aura:iteration items="{!v.contactsp}" var="contactp">
+                        <ul class="phones">
+                            <li>{!contactp.Phone1__c}</li>
+                        </ul>
+                    </aura:iteration>
+                </div>
+            </td>
+            <td class="phone opt in slds-border_bottom">
+<!-- Hiding/removing from UI until later per NAIT-17268                
+                <div class="label"> Opt In:</div>
+                <div class="data">
+                    <aura:iteration items="{!v.contactsp}" var="contactp">        
+                        <ul>
+                            <li>{!contactp.P_OptIn1__c}</li>
+                        </ul>
+                    </aura:iteration>
+                </div>
+End Hiding/removing NAIT-17268 -->
+            </td>
+        </tr>     
+        <!-- PHONE AND OPT IN START --> 
+        
+        <!-- SOCIAL START --> 
+        <tr>
+            <td class="social">
+                <div class="label" > Social:</div>
+                <div class="data">
+                    <aura:iteration items="{!v.contactsocial}" var="contactsoc">
+                        {!contactsoc.NPX_Linkedin_Profile__c}
+                    </aura:iteration>
+                </div>
+            </td>    
+        </tr>   
+        <!-- SOCIAL END -->
+    </table>
+</aura:component>

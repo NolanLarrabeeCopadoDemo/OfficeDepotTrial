@@ -1,0 +1,616 @@
+<apex:page standardController="Account" title="GT-Prospect Setup" extensions="GTAProspectSetupExtension">
+ 
+  
+<script>
+    
+if( /Android|webOS|iPhone|iPod|BlackBerry|IEMobile/i.test(navigator.userAgent) ) {   
+    window.location = "/apex/M_Account_New"; 
+   }
+  
+</script>
+
+
+<style>
+      .headerRow .TableTitle 
+      {
+        background-color: skyblue !important;
+        background-image: none !important; //This is needed if you want to overwrite the header background
+        color: black !important; 
+        font-weight:bold !important; 
+      }
+       .lookupIcon {common.css (line 4245)
+        background-image:url(/img/func_icons/util/lookup20.gif);
+        background-position:left top;
+        height:20px;
+        width:20px;
+        }
+        
+        img {common.css (line 75)
+        border:0pt none;
+        }   
+    </style> 
+<apex:sectionHeader title="{!$Label.Edit_lbl}" subtitle="{!$Label.GT_Prospect_Setup_lbl_6}" />
+
+
+<script type="text/javascript">
+        /*var prcTemplateSelected = null;
+        function captureSelected(theElement)
+        {
+            for (var i = 0; i < theElement.length; i++)
+            {
+              if(theElement.options[i].selected)
+              prcTemplateSelected = theElement.options[i].text;
+            }
+        }
+        function openLookup(baseURL, width, modified, searchParam)
+        {
+            var originalbaseURL = baseURL;
+            var originalwidth = width;
+            var originalmodified = modified;
+            var originalsearchParam = searchParam;
+
+            var lookupType = baseURL.substr(baseURL.length-3, 3);
+            if (modified == '1') baseURL = baseURL + searchParam;
+
+            var isCustomLookup = false;
+
+            // Following "001" is the lookup type for Account object
+            if(lookupType == "001")
+            {
+                var urlArr = baseURL.split("&");
+                var txtId = '';
+                if(urlArr.length > 2) 
+                {
+                  urlArr = urlArr[1].split('=');
+                  txtId = urlArr[1];
+                }
+
+                // Following is the url of Custom Lookup page.
+                baseURL = "/apex/CustomAccountLookup?txt=" + txtId;
+
+                baseURL = baseURL + "&prcTempSel=" + prcTemplateSelected;
+                
+<!-- alert('PT value selected is : '+prcTemplateSelected); -->
+
+                baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.theForm}");
+                if (modified == '1') 
+                {
+                  baseURL = baseURL + "&lksearch=" + searchParam;
+                }
+
+                // Following is the ID of custom lookup field (Related Pricing Template Account)
+                if(txtId.indexOf('theLookupToOverride') > -1 )
+                {
+                  isCustomLookup = true;
+                }
+            }
+
+
+            if(isCustomLookup == true)
+            {
+                openPopup(baseURL, "lookup", 350, 480, "width="+width+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+            }
+            else 
+            {
+             if (modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+                openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+            } 
+        }*/
+    </script>
+    
+
+
+
+<!--apex:form id="form1">
+<apex:pagemessages escape="false" id="msg"></apex:pagemessages>
+
+<!--This is for custom lookup as a page blok table>
+<apex:pageBlock id="lookuppageblock" rendered="{!showiframe}">
+    <apex:pageBlockButtons location="both">
+        <apex:commandButton action="{!closeLookupSection}" style="align:center" value="Close" reRender="form1,theLookupToOverride1" />
+    </apex:pageBlockButtons>
+<apex:outputPanel id="page" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+        <apex:actionRegion >
+          <apex:outputPanel id="top" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+          <apex:outputLabel style="font-size:20px;font-weight:Bold;padding-right:10px;">Search</apex:outputLabel><hr></hr><br></br>           
+            <apex:outputLabel value="Customer ID" style="font-weight:Bold;padding-right:10px;" for="txtSearch1"/>
+            <apex:inputText id="txtSearch1" value="{!aopsidsearch}" />&nbsp;&nbsp;&nbsp;
+            <apex:outputLabel value="Account Name" style="font-weight:Bold;padding-right:10px;" for="txtSearch"/>
+            <apex:inputText id="txtSearch" value="{!searchString}" />
+              <span style="padding-left:5px">
+                <apex:commandButton id="btnGo" value="Go" action="{!Search}" rerender="searchResults" status="refresh1">
+                </apex:commandButton>
+               </span>
+               <apex:actionStatus startText=" loading.."  id="refresh1">
+               <apex:facet name="start">
+                   <img src="/img/loading.gif" title="loading.." /><font size="2">Please Wait...</font>
+               </apex:facet>
+               </apex:actionStatus>   
+          </apex:outputPanel>
+ 
+          <apex:outputPanel id="pnlSearchResults" style="margin:10px;height:350px;overflow-Y:auto;" layout="block">
+            <apex:pageBlock id="searchResults" title="Search Results">
+             <apex:outputLabel rendered="{!rerendererror}"><font color="red">The search returned more than the maximum number of rows (50). Please refine your search criteria.</font></apex:outputLabel>            
+              <apex:pageBlockTable value="{!Results}" var="a" id="tblResults">
+                <apex:column headerClass="TableTitle">
+                  <apex:facet name="header">
+                    <apex:outputPanel >Customer ID</apex:outputPanel>
+                  </apex:facet>
+                   <!--<apex:outputLink value="javascript:top.window.opener.lookupPick2('{!FormTag}','{!TextBox}_lkid','{!TextBox}','{!a.Id}','{!a.Name}', false)" rendered="{!NOT(ISNULL(a.Id))}">{!a.Name}</apex:outputLink>>
+                   <apex:commandLink value="{!a.AOPS_Cust_Id__c}" action="{!filllookup}"  reRender="form1,theLookupToOverride1">                  
+                       <apex:param value="{!a.AOPS_Cust_Id__c}" name="selectedRecord"/>
+                       <apex:param value="{!a.id}" name="selectedRecordid"/>
+                   </apex:commandLink>
+                </apex:column>
+                <apex:column headerValue="Name" value="{!a.name}" headerClass="TableTitle"/>
+                  <!--<apex:column headerValue="Hierarchy" value="{!a.Hierarchy__c}"/>>
+              </apex:pageBlockTable>
+              <!--<apex:pageMessages></apex:pageMessages>>
+            </apex:pageBlock>
+          </apex:outputPanel>
+        </apex:actionRegion>
+  </apex:outputPanel>
+<!--/apex:pageBlock-->
+<!--The logic ends here> 
+
+<!--/apex:form-->
+<apex:form >
+
+<apex:pageBlock title="{!$Label.GT_Prospect_Setup_lbl_3}" rendered="{!OR(accountZipList.size > 0, accountPhoneList.size > 0)}">
+  <!-- Page Block Buttons Section -->
+  <apex:pageBlockButtons >
+    <apex:commandButton value="{!$Label.GT_Prospect_Setup_lbl_1}" action="{!SaveDuplicateAccount}"/>
+    <apex:commandButton value="{!$Label.GT_Prospect_Setup_lbl_2}" immediate="true" action="{!Cancel}"/>
+  </apex:pageBlockButtons>
+  
+  <apex:pageBlockSection title="{!$Label.GT_Prospect_Setup_lbl_4}" columns="1" collapsible="false" rendered="{!accountZipList.size > 0}">
+    <apex:pageBlockTable value="{!accountZipList}" var="account"  >
+      <apex:column headerValue="Name">             
+        <apex:outputLink value="/{!account.Id}" target="_blank">{!account.Name}</apex:outputLink> 
+      </apex:column>
+      <apex:column value="{!account.Cust_ID__c}" />         
+      <apex:column value="{!account.RecordTypeId}" />
+      <apex:column value="{!account.OwnerId}" />
+    </apex:pageBlockTable> 
+  </apex:pageBlockSection>
+  <apex:pageBlockSection title="{!$Label.GT_Prospect_Setup_lbl_5}" columns="1" collapsible="false" rendered="{!accountPhoneList.size > 0}">
+    <apex:pageBlockTable value="{!accountPhoneList}" var="account" >
+      <apex:column headerValue="Name">             
+        <apex:outputLink value="/{!account.Id}" target="_blank">{!account.Name}</apex:outputLink> 
+      </apex:column>
+      <apex:column value="{!account.Cust_ID__c}" />         
+      <apex:column value="{!account.RecordTypeId}" />
+      <apex:column value="{!account.OwnerId}" />
+    </apex:pageBlockTable> 
+  </apex:pageBlockSection>
+</apex:pageBlock>
+<hr></hr>
+<apex:pageBlock title="{!$Label.Prospect_Label}" >
+<apex:pageMessages ></apex:pageMessages>
+  <!-- Page Block Buttons Section -->
+  <apex:pageBlockButtons location="top">
+    <apex:commandButton value="{!$Label.Save_Btn_Label}" action="{!SaveAllData}"/>
+    <apex:commandButton value="{!$Label.Cancel_Btn_Label}" immediate="true" action="{!Cancel}"/>
+  </apex:pageBlockButtons>
+  
+  <!-- Prospect Setup Information -->
+  <apex:pageBlockSection title="{!$Label.GT_Prospect_Setup_lbl_7}" columns="2" collapsible="false">
+  <apex:PageBlockSectionItem >
+      <!--apex:outputLabel value="Account Name" /-->      
+      <apex:outputLabel value="{!$Label.Account_Name_Label}" />      
+      <apex:inputfield taborderhint="1" value="{!ProspectAccount.Name}" />               
+    </apex:PageBlockSectionItem>  
+   
+<apex:PageBlockSectionItem >
+      <!--apex:outputLabel value="{!$ObjectType.Account.Fields.OwnerId.Label}" /-->    
+      <!--apex:outputLabel value="Account Owner" /-->
+      <apex:outputLabel value="{!$Label.Account_Owner_Label}" />    
+      <apex:outputText value="{!$User.FirstName& ' '& $User.LastName}" />               
+    </apex:PageBlockSectionItem> 
+
+<apex:outputField value="{!prospectAccount.RecordTypeId}" />
+<apex:PageBlockSectionItem >
+     <!--apex:outputLabel value="Sales Person ID" /-->
+     <apex:outputLabel value="{!$ObjectType.Account.Fields.Sales_PersonID__c.Label}" />         
+      <apex:outputText id="SalesPerson" value="{!SalesPerson}"/>              
+    </apex:PageBlockSectionItem> 
+    <apex:inputField taborderhint="2" value="{!ProspectAccount.Phone}" required="True"/>
+
+
+     </apex:pageBlockSection>
+    
+   
+
+  <apex:pageBlockSection title="{!$Label.Additional_Information_Label}" columns="2">
+
+
+<apex/>
+<apex:inputField taborderhint="3" value="{!ProspectAccount.Customer_Lifecycle__c}" required="false"/>
+<apex/>
+
+<apex:inputField taborderhint="4" value="{!ProspectAccount.GT_Segment__c}" required="false"/>
+<apex/>
+<apex:inputField taborderhint="5" value="{!ProspectAccount.Industry_OD_SIC_Rep__c}" required="false"/>
+<apex/>
+
+<apex:inputField taborderhint="6" value="{!ProspectAccount.Verticals__c}" required="false"/>
+
+<apex/>
+<apex:inputText id="WhiteCollar" value="{!ProspectAccount.Org_WCW_Count_Rep__c}" />
+<apex/>
+<apex:inputfield value="{!ProspectAccount.Est_Spend_CAD__c}" />
+
+<!--apex:inputfield taborderhint="7" value="{!ProspectAccount.Org_WCW_Count_Rep__c}"  required="false"/-->
+
+
+</apex:pageBlockSection>
+
+ 
+
+
+        <!-- Commented as per Canada Layout
+    <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Assign Specific Owner" />      
+      <apex:inputfield taborderhint="10" value="{!ProspectAccount.Assign_Specific_Owner__c}" />               
+    </apex:PageBlockSectionItem> 
+      -->
+      <!--
+      <apex:PageBlockSectionItem >
+      // <Commenting auto-assign for PROSPECT as per case#00073196    
+      <apex:outputLabel value="Auto-Assign" />      
+       <apex:inputfield taborderhint="9" value="{!ProspectAccount.Auto_Assign__c}" />               
+      </apex:PageBlockSectionItem>
+    -->
+   
+<!-- Commented as per Canada Layout
+    <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Segment" />      
+      <apex:inputfield taborderhint="12" required="true" value="{!ProspectAccount.Segment__c}" />               
+    </apex:PageBlockSectionItem> 
+    <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Rep Call Date" />      
+      <apex:inputfield taborderhint="4" value="{!ProspectAccount.Rep_Call_Date__c}" />               
+    </apex:PageBlockSectionItem>    
+   
+
+
+      <apex:outputLabel value="Rep Call Date" />      
+      <apex:inputfield taborderhint="4" value="{!ProspectAccount.Rep_Call_Date__c}" />               
+    </apex:PageBlockSectionItem>  
+ <!-- Commented as per Canada Layout   
+    <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Belongs To" />      
+      <apex:inputfield taborderhint="13" required="true" value="{!ProspectAccount.Buying_Group__c}" />               
+    </apex:PageBlockSectionItem>  
+    -->
+    
+  
+
+       
+
+      <!--<apex:PageBlockSectionItem >
+      <apex:outputLabel value="Pricing Template" />      
+      <apex:inputfield taborderhint="13" required="true" value="{!ProspectAccount.Pricing_template_cd__c}" id="thePricingTemplate" onchange="captureSelected(this)"/>               
+    </apex:PageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+        <apex:outputLabel >Pricing Template</apex:outputLabel>
+        <apex:actionRegion >
+        <apex:inputField taborderhint="13" value="{!ProspectAccount.Pricing_template_cd__c}" id="thePricingTemplate"
+        required="true">
+        <apex:actionSupport event="onchange" action="{!populateparentaccount}" oncomplete="captureSelected(this);" reRender="theLookupToOverride1"/>
+        </apex:inputField>
+        </apex:actionRegion>
+     </apex:pageBlockSectionItem>-->
+   <!-- Commented as per Canada Layout
+     <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Pricing Template</apex:outputLabel>
+                    <apex:actionRegion >
+                    <apex:inputField value="{!ProspectAccount.Pricing_template_cd__c}" id="thePricingTemplate"
+                    required="true" taborderhint="14">
+                    <apex:actionSupport event="onchange" action="{!populateparentaccount}" reRender="theLookupToOverride1"/><!--oncomplete="captureSelected(this);" reRender="theLookupToOverride1"
+                    </apex:inputField>
+                    </apex:actionRegion>
+                    </apex:pageBlockSectionItem>
+           
+       <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Account Potential" />      
+      <apex:inputfield taborderhint="6" value="{!ProspectAccount.Est_Spend__c}" />               
+    </apex:PageBlockSectionItem> 
+        -->             
+<!-- Commented as per Canada Layout
+   <apex:PageBlockSectionItem >
+       <apex:outputLabel value="Payment Term" />      
+      <apex:inputfield taborderhint="7" value="{!ProspectAccount.Payment_Term__c}" required="true"/>    
+          </apex:PageBlockSectionItem>  
+    
+    <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Industry - Rep" />      
+      <apex:inputfield taborderhint="15" required="true" value="{!ProspectAccount.Industry_OD_SIC_Rep__c}" />              
+    </apex:PageBlockSectionItem> 
+   -->       
+
+    
+    <!--<apex:PageBlockSectionItem -->
+      <!--apex:outputLabel value="Credit Terms" /-->      
+      <!--apex:inputField taborderhint="8" value="{!ProspectAccount.Credit_Terms__c}"  required="true" /-->               
+    <!--/apex:PageBlockSectionItem>-->
+    
+    
+    
+    
+    <!-- Begin - Created this field for Sprint 9 -->
+    <!--<apex:PageBlockSectionItem >
+     <apex:outputLabel value="Related Pricing Template Account" />      
+     <apex:inputfield taborderhint="14" required="false" value="{!ProspectAccount.Related_Pricing_Template_Account__c}" id="theLookupToOverride"/>
+    </apex:PageBlockSectionItem>-->
+    
+   <!-- Commented as per Canada Layout
+        <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Related OD Account" />      
+      <apex:inputfield taborderhint="8"  value="{!ProspectAccount.MPS_Parent_Account__c}" />               
+    </apex:PageBlockSectionItem> 
+    -->
+     
+    <!-- End - Created this field for Sprint 9 --> 
+     <!--<apex:PageBlockSectionItem >
+    
+    <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Primary Product" />      
+      <apex:inputfield taborderhint="16" required="true" value="{!ProspectAccount.Primary_Product__c}" />
+    </apex:PageBlockSectionItem>
+    
+    -->
+    
+    
+
+    <!--<apex:pageBlockSectionItem >
+                      
+                    <apex:outputLabel >Related Pricing Template Account</apex:outputLabel>
+                    <apex:outputPanel id="theLookupToOverride1">
+                 <apex:inputfield required="false" value="{!ProspectAccount.Related_Pricing_Template_Account__c}" id="theLookupToOverride"/>
+                </apex:outputPanel>
+                </apex:pageBlockSectionItem>-->
+                
+                <!-- Commented as per Canada Layout
+                
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel >Attach Parent Pricing</apex:outputLabel>
+                <apex:outputPanel id="theLookupToOverride1">
+                <apex:actionRegion >
+                <!-- <div class="requiredInput">
+                 <div class="requiredBlock"></div>-->
+                 <!--
+                                 <apex:inputtext value="{!ProspectAccount.Related_Parent_Account__c}"  
+                    required="false" tabindex="90"/>
+               <apex:commandLink reRender="form1">
+                    <!--<apex:image height="20px" width="20px" value="{!$Resource.LookupIcon}"> -->
+                    <!--
+                    <img src="/s.gif" class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Asset Lookup (New Window)" onmouseover="this.className='lookupIconOn';">
+                    <apex:actionSupport event="onclick" reRender="form1" action="{!openlookup}" status="refresh"/>
+                    </img>
+                    <!--</apex:image>-->
+                    <!--
+                </apex:commandlink>
+                <br></br><apex:actionStatus startText=" loading.."  id="refresh">
+                <apex:facet name="start">
+                     <img src="/img/loading.gif" title="loading.." /><font size="2">Please Wait...</font>
+                </apex:facet>
+                </apex:actionStatus> 
+                <!--</div> -->   
+                <!--             
+                </apex:actionRegion>
+                </apex:outputPanel>    
+               </apex:pageBlockSectionItem>  -->              
+                
+         <!-- This pageblockSectionItem has been added by Mohamad -->
+          <!--<apex:PageBlockSectionItem >
+        <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Duplicate Disposition" />      
+      <apex:inputfield taborderhint="16" required="false" value="{!ProspectAccount.Duplicate_Disposition__c}" />               
+    </apex:PageBlockSectionItem>           
+-->
+ 
+
+</apex:pageBlock>  
+<hr></hr>
+
+
+
+<apex:pageBlock title="{!$Label.Primary_Site_Label}">    
+  <!-- Page Block Buttons Section -->
+  
+  <apex:pageBlockSection title="{!$Label.Primary_Site_Information_Label}" columns="2" collapsible="false">
+  <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$ObjectType.Account.Fields.Location_Type__c.Label}" />   
+      <apex:inputfield taborderhint="9" value="{!SiteAccount.Location_Type__c}" />               
+    </apex:PageBlockSectionItem>  
+    <apex:PageBlockSectionItem >
+   <apex:outputLabel value="{!$ObjectType.Account.Fields.City__c.Label}" />
+      <apex:inputfield taborderhint="12" required="true" value="{!SiteAccount.City__c}" />               
+    </apex:PageBlockSectionItem> 
+  <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Address_1_Label}" />    
+      <apex:inputfield taborderhint="10" required="true" value="{!SiteAccount.Address1__c}" />               
+    </apex:PageBlockSectionItem>   
+
+ <apex:PageBlockSectionItem >
+   <apex:outputLabel value="{!$ObjectType.Account.Fields.State__c.Label}" />   
+      <apex:inputfield taborderhint="14" required="true" value="{!SiteAccount.State__c}" />               
+  </apex:PageBlockSectionItem> 
+ 
+<apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Address_2_Label}" />    
+      <apex:inputfield taborderhint="11" value="{!SiteAccount.Address2__c}" />               
+    </apex:PageBlockSectionItem> 
+   
+   <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$ObjectType.Account.Fields.Zip__c.Label}" />      
+      <apex:inputfield taborderhint="15"  required="true" value="{!SiteAccount.Zip__c}" />               
+    </apex:PageBlockSectionItem>  
+<apex/>
+        <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$ObjectType.Account.Fields.Country__c.Label}" />      
+      <apex:inputfield taborderhint="16" required="true" value="{!SiteAccount.Country__c}" />               
+    </apex:PageBlockSectionItem>   
+    
+    <apex:PageBlockSectionItem >
+ </apex:PageBlockSectionItem>
+
+ <!--Commented as per Canada Layout
+       <apex:PageBlockSectionItem >
+      <apex:outputLabel value="White Collar Workers" />      
+      <apex:inputfield taborderhint="25" value="{!SiteAccount.Org_WCW_Count_Rep__c}" />               
+    </apex:PageBlockSectionItem>  
+   -->
+    <!--Commented as per Canada Layout
+ <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Rep Call Date" />      
+      <apex:inputfield taborderhint="26" value="{!SiteAccount.Rep_Call_Date__c}" />               
+    </apex:PageBlockSectionItem>  
+       <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Phone" />    
+      <apex:inputfield taborderhint="23" value="{!SiteAccount.Phone}" />               
+    </apex:PageBlockSectionItem>
+    -->
+ 
+  
+  
+
+    <!--Commented as per Canada Layout
+   <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Industry - Rep" />      
+      <apex:inputfield taborderhint="27" value="{!SiteAccount.Industry_OD_SIC_Rep__c}" />               
+    </apex:PageBlockSectionItem>   
+-->
+
+  
+  </apex:pageBlockSection>
+ 
+</apex:pageBlock>  
+<hr></hr>
+
+<hr></hr>
+<apex:pageBlock title="{!$Label.Primary_Contact_Label}">  
+  <!-- Contact Setup Information -->
+  <apex:pageBlockSection title="{!$Label.Detail_Label}" columns="2" collapsible="false">    
+    
+     <apex:pageBlockSectionItem >
+       <apex:outputLabel value="{!$ObjectType.Contact.Fields.FirstName.Label}" />
+       <apex:outputPanel layout="inline">
+      
+          <apex:inputField taborderhint="28" required="true" value="{!contact.FirstName}" style="width:100px;"/> 
+       </apex:outputPanel>
+      </apex:pageBlockSectionItem> 
+      
+      <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Email_Label}" />      
+      <apex:inputfield taborderhint="35" value="{!Contact.Email}" required="false" />               
+    </apex:PageBlockSectionItem>
+   
+    <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Last_Name_Label}" />      
+      <apex:inputfield taborderhint="29" required="true" value="{!Contact.Lastname}" />               
+    </apex:PageBlockSectionItem> 
+    
+     <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Website_Label}" />      
+      <apex:inputfield taborderhint="36" value="{!Contact.Website__c}" />               
+    </apex:PageBlockSectionItem> 
+      <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Phone_Label}" />      
+      <apex:inputfield taborderhint="30" value="{!Contact.Phone}" />               
+    </apex:PageBlockSectionItem> 
+    
+    <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Title_Label}" />      
+      <apex:inputfield taborderhint="37" value="{!Contact.title}" required="true"/>               
+    </apex:PageBlockSectionItem>
+    
+     <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$ObjectType.Contact.Fields.Phone_Ext__c.Label}" />      
+      <apex:inputfield taborderhint="32" value="{!Contact.Phone_Ext__c}" />               
+    </apex:PageBlockSectionItem> 
+
+      <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Department_Label}" />      
+      <apex:inputfield taborderhint="38" value="{!Contact.Department}" />               
+    </apex:PageBlockSectionItem> 
+
+  <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Mobile_Label}" />      
+      <apex:inputfield taborderhint="33" value="{!Contact.Mobilephone}" />               
+    </apex:PageBlockSectionItem> 
+    
+     <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$ObjectType.Contact.Fields.Role__c.Label}" />      
+      <apex:inputfield taborderhint="39" value="{!Contact.Role__c}" />               
+    </apex:PageBlockSectionItem> 
+
+     
+   <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$Label.Other_Phone_Label}" />      
+      <apex:inputfield taborderhint="34" value="{!Contact.Otherphone}" />               
+    </apex:PageBlockSectionItem> 
+
+   
+<!--Commented as per Canada Layout
+   <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Home Phone" />      
+      <apex:inputfield taborderhint="39" value="{!Contact.HomePhone}" />               
+    </apex:PageBlockSectionItem> 
+-->
+ 
+  
+      <apex:PageBlockSectionItem >
+      <apex:outputLabel value="{!$ObjectType.Contact.Fields.Product_Focus__c.Label}" />      
+      <apex:inputfield taborderhint="40" value="{!Contact.Product_Focus__c}" />               
+    </apex:PageBlockSectionItem> 
+    
+  </apex:pageBlockSection>
+  
+  
+    <!-- MPS Code-->
+    <!-- This pageBlock has been commented out by Mohamad (support# 00162237) --> 
+ <!-- <apex:pageBlock title="Additional Prospect Information" > -->
+ <!-- <apex:pageBlockSection title="Managed Print Service (MPS)" columns="2" collapsible="false" > -->
+   
+ <!-- <apex:PageBlockSectionItem >
+      <apex:outputLabel value="# Copiers" />      
+      <apex:inputfield taborderhint="41" value="{!ProspectAccount.Copiers__c}" />               
+   </apex:PageBlockSectionItem>  --> 
+
+<!-- <apex:PageBlockSectionItem >
+      <apex:outputLabel value="Copier Fleet Expiration Date" />      
+      <apex:inputfield taborderhint="43" value="{!ProspectAccount.Copier_Fleet_Expiration_Date__c}" />               
+   </apex:PageBlockSectionItem> -->
+
+<!-- <apex:PageBlockSectionItem >
+      <apex:outputLabel value="# Printers" />      
+      <apex:inputfield taborderhint="42" value="{!ProspectAccount.Potential_Printers__c}" />               
+   </apex:PageBlockSectionItem> -->
+
+<!--apex:PageBlockSectionItem >
+      <apex:outputLabel value="Current Service Contract Type" />      
+      <apex:inputfield taborderhint="44" value="{!ProspectAccount.Current_Service_Contract_Type__c}" />               
+   </apex:PageBlockSectionItem> -->
+
+ <!-- </apex:pageBlockSection> -->
+<!-- </apex:pageBlock>  -->
+
+<!-- The change that has been made by Mohamad ends here --> 
+<!-- End MPS Code-->
+  
+  
+  
+  
+  <apex:pageBlockButtons location="bottom">
+    <apex:commandButton value="{!$Label.Save_Btn_Label}" action="{!SaveAllData}"/>
+    <apex:commandButton value="{!$Label.Cancel_Btn_Label}" immediate="true" action="{!Cancel}" />
+  </apex:pageBlockButtons>
+  
+</apex:pageBlock>
+
+
+
+</apex:form>
+</apex:page>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This is the email template used to explain account changes for the sales rep to make in order for a credit assessment to be done.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>FieldSales_Recommendation</name>
+    <style>freeForm</style>
+    <subject>Changes to Prospect Requested: {!Account.Name}</subject>
+    <textOnly>These changes are requested in order to cleanse the account information and process the credit assessment.
+
+Please make the following appropriate changes promptly:
+
+
+
+Change Name from (| {!Account.Name} |) to 
+
+Change Address 1 from (| {!Account.Address1__c} |) to 
+
+Change Address 2 from (| {!Account.Address2__c} |) to 
+
+Change City from (| {!Account.City__c} |) to 
+
+Change State from (| {!Account.State__c} |) to 
+
+Change Zip Code from (| {!Account.Zip__c} |) to 
+
+
+
+Thank you</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

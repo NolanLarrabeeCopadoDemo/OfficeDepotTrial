@@ -1,0 +1,10 @@
+<template>
+    <template if:true={ready}>
+        <c-object-display-component field_list={field_names} object_api_name={object_api_name}
+            object_record_id={related_record_id}>
+        </c-object-display-component>
+    </template>
+    <template if:true={error}>
+        <c-error-panel errors={error} friendly-message={friendly_error}></c-error-panel>
+    </template>
+</template>

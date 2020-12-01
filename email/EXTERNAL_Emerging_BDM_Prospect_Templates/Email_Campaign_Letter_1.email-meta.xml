@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Campaign Letter 1</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Email Campaign Letter 1</name>
+    <style>freeForm</style>
+    <subject>Email Campaign Letter 1</subject>
+    <textOnly>To: {!Contact.Name},
+Subject: Appropriate Person
+
+I am writing in hopes of finding the appropriate person who handles (office supplies, adjacencies). I also reached out to person X, person Y and person Z in that pursuit. If it makes sense to talk, let me know how your calendar looks.
+
+Office Depot is more than office supplies. We are one of the largest online B2B companies in the world and specialize in driving value to companies like (X,Y,Z). We have a world class distribution network as well as retail locations nationally where you can receive the best of either your contract or retail price while in the store. We are also a national distributor of janitorial &amp; breakroom supplies, tech, print, furniture and promotional products. You can count on an intuitive website and a suite of reporting to help manage your business.
+
+Typical savings on goods &amp; services could be up to 20% by allowing us to evaluate your current program. At the very least meeting and sharing information will validate you have a good program or reduce your cost.
+
+If you are the appropriate person to speak to, what does your calendar look like? If not, who do you recommend I talk to?
+
+
+
+Thanks,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

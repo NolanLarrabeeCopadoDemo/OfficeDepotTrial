@@ -1,0 +1,23 @@
+<apex:page controller="CT_Controller_Report_Links" readOnly="true">
+    	<style>
+            .ct{text-align:center;}
+        </style>
+    
+    <apex:form >
+                
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!lstReportLinks}" var="vRLinks" rendered="{!IF(lstReportLinks.size=0,false,true)}">
+                <apex:column >
+                    <apex:outputLink value="{!vRLinks.Report_Link__c}" target="_blank"  title="{!vRLinks.Report_Description__c}">{!vRLinks.Report_Label__c}</apex:outputLink>
+                </apex:column>
+            </apex:pageBlockTable>
+            
+            
+         <apex:outputPanel rendered="{!IF(lstReportLinks.size=0,true,false)}">No reports to display</apex:outputPanel>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+    
+          
+</apex:page>

@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSObjectName">
+    <aura:attribute name="recordId" type="String" />
+    <c:relatedLeads recordId="{!v.recordId}"/>
+</aura:component>

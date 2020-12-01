@@ -1,0 +1,454 @@
+<apex:page cache="false" standardController="CameleonCPQ__Quote__c" extensions="CameleonCPQ.CPQQuotePanel_VFCtrl" standardStyleSheets="true" showHeader="true" sidebar="true" tabStyle="CameleonCPQ__Quote__c">
+  <apex:stylesheet value="/sCSS/23.0/sprites/1320195876000/Theme3/default/versioning.css"/>
+  <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__GUIResources,'css/CPQQuotePanel.css')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins,'jquery/jquery.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins,'jquery/jquery-ui.min.js')}"/>
+  <style>
+    .loading {
+      background:url('{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins,'jstree/themes/classic/throbber.gif')}') center center no-repeat !important;
+      margin-left: 10px;
+      padding-left: 15px;
+      border: none;
+    }
+    .dataCol.right {
+        float: right;
+    }
+    .overlayDialog{display:block;left:40%;padding:10px;position:absolute;margin-left:-250px;top:200px;}
+    .dialogVisible{visibility:visible;}
+    .contractOptionsPopupBg{background-color:black;opacity:0.20;position:absolute;width: 100%;height:100%;top:0;left:0;z-index:9998;}
+  </style>
+   <apex:messages />
+   <script type="text/javascript">
+        $jq=jQuery.noConflict();
+        var cpq_initialized=false;
+        var cpq_synced_calls=0;
+        var currentTab = '{!JSENCODE(selectedTab)}';
+        var selectedTab = currentTab;
+        var availableTabs = new Array();
+        <apex:repeat value="{!availableTabs}" var="t">
+          availableTabs.push('{!t}');
+        </apex:repeat> 
+        function selectTab() {
+            // currentTab="From" tab - selectedTab="To" tab -- Only synchronize CPQ->SFDC when leaving a "CPQ" tab
+            if((currentTab==='Content' || currentTab==='Content2') && cpq_initialized) {
+              var statusId = $jq().attr("id");
+              $jq("[id$='status_"+currentTab+"']").find("[id$='status_"+currentTab+".start']").html("{!$Label.cameleoncpq__synchronization}");
+              $jq("[id$='status_"+currentTab+"']").find("[id$='status_"+currentTab+".start']").removeClass("loading");
+              Visualforce.remoting.Manager.invokeAction(
+                  '{!$RemoteAction.CPQQuotePanel_VFCtrl.setSynchronized}',
+                  '{!CameleonCPQ__Quote__c.Id}',
+                  true,
+                  function(result, event) {
+                    if(event.status) {
+                       renderCPQFrame('CPQFrameContainer_'+currentTab,{!errorCPQ},'{!syncURL}',true);
+                    }
+                    if(event.type=='exception') {
+                       alert(event.message);
+                       return false;
+                    }
+                  });
+            }
+            else {
+              $jq("[id$='status_"+currentTab+"']").find("[id$='status_"+currentTab+".start']").html(".");
+              $jq("[id$='status_"+currentTab+"']").find("[id$='status_"+currentTab+".start']").addClass("loading");
+            }
+        }
+        function isSynchroExternalMgmt() {
+            var lckTabs = document.getElementById('__synchroExternalMgmt__');
+            return ((typeof lckTabs!='undefined') && (lckTabs!=null) && lckTabs.value == "true");
+        }
+        function synchroExternalMgmt() {
+                $jq("[id$='tabQuotePanel']").find('.inactiveTab').addClass("hidden");
+                updateSyncLock(true);
+        }
+        function synchronizedCPQCall(tab) {
+          Visualforce.remoting.Manager.invokeAction(
+              '{!$RemoteAction.CPQQuotePanel_VFCtrl.getSynchronized}',
+              '{!CameleonCPQ__Quote__c.Id}',
+              function(result, event) {
+                if(event.status) {
+                   if(result==false) {
+                     cpq_synced_calls=0;
+                     callCPQAndRenderFrame(tab);
+                   }
+                   else {
+                     if(cpq_synced_calls<=3) {
+                       cpq_synced_calls++;
+                       var d = new Array(cpq_synced_calls + 1).join('..');
+                       $jq("[id$='CPQFrameContainer_"+tab+"']").html("{!$Label.cameleoncpq__msg_wait_synchronization} "+d);
+                       setTimeout(function(){synchronizedCPQCall(tab);}, 2000);
+                     }
+                     else {
+                       $jq("[id$='CPQFrameContainer_"+tab+"']").html("Timeout. Redirecting...");
+                       cpq_synced_calls=0;
+                       updateSyncLock(false);
+                       callCPQAndRenderFrame(tab);
+                     }
+                   }
+                }
+                if(event.type=='exception') {
+                   alert(event.message);
+                   top.location.href = '{!URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id)}';
+                   return false;
+                }
+              });
+        }
+        function updateSyncLock(lockSync) {
+          Visualforce.remoting.Manager.invokeAction(
+              '{!$RemoteAction.CPQQuotePanel_VFCtrl.setSynchronized}',
+              '{!CameleonCPQ__Quote__c.Id}',
+              lockSync,
+              function(result, event) {
+                if(event.type=='exception') {
+                   console.error(event.message);
+                   return false;
+                }
+              });
+        }
+        function callCPQAndRenderFrame(tab) {
+          Visualforce.remoting.Manager.invokeAction(
+              '{!$RemoteAction.CPQQuotePanel_VFCtrl.callCPQ}',
+              '{!CameleonCPQ__Quote__c.Id}',
+              tab,
+              function(cpqInfo, event) {
+                if(event.status) {
+                   renderCPQFrame('CPQFrameContainer_'+tab,(cpqInfo.cpqStatus!='0'),cpqInfo.cpqUrl.replace(/\&amp\;/g,'&'),true);
+                }
+                if(event.type=='exception') {
+                   alert(event.message);
+                   top.location.href = '{!URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id)}';
+                   return false;
+                }
+              });
+        }
+        function cloneQuote() {
+          toggleWaitingScreen();
+          Visualforce.remoting.Manager.invokeAction(
+              '{!$RemoteAction.CPQQuotePanel_VFCtrl.cloneQuote}',
+              '{!CameleonCPQ__Quote__c.Id}',
+              '{!quoActiveRelease}',
+              function(clonedQuoteId, event) {
+                if(event.status) {
+                   if(clonedQuoteId!=null)
+                      cloneQuoteContent(clonedQuoteId);
+                   else {
+                      alert('clone operation has failed');
+                      top.location.href = '{!URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id)}';
+                   }
+                }
+                if(event.type=='exception') {
+                   alert(event.message);
+                   top.location.href = '{!URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id)}';
+                   return false;
+                }
+              });
+        }
+        function cloneQuoteContent(clonedQuoteId) {
+          Visualforce.remoting.Manager.invokeAction(
+              '{!$RemoteAction.CPQQuotePanel_VFCtrl.cloneQuoteContent}',
+              '{!CameleonCPQ__Quote__c.Id}',
+              clonedQuoteId,
+              '{!quoActiveRelease}',
+              '{!refresh}',
+              function(cpqInfo, event) {
+                if(event.status) {
+                   top.location.href = cpqInfo.cpqUrl;
+                }
+                if(event.type=='exception') {
+                   alert(event.message);
+                   top.location.href = '{!URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id)}';
+                   return false;
+                }
+              },
+              {escape: false}
+           );
+        }
+   </script>
+   <apex:tabPanel switchType="ajax" id="tabQuotePanel" value="{!selectedTab}" activeTabClass="activeTab" inactiveTabClass="inactiveTab">
+      <apex:tab label="{!$Label.cameleoncpq__tab_overview}" name="Overview" id="tabOverview" status="{!IF(isContent2Enabled,'__ACTION_STATUS__','syncStatus')}" oncomplete="setSelectedTab('Overview'); {!IF(isContent2Enabled,'setActionStatus();','')} setTimeout(refreshPage, 3000); setTimeout(refreshPage, 5000); setTimeout(refreshPage, 10000);">
+            <apex:actionStatus id="loadingStatus" startStyleClass="loading" startText="." styleClass="loading"/>
+            <apex:actionStatus rendered="{!syncURL!=null && isContent2Enabled}" id="status_Overview" startText="." onStart="selectTab();"/>
+            <apex:outputPanel layout="block" id="theQuoteDetail">
+                   <apex:detail subject="{!CameleonCPQ__Quote__c.Id}" inlineEdit="true" relatedList="true" relatedListHover="true" showChatter="true" title="true" />
+            </apex:outputPanel>
+            <script type="text/javascript">
+                if(isSynchroExternalMgmt())
+                {
+                   synchroExternalMgmt();
+                }
+                toggleScreenMode();
+            </script>
+      </apex:tab>
+      <apex:tab label="{!$Label.cameleoncpq__tab_content}" name="Content" id="tabContent" status="{!IF(isContent2Enabled,'__ACTION_STATUS__','loadingStatus')}" oncomplete="setSelectedTab('Content'); {!IF(isContent2Enabled,'setActionStatus();','')}">
+            <apex:actionStatus rendered="{!syncURL!=null && !isContent2Enabled}" id="syncStatus" startText="{!$Label.cameleoncpq__synchronization}" onStart="if(cpq_initialized) renderCPQFrame('CPQFrameContainer_Content',{!errorCPQ},'{!syncURL}',true);" />
+            <apex:actionStatus rendered="{!syncURL!=null && isContent2Enabled}" id="status_Content" startText="." onStart="selectTab();"/>
+            <div id="CPQFrameContainer_Content"/>
+            <script type="text/javascript">
+                toggleScreenMode();
+                {!cpqInitScript}
+            </script>
+      </apex:tab>
+      <apex:tab label="{!$Label.cameleoncpq__tab_content2}" name="Content2" id="tabContent2" status="__ACTION_STATUS__" rendered="{!isContent2Enabled}" oncomplete="setSelectedTab('Content2'); {!IF(isContent2Enabled,'setActionStatus();','')}">
+            <apex:actionStatus rendered="{!syncURL!=null && isContent2Enabled}" id="status_Content2" startText="." onStart="selectTab();"/>
+            <div id="CPQFrameContainer_Content2"/>
+            <script type="text/javascript">
+                toggleScreenMode();
+                {!cpqInitScript}
+            </script>
+      </apex:tab>
+      <apex:tab label="{!$Label.cameleoncpq__tab_contract}" name="Contract" id="tabContract" styleClass="tabContract" status="{!IF(isContent2Enabled,'__ACTION_STATUS__','loadingStatus')}" rendered="{!isContractEnabled}" oncomplete="setSelectedTab('Contract'); {!IF(isContent2Enabled,'setActionStatus();','')}">
+            <apex:actionStatus rendered="{!syncURL!=null && isContent2Enabled}" id="status_Contract" startText="." onStart="selectTab();"/>
+            <apex:outputText escape="false" value="{!Contract_Tab_Content}"/>
+      </apex:tab>
+   </apex:tabPanel>
+   <div id="waitingScreen" class="hidden forceGlobalModalIndicator oneStyle oneOne">
+     <div class="modal-glass">&nbsp;</div>
+     <div class="indicatorContainer" role="alert">
+       <img class="spinnerIcon icon uiImage" alt="" src="{!URLFOR($Resource.CPQCMResources,'default/img/s.gif')}"/>
+       <div class="message" id="_gModal_Message"/>
+     </div>
+   </div>
+   <apex:form >
+   <apex:actionFunction name="openContractOptionsPopup" action="{!openContractOptionsPopup}"/>   
+   <apex:outputPanel id="contractOptionsPopup" rendered="{!ContractOptionsPopupDisplayed}">
+      <apex:outputPanel styleClass="contractOptionsPopupBg" layout="block" />
+      <apex:outputPanel id="overlayDialog" styleClass="overlayDialog dialogVisible" layout="block">
+         <apex:outputPanel styleClass="topRight" layout="block">
+            <apex:outputPanel styleClass="topLeft" layout="block">
+               <apex:outputLink styleClass="dialogClose"/>
+               <h2><apex:outputText value="{!$Label.cameleoncpq__clm_create_contract}"/></h2>
+            </apex:outputPanel>   
+         </apex:outputPanel>   
+         <apex:pageBlock mode="edit">
+           <apex:pageBlockSection columns="1">
+             <apex:outputPanel styleClass="middle" layout="block"> 
+                <apex:outputPanel styleClass="innerContent" layout="block"> 
+                   <apex:outputText styleClass="labelCol" value="{!$Label.cameleoncpq__clm_contract_type}"/>
+                   <apex:selectList style="float:right" id="contractType" disabled="true" value="{!qTcParams.contractType}" size="1">
+                      <apex:selectOptions value="{!contractTypes}"/>
+                   </apex:selectList>
+                </apex:outputPanel>
+                <apex:outputPanel styleClass="innerContent" layout="block"> 
+                   <apex:outputText styleClass="labelCol" value="{!$Label.cameleoncpq__clm_contract_start_date}"/>
+                   <apex:inputText styleClass="dataCol right" id="contractStartDate" value="{!qTcParams.contractStartDateString}" onfocus="DatePicker.pickDate(false, this, false);"/>
+                </apex:outputPanel>
+                <apex:outputPanel styleClass="innerContent" layout="block"> 
+                   <apex:outputText styleClass="labelCol" value="{!$Label.cameleoncpq__clm_contract_end_date}"/>
+                   <apex:inputText styleClass="dataCol right" id="contractEndDate" value="{!qTcParams.contractEndDateString}" onfocus="DatePicker.pickDate(false, this, false);"/>
+                </apex:outputPanel>
+             </apex:outputPanel>
+             <apex:outputPanel styleClass="buttons" layout="block">                 
+                <apex:commandButton value="{!$Label.cameleoncpq__btn_ok}" action="{!closeContractOptionsPopup}" onclick="hideContractOptionsPopup();" oncomplete="createContractFromQuote();" />
+                <apex:commandButton value="{!$Label.cameleoncpq__btn_cancel}" action="{!closeContractOptionsPopup}" onclick="hideContractOptionsPopup();"/>
+             </apex:outputPanel>
+           </apex:pageBlockSection>
+         </apex:pageBlock>
+      </apex:outputPanel>
+   </apex:outputPanel>
+   <input type="hidden" id="screenState" value="0"/>
+   <input type="hidden" id="__panelTabFrom__" value=""/>
+   <input type="hidden" id="__panelTabTo__" value=""/>
+   <input type="hidden" id="__synchroExternalMgmt__" value="false"/>
+   <apex:actionFunction name="createNewRelease" action="{!newRelease}" oncomplete="selectedTab='Content'; {!IF(isContent2Enabled,'setActionStatus();','')}" rerender="tabQuotePanel"/> 
+   <apex:actionFunction name="refreshQuote" action="{!refreshQuote}" status="loadingStatus" rerender="tabQuotePanel"/> 
+   <apex:actionFunction name="unlockQuote" action="{!unlockQuote}" status="loadingStatus" rerender="tabQuotePanel"/> 
+   <apex:actionFunction name="refreshPage" action="{!refreshPage}" rerender="theQuoteDetail,jsFunctions"/>
+   <apex:actionFunction name="viewAdditionalCtx" action="{!viewAdditionalCtx}"/>
+   <apex:actionFunction name="setActiveRelease" action="{!setActiveRelease}" rerender="theQuoteDetail">       
+      <apex:param name="selectedRelease" value=""/>
+   </apex:actionFunction>
+   <apex:outputPanel id="jsFunctions">
+   <script type="text/javascript">
+        function toggleScreenMode() {
+            if('{!screenMode}'=='3' || '{!screenMode}'=='4') {
+                setScreen('{!$Component.tabQuotePanel}');
+                if('{!screenMode}'=='4') {
+                   $jq("[id$='{!$Component.tabQuotePanel}']  tr:first").toggleClass("hidden");
+                }
+            }
+            else if('{!screenMode}'=='2') {
+                createScreenModeButton();
+            }
+        }
+        function toggleWaitingScreen(){
+           $jq("#waitingScreen").toggleClass("hidden");
+           $jq("#_gModal_Message").html("In progress..");
+        }
+        function setActionStatus() {
+            // currentTab = selectedTab;
+            for(i=0;i < availableTabs.length;i++) {
+              if(availableTabs[i] != currentTab) {
+                 var exp="[id$='tab"+availableTabs[i]+"_shifted']";
+                 $jq(exp).attr("onclick",$jq(exp).attr("onclick").replace('__ACTION_STATUS__',$jq("[id$='status_"+currentTab+"']").attr("id")));
+              }
+            }
+        }
+        function setSelectedTab(tab) {
+            currentTab = selectedTab;
+            selectedTab = tab;
+            document.getElementById('__panelTabFrom__').value = currentTab;
+            document.getElementById('__panelTabTo__').value = selectedTab;
+            if(selectedTab==='Content' || selectedTab==='Content2' || selectedTab==='Contract')
+               $jq('#bodyCell').find('.links:first').addClass("hidden");
+            else if ($jq('#bodyCell').find('.links:first').hasClass("hidden"))
+               $jq('#bodyCell').find('.links:first').removeClass("hidden");
+        }
+
+        function createScreenModeButton() {
+            var fs = document.getElementById('screenState').value;
+            var fullscrButton = '<a style=\"display: block;\" onclick=\"setScreen(\'';
+            fullscrButton+= '{!$Component.tabQuotePanel}\');" href=\"#\">';
+            fullscrButton+= '<span id="CPQScreenMode" class="screenModeLink">'+(fs==1?'{!$Label.cameleoncpq__btn_minimized_screen}':'{!$Label.cameleoncpq__btn_full_screen}')+'</span>';
+            fullscrButton+= '</a>';
+            var screenModeLinks = '<tr><td>'+fullscrButton+'</td></tr>';
+            $jq("[id$='tabQuotePanel']  tr:first").after(screenModeLinks);
+        }
+        function setScreen(name){
+            var elt = document.getElementById(name);
+            var fs = document.getElementById('screenState').value;           
+            if(elt) {
+              $jq('#sidebarCell').toggleClass("hidden");
+              $jq('#AppBodyHeader').toggleClass("hidden");
+              $jq('#contentWrapper').find('.bodyDiv:first').toggleClass("bodyDivHidden");
+              $jq('#contentWrapper').find('.bPageFooter:first').toggleClass("hidden");
+              $jq('#bodyCell').toggleClass("bodyCellHidden");
+              $jq('#bodyCell').find('.bPageTitle:first').toggleClass("hidden");
+              if(fs==1) {
+                if($jq("[id$='"+name+"']").hasClass( "fullScreen"))
+                   $jq(elt).removeClass("fullScreen");
+                document.getElementById('screenState').value="0";
+                $jq('#CPQScreenMode').html('{!$Label.cameleoncpq__btn_full_screen}');
+                var cpqFrm = document.getElementById('CPQFrameContainer_'+selectedTab+'_CPQFrame');
+                if(cpqFrm) {                    
+                    cpqFrm.style.height = getCPQFrameHeight();
+                }                   
+              }
+              else {
+                document.getElementById('screenState').value="1";
+                if(!$jq("[id$='"+name+"']").hasClass( "fullScreen"))
+                   $jq(elt).addClass("fullScreen");
+                $jq('#CPQScreenMode').html('{!$Label.cameleoncpq__btn_minimized_screen}');
+                var cpqFrm = document.getElementById('CPQFrameContainer_'+selectedTab+'_CPQFrame');
+                if(cpqFrm) {
+                    cpqFrm.style.height = getCPQFrameHeight();                      
+                }                   
+              }
+            }
+        }
+        function renderCPQFrame(containerId,error,url,scrollable) {                        
+            if(error==true) {
+               top.location.href = url;
+            }
+            else {            
+              var cpqFrame = '<iframe  id="'+containerId+'_CPQFrame" src="'+url+'" frameborder="0" width="100%" scrolling="'+(scrollable?'auto':'no')+'"/>';
+              document.getElementById(containerId).innerHTML=cpqFrame;
+              document.getElementById(containerId+'_CPQFrame').style.height = getCPQFrameHeight();
+              cpq_initialized=true;
+            }
+        }
+        function validCreateQR() {
+            return ({!releasesNb}>0);
+        }
+        function setAsActive(recordIDs) {
+            if (recordIDs==null||recordIDs.length==0||recordIDs.length>1) 
+                alert('{!$Label.cameleoncpq__single_qr_selection}');
+            else
+                setActiveRelease(recordIDs[0]);
+        }
+        function refreshSFDCSessionByAPI() {
+        }
+        function getCPQFrameHeight() {
+            var fullScreen = document.getElementById('screenState').value == "1";     
+            var heightTopElement = 0;
+            if('{!screenMode}'=='3' || '{!screenMode}'=='4') {
+                heightTopElement = (document.getElementById('{!$Component.tabQuotePanel}') !== null)?(document.getElementById('{!$Component.tabQuotePanel}').childNodes[0].childNodes[0].clientHeight + 13) : 13;
+            } else if(fullScreen && '{!CPQFrameHeight}'=='0') {
+                if(document.getElementById('{!$Component.tabQuotePanel}') === null) {
+                    heightTopElement = 13;
+                } else {
+                    var tabsPart = document.getElementById('{!$Component.tabQuotePanel}').childNodes[0].childNodes[0].clientHeight;                 
+                    var tabsSecondPart =document.getElementById('{!$Component.tabQuotePanel}').childNodes[0].childNodes[1].clientHeight;
+                    heightTopElement = tabsPart + tabsSecondPart + 13;  
+                }                
+            } else if(('{!screenMode}'=='2' || '{!screenMode}'=='1') && '{!CPQFrameHeight}'=='0') {
+                var pageHeader = (document.getElementsByClassName("bPageHeader").length > 0) ? document.getElementsByClassName("bPageHeader")[0].clientHeight : 0;                
+                var pageTitle = (document.getElementsByClassName("bPageTitle").length > 0) ? document.getElementsByClassName("bPageTitle")[0].clientHeight : 0; 
+                var tabsPart = (document.getElementById('{!$Component.tabQuotePanel}') !== null) ? document.getElementById('{!$Component.tabQuotePanel}').childNodes[0].childNodes[0].clientHeight : 0;
+                if('{!screenMode}'=='1') {
+                    var tabsSecondPart = 0;
+                } else {
+                    var tabsSecondPart = (document.getElementById('{!$Component.tabQuotePanel}') !== null) ? document.getElementById('{!$Component.tabQuotePanel}').childNodes[0].childNodes[1].clientHeight : 0;                   
+                }                
+                var pageFooter = (document.getElementsByClassName("bPageFooter").length > 0) ? document.getElementsByClassName("bPageFooter")[0].clientHeight : 0;
+                 
+                heightTopElement = pageHeader + pageTitle + tabsPart + tabsSecondPart + pageFooter + parseFloat($jq('#bodyCell').css('paddingTop')) + parseFloat($jq('#bodyCell').css('paddingBottom')) + 20;              
+            }
+            if(heightTopElement === 0) {
+                return '{!CPQFrameHeight}px';
+            } else {
+                try {
+                    return (window.innerHeight - heightTopElement) +'px';     
+                } catch (e) {
+                    return (document.documentElement.clientHeight - heightTopElement) +'px';
+                }   
+            }              
+        }       
+        // Main page:
+        window.onmessage = function(event) {
+            event.data;
+        };
+    </script>
+   </apex:outputPanel>        
+   <script type="text/javascript">
+        function hideContractOptionsPopup() {
+            $jq("[id$='contractOptionsPopup']").hide();
+        }
+        function createContractFromQuote() {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CPQQuotePanel_VFCtrl.getNewOptions}',
+                function(cFqParams, event) {
+                    if (event.status) {
+                        cFqParams.quoteID = '{!CameleonCPQ__Quote__c.Id}';
+                        cFqParams.contractStartDate = normalizeDate($jq("[id$='contractStartDate']").val()); 
+                        cFqParams.contractEndDate = normalizeDate($jq("[id$='contractEndDate']").val());
+                        toggleWaitingScreen();
+                        Visualforce.remoting.Manager.invokeAction(
+                            '{!$RemoteAction.CPQQuotePanel_VFCtrl.createContractFromQuote}',
+                            cFqParams,
+                            function(clmInfo, event1) {
+                              if(event1.status) {
+                                 top.location.href = '/'+clmInfo.objectId;
+                              }
+                              if(event1.type=='exception') {
+                                 alert('{!$Label.cameleoncpq__msg_clm_cfq_error} '+event1.message);
+                                 top.location.href = '{!URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id)}';
+                                 return false;
+                              }
+                            },
+                            {escape: false}
+                        );
+                    }
+                    if (event.type == 'exception') {
+                        alert('{!$Label.cameleoncpq__msg_clm_cfq_error} (3)' + event.message);
+                        return false;
+                    }
+                },
+                { buffer: false, escape: true, timeout: 120000 }
+            );
+        }
+        function normalizeDate(dateVal) {
+            dateVal = dateVal == null || dateVal.length == 0 ? new Date() : new Date($jq.datepicker.parseDate(UserContext.dateFormat.replace(/M/g, 'm').replace(/yyyy/g, 'yy'), dateVal));
+            return new Date(Date.UTC(dateVal.getFullYear(), dateVal.getMonth(), dateVal.getDate())).toUTCString();
+        }
+   </script>
+   </apex:form> 
+   <script type="text/javascript">
+        //var timer=setInterval("refreshSFDCSessionByAPI()", 600000);
+        $jq(document).ready(function(){
+
+            if('{!screenMode}'=='2')
+              createScreenModeButton();
+            setActionStatus();
+        });
+   </script>  
+</apex:page>

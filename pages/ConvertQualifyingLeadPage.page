@@ -1,0 +1,16 @@
+<apex:page standardController="Lead" showheader="false">
+    <apex:includeLightning />
+    <div id="lightning" />
+    <script>
+        $Lightning.use("c:QualifyingLead", function() {
+        $Lightning.createComponent("c:convertQualifyingLead",
+            { Id : "{!Lead.Id}" },
+            "lightning",
+            function(cmp) {
+                console.log("component was created");
+                // do some stuff
+            }
+        );
+        });
+    </script>
+</apex:page>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Error Code Resolution --></label>
+        <name>LBI__ErrorCodeResolution__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Code Title --></label>
+        <name>LBI__ErrorCodeTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Code --></label>
+        <name>LBI__ErrorCode__c</name>
+    </fields>
+    <fields>
+        <help><!-- Type of exception, such as DmlException, ListException, MathException, and so on. --></help>
+        <label><!-- Error Type --></label>
+        <name>LBI__ErrorType__c</name>
+    </fields>
+    <fields>
+        <label><!-- HasRecordId --></label>
+        <name>LBI__HasRecordId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lattice Application/Region --></label>
+        <name>LBI__LatticeApplicationRegion__c</name>
+        <relationshipLabel><!-- Lattice Error Logs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Lattice Sync Batch Step --></label>
+        <name>LBI__LatticeSyncBatchStep__c</name>
+        <relationshipLabel><!-- Lattice Error Logs --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Line Number from where the exception was thrown. --></help>
+        <label><!-- Line Number --></label>
+        <name>LBI__LineNumber__c</name>
+    </fields>
+    <fields>
+        <help><!-- Error Message that displays for the user. --></help>
+        <label><!-- Message --></label>
+        <name>LBI__Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Notification --></label>
+        <name>LBI__Notification__c</name>
+        <relationshipLabel><!-- Lattice Error Logs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Severity --></label>
+        <name>LBI__Severity__c</name>
+        <picklistValues>
+            <masterLabel>Critical</masterLabel>
+            <translation><!-- Critical --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>High</masterLabel>
+            <translation><!-- High --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Informational</masterLabel>
+            <translation><!-- Informational --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Medium</masterLabel>
+            <translation><!-- Medium --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Detailed stack trace showing additional error information --></help>
+        <label><!-- Stack Trace --></label>
+        <name>LBI__StackTrace__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stage Record ID --></label>
+        <name>LBI__StageRecordID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stage Record --></label>
+        <name>LBI__StageRecord__c</name>
+    </fields>
+    <recordTypes>
+        <label><!-- Account Extension Error --></label>
+        <name>LBI__AccountExtensionError</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Integration Error --></label>
+        <name>LBI__IntegrationError</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Other Error --></label>
+        <name>LBI__OtherError</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Processing Error --></label>
+        <name>LBI__ProcessingError</name>
+    </recordTypes>
+</CustomObjectTranslation>

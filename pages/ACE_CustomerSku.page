@@ -1,0 +1,102 @@
+<apex:page standardController="ACE_Customer_Price_Changes__c" extensions="ACECustomerSkuController"  tabStyle="Ace_Customer_SKU_Changes__c" sidebar="false" showHeader="false">
+    <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        P.goright {text-align: right}
+    </Style>
+  <apex:pageBlock >
+      <apex:pageMessages ></apex:pageMessages>
+      
+       <apex:form style="width:100%;align:right">         
+           <P class="goright">
+            <apex:selectList id="DateRange" value="{!DataRange}" size="1"  >
+                <apex:actionSupport event="onchange" action="{!calcRange}" rerender="CustomerSku_PBT"/>
+                <apex:selectOption itemValue="12-Months" itemLabel="12-Months"/>
+                <apex:selectOption itemValue="9-Months" itemLabel="9-Months"/>
+                <apex:selectOption itemValue="6-Months" itemLabel="6-Months"/>
+                <apex:selectOption itemValue="3-Months" itemLabel="3-Months"/>
+
+            </apex:selectList> 
+          </P>
+        </apex:form>   
+          
+        <!--  
+      <B>
+      <apex:outputLink value="https://www.salesforce.com" id="CRI">My Customers Receiving Increases</apex:outputLink> 
+      &nbsp;&gt;&nbsp;
+      <apex:outputLink value="https://www.salesforce.com" id="ARWA">Approval Required per Written Agreement</apex:outputLink>
+      &nbsp;&gt;&nbsp;
+          <apex:outputLink value="/{!$CurrentPage.parameters.aId}" id="Cust"> {!aName} </apex:outputLink>  
+      &nbsp;&gt;&nbsp;All SKUs</B>
+      
+      <Br/><br/>
+      title="My Sku's for Customer: {!aName}"
+      -->
+      
+      
+       <apex:pageBlockSection columns="1" id="CustomerSku_PBT">
+
+           <apex:pageBlockTable value="{!oCustSkuDataResponse}" var="sku" rendered="{!showPageBlockTable}" >
+                
+               <apex:column headerValue="SKU" value="{!sku.SKUID}">
+                    <apex:facet name="footer">TOTAL</apex:facet>
+                </apex:column>
+                <apex:column headerValue="Core" value="{!sku.COREID}">
+                    <apex:facet name="footer">{!NoOfCores}</apex:facet>                    
+                </apex:column>
+                <apex:column headerValue="Vendor" value="{!sku.VENDOR}"/>
+                <apex:column headerValue="Current Price" value="{!sku.CURRENTPRICE}"/> 
+                <apex:column headerValue="New Price" value="{!sku.NEWPRICE}"/> 
+                <apex:column headerValue="Change Amount" value="{!sku.CHANGEAMOUNT}"/>
+                 <apex:column headerValue="%" value="{!sku.CHANGEAMOUTPER}">
+                    <apex:facet name="footer">{!Per_change_Amount}</apex:facet> 
+                </apex:column>  
+                <apex:column headerValue="{!AnnualUsage_header}" value="{!sku.ANNUALUSAGE}">
+                         <apex:facet name="footer">{! Annual_Usage}</apex:facet> 
+              </apex:column>
+                <apex:column headerValue="{!AnnualSKUSpend_header}" value="{!sku.ANNUALSKUSPEND}">
+                     <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                        <apex:param value="{!Annual_SKU_Spend}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+              </apex:column>
+               
+             
+                <apex:column headerValue="{!AnnualSpendChangeAmt_header}" value="{!sku.ANNUALSPENDCHANGEAMT}">
+                     <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                            <apex:param value="{!Annual_Spend_Change_Amt}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+               </apex:column>
+               
+               
+               <apex:column headerValue="Total Spend Impact" value="{!sku.TOTALSPENDIMPACT}">
+
+                   <apex:facet name="footer">
+                        <apex:outputText value="{0, number, ###,###,###,###.##}%">
+                            <apex:param value="{!Total_Spend_Impact}"/>
+                        </apex:outputText>
+                    </apex:facet> 
+               </apex:column>
+               
+               <apex:column headerValue="SRM Impact" value="{!sku.SRMIMPACT}"/>
+               
+                <apex:column headerValue="Actions/Help" >                  
+                    <apex:outputPanel >
+                        <apex:outputLink value="https://www.salesforce.com" id="theLink">
+                            <apex:image url="{!URLFOR($Resource.DocIcon)}" title="Open the Doc"/>
+                        </apex:outputLink>
+                   </apex:outputPanel>                  
+              </apex:column>
+           </apex:pageBlockTable>  
+           <br/>
+           <table>
+               <tr><td><b>{!Customer_Spend_label} </b> </td><td> <b>:</b> {! Customer_Spend}(Hardcoded) </td></tr>
+                   <tr><td> <b>Notification Status  </b></td><td><b>:</b> Scheduled for 11/27(Hardcoded)</td></tr>
+                   <tr><td><b>Implementation Status  </b></td><td><b>:</b> Scheduled for 1/26(Hardcoded)</td></tr>
+           </table>
+
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>

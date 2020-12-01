@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>CPM_Email_Reminder</fullName>
+        <description>CPM Email Reminder</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NextApproverIdUser__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>CPM/WRF_CPM_Approval_Reminder</template>
+    </alerts>
+    <alerts>
+        <fullName>Initial_CPM_Approval_Notification</fullName>
+        <ccEmails>complianceadmin-.rebates@officedepot.com</ccEmails>
+        <description>Initial CPM Approval Notification</description>
+        <protected>false</protected>
+        <senderAddress>salesforce@officedepot.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>CPM/Intial_CPM_Approval</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Pricing_Analyst_of_Approval</fullName>
+        <ccEmails>bsdfinance.contractdivision@officedepot.com</ccEmails>
+        <ccEmails>matthew.swift@officedepot.com</ccEmails>
+        <ccEmails>SC.BSDAccts@officedepot.com</ccEmails>
+        <description>Notify Pricing Analyst of Approval</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Compliance__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>District_Sales_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Pricing_Analyst__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Regional_Director__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Regional_VP__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Sales_Rep_Name__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>salesforce@officedepot.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>CPM/CPM_Fully_Approved</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Pricing_Analyst_of_Recall</fullName>
+        <description>Notify Pricing Analyst of Recall</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NextApproverIdUser__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Pricing_Analyst__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>salesforce@officedepot.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>CPM/CPM_Recall_Notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Notify_Pricing_Analyst_of_Rejection</fullName>
+        <ccEmails>bsdfinance.contractdivision@officedepot.com</ccEmails>
+        <description>Notify Pricing Analyst of Rejection</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Compliance__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>District_Sales_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Pricing_Analyst__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Regional_Director__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Regional_VP__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>salesforce@officedepot.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Approval_Request_Emails/CPM_Rejection_Notification_new</template>
+    </alerts>
+    <alerts>
+        <fullName>Remind_CPM_Next_Approver</fullName>
+        <description>Remind CPM  Next Approver</description>
+        <protected>false</protected>
+        <recipients>
+            <field>NextApproverIdUser__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>CPM/WRF_CPM_Approval_Reminder</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>Add_next_approver_ID_for_VP_A_R</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(VP_A_R__c!=null, VP_A_R__c, IF(Regional_VP__c!=null, Regional_VP__c, IF(VP_SOPS__c!=null, VP_SOPS__c, IF(VP_Field_Sales__c!=null, VP_Field_Sales__c, IF(Sr_Vice_President__c!=null, Sr_Vice_President__c, null) ) ) ) )</formula>
+        <name>Add next approver ID for VP A/R</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_ID_for_VP_CBFS</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(VP_CBFS__c!=null, 
+VP_CBFS__c, 
+IF(VP_Furniture__c!=null, 
+VP_Furniture__c, 
+IF(VP_Field_Sales__c!=null, 
+VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+Sr_Vice_President__c, 
+null) ) ) ) ) ) )</formula>
+        <name>Add next approver ID for VP CBFS</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_A_R_Director</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(A_R_Director__c!=null, A_R_Director__c, IF(VP_A_R__c!=null, VP_A_R__c, IF(Regional_VP__c!=null, Regional_VP__c, IF(VP_SOPS__c!=null, VP_SOPS__c, IF(VP_Field_Sales__c!=null, VP_Field_Sales__c, IF(Sr_Vice_President__c!=null, Sr_Vice_President__c, null) ) ) ) ) )</formula>
+        <name>Add next approver Id for A/R Director</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_DSM</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(District_Sales_Manager__c!=null, 
+	District_Sales_Manager__c, 
+IF(Regional_Director__c!=null, 
+	Regional_Director__c, 
+IF(Regional_VP__c!=null, 
+	Regional_VP__c, 
+IF(Director_Tech__c!=null, 
+	Director_Tech__c, 
+IF(Director_CPD__c!=null, 
+	Director_CPD__c, 
+IF(VP_CBFS__c!=null, 
+	VP_CBFS__c, 
+IF(VP_Furniture__c!=null, 
+	VP_Furniture__c, 
+IF(VP_Field_Sales__c!=null, 
+	VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <name>Add next approver Id for DSM</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_Director_CPD</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(Director_CPD__c!=null, 
+	Director_CPD__c, 
+IF(VP_CBFS__c!=null, 
+	VP_CBFS__c, 
+IF(VP_Furniture__c!=null, 
+	VP_Furniture__c, 
+IF(VP_Field_Sales__c!=null, 
+	VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) ) ) ) ) )</formula>
+        <name>Add next approver Id for Director CPD</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_Finance</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(Finance__c==true, 
+	&quot;Finance&quot;, 
+IF(District_Sales_Manager__c!=null, 
+	District_Sales_Manager__c, 
+IF(Regional_Director__c!=null, 
+	Regional_Director__c, 
+IF(Regional_VP__c!=null, 
+	Regional_VP__c, 
+IF(Director_Tech__c!=null, 
+	Director_Tech__c, 
+IF(Director_CPD__c!=null, 
+	Director_CPD__c, 
+IF(VP_CBFS__c!=null, 
+	VP_CBFS__c, 
+IF(VP_Furniture__c!=null, 
+	VP_Furniture__c, 
+IF(VP_Field_Sales__c!=null, 
+	VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <name>Add next approver Id for Finance</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_Public_Sector_V</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(Public_Sector_Director__c!=null, Public_Sector_Director__c, IF(Finance__c==true, &quot;Finance&quot;, IF(A_R_Director__c!=null, A_R_Director__c, IF(VP_A_R__c!=null, VP_A_R__c, IF(Regional_VP__c!=null, Regional_VP__c, IF(VP_SOPS__c!=null, VP_SOPS__c, IF(VP_Field_Sales__c!=null, VP_Field_Sales__c, IF(Sr_Vice_President__c!=null, Sr_Vice_President__c, null) ) ) ) ) ) ) )</formula>
+        <name>Add next approver Id for Public Sector V</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_RSD</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(Regional_Director__c!=null, 
+	Regional_Director__c, 
+IF(Regional_VP__c!=null, 
+	Regional_VP__c, 
+IF(Director_Tech__c!=null, 
+	Director_Tech__c, 
+IF(Director_CPD__c!=null, 
+	Director_CPD__c, 
+IF(VP_CBFS__c!=null, 
+	VP_CBFS__c, 
+IF(VP_Furniture__c!=null, 
+	VP_Furniture__c, 
+IF(VP_Field_Sales__c!=null, 
+	VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) ) ) ) ) ) ) ) )</formula>
+        <name>Add next approver Id for RSD</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_Regional_VP</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(Regional_VP__c!=null, 
+	Regional_VP__c, 
+IF(Director_Tech__c!=null, 
+	Director_Tech__c, 
+IF(Director_CPD__c!=null, 
+	Director_CPD__c, 
+IF(VP_CBFS__c!=null, 
+	VP_CBFS__c, 
+IF(VP_Furniture__c!=null, 
+	VP_Furniture__c, 
+IF(VP_Field_Sales__c!=null, 
+	VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) ) ) ) ) ) ) )</formula>
+        <name>Add next approver Id for Regional VP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_SVP_Adj_Public</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) )</formula>
+        <name>Add next approver Id for SVP ADJ&amp;PUBLIC</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_SVP_CPD</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) )</formula>
+        <name>Add next approver Id for SVP CPD</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_Sr_Vice_Presid</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null)</formula>
+        <name>Add next approver Id for Sr. Vice Presid</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_Tech_Director</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(Director_Tech__c!=null, 
+	Director_Tech__c, 
+IF(Director_CPD__c!=null, 
+	Director_CPD__c, 
+IF(VP_CBFS__c!=null, 
+	VP_CBFS__c, 
+IF(VP_Furniture__c!=null, 
+	VP_Furniture__c, 
+IF(VP_Field_Sales__c!=null, 
+	VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) ) ) ) ) ) )</formula>
+        <name>Add next approver Id for Tech Director</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_VP_Field_Sales</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(VP_Field_Sales__c!=null, 
+	VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) ) )</formula>
+        <name>Add next approver Id for VP Field Sales</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_VP_Furniture</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(VP_Furniture__c!=null, 
+	VP_Furniture__c, 
+IF(VP_Field_Sales__c!=null, 
+	VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) ) ) )</formula>
+        <name>Add next approver Id for VP Furniture</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_Id_for_VP_SOPS</fullName>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) )</formula>
+        <name>Add next approver Id for VP SOPS</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_next_approver_id</fullName>
+        <description>Add next approver id</description>
+        <field>Next_ApproverId__c</field>
+        <formula>IF(Compliance__c!=null, 
+	Compliance__c, 
+IF(Finance__c==true, 
+	&quot;Finance&quot;, 
+IF(District_Sales_Manager__c!=null, 
+	District_Sales_Manager__c, 
+IF(Regional_Director__c!=null, 
+	Regional_Director__c, 
+IF(Regional_VP__c!=null, 
+	Regional_VP__c, 
+IF(Director_Tech__c!=null, 
+	Director_Tech__c, 
+IF(Director_CPD__c!=null, 
+	Director_CPD__c, 
+IF(VP_CBFS__c!=null, 
+	VP_CBFS__c, 
+IF(VP_Furniture__c!=null, 
+	VP_Furniture__c, 
+IF(VP_Field_Sales__c!=null, 
+	VP_Field_Sales__c, 
+IF(VP_SOPS__c!=null, 
+	VP_SOPS__c, 
+IF(VP_A_R__c!=null, 
+	VP_A_R__c, 
+IF(SVP_CPD__c!=null, 
+	SVP_CPD__c, 
+IF(Sr_Vice_President__c!=null, 
+	Sr_Vice_President__c, 
+null) ) ) ) ) ) ) ) ) ) ) ) ) )</formula>
+        <name>Add next approver id</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Approval_Action_Date</fullName>
+        <field>Approval_Action_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Approval Action Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>CPM_obj_Approval_Start_time</fullName>
+        <field>Approval_Start_time__c</field>
+        <formula>IF( ( ISNULL(Approval_Start_time__c)|| ISBLANK(Approval_Start_time__c)), now(),Approval_Start_time__c )</formula>
+        <name>CPM obj Approval Start time</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Last_Approval_Notification_Date_2</fullName>
+        <field>Last_Approval_Notification_Date__c</field>
+        <name>Last Approval Notification Date 2</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Null_Start_Step_Update</fullName>
+        <field>Step_Approval_Start_DateTime__c</field>
+        <name>Null Start Step Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Nullify_Remainder_Email_On</fullName>
+        <field>Remainder_Email_On__c</field>
+        <name>Nullify Remainder Email On</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Remove_Next_ApproverId</fullName>
+        <field>Next_ApproverId__c</field>
+        <name>Remove Next ApproverId</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approv_Status_Approved</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set Approv. Status=Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approv_Status_Recalled</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Approval Recalled</literalValue>
+        <name>Set Approv. Status=Recalled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approv_Status_Rejected</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set Approv. Status=Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Approv_Status_to_Pending</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending Approval</literalValue>
+        <name>Set Approv. Status to Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_WRF_CPM_Completed_Date</fullName>
+        <field>Date_CPM_Completed__c</field>
+        <formula>Now()</formula>
+        <name>Set WRF CPM Completed Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_WRF_CPM_Launch_Date</fullName>
+        <field>Date_CPM_Launched__c</field>
+        <formula>Now()</formula>
+        <name>Set WRF CPM Launch Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_WRF_CPM_Launch_To_Null</fullName>
+        <field>Date_CPM_Launched__c</field>
+        <formula>NULL</formula>
+        <name>Set WRF CPM Launch To Null</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Start_Step_Update</fullName>
+        <field>Step_Approval_Start_DateTime__c</field>
+        <formula>NOW()</formula>
+        <name>Start Step Update</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateSendReminder</fullName>
+        <field>Send_Reminder__c</field>
+        <literalValue>1</literalValue>
+        <name>UpdateSendReminder</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Remainder_Email_On</fullName>
+        <description>Updating Remainder_Email_On__c with now</description>
+        <field>Remainder_Email_On__c</field>
+        <formula>now()</formula>
+        <name>Update Remainder Email On</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>CPMApprovalReminder</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>CPM__c.Remainder_Email_On__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Sends a reminder email to the person delaying the review of the approval.  Currently set to 72 hours.</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>CPM_Email_Reminder</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Update_Remainder_Email_On</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>CPM__c.Remainder_Email_On__c</offsetFromField>
+            <timeLength>72</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+</Workflow>

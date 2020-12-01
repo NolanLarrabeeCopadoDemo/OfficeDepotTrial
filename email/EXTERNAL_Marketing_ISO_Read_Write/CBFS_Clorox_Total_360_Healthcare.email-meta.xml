@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Clorox Total 360 Solution for Healthcare</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>CBFS Clorox Total 360 (Healthcare)</name>
+    <style>promotionLeft</style>
+    <subject>Clorox Total 360 can save Healthcare Facilities time and money!</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+
+
+Office Depot is proud to partner with Clorox to bring you the revolutionary Clorox Total 360 System. The Total 360 combines the superior coverage of electrostatic technology with trusted Clorox cleaning solutions. Now you can disinfect up to 75% faster with electrostatic technology in the hardest-to-reach surfaces to keep your facility healthier while saving time, money, and labor.
+
+The Clorox Total 360 System is redefining clean for healthcare facilities and their patients. Take a moment to watch the video below and review the attached.
+
+
+https://www.cloroxprofessional.com/products/clorox-total-360-system/healthcare-solutions/?utm_medium=paid-media&amp;utm_campaign=TOT%20FY19%20JAS%20Device%20Total%20360%20Healthcare&amp;utm_content=224818452&amp;utm_term=0&amp;utm_source=N7088.1827103HEALTHFACILITIESTOD
+
+
+
+I&apos;m here to help with any questions you might have, please reach out to me for additional information on how secure a Clorox Total 360 for your facility.
+
+
+
+
+
+Best,
+
+{!User.Name}
+
+{!User.TitleTrimmed__c}
+
+{!User.Street} | {!User.City}, {!User.State} {!User.PostalCode}
+
+{!if(!ISBLANK(User.My_Customer_Contact__c), &apos;Tel: &apos;+User.My_Customer_Contact__c,&apos;&apos; )}
+
+Email: {!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

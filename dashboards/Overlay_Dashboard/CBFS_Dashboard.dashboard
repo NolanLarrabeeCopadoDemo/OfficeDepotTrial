@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dashboard xmlns="http://soap.sforce.com/2006/04/metadata">
+    <backgroundEndColor>#FFFFFF</backgroundEndColor>
+    <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
+    <backgroundStartColor>#FFFFFF</backgroundStartColor>
+    <dashboardType>SpecifiedUser</dashboardType>
+    <isGridLayout>false</isGridLayout>
+    <leftSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity$Amount</column>
+            </chartSummary>
+            <componentType>BarStacked</componentType>
+            <displayUnits>Millions</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Close Date: Current Fiscal Year</footer>
+            <groupingColumn>Opportunity$Owner.Region__c</groupingColumn>
+            <groupingColumn>Opportunity$StageName</groupingColumn>
+            <groupingSortProperties/>
+            <header>My CBFS Team Open Opportunities by Stage</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>Solutions_Manager_Report/CBS_Team_Pipeline_Funnel</report>
+            <showPercentage>false</showPercentage>
+            <showValues>false</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>by Region</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Donut</componentType>
+            <displayUnits>Thousands</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>true</expandOthers>
+            <footer>Close Date: Current Fiscal Year</footer>
+            <groupingSortProperties/>
+            <header>My CBFS Team Won Opportunities</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>Solutions_Manager_Report/CBS_Team_Won_Opportunity</report>
+            <showPercentage>false</showPercentage>
+            <showTotal>true</showTotal>
+            <showValues>true</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>by Role of Oppty Team</title>
+            <useReportChart>false</useReportChart>
+        </components>
+    </leftSection>
+    <middleSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity$Amount</column>
+            </chartSummary>
+            <componentType>BarStacked</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Close Date: Current Fiscal Year</footer>
+            <groupingColumn>Opportunity$Owner.Region__c</groupingColumn>
+            <groupingColumn>Opportunity$Product__c</groupingColumn>
+            <groupingSortProperties/>
+            <header>My CBFS Team Open Opportunities by Product</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>Solutions_Manager_Report/CBS_Team_Pipeline_Funnel_by_Product</report>
+            <showPercentage>false</showPercentage>
+            <showValues>false</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>by Region</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <footer>Close Date: Current Fiscal Year</footer>
+            <groupingSortProperties/>
+            <header>Top 10 CBFS Pipeline by Team Members</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <maxValuesDisplayed>10</maxValuesDisplayed>
+            <report>Solutions_Manager_Report/CBFS_Team_Pipeline_by_Team_Members</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+            <sortBy>RowValueDescending</sortBy>
+        </components>
+    </middleSection>
+    <rightSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity$Amount</column>
+            </chartSummary>
+            <componentType>BarStacked</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Close Date: Current Fiscal Year</footer>
+            <groupingColumn>Opportunity$Owner.Region__c</groupingColumn>
+            <groupingColumn>Opportunity$Segment__c</groupingColumn>
+            <groupingSortProperties/>
+            <header>My CBFS Team Open Opportunities by Segment</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>Solutions_Manager_Report/CBS_Team_Pipeline_Funnel_by_Segment</report>
+            <showPercentage>false</showPercentage>
+            <showValues>false</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>by Region</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <footer>Close Date: Current Fiscal Year</footer>
+            <groupingSortProperties/>
+            <header>Bottom 10 CBFS Pipeline by Team Members</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <maxValuesDisplayed>10</maxValuesDisplayed>
+            <report>Solutions_Manager_Report/CBFS_Team_Pipeline_by_Team_Members</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+            <sortBy>RowValueAscending</sortBy>
+        </components>
+    </rightSection>
+    <runningUser>871860@officedepot.com</runningUser>
+    <textColor>#000000</textColor>
+    <title>CBFS Dashboard</title>
+    <titleColor>#000000</titleColor>
+    <titleSize>12</titleSize>
+</Dashboard>

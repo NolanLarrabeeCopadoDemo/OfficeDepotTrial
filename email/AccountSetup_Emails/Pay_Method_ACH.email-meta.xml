@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account Setup - Pay Method - ACH</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Pay Method - ACH</name>
+    <style>freeForm</style>
+    <subject>Billing Method - ACH- {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Below new request for :
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+Billing Method {!Account_Setup_Request__c.Billing_Document_Type__c}
+
+If you are paying by EDI/ACH, the preferred remittance method is the industry standard CTX-820 format.  Your Accounts Payable department should be familiar with this format.&lt;?xml:namespace prefix = o /&gt;
+
+
+Any other method of payment requires approval.  Please contact the Cash-Research@officedepot.com mailbox for requirements.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

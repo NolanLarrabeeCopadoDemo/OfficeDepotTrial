@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>LBI__Recommendation__c.LBI__PlayName__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Salesforce_ID__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__Status__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__LastDispositionDate__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__QualifiedDate__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__LastDispositionedBy__c</field>
+    </columns>
+    <columns>
+        <field>FK_ACC_OWNER_NAME</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.Last_Modified_by_Manager__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Account_Owner_Manager_Name__c</field>
+    </columns>
+    <description>Engagement metrics for subs plays groups 1,3,4</description>
+    <filter>
+        <criteriaItems>
+            <column>LBI__Recommendation__c.LBI__PlayName__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>product subscription</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Subscription Plays</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$LBI__Recommendation__c@LBI__Recommendation__c.LBI__Account__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>LBI__Recommendation__c.LBI__QualifiedDate__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>LBI__Recommendation__c.LBI__DisqualificationDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

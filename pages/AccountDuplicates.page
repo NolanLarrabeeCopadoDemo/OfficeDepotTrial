@@ -1,0 +1,233 @@
+<apex:page standardController="Account" extensions="AccountDuplicatesctrl" tabStyle="Account" action="{!loadData}" showHeader="false" sidebar="false">
+    
+        
+      
+        <apex:pageBlock title="Survivor Accounts (Total - {!totalActiveAcctDuplicatesHeaders})">
+           <!-- <div style="overflow: scroll; width: 900px; height: 200px;"> -->
+            <apex:form >
+            <apex:panelGrid id="actAccts" width="100%">
+              <apex:commandLink action="{!displayAcitveAccts}" rendered="{!!activeAccounts}" reRender="actAccts,aaTs">[+] Display Details</apex:commandLink>
+              <apex:commandLink action="{!hideAcitveAccts}" rendered="{!activeAccounts}" reRender="actAccts,aaTs">[-] Hide Details</apex:commandLink>  
+            <apex:pageBlockTable value="{!activeAcctDuplicatesLstHeaders}" var="activeAccts" width="100%" rendered="{!activeAccounts}"> 
+                <apex:column headerValue="Account Number">
+                    <apex:outputLink value="/{!activeAccts.Account_Dup__c}" target="_new">{!CASE(activeAccts.Account_dup__r.recordtype.name,    
+                                                                                 "Customer",activeAccts.Account_dup__r.AOPS_Cust_Id__c,
+                                                                                  "Customer (OfficeMax)",activeAccts.Account_dup__r.omx_primary_key__c,
+                                                                                  "Site",activeAccts.Account_dup__r.aops_seq_id__c,
+                                                                                  "Site (OfficeMax)", activeAccts.Account_dup__r.omx_primary_key__c,
+                                                                                  "Prospect", activeAccts.Account_dup__r.oracle_party_id__c,
+                                                                                  ""
+                                                                                 )
+                                                                            }
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Account Name">
+                    <apex:outputLink value="/{!activeAccts.Account_Dup__c}" target="_new">{!activeAccts.Account_dup__r.name}</apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Record Type" value="{!activeAccts.Account_Dup__r.recordtype.name}"/>
+                <apex:column value="{!activeAccts.Account_dup__r.Legacy_CreatedDate__c}" headerValue="Legacy Created Date"/>
+                <apex:column value="{!activeAccts.Account_dup__r.Address1__c}" headerValue="Address1"/>
+                <apex:column value="{!activeAccts.Account_dup__r.Address2__c}" headerValue="Address2"/>
+                <apex:column value="{!activeAccts.Account_dup__r.City__c}" headerValue="City"/>
+                <apex:column value="{!activeAccts.Account_dup__r.State__c}" headerValue="State"/>
+                <apex:column value="{!activeAccts.Account_dup__r.Zip__c}" headerValue="Zip"/>
+            </apex:pageBlockTable>
+            </apex:panelGrid>
+            </apex:form>
+          <!--  </div> -->
+            
+            <apex:panelGrid id="aaTs" columns="2">
+              <apex:outputText rendered="{!activeAccounts}" value="Sales Impact" style="font-weight:700"/>
+              <apex:outputText rendered="{!activeAccounts}" value=""/>
+             <apex:outputText rendered="{!activeAccounts}" value="Total TY Sales : " />
+             <apex:outputText rendered="{!activeAccounts}" value="${0, number, ###,###,###,###.00}">
+                                <apex:param value="{!totalTYSalesHeaders}"/>
+             </apex:outputText>
+             <apex:outputText rendered="{!activeAccounts}" value=" Total LY Sales : "/>
+             <apex:outputText rendered="{!activeAccounts}" value="${0, number, ###,###,###,###.00}">
+                                <apex:param value="{!totalLYSalesHeaders}"/>
+                             </apex:outputText>
+            </apex:panelGrid>
+            
+            <apex:form >
+            
+            <apex:panelGrid id="headerGrid" width="100%">
+                <apex:commandLink action="{!displayHeaderCategory}" rendered="{!!categoryHeaders}" reRender="headerGrid" id="cmdCat">[+] Display Category Sales</apex:commandLink>
+                <apex:commandLink action="{!hideHeaderCategory}" rendered="{!categoryHeaders}" reRender="headerGrid" id="cmdCath">[-] Hide Category Sales</apex:commandLink>
+                <br/>
+         <apex:pageBlockTable value="{!slsDataImpactlstHeaders}" var="sls" rendered="{!categoryHeaders}">
+             <apex:column headervalue="Category" value="{!sls.category}"/>
+            <apex:column headervalue="TY Sales">
+                <apex:outputText value="${0, number, ###,###,###,###.00}">
+                                <apex:param value="{!sls.TYSales}"/>
+                             </apex:outputText>
+            </apex:column>
+            <apex:column headervalue="LY Sales">
+                 <apex:outputText value="${0, number, ###,###,###,###.00}">
+                                <apex:param value="{!sls.LYSales}"/>
+                             </apex:outputText>
+            </apex:column>
+        </apex:pageBlockTable>
+                </apex:panelGrid>
+            
+            </apex:form>
+          </apex:pageBlock>                   
+       
+         <apex:pageBlock title="Survivor Sites (Total - {!totalActiveAcctDuplicatesSites})"> 
+             <apex:form >
+                 <apex:panelGrid id="siteAccts" width="100%">
+              <apex:commandLink action="{!displayAcitveSites}" rendered="{!!activeSites}" reRender="siteAccts,asTs">[+] Display Details</apex:commandLink>
+              <apex:commandLink action="{!hideAcitveSites}" rendered="{!activeSites}" reRender="siteAccts,asTs">[-] Hide Details</apex:commandLink>  
+            <apex:pageBlockTable value="{!activeAcctDuplicatesLstSites}" rendered="{!activeSites}" var="activeAccts" width="100%"> 
+                <apex:column headerValue="Account Number">
+                    <apex:outputLink value="/{!activeAccts.Account_Dup__c}" target="_new">
+                         {!CASE(activeAccts.Account_dup__r.recordtype.name,
+                                                                                 "Customer",activeAccts.Account_dup__r.AOPS_Cust_Id__c,
+                                                                                  "Customer (OfficeMax)",activeAccts.Account_dup__r.omx_primary_key__c,
+                                                                                  "Site",activeAccts.Account_dup__r.aops_seq_id__c,
+                                                                                  "Site (OfficeMax)", activeAccts.Account_dup__r.omx_primary_key__c,
+                                                                                  "Prospect", activeAccts.Account_dup__r.oracle_party_id__c,
+                                                                                  ""
+                                                                                 )
+                                                                            }
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Account Name">
+                    <apex:outputLink value="/{!activeAccts.Account_Dup__c}" target="_new">{!activeAccts.Account_dup__r.name}</apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Record Type" value="{!activeAccts.Account_Dup__r.recordtype.name}"/>
+                <apex:column value="{!activeAccts.Account_dup__r.Legacy_CreatedDate__c}" headerValue="Legacy Created Date"/>
+                <apex:column value="{!activeAccts.Account_dup__r.Address1__c}" headerValue="Address1"/>
+                <apex:column value="{!activeAccts.Account_dup__r.Address2__c}" headerValue="Address2"/>
+                <apex:column value="{!activeAccts.Account_dup__r.City__c}" headerValue="City"/>
+                <apex:column value="{!activeAccts.Account_dup__r.State__c}" headerValue="State"/>
+                <apex:column value="{!activeAccts.Account_dup__r.Zip__c}" headerValue="Zip"/>
+            </apex:pageBlockTable>
+                 </apex:panelGrid>
+            </apex:form>
+       <apex:panelGrid id="asTs" columns="2">
+              <apex:outputText rendered="{!activeSites}" value="Sales Impact" style="font-weight:700"/>
+              <apex:outputText rendered="{!activeSites}" value=""/>
+             <apex:outputText rendered="{!activeSites}" value="Total TY Sales : "/>
+             <apex:outputText rendered="{!activeSites}" value="${0, number, ###,###,###,###.00}">
+                                <apex:param value="{!totalTYSalesSites}"/>
+             </apex:outputText>
+             <apex:outputText rendered="{!activeSites}" value=" Total LY Sales : "/>
+             <apex:outputText rendered="{!activeSites}" value="${0, number, ###,###,###,###.00}">
+                                <apex:param value="{!totalLYSalesSites}"/>
+                             </apex:outputText>
+            </apex:panelGrid>
+             <apex:form >
+            
+         <apex:panelGrid id="sitegrid" width="100%">
+             <apex:commandLink action="{!displaySiteCategory}" rendered="{!!categorySites}" reRender="sitegrid">[+] Display Category Sales</apex:commandLink>
+             <apex:commandLink action="{!hideSiteCategory}" rendered="{!categorySites}" reRender="sitegrid">[-] Hide Category Sales</apex:commandLink>
+        <apex:pageBlockTable value="{!slsDataImpactlstSites}" var="sls" rendered="{!categorySites}">
+             <apex:column headervalue="Category" value="{!sls.category}"/>
+            <apex:column headervalue="TY Sales">
+                <apex:outputText value="${0, number, ###,###,###,###.00}">
+                                <apex:param value="{!sls.TYSales}"/>
+                             </apex:outputText>
+            </apex:column>
+            <apex:column headervalue="LY Sales">
+                 <apex:outputText value="${0, number, ###,###,###,###.00}">
+                                <apex:param value="{!sls.LYSales}"/>
+                             </apex:outputText>
+            </apex:column>
+        </apex:pageBlockTable>
+             </apex:panelGrid>
+                 </apex:form>
+          </apex:pageBlock>     
+          
+        <br/><br/>
+        <apex:pageBlock title="Dormant Accounts (Total - {!totalDormantAcctDuplicatesHeaders})" >
+            <apex:form >
+                <apex:panelGrid id="dormantAccts" width="100%">
+              <apex:commandLink action="{!displaydormantAccts}" rendered="{!!dormantAccounts}" reRender="dormantAccts">[+] Display Details</apex:commandLink>
+              <apex:commandLink action="{!hidedormantAccts}" rendered="{!dormantAccounts}" reRender="dormantAccts">[-] Hide Details</apex:commandLink>  
+            <apex:pageBlockTable value="{!dormantAcctDuplicatesLstHeaders}" rendered="{!dormantAccounts}" var="dormantAccts" width="100%">
+                 
+                 <apex:column headerValue="Account Number">
+                     <apex:outputLink value="/{!dormantAccts.Account_Dormant_Dup__c}" target="_new"> 
+                     {!CASE(dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.recordtype.developername,
+                                                                                 "Customer",dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.AOPS_Cust_Id__c,
+                                                                                  "Customer (OfficeMax)",dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.omx_primary_key__c,
+                                                                                  "Site",dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.aops_seq_id__c,
+                                                                                  "Site (OfficeMax)", dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.omx_primary_key__c,
+                                                                                  "Prospect", dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.oracle_party_id__c,
+                                                                                  ""
+                                                                                 )
+                                                                            }
+                     </apex:outputLink>
+                 </apex:column>
+                 <apex:column headerValue="Account Name">
+                    <apex:outputLink value="/{!dormantAccts.Account_Dormant_Dup__c}" target="_new">{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.name}</apex:outputLink>
+                 </apex:column>
+                <apex:column headerValue="Record Type" value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.recordtype.name}"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.Legacy_CreatedDate__c}" headerValue="Legacy Created Date"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.Address1__c}" headerValue="Address1"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.Address2__c}" headerValue="Address2"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.City__c}" headerValue="City"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.State__c}" headerValue="State"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.Zip__c}" headerValue="Zip"/>
+            </apex:pageBlockTable>
+                </apex:panelGrid>
+        </apex:form>
+        </apex:pageBlock>
+
+         <apex:pageBlock title="Dormant Sites (Total - {!totalDormantAcctDuplicatesSites})" >
+             <apex:form >
+                  <apex:panelGrid id="dormantSites" width="100%">
+              <apex:commandLink action="{!displaydormantSites}" rendered="{!!dormantSites}" reRender="dormantSites">[+] Display Details</apex:commandLink>
+              <apex:commandLink action="{!hidedormantSites}" rendered="{!dormantSites}" reRender="dormantSites">[-] Hide Details</apex:commandLink>  
+            <apex:pageBlockTable value="{!dormantAcctDuplicatesLstSites}" rendered="{!dormantSites}" var="dormantAccts" width="100%">
+                 <apex:column headerValue="Account Number">
+                     <apex:outputLink value="/{!dormantAccts.Account_Dormant_Dup__c}" target="_new"> {!CASE(dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.recordtype.name,
+                                                                                 "Customer",dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.AOPS_Cust_Id__c,
+                                                                                  "Customer (OfficeMax)",dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.omx_primary_key__c,
+                                                                                  "Site",dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.aops_seq_id__c,
+                                                                                  "Site (OfficeMax)", dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.omx_primary_key__c,
+                                                                                  "Prospect", dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.oracle_party_id__c,
+                                                                                  ""
+                                                                                 )
+                                                                            }
+                     </apex:outputLink>
+                 </apex:column>
+                 <apex:column headerValue="Account Name">
+                     <apex:outputLink value="/{!dormantAccts.Account_Dormant_Dup__c}" target="_new">{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.name}</apex:outputLink>
+                 </apex:column>
+                <apex:column headerValue="Record Type" value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.recordtype.name}"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.Legacy_CreatedDate__c}" headerValue="Legacy Created Date"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.Address1__c}" headerValue="Address1"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.Address2__c}" headerValue="Address2"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.City__c}" headerValue="City"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.State__c}" headerValue="State"/>
+                <apex:column value="{!dormantAccts.Account_Dormant_Dup__r.AccountExtension__r.Zip__c}" headerValue="Zip"/> 
+            </apex:pageBlockTable>
+                 </apex:panelGrid>
+             </apex:form>
+        </apex:pageBlock>
+        
+        <br/><br/>
+        <apex:pageBlock title="Leads (Total - {!totalLeadDuplicates})" >
+            <apex:form >
+                 <apex:panelGrid id="leads" width="100%">
+              <apex:commandLink action="{!displayleads}" rendered="{!!leads}" reRender="leads">[+] Display Details</apex:commandLink>
+              <apex:commandLink action="{!hideleads}" rendered="{!leads}" reRender="leads">[-] Hide Details</apex:commandLink>  
+            <apex:pageBlockTable value="{!leadDuplicateslst}" rendered="{!leads}" var="leadDup" width="100%">
+                <apex:column headerValue="Lead Name">
+                    <apex:outputLink value="/{!leadDup.Lead_Dup__c}">{!leadDup.Lead_Dup__r.name}</apex:outputLink>
+                </apex:column>
+                <apex:column value="{!leadDup.Lead_Dup__r.firstName}" headerValue="First Name"/>
+                <apex:column value="{!leadDup.Lead_Dup__r.lastName}" headerValue="Last Name"/>
+                <apex:column value="{!leadDup.Lead_Dup__r.Address1__c}" headerValue="Address1"/>
+                <apex:column value="{!leadDup.Lead_Dup__r.Address2__c}" headerValue="Address2"/>
+                <apex:column value="{!leadDup.Lead_Dup__r.City__c}" headerValue="City"/>
+                <apex:column value="{!leadDup.Lead_Dup__r.State__c}" headerValue="State"/>
+                <apex:column value="{!leadDup.Lead_Dup__r.Zip__c}" headerValue="Zip"/>
+            </apex:pageBlockTable>
+                </apex:panelGrid>
+             </apex:form>
+        </apex:pageBlock>
+
+</apex:page>

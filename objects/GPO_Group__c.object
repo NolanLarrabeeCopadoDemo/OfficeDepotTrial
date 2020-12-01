@@ -1,0 +1,1054 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>EditGpoButton</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>EditGpoButton</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>EditGPOGroup</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>NewGpoButton</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>NewGpoButton</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>Create_GPO_Group</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>AOPS_Cust_ID__c</fullName>
+        <description>GPO Group&apos;s Account AOPS Id, used as the group&apos;s identification number.</description>
+        <externalId>false</externalId>
+        <formula>Account__r.AOPS_Cust_Id__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>GPO Group&apos;s Account AOPS Id, used as the group&apos;s identification number.</inlineHelpText>
+        <label>AOPS Cust ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Owner__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Owner.FirstName + &quot; &quot; + Account__r.Owner.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Owner</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Selection_Disabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Account Selection Disabled</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Account_Selection__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Account Selection</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Account_Sites__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Site</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>GPO Group (Account)</relationshipLabel>
+        <relationshipName>GPO_Group2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>GPO Group</relationshipLabel>
+        <relationshipName>GPO_Group</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Activated__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>NOTE: Once activated, the Community can NOT be deactivated.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>NOTE: Once activated, the Community can NOT be deactivated.</inlineHelpText>
+        <label>Activated</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Additional_Addresses__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>For Private Only, if checked, the form will allow the entering of additional address fields if Multiple Ship To is selected by the user.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>For Private Only, if checked, the form will allow the entering of additional address fields if Multiple Ship To is selected by the user.</inlineHelpText>
+        <label>Additional Addresses</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Additional_Cost_Centers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>For Private Only. If checked, will allow entry of multiple Cost Center fields if Multiple Cost Center is selected by user.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>For Private Only. If checked, will allow entry of multiple Cost Center fields if Multiple Cost Center is selected by user.</inlineHelpText>
+        <label>Additional Cost Centers</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Allow_Ship_To_Address_Selection__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Allow Ship To Address Selection</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Approver_Information_Section__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>On Private Communities Only, A section titled Approving Managers Information will appear on the Registration Form. The fields will be saved to the User Registration record.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>On Private Communities Only, A section titled Approving Managers Information will appear on the Registration Form. The fields will be saved to the User Registration record.</inlineHelpText>
+        <label>Approver Information Section</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Community_Image__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>false</externalId>
+        <label>Community Image</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Community_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Community Name</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cost_Center_Setup__c</fullName>
+        <externalId>false</externalId>
+        <label>Cost Center Setup</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>D (--Default Only---)</fullName>
+                    <default>false</default>
+                    <label>D (--Default Only---)</label>
+                </value>
+                <value>
+                    <fullName>S (--Select Any---)</fullName>
+                    <default>true</default>
+                    <label>S (--Select Any---)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Current__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Current</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Custom_Catalog_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Custom Catalog Code</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Desktop_Setup__c</fullName>
+        <externalId>false</externalId>
+        <label>Desktop Setup</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>D (--Default Only---)</fullName>
+                    <default>false</default>
+                    <label>D (--Default Only---)</label>
+                </value>
+                <value>
+                    <fullName>S (--Select Any---)</fullName>
+                    <default>true</default>
+                    <label>S (--Select Any---)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>ExpireLink__c</fullName>
+        <description>the datetime at which token gets expired</description>
+        <externalId>false</externalId>
+        <label>ExpireLink</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>GPO_Template__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>GPO Template</label>
+        <referenceTo>GPO_Template__c</referenceTo>
+        <relationshipLabel>GPO Group</relationshipLabel>
+        <relationshipName>GPO_Group</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GrandParent__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Account__r.Parent.ParentId != null, Account__r.Parent.ParentId ,null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GrandParent</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GreatGrandParent__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Account__r.Parent.Parent.ParentId != null,Account__r.Parent.Parent.ParentId,null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GreatGrandParent</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hide_Register_Link__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Hide Register Link</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hide_SPC_Download_Link_PostLogin__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Hide SPC Download Link PostLogin</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hide_SPC_Download_Link_Prelogin__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Hide SPC Download Link Prelogin</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InheritParentFields__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Communities v2 - If checked, page will display form fields from the parent.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, page will display form fields from the parent.</inlineHelpText>
+        <label>Inherit Parent Fields</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InheritParentGreetingMessage__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Communities v2 - If checked, the page will show the Greeting Message of the parent.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the page will show the Greeting Message of the parent.</inlineHelpText>
+        <label>Inherit Parent Greeting Message</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InheritParentLogo__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Communities v2: If checked, the page will show the Parent&apos;s company logo.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the page will show the Parent&apos;s company logo.</inlineHelpText>
+        <label>Inherit Parent Logo</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InheritParentPageComponents__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Communities v2 - If checked, page will show and hide the page sections based on the parent&apos;s settings.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, page will show and hide the page sections based on the parent&apos;s settings.</inlineHelpText>
+        <label>Inherit Parent Page Components</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InheritParentPageLinks__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Communities v2 - If checked, page will show list of links from the Parent.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, page will show list of links from the Parent.</inlineHelpText>
+        <label>Inherit Parent Page Links</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Member_Page_View__c</fullName>
+        <externalId>false</externalId>
+        <label>Member Page View_old</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Member_View__c</fullName>
+        <description>This page view is for INTERNAL PURPOSES ONLY.</description>
+        <externalId>false</externalId>
+        <formula>&apos;https://community.officedepot.com/GPOMember?gpoGroupid=&apos;+Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This page view is for INTERNAL PURPOSES ONLY.</inlineHelpText>
+        <label>Member Page View</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PO_Number_Setup__c</fullName>
+        <externalId>false</externalId>
+        <label>PO Number Setup</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>D (--Default Only---)</fullName>
+                    <default>false</default>
+                    <label>D (--Default Only---)</label>
+                </value>
+                <value>
+                    <fullName>S (--Select Any---)</fullName>
+                    <default>false</default>
+                    <label>S (--Select Any---)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Parent__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Account__r.ParentId != null, Account__r.ParentId,&apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Parent</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Private__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Private</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Public_Page_View__c</fullName>
+        <description>This is the link that should be shared with the external Customer.</description>
+        <externalId>false</externalId>
+        <formula>&apos;https://community.officedepot.com/GPOHome?id=&apos;
++Account__r.AOPS_Cust_Id__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This is the link that should be shared with the external Customer.</inlineHelpText>
+        <label>Public Page View</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Release_Setup__c</fullName>
+        <externalId>false</externalId>
+        <label>Release Setup</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>D (--Default Only---)</fullName>
+                    <default>false</default>
+                    <label>D (--Default Only---)</label>
+                </value>
+                <value>
+                    <fullName>S (--Select Any---)</fullName>
+                    <default>false</default>
+                    <label>S (--Select Any---)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Restrict_Login__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Field created for NAIT-155579 - Remove the login option from the following community pages.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select to remove login option from the community pages for this GPO</inlineHelpText>
+        <label>Restrict Login</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Selected_Message__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Communities v2 - The Group&apos;s Selected Greeting Message that will display on the pre-login page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the Greeting Message that will display on the pre-login page.</inlineHelpText>
+        <label>Selected Message</label>
+        <referenceTo>GPO_Group_Detail__c</referenceTo>
+        <relationshipLabel>GPO Group</relationshipLabel>
+        <relationshipName>GPO_Group</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Ultimate_Parent2__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Account__r.ParentId != null,IF(Account__r.Parent.ParentId != null,  IF(Account__r.Parent.Parent.ParentId != null,Account__r.Parent.Parent.ParentId, Account__r.Parent.ParentId),Account__r.ParentId),Account__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Ultimate Parent2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ultimate_Parent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Ultimate Parent</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>GPO Group (Ultimate Parent)</relationshipLabel>
+        <relationshipName>GPO_Group1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>User_Maintenance_Allowed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>User Maintenance Allowed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Welcome_Message__c</fullName>
+        <description>This field only applies to the older &apos;Default Template&apos;.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field only applies to the older &apos;Default Template&apos;.</inlineHelpText>
+        <label>Message</label>
+        <length>1000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Welcome_Title__c</fullName>
+        <externalId>false</externalId>
+        <label>Title</label>
+        <length>50</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>hideSectionsPost__c</fullName>
+        <description>Select page elements to show/hide on the post-login page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select page elements to show/hide on the post-login page.</inlineHelpText>
+        <label>Post-Login Show/Hide Sections</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Company Logo</fullName>
+                    <default>false</default>
+                    <label>Company Logo</label>
+                </value>
+                <value>
+                    <fullName>Greeting</fullName>
+                    <default>false</default>
+                    <label>Greeting</label>
+                </value>
+                <value>
+                    <fullName>Stock Image</fullName>
+                    <default>false</default>
+                    <label>Stock Image</label>
+                </value>
+                <value>
+                    <fullName>Account Information</fullName>
+                    <default>false</default>
+                    <label>Account Information</label>
+                </value>
+                <value>
+                    <fullName>Request an Account</fullName>
+                    <default>false</default>
+                    <label>Request an Account</label>
+                </value>
+                <value>
+                    <fullName>Important Downloads</fullName>
+                    <default>false</default>
+                    <label>Important Downloads</label>
+                </value>
+                <value>
+                    <fullName>Download SPC Link</fullName>
+                    <default>false</default>
+                    <label>Download SPC Link</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>hideSections__c</fullName>
+        <description>Select page elements to show/hide on the pre-login page.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select page elements to show/hide on the pre-login page.</inlineHelpText>
+        <label>Pre-Login Show/Hide Sections</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Company Logo</fullName>
+                    <default>false</default>
+                    <label>Company Logo</label>
+                </value>
+                <value>
+                    <fullName>Greeting</fullName>
+                    <default>false</default>
+                    <label>Greeting</label>
+                </value>
+                <value>
+                    <fullName>Stock Image</fullName>
+                    <default>false</default>
+                    <label>Stock Image</label>
+                </value>
+                <value>
+                    <fullName>Benefits</fullName>
+                    <default>false</default>
+                    <label>Benefits</label>
+                </value>
+                <value>
+                    <fullName>Account Information</fullName>
+                    <default>false</default>
+                    <label>Account Information</label>
+                </value>
+                <value>
+                    <fullName>Request an Account</fullName>
+                    <default>false</default>
+                    <label>Request an Account</label>
+                </value>
+                <value>
+                    <fullName>Important Downloads</fullName>
+                    <default>false</default>
+                    <label>Important Downloads</label>
+                </value>
+                <value>
+                    <fullName>Download SPC Link</fullName>
+                    <default>false</default>
+                    <label>Download SPC Link</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>token__c</fullName>
+        <externalId>false</externalId>
+        <label>token</label>
+        <length>100</length>
+        <maskChar>asterisk</maskChar>
+        <maskType>all</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>EncryptedText</type>
+    </fields>
+    <label>GPO Group</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>Account__c</columns>
+        <columns>Community_Name__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>NAME</field>
+            <operation>equals</operation>
+            <value>13624</value>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Community_Administration</fullName>
+        <columns>NAME</columns>
+        <columns>AOPS_Cust_ID__c</columns>
+        <columns>Account__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Member_View__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Community Administration</label>
+        <language>en_US</language>
+    </listViews>
+    <listViews>
+        <fullName>Community_Default_Group</fullName>
+        <columns>NAME</columns>
+        <columns>Community_Name__c</columns>
+        <columns>Account__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Private__c</columns>
+        <columns>Activated__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Community_Name__c</field>
+            <operation>contains</operation>
+            <value>Default</value>
+        </filters>
+        <label>Community Default Group</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>{00000}</displayFormat>
+        <label>GPO Group</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>GPO Group</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Enabled_GPO_Community</fullName>
+        <active>true</active>
+        <label>Enabled GPO Community</label>
+        <picklistValues>
+            <picklist>Cost_Center_Setup__c</picklist>
+            <values>
+                <fullName>D %28--Default Only---%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>S %28--Select Any---%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Desktop_Setup__c</picklist>
+            <values>
+                <fullName>D %28--Default Only---%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>S %28--Select Any---%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PO_Number_Setup__c</picklist>
+            <values>
+                <fullName>D %28--Default Only---%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>S %28--Select Any---%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Release_Setup__c</picklist>
+            <values>
+                <fullName>D %28--Default Only---%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>S %28--Select Any---%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>hideSectionsPost__c</picklist>
+            <values>
+                <fullName>Account Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Logo</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Download SPC Link</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Greeting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Important Downloads</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request an Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stock Image</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>hideSections__c</picklist>
+            <values>
+                <fullName>Account Information</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Benefits</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Company Logo</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Download SPC Link</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Greeting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Important Downloads</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request an Account</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stock Image</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <searchResultsAdditionalFields>AOPS_Cust_ID__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Community_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>CommuNameValid</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT(REGEX( Community_Name__c  , &quot;^[a-zA-Z0-9-/ ]*$&quot;))</errorConditionFormula>
+        <errorDisplayField>Community_Name__c</errorDisplayField>
+        <errorMessage>Invalid Community Name</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Deactivation_not_Allowed</fullName>
+        <active>true</active>
+        <errorConditionFormula>if (NOT(ISNEW()) &amp;&amp; ISCHANGED( Activated__c ) &amp;&amp; Activated__c == false, true,false)</errorConditionFormula>
+        <errorDisplayField>Activated__c</errorDisplayField>
+        <errorMessage>An Active Community Cannot be Deactivated.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Default_Group_Name_cannot_be_changed</fullName>
+        <active>false</active>
+        <description>Communities v2: All SOQL calls for the Default Group reference it by Community_Name__c = &apos;Default Group&apos;, so this cannot be changed for any reason.</description>
+        <errorConditionFormula>AND(ISCHANGED( Community_Name__c ),(Name = &apos;00008&apos;) )</errorConditionFormula>
+        <errorMessage>Default Group&apos;s Name cannot be changed</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Generic_GPO_must_have_Generic_Message</fullName>
+        <active>false</active>
+        <description>Communities v2: Rule that enforces the selected_message__c field on the Default Group to always be set to the Generic Message.</description>
+        <errorConditionFormula>AND(Community_Name__c = &apos;Default Group&apos;,Selected_Message__r.Name != &apos;Generic Group Message&apos;)</errorConditionFormula>
+        <errorMessage>Default Group Message cannot be changed.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>Manage_Ship_to_Address</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Manage Ship to Address</masterLabel>
+        <openType>noSidebar</openType>
+        <page>GPO_Group_Sites</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

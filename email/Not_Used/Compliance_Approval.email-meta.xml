@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Compliance Approval</name>
+    <style>freeForm</style>
+    <subject>Compliance Approval - {!Case.Subject}</subject>
+    <textOnly>Customer Name: {!Case.ACCT_Name__c}&lt;?xml:namespace prefix = o ns = &quot;urn:schemas-microsoft-com:office:office&quot; /&gt;
+Account Number: {!Case.ACCT_Account_Number__c}
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+Account Owner: {!Account.OwnerFullName}
+
+Click here to go to the support case
+
+Due to the nature of your request, a customer’s acknowledgement/approval must be received prior to completion. Please provide this information to process.
+
+Thank you,
+
+Account Maintenance Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

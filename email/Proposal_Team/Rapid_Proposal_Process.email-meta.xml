@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Rapid Proposal Process</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} {!Case.Thread_Id} {!Account.Name} {!WRF.Type} - Action Required</subject>
+    <textOnly>Description: {!Case.Description}
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+
+
+Click here to go to the support case
+
+
+
+Good Morning/Afternoon (insert name),
+
+
+
+Your request qualifies for the Rapid Proposal / Self-Serve Process. A brief outline of responsibilities is below:
+
+
+Task
+
+Coordinator
+
+Sales
+
+Pricing
+
+CDM
+
+A partially completed draft is attached. Review all bid files &amp; update attached draft file.
+
+
+x
+
+
+
+Complete customer-friendly approved pricing and add to attached draft.
+
+
+x
+
+x
+
+
+Provide call outs/ Legal review
+
+
+
+
+x
+
+Review/ approve call outs
+
+
+x
+
+
+
+Compile/ finalize all files and coordinate for signature
+
+x
+
+
+
+
+Submit executed bid files to customer
+
+
+x
+
+
+
+
+Your role is to review all Proposal documents and fill them out completely. Use the Seismic Resources if you need help completing the documents. Click here for Seismic Proposal Resource Page (Vendor Form Guide, W-9, Certificate of Insurance, etc). If you are new to the bid process please review the short videos and job aid located at the top of the Seismic page. A partially completed draft of the bid file is attached - please add (insert needed info) to this file.
+
+
+To meet the RFP due date, please return the completed proposal package to me by (insert DATE) for signature coordination. Failure to do so, may result in a NO-BID. Customer requires (insert submission type) by (date) @ (time).
+
+
+
+
+
+Best regards,
+
+Your Name
+
+Proposal Coordinator
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

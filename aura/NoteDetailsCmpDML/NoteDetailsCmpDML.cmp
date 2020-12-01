@@ -1,0 +1,117 @@
+<aura:component controller="Orgdmlcontroller" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">   
+    <aura:handler name="init" value="{!this}" action="{!c.doAction}" />  
+    
+    <aura:method name="reInitNotes" action="{!c.doAction}" description="Runs the init method again ">
+        <aura:attribute name="param1" type="String"/>
+    </aura:method>
+    
+        <aura:attribute name="subrecordId" type="String" access="global"/>
+
+    <aura:attribute name="NoteColumns" type="List"/>
+    <aura:attribute name="noteList" type="Note" />
+    <aura:attribute name="countNote" type="String" />
+    <aura:attribute name="recentNote" type="Note" />
+    <aura:attribute name="showNoteInfo" type="boolean" default="false"/>
+        
+    <aura:attribute name="currentIdRec" type="String"/>   
+    
+    <aura:attribute name="currentId" type="String"/>   
+    <aura:attribute name="accountId" type="Id"/>
+    <aura:attribute name="isAccountOrOrg" type="boolean"/>
+    <aura:attribute name="showModel" type="boolean" default="false"/>
+    
+    
+        <ul class="slds-has-dividers_around-space slds-p-around_x-small" style="width:215px; float:left;margin-left: 3px;margin-top: 3px;">
+            <li class="slds-item" style ="background-color: rgb(196, 255, 249); ">
+                <article class="slds-tile slds-tile_board">
+                    <h3 class="slds-tile__title slds-truncate" title="Number Of Notes"><a href="javascript:void(0);">Notes</a></h3>
+                    <div class="slds-tile__detail">
+                        <p class="slds-text-heading_medium">{!v.countNote}</p>
+                        <p class="slds-truncate" title="Recent Note"><a href="javascript:void(0);">Recent Note</a></p>
+                        <p class="slds-truncate" title="Recent Note">
+                            
+                            <aura:if isTrue="{!and(v.recentNote.Title != null, v.recentNote.Title != '')}">
+                                {!v.recentNote.Title}                      
+
+                                <aura:set attribute="else">No Data </aura:set>
+                            </aura:if>
+
+
+                            
+                        </p>
+                    </div>
+                    
+                    <h3 class="slds-tile__title slds-truncate" title="Show More Details"><a href="javascript:void(0);" onclick="{!c.showNote}">Show More Details</a></h3>
+                </article>
+            </li>
+        </ul>
+        
+        <aura:if isTrue="{!v.showModel}">
+        <div class="demo-only" style="height: 640px;">
+            
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeModel}">
+                            X
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                            
+                            <aura:if isTrue="{!v.showNoteInfo}"> Note Information</aura:if>
+                        </h2>
+                    </header>
+                    
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-Note">
+                        <aura:if isTrue="{!v.showNoteInfo}">
+                            <div style="background-color:white; width:100%; padding: 10px; font-weight: 900;">
+                                <div style="height:130px;">
+                                    
+      <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+         <thead>
+            <tr class="slds-text-title_caps">                               
+                    <th scope="col"><div class="slds-truncate" title="Title">Title</div></th>   
+                    <th scope="col"><div class="slds-truncate" title="CreatedBy">CreatedBy</div></th>   
+                    <th scope="col"><div class="slds-truncate" title="LastModifiedBy">LastModifiedBy</div></th>   
+                    <th scope="col"><div class="slds-truncate" title="RelatedTo">RelatedTo</div></th>   
+
+                    <th scope="col"><div class="slds-truncate" title="NoteLink">Note Link</div></th>
+                   
+
+            </tr>
+         </thead>
+         <tbody>       
+            
+            <aura:iteration items="{!v.noteList}" var="obj">                                              
+               <tr>              
+                   <td><div class="slds-truncate">{!obj.Title}</div></td>
+                   <td><div class="slds-truncate">{!obj.CreatedBy.Name}</div></td>
+                   <td><div class="slds-truncate">{!obj.LastModifiedBy.Name}</div></td>
+                   <td><div class="slds-truncate">{!obj.Parent.Name}</div></td>
+
+                   <td><div class="slds-truncate"> <a href="{!'/'+obj.Id}" target="_blank">View Note</a></div></td>
+                 
+                 
+               </tr>
+            </aura:iteration>
+         </tbody>
+      </table>     
+                                    
+                                </div>
+                            </div>
+                        </aura:if>
+
+                    </div>
+                    
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeModel}">Cancel</button>
+                    </footer>
+                    
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+            </aura:if>
+    
+    
+</aura:component>

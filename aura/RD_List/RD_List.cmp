@@ -1,0 +1,122 @@
+<aura:component controller="ResourceDirectoryController" implements="force:appHostable" access="global">
+    <aura:attribute name="directory" type="Resource_Directory__c[]" />
+    <aura:attribute name="catOptions" type="Object[]" />
+    <aura:attribute name="ent" type="string" />
+    <aura:attribute name="cat" type="string" />
+    <aura:attribute name="entOptions" type="Object[]" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <head>  
+        <style>    
+            tr.header {
+            outline: thin solid grey;
+            }
+            p.top {
+            font-size: 36;
+            }
+            p.instruc {
+			word-wrap: break-word;          
+            }
+            td {
+             width: 50%;
+             valign: top;
+             height: 8px
+            }
+            
+        </style>  
+    </head> 
+	
+    <div>
+        <h2>Resource Directory</h2>
+        <p style="font-size:12px; color:red"><b>** Please ensure you use your Office Depot email account for email requests. </b></p>
+        <hr/>
+    	<ui:inputSelect aura:id="Ent_Pck"  label="Select Customer Type:" change="{!c.onSelectChange}" > 
+            <ui:inputSelectOption text="" label="-- Please select --" />
+            <aura:iteration items="{!v.entOptions}" var="r">
+           			<ui:inputSelectOption text="{!r.value}" label="{!r.label}" />
+            </aura:iteration>
+        </ui:inputSelect>
+    </div>
+    <br/>
+    <div>
+    	<ui:inputSelect aura:id="Cat_Pck" label="Select Category:" change="{!c.onSelectCategory}"> 
+            <ui:inputSelectOption text="All" label="-- All --"/>
+            <aura:iteration items="{!v.catOptions}" var="r">
+           			<ui:inputSelectOption text="{!r.value}" label="{!r.label}"/>
+            </aura:iteration>
+        </ui:inputSelect>
+    </div>
+    <br/>
+    <div>
+    	
+        	<aura:iteration items="{!v.directory}" var="RD">
+                <Table style="width: 98%" border="3" align="center">	
+                            <tr width="98%" class="header">
+                                <td colspan="2" valign="top" width="100%">
+                                    <p class="top"><strong>Topic:</strong></p>
+                                    <p>{!RD.Issue__c}</p>
+                                </td>
+                            </tr>
+                       	<aura:if isTrue="{! empty(RD.Contact_Instruction__c)}">    
+                            <tr width="98%">
+                                <td> 
+                                    <p align="center" ><strong> Email:</strong></p>
+                                </td>
+                                <td > 
+                                    <p align="center"><strong> Phone:</strong></p>
+                                </td>
+                            </tr>
+                            <tr width="98%">
+                                <td > 
+                                    <aura:if isTrue="{!empty(RD.Contact_Email__c)}">
+                                        <p align="center"> N/A </p>
+                                        <aura:set attribute="else">
+                                        <p align="center"> <a href="{!'mailto:' + RD.Contact_Email__c }">Touch to Email</a></p>
+                                        </aura:set>
+                                    </aura:if> 
+                                </td>
+                                <td > 
+                                    <p align="center"><a href="{!'tel:' + RD.Contact_Phone__c}">{!RD.Contact_Phone__c}</a></p>
+                                </td>
+                            </tr>
+                            <tr width="98%">
+                                <td > 
+                                    <p align="center"><strong> Escalation:</strong></p>
+                                </td>
+                                <td > 
+                                    <p align="center"><strong> SLA:</strong></p>
+                                </td>
+                            </tr>
+                            <tr width="98%">
+                                <td > 
+                                    <aura:if isTrue="{!empty(RD.Escalation__c)}">
+                                        <p align="center">N/A</p>
+                                        <aura:set attribute="else">
+                                        <p align="center"> <a href="{!'mailto:' + RD.Escalation__c}"> Touch to Escalate </a>	</p>
+                                        </aura:set>
+                                    </aura:if> 
+                                </td>
+                                <td > 
+                                    <p align="center"> {!RD.SLA__c}</p>
+                                </td>
+                            </tr>
+                            <tr width="98%" border="0">
+                            </tr>
+							<aura:set attribute="else">
+                                <tr width="98%" border="2">
+                                    <td colspan="2" valign="top" width="100%">
+                                        <p><strong>Contact Instructions:</strong></p>
+                                        <p style="font-size:10px">(may not be available on mobile)</p>
+                                        <p class="instruc" align="center">{!RD.Contact_Instruction__c}</p>
+                                    </td>
+                                </tr>
+								<tr width="98%" border="0">
+                                </tr>
+                            </aura:set>
+							</aura:if> 
+                    </Table>
+                <hr/>
+            </aura:iteration>
+        </div>
+    
+    
+</aura:component>

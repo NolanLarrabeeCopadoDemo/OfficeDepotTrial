@@ -1,0 +1,340 @@
+<template>
+	<div class="slds-backdrop slds-backdrop_open slds-transition-hide moe-transition"
+		style="transition: opacity 250ms; z-index: 9001;">
+		<section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-rise-from-ground">
+			<div class="slds-modal__container slds-size_6-of-12">
+				<header class="slds-modal__header">
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+						title="Close"
+						onclick={onCloseClick}>
+						<lightning-icon class="slds-button__icon slds-button__icon_large" icon-name="utility:close"
+							alternative-text="Close" size="small" variant="inverse"></lightning-icon>
+						<span class="slds-assistive-text">Close</span>
+					</button>
+					<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Tech Quote Wizard</h2>
+				</header>
+				<div class="slds-modal__content slds-p-bottom_medium slds-p-right_medium slds-scrollable_none">
+					<div class="slds-grid slds-is-relative" style="overflow: visible;">
+						<div class="slds-p-top_medium" style="white-space: nowrap;">
+							<lightning-vertical-navigation onselect={onFieldSelection} selected-item="shipTo">
+								<lightning-vertical-navigation-section label="Fields">
+									<template if:true={_costCenter.isVisible}>
+										<template if:true={_costCenter.isRequired}>
+											<template if:false={_costCenter.isChanged}>
+												<lightning-vertical-navigation-item-icon label="Cost Center"
+													name="costCenter"
+													icon-name="utility:topic" title="Required Cost Center">
+												</lightning-vertical-navigation-item-icon>
+											</template>
+											<template if:true={_costCenter.isChanged}>
+												<lightning-vertical-navigation-item-icon label="Cost Center"
+													name="costCenter"
+													icon-name="utility:check"></lightning-vertical-navigation-item-icon>
+											</template>
+										</template>
+										<template if:false={_costCenter.isRequired}>
+											<lightning-vertical-navigation-item label="Cost Center" name="costCenter">
+											</lightning-vertical-navigation-item>
+										</template>
+									</template>
+									<template if:true={_poNumber.isVisible}>
+										<template if:true={_poNumber.isRequired}>
+											<template if:false={_poNumber.isChanged}>
+												<lightning-vertical-navigation-item-icon label="PO #"
+													name="poNumber"
+													icon-name="utility:topic" title="Required PO #">
+												</lightning-vertical-navigation-item-icon>
+											</template>
+											<template if:true={_poNumber.isChanged}>
+												<lightning-vertical-navigation-item-icon label="PO #"
+													name="poNumber"
+													icon-name="utility:check"></lightning-vertical-navigation-item-icon>
+											</template>
+										</template>
+										<template if:false={_poNumber.isRequired}>
+											<lightning-vertical-navigation-item label="PO #" name="poNumber">
+											</lightning-vertical-navigation-item>
+										</template>
+									</template>
+									<template if:true={_desktopNumber.isVisible}>
+										<template if:true={_desktopNumber.isRequired}>
+											<template if:false={_desktopNumber.isChanged}>
+												<lightning-vertical-navigation-item-icon label="Desktop #"
+													name="desktopNumber"
+													icon-name="utility:topic" title="Required Desktop #">
+												</lightning-vertical-navigation-item-icon>
+											</template>
+											<template if:true={_desktopNumber.isChanged}>
+												<lightning-vertical-navigation-item-icon label="Desktop #"
+													name="desktopNumber"
+													icon-name="utility:check"></lightning-vertical-navigation-item-icon>
+											</template>
+										</template>
+										<template if:false={_desktopNumber.isRequired}>
+											<lightning-vertical-navigation-item label="Desktop #" name="desktopNumber">
+											</lightning-vertical-navigation-item>
+										</template>
+									</template>
+									<template if:true={_releaseNumber.isVisible}>
+										<template if:true={_releaseNumber.isRequired}>
+											<template if:false={_releaseNumber.isChanged}>
+												<lightning-vertical-navigation-item-icon label="Release #"
+													name="releaseNumber"
+													icon-name="utility:topic" title="Required Release #">
+												</lightning-vertical-navigation-item-icon>
+											</template>
+											<template if:true={_releaseNumber.isChanged}>
+												<lightning-vertical-navigation-item-icon label="Release #"
+													name="releaseNumber"
+													icon-name="utility:check"></lightning-vertical-navigation-item-icon>
+											</template>
+										</template>
+										<template if:false={_releaseNumber.isRequired}>
+											<lightning-vertical-navigation-item label="Release #" name="releaseNumber">
+											</lightning-vertical-navigation-item>
+										</template>
+									</template>
+									<lightning-vertical-navigation-item label="Ship To" name="shipTo">
+									</lightning-vertical-navigation-item>
+									<lightning-vertical-navigation-item label="Contact" name="contact">
+									</lightning-vertical-navigation-item>
+								</lightning-vertical-navigation-section>
+							</lightning-vertical-navigation>
+						</div>
+						<div
+							class="slds-grow slds-grid slds-grid_vertical slds-p-left_medium slds-p-top_medium slds-scrollable_none">
+							<div class="slds-grid">
+								<!-- <lightning-combobox value={search.key} placeholder="Select field" options={search.availableKeys}
+									onchange={onSearchKeyChange} variant="label-hidden"
+									class="slds-m-right_small slds-size_3-of-12">
+								</lightning-combobox> -->
+								<div class="slds-m-right_small slds-grow">
+									<lightning-input type="search" label="Search"
+										onchange={onSearchValueChange} value={search.value} variant="label-hidden"
+										onkeypress={onSearchKeyPress} is-loading={search.isLoading} autocomplete="off">
+									</lightning-input>
+								</div>
+								<div class="slds-button-group" role="group">
+									<template if:true={isOverrideSafe}>
+										<button class="slds-button slds-button_outline-brand"
+											onclick={onOverrideClick}>Override</button>
+									</template>
+									<button class="slds-button slds-button_outline-brand"
+										onclick={onSearchClick}>Search</button>
+								</div>
+							</div>
+							<div class="slds-m-top_medium slds-is-relative" style="flex: 1; height: 0;">
+								<template if:true={isCostCentersTableVisible}>
+									<lightning-datatable key-field="id" data={_costCenter.data}
+										columns={_costCenter.columns}
+										onrowselection={onCostCenterTableSelection}
+										max-row-selection="1">
+									</lightning-datatable>
+								</template>
+								<template if:true={isPONumbersTableVisible}>
+									<lightning-datatable key-field="id" data={_poNumber.data}
+										columns={_poNumber.columns}
+										onrowselection={onPONumberTableSelection}
+										max-row-selection="1">
+									</lightning-datatable>
+								</template>
+								<template if:true={isDesktopNumbersTableVisible}>
+									<lightning-datatable key-field="id" data={_desktopNumber.data}
+										columns={_desktopNumber.columns}
+										onrowselection={onDesktopNumberTableSelection}
+										max-row-selection="1">
+									</lightning-datatable>
+								</template>
+								<template if:true={isReleaseNumbersTableVisible}>
+									<lightning-datatable key-field="id" data={_releaseNumber.data}
+										columns={_releaseNumber.columns}
+										onrowselection={onReleaseNumberTableSelection} max-row-selection="1">
+									</lightning-datatable>
+								</template>
+								<template if:true={isShipTosTableVisible}>
+									<lightning-datatable key-field="id" data={_shipTo.data} columns={_shipTo.columns}
+										onrowselection={onShipToTableSelection} max-row-selection="1">
+									</lightning-datatable>
+								</template>
+								<template if:true={isContactsTableVisible}>
+									<lightning-datatable key-field="id" data={_contact.data} columns={_contact.columns}
+										onrowselection={onContactTableSelection}
+										max-row-selection="1">
+									</lightning-datatable>
+								</template>
+								<template if:true={isLoading}>
+									<c-endless-aisle-loader></c-endless-aisle-loader>
+								</template>
+							</div>
+						</div>
+					</div>
+					<div class="slds-p-left_medium">
+						<hr class="slds-m-vertical_medium">
+						<div class="slds-m-top_medium slds-col_bump-top slds-scrollable_x"
+							style="white-space: nowrap;">
+							<!-- <template if:true={_costCenter.isChanged}>
+									<template if:true={_costCenter.isVisible}>
+										<lightning-pill label={_costCenter.pillLabel} onremove={onCostCenterRemove}
+											variant="plain">
+										</lightning-pill>
+									</template>
+								</template>
+								<template if:true={_poNumber.isChanged}>
+									<template if:true={_poNumber.isVisible}>
+										<lightning-pill label={_poNumber.pillLabel} onremove={onPONumberRemove}
+											variant="plain">
+										</lightning-pill>
+									</template>
+								</template>
+								<template if:true={_desktopNumber.isChanged}>
+									<template if:true={_desktopNumber.isVisible}>
+										<lightning-pill label={_desktopNumber.pillLabel}
+											onremove={onDesktopNumberRemove}
+											variant="plain">
+										</lightning-pill>
+									</template>
+								</template>
+								<template if:true={_releaseNumber.isChanged}>
+									<template if:true={_releaseNumber.isVisible}>
+										<lightning-pill label={_releaseNumber.pillLabel}
+											onremove={onReleaseNumberRemove}
+											variant="plain">
+										</lightning-pill>
+									</template>
+								</template>
+								<template if:true={_shipTo.isChanged}>
+									<lightning-pill label={_shipTo.pillLabel} onremove={onShipToRemove}
+										variant="plain">
+									</lightning-pill>
+								</template>
+								<template if:true={_contact.isChanged}>
+									<lightning-pill label={_contact.pillLabel} onremove={onContactRemove}
+										variant="plain">
+									</lightning-pill>
+								</template> -->
+							<div
+								class="slds-grid slds-grid_align-spread slds-p-horizontal_medium fieldsContainer slds-is-relative">
+								<template if:true={_costCenter.isVisible}>
+									<div>
+										<div class="slds-text-color_weak">
+											Cost Center
+										</div>
+										<div class="slds-grid">
+											<div class="slds-form-element__static" style="flex: 1;">
+												{_costCenter.value}
+											</div>
+											<div class="slds-col_bump-left slds-m-left_small">
+												<lightning-button-icon icon-name="utility:clear" variant="bare"
+													alternative-text="Remove" onclick={onCostCenterRemove}>
+												</lightning-button-icon>
+											</div>
+										</div>
+									</div>
+								</template>
+								<template if:true={_poNumber.isVisible}>
+									<div>
+										<div class="slds-text-color_weak">
+											PO Number
+										</div>
+										<div class="slds-grid">
+											<div class="slds-form-element__static" style="flex: 1;">
+												{_poNumber.value}
+											</div>
+											<div class="slds-col_bump-left slds-m-left_small">
+												<lightning-button-icon icon-name="utility:clear" variant="bare"
+													alternative-text="Remove" onclick={onPONumberRemove}>
+												</lightning-button-icon>
+											</div>
+										</div>
+									</div>
+								</template>
+								<template if:true={_desktopNumber.isVisible}>
+									<div>
+										<div class="slds-text-color_weak">
+											Desktop Number
+										</div>
+										<div class="slds-grid">
+											<div class="slds-form-element__static" style="flex: 1;">
+												{_desktopNumber.value}
+											</div>
+											<div class="slds-col_bump-left slds-m-left_small">
+												<lightning-button-icon icon-name="utility:clear" variant="bare"
+													alternative-text="Remove" onclick={onDesktopNumberRemove}>
+												</lightning-button-icon>
+											</div>
+										</div>
+									</div>
+								</template>
+								<template if:true={_releaseNumber.isVisible}>
+									<div>
+										<div class="slds-text-color_weak">
+											Release Number
+										</div>
+										<div class="slds-grid">
+											<div class="slds-form-element__static" style="flex: 1;">
+												{_releaseNumber.value}
+											</div>
+											<div class="slds-col_bump-left slds-m-left_small">
+												<lightning-button-icon icon-name="utility:clear" variant="bare"
+													alternative-text="Remove" onclick={onReleaseNumberRemove}>
+												</lightning-button-icon>
+											</div>
+										</div>
+									</div>
+								</template>
+								<div>
+									<div class="slds-text-color_weak">
+										Ship To
+									</div>
+									<div class="slds-grid">
+										<div class="slds-form-element__static" style="flex: 1;">
+											{_shipTo.value}
+										</div>
+										<div class="slds-col_bump-left slds-m-left_small">
+											<lightning-button-icon icon-name="utility:clear" variant="bare"
+												alternative-text="Remove" onclick={onShipToRemove}>
+											</lightning-button-icon>
+										</div>
+									</div>
+								</div>
+								<div>
+									<div class="slds-text-color_weak">
+										Contact
+									</div>
+									<div class="slds-grid">
+										<div class="slds-form-element__static" style="flex: 1;">
+											{_contact.value}
+										</div>
+										<div class="slds-col_bump-left slds-m-left_small">
+											<lightning-button-icon icon-name="utility:clear" variant="bare"
+												alternative-text="Remove" onclick={onContactRemove}>
+											</lightning-button-icon>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<footer class="slds-modal__footer slds-grid">
+					<button class="slds-button slds-button_neutral slds-col_bump-right" onclick={onCloseClick}>
+						Close
+					</button>
+					<template if:false={areRequiredFieldsFulfilled}>
+						<button class="slds-button slds-button_brand slds-m-right_medium" disabled>
+							Save Changes
+						</button>
+						<lightning-helptext
+							content="Please enter all required values for this quote.">
+						</lightning-helptext>
+					</template>
+					<template if:true={areRequiredFieldsFulfilled}>
+						<button class="slds-button slds-button_brand" onclick={onSaveChangesClick}>
+							Save Changes
+						</button>
+					</template>
+				</footer>
+			</div>
+		</section>
+	</div>
+</template>

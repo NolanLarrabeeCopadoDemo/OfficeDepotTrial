@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Grand_Toy</letterhead>
+    <name>GT New Template</name>
+    <style>freeForm</style>
+    <subject>GT Support Request - {!Case.CaseNumber} {!Case.Email_Thread}</subject>
+    <textOnly>Dear {!Case.CreatedBy},
+
+
+We have received your Support request {!Case.CaseNumber} regarding {!Case.Subject}.
+
+You may review the progress on this case by referring to the link below. You will be contacted with any questions/concerns and will also be notified when your case has been completed.
+
+
+To access this case click the below link:
+
+{!Case.CaseNumber}
+
+
+
+
+
+{!Case.Email_Thread}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

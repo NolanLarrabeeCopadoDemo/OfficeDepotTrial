@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Look Forward To Next Steps</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Meeting Request after Call</name>
+    <style>freeForm</style>
+    <subject>Look Forward To Next Steps</subject>
+    <textOnly>Dear {!Contact.Name},
+
+I appreciate our dialogue and would like the opportunity to expand our conversation to more fully understand your company’s goals and needs. I am aware of the agreement with your current vendor; however, there are other benefits to meeting with me and the Business Solutions team at Office Depot.
+
+We’ve managed several industry-leading transformations in the last 12 months with Fortune 500 customers, and we’d like the opportunity to do the same for INSERT COMPANY NAME. Our business platform capabilities allow us to transform the delivery of office commodities into a robust strategic partnership that drives efficiencies and immediate cost savings. At Office Depot, our passion is to deliver world class solutions to your business and employees. A few key topics I’d like to discuss are:
+
+
+Nationwide category services and support
+Office Depot total business platform
+Procure to pay soft cost reduction
+Demand Management
+Personalized Reporting
+Account Support
+
+Thank you,
+
+
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

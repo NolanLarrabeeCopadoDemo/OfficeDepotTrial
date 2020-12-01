@@ -1,0 +1,67 @@
+<template>
+    <lightning-card>
+    <div class="slds-theme_default">
+        <div class="slds-p-around_medium">
+            <lightning-progress-indicator type="path" current-step={selectedStep}>
+                <lightning-progress-step label="Upload Prospect data" onstepfocus={selectStep1} value="Step1">
+                </lightning-progress-step>
+                <lightning-progress-step label="Org Information" onstepfocus={selectStep2} value="Step2">
+                </lightning-progress-step>
+                <lightning-progress-step label="Prospect Creation" onstepfocus={selectStep3} value="Step3">
+                </lightning-progress-step>
+                <lightning-progress-step label="Account Setup Request" onstepfocus={selectStep4} value="Step4">
+                </lightning-progress-step>
+                <lightning-progress-step label="Prospect Preview" onstepfocus={selectStep5} value="Step5">
+                </lightning-progress-step>
+            </lightning-progress-indicator>
+        </div>
+    </div>
+
+    
+  
+        <div if:true={isSelectStep1}>
+            <lightning-card icon-name="action:add_contact" title='Upload Prospects'>
+                <div style="margin-left: 3%">
+                  <template if:true={showLoadingSpinner}>
+                    <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+                  </template>
+                  <lightning-input label="Attachment Upload" accept={acceptedFormats} name="file uploader" onchange={handleFilesChange} type="file" ></lightning-input>
+                  <br>
+            
+                  <!--<lightning-button  class="slds-m-top-medium" label="Upload Prospect" onclick={readFiles} variant="brand" ></lightning-button> -->
+                  (<em>Note: You can download the CSV file format from here.)</em>
+                  <lightning-button variant="brand" label="Download" title="Download" icon-position="right" icon-name="utility:download" onclick = {downloadClick} class="slds-m-left_x-small"></lightning-button>
+                </div>
+            </lightning-card>          
+        </div>
+
+        <div if:true={isSelectStep2}>
+            <c-org-Information prospect-json ={jsonfile} onchangejson={handleJson}></c-org-Information>
+        </div>
+
+        <div if:true={isSelectStep3}>
+            <c-bulk-prospect-edit-insert jsondata={jsonfile} jsonorg={jsonorg} onchangejson={handleJson}></c-bulk-prospect-edit-insert>
+        </div>
+
+        <div if:true={isSelectStep4}>
+            <c-account-setup-request prospect-json={jsonfile} onchangestep={handleStepChange}></c-account-setup-request>
+        </div>
+
+        <div if:true={isSelectStep5}>
+            <span style="font-size: x-large;font-weight:bold;">Prospect creation and Account Setup process completed successfully.</span> 
+        </div>
+
+        <div slot="footer">
+            <div class="slds-m-vertical_medium">
+              <lightning-button label="Back" class="slds-m-left_x-small" onclick={handlePrev}></lightning-button>
+              <template if:false={isSelectStep5}>
+                  <lightning-button variant="brand" class="slds-m-left_x-small" label="Next" onclick={handleNext}></lightning-button>
+              </template>
+              <template if:true={isSelectStep5}>
+                  <lightning-button variant="brand" class="slds-m-left_x-small" label="Finish" onclick={handleFinish}></lightning-button>
+              </template>
+            </div>
+        </div>
+    </lightning-card>        
+      
+</template>

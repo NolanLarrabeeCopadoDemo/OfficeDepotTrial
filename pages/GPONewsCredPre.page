@@ -1,0 +1,22 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="GPONewsCredSelectCntrl">
+ <apex:stylesheet value="https://business.officedepot.com/610075097/bundles/en_US_bsd_business/master.css" />
+  <apex:stylesheet value="https://business.officedepot.com/1536517939/bundles/en_US_bsd_business/leadGenForm.css" />
+
+<script type="text/javascript" src="https://business.officedepot.com/1456582030/bundles/en_US_bsd_business/leadGenForm.js" ></script>
+<div class="leadGenFragments clearfix gw12">
+<div class="bsd_newscred">
+<div class="leadGen_subTitle">
+
+</div>
+
+<ul class="newscred_elements newscred_key gw12" data-ncitems="8" data-nckey="ba2a63ea5f50f49a639f52f7f787d885" data-ncpredef="No">
+<apex:repeat value="{!preNewsCredHdrs}" var="M">  
+<li class='gw3 omega' ><a href="{!M.guid}">
+  <img src="{!M.link}"/><span>{!M.title}</span>
+ </a> </li>
+ </apex:repeat> 
+</ul>
+</div>
+</div>
+
+</apex:page>

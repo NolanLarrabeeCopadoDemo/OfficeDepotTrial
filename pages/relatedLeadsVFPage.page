@@ -1,0 +1,18 @@
+<apex:page standardController="Lead">
+    <apex:includeLightning />
+    <div id="container"></div>
+
+    <script>
+        $Lightning.use("c:relatedLeadsContainerApp", function() {
+            $Lightning.createComponent(
+                "c:relatedLeadsAura",
+                {
+                    "recordId" : "{!$CurrentPage.parameters.id}"
+                },"container",
+                function(cmp) {
+                    console.log('component created');
+                }
+            );
+        });
+    </script>
+</apex:page>

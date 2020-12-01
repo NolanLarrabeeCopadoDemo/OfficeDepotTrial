@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Full Service Proposal Task Detail</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} {!Case.Thread_Id} {!Account.Name} {!WRF.Type} - Action Required</subject>
+    <textOnly>Description: {!Case.Description}
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+
+
+Click here to go to the support case
+
+
+
+Hi (add sales name),
+
+
+
+I am the assigned Proposal Writer for (Add customer name). I will serve as the Project Manager to ensure all deliverables are met and the bid is submitted to the customer by (Due Date). Below are the action items for each member on the team:
+
+
+
+Proposal Writer Action Items:
+
+
+
+1. I will set up a conference call between sales, legal and pricing so we can set time and dates for all deliverables
+
+
+
+2. After our initial call, I will send a Project Timeline to keep the entire team on task to finish before the customer deadline.
+
+
+
+3. I will write a draft of bid document and send for sales review.
+
+
+
+4. I will send follow up on emails as needed to keep team on task.
+
+
+
+5. I will compile the final bid documents and pricing and send for VP signature, legal stamp, notary, and instructions on how to deliver to the customer.
+
+
+
+Sales Action Items:
+
+
+
+1. Review all proposal documents and answer any outstanding questions that require sales response.
+
+
+
+2. If CPM is required, send to Director and VP to ensure it is fully approved in Salesforce.
+
+
+
+3. Send Customer contact information to include in the bid documents and specify delivery of proposal as electronic or hard copy and delivered by UPS, hand delivery, or emailed.
+
+
+
+4. Send 3 references to include in the bid documents.
+
+
+
+5. Send legal calls out to your Director and VP for approval and ensure the written response is sent back to legal.
+
+
+
+6. Add final pricing to customer documents in MS Word
+
+
+
+7. For this bid, I need sales to send the following:
+
+
+
+1.
+
+
+
+2.
+
+
+
+3.
+
+
+I look forward to working with you!
+
+
+
+Thanks,
+
+Your Name
+
+Proposal Writer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

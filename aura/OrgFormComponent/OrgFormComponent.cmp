@@ -1,0 +1,44 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="createNewOrg" type="Boolean" default="false"/>
+    <aura:attribute name="newOrgRec" type="Org__c"/>
+    
+    <aura:if isTrue="{!v.createNewOrg}">
+        <fieldset class="slds-form--compound">
+            <!--<legend class="slds-text-heading-small slds-p-vertical-medium">Org Information</legend>-->
+            <div class="form-element__group">
+                <!-- <aura:if isTrue="{!v.orgRequiredError}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="true">
+                                
+                            </ui:message>
+                        </div>
+                    </aura:if> -->
+                   <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <lightning:input label="Business Name" value="{!v.newOrgRec.Business_Name__c}" required="true" placeholder="Enter valid business name"/>
+                    </div>
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <lightning:input label="Address1" value="{!v.newOrgRec.Address_1__c}" required="true"/>
+                    </div>
+                </div>
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <lightning:input label="Address2" value="{!v.newOrgRec.Address_2__c}"  />
+                    </div>
+                    <div class="slds-form-element slds-size--1-of-2">
+                         <lightning:input label="City" value="{!v.newOrgRec.City__c}" placeholder="Enter valid city"/>
+                    </div>
+                </div>
+                
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <lightning:input label="State" value="{!v.newOrgRec.State__c}" placeholder="Enter valid state"/>
+                    </div>
+                    <div class="slds-form-element slds-size--1-of-2">
+                        <lightning:input label="Zip" value="{!v.newOrgRec.Zip__c}" placeholder="Enter valid zip Code"/>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </aura:if>
+</aura:component>

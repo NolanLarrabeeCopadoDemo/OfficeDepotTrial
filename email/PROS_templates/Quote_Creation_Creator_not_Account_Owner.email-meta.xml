@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax_Letterhead_V1</letterhead>
+    <name>Quote Creation - Creator not Account Owner</name>
+    <style>freeForm</style>
+    <subject>New Quote Notification</subject>
+    <textOnly>Quote Name: {!CameleonCPQ__QxQuote__c.Name}
+
+
+Quote ID: {!CameleonCPQ__QxQuote__c.Quote_Number__c}
+
+Quote Owner: {!CameleonCPQ__QxQuote__c.Owner}
+
+
+Account ID: {!CameleonCPQ__QxQuote__c.CameleonCPQ__AccountId__c}
+
+
+Hello,
+
+
+This is a notification that a Quote has been created on {!CameleonCPQ__QxQuote__c.Account_Name__c}
+
+Click on the link below to review the Quote.
+
+Quote Link</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

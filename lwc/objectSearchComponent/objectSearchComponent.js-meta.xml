@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="search_fields" type="String" label="Fields to be used for searching." description="A comma seperated list of field developer names to be used for searching for records." default="Name" required="true"/>
+            <property name="search_object" type="String" label="Object to search against" description="What object do you want to search through?" required="true" default="Account"/>
+            <property name="search_title" type="String" label="Title of the Search Component" description="What title should be displayed on the component."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

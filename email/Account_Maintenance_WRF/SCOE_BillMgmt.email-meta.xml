@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template to be used for as initial reply to user have trouble with BM</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>SCOE Bill Mgmt</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber}</subject>
+    <textOnly>Customer Name: {!Case.Account}
+
+Account Number:  {!Case.ACCT_Account_Number__c}
+
+Case # {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+
+
+
+Click here to go to the support case
+
+
+Below are some steps which will assist the customer with common Bill Management issues and the necessary information to provide should these steps not work.
+
+
+(1.)  Log out of both Bill Management and the business.officedepot.com website by clicking on the &quot;Logout&quot; link at the top right of the page for each.
+
+(2.)  Within the current Internet browser delete your cookies and cache
+
+(3.)  Close ALL internet browser windows and tabs
+
+(4.)  Wait 30 seconds
+
+(5.)  Reopen your internet browser
+
+(6.)  Log onto business.officedepot.com and access Bill Management again
+
+(7.) If you have trouble accessing Bill Management, please try to access via an alternate browser (ie. Internet Explorer, Chrome, Firefox, etc)
+
+
+After following each of these steps if the user continues to receive an error message and/or is unable to access Bill Management, IT is requesting the below information from the customer:
+
+
+•  Account number:
+
+•  Account name:
+
+•  The user login and password:
+
+• Contact name, email address, and telephone number:
+
+•  Detailed explanation as to what steps the user is taking:
+
+•  Screenshot of the error:
+
+•  Internet browser &amp; version the user is using:
+
+
+
+Thank you,
+
+
+Sales Support Team
+
+
+
+
+
+------- Original Case -------
+
+From: {!Case.WRF_Requestor_Email__c}
+
+Subject: {!Case.Subject}
+
+Description: {!Case.Description}
+
+
+
+
+
+
+
+
+
+{!Case.Email_Thread}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

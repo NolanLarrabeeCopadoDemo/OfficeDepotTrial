@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>et4ae5__IndividualEmailResult__c.et4ae5__DateSent__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_CNTC_FIRST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>et4ae5__IndividualEmailResult__c.et4ae5__Opened__c</field>
+    </columns>
+    <columns>
+        <field>et4ae5__IndividualEmailResult__c.et4ae5__DateOpened__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>et4ae5__IndividualEmailResult__c.et4ae5__NumberOfUniqueClicks__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Account_Owner_Name__c</field>
+    </columns>
+    <columns>
+        <field>FK_ACC_NAME</field>
+    </columns>
+    <columns>
+        <field>et4ae5__IndividualEmailResult__c.et4ae5__DateUnsubscribed__c</field>
+    </columns>
+    <description>Marketing Automation - contact clicks</description>
+    <format>Tabular</format>
+    <name>Email Results from Marketing</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$et4ae5__IndividualEmailResult__c@et4ae5__IndividualEmailResult__c.et4ae5__Contact__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>et4ae5__IndividualEmailResult__c.et4ae5__DateBounced__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

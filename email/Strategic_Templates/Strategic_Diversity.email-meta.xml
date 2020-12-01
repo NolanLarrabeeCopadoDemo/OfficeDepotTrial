@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Partner with us to increase diversity initiatives.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Diversity</name>
+    <style>freeForm</style>
+    <subject>Partner with us to increase diversity initiatives.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+From the INSERT COMPANY NAME website, I understand your organization&apos;s commitment to Supplier Diversity. Office Depot has a long history of commitment to increasing economic opportunities of diverse supplier partners. We were a founding member of the National Minority Supplier Development Council (NMSDC).
+
+
+
+I respectfully request the opportunity to meet and learn how diversity initiatives cross over into supplier programs. I would like to share how Office Depot promotes diversity within our company, our products, partners and customers. I am available to meet INSERT DATE AND TIME. I appreciate your consideration.
+
+
+
+Thank you,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}
+
+.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

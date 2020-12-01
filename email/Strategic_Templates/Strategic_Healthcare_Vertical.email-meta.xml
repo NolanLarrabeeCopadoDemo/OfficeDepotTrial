@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Realize savings with Business Solutions from Office Depot.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Healthcare Vertical</name>
+    <style>freeForm</style>
+    <subject>Realize savings with Business Solutions from Office Depot.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+I am a Director of Business Development at Office Depot.  We have had great success working with healthcare systems and collaboratives over the past few years. As an example, we’ve implemented programs with members of Novation-VHA collaboratives: Midwest Purchasing Coalition, Heartland, and Friendship-7 Sourcing Collaboratives. Clients in these programs realized savings of up to 30% from their prior programs.
+
+I respectfully request the opportunity to meet. My goal is to learn about INSERT COMPANTY NAME goals and initiatives surrounding office-related programs. Are you available to meet the week of INSERT DATE?
+
+Thank you for your consideration.
+
+
+
+Thank you,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

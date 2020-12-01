@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoResponseRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <autoResponseRule>
+        <fullName>Auto Response to Salesfore Mailbox</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <senderEmail>suneil.moonasar@officedepot.com</senderEmail>
+            <senderName>OfficeDepot</senderName>
+            <template>OD_SPC/ATR</template>
+        </ruleEntry>
+    </autoResponseRule>
+    <autoResponseRule>
+        <fullName>New Case Response</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>IT Cases,Support</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>salesforce@officedepot.com</replyToEmail>
+            <senderEmail>sfdc-support@officedepot.com</senderEmail>
+            <senderName>Salesforce</senderName>
+            <template>Calendar_Event/Auto_Response_New_Case</template>
+        </ruleEntry>
+    </autoResponseRule>
+</AutoResponseRules>

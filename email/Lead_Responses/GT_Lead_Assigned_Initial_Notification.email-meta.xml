@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>GT Lead Assigned Initial Notification</name>
+    <style>freeForm</style>
+    <subject>Lead: {!Lead.Name} has been assigned to you.</subject>
+    <textOnly>Business Solutions Division
+Dear {!Lead.OwnerFullName},
+
+The following Lead has been assigned to you:
+
+Company: {!Lead.Company}
+Contact First Name: {!Lead.FirstName}
+Contact Last Name: {!Lead.LastName}
+Contact Phone Number: {!Lead.Phone}
+Contact Email: {!Lead.Email}
+
+Click here to view the details of this lead in Salesforce.com.
+
+Thank you,
+Sales Operations Team
+
+
+Division des solutions d’affaires
+
+Bonjour {!Lead.OwnerFullName},
+
+
+La piste de vente suivante vous a été assignée:
+
+Entreprise: {!Lead.Company}
+Prénom: {!Lead.FirstName}
+Nom: {!Lead.LastName}
+Téléphone: {!Lead.Phone}
+Courriel: {!Lead.Email}
+
+Cliquez ici pour afficher les détails de cette piste de vente dans Salesforce.com.
+
+
+Merci,
+
+Équipe des opérations de vente</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

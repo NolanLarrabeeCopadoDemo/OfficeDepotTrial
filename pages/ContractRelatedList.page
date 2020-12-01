@@ -1,0 +1,87 @@
+<apex:page standardController="Account" extensions="contractRelatedList" sidebar="false" showHeader="false">
+    <style>
+        .fewerMore {
+            display: none;
+        }
+    </style>
+    <apex:form >
+        <apex:pageMessages />
+        <div id="Contract" style="overflow: scroll; height:200px;" >
+        <apex:pageblock id="CustomList" title="Active Contracts">
+            
+            <apex:pageBlockButtons location="Top">              
+                <apex:commandButton value="New Contract" onclick="window.open('/setup/ui/recordtypeselect.jsp?ent=Contract&retURL=%2F800%2Fo&save_new_url=%2F800%2Fe%3FretURL%3D%252F800%252Fo&accid={!recordId}')"  />                
+            <apex:commandLink target="_blank" styleClass="btn" 
+     action="{!$Label.Archive_report_link}?pv1={!accountIdstring}" value="Archive Contracts" /> 
+            </apex:pageBlockButtons>
+            
+            
+            
+            <apex:pageBlockTable id="contracthierarchy" width="100%" value="{!wrapperlist}" var="o" rendered="{!NOT(ISNULL(wrapperlist))}" >
+                <apex:column headerValue="Action" width="8%;">
+                    <apex:commandLink style="font-family: 'Verdana','Geneva',sans-serif; font-size: 91.3%; height: 15px; margin-bottom: -15px;
+      vertical-align: middle; color:#1468B6;padding-bottom:10px;" value="Edit" reRender="CustomList" rendered="{!$ObjectType.Contract.updateable}" onclick="window.open('/apex/SpringCMContract2?id={!o.WrapContract.id}','_top','', 1)">
+                    </apex:commandLink> &nbsp;&nbsp;
+                    <apex:commandLink style="font-family: 'Verdana','Geneva',sans-serif; font-size: 91.3%; height: 15px; margin-bottom: -15px;
+      vertical-align: middle; color:#1468B6;padding-bottom:10px;" value="Del" onclick="return window.confirm ('Do you want to Delete?');" action="{!deleteContractItem}" rendered="{!$ObjectType.Contract.deletable}">
+                    <apex:param value="{!o.WrapContract.id}" name="selectedRecord"/>
+                    </apex:commandLink>
+                
+                </apex:column>
+                
+                <apex:column headerValue="Contract Number">
+                    <a href="/{!o.WrapContract.id}" target="_blank"><apex:outputText value="{!o.WrapContract.ContractNumber}" /></a>
+                </apex:column>
+                <apex:column headerValue="Contract Name">
+                    <a href="/{!o.WrapContract.id}" target="_blank"><apex:outputText value="{!o.WrapContract.Name}" /></a>
+                </apex:column>
+                <!-- start @Ticket : 02246267 Added by Laxmikanth -->
+                <apex:column headerValue="Primary">
+                    <a href="/{!o.WrapContract.id}" target="_blank"><apex:outputText value="{!o.WrapContract.primary__c}" /></a>
+                </apex:column>
+                <!-- End @Ticket : 02246267 Added by Laxmikanth End-->
+                <apex:column headerValue="Customer Id" value="{!o.WrapAccount.Cust_ID__c}" />
+                <apex:column headerValue="Customer Name">
+                    <a href="/{!o.WrapAccount.id}" target="_"><apex:outputText value="{!o.WrapAccount.Name}" /></a>
+                </apex:column>
+                <apex:column headerValue="Account Type">
+                    <apex:outputText value="{!o.WrapAccount.RecordType.Name}" />
+                </apex:column>                
+                <apex:column headerValue="Customer Type">
+                    <!--<apex:outputText value="{!if(o.Account.RecordType.Name=='Prospect','Prospect',if((o.Account.Parentid!=null && o.Account.Parent.Parentid!=null),'Child',if((o.Account.Parentid!=null && o.Account.Parent.Parentid==null) ,'Parent',if((o.Account.Parentid==null && o.Account.Parent.Parentid==null) ,'Grand Parent','Child'))))}" />-->
+                   <apex:outputtext value="{!o.CustomerType}"></apex:outputtext>
+                </apex:column>
+                <apex:column headerValue="Contract Type">
+                   <apex:outputtext value="{!o.WrapContract.Contract_Type__c}"></apex:outputtext>
+                </apex:column>
+                <apex:column headerValue="Contract Status">
+                   <apex:outputtext value="{!o.WrapContract.Contract_Status__c}"></apex:outputtext>
+                </apex:column> 
+                <!-- This column added by Mohamad to meet the requirments for support 204153 -->
+                <apex:column headerValue="Contract Owner">
+                   <apex:outputtext value="{!o.WrapContract.Contract_Owner__c}"></apex:outputtext>
+                </apex:column> 
+                
+                <!-- This column added by Mohamad to meet the requirments for support 204153 -->
+                <apex:column headerValue="Date Current Legal Contract Expires" >
+                   <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                    <apex:param value="{!o.WrapContract.Date_current_Legal_Contract_expires__c}" /> 
+                   </apex:outputText>
+                </apex:column>
+                
+                <!--apex:column value="{!o.WrapContract.Contract_Type__c}" /-->
+                <!--apex:column value="{!o.WrapContract.Contract_Status__c}" /-->
+            </apex:pageBlockTable>  
+            
+               <!-- <apex:actionRegion>
+                    <apex:actionFunction action="{!deleteContractItem}" reRender="CustomList" name="contrdelete">
+                    <apex:param value="{!contdelid}" name="selectedRecord"/>
+                    </apex:actionFunction>
+                </apex:actionRegion>-->
+            <apex:outputLabel value="No records to display" rendered="{!(ISNULL(wrapperlist))}" styleClass="noRowsHeader"></apex:outputLabel>
+           
+           
+        </apex:pageblock>
+        </div>        
+    </apex:form>
+</apex:page>

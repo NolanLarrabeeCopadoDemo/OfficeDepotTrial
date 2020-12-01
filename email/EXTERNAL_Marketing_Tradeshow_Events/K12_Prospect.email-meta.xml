@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>K12 Prospect</name>
+    <style>none</style>
+    <subject>Great to see you at the trade show.</subject>
+    <textOnly>Discover how Office Depot can help you succeed.
+
+Put our powerful solutions and services to work for you.
+
+Dear {!Contact.FirstName},
+
+It was great to see you at the trade show! I wanted to send you a quick note and let you know that Office Depot® is here for you and your school in every capacity — whenever you need us.
+
+Look to us to be a partner you can count on for the personal attention, dedicated service, leading-edge solutions and competitive pricing your school deserves.
+
+Office supplies are just the beginning.
+
+We’ll help you keep your school stocked up on what it needs most, but you can also count on us for:
+
+· Customized solutions
+· Multichannel services
+· World-class support
+
+· Incredible value
+· 30+ years of expertise
+· Supply chain success
+
+Experience the Office Depot difference.
+
+Contact me at any time and let me know how Office Depot can help your school succeed today.
+
+Sincerely,
+{!User.Name}
+{!User.TitleTrimmed__c}
+
+{!User.Street} | {!User.City}, {!User.State} {!User.PostalCode}
+{!if(!ISBLANK(User.My_Customer_Contact__c), &apos;Tel: &apos;+User.My_Customer_Contact__c,&apos;&apos; )}
+Email: {!User.Email}
+
+© 2018 Office Depot, Inc. All rights reserved. 6﻿6﻿0﻿0 North Military Trail, Boca Raton, F﻿L﻿ 3﻿3﻿4﻿9﻿6
+
+Have questions? Contact us online or call 888-2-OFFICE (8﻿8﻿8.2﻿6﻿3.3﻿4﻿2﻿3). Privacy Policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

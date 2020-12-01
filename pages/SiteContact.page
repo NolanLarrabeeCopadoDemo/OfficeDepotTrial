@@ -1,0 +1,40 @@
+<apex:page standardController="Account" extensions="SiteContactCtrl">
+    <apex:pageBlock title="Add Site Contact">
+       <apex:pageMessages id="pageMsg"></apex:pageMessages>
+        <apex:form > 
+          <apex:panelGrid columns="4" width="50%">
+          <apex:outputLabel value="First Name"/>  
+          <apex:inputText title="First Name" value="{!cSearch.firstName}"/> 
+          <apex:outputLabel value="Last Name"/>
+          <apex:inputText title="Last Name" value="{!cSearch.lastName}"/> 
+          <apex:outputLabel value="Email"/>
+          <apex:inputText value="{!cSearch.Email}"/> 
+          <apex:outputLabel value="Phone"/>
+          <apex:inputText value="{!cSearch.Phone}"/> 
+            </apex:panelGrid> <br/>
+            <apex:commandButton action="{!populateMatchingContacts}" value="Search" rerender="resultsPanel"/>
+            <apex:commandButton value="Create New Contact" action="/003/e?con10={!cSearch.Phone}&con15={!cSearch.Email}&name_firstcon2={!cSearch.firstName}&name_lastcon2={!cSearch.lastName}&con4_lkid={!siteAcct.Related_Account__c}&CF00NE0000000LhLY={!siteAcct.Name}&CF00NE0000000LhLY_lkid={!siteAcct.Id}&con19street={!siteAcct.Address1__c}&con19city={!siteAcct.City__c}&con19state= {!siteAcct.State__c}&con19zip= {!siteAcct.Zip__c}&con19country={!siteAcct.Country__c}&retURL=/{!siteAcct.Id}&saveURL=/{!siteAcct.Id}" />
+            <apex:commandButton action="/{!SiteID}" value="Cancel" />
+            <br/><br/>
+            <apex:panelGrid id="resultsPanel" width="100%">
+              <apex:panelGrid columns="3" rendered="{!searchRender}">
+               <apex:commandButton value="Add Selected Contact" action="{!addContact}" rendered="{!searchRender}" onclick="return confirm('This Action Will Add The Selected contact To The Site, Are You Sure?');"/>
+               
+              </apex:panelGrid>
+              <apex:pageblocktable value="{!contactMatches}" var="contact" rendered="{!searchRender}">
+                <apex:column headerValue="Select" >
+                    <apex:actionSupport event="onclick" reRender="r">
+                       <input type="radio" name="x"/>
+                       <apex:param value="{!contact.Id}" name="inputs" assignTo="{!SelectedContact}"/>
+                    </apex:actionSupport>
+                </apex:column>
+                <apex:column value="{!contact.firstname}"/>
+                <apex:column value="{!contact.lastname}"/>
+                <apex:column value="{!contact.email}"/>
+                <apex:column value="{!contact.phone}"/>
+              </apex:pageblocktable>
+           </apex:panelGrid>
+        </apex:form>
+      
+    </apex:pageBlock>
+</apex:page>

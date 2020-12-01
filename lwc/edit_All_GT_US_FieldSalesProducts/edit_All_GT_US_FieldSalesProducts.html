@@ -1,0 +1,100 @@
+<template>
+<lightning-layout>
+<div class="slds-align_absolute-center">
+    <lightning-button variant="brand" onclick={cancel} name="cancel" label="Cancel"></lightning-button>             
+</div>
+</lightning-layout></br>
+<lightning-layout>     
+<div class="slds-align_absolute-center">
+    <div if:false={prodSpinner} class="slds-spinner_inline spinner-padding"></br></br></br>
+        <lightning-spinner variant="brand" 
+                        alternative-text="Loading....."     
+                        size="large">
+        </lightning-spinner>
+    </div>
+</div>
+</lightning-layout>
+<template if:false={hasExistingProducts} >
+    <p>There are no products to edit, click cancel to go back to Opportunity</p>
+</template>
+<template if:true={hasExistingProducts} >
+    <lightning-card title="Selected Products">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate">
+                            
+                        </div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Product">Product</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Opportunity Product Subtype">Product Subtype</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="IMU">IMU %</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Quantity"><span style="color: red;font-weight: bold;">*</span>Quantity</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Unit Price"><span style="color: red;font-weight: bold;">*</span>Unit Price</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Unit Cost">Unit Cost</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <lightning-input if:true={prodError} style="color: red;font-weight: bold;" value="Unit Price must be greater than 0.00" disabled>    </lightning-input>   
+<template  for:each={oppLineItems} for:item="item" for:index="index">
+    <lightning-record-edit-form record-id={item.Id}   key={item.Id} object-api-name="OpportunityLineItem">
+        <lightning-messages> </lightning-messages>
+        <lightning-layout multiple-rows >
+            <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="2"
+                padding="around-small">
+                <lightning-input-field  if:true={isBSD} disabled field-name="Product_BSD__c" value={item.Product_BSD__c} variant=label-hidden></lightning-input-field>
+                <lightning-input-field if:false={isBSD} disabled field-name="Product_GT__c" value={item.Product_GT__c} variant=label-hidden></lightning-input-field>
+            </lightning-layout-item>
+            <lightning-layout-item  size="12" small-device-size="6" medium-device-size="4" large-device-size="2"
+                padding="around-small">
+                <lightning-input-field if:true={isBSD} required={item.isRequired} field-name="Product_Subtype_BSD__c" value={item.Product_Subtype_BSD__c} variant=label-hidden ></lightning-input-field>
+                <lightning-input-field if:false={isBSD} field-name="Product_Subtype_GT__c" value={item.Product_Subtype_GT__c} variant=label-hidden ></lightning-input-field>
+                <lightning-input-field hidden field-name="Product_Subtype__c" value={item.Product_Subtype__c} variant=label-hidden disabled></lightning-input-field>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="2"
+                padding="around-small">
+                <lightning-input-field  field-name="IMU__c" value={item.IMU__c} variant=label-hidden ></lightning-input-field>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="2"
+                padding="around-small">
+                <lightning-input-field  field-name="Quantity" value={item.Quantity} required variant=label-hidden></lightning-input-field>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="2"
+                padding="around-small">
+                <lightning-input-field field-name="UnitPrice" value={item.UnitPrice} required variant=label-hidden></lightning-input-field>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="2"
+                padding="around-small">
+                <lightning-input-field  field-name="Unit_Cost__c" value={item.Unit_Cost__c} disabled variant=label-hidden></lightning-input-field>
+                
+            </lightning-layout-item>
+            
+        </lightning-layout>
+
+    </lightning-record-edit-form>
+
+</template>
+</br>
+<lightning-layout>
+<div class="slds-align_absolute-center">
+    <lightning-button variant="brand" onclick={updateOLIs} name="submit" label="Submit">
+    </lightning-button>
+</div>
+</lightning-layout>
+</lightning-card>
+</template>
+</template>

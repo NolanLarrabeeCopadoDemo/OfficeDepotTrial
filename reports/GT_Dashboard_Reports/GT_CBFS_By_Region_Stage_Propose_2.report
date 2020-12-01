@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_51372017</developerName>
+        <masterLabel>Product</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Product__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>CBFS</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CBS/Facilities</sourceValue>
+            </sourceValues>
+            <value>CBFS</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Office Products</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Office Supplies</sourceValue>
+            </sourceValues>
+            <value>Office Products</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Furniture - Catalog</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Furniture - Interiors</sourceValue>
+            </sourceValues>
+            <value>Furniture</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_61133207</developerName>
+        <masterLabel>REGION</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Opportunity.Owner_Region__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>BD - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>BD - East</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>BD - West</sourceValue>
+            </sourceValues>
+            <value>Business Development</value>
+        </values>
+    </buckets>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_39817109</developerName>
+        <masterLabel>Regions</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>OWNER_MANAGER</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Travis Parker</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jaswin Singh</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Adam Lawrence</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Souparno Majumdar</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Rob Borden</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Michael Kristiansen</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Dean Bertram</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Devin Chatterjee</sourceValue>
+            </sourceValues>
+            <value>WEST</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Lyne Gravel</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Cristina Manganelli</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Kevin Reilly</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jeffrey Graves</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Darryl Langdon</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tim Welch</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Deanna Giles</sourceValue>
+            </sourceValues>
+            <value>EAST</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Jason Adair</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Bryan Sampson</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Jim Frazer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Gary Keene</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Brad Haigh</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Andrew Chan</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Chris Henwood</sourceValue>
+            </sourceValues>
+            <value>CENTRAL</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Corby Johnston</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Guylaine Page</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Brent Archer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Kevin Kursi</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Bryce Carter</sourceValue>
+            </sourceValues>
+            <value>BUSINESS DEVELOPMENT</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Lawrence Pyman</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Tara Sevigny</sourceValue>
+            </sourceValues>
+            <value>ISO</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>Opportunity.Amount_CAD__c</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>true</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>BucketField_61133207</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <title>Count of opportunities at 90% Stage</title>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>BucketField_39817109</field>
+    </columns>
+    <columns>
+        <field>OWNER_MANAGER</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Amount_CAD__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_OWNER</field>
+    </columns>
+    <columns>
+        <field>Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.Run_Rate__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>Account.YTD_Sales_TY_IMU2__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.YTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.MTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.Year_LY__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.MTD_Sales_LY__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Primary_Competitor1_DonotInUse__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_DURATION</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Customer_Lifecycle__c</field>
+    </columns>
+    <columns>
+        <field>NEXT_STEP</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity.GT_Field_Sales</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Propose</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Amount_CAD__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>100000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Product__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>CBFS,Ergonomics,Furniture - Catalog,Furniture - Interiors,Ink &amp; Toner,MPS,Print Services,Tech,CBS/Facilities,Office Supplies</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STAGE_DURATION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>lessThan</operator>
+            <value>90</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>CLOSE_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>NEXT_90_DAYS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Customer_Lifecycle__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Renewal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>BucketField_51372017</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>CBFS</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_61133207</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>STAGE_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>GT CBFS By Region Stage Propose 2</name>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

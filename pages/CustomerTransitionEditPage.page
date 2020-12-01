@@ -1,0 +1,327 @@
+<!-- Connor Flynn  S-440214 (OD 0079655)  Disabled comments field for certaing values Line 121-->
+<apex:page standardcontroller="Customer_Transition__c" >
+    <apex:sectionheader title="{!$ObjectType.Customer_Transition__c.label} Edit" subtitle="{!IF(ISNULL(Customer_Transition__c.Name), 'New Customer Transition',Customer_Transition__c.Name)}"/>
+    
+    <script type="text/javascript">
+            function throwPopup(input){
+                
+                //alert({!Customer_Transition__c.Contract_Extension_Complete__c});
+                //var check16 = "{!Customer_Transition__c.Contract_Extension_Complete__c}"; 
+                
+                if(input.checked)
+                {
+                    alert('You must update the Review Start Date based on extension expiration.');
+                }
+                
+            }
+    
+            function checkStatus()
+            {
+                var Complete = document.getElementById('{!$Component.j_id0:form1:j_id4:j_id87:j_id92}').checked;
+                var ReadyForAccount = document.getElementById('{!$Component.j_id0:form1:j_id4:j_id75:j_id76}').checked;
+                var Cascade = document.getElementById('{!$Component.j_id0:form1:j_id4:j_id9:j_id26}').checked;
+                var CostCenter = "{!Customer_Transition__c.Cost_Center_varies_within_acct__c}";
+                var PONumbers = "{!Customer_Transition__c.PO_Numbers_vary_within_acct__c}";
+                var CostCenterexceed = "{!Customer_Transition__c.Cost_Center_s_exceed_20_bytes__c}";
+                var PORequiredflag = "{!Customer_Transition__c.PO_Required_flag_varies_within_acct__c}";
+                var Morethan99999Cost = "{!Customer_Transition__c.More_than_99999_Cost_Centers__c}";
+                var Morethan99999PO = "{!Customer_Transition__c.More_than_99999_PO_Numbers__c}";
+                var mixtureofexempt = "{!Customer_Transition__c.Mixture_of_exempt_non_exempt__c}";
+                var PackingLists = "{!Customer_Transition__c.Packing_Lists_varies_between_shiptos__c}";
+                var Multiplecertificates = "{!Customer_Transition__c.Multiple_certificates_for_the_same_state__c}";
+                var CostCenterLists = "{!Customer_Transition__c.Cost_Center_Lists_vary__c}";
+                var check11 = "{!Customer_Transition__c.Billing_Method_Not_PE__c}";
+                var check12 = "{!Customer_Transition__c.Billing_Frequency_Excptn__c}";
+                var check13 = "{!Customer_Transition__c.AB_Flag_Disparate__c}";
+                var check14 = "{!Customer_Transition__c.Billing_Method_Exception__c}";
+                var check15 = "{!Customer_Transition__c.AR_Credit_Limit__c}";    
+                
+                if( (check15 == "true" || check11 == "true" || check12 == "true" || check13 == "true" || check14 == "true" || CostCenter == "true" || PONumbers == "true" || CostCenterexceed == "true" || PORequiredflag == "true" || Morethan99999Cost =="true" || Morethan99999PO == "true" || CostCenterLists == "true" || Multiplecertificates == "true" || PackingLists =="true" || mixtureofexempt =="true" ) && Complete == false && ReadyForAccount == true && Cascade == false)
+                {
+                    if(confirm('AOPS exceptions exist for this OMX customer. Do you still want to convert?'))
+                       return true;
+                    else
+                       return false;
+                }
+                else if( Cascade == true)
+                {
+                    if(confirm('All the customers in the account hierarchy will have same transition status as of the parent. Do you wish to continue?'))
+                        return true;
+                    else
+                        return false;
+                }  
+                
+                else 
+                {
+                    return true;
+                }       
+            }
+     </script>
+     
+
+    
+    <apex:form id="form1"  >
+     <apex:messages styleclass="message"/>
+        
+        
+        <apex:pageblock mode="edit" title="{!$ObjectType.Customer_Transition__c.label} Edit">
+        
+       
+        
+            <apex:pageblockbuttons >
+                 <apex:commandButton onclick="return checkStatus();" value="Save" action="{!Save}"/> <!-- Save -->
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+            </apex:pageblockbuttons>
+
+            <!-- **********   [Record Type : Record Type ]   **********  -->
+            <apex:outputpanel rendered="{!OR(ISNULL(Customer_Transition__c.RecordTypeId),CASESAFEID(Customer_Transition__c.RecordTypeId)='012E000000093aKIAQ',CASESAFEID(Customer_Transition__c.RecordTypeId)='012E000000093FvIAI')}">
+                <apex:pageblocksection title="Information" showheader="true" columns="2">
+                    <apex:inputfield value="{!Customer_Transition__c.Review_Start_Date__c}" required="false"/>
+                    <apex:outputField value="{!Customer_Transition__c.Status_Display_txt__c}"/>
+                    <apex:outputfield value="{!Customer_Transition__c.Account__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Cascade_Review_Start_Date__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.OMX_Primary_Key__c}" /> 
+                    <apex:inputfield value="{!Customer_Transition__c.Parent_Transition_ID__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Legacy_Max_Market_Name__c}" />
+                    <apex:outputField value="{!Customer_Transition__c.Agreement_Level__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Legacy_Max_Market_ID__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Written_Agreement_ID__c}" />                   
+                    <apex:outputField value="{!Customer_Transition__c.Customer_Transition_Type2__c}"/>
+                    <apex:outputfield value="{!Customer_Transition__c.Written_Agreement_Customer_No__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.ODS_WA_EXECUTED__c}" />                             
+                    <apex:outputfield value="{!Customer_Transition__c.Grandparent__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Agreement_Expiration_Date__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Parent__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Agreement_Already_Expired__c}" />
+                    <apex:outputField value="{!Customer_Transition__c.Account_Owner__c}"/>
+                    
+                    <apex:outputfield value="{!Customer_Transition__c.DSM__c}" />
+                    
+                    
+                    <!--<apex:outputField value="{!Customer_Transition__c.E_Bill_Flag__c}"/>-->
+                    <apex:outputfield value="{!Customer_Transition__c.YTD_TY_Sales__c}" />
+                      
+                    <apex:outputfield value="{!Customer_Transition__c.YTD_LY_Sales__c}" />
+                    <apex:outputField value="{!Customer_Transition__c.Main_Warehouse__c}"/>
+                    <apex:outputfield value="{!Customer_Transition__c.DocMan_12M_Spend__c}" />
+                    
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Invoice_Email1__c}" />-->
+                    <apex:outputField value="{!Customer_Transition__c.No_of_Sites__c}"/>
+                    <apex:outputfield value="{!Customer_Transition__c.Managing_Director__c}" />
+                    <apex:outputField value="{!Customer_Transition__c.No_of_Active_Sites__c}"/>
+                    
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Invoice_Email2__c}" />-->
+                    <apex:outputfield value="{!Customer_Transition__c.RVP__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Total_Print_12M_Spend__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Regional_Migration_Manager__c}" />  <!-- Added for Ticket 00689566 -->
+                    <apex:inputfield value="{!Customer_Transition__c.CPD_Sales_Engineer__c}"/> <!-- Added for Ticket 00749550 -->
+                    <apex:inputfield value="{!Customer_Transition__c.Billing_Analyst__c}" /> <!-- Added for Ticket 00706093 -->
+                    <apex:inputfield value="{!Customer_Transition__c.Supply_Chain_analyst__c}"/>
+                    <apex:inputfield value="{!Customer_Transition__c.Manual_Set_Up__c}" /> <!-- Addeed for Ticket 00775637 -->
+                    
+                    </apex:pageblocksection>
+                
+                <apex:pageblocksection id="TSTSec" title="WRF Details" showheader="true" columns="2">
+                    <apex:inputfield value="{!Customer_Transition__c.Related_WRF_Case__c}" />
+                        <apex:inputfield value="{!Customer_Transition__c.Customer_Disposition__c}" >
+                            <apex:actionSupport event="onchange" reRender="TSTSec"/>
+                        </apex:inputfield>    
+                    <apex:outputfield value="{!Customer_Transition__c.WRF_Status__c}" />
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Customer_Requests_Delay_Date__c}" rendered="{!Customer_Transition__c.Customer_Disposition__c = 'Customer requests delay'}" required="false"/>-->
+
+                     <!-- Support Ticket: 00789244-->
+                    <apex:inputfield value="{!Customer_Transition__c.Disposition_Comments__c}" rendered="{!Customer_Transition__c.Customer_Disposition__c != 'Customer agrees to transition' && Customer_Transition__c.Customer_Disposition__c != 'Lost Customer Account' && Customer_Transition__c.Customer_Disposition__c != 'Not my Customer (Please ask DSM to reassign immediately)'}" required="false"/>
+                </apex:pageblocksection>
+                
+                <apex:pageblocksection title="Support Team Call Outs" showheader="true" columns="2">
+                    <apex:inputfield value="{!Customer_Transition__c.EDI__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Tier_1__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Hosted_Catalog__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Retail_Connect__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.OMX_Single_SignOn__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Rebates__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Third_Party_Carrier__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Written_Agreement__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Next_Day_Delivery__c}" />
+                       <apex:inputfield value="{!Customer_Transition__c.Written_Agreement_Custom_Core_Request__c}" />
+                   <!-- <apex:inputfield value="{!Customer_Transition__c.Proprietary_Item_Setup_Needed__c}" /> -->
+                    <apex:inputfield value="{!Customer_Transition__c.Kitting_Requirements__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Hawaii__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Credit_Card_Ref_Code_Required__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Alaska__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Green_Spend__c}" /> <!-- For Testing -->
+                   <!-- <apex:inputfield value="{!Customer_Transition__c.Puerto_Rico__c}" /> -->
+                  <!--  <apex:inputfield value="{!Customer_Transition__c.Tax_Exemption__c}"/> -->
+                    <apex:inputfield value="{!Customer_Transition__c.Local_Core__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Puerto_Rico__c}" />
+                    <!-- Start Case #00818661-->
+                    <apex:outputField value="{!Customer_Transition__c.Packing_Lists_varies_within_acct__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Cost_Center_s_exceed_20_bytes__c}" />
+                    <apex:outputField value="{!Customer_Transition__c.PO_Required_flag_varies_within_acct__c}" />
+                     <apex:inputField value="{!Customer_Transition__c.Inclusion_Exclusion_Requirements__c}"/> <!--Change to Input for Testing 8/11/2016-->
+                    <!--End Case #00818661-->
+                </apex:pageblocksection>    
+                
+                <apex:pageblocksection id="AdjSec" title="Adjacencies" showheader="true" columns="2"> <!-- Changed for Ticket 00669772  -->
+                    <apex:inputfield value="{!Customer_Transition__c.MPS__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.CPD__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.DocMan__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Furniture__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Technology__c}">
+                        <apex:actionSupport event="onchange" reRender="AdjSec"/> <!-- Added for Ticket 00669772  -->
+                    </apex:inputfield>  <!-- Added for Ticket 00669772  -->
+                    <apex:inputfield value="{!Customer_Transition__c.CBFS__c}" />
+                    <apex:inputfield rendered="{!Customer_Transition__c.Technology__c}" value="{!Customer_Transition__c.Channel_Online_Technology__c}" />    <!-- Added for Ticket 00669772  -->
+                    <apex:inputField value="{!Customer_Transition__c.Diversity_Partner_s_Customer_Disposition__c}" /> <!-- Added for Ticket 01019385 -->
+                    <apex:inputField value="{!Customer_Transition__c.Target_ODS_Diversity_Partner_Reseller__c}" /> <!-- Added for Ticket 01019385 -->
+                    <apex:inputField value="{!Customer_Transition__c.Diversity_Partner__c}" />
+                </apex:pageblocksection>
+                
+                 <apex:pageblocksection title="AR/Billing & Tax Exceptions" showheader="true" columns="2">
+                    <apex:inputfield value="{!Customer_Transition__c.Billing_Document_Type__c}"/>
+                   <!-- <apex:outputField value="{!Customer_Transition__c.Packing_Lists_varies_within_acct__c}" />--> <!-- Case #00818661-->
+                    <apex:outputfield value="{!Customer_Transition__c.Billing_Type__c}"/>
+                   <!-- <apex:outputField value="{!Customer_Transition__c.Cost_Center_s_exceed_20_bytes__c}" />--> <!-- Case #00818661-->
+                    <apex:inputfield value="{!Customer_Transition__c.AR_Flag__c}"/>
+                    <apex:inputfield value="{!Customer_Transition__c.Tax_Exemption__c}"/>
+                    <apex:outputField value="{!Customer_Transition__c.Consignees_have_disparate_credit_limits__c}" />
+                    <!--<apex:outputField value="{!Customer_Transition__c.PO_Required_flag_varies_within_acct__c}" />--> <!-- Case #00818661-->
+                    <apex:inputfield value="{!Customer_Transition__c.AB_Flag_Disparate__c}" />
+                   <!-- <apex:outputField value="{!Customer_Transition__c.PO_Numbers_vary_within_acct__c}" /> -->
+                    <apex:outputField value="{!Customer_Transition__c.Multiple_certificates_for_the_same_state__c}" />
+                    <apex:outputField value="{!Customer_Transition__c.Billing_Document_Type_Excptn__c}"/>
+                    <!-- <apex:inputField value="{!Customer_Transition__c.Inclusion_Exclusion_Requirements__c}"/> <!--Change to Input for Testing 8/11/2016--> <!-- Case #00818661-->
+                    <apex:inputfield value="{!Customer_Transition__c.Billing_Method_Exception__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Payment_Terms_Excptn__c}" /> 
+                    <apex:outputField value="{!Customer_Transition__c.Billing_Frequency_Excptn__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Customer_has_tweaked_invoicing__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Billing_Method_Not_PE__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Customer_has_unique_billing__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Billing_Frequency__c}" />      <!-- Case #00818661-->
+                    <!--<apex:outputField value="{!Customer_Transition__c.Mixture_of_exempt_non_exempt__c}" /> -->
+                </apex:pageblocksection>
+
+              
+                <!--<apex:pageblocksection title="Milestone 2 - Preparing" showheader="true" columns="2">--> <!-- Case 00818661-->
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Agreement_Complete__c}" />-->
+                    <!--Start Case 00818661-->
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Extension_in_Development__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Proprietary_Item_Setup_Needed__c}" />
+                    <apex:inputfield id="ctcec" value="{!Customer_Transition__c.Contract_Extension_Complete__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Customer_Specific_Cross_Ref_Attached__c}" />
+                    <apex/>
+                    <apex:inputfield value="{!Customer_Transition__c.Customer_Review_Completion_Date__c}" /> 
+                    <apex:inputfield value="{!Customer_Transition__c.Customer_Transition_Complete__c}" /> 
+                    <apex:inputfield value="{!Customer_Transition__c.OD_North_Agreement_renegotiated_in_OD_S__c}" /> 
+                </apex:pageblocksection>-->
+                <!--End Case 00818661-->
+
+
+                <apex:pageblocksection title="Milestone 2 - Processing" showheader="true" columns="2">
+                    <apex:outputfield value="{!Customer_Transition__c.Ready_for_Mod1__c}"  />
+                   <!--<apex:inputfield value="{!Customer_Transition__c.Account_Setup_Cycle_Time__c}" />-->
+                   <!-- <apex:inputfield value="{!Customer_Transition__c.Transitioned_Outside_of_Process__c}" />--> <!-- Case 00818661 -->
+                    <apex:inputfield value="{!Customer_Transition__c.Time_in_Audit_1__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Override_TOOP1__c}"/>
+
+                    <apex:outputfield value="{!Customer_Transition__c.Override_TOOP__c}"/>
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Time_in_Audit_2__c}" />-->                
+                    <apex:outputfield value="{!Customer_Transition__c.Error_Report__c}" />
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Time_in_Finalizing__c}" />-->               
+                    <apex:inputfield value="{!Customer_Transition__c.Ready_for_account_finalizing_final_mod__c}" />
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Amount_of_Delay__c}" />-->
+                    <apex:inputfield value="{!Customer_Transition__c.Ready_for_audit_2__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Customer_Go_Live_Target_Date__c}" /> 
+                    <apex:inputfield value="{!Customer_Transition__c.Go_Live_Change_Reason__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Partner_Migration_Readiness__c}" /> 
+
+                    
+                    
+
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Manual_AOPS_account__c}"/>-->
+                   <!-- <apex:outputfield value="{!Customer_Transition__c.Error_Message_Type__c}"/> -->
+                   <!-- <apex:outputfield value="{!Customer_Transition__c.Error_Code__c}" /> -->
+                   <!-- <apex:outputfield value="{!Customer_Transition__c.Error_Message__c}" /> -->
+                   <!-- <apex:outputfield value="{!Customer_Transition__c.Error_Message_Level__c}" /> -->                    
+                  <!--  <apex:inputfield value="{!Customer_Transition__c.Customer_Go_Live_Target_Date__c}" />  -->                  
+                   <!-- <apex:outputfield value="{!Customer_Transition__c.AOPS_Error_Id__c}" /> -->
+                </apex:pageblocksection>
+                
+                <apex:pageblocksection title="Milestone 3 - Closing" showheader="true" columns="2">
+                    <apex:inputfield value="{!Customer_Transition__c.Ready_to_order__c}" />
+                  <!--<apex:inputfield value="{!Customer_Transition__c.Time_of_Ordering_in_2_Systems__c}" />-->
+                    <apex:inputfield value="{!Customer_Transition__c.Customer_Loss__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Override_Loss_of_Customer__c}" />
+
+                    <apex:inputfield value="{!Customer_Transition__c.Customer_Transition_Date_to_OD_Systems__c}" /> 
+                    <apex:inputfield value="{!Customer_Transition__c.Administrative_Close__c}" />  
+                    <apex:inputfield value="{!Customer_Transition__c.Override_Administrative_close__c}" />  
+                    <!--<apex:inputfield value="{!Customer_Transition__c.Total_Transition_Time__c}" />-->
+                    <apex:inputfield value="{!Customer_Transition__c.Redirect_Turned_OFF__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Redirect_Turned_OFF_Date__c}"/>
+                    <apex:inputfield value="{!Customer_Transition__c.Customer_Transition_Complete__c}" /> 
+                </apex:pageblocksection>
+                
+                <apex:pageblocksection title="Mod 5 Details" showheader="true" columns="2">
+                    <apex:inputfield value="{!Customer_Transition__c.Ready_For_Mod_5__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Final_Split_Decision__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Account_Splitting_Required_frmla__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Split_Decision_By__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Ready_for_Mod_5_By__c}" />
+
+                    <apex:outputfield value="{!Customer_Transition__c.Account_Splitting_Required_Date__c}"/>   
+                    <apex:outputfield value="{!Customer_Transition__c.Split_Launching_Status__c}" />
+                             
+                    <apex:outputfield value="{!Customer_Transition__c.Ready_for_Mod_5_Date__c}" />
+                   <apex:inputfield value="{!Customer_Transition__c.Retrigger_Mod_5__c}"/>
+
+                    <apex:outputfield value="{!Customer_Transition__c.Split_Export__c}" />
+                </apex:pageblocksection>
+               
+                <apex:pageblocksection title="Reconciliation" showheader="true" columns="2">
+                    <apex:outputfield value="{!Customer_Transition__c.AOPS_Assigned_AOPS_Account_ID__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.AOPS_Assigned_Date__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Launched_Date__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Launched_By__c}" />
+
+                    
+                    <apex:inputfield value="{!Customer_Transition__c.EBS_Populated_Date__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Override_Details_Error__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Tax_Reviewed__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Tax_Reviewed_Date__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Pricing_Reviewed__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Vendavo_BA__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Pricing_Reviewed_Comments__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.B2B_MOD_2_Date__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Pricing_Status_Code__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Account_Maint_AUDIT_Person_Name__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Sent_to_Mod3__c}"/>
+                    <apex:inputfield value="{!Customer_Transition__c.Account_Maint_AUDIT__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Sent_to_Mod4__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Ready_To_Order_By__c}"  />
+                    <apex:outputfield value="{!Customer_Transition__c.Billing_Frequency__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Ready_to_Order_Date__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.DUAL_Account_Yes_No__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Dual_Account_Comments__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.DNS_Status_Confirmed__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.DNS_Status_Confirmed_Date__c}" />
+                    <apex:inputfield value="{!Customer_Transition__c.Estimated_OMX_Acct_Close__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.OMX_Account_Closed__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.Automatic_Redirect__c}" />
+                    <apex:outputfield value="{!Customer_Transition__c.No_of_Active_Sites__c}" />
+                    <apex:inputField value="{!Customer_Transition__c.ProActive_Offer_Delivered__c}" />
+                </apex:pageblocksection>
+                
+                <apex:pageblocksection title="System Information" showheader="true" columns="2">
+                    <apex:outputText value="{!Customer_Transition__c.CreatedBy.Name}" label="Created By" />
+                    <apex:outputText value="{!Customer_Transition__c.LastModifiedBy.Name}" label="Last Modified By" />
+                    <apex:outputfield value="{!Customer_Transition__c.Name}" />
+                    <apex:outputfield value="{!Customer_Transition__c.OwnerId}"/>
+                </apex:pageblocksection>
+            </apex:outputpanel>
+
+        </apex:pageblock>
+   
+    </apex:form>
+    
+</apex:page>

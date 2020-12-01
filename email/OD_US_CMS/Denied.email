@@ -1,0 +1,16 @@
+Customer Name: {!Case.Account} 
+Account Number: {!Case.ACCT_Account_Number__c} 
+Requestor Name: {!Case.WRF_Requestor_Name__c} 
+Account Owner: {!Account.OwnerFullName} 
+
+
+Dear {!Case.WRF_Requestor_Name__c}, 
+
+The given request has been updated for the contract#  and Denied. Due to sales manager did not approve in allotted time.
+
+Thank you, 
+{!User.FirstName} {!User.LastName} 
+Field-Contracts Team. 
+
+Click below link to go to the support case: 
+https://officedepot.my.salesforce.com/{!Case.Id}

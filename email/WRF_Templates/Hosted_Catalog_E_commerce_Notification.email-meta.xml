@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify Elena Nolan (e-commerce) that a request for hosted catalog was received</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Hosted Catalog E-commerce Notification</name>
+    <style>freeForm</style>
+    <subject>Hosted Catalog Request: {!Case.Subject}</subject>
+    <textOnly>The following Work Request has been submitted for Hosted Catalog Creation/Update:
+
+
+Account Name: {!Case.ACCT_Name__c}
+
+Account ID: {!Case.ACCT_Account_Number__c}
+
+
+Requestor: {!Case.WRF_Requestor_Name__c}
+
+Requestor Phone: {!Case.WRF_Requestor_Mobile__c}
+
+
+Hosted Core/NCC: {!Case.Hosted_Core_NCC__c}
+
+
+Preferred Completion Date: {!Case.WRF_Prfrd_Comp_Dt__c}
+
+
+
+A task will be assigned to you once Remediation and BSD Pricing have completed their assigned tasks.  To navigate to the request now, please click the following link:
+
+
+Thank you,
+
+
+Pricing &amp; Profitability</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

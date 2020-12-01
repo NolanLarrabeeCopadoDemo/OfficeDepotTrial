@@ -1,0 +1,19 @@
+Customer Name: {!Case.Account}
+Account Number:{!Case.ACCT_Account_Number__c}
+Requestor Name:{!Case.WRF_Requestor_Name__c}
+Account Owner: {!Account.OwnerFullName}
+
+Dear {!Case.WRF_Requestor_Name__c},
+
+Could you please review this request, your approval is needed for further process.
+
+Thank you,
+{!User.FirstName} {!User.LastName}
+Account Maintenance Team.
+
+
+Click below link to go to the support case:
+https://officedepot.my.salesforce.com/{!Case.Id}
+------------------------Original Message------------------------
+
+{!EmailMessage.TextBody}

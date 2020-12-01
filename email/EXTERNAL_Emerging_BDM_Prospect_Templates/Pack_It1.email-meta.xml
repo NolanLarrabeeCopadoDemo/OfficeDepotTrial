@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Used to Promote Pack=its with video</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Pack-It</name>
+    <style>freeForm</style>
+    <subject>Cleaning Supplies Made Easier</subject>
+    <textOnly>Hello {!Contact.FirstName}.
+
+We have a really cool new product that I want to share with you. It&apos;s not everyday something comes along that saves time, space and money so I wanted to be sure you knew about it.
+
+The products called Pak-it and the best way to show you what it does is this short 1:52 second video. What is Pak-It Video
+
+I hope you think this product is as cool as I do. It&apos;s taking off.
+
+I&apos;ve got other customers who love it and I&apos;d welcome an opportunity to show you why. If you think it may be right for you let me know and I can send some free samples for you to try.
+
+I appreciate your time and your business.
+
+Regards,
+
+
+
+{!User.Name}
+
+{!User.MobilePhone}{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

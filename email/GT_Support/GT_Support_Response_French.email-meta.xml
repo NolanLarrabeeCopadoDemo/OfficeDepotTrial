@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Support Response in French</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Grand_Toy</letterhead>
+    <name>GT Support Response French</name>
+    <style>freeForm</style>
+    <subject>RE: Dossier de soutien - {!Case.Subject}</subject>
+    <textOnly>Cher(ère) {!Case.CreatedBy},
+
+
+Nous avons bien reçu votre courriel. Le dossier ci-dessous a été créé pour votre information, lorsque vous serez connecté au réseau et en mesure d’accéder au site de Salesforce. Veuillez ne pas répondre à ce message; on communiquera avec vous sous peu concernant votre demande. Merci.
+
+Dossier de soutien:  {!Case.CaseNumber}
+Objet : {!Case.Subject}.
+
+Statut : {!Case.Status}
+
+Commentaires/résolution :
+
+Pour plus de détails, veuillez cliquer sur le lien ci-dessous une fois connecté au réseau : {!Case.CaseNumber}
+
+Merci,
+Salesforce
+Office Depot</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

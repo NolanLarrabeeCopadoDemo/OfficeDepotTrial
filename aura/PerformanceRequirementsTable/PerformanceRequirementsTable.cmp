@@ -1,0 +1,122 @@
+<aura:component controller="CSFController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recId" type="String" access="Global" />
+    <aura:attribute name="fields" type="Object" access="Global" />
+    <aura:attribute name="error" type="String" access="Global" /> 
+    <aura:attribute name="objInfo" type="Contract" default="{sobjectType : 'Contract'}" />
+    <aura:attribute name="PicklistOptions" type="List" default="[]"/>
+    <aura:attribute name="PenaltyPickListValues" type="List" default="[]"/>
+    <aura:attribute name="YesCheckBoxValues" type="List" default="[]"/>
+    <aura:attribute name="PerfomanceText3" type="String"/>
+    <aura:attribute name="PerfomanceText2" type="String"/>
+    <aura:attribute name="PerfomanceText1" type="String"/>
+    <aura:attribute name="isClone" type="Boolean" access="Global"/>
+    
+    
+    <force:recordData aura:id="forceRecordCmp"
+    recordId="{!v.recId}"
+    layoutType="FULL"
+    fields="Name,Penalty_for_not_meeting__c,Performance_Notification_Requirements__c,Lang_in_contract_for_Perf_Notif_Requirem__c"
+    mode="VIEW"
+    targetFields="{!v.fields}"
+    targetError="{!v.error}"
+    recordUpdated="{!c.doInit}"/>
+   
+    <lightning:recordEditForm aura:id="myForm11" recordId="{!v.recId}" onload="{!c.recordLoaded}" onsubmit="{!c.onRecordSubmit}" objectApiName="Contract">
+        <lightning:messages />
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title=""></div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Yes">Yes</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Penalty for not meeting?">Penalty for not meeting?</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.PicklistOptions}" var="item" indexVar="index">
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                       <div>
+                        	<ui:inputText value="{!item.PickListVal}" disabled="true"/>
+                       </div>
+                    </th>
+                    
+                    <td>
+                        <div >
+                            <ui:inputCheckbox aura:id="{!index}" name="{!index}" value="{!item.YesCheckBox}" change="{!c.saveYesValues}"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <ui:inputCheckbox aura:id="{!index}" name="{!index}" value="{!item.PenaltyCheckBox}" change="{!c.saveInPenaltyPicklist}" />
+                        </div>
+                    </td>
+                </tr>
+                    </aura:iteration>
+                
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <lightning:inputField aura:id="OtherRowText1" fieldName="TextBox_1__c" variant="label-hidden" disabled="true" onchange="{!c.insertPickListValues}" />
+                    </th>
+                    
+                    <td>
+                        <div >
+                            <lightning:inputField aura:id="OtherRowCheckbox1" fieldName="TextBox_1_Yes__c" variant="label-hidden" onchange="{!c.makeItEditable}" />
+                        </div>
+                    </td>
+                    <td>
+                        <div  >
+                            <lightning:inputField aura:id="OtherRowPenalty1" fieldName="TextBox_1_Penalty__c" variant="label-hidden"  disabled="true"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="OtherRowText2" fieldName="TextBox_2__c" variant="label-hidden" disabled="true" onchange="{!c.insertPickListValues}" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="OtherRowCheckbox2" fieldName="TextBox_2_Yes__c" variant="label-hidden" onchange="{!c.makeItEditable}" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="OtherRowPenalty2" fieldName="TextBox_2_Penalty__c" variant="label-hidden" disabled="true"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="OtherRowText3" fieldName="TextBox_3__c" variant="label-hidden" disabled="true" onchange="{!c.insertPickListValues}" />
+                        </div>
+                    </th>
+                    <td>
+                        <div class="slds-truncate">
+                            <lightning:inputField aura:id="OtherRowCheckbox3" fieldName="TextBox_3_Yes__c" variant="label-hidden" onchange="{!c.makeItEditable}" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" >
+                            <lightning:inputField aura:id="OtherRowPenalty3" fieldName="TextBox_3_Penalty__c" variant="label-hidden"  disabled="true"/>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <div align="center">
+         <lightning:button variant="brand" label="Save" type="submit" disabled="{!v.isClone}"/>
+        </div>
+        
+        
+        
+    </lightning:recordEditForm>
+</aura:component>

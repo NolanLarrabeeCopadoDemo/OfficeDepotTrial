@@ -1,0 +1,54 @@
+<apex:component >
+    <!-- CSS -->
+    <style type = "text/css">
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        
+        th {
+            text-align: center;
+        }
+    </style>
+    
+    <!-- Attribute Definitions -->
+    <apex:attribute name="scheduled" description="" type="Integer"/>
+    <apex:attribute name="pricing" description="" type="Integer"/>
+    <apex:attribute name="launched" description="" type="Integer"/>
+    <apex:attribute name="complete" description="" type="Integer"/>
+    <apex:attribute name="total" description="" type="Integer"/>
+    <apex:attribute name="scheduledPercent" description="" type="Decimal"/>
+    <apex:attribute name="pricingPercent" description="" type="Decimal"/>
+    <apex:attribute name="launchedPercent" description="" type="Decimal"/>
+    <apex:attribute name="completePercent" description="" type="Decimal"/>
+    <apex:attribute name="totalPercent" description="" type="Decimal"/>
+
+    <!-- Component Definition -->
+    <table border="1">
+        <tr>
+            <th/>
+            <th>Scheduled</th>
+            <th>Pricing</th>
+            <th>Launched</th>
+            <th>Complete</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <td># of Accounts</td>
+            <td><apex:outputText value="{0, number, #,###,##0}"><apex:param value="{!scheduled}"/></apex:outputText></td>
+            <td><apex:outputText value="{0, number, #,###,##0}"><apex:param value="{!pricing}"/></apex:outputText></td>
+            <td><apex:outputText value="{0, number, #,###,##0}"><apex:param value="{!launched}"/></apex:outputText></td>
+            <td><apex:outputText value="{0, number, #,###,##0}"><apex:param value="{!complete}"/></apex:outputText></td>
+            <td><apex:outputText value="{0, number, #,###,##0}"><apex:param value="{!total}"/></apex:outputText></td>
+        </tr>
+        <tr>
+            <td>% of Total</td>
+            <td><apex:outputText value="{0, number, 0.00}%"><apex:param value="{!scheduledPercent}"/></apex:outputText></td>
+            <td><apex:outputText value="{0, number, 0.00}%"><apex:param value="{!pricingPercent}"/></apex:outputText></td>
+            <td><apex:outputText value="{0, number, 0.00}%"><apex:param value="{!launchedPercent}"/></apex:outputText></td>
+            <td><apex:outputText value="{0, number, 0.00}%"><apex:param value="{!completePercent}"/></apex:outputText></td>
+            <td><apex:outputText value="{0, number, 0.00}%"><apex:param value="{!totalPercent}"/></apex:outputText></td>
+        </tr>
+    </table>
+</apex:component>

@@ -1,0 +1,24 @@
+<aura:component controller="MultiSelectPicklistController" implements="force:appHostable,force:hasRecordId,lightning:availableForFlowScreens,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+	<!--Declare Event Handlers-->
+	<aura:handler name="init" action="{!c.doInit}" value="{!this}" description="Call doInit function on component load to get picklist values" />
+
+	<!--Declare Attributes-->
+	<aura:attribute name="isLoading" type="Boolean" default="false" />
+	<aura:attribute name="recId" type="String" access="Global" />
+    <aura:attribute name="isClone" type="Boolean" access="Global" />
+	<aura:attribute name="objName" type="String" />
+	<aura:attribute name="fieldName" type="String" />
+	<aura:attribute name="fieldLabel" type="String" />
+	<aura:attribute name="genreList" type="List" default="[]" description="Genre Picklist Values" />
+	<aura:attribute name="selectedGenreList" type="List" default="[]" description="Selected Genre Picklist Values" />
+
+	<div class="slds-m-around_xx-large slds-is-relative">
+		<lightning:dualListbox aura:id="selectGenre" name="Genre" label="{!v.fieldLabel}" sourceLabel="Available values" selectedLabel="Selected Values" options="{!v.genreList}" value="{!v.selectedGenreList}" onchange="{!c.handleGenreChange}" disabled="{!v.isClone}"/>
+		<center class="slds-m-top_small">
+			<lightning:button variant="brand" label="Save" onclick="{!c.onSaveClick}" disabled="{!v.isClone}"/>
+		</center>
+		<aura:if isTrue="{!v.isLoading}">
+			<lightning:spinner alternativeText="Loading" size="medium" variant="brand" />
+		</aura:if>
+	</div>
+</aura:component>

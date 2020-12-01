@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that bid documentation is needed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Bid Documentation Required</name>
+    <style>freeForm</style>
+    <subject>WRF Bid Documentation Needed: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+Thank you for your Work Request submission for {!Case.Account}.  We appreciate the opportunity to work with you.
+
+In order for us to assign a team to your bid request, we need all documents pertaining to the bid, including instructions, questions, item list, terms and conditions, etc.
+
+In the case of website submissions, in addition to the login information, we need the electronic copies downloaded from the customer site in order to understand the scope of work and make the appropriate assignments.  These documents also serve as the working documents for the assigned team.
+
+Once you have obtained all documents, please reply to this email with your attachment in order for your request to proceed.
+
+Your Support # is {!Case.CaseNumber}
+You can click here to view the request in Salesforce.com.
+
+Thank you,
+BSD BIDS</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

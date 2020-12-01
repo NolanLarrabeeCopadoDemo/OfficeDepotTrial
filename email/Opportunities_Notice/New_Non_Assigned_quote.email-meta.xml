@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>An email that gets sent when a new unassigned Technology quote is created.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tech</letterhead>
+    <name>New Non Assigned Quote</name>
+    <style>formalLetter</style>
+    <subject>New Quote Request: {!Opportunity.Account}</subject>
+    <textOnly>Team:
+
+A new quote has just been submitted by one of our customers on BSD.net and is not currently assigned to anyone.
+
+Be sure to change the Owner of the Opportunity to yourself. Please see the information below for details.
+
+Opportunity Creation Date: {!Opportunity.CreatedDate}
+Opportunity Name: {!Opportunity.Name}
+Account Name: {!Opportunity.Account}
+Customer ID: {!Account.Cust_ID__c}
+Opportunity Amount: {!Opportunity.Amount}
+
+
+Please click the link below to access the quote:
+{!Opportunity.Link}
+
+
+Note: If this is an Account you would like to be a part of, please reach out to your manager to have them add you to the Account Team.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,14 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes">
+    <aura:attribute name="currentStepName" type="String" default="Bill To Information"/>
+    <aura:handler event="c:ProcessIndicatorEvent" action="{!c.handleProcessIndicatorEvent}"/>
+	<lightning:progressIndicator type="path" currentStep="{!v.currentStepName}">
+            <lightning:progressStep label="Bill To Information" value="Bill To Information"/>
+            <lightning:progressStep label="Ship To Information" value="Ship To Information"/>
+            <lightning:progressStep label="Primary Contact Information" value="Primary Contact Information"/>
+            <lightning:progressStep label="Billing Preferences" value="Billing Preferences"/>
+         	<lightning:progressStep label="Tax Section" value="Tax Section"/>
+            <lightning:progressStep label="Submit Request" value="Submit Request"/>
+            <lightning:progressStep label="Submitted" value="Submitted"/>
+
+        </lightning:progressIndicator>
+</aura:component>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Used for Quote Approval Request</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Quote Approval Request</name>
+    <style>freeForm</style>
+    <subject>Pricing Approval Request - Acct: {!Quote.Account_Name__c}</subject>
+    <textOnly>{!Quote.LastModifiedBy} has requested your approval on the following Pricing Quote:
+_____________________________________________
+
+
+Account: {!Quote.Account_Name__c}
+
+Owner: {!Quote.CreatedBy}
+
+Opportunity Amount:  {!Quote.Account_Value__c}
+
+_____________________________________________
+
+
+
+Pricing Item Created Date: {!Quote.CreatedDate}
+
+Pricing Number: {!Quote.QuoteNumber}
+
+Pricing Name: {!Quote.Name}
+
+Desired Backend:  {!Quote.Catalog_Assortment__c} {!Quote.Catalog_Discount__c}%
+
+Price Lock Paper, Toner &amp; Other:  {!Quote.price_lock_paper__c},  {!Quote.price_lock_toner__c}, {!Quote.price_lock_balance__c}
+
+% of Spend Usage List represents:  {!Quote.accountlist_percent__c}
+
+# of Delivery locations:  {!Quote.Delivery_Locations__c}
+
+Desktop Delivery%:  {!Quote.desktop_delivery_percent__c}
+
+Tiered Delivery/MOV:  {!Quote.order_cost_control__c}
+
+Payment Terms:  {!Quote.Payment_Term__c}
+
+Status: {!Quote.Status}
+
+Projected IMU%:  {!Quote.Projected_IMU__c}
+
+Level: {!Quote.Status_Level__c}
+
+
+
+_____________________________________________
+
+To approve or reject this item please reply to this email and type in either APPROVED or REJECTED on the first line of the email message:
+
+On your reply email, you can also add comments on the second line and these comments will be captured as part of the approval request in Salesforce.com
+_____________________________________________
+
+
+Link to Pricing Record (must log in to Salesforce):
+http://salesforce.officedepot.com/{!Quote.Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

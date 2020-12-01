@@ -1,0 +1,218 @@
+<apex:page tabStyle="Customer_Transition_Dtls__c" Controller="TransitionCustomerOMX_ctrl">
+   <apex:sectionHeader title="Customer Transition" subtitle="Error Messages"/>
+     <script type="text/javascript"> 
+  function openLookup(baseURL, width, modified, searchParam){
+    var originalbaseURL = baseURL;
+    var originalwidth = width;
+    var originalmodified = modified;
+    var originalsearchParam = searchParam;
+    //alert("In custom lookup");
+    var lookupType = baseURL.substr(baseURL.length-3, 3);
+    if (modified == '1') baseURL = baseURL + searchParam;
+    
+    var isCustomLookup = false;
+     //alert("In custom lookup lookupType " + lookupType);
+    // Following "001" is the lookup type for Account object so change this as per your standard or custom object
+    if(lookupType == "001"){
+  
+      var urlArr = baseURL.split("&");
+      var txtId = '';
+      if(urlArr.length > 2) {
+        urlArr = urlArr[1].split('=');
+        txtId = urlArr[1];
+      }
+      
+      // Following is the url of Custom Lookup page. You need to change that accordingly
+      baseURL = "/apex/CustomAccountLookup?txt=" + txtId;
+      
+      // Following is the id of apex:form control "myForm". You need to change that accordingly
+      baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.myForm}");
+      if (modified == '1') {
+        baseURL = baseURL + "&lksearch=" + searchParam;
+      }
+      
+      // Following is the ID of inputField that is the lookup to be customized as custom lookup
+      if(txtId.indexOf('Account') > -1 ){
+        isCustomLookup = true;
+      }
+    }
+    
+    
+    if(isCustomLookup == true){
+      openPopup(baseURL, "lookup", 350, 480, "width="+width+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+    }
+    else {
+      if (modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+      openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+    } 
+  }
+</script>
+    <apex:form id="myForm" >
+          <apex:pageBlock id="PageBlock" >
+             <apex:actionFunction name="populateOMX" action="{!populateOMX}" reRender="AccountOMXKey"/>
+              <apex:pageBlockSection columns="2" >
+               <apex:inputField id="Account" required="false" value="{!custTrans.Account__c }" onchange="populateOMX();"/>
+                <apex:pageBlockSectionItem >
+                Error Message Level:
+                  <apex:selectList size="1" value="{!ErrorMessageLevelValue}"><!-- onchange="SearchRec();"-->
+                    <apex:selectOptions value="{!ErrorMessageLevelOptions}"/>
+                  </apex:selectList>
+                </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="OMX Account Number"/>
+                   <apex:inputtext id="AccountOMXKey" required="false" value="{!CustAccountOMX}"/>
+               </apex:pageBlockSectionItem>      
+               <apex:pageBlockSectionItem >
+               Error Message Type:
+                <apex:selectList size="1" value="{!ErrorMessageTypeValue}">
+                    <apex:selectOptions value="{!ErrorMessageTypeOptions}"/>
+                  </apex:selectList>
+                </apex:pageBlockSectionItem>      
+            </apex:pageBlockSection>
+
+            <div align="center">
+                <apex:actionStatus id="mySaveStatus1"> 
+                    <apex:facet name="stop"> 
+                        <apex:commandButton value="Search" action="{!Search}" status="mySaveStatus1" reRender="tesst"/> 
+                    </apex:facet> 
+                    <apex:facet name="start"> 
+                        <apex:outputPanel > 
+                            <apex:commandButton value="Searching..." status="mySaveStatus1" disabled="true"/> 
+                        </apex:outputPanel> 
+                    </apex:facet> 
+                </apex:actionStatus>
+            </div>
+          </apex:pageBlock>
+        
+        <apex:outputPanel id="tesst">
+            <apex:pageBlock >
+
+            <apex:panelGrid columns="7">
+                <apex:commandLink status="fetchStatus" reRender="tesst" value="|<" action="{!first}" title="First Page"/>
+                <apex:commandLink status="fetchStatus" reRender="tesst" value="<" action="{!previous}" title="Previous Page"/>
+                 <b>Page: </b>{!pageNumber}  <b>Records:</b> {!IF((pageNumber * size)>0, (pageNumber * size)+1-size,0)}-{!IF((pageNumber * size)>noOfRecords, noOfRecords,(pageNumber * size))} of {!noOfRecords}
+                <apex:outputPanel style="color:#4AA02C;font-weight:bold">
+                    <apex:actionStatus id="fetchStatus" startText="Fetching..." stopText=""/>
+                </apex:outputPanel>
+                <apex:commandLink status="fetchStatus" reRender="tesst" value=">" action="{!next}" title="Next Page"/>
+                <apex:commandLink status="fetchStatus" reRender="tesst" value=">|" action="{!last}" title="Last Page"/>
+            </apex:panelGrid>       
+
+                     <apex:outputPanel id="ThisBlock">
+                     <apex:pageBlockTable id="pbtable" value="{!TransitionDtls}" var="w" >
+                            <apex:column > 
+                               <apex:facet name="header">
+                               <apex:commandLink action="{!Search}" value="Name">
+                               <apex:param value="name" assignTo="{!sortingField}" name="sortingField" ></apex:param>
+                               <apex:param value="{!IF(sortDir=='ASC' && sortingField=='name', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                               </apex:commandLink>
+                               </apex:facet>
+                               <a href="/{!w.id}" target="_blank">{!w.name}</a>
+                           </apex:column>    
+                            <apex:column >
+                               <apex:facet name="header">
+                               <apex:commandLink action="{!Search}" value="Account Name">
+                               <apex:param value="Customer_Transition_ID__r.Account__r.name" assignTo="{!sortingField}" name="sortingField" ></apex:param>
+                               <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Customer_Transition_ID__r.Account__r.name', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                               </apex:commandLink>
+                               </apex:facet>
+                               <apex:outputText value="{!w.Customer_Transition_ID__r.Account__r.name}" />
+                            </apex:column>    
+                            <apex:column >
+                               <apex:facet name="header">
+                               <apex:commandLink action="{!Search}" value="OMX Account Number">
+                               <apex:param value="Customer_Transition_ID__r.OMX_Primary_Key__c" assignTo="{!sortingField}" name="sortingField" ></apex:param>
+                               <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Customer_Transition_ID__r.OMX_Primary_Key__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                               </apex:commandLink>
+                               </apex:facet>
+                               <apex:outputText value="{!w.Customer_Transition_ID__r.OMX_Primary_Key__c}" />
+                            </apex:column>
+                            <!--<apex:column headerValue="Account OMX Number" value="{!w.AccountOmxKey}" />-->
+                            <!-- <apex:column > 
+                               <apex:facet name="header">Exception Type</apex:facet>
+                               {!w.ExceptionType}
+                            </apex:column> -->
+                            <apex:column headerValue="OMX Primary ID">
+                                <apex:outputText value="{!w.OMX_Primary_Key__c}" rendered="{!w.recordtype.name == 'Sites'}"/>
+                                <apex:outputText value="{!w.Cost_Center_ID__c}" rendered="{!w.recordtype.name == 'Cost Center'}"/>
+                                <apex:outputText value="{!w.PO_Number__c}" rendered="{!w.recordtype.name == 'Purchase Order'}"/>
+                            </apex:column>
+                            <apex:column >
+                               <apex:facet name="header">
+                               <apex:commandLink action="{!Search}" value="Error Message Level">
+                               <apex:param value="Error_Message_Level__c" assignTo="{!sortingField}" name="sortingField" ></apex:param>
+                               <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Error_Message_Level__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                               </apex:commandLink>
+                               </apex:facet>
+                               <apex:outputText value="{!w.Error_Message_Level__c}" />
+                            </apex:column>    
+                            <apex:column >
+                               <apex:facet name="header">
+                               <apex:commandLink action="{!Search}" value="Error Message Type">
+                               <apex:param value="Error_Message_Type__c" assignTo="{!sortingField}" name="sortingField" ></apex:param>
+                               <apex:param value="{!IF(sortDir=='ASC' && sortingField=='Error_Message_Type__c', 'DESC', 'ASC')}" name="direction" assignTo="{!sortDir}" />
+                               </apex:commandLink>
+                               </apex:facet>
+                               <apex:outputText value="{!w.Error_Message_Type__c}" />
+                            </apex:column>    
+                            <apex:column headerValue="Error Message" value="{!w.Error_Message__c}" />
+                        </apex:pageBlockTable>
+                    </apex:outputPanel>
+            
+                   <!-- <apex:outputPanel id="ThisBlock1" rendered="{!detailpgblock}">
+                        <apex:pageBlockTable value="{!TransitionAccountsDtl}" var="w" >
+                            <apex:column >
+                                <apex:facet name="header">
+                                    <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+                                </apex:facet>
+                                <apex:inputCheckbox value="{!w.checked}" id="inputId"/>
+                            </apex:column>
+                            <apex:column headerValue="Account Name" value="{!w.Transit_CustDtl.Customer_Transition_ID__r.Account__r.name}" />
+                            <apex:column headerValue="Error Message Level" value="{!w.Transit_CustDtl.Error_Message_Level__c}" />
+                            <apex:column headerValue="Error Message Type" value="{!w.Transit_CustDtl.Error_Message_Type__c}" />
+                            <apex:column headerValue="Error Message" value="{!w.Transit_CustDtl.Error_Message__c}" />
+                        </apex:pageBlockTable>
+                   </apex:outputPanel> -->
+                   
+           </apex:pageBlock>
+        </apex:outputPanel>
+       
+    </apex:form>
+    
+    <script type="text/javascript">
+        function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                 
+            for(var i=0; i<inputCheckBox.length; i++){         
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                    
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    </script>
+   <!-- <script type="text/javascript">
+    function boolFunction(variable)
+    {
+        var bool = variable.value;
+        if(bool == 'BasedOnRectype')
+        {
+            document.getElementById('idSpan').style.display = 'block';
+            document.getElementById('idSpan1').style.display = 'none';
+            document.getElementById('idSpan2').style.display = 'none';
+        }
+        if(bool == 'BasedOnAcc')
+        {
+            document.getElementById('idSpan1').style.display = 'block';
+            document.getElementById('idSpan').style.display = 'none';
+            document.getElementById('idSpan2').style.display = 'none';
+        }    
+    }   
+    </script>   
+    <script type="text/javascript">
+    function boolFunction1(variable)
+    {
+        var bool = variable.value;
+            document.getElementById('idSpan2').style.display = 'block';
+    }   
+    </script>   -->
+   
+</apex:page>

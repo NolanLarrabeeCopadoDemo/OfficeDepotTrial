@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the sales rep that request cannot be complete and cancelled.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Acct Maint WRF Case Cancelled</name>
+    <style>freeForm</style>
+    <subject>Acct Maintenance Request Cancelled - {!Case.ACCT_Name__c} -- {!Case.DUP_Acct_ID__c}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+This request is being manually cancelled.
+
+For details on why please click the below link to see the support comments.
+
+
+You can click here to view the request in Salesforce.com.
+
+
+
+Your Support #: {!Case.CaseNumber}
+
+Account Name: {!Case.ACCT_Name__c}
+
+Account #: {!Case.DUP_Acct_ID__c}
+
+Request Type: {!Case.WRF_Request_Type__c}
+
+Gen Maint Request Type: {!Case.AM_Gen_Maintenance_Other__c}
+
+Thank you,
+
+Account Maintenance Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

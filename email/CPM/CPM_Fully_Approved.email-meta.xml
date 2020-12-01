@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>CPM request has been fully approved through delegation of authority</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>CPM Fully Approved</name>
+    <style>freeForm</style>
+    <subject>The CPM Request {!CPM__c.Support_Number__c} has been Approved</subject>
+    <textOnly>The following CPM request has been fully approved through delegation of authority:
+
+CPM Support ID: {!CPM__c.Support_Number__c}
+CPM Account: {!CPM__c.Account_Name__c}
+Sales Rep Name: {!CPM__c.Sales_Rep_Name_auto__c}
+Opp Sales Rep: {!CPM__c.Sales_Rep_Name_Opportunity__c}
+DSM Name: {!CPM__c.District_Sales_Manager__c}
+MD Name: {!CPM__c.Regional_Director__c}
+VP Name: {!CPM__c.Regional_VP__c}
+CDM Name: {!CPM__c.Compliance__c}
+
+Please note: If any changes are made to this offer or construct of this deal, the CPM will need to updated and relaunched for approvals.
+
+Link to CPM Support: {!CPM__c.Link}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

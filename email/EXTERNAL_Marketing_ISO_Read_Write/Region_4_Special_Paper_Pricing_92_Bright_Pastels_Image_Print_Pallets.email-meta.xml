@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Q1 2019 Paper Region 4</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Region 4 Special Paper Pricing. 92 Bright, Pastels, Image Print, Pallets</name>
+    <style>freeForm</style>
+    <subject>Region 4 Special Paper Pricing: 92 Bright, Pastels, Image Print, Pallets</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+Thanks for your orders with us!
+
+
+See attachments to see pictures of the following paper, which will be your best value with Region 4 through December 29, 2018.
+
+
+Xerox - 92 Bright, 20 lb - $30.99/case
+
+Item# 275-474
+
+
+
+Image Print - 98 Bright, 20 lb - $32.99/case
+
+Item# 617-206
+
+
+
+Xerox Vitality Pastels - $38.99/case
+
+
+Item # 791-905 Pink Pastel Paper
+
+Item # 791-806 Green Pastel Paper
+
+Item # 276-927 Blue Pastel Paper
+
+Item # 839-148 Yellow Pastel Paper
+
+
+Office Depot Pallet - 40 cases for $1189 - $29.73/case
+
+92 Bright, 20 lb
+
+Item# 103-057
+
+
+Call if you need me to place the order on a pallet for you and I&apos;ll verify your dock and liftgate requirements!
+
+
+
+Thank you-
+
+
+{!User.Name}
+{!User.TitleTrimmed__c}
+{!User.Street} | {!User.City}, {!User.State} {!User.PostalCode}
+{!if(!ISBLANK(User.My_Customer_Contact__c), &apos;Tel: &apos;+User.My_Customer_Contact__c,&apos;&apos; )}
+Email: {!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

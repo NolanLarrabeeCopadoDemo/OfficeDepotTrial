@@ -1,0 +1,124 @@
+<apex:page StandardController="Opportunity" Extensions="OppReAssignCtrl" id="thePage">
+    <apex:form id="theForm" >
+    
+    <script>
+                var newWin=null;
+                function openLookupPopup(AccId,Title,fieldId,HiddenId){
+                    var srch = document.getElementById(fieldId).value;
+                    
+                    var url="/apex/ATMLookup?OppAccountId=" + AccId + "&ATMTitle=" + Title + "&FieldOwnerId="+fieldId+ "&theHiddenInput="+HiddenId +"&SearchText="+srch ;           
+                    newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+                    if (window.focus){
+                        newWin.focus();
+                    }            
+                    return false;
+                }              
+                function closeLookupPopup(){
+                    if(null!=newWin){
+                        newWin.close();
+                    } 
+                }
+               
+    </script>
+    <script>
+
+    function checkAll(cb)
+    
+    {
+    
+    var inputElem = document.getElementsByTagName("input");
+    
+    for(var i=0; i<inputElem.length; i++)
+    
+    {
+    
+    if(inputElem[i].id.indexOf("checkedone")!=-1)
+    
+    inputElem[i].checked = cb.checked;
+    
+    }
+    
+    }
+    
+    function selectOne(cb){
+    var inputElem = document.getElementsByTagName("input");
+        for(var i=0; i<inputElem.length; i++){
+                inputElem[i].checked = false;
+        }
+        cb.checked = true;
+    }
+    </script>
+
+              
+            
+
+        <apex:pageBlock title="Opportunity Owner Assignment" id="theBlock" >
+            <apex:pageMessages />
+            <apex:pageBlockSection title="Select Type" columns="1" collapsible="false" rendered="{!SelType}" id="theSecOne" > 
+                <apex:selectList value="{!Selected}" multiselect="false" size="1">
+                <apex:selectOptions value="{!accts}" > </apex:selectOptions>
+                    <apex:actionSupport event="onchange" action="{!CheckSelection}" />  
+                </APex:selectList>
+                <apex:outputText value=" " />
+                <apex:CommandButton value="Cancel"  action="{!cancleButn}" style="align:left" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Select Owner" columns="3" collapsible="false" rendered="{!SelOwner}" id="theSecTwo"> 
+                <apex:selectList value="{!Selected}" multiselect="false" size="1">
+                <apex:selectOptions value="{!accts}" > </apex:selectOptions>
+                    <apex:actionSupport event="onchange" action="{!CheckSelection}" />  
+                </APex:selectList>               
+                <apex:inputField id="theLookup" value="{!opp.OwnerId}" style="align:left"  required="false">
+                   <!-- <apex:actionSupport event="onchange" action="{!CheckSelection}" />
+                    <apex:param assignTo="{!OpporId}" value="{!opp.OwnerId}"/> -->  
+                </apex:inputField>   
+                <apex:outputText value=" " />
+                <apex:outputText value=" " />                                            
+            </apex:pageBlockSection><apex:CommandButton value="Re-Assign"  action="{!UpdateOwner}" style="align:left" rendered="{!SelOwner}" /><apex:CommandButton value="Cancel"  action="{!cancleButn}" style="align:left" rendered="{!SelOwner}" /> 
+            
+            <apex:pageBlockSection title="Select Owner" columns="1" collapsible="false" rendered="{!ATMOwner}" id="theSecThree"> 
+                <apex:selectList value="{!Selected}" multiselect="false" size="1">
+                <apex:selectOptions value="{!accts}" > </apex:selectOptions>
+                    <apex:actionSupport event="onchange" action="{!CheckSelection}" />  
+                </APex:selectList>                  
+                <apex:pageBlockTable value="{!wrprLst}" var="w" id="table">
+                   <!-- <apex:column >
+                        <apex:InputCheckbox id="looped" value="{!w.chek}" />
+                    </apex:column>-->
+                    <apex:column >
+
+                   <!-- <apex:facet name="header">
+                    
+                    <apex:inputCheckbox >
+                    
+                    <apex:actionSupport event="onclick" onsubmit="checkAll(this)"/>
+                    </apex:inputCheckbox>
+                    
+                    </apex:facet>-->
+                    
+                    <apex:inputCheckbox value="{!w.chek}" id="checkedone">
+                      <apex:actionSupport event="onclick" rerender="Selected_PBS" onsubmit="selectOne(this)"/>
+                       </apex:inputCheckbox>
+                    </apex:column>
+
+                    <apex:column value="{!w.us.Name}" >
+                    </apex:column>
+                    <apex:column value="{!w.us.IsActive}" /> 
+                    <apex:column value="{!w.us.Short_Title__c}"/>     
+                </apex:pageBlockTable>
+                <apex:outputText value=" " />                              
+            </apex:pageBlockSection><apex:CommandButton Value="Re-Assign" action="{!UpdateATMOwner}" rendered="{!ATMOwner}" /><apex:CommandButton value="Cancel"  action="{!cancleButn}"  rendered="{!ATMOwner}" />
+            
+                     
+            <apex:pageBlockSection title="Auto Assign" columns="2" collapsible="false" rendered="{!AutoAssign}" id="theSecFour">    
+                <apex:selectList value="{!Selected}" multiselect="false" size="1">
+                <apex:selectOptions value="{!accts}" > </apex:selectOptions>
+                    <apex:actionSupport event="onchange" action="{!CheckSelection}" />  
+                </APex:selectList>
+                <apex:outputLabel value="{!Auto_Assign_User}" style="align:left" rendered="{!AutoAssign}"/>  
+                <apex:outputText value=" " />
+            </apex:pageBlockSection><apex:Commandbutton value="Auto-Assign" action="{!AutoAsgn}" rendered="{!AutoAssign}" /><apex:CommandButton value="Cancel"  action="{!cancleButn}" style="align:left" rendered="{!AutoAssign}" />     
+        </apex:pageBlock>
+  <!--Select User <apex:inputField value="{!usr.id}" /> --> 
+    </apex:form>  
+</apex:page>

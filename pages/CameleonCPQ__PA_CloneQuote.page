@@ -1,0 +1,107 @@
+<apex:page standardController="CameleonCPQ__Quote__c" extensions="CameleonCPQ.CPQQuotePanel_VFCtrl" showHeader="false" sidebar="false" docType="html-5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <apex:slds />
+    <style type="text/css">
+        .apexMsg td {
+            font-size:16px;
+            font-weight:bold;
+            text-align:center;
+            color:red;
+        }
+    </style>
+
+    <apex:messages layout="table" styleClass="apexMsg"/>
+    <div id="loadingStatus" class="slds-spinner_container hide">
+      <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+        <span class="slds-assistive-text" id="_gModal_Message"/>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+      </div>
+    </div>
+
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jQuery2.0.3.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jquery.touchwipe.min.js')}"/>
+  
+    <script type="text/javascript">
+        $jq=jQuery.noConflict();
+        function cloneQuote() {
+            $jq("#loadingStatus").toggleClass("hide");
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CPQQuotePanel_VFCtrl.cloneQuote}',
+                '{!CameleonCPQ__Quote__c.Id}',
+                '{!quoActiveRelease}',
+                function(clonedQuoteId, event) {
+                    if(event.status) {
+                        if(clonedQuoteId!=null)
+                            cloneQuoteContent(clonedQuoteId);
+                        else {
+                            alert('clone operation has failed');
+                            if((typeof sforce != 'undefined') && (sforce != null)) {
+                              sforce.one.navigateToSObject(Quote__c.Id,'detail');
+                            } 
+                            else {
+                              top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__Quote__c.Id,URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id))}";
+                            }
+                        }
+                    }
+                    if(event.type=='exception') {
+                        alert(event.message);
+                        if((typeof sforce != 'undefined') && (sforce != null)) {
+                          sforce.one.navigateToSObject(Quote__c.Id,'detail');
+                        } 
+                        else {
+                          top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__Quote__c.Id,URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id))}";
+                        }
+                        return false;
+                    }
+                }
+            );
+        }
+        function cloneQuoteContent(clonedQuoteId) {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CPQQuotePanel_VFCtrl.cloneQuoteContent}',
+                '{!CameleonCPQ__Quote__c.Id}',
+                clonedQuoteId,
+                '{!quoActiveRelease}',
+                '{!refresh}',
+                function(cpqInfo, event) {
+                    if(event.status) {
+                        if((typeof cpqInfo.cpqStatus != 'undefined') && cpqInfo.cpqStatus!=null && cpqInfo.cpqStatus!='0') {
+                           var url = cpqInfo.cpqUrl+"{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'&lightningUI=1','')}";
+                           top.location.href = url.replace(/\&amp\;/g,'&');
+                        }
+                        else if((typeof cpqInfo.objectId != 'undefined') && cpqInfo.objectId!=null) {
+                           if((typeof sforce != 'undefined') && (sforce != null)) {
+                              sforce.one.navigateToSObject(cpqInfo.objectId,'detail');
+                           } 
+                           else {
+                              top.location.href = '/'+cpqInfo.objectId;
+                           }
+                        }
+                        else {
+                           if((typeof sforce != 'undefined') && (sforce != null)) {
+                              sforce.one.navigateToURL(cpqInfo.cpqUrl);
+                           } 
+                           else {
+                              top.location.href = cpqInfo.cpqUrl;
+                           }
+                        }
+                    }
+                    if(event.type=='exception') {
+                        alert(event.message);
+                        if((typeof sforce != 'undefined') && (sforce != null)) {
+                          sforce.one.navigateToSObject(Quote__c.Id,'detail');
+                        } 
+                        else {
+                          top.location.href = "{!IF(OR($User.UIThemeDisplayed=='Theme4d',$User.UIThemeDisplayed=='Theme4t'),'/'+CameleonCPQ__Quote__c.Id,URLFOR($Action.CameleonCPQ__Quote__c.View, CameleonCPQ__Quote__c.Id))}";
+                        }
+                        return false;
+                    }
+                }
+            );
+        }
+
+        cloneQuote();
+    </script>
+
+</apex:page>

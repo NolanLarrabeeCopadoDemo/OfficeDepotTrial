@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Initial Approval - Reminder</name>
+    <style>freeForm</style>
+    <subject>Final Notice: Your Approval/Rejection is Required</subject>
+    <textOnly>Hello {!Case.Regional_Dir__c},
+
+
+
+It has been over 24 hours since {!Case.WRF_Requestor__c} has requested your approval on the following Work Request. Please review and provide your approval or rejection as soon as possible. Reminder: NO work will be assigned or started until your approval is received and the standard processing times will still apply (7-10 days).
+
+
+Approval Requested on: {!Case.Approval_Start_time__c}
+Support ID: {!Case.CaseNumber}
+Account: {!Case.Account}
+Account Owner: {!Account.OwnerFullName}
+Account Owner Manager: {!Account.Account_Owner_Manager_Name__c}
+Request Type: {!Case.WRF_Request_Type__c}
+Subject: {!Case.Subject}
+Goals/Comments: {!Case.WRF_Proj_Goal_Cmnt__c}
+
+
+
+After reviewing the request, please approve or reject by:
+
+Clicking here to submit your response through Salesforce
+
+
+
+***Please note: all work for this ticket is pending your review and will not be actioned until your response (approval / rejection) is received.
+
+
+
+
+Sincerely,
+
+
+Your Support Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

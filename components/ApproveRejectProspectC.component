@@ -1,0 +1,96 @@
+<apex:component controller="ApproveRejectProspect" allowDML="true">
+    <apex:form >
+    
+<script language="javascript">
+function uncheckAll(cb)
+{
+var inputElem = document.getElementsByTagName("input");
+for(var i=0; i<inputElem.length; i++)
+{
+inputElem[i].checked = false;
+}
+}
+
+function checkAll(cb)
+{
+var inputElem = document.getElementsByTagName("input");
+for(var i=0; i<inputElem.length; i++)
+{
+if(inputElem[i].id.indexOf("checkedone")!=-1)
+inputElem[i].checked = cb.checked;
+}
+} 
+
+function ApproveCall() {
+  
+  if (confirm('The Operation Will Approve Reassignments, Are You Sure?')) {
+    Approve();
+    
+  }
+}
+function RejectCall() {
+  
+  if (confirm('The Operation Will Reject Reassignments, Are You Sure?')) {
+    Reject();    
+  }
+}
+function CancelCall() {
+  
+  if (confirm('The Operation Will Cancel Reassignments, Are You Sure?')) {
+    Cancel();    
+  }
+  uncheckAll(this);
+}
+  
+</script>
+   
+<apex:pageBlock id="pb1">
+<apex:pageMessages />   
+<apex:pageMessage summary="Success" rendered="{!showSuccess}" severity="info" strength="3" />
+<apex:pageMessage summary="Error" rendered="{!showError}" severity="info" strength="3" />
+ <apex:outputPanel rendered="{!showError}">
+ Please click below to access the 
+ <apex:outputLink value="{!ReportLink}" id="theLink"> Error Report</apex:outputLink>
+ </apex:outputPanel>
+ 
+ <br/> 
+  <apex:selectList id="newlist"     value="{!typeofView}" multiselect="false" size="1" >   
+              <apex:actionSupport event="onchange"  onsubmit="uncheckAll(this)"  oncomplete="uncheckAll(this)" action="{!refreshView}" rerender="pb1"/>
+          <apex:selectOptions value="{!options}"/>
+  </apex:selectList>  
+  
+   <center>
+     <apex:commandButton onclick="return ApproveCall();"   value="Approve"  rendered="{!IF(typeofView=='My Approvals',true,false)}"  reRender="pb1"/>
+     <apex:commandButton onclick="return RejectCall();"   value=" Reject"  rendered="{!IF(typeofView=='My Approvals',true,false)}"  reRender="pb1"/>
+     <apex:commandButton onclick="return CancelCall();"    value="Cancel"  rendered="{!IF(typeofView=='My Requests',true,false)}"  reRender="pb1"/>
+    <apex:commandButton value="Refresh"   action="{!refreshView}" reRender="pb1"/>
+  </center>
+  <br/>
+       <apex:actionStatus startText="Action In Progress, please wait...."
+                        stopText="" id="reassignStat" />
+
+     <apex:actionFunction name="Approve" oncomplete="uncheckAll(this)"   action="{!Approve}" reRender="pb1,Resultmsg" status="reassignStat"/>
+     <apex:actionFunction name="Reject" oncomplete="uncheckAll(this)"   action="{!Reject}" rerender="pb1,Resultmsg" status="reassignStat"/>
+     <apex:actionFunction name="Cancel" oncomplete="uncheckAll(this)"   action="{!Cancel}" rerender="pb1,Resultmsg" status="reassignStat"/>
+  
+        <apex:pageBlockTable value="{!ReassignList}" var="l"  rendered="{!IF(ReassignList.size=0,false,true)}" >  
+         <apex:column >             
+        <apex:facet name="header">
+         <apex:inputCheckbox id="inCheck">
+        <apex:actionSupport event="onclick"  onsubmit="checkAll(this)" rerender="pb1"/>
+        </apex:inputCheckbox>
+        </apex:facet>
+        <apex:inputCheckbox value="{!l.selected}" id="checkedone">       
+        </apex:inputCheckbox>
+        </apex:column>
+                        
+            <apex:column value="{!l.con.Account__c}" />
+            <apex:column value="{!l.con.Status__c }" />
+            <apex:column value="{!l.con.Approver__c}" />
+            <apex:column value="{!l.con.Requestor__c}" />
+              <apex:column value="{!l.con.New_Owner__c}" />
+        </apex:pageBlockTable>
+ <apex:outputPanel rendered="{!IF(ReassignList.size==0,true,false)}">No records to display</apex:outputPanel>
+    </apex:pageBlock>
+    </apex:form>
+</apex:component>

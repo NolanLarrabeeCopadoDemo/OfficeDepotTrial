@@ -1,0 +1,40 @@
+<apex:component controller="AceSKUChangesHistory_Homepg">
+<apex:attribute name="pagval" assignTo="{!pageval}" description="value for identifying if the component called from price change." type="String" required="false"/>
+<style>
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+</style>
+<apex:form id="skuHistform">
+
+  <apex:pageBlock title="History - Price Changes">
+    <apex:pageblocktable value="{!AceSKUHistList}" var="skuhist" width="100%" id="table">      
+       <apex:column headerValue="Approval Date" width="80px">
+          <apex:outputText value="{0,Date,MM/dd/yyyy}" >
+                                <apex:param value="{!skuhist.changeDate}"/> 
+            </apex:outputText>
+       </apex:column>
+       <apex:column headerValue="SKU" value="{!skuhist.SKU}" width="auto"/>           
+                         
+       <apex:column headerValue="Customer" value="{!skuhist.CustName}" rendered="true"/>          
+       <apex:column headerValue="Customer #" value="{!skuhist.CustID}" rendered="true"/>    
+       <apex:column headerValue="Rep" value="{!skuhist.Cust_ownerName}" rendered="true"/>  
+                      
+       <apex:column headerValue="Approved By" value="{!skuhist.ModifiedBy}" width="100px"/>
+       
+       <apex:column headerValue="Approval Description">
+          <apex:outputtext value="{!skuhist.changes}" escape="false"/>
+        </apex:column>
+    </apex:pageblocktable>
+    
+    <apex:panelGrid id="buttons2" width="100%" columns="2" columnClasses="btn3,btn4">
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="skuHistform" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="skuHistform" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+    </apex:panelGrid>
+    
+    </apex:pageBlock>
+</apex:form>
+</apex:component>

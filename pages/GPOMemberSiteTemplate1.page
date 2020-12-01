@@ -1,0 +1,163 @@
+<!-- Member Landing Site Template 1 -->
+
+<!-- This is the Member Page redering of VF Template1 --> 
+
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false"  applyHtmlTag="false"  cache="false" controller="xGPOCommunityAuthLandingController" extensions="xGPOSiteTemplate1ConExt" >
+  
+<html>
+<head>
+
+<title>Office Depot</title>
+
+    
+<link rel="stylesheet" href="{!URLFOR($Resource.CommuStaticResources,'css/buttons.css')}"></link>
+<link rel="stylesheet" href="{!URLFOR($Resource.CommuStaticResources,'css/grid.css')}"></link>
+<link rel="stylesheet" href="{!URLFOR($Resource.CommuStaticResources,'css/helper.css')}"></link>
+<link rel="stylesheet" href="{!URLFOR($Resource.CommuStaticResources,'css/distributorBrand.css')}"></link>
+<link rel="stylesheet" href="{!URLFOR($Resource.CommuStaticResourcesGPO,'css/GPOstyle.css')}"></link>  
+
+<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.BSD,'css/bsdcss.css')}"></link>
+
+<link rel="shortcut icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" type="/image/x-ico" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+
+<apex:includeScript value="{!URLFOR($Resource.CommuStaticResources,'js/lib/jquery1.11.2.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.CommuStaticResources,'js/lib/jqueryui1.11.4.js')}" />
+<style>
+    .contentHide{
+    display:none;
+    }
+</style>
+<script>
+j$ = jQuery.noConflict();
+j$().ready(function() {
+  j$.ajax({ url: "{!keepAliveURL}", complete: function(data){
+       console.log("Keep Alive Call Complete");
+     }
+    });
+});
+
+(function poll(){
+  setTimeout(function(){
+     j$.ajax({ url: "{!keepAliveURL}", complete: function(data){
+       console.log("Keep Alive Call Complete");
+       Visualforce.remoting.timeout = 12000;
+       Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.xGPOCommunityAuthLandingController.keepAliveChk}', 
+                 function(result, event){
+                    console.log(event.status);
+                    console.log(event.type);
+                    if (event.status) {
+                     poll();
+                    }
+                 });
+         //poll();
+     }, dataType: "jsonp"});
+ }, {!keepAliveInterval});
+})();
+document.title="Office Depot" 
+</script>
+</head>         
+<body>
+
+    <apex:composition template="GPOVFTemplate1">
+ 
+        <apex:define name="adminheader">
+            <apex:include pageName="GPOAdminHeader" rendered="{!AdminHeader}"/>
+        </apex:define>
+
+        <apex:define name="LogOut">  
+            <a class="{!IF(!AdminHeader!=true,'contentHide','logout_link')}" href="{!commSetup.logout_link__c}">
+                Logout
+            </a>
+        </apex:define>
+        
+        <apex:define name="Welcome">
+           <h1>
+           {!selectedGroup.Welcome_Title__c},&nbsp;{!communityContact.Name}               
+            </h1> 
+            <br/>   
+        <p/>
+           {!selectedGroup.Welcome_Message__c}
+         <p/>        
+        </apex:define>       
+  
+        
+<apex:define name="CustomBrand">
+   <apex:image rendered="{!IsImageDefined}" url="{!ImageRootPath}{!selectedGroup.Community_Image__c}&blah={!selectedGroup.LastModifiedDate} " width="360" height="110" style="float: right;" />    
+</apex:define>
+
+<apex:define name="AccountOwner">               
+
+ <div class="{!IF((accountOwner.Name!=null&&accountOwner.ISACTIVE!=false&&accountOwner.Name!='Salesforce DataloaderNorth'&&accountOwner.Name!='Salesforce'&&accountOwner.Name!='Dataloader'&&accountOwner.Name!='Generic Rsd-Iso'&&accountOwner.Name!='Generic Rsd-North'
+ &&accountOwner.Name!='Generic Rsd-South'
+ &&accountOwner.Name!='Generic Rsd-West'
+ &&accountOwner.Name!='Salesforce API'
+ &&accountOwner.Name!='Soa Connection'
+ &&accountOwner.Name!='bsd user'
+ &&accountOwner.Name!='SpringCM Admin'
+ &&accountOwner.Name!='Odsfa Odsfa'
+ ),'contact_card_wrapper','contentHide')}">    
+     
+    <div class="contact_card">
+
+        <apex:image id="profileImage" rendered="{!IF(accountOwner.Name!=null,true,false)}" url="{!accountOwner.FullPhotoUrl}" width="73" height="71" styleClass="fleft"/>
+
+      <div class="side_text">
+            <span class="info">
+                FOR PROGRAM INFORMATION:
+            </span>
+           <div class="title">
+                                    Account Manager
+               <br></br>
+                                    <strong>
+                                        {!accountOwner.Name}
+                                    </strong>
+               <br></br>
+                                    {!accountOwner.Phone}
+               <br></br>
+                                    {!accountOwner.MobilePhone}
+                                </div>
+
+           
+                    
+        </div>
+
+        <div class="email" style="word-wrap: break-word;">
+               <a href="mailto:{!accountOwner.Email}">
+               {!accountOwner.Email}
+               </a>
+        </div>
+    </div>
+    </div>
+    <br class="spacer" />
+
+</apex:define>
+      
+ 
+               
+        <apex:define name="Tip1">
+           <apex:include pageName="GPONewsCredSelectMin"  />                   
+        </apex:define>
+           
+        <apex:define name="NewsColumn">
+
+        <apex:repeat value="{!newsItems}" var="thenews" id="theRepeat">
+          
+            
+              <li>
+    <strong>{!thenews.value1__c }</strong>
+       <div>
+          {!thenews.value2__c }
+       </div>
+     </li>
+            
+        </apex:repeat>
+             
+        </apex:define>          
+    
+    </apex:composition>
+  </body>
+ </html>
+</apex:page>

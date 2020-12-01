@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- Shows number of records included in batch when this record was scored, or attempted to be scored last. --></help>
+        <label><!-- Batch Size While Scored --></label>
+        <name>LBI__BatchSizeWhileScored__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Count --></label>
+        <name>LBI__ErrorCount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Message (Short) --></label>
+        <name>LBI__ErrorMessageShort__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Message --></label>
+        <name>LBI__ErrorMessage__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Id --></label>
+        <name>LBI__ExternalId__c</name>
+    </fields>
+    <fields>
+        <label><!-- GUID --></label>
+        <name>LBI__GUID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lattice Bulk Score Request --></label>
+        <name>LBI__LatticeBulkScoreRequest__c</name>
+        <relationshipLabel><!-- Lattice Scoring Queues --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Link to Record --></label>
+        <name>LBI__LinkToRecord__c</name>
+    </fields>
+    <fields>
+        <help><!-- Time spent performing the callout for scores in milliseconds. --></help>
+        <label><!-- Milliseconds Calling Out --></label>
+        <name>LBI__MillisecondsCallingOut__c</name>
+    </fields>
+    <fields>
+        <help><!-- Time record spent in queue before being successfully scored.  This is snapshot the first time the record is successfully scored. --></help>
+        <label><!-- Milliseconds in Queue --></label>
+        <name>LBI__MillisecondsInQueue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Minutes in Queue --></label>
+        <name>LBI__MinutesInQueue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Object --></label>
+        <name>LBI__Object__c</name>
+    </fields>
+    <fields>
+        <label><!-- Original Created Date --></label>
+        <name>LBI__OriginalCreatedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Priority --></label>
+        <name>LBI__Priority__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contains the raw request captured during last callout. --></help>
+        <label><!-- Raw Request JSON --></label>
+        <name>LBI__RawRequestJSON__c</name>
+    </fields>
+    <fields>
+        <help><!-- Contains the raw response captured during last callout. --></help>
+        <label><!-- Raw Response JSON --></label>
+        <name>LBI__RawResponseJSON__c</name>
+    </fields>
+    <fields>
+        <label><!-- Record Id --></label>
+        <name>LBI__RecordId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lattice Scoring Rule --></label>
+        <name>LBI__ScoringRule__c</name>
+        <relationshipLabel><!-- Lattice Scoring Queues --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Holds the old trigger record from update operation so old vs. new fields can be compared.  Is JSON. --></help>
+        <label><!-- Serialized Old Record --></label>
+        <name>LBI__SerializedOldRecord__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>LBI__Status__c</name>
+        <picklistValues>
+            <masterLabel>Deleted</masterLabel>
+            <translation><!-- Deleted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Errored</masterLabel>
+            <translation><!-- Errored --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Scored</masterLabel>
+            <translation><!-- Scored --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unscored</masterLabel>
+            <translation><!-- Unscored --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Trigger Event --></label>
+        <name>LBI__TriggerEvent__c</name>
+        <picklistValues>
+            <masterLabel>Create</masterLabel>
+            <translation><!-- Create --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On Demand</masterLabel>
+            <translation><!-- On Demand --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update</masterLabel>
+            <translation><!-- Update --></translation>
+        </picklistValues>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- Status cannot be preprocessed if scoring rule is attached. --></errorMessage>
+        <name>LBI__Cannot_be_preprocessed_with_rule</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Error Count can only increment by 1. --></errorMessage>
+        <name>LBI__Count_by_One_Only</name>
+    </validationRules>
+</CustomObjectTranslation>

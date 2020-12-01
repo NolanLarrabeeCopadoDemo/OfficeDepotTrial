@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>The custom setting to Bypass Trigger logic for specific object or profile or permission set or specific user</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Bypass_Complete_Trigger__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used to Bypass Complete Trigger logic irrespective of any Profile, Permission set or User</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Bypass complete trigger logic</inlineHelpText>
+        <label>Bypass Complete Trigger</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Bypass_For_Permission_Sets__c</fullName>
+        <description>Used to Bypass Complete Trigger logic for specific Permission set</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Place required permission set ids separated by comma &apos;,&apos; without any spaces,  example permissionsetid1,permissionsetid2</inlineHelpText>
+        <label>Bypass For Permission Sets</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Bypass_For_Profiles__c</fullName>
+        <description>Used to Bypass Complete Trigger logic for specific profiles</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Place required profile ids separated by comma &apos;,&apos; without any spaces,  example profileid1,profileid2</inlineHelpText>
+        <label>Bypass For Profiles</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Bypass_For_Users__c</fullName>
+        <description>Used to Bypass Complete Trigger logic for specific Users</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Place required user ids separated by comma &apos;,&apos; without any spaces,  example userid1,userid2</inlineHelpText>
+        <label>Bypass For Users</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Bypass Trigger Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

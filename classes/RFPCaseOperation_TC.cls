@@ -1,0 +1,194 @@
+/**
+ * This class contains unit tests for validating the behaviour of Apex classes
+ * TransLaunchBatchClass.
+ *
+*/
+@isTest
+private class RFPCaseOperation_TC {
+
+     static testMethod void myUnitTest() {
+         Map<String,Schema.RecordTypeInfo> CaseRecType = Schema.SObjectType.Case.getRecordTypeInfosByName();    
+         List<Account> accounts = new List<Account>();
+         List<Customer_Transition__c> ctList = new List<Customer_Transition__c>();
+         List<Transition_Launch__c> tranLaunchList = new List<Transition_Launch__c>();
+         Schema.DescribeSObjectResult d1 = Schema.SObjectType.Account; 
+         Map<String,Schema.RecordTypeInfo> rtMapByName = d1.getRecordTypeInfosByName();
+   
+         Profile profileObj = [select id from profile where name='System Administrator'];
+
+         String profId = profileObj.id;
+         user usrObj = new user(Username='abc@officedepot.com.uat',FirstName ='Fname', LastName='Lname', Alias='abc', CommunityNickname='abc', LocaleSidKey='en_US', EmailEncodingKey='UTF-8', Profileid = profId, LanguageLocaleKey='en_US', email='abc@officedepot.com.uat',TimeZoneSidKey='America/New_York');
+         usrObj.Short_Title__c='';
+         Insert usrObj;
+         system.runAs(usrObj){
+                  
+        Sales_Person__c s= new Sales_Person__c();
+        s.IsActive__c=true;
+        s.Role_Relate_Id__c ='333333';
+        s.Primary__c =true;
+        s.user__c=usrObj.id;
+        insert s;         
+                  
+        System.runAs(usrObj)
+        {
+            Test.startTest();
+            Account pacc = new Account ();
+            pacc.name = 'SUN Test Account Parent';
+            pacc.BillingStreet = '1041 N 325 W';
+            pacc.billingcity = 'Orem1';
+            pacc.BillingState = 'UA';
+            pacc.Billingcountry = 'USA';
+            pacc.OMX_Primary_Key__c = '123464';
+            pacc.Oracle_Party_Id__c = '123464';
+            pacc.AOPS_Cust_Id__c = '123464';
+            pacc.status__c='Active';
+            pacc.Segment__c='Federal';
+            pacc.Sales_PersonID__c = s.id;
+            insert pacc;
+            
+            system.debug('pacc@@@'+pacc);
+            
+            Account acc = new Account ();
+            acc.name = 'SUN Test Account';
+            acc.BillingStreet = '1040 N 326 W';
+            acc.billingcity = 'Orem';
+            acc.BillingState = 'UT';
+            acc.Billingcountry = 'USA';
+            acc.OMX_Primary_Key__c = '123457';
+            acc.Oracle_Party_Id__c = '123457';
+            acc.AOPS_Cust_Id__c = '123457';
+            acc.status__c='Active';
+            acc.Segment__c='Federal';
+            acc.parentid=pacc.id;
+            acc.Sales_PersonID__c = s.id;
+            accounts.add(acc);
+            
+            Account accSite1 = new Account ();
+            accSite1.name = 'SUN Test Account21';
+            accSite1.BillingStreet = '1040 N 326 W';
+            accSite1.billingcity = 'Orem';
+            accSite1.BillingState = 'UT';
+            accSite1.Billingcountry = 'USA';
+            accSite1.OMX_Primary_Key__c = '123460';
+            accSite1.Oracle_Party_Id__c = '123460';
+            accSite1.AOPS_Cust_Id__c = '123460';
+            accSite1.status__c='Active';
+            accounts.add(accSite1);
+            
+            Account accSite2 = new Account ();
+            accSite2.name = 'SUN Test Account22';
+            accSite2.BillingStreet = '1040 N 326 W';
+            accSite2.billingcity = 'Orem';
+            accSite2.BillingState = 'UT';
+            accSite2.Billingcountry = 'USA';
+            accSite2.OMX_Primary_Key__c = '123461';
+            accSite2.Oracle_Party_Id__c = '123461';
+            accSite2.AOPS_Cust_Id__c = '123461';
+            accSite2.status__c='Active';
+            accounts.add(accSite2);
+            
+            Account accSite3 = new Account ();
+            accSite3.name = 'SUN Test Account23';
+            accSite3.BillingStreet = '1040 N 326 W';
+            accSite3.billingcity = 'Orem';
+            accSite3.BillingState = 'UT';
+            accSite3.Billingcountry = 'USA';
+            accSite3.OMX_Primary_Key__c = '123462';
+            accSite3.Oracle_Party_Id__c = '123462';
+            accSite3.AOPS_Cust_Id__c = '123462';
+            accSite3.status__c='Inactive';
+            accounts.add(accSite3);
+            
+            insert accounts;
+            system.debug('accounts@@@'+accounts);
+            
+            Customer_Transition__c parentwtCT1 = new Customer_Transition__c(name='Customer Transition Parent of test1',account__c = pacc.id,Status__c='Awaiting RFP',Billing_Frequency_Excptn__c = true,AOPS_Flag__c='Y',OMX_Primary_Key__c='123464',Transition_Status__c='Active',Written_Agreement__c =true,Review_Start_Date__c = Date.Today(),Ready_for_Mod1__c=false);
+            insert parentwtCT1;
+            Customer_Transition__c CT1 = new Customer_Transition__c(name='Customer Transition Parent of test',account__c = acc.id,Status__c='On Deck',Billing_Frequency_Excptn__c = true,AOPS_Flag__c='Y',OMX_Primary_Key__c='123457',Transition_Status__c='Active',Written_Agreement_ID__c=parentwtCT1.Id,Parent_Transition_ID__c=parentwtCT1.Id,Review_Start_Date__c = Date.Today());
+            ctList.add(CT1);
+            
+            Customer_Transition__c CT2 = new Customer_Transition__c(name='test1',account__c = accSite1.id,Status__c='On Deck',Billing_Frequency_Excptn__c = true,AOPS_Flag__c='Y',OMX_Primary_Key__c='123460',Transition_Status__c='Active',Written_Agreement_ID__c=parentwtCT1.Id,Parent_Transition_ID__c=parentwtCT1.Id,Review_Start_Date__c = Date.Today());
+            ctList.add(CT2);
+            Customer_Transition__c CT3 = new Customer_Transition__c(name='test2',account__c = accSite2.id,Status__c='On Deck',Billing_Frequency_Excptn__c = true,AOPS_Flag__c='Y',OMX_Primary_Key__c='123461',Transition_Status__c='Active',Written_Agreement_ID__c=parentwtCT1.Id,Parent_Transition_ID__c=parentwtCT1.Id ,Review_Start_Date__c = Date.Today());
+            ctList.add(CT3);
+            Customer_Transition__c CT4 = new Customer_Transition__c(name='test3',account__c = accSite3.id,Status__c='On Deck',Billing_Frequency_Excptn__c = true,AOPS_Flag__c='Y',OMX_Primary_Key__c='123462',Transition_Status__c='Active',Parent_Transition_ID__c=parentwtCT1.Id ,Review_Start_Date__c = Date.Today());
+            
+            ctList.add(CT4);
+            
+            insert ctList;
+            
+            system.debug('parentwtCT1&&&'+parentwtCT1);
+            system.debug('ctList&&&'+ctList);
+            ctList.clear();
+            
+            /* //Start Case# 00176311 Shifted Case creation out of test context
+            Case cs = new Case();
+            cs.recordTypeId = CaseRecType.get('Work Request').getRecordTypeId();
+            cs.WRF_Request_Type__c = 'Transition';
+            cs.WRF_Link_to_RFP__c = 'Yes';
+            cs.AccountId = pacc.Id;
+            insert cs;   
+            system.debug('###cs###'+cs);
+            */
+            Test.stopTest();
+            
+            Case cs = new Case();
+            cs.recordTypeId = CaseRecType.get('Work Request').getRecordTypeId();
+            cs.WRF_Request_Type__c = 'Transition';
+            cs.WRF_Link_to_RFP__c = 'Yes';
+            cs.AccountId = pacc.Id;
+            insert cs;   
+            system.debug('###cs###'+cs);
+            //End Case# 00176311
+        }
+         }
+    }
+    static testMethod void myUnitTest1() {
+        Profile profileObj = [select id from profile where name='System Administrator'];
+         Map<String,Schema.RecordTypeInfo> CaseRecType = Schema.SObjectType.Case.getRecordTypeInfosByName();  
+         String profId = profileObj.id;
+         user usrObj = new user(Username='abc@officedepot.com.uat',FirstName ='Fname', LastName='Lname', Alias='abc', CommunityNickname='abc', LocaleSidKey='en_US', EmailEncodingKey='UTF-8', Profileid = profId, LanguageLocaleKey='en_US', email='abc@officedepot.com.uat',TimeZoneSidKey='America/New_York');
+         usrObj.Short_Title__c='';
+         Insert usrObj;
+        system.runAs(usrObj){
+                  
+        Sales_Person__c s= new Sales_Person__c();
+        s.IsActive__c=true;
+        s.Role_Relate_Id__c ='333333';
+        s.Primary__c =true;
+        s.user__c=usrObj.id;
+        insert s;      
+        //Start Case# 00176311 Added to bypass CaseTrigger
+        Admin_Config__c conf = new Admin_Config__c(Name = 'Default', Bypass_Triggers__c = String.valueOf(usrObj.Id).substring(0,15), BatchSize__c = '500');
+        insert conf;  
+        //End Case# 00176311
+        System.runAs(usrObj)
+        {
+            
+            Test.startTest();
+            Account acc = Test_Utils.createAccount();
+            Case cs = new Case();
+            cs.recordTypeId = CaseRecType.get('Work Request').getRecordTypeId();
+            cs.WRF_Request_Type__c = 'Transition';
+            cs.WRF_Link_to_RFP__c = 'Yes';
+            cs.AccountId = acc.Id;
+            insert cs;
+            
+            Customer_Transition__c ct = new Customer_Transition__c(name='test3',account__c = acc.id,OMX_Primary_Key__c='123462',Review_Start_Date__c = Date.Today());
+            ct.Status__c='Awaiting RFP';
+            ct.Written_Agreement__c  = true;
+            insert ct;
+            system.debug('Account Id ---'+acc.Id);
+            system.debug('********'+ [select IsWritten_Parent__c, Status__c,Account__c from Customer_Transition__c where id=:ct.Id  ]);
+            //Added by Najma Ateeq - not to be deployed since RFPCaseOperation class does not exists on prod
+            Map<Id,Id> mapId = new Map<Id,Id>();
+            mapId.put(acc.Id,cs.Id);
+            
+            RFPCaseOperation.updateCTrepDesp(mapId);
+            //end - Added by Najma Ateeq - not to be deployed since RFPCaseOperation class does not exists on prod
+            Test.stopTest();
+            }
+        }
+    }
+   
+}

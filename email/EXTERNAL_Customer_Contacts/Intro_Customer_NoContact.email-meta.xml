@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Introductory call follow-up template with successful contact</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Intro Customer Contact - No Contact</name>
+    <style>freeForm</style>
+    <subject>Office Depot Account Manager Contact Information</subject>
+    <textOnly>{!Contact.FirstName},
+ 
+I was unfortunately not able to reach you via the telephone today so I left you a voicemail to explain important updates to your account with us.
+
+My name is {!User.Name}, and I am proud to introduce myself as your new dedicated Account Manager. 
+
+Here at Office Depot, it is our continuing goal to satisfy and support you to the very best of our ability. As such, we have recently made some big changes within our organization that will better help us to meet your needs and strengthen our relationship with you! 
+
+My personal goal as your dedicated account manager is to become a trusted resource and advisor to you and your organization. I will be contacting you periodically in the coming weeks with product information, special promotions, and general company updates. 
+
+If you ever have any questions or concerns, please do not hesitate to call me.  I am here to assist you with anything you may need and I look forward to speaking with you.
+
+
+Warm Regards,
+{!User.Name}
+Account Manager
+{!User.Email}
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+https://business.officedepot.com
+Customer Service: (888) 263-3423
+ 
+ 
+ </textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

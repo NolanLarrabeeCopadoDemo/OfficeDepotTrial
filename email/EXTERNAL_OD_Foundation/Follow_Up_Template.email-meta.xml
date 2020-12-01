@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OD_Foundation</letterhead>
+    <name>Follow Up Template</name>
+    <style>formalLetter</style>
+    <subject>Fifth Annual Office Depot Foundation Charity Invitational</subject>
+    <textOnly>{!Today}
+
+Dear {!Contact.FirstName}  {!Contact.LastName}
+
+I would like to follow up on my recent request for you to participate as a sponsor in the 2014 Office Depot Foundation Charity Invitational.
+
+
+As I mentioned to you, the Invitational will take place on February 5 and 6, 2014, at the historic Boca Raton Resort &amp; Club, a Waldorf Astoria Resort.  You might be particularly interested to know that, for the first time, a very special opportunity exists for selected non-trade Office Depot vendors and suppliers to send one representative to the Office Depot Vendor Partnership Summit, which immediately follows the Invitational on February 6 and 7, 2014.
+
+
+With the holidays approaching, this is the ideal time to sign up for the Invitational.  You’ll find complete details at www.officedepotfoundation.org/invitational - and you can register and make payment right on the site.  If you wish, you can register now and defer your payment until after January 1.
+
+
+Please note that December 6 is the registration deadline to guarantee that your logo or corporate identity will appear on Special Sponsorship items that require imprinting, embroidery and the like.
+
+
+The Invitational raises vitally important funds for the Office Depot Foundation – the independent, nonprofit charitable giving arm of Office Depot. The Foundation helps deserving children start the school year off right with new school supplies, enables middle school students to explore long-term career opportunities rather than dropping out, provides relief and encouragement to families in the wake of disasters – and much, much more.
+
+
+Please get in touch with me at your earliest convenience so that we can discuss the most advantageous way for you to participate.
+
+
+Thank you very much for your consideration and your support.
+
+
+Best regards,
+{!User.Name}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Issue_Term__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Issue_Term</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Type</label>
+        <required>true</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Audit</fullName>
+                    <default>true</default>
+                    <label>Audit</label>
+                </value>
+                <value>
+                    <fullName>Custom CPD Terms</fullName>
+                    <default>false</default>
+                    <label>Custom CPD Terms</label>
+                </value>
+                <value>
+                    <fullName>Custom MPS Terms</fullName>
+                    <default>false</default>
+                    <label>Custom MPS Terms</label>
+                </value>
+                <value>
+                    <fullName>Delivery/Freight</fullName>
+                    <default>false</default>
+                    <label>Delivery/Freight</label>
+                </value>
+                <value>
+                    <fullName>General</fullName>
+                    <default>false</default>
+                    <label>General</label>
+                </value>
+                <value>
+                    <fullName>Information Security</fullName>
+                    <default>false</default>
+                    <label>Information Security</label>
+                </value>
+                <value>
+                    <fullName>Insurance</fullName>
+                    <default>false</default>
+                    <label>Insurance</label>
+                </value>
+                <value>
+                    <fullName>Payment Terms</fullName>
+                    <default>false</default>
+                    <label>Payment Terms</label>
+                </value>
+                <value>
+                    <fullName>Pricing</fullName>
+                    <default>false</default>
+                    <label>Pricing</label>
+                </value>
+                <value>
+                    <fullName>Rebate</fullName>
+                    <default>false</default>
+                    <label>Rebate</label>
+                </value>
+                <value>
+                    <fullName>Term &amp; Termination</fullName>
+                    <default>false</default>
+                    <label>Term &amp; Termination</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>PROS Issue Term</label>
+    <listViews>
+        <fullName>Clear_View</fullName>
+        <columns>DeveloperName</columns>
+        <columns>Type__c</columns>
+        <columns>Issue_Term__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Clear View</label>
+        <language>en_US</language>
+    </listViews>
+    <pluralLabel>PROS Issue Term</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

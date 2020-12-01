@@ -1,0 +1,73 @@
+<!--
+   (c) Appirio
+   Provides a way to display Account Details in folder view.
+   2017-10-16    Nehal Maheshwari    Original
+-->
+
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" >
+    
+    <aura:registerEvent name="Result" type="c:ACSLC_SelectAccountEvt"/>
+    
+    <!-- Internal Attributes -->
+    <aura:attribute name="account" type="List" description="List of accounts"/>
+    <aura:attribute name="collapseText" type="Boolean" default="true"/>
+    <aura:attribute name="name" type="String" description="Name of account"/>
+    <aura:attribute name="id" type="String" description="Id of account"/>
+    <aura:attribute name="lastSelectedRecId" type="String" />
+    <aura:attribute name="subrecordId" type="String" />
+   
+    
+        <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+ 
+    
+    <!-- Display Accounts' Details -->
+    <div class="slds-p-around_x-small slds-p-left_large visibleDiv collapsed" style="background-color:white" aura:id="collapsedContainer" >
+        <div style="cursor: pointer;" onclick="{!c.getAccount}" >
+            <div class="slds-float--left slds-m-right_x-small">
+                
+                <aura:if isTrue="{!v.account.itemsImage.length > 0}">
+                        <aura:if isTrue="{!v.collapseText}">
+                        <lightning:icon size="x-small" iconName="utility:add" aura:id="expanded"/>
+                        <aura:set attribute="else">
+                            <lightning:icon size="x-small" iconName="utility:dash" aura:id="expanded"/>
+                        </aura:set>
+                        </aura:if>
+               <aura:set attribute="else">
+                        <lightning:icon size="x-small" iconName="utility:dash" aura:id="file"/>
+               </aura:set>
+                </aura:if>
+            </div>
+      		<div tabindex = "1"  class="{!v.subrecordId == v.account.name ? 'current':'inactive'}" aura:id="testli" data-value="{!v.account.label}" id="{!v.account.name}" onclick="{!c.showDiv}"> 
+  
+                
+               
+                
+              <c:ReplaceComponent items="{!v.account.label}"  element="{!v.account.type}"/>    
+                  <aura:if isTrue="{!v.account.sales> 0}">
+               <span class="slds-avatar slds-avatar--x-small"> 
+                   <div class="slds-p-left_xx-small">
+                    <lightning:icon size="x-small" iconName="custom:custom17" />
+                      </div>
+                  <!--  <img src="{!$Resource.Prospect}"/> -->
+                </span>  
+                        </aura:if>   
+            </div>
+            
+        </div >
+        <aura:iteration items="{!v.account.itemsImage}" var="_account"  >
+            
+            
+            
+            
+            <c:OrgTreeNode account="{!_account}"  lastSelectedRecId="{!v.lastSelectedRecId}" subrecordId="{!v.subrecordId}"/> 
+        
+
+        
+        </aura:iteration>
+        
+        
+
+        
+        
+    </div>
+</aura:component>

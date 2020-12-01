@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Account.Strategy__c:SUM / (Account.Strategy__c:SUM + Account.Other_Non_Strategy__c:SUM)</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Strategy</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>Account.Other_Non_Strategy__c:SUM / (Account.Strategy__c:SUM + Account.Other_Non_Strategy__c:SUM)</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA2</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Other</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_70566298</developerName>
+        <masterLabel>Strategy</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>Account.Pricing_template_cd__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Custom - Self Service</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Custom - Pricing</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ODRP- Elite (You Pick 10)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ODRP- Custom (You Pick 25)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Option B</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Custom - WRF</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>ODRP- Premium (Option A)</sourceValue>
+            </sourceValues>
+            <value>Strategy</value>
+        </values>
+    </buckets>
+    <description>Strategy Pricing Trend % by Region &amp; Market</description>
+    <filter>
+        <criteriaItems>
+            <column>Account.Buying_Group__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <name>Strategy Trend by Region &amp; Market</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account.Customer_Setup_Completed__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

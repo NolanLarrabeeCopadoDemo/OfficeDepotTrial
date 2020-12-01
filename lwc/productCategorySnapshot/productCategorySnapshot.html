@@ -1,0 +1,27 @@
+<template>
+	<template if:true={error}>
+		<div style="display: flex">
+			<lightning-icon icon-name="utility:warning" alternative-text="Warning!" title="Warning"></lightning-icon>
+			<div class="slds-text-color_error-heading_medium">Product Category data could not be retrieved for the
+				account.</div>
+		</div>
+	</template>
+
+	<template if:false={error}>
+		<!-- Do we want to be collabsible? -->
+		<template if:true={is_collapsible}>
+			<lightning-accordion allow-multiple-sections-open active-section-name={active_section}>
+				<lightning-accordion-section name="Product_Category_Snapshot" label={labels.title}>
+					<lightning-datatable key-field="id" data={data} columns={columns} hide-checkbox-column>
+					</lightning-datatable>
+				</lightning-accordion-section>
+			</lightning-accordion>
+		</template>
+
+		<template if:false={is_collapsible}>
+			<lightning-datatable key-field="id" data={data} columns={columns} sorted-by={sortedBy}
+				sorted-direction={sortedDirection} hide-checkbox-column onsort={updateColumnSorting}>
+			</lightning-datatable>
+		</template>
+	</template>
+</template>

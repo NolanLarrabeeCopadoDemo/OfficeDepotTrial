@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Proprietary Item Notification for Mailbox</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>CT Proprietary Item Rep Adjacency Email</name>
+    <style>freeForm</style>
+    <subject>{!Customer_Transition__c.Account_OMX_Key__c} - {!Customer_Transition__c.Account_Name__c} ESA Product Alert</subject>
+    <textOnly>Dear Proprietary Support Team:
+
+Please be advised this OD North Customer has been placed in a status of ON DECK.
+
+We have determined that the Customer has proprietary product in stock in the north system.  Please contact the Sales Representative who manages this account.   This is an excellent opportunity to determine if the product must be stocked in OD South.
+
+If the the product must be stocked, please work with the Sales Representative for authorization and product setup in OD South.
+
+Link to Customer: {!Customer_Transition__c.Link}
+
+Thank you for your support.
+
+BSD SALES OPERATIONS TEAM</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

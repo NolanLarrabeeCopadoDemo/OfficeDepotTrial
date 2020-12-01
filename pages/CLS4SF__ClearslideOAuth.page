@@ -1,0 +1,477 @@
+<apex:page Controller="CLS4SF.OAuthController" showHeader="true" standardStylesheets="false" sidebar="false" applyBodyTag="false" docType="html-5.0">
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <apex:stylesheet value="{!URLFOR($Resource.CLS4SF__SLDS101, '/assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.CLS4SF__SLDS101, '/assets/icons/utility-sprite/svg/symbols.svg')}" />
+
+    <style>
+      body {
+          margin: 0; /* reset */
+          /* mimics new standard layout negative space - set main .slds class content to white background */
+          background-color: rgb(244, 246, 249);
+      }
+      /* mimics new standard layout negative space - set main .slds class content to white background */
+      .slds {
+          background-color: #fff!important;
+          border-bottom: 1px solid #d8dde6;
+      }
+      html body.sfdcBody { /* fix for Aloha and Lightning Experience */
+          padding: 0!important;
+      }
+
+      .slds .slds-tabs__content img {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+      }
+
+      .slider, .slider2 {
+          background-color: #fff;
+      }
+      .slider:before, .slider2:before {
+          background-color: #ccc;
+          bottom: -2.5em;
+
+          content: '';
+          left: -2.5em;
+          position: absolute;
+          right: -2.5em;
+          top: -2.5em;
+          z-index: -1;
+      }
+      .slider:after, .slider2:after {
+          background-color: #ddd;
+          bottom: -1.5em;
+
+          content: '';
+          left: -1.5em;
+          position: absolute;
+          right: -1.5em;
+          top: -1.5em;
+          z-index: -1;
+      }
+      .slider li, .slider2 li {
+          list-style: none;
+          position: absolute;
+          margin: 0;
+      }
+      .slider input, .slider2 input {
+          display: none;
+      }
+      .slider label, .slider2 label {
+          background-color: #EAEDF4;
+          border: .2em solid transparent;
+          bottom: -10px;
+          border-radius: 100%;
+          cursor: pointer;
+          display: block;
+          height: 10px;
+          left: 24em;
+          opacity: 1;
+          position: absolute;
+          /* transition: .25s; */
+          width: 10px;
+          visibility: visible;
+          z-index: 10;
+      }
+      .slider label:after, .slider2 label:after {
+          border-radius: 100%;
+          bottom: -.2em;
+
+          content: '';
+          left: -.2em;
+          position: absolute;
+          right: -.2em;
+          top: -.2em;
+      }
+
+      .slider input:checked + label, .slider2 input:checked + label {
+          background-color: #1170D2;
+      }
+
+      .slider:hover label, .slider2:hover label {
+          opacity: 1;
+          visibility: visible;
+      }
+      .slider li:nth-child(1) label, .slider2 li:nth-child(1) label {
+          left: 3%;
+      }
+      .slider li:nth-child(2) label, .slider2 li:nth-child(2) label {
+          left: 6%;
+      }
+      .slider li:nth-child(3) label, .slider2 li:nth-child(3) label {
+          left: 9%;
+      }
+      .slider li:nth-child(4) label {
+          left: 12%;
+      }
+      .slider li:nth-child(5) label {
+          left: 15%;
+      }
+      .slider li:nth-child(6) label {
+          left: 18%;
+      }
+      .slider li:nth-child(7) label {
+          left: 21%;
+      }
+
+      .slider img, .slider2 img  {
+          opacity: 0;
+          transition: .25s;
+          width: 25em;
+          vertical-align: top;
+          visibility: hidden;
+          width: 100%;
+      }
+      .slider li input:checked ~ img, .slider2 li input:checked ~ img, .slider2 img {
+          opacity: 1;
+          visibility: visible;
+          z-index: 10;
+      }
+      
+      .slider-wrapper {
+        position: relative;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+<body>
+
+  <div class="slds slds-container slds-container--large">
+      <header class="slds-page-header">
+        <div class="slds-grid">
+          <div class="slds-col slds-has-flexi-truncate">
+              <div class="slds-media slds-media--center slds-has-flexi-truncate">
+                  <div class="slds-media__figure" style="border-right: 1px solid #ccc; padding-right:16px;">
+                      <apex:image id="logo" value="{!$Resource.CLS4SF__Logo}" style="width:100px;" />
+                  </div>
+                  <div class="slds-media__body">
+                    <p class="slds-text-heading--label">Salesforce</p>
+                    <h1 class="slds-text-heading--medium" title="Setup">Setup</h1>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </header>
+     <section>
+       <div class="slds-tabs--default">
+          <ul class="slds-tabs--default__nav" role="tablist">
+            <li class="slds-tabs__item slds-text-heading--label slds-active" title="Item One" role="presentation" id="Clearslide"><a href="#" role="tab" tabindex="0" aria-selected="true" onclick="app.ui.switchTab('Clearslide');">Connect to ClearSlide</a></li>
+            <li class="slds-tabs__item slds-text-heading--label" title="Item Two" role="presentation" id="tabStepOne"><a onclick="app.ui.switchTab('PageLayouts');" href="#" role="tab" tabindex="-1" aria-selected="false">Page Layouts</a></li>
+            <li class="slds-tabs__item slds-text-heading--label" title="Item Three" role="presentation" id="tabListViews"><a onclick="app.ui.switchTab('ListViews');" href="#" role="tab" tabindex="-1" aria-selected="false">List Views</a></li>
+          </ul>
+          <div class="slds-tabs__content slds-show" role="tabpanel" id="tabBodyClearslide">
+            <div class="slds-m-around--small">
+                <div class="slds-grid">
+
+                    <div class="slds-col slds-col-rule--right slds-p-around--medium">
+                        <p class="slds-text-heading--small slds-m-bottom--large">
+                            <apex:outputText value="{!$Label.CLS4SF__Config_Copy_Top}"/>
+                        </p>
+                        <p>
+                            <apex:outputLink value="https://www.clearslide.com/freetrial?wtag=SFMP" target="_blank">Click here</apex:outputLink>
+                            <apex:outputText value=" to start a free trial."/>
+                        </p>
+                    </div>
+                    <div class="slds-col slds-p-around--medium">
+                        <p class="slds-text-heading--small slds-m-bottom--large">
+                            <apex:outputText value="{!$Label.CLS4SF__Config_Copy_Bottom}"/>
+                            <br />
+                        </p>
+                        <p class="slds-text-body--default">
+                           Once you've connected to ClearSlide, please complete the remaining steps to set up <em>Email Pitch</em> and <em>Live Pitch</em> buttons across Salesforce.
+                        </p>
+                        <p>
+                            <button onclick="app.utils.startOAuth()" class="slds-button slds-button--neutral slds-button--small slds-m-top--small">Configure ClearSlide Integration</button>
+                        </p>
+                    </div>
+
+                </div>
+           </div>
+          </div>
+          <div class="slds-tabs__content slds-hide" role="tabpanel" id="tabBodyPageLayouts">
+            <!-- classic -->
+            <div class="slds-grid slds-m-bottom--medium show-classic">
+                <div class="slds-col slds-size--1-of-2 slds-col--padded">
+                    <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Classic-PageLayout-1-Setup.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Classic-PageLayout-2-Lead.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Classic-PageLayout-3-LayoutEditor.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Classic-PageLayout-4-VFiframeSize.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Classic-PageLayout-5-VFiframeSize2.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Classic-PageLayout-6-FinalOutcome.png')}" title="" />
+                </div>
+                <div class="slds-col slds-size--1-of-2 slds-col--padded">
+                  <h2 class="slds-text-heading--small">
+                    To configure Page Layouts for Leads, Accounts, Contacts, and Opportunities
+                  </h2>
+                  <ol class="slds-list--ordered slds-list--vertical slds-has-dividers">
+                      <li class="slds-list__item">
+                        Click <em>Setup</em> in the Salesforce header.
+                      </li>
+                      <li class="slds-list__item">
+                        Under <em>Build</em> in the left sidebar, find <em>Customize</em> > <em>Leads</em> > <em>Page Layouts</em> and click <em>Edit</em> on the <em>Lead Page Layout</em>.
+                      </li>
+                      <li class="slds-list__item">
+                        In the editor toolbar, select <em>Visualforce Pages</em>, and find the <em>ClearSlide_Button</em> Visualforce page. Click and drag the page into the page layout.
+                      </li>
+                      <li class="slds-list__item">
+                        You will need to adjust the height of this embeded area, so click the <em>wrench</em> icon to edit the properties.
+                      </li>
+                      <li class="slds-list__item">
+                        Set the height to <em>30</em>. Click <em>Ok</em> to save the properites. Save the page layout.
+                      </li>
+                      <li class="slds-list__item">
+                        You should end up with a page layout that contains a set of ClearSlide branded buttons.
+                      </li>                      
+                  </ol>
+                  <div class="slds-m-vertical--medium">
+                    <small>
+                      This shows the Page Layout for Leads, but make sure you also follow this step for the Page Layouts of Accounts, Contacts, and Opportunities. 
+                    </small>
+                  </div>
+                  <h2 class="slds-text-heading--small">
+                    To configure Campaigns
+                  </h2>
+                  <ol class="slds-list--ordered slds-list--vertical slds-has-dividers">
+                      <li class="slds-list__item">
+                        Under <em>Build</em> in the left sidebar, find <em>Customize</em> > <em>Campaigns</em> > <em>Page Layouts</em> and click <em>Edit</em> on the <em>Campaign Page Layout</em>.
+                      </li>
+                      <li class="slds-list__item">
+                        In the editor toolbar, select <em>Buttons</em>, and find the <em>Email Pitch</em> button. Click and drag the button to the <em>Custom Buttons</em> section of the page layout.
+                      </li>
+                  </ol>
+                </div>
+           </div>
+           <div class="slds-grid slds-m-bottom--medium show-lightning">
+              <div class="slds-col slds-size--1-of-2 slds-col--padded slider-wrapper">
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-1-Setup.png')}" title="" />
+             
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-2-Lead.png')}" title="" />
+              
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-3-PageLayout.png')}" title="" />
+              
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-4-PageLayoutEditor.png')}" title="" />
+              
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-5-VFiframeSize.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-6-VFiframeSize2.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-7-FinalOutcome.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-Campaign-1.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-Campaign-2.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-Campaign-3.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-Campaign-4.png')}" title="" />
+
+              </div>
+              <div class="slds-col slds-size--1-of-2 slds-col--padded">
+                <h2 class="slds-text-heading--small">
+                To configure <em>Page Layouts</em> for Leads, Accounts, Contacts, and Opportunities
+                </h2>
+                <ol class="slds-list--ordered slds-list--vertical slds-has-dividers">
+                    <li class="slds-list__item">
+                      Click <em>Setup Home</em> in the <em>Setup</em> menu (gear icon) in the Salesforce Lightning header.
+                    </li>
+                    <li class="slds-list__item">
+                      In the left sidebar, find <em>Objects and Fields</em> > <em>Object Manager</em> and click on the <em>Lead</em> object.
+                    </li>
+                    <li class="slds-list__item">
+                      From within the <em>Lead</em> object, go to the <em>Page Layouts</em> section and find the <em>Lead Layout</em> link, then click it.
+                    </li>
+                    <li class="slds-list__item">
+                        In the editor toolbar, select <em>Visualforce Pages</em>, and find the <em>ClearSlide_Button</em> Visualforce page. Click and drag the page into the page layout.
+                      </li>
+                      <li class="slds-list__item">
+                        You will need to adjust the height of this embeded area, so click the <em>wrench</em> icon to edit the properties.
+                      </li>
+                      <li class="slds-list__item">
+                        Set the height to <em>30</em>. Click <em>Ok</em> to save the properites. Save the page layout.
+                      </li>
+                      <li class="slds-list__item">
+                        You should end up with a page layout that contains a set of ClearSlide branded buttons.
+                      </li>      
+                </ol>
+                
+                <div class="slds-m-vertical--medium">
+                    <small>
+                      This shows the Page Layout for Leads, but make sure you also follow this step for the Page Layouts of Accounts, Contacts, and Opportunities. 
+                    </small>
+                  </div>
+                  <h2 class="slds-text-heading--small">
+                    To configure Campaigns
+                  </h2>
+                  <ol class="slds-list--ordered slds-list--vertical slds-has-dividers">
+                      <li class="slds-list__item">
+                        In the left sidebar, find <em>Objects and Fields</em> > <em>Object Manager</em> and click on the <em>Campaign</em> object.
+                      </li>
+                      <li class="slds-list__item">
+                        From within the <em>Campaign</em> object, go to the <em>Page Layouts</em> section and find the <em>Campaign Layout</em> link, then click it.
+                      </li>
+                      <li class="slds-list__item">
+                        In the editor toolbar, select <em>Buttons</em>, and find the <em>Email Pitch</em> button. Click and drag the button to the <em>Custom Buttons</em> section of the page layout. Save the page layout.
+                      </li>
+                  </ol>
+              </div>
+           </div>
+
+          </div>
+          <div class="slds-tabs__content slds-hide" role="tabpanel" id="tabBodyListViews">
+            <div class="slds-box">
+              <!-- classic -->
+              <div class="slds-grid slds-m-bottom--medium show-classic">
+                <div class="slds-col slds-size--1-of-2 slds-col--padded">
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Classic-ListViews-1-2.png')}" title="" />
+                  <br />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Classic-ListViews-3.png')}" title="" />
+                </div>
+                <div class="slds-col slds-size--1-of-2 slds-col--padded">
+                  <h2 class="slds-text-heading--small">
+                     For Leads and Contacts List Views
+                  </h2>
+                  <ol class="slds-list--ordered slds-list--vertical slds-has-dividers">
+                      <li class="slds-list__item">
+                        Click <em>Setup</em> in the Salesforce header.
+                      </li>
+                      <li class="slds-list__item">
+                        Find <em>Leads</em> > <em>Search Layouts</em> in the Salesforce sidebar, click <em>Edit</em> next to <em>Leads List View</em>.
+                      </li>
+                      <li class="slds-list__item">
+                        From the <em>Edit Search Layout</em> screen, add <em>Email Pitch</em> as a selected button. Click Save.
+                      </li>
+                  </ol>
+                </div>
+              </div>
+              <!-- lightning -->
+              <div class="slds-grid slds-m-bottom--medium show-lightning">
+                <div class="slds-col slds-size--1-of-2 slds-col--padded slider-wrapper">
+                  
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-ListView-1-Lead.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-ListView-2-ListView.png')}" title="" />
+                  <apex:image url="{!URLFOR($Resource.CLS4SF__images,'/images/Lightning-ListView-3-AddButton.png')}" title="" />
+
+                </div>
+                <div class="slds-col slds-size--1-of-2 slds-col--padded">
+                  <h2 class="slds-text-heading--small">
+                    For Leads and Contacts List Views
+                  </h2>
+                  <ol class="slds-list--ordered slds-list--vertical slds-has-dividers">
+                      <li class="slds-list__item">
+                        From the same <em>Setup</em> menu (gear icon) in the Salesforce Lightning header, find <em>Objects and Fields</em> > <em>Object Manager</em> and click on the <em>Lead</em> object.
+                      </li>
+                      <li class="slds-list__item">
+                        From within the <em>Lead</em> object, go to the <em>Search Layouts</em> section, find  <em>List View</em> and click the <em>Edit</em> button.
+                      </li>
+                      <li class="slds-list__item">
+                        From the <em>List View</em> editor screen, add <em>Email Pitch</em> button to the <em>Selected Buttons</em> column, and click <em>Save</em>.
+                      </li>
+                  </ol>
+                </div>
+           </div>
+           </div>
+           
+          </div>
+      </div>
+     </section>
+  </div>
+
+
+
+    <apex:includeScript value="https://code.jquery.com/jquery-2.1.4.min.js"/>
+    <script>
+
+    var app = app || {
+        utils: {},
+        ui: {}
+    };
+
+    app.ui.switchTab = function(tabName){
+        // Switch Tab Context
+        var tabSelected = $('#tab'+tabName);
+        $('.slds-tabs__item').removeClass('slds-active');
+        tabSelected.addClass('slds-active');
+
+        // Switch Tab Content
+        var tabSelectedContent = $('#tabBody'+tabName);
+        var tabHeaderButtons = $('.tabButtons' + tabName);
+        $('.slds-tabs__content').removeClass('slds-show');
+        $('.slds-tabs__content').addClass('slds-hide');
+        tabSelectedContent.addClass('slds-show');
+        // added the ability to show per tab action buttons
+        tabHeaderButtons.toggleClass('slds-show');
+
+        // note: slds-float-right has conflict with hide and show, visual impact
+        // so, to hide the button parent div (button group) so space collapses when not being shown
+        $('button.slds-hide').parent().css('margin-left', '0');
+        // making sure we don't take away the left margin to separate button groups
+        $('button.slds-hide.slds-show').parent().css('margin-left', '4px');
+
+    };
+
+    app.ui.modeEdit = function() {
+        if ($('#btnEdit').html('Edit')) {
+          $('#btnEdit').html('Save');
+        } else if ($('#btnEdit').html('Save')) {
+          $('#btnEdit').html('Edit');
+        }
+
+       // $('.tabButtonsList').addClass('slds-hide');
+        $('#tabContentLists .mode-edit').toggleClass('slds-show');
+        $('#tabContentLists .mode-read-only').toggleClass('slds-hide');
+    };
+
+    app.ui.picklist = function(picklist){
+      if ($('#'+picklist).hasClass('slds-hide')) {
+        $('#'+picklist).removeClass('slds-hide');
+          $('#'+picklist).addClass('slds-show');
+      } else {
+        $('#'+picklist).removeClass('slds-show');
+          $('#'+picklist).addClass('slds-hide');
+      }
+    };
+
+    app.ui.closeNotification = function(notificationName){
+        $('#notification'+notificationName).removeClass('slds-show');
+        $('#notification'+notificationName).addClass('slds-hide');
+    };
+
+    app.ui.openNotification = function(notificationName){
+        $('#notification'+notificationName).removeClass('slds-hide');
+        $('#notification'+notificationName).addClass('slds-show');
+    };
+
+    app.updateCredentials = function(){
+        $('#updateCredentialsButton').hide();
+        $('#updateCredentialsLoading').show();
+        setTimeout(function(){
+            app.ui.openNotification('CredentialSuccess');
+            $('#updateCredentialsLoading').hide();
+            $('#updateCredentialsButton').show();
+        }, 2000);
+        return false;
+    };
+
+    if( (typeof sforce != 'undefined') && (sforce != null) ) {
+        $('.show-classic').hide();
+        $('#tabBodyListViews, #tabListViews').hide();
+    } else {
+        $('.show-lightning').hide();
+    };
+    
+    app.utils.startOAuth = function (){
+      // This remoting call will use the page's timeout value
+      Visualforce.remoting.Manager.invokeAction(
+          '{!$RemoteAction.OAuthController.getOAuthUrl}',
+          function(data){
+            top.location.href = decodeURIComponent(data);
+          }
+      );
+    }
+    
+
+    
+    </script>
+</body>
+
+
+</html>
+</apex:page>

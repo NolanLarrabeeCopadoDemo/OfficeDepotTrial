@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Generic Template to be used for the Sales Admin Queue for most email responses to requests.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Sales Admin Generic</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} {!Case.Thread_Id}</subject>
+    <textOnly>Customer Name: {!Account.Name}
+
+
+
+Account Number:  {!Case.ACCT_Account_Number__c}
+
+
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+
+
+Account Owner:  {!Account.OwnerFullName}
+
+
+Click here to go to the support case
+
+
+[Enter email text here]
+
+
+Thank you,
+
+
+Sales Admin Team
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

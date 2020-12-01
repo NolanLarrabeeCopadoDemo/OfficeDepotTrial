@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is used for overriding ACE approval reminder emails.</description>
+    <fields>
+        <fullName>Original_Email__c</fullName>
+        <description>Stores the original Email</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Original Email</label>
+        <required>false</required>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Replacement_Email__c</fullName>
+        <description>Overrides the original email</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Replacement Email</label>
+        <required>false</required>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <label>ACE Email Exception</label>
+    <pluralLabel>ACE Email Exceptions</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

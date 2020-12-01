@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification that is sent out to BSD Pricing team upon Rep Customer Disposition value - Customer request earlier transition date</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Non-Written Agreement Rep Customer Disposition</name>
+    <style>freeForm</style>
+    <subject>Customer Disposition:  {!Customer_Transition__c.OMX_Primary_Key__c} - {!Customer_Transition__c.Account__c}</subject>
+    <textOnly>THIS ACCOUNT IS REQUESTING AN EARLIER TRANSITION DATE AND THE PRICING LIFECYCLE TEAM MUST 
+CONTACT THE REP TO DETERMINE IF THE CUSTOMER CAN OR CANNOT MOVE FORWARD WITH AN EARLIER TRANSITION DATE. 
+
+PRICING LIFECYCLE IS REQUIRED TO MANUALLY CHANGE THE SCHEDULED DATE TO THE AGREED UPON DATE THE SALES REP AND IMPLEMENTATION HAVE AGREED UPON.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Agreement Changeset Id --></label>
+        <name>PROSAgreement__AgreementChangesetId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Error --></label>
+        <name>PROSAgreement__AgreementError__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Quote Id --></label>
+        <name>PROSAgreement__AgreementQuoteId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Record --></label>
+        <name>PROSAgreement__AgreementRecord_Id__c</name>
+        <relationshipLabel><!-- PROS Agreement Extensions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Agreement Status --></label>
+        <name>PROSAgreement__AgreementStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Action Status --></label>
+        <name>PROSAgreement__Agreement_Action_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contract --></label>
+        <name>PROSAgreement__ContractId__c</name>
+        <relationshipLabel><!-- PROS Agreement Extensions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contract End Date --></label>
+        <name>PROSAgreement__Contract_End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Extension Length (in days) --></label>
+        <name>PROSAgreement__ExtensionLength__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Agreement Id --></label>
+        <name>PROSAgreement__External_Agreement_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- New End Date --></label>
+        <name>PROSAgreement__NewEndDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>PROSAgreement__Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation><!-- Draft --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Review</masterLabel>
+            <translation><!-- In Review --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Needs Review</masterLabel>
+            <translation><!-- Needs Review --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Presented</masterLabel>
+            <translation><!-- Presented --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- Cannot enter a value less than 1 --></errorMessage>
+        <name>PROSAgreement__NegativeValueRestriction</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Agreement Action Status is not valid.
+Allowed Action Status: Start, Success and Failure. --></errorMessage>
+        <name>PROSAgreement__Validate_Agreement_Action_Status</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Content --></label>
+        <name>PROSAgreement__Content</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account$Owner</field>
+    </columns>
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account$Status__c</field>
+    </columns>
+    <columns>
+        <field>Account$Address1__c</field>
+    </columns>
+    <columns>
+        <field>Account$State__c</field>
+    </columns>
+    <columns>
+        <field>Account$Zip_5digit__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Account$GParent_GPID__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>35</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Grandparent 35</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Grandparents_and_Parents__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account$Cadence_Call_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,18 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:handler name="init" action="{!c.init}" value="{!this}" />
+   <aura:attribute name="today" type="Date" />
+	<footer class="slds-card__footer" style="padding: 40px 0px 0 0px"> 
+           
+           <div class="slds-grid slds-gutters slds-wrap"> 
+                    <div class="slds-col slds-size_1-of-2" align="left">
+                        <div align="left">Copyright © {!v.today} by Office Depot, Inc. All rights reserved.</div>
+                   </div>
+          <div class="slds-col slds-size_1-of-2 " align="right">
+              
+             <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp" target="_blank">Privacy Policy</a> |
+             <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp" target="_blank">Terms of Use</a> |
+             <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp" target="_blank">Terms &#38; Conditions</a>
+               </div>
+          </div>
+         </footer>
+</aura:component>

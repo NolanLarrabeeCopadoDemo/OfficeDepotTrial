@@ -1,0 +1,39 @@
+<apex:page standardController="ACE_Customer_Price_Changes__c" extensions="aceReqRemediation">
+<style>
+.btn1{width:20%;text-align: left; align:left;}
+.btn2 {width:80%;text-align: left; align:left;}
+</style>
+
+<apex:form >
+    <apex:pageBlock title="Remediation Request">                    
+    You have indicated that you would like to request remediation support for Customer: <b><font style="color:black">{!CustNum} - {!CustName}</font></b>                        
+            <br/>
+            <br/>
+        <apex:panelGrid columns="2" columnClasses="btn1,btn2" width="100%">
+                <apex:outputPanel >
+                    <apex:outputLabel >Reason for Remediation Request: </apex:outputLabel>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                    <apex:inputText value="{!ReqReason}"/>
+                </apex:outputPanel>
+                                        
+                <apex:outputPanel >
+                    <apex:outputLabel >Additional Comments:</apex:outputLabel>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                    <apex:inputTextArea value="{!Comments}" style="width:200px;height:80px"/>
+                </apex:outputPanel>
+        </apex:panelGrid>        
+            
+        <br/>
+        
+        <p>Please be aware that this request will route to the Remediation team, who will set up a call with you to discuss the request. Following that call, they may accept the request, which will pull this customer out of the SFDC process, or they may reject the request which will maintain the customer within this process. All remediation requests will be reported to Sales and Operations leadership.
+        </p>
+                
+        <br/>
+        <center>
+        <apex:commandButton action="{!ReqRemediation}" value="Submit for Approval" style="text-align:center; align:center;"/>  
+        </center>  
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

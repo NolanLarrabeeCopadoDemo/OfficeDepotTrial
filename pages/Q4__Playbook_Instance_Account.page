@@ -1,0 +1,3 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" standardController="Account">
+    <iframe width="100%" height="650px" src="https://home.qvidian.com{!IF(ISNULL($Setup.Q4__Playbooks__c.Q4__SSO_Subscriber__c),'','/')}{!$Setup.Q4__Playbooks__c.Q4__SSO_Subscriber__c}/Playbooks/Instances/PlaybookInstances/CRMEntryPoint?Provider=VisualForce&RedirectTo=PI&CrmInstanceId={!$Organization.Id}&CrmObjectId={!Account.Id}&crmType=CRMAccount"></iframe>
+</apex:page>

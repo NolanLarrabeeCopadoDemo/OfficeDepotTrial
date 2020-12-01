@@ -1,0 +1,60 @@
+<apex:page showHeader="false" controller="GM_GPAccounts_Controler" readOnly="true">  
+<style>
+  .redText {
+    color :red;
+    font-color: #333333;
+    font-size: 90%;
+  }
+  .blackText {
+    color :black;
+    font-color: #333333;
+    font-size: 90%;
+
+  }
+</style>  
+  <apex:form >
+    <apex:pageBlock >
+       <apex:repeat value="{!MapRegion_Magager_Accounts}" var="R" > 
+       
+       <!-- {!MapOfRegionAndAccount_size[R]} -->       
+       <apex:pageBlockSection title="Region: {!R}  " columns="1" >
+        
+       <apex:repeat value="{!MapRegion_Magager_Accounts[R]}" var="M" >
+       <apex:pageBlockSection title="Manager: {!M}  " columns="1" >
+                 <apex:pageblockTable value="{!MapRegion_Magager_Accounts[R][M]}" var="oAccount">
+                 <apex:column headerValue="Account Name">
+                     <apex:outputLink value="../{!oAccount.AccId}" target="_blank">{!oAccount.AccName}</apex:outputLink>
+                 </apex:column>
+                      <apex:column headerValue="Customer ID" value="{!oAccount.Cust_ID}" />
+                      <apex:column headerValue="YTD Sales TY"  style="text-align:right">
+                          <apex:outputText value="{0, Number, $#,###}">
+                              <apex:param value="{!oAccount.YTD_Sales_TY}"/>
+                           </apex:outputText>
+                      </apex:column>
+                      <apex:column headerValue="YTD Sales LY"  style="text-align:right">
+                         <apex:outputText value="{0, Number, $#,###}">
+                              <apex:param value="{!oAccount.YTD_Sales_LY}"/>
+                           </apex:outputText> 
+                      </apex:column>
+                      <apex:column headerValue="YTD Sales Diff"  style="text-align:right">
+                          <apex:outputPanel styleClass="{!if(oAccount.YTD_Sales_Diff < 0,'redText','blackText')}" layout="block">
+                              <apex:outputText value="{0, Number, $#,###}"> 
+                                  <apex:param value="{!oAccount.YTD_Sales_Diff}"/>
+                               </apex:outputText>
+                          </apex:outputPanel>
+                       </apex:column>
+                      <apex:column headerValue="Customer Lifecycle" value="{!oAccount.Customer_Lifecycle}" />
+                      <apex:column headerValue="Last Order Date" value="{!oAccount.Last_Order_Date}" />
+                      <apex:column headerValue="Rep Name" value="{!oAccount.RepName}" />
+                      <apex:column headerValue="Rep Manager" value="{!oAccount.RepManager}" />
+                 </apex:pageblockTable> 
+      </apex:pageBlockSection>
+     </apex:repeat> 
+      
+     </apex:pageBlockSection>
+ 
+</apex:repeat> 
+    </apex:pageBlock>
+   
+   </apex:form> 
+</apex:page>

@@ -1,0 +1,187 @@
+<template>
+    <lightning-card>
+      <div class="slds-m-around_medium">
+
+        <c-sku-details-xl
+          header-list={xlsHeader}
+          filename={filename}
+          worksheet-name-list={workSheetNameList}
+          sheet-data={xlsData}
+        ></c-sku-details-xl>
+
+      </div>
+    </lightning-card>      
+
+        <div style="height: 200px;width: 2500px">
+            <lightning-tabset>
+                <lightning-tab label="Product Details">
+                    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                        <div class="slds-col--padded slds-size--1-of-3">
+                            <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="OD Stock Number : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.sku}></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Description : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.item_desc}></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Final Response : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value={sku.contract_item_response_ind}></lightning-formatted-text> 
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Selling UOM : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.package_units_of_measure}></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="UOM QTY : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-number value={sku.package_size}></lightning-formatted-number>  
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="List Price : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-number value={sku.list_price} format-style="currency" currency-code="USD"></lightning-formatted-number>    
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Web Price : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-number value={sku.web_price} format-style="currency" currency-code="USD"></lightning-formatted-number>    
+                                </div>                                  
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="OD TDC : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-number value={sku.wtd_tdc_cost} format-style="currency" currency-code="USD"></lightning-formatted-number>
+                                </div> 
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="UPC : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.upc}></lightning-formatted-text>
+                                </div>  
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Vendor Produc Cd : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.vendor_product_number}></lightning-formatted-text>
+                                </div>  
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Dept Id : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.department}></lightning-formatted-text>
+                                </div>  
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Dept Name : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.department_name}></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Assembly Rqd Flag : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.od_light_assembly_flg}></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="WBME : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text if:true={sku.is_minority_business} value="Yes"></lightning-formatted-text>
+                                    <lightning-formatted-text if:false={sku.is_minority_business} value="No"></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Recycled Flag : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.od_recycle_flg}></lightning-formatted-text> 
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Returnable : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.od_returnable_flg}></lightning-formatted-text>  
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Alt Source Restriction : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.od_alt_source_restriction_ind}></lightning-formatted-text>
+                                </div>  
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Private Brand Ind : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text if:true={sku.is_private_brand} value="Yes"></lightning-formatted-text> 
+                                    <lightning-formatted-text if:false={sku.is_private_brand} value="No"></lightning-formatted-text> 
+                                </div> 
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Primary Green Attr : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.primary_green_attr}></lightning-formatted-text>
+                                </div>  
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Post Recycled Percent : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.post_recycle_pct_desc}></lightning-formatted-text>
+                                </div>  
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Total Recycled Pct : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.total_recycle_pct_desc}></lightning-formatted-text>
+                                </div>  
+                                <div class="slds-col--padded slds-size--1-of-2">
+                                    <lightning-formatted-text value="Product Certification : "></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col--padded slds-size--1-of-2">                                    
+                                    <lightning-formatted-text value={sku.product_certification}></lightning-formatted-text>
+                                </div>                                                                                                                                                       
+                            </div>                     
+                        </div>
+                    </div>                                                                     
+                                                
+                </lightning-tab>
+                <lightning-tab label="Alternates">
+                    <lightning-datatable 
+                        key-field="sku_num" 
+                        data={skuAlternateRecords} 
+                        columns={columns}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </lightning-tab>
+                <lightning-tab label="Competitor Pricing">
+                    <lightning-datatable 
+                        key-field="competitor_name" 
+                        data={skuCompPricing} 
+                        columns={compPricingColumns}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </lightning-tab>                
+                <lightning-tab label="Stocking Strategy">
+                   <lightning-datatable 
+                        key-field="location_num" 
+                        data={skuStockingStrategy}
+                        columns={stockingStregyColumns}
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </lightning-tab>
+            </lightning-tabset>
+        </div>
+    
+</template>

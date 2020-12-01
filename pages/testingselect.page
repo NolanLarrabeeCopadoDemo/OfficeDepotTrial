@@ -1,0 +1,1927 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" docType="html-5.0" applyHtmlTag="false" controller="jsonAssignment" >
+    <html xmlns:ng="http://angularjs.org" ng-app="hello" lang="en">
+        <head>
+            <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+                    <apex:stylesheet value="{!URLFOR($Resource.grid, 'ng-grid.css')}"  />
+                 <apex:stylesheet value="{!URLFOR($Resource.BS, '/bootstrap/css/bootstrap.min.css')}"  />
+     <apex:stylesheet value="{!URLFOR($Resource.BS, '/bootstrap/css/bootstrap-responsive.css')}"  />
+       <apex:stylesheet value="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+                        <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"/>
+                        <apex:includeScript value="{!URLFOR($Resource.BS, '/bootstrap/js/bootstrap.js')}"  />
+            <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"/>
+            <apex:includeScript value="{!URLFOR($Resource.grid, 'ng-grid.debug.js')}"  />
+               
+            <style>
+                .input-mysize { width: 550px }
+                .search-query {
+                padding-left: 469px;
+                background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ5JREFUeNpi+P//PwMQMANxERCfAeI/UBrEZwbJQ9WAFR0A4u1AbAnEbFB6O1ScGaawGoi3wHQiYyBYDZKHKbwHxLo4FOqC5GEKf4Ksw6EQ5IyfIDYTkPEUiNUZsAOQ+F9GRkYJEKcFiDficSOIcRjE4QTiY0C8DuRbqAJLKP8/FP9kQArHUiA+jySJjA8w4LAS5KZd0MAHhaccQIABALsMiBZy4YLtAAAAAElFTkSuQmCC);
+                background-repeat: no-repeat;Saunders
+                background-position: 562px 8px;
+                }
+                .gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 95%; 
+    height: 500px;
+}
+                .gridStyle2 {
+    border: 1px solid rgb(212,212,212);
+    width: 95%; 
+    height: 200px;
+}
+  .gridStyle1 {
+    border: 1px solid rgb(212,212,212);
+    width: 75%; 
+    height: 300px;
+}
+.gridStyle4 {
+    border: 1px solid rgb(212,212,212);
+    width: 400px; 
+    height: 300px;
+}
+                .span3 {  
+   height: 200px;
+  overflow: auto;
+}
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  width: 0;
+
+  -webkit-transition: opacity 0.25s, width 0.25s;
+  -moz-transition: opacity 0.25s, width 0.25s;
+  -o-transition: opacity 0.25s, width 0.25s;
+  transition: opacity 0.25s, width 0.25s;
+}
+
+.has-spinner.active {
+  cursor:progress;
+}
+
+.has-spinner.active .spinner {
+  opacity: 1;
+  width: auto; /* This doesn't work, just fix for unkown width elements */
+}
+
+.has-spinner.btn-mini.active .spinner {
+    width: 10px;
+}
+
+.has-spinner.btn-small.active .spinner {
+    width: 13px;
+}
+
+.has-spinner.btn.active .spinner {
+    width: 16px;
+}
+
+.has-spinner.btn-large.active .spinner {
+    width: 19px;
+}
+                
+            </style>
+        </head>
+        <!--- Javascript -->
+
+   
+        <script type="text/javascript">
+        <!-- Name your application -->
+        function searchUtil(item,toSearch)
+{
+    /* Search Text in all 3 fields */
+    return ( item.Name.toLowerCase().indexOf(toSearch.toLowerCase()) > -1 ||  item.Id == toSearch       ) ? true : false ;
+}
+            var myapp = angular.module('hello',  ['ngGrid']);
+        var sortingOrder = 'name';
+        <!-- Define Controller  -->
+            var contrl=myapp.controller('ctrlRead', function ($scope, $filter) {
+                <!--- Initialize Scope Variables --->
+   $scope.fullData = '';                
+     $scope.loading = true;        
+        
+$scope.total = 5;
+$scope.threshold = 100;
+$scope.curemp =0;
+$scope.totEmp = 100;
+$scope.tabsec=  'ALLData' ;
+$scope.AfilterText = '';
+$scope.getPercentage = function () {
+$scope.total=$scope.fullData.length;
+  
+if($scope.curemp ==   $scope.totEmp )
+{
+$scope.loading = false;
+$('#myModal1').modal('hide');
+}
+    return (($scope.curemp * 100) / $scope.totEmp).toFixed(2);
+    
+}
+$scope.getTotal = function () {
+    return $scope.fullData.length;
+}
+     
+       
+
+                
+                 $scope.filterOptions = {
+        filterText: "",
+        useExternalFilter: true
+    }; 
+      
+    $scope.mySelections1 = [];
+  $scope.mySelections2 = [];
+   $scope.fullLoad = true;
+    $scope.totalServerItems = 0;
+    $scope.pagingOptions = {
+        pageSizes: [250, 500, 1000],
+        pageSize: 500000000000,
+        currentPage: 1
+    };  
+    $scope.setPagingData = function(data, page, pageSize){  
+        var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+        $scope.myData = pagedData;
+        $scope.totalServerItems = data.length;
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+    };
+    $scope.options = [];
+       $scope.AoptionsSrch = [
+    { name: "Account Number", id: 2 }];
+   $scope.selectedAOptionSrch = $scope.AoptionsSrch[0];
+   
+    $scope.optionsSrch = [   
+     {field: "All", name: "All", id: 1 },
+    {field: "Account__r.Name", name: "Account Name", id: 2}, 
+                    {field:"Account__r.Owner.Name", name:"Owner", id: 3},
+                    {field:"Account__r.Owner.Manager.Name", name:"Current Manager", id: 4},
+                    {field:"Proposed_User__r.Name", name:"Proposed Owner", id: 5},
+                    {field:"Proposed_User__r.Manager.Name", name:"Proposed Manager", id: 6},
+                     {field: "Account__r.RecordType.Name", name:"Type", id: 7}, 
+                     {field: "Account__r.Cust_ID__c", name:"Customer ID", id: 8}, 
+                     {field: "Account__r.Sales_PersonID__r.Name", name:"Rep ID", id: 9},                      
+                     {field: "Account__r.City__c", name:"City", id: 10},                      
+                     {field: "Account__r.State__c", name:"State", id: 11},                      
+                     {field: "Account__r.Zip_5digit__c", name:"Zip", id: 12},                   
+                     {field: "Account__r.Related_Account_Record_Type__c", name:"Account", id: 13}
+    
+    ];
+    $scope.optionsReason = [
+   { name: "Realignment", id: 1 }, { name: "Change Districts", id: 2 }, { name: "Duplicate Account", id: 3 }];
+$scope.selectedOption = $scope.options[1];
+$scope.selectedOptionSrch = $scope.optionsSrch[0];
+$scope.selectedOptionReason = $scope.optionsReason[0];
+   
+   
+      $scope.ActsSrch= function() {
+    var optn = $scope.selectedAOptionSrch;
+   var src = $scope.AfilterText;
+       var rmgrs = $scope.rmgr;
+       if(optn.name == 'Account Name')
+       {
+        $scope.setREMOTECustData (rmgrs,0,src ,'','');
+        }
+        else
+        {
+        $scope.setREMOTECustData (rmgrs,0,'' ,src ,src );
+        }
+   };
+   
+    $scope.LoadAdtlActs= function() {
+    
+    var sel2 = $scope.mySelections2;
+    if(sel2.length>0)
+    {
+               var pdata1= $scope.myData;
+            var finalObj ='';
+           if(pdata1 != '')
+              finalObj  = pdata1.concat(sel2);
+              else
+                 finalObj  = sel2 ;
+                 
+                 var existingIDs = [];
+finalObj = $.grep(finalObj, function(v) {
+    if ($.inArray(v.Id, existingIDs) !== -1) {
+        return false;
+    }
+    else {
+        existingIDs.push(v.Id);
+        return true;
+    }
+});
+               
+        //   alert(JSON.stringify(finalObj) );
+                  $scope.myData = finalObj ;
+                  $scope.fullData = finalObj;
+
+    }
+    };
+    
+      $scope.LoadAdtl= function() {
+   //   alert('Here');
+    
+      var sel = $scope.mySelections1;
+    
+      var i=0;
+      uid= '{!$User.Id}';
+      
+       var            datax = $scope.AllUsers ;
+        var            datay =$scope.myUsers ;
+                    
+                  while( sel.length>i ){
+                 datay = datay.filter(function(item) {
+                    if(JSON.stringify(item.Id).indexOf(sel[i].Id) != -1 )
+                    {
+                           item.selUser = 1  ;         
+                       
+                     }
+                   return (JSON.stringify(item));
+             
+                   });
+                   i++;
+                   }
+                   
+                    datay = datay.filter(function(item) {
+                     if(item.selUser == 1)
+                     {
+                        return (JSON.stringify(item));
+                     }  
+                     });
+                   
+                   
+                   
+                   
+            i=0;
+       while( sel.length>i ){
+     
+         
+                 datax = datax.filter(function(item) {
+                     
+                    if(JSON.stringify(item.Id).indexOf(sel[i].Id) != -1 )
+                    {
+                                      
+                     item.PullUser = 1;
+                     }
+                   
+               return (JSON.stringify(item));
+                   });
+                   
+                   
+              
+                   
+                    i++;
+                   
+                   }
+                   
+                       $scope.AllUsers =  datax ;
+                       
+                       musers =  datax ;
+                                 musers= musers.filter(function(item) {
+                
+                    
+                    if(item.PullUser != 1)
+                     {
+                        return (JSON.stringify(item));
+                     }
+                    });
+                   $scope.myUsers =musers;
+                 
+      
+                       i=0;
+                
+           if( i<datay.length )
+           {
+                 $scope.setREMOTEData(uid,datay.length,i, datay,0);
+          //  $scope.setRESTData(uid,sel.length,i, sel, false, '');
+           }
+           else
+           {
+            $('#myModal1').modal('hide');
+           }
+             
+        
+             
+      };
+ 
+        $scope.LoadAdtlRepIds= function() {
+ var i=0;
+ var uid= '{!$User.Id}';
+       var rmgrs = $scope.src;
+         var sel4 = $scope.mySelections4;
+        $scope.setREMOTERepIdData (uid,sel4.length,i, sel4 ,0);
+       
+        
+   };
+       $scope.setREMOTECustData = function(empid,nexv,AcctName,ODPNumber,OMXNumber)
+ {
+ uid= '{!$User.Id}';
+  // alert('Here');
+ Visualforce.remoting.buffer=false;
+ Visualforce.remoting.timeout = 120000;
+ Visualforce.remoting.Manager.invokeAction(
+        '{!$RemoteAction.jsonAssignment.AccountAssignents}',
+        empid,nexv,AcctName,ODPNumber,OMXNumber,
+        function(result, event) {
+        var nval=0;
+          if (event.status) {
+           nval=result.nextVal;
+        
+    
+        //    alert('Here2');
+        
+        
+      if(result.TotalSize>0)
+      {
+   // alert('Here');
+               vcompanies= result.AccList;
+    //  alert(JSON.stringify(vcompanies));
+          
+                 vcompanies = vcompanies.filter(function(item) {
+                     
+                    if(item.Proposed_User__r != null )
+                    {
+                     item.Future_User__r = item.Proposed_User__r;
+                  
+                     }
+                     else
+                     {
+                     item.Future_User__r = item.Account__r.Owner;
+                     }
+                      item.MyFutureAccount = 0;
+                      if( item.Future_User__r)
+                      {
+                      if( item.Future_User__r.Id  == uid)
+                         item.MyFutureAccount = 1;
+                      if(item.Future_User__r.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Id == uid)
+                           item.MyFutureAccount = 1;
+                           
+                       if(item.Future_User__r.Manager.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Manager.Id  == uid)   
+                       item.MyFutureAccount = 1; 
+                       }
+                       }
+                     }
+                   
+                    item.MyAccount = 0;
+                      if( item.Account__r.Owner)
+                      {
+                      if( item.Account__r.Owner.Id  == uid)
+                         item.MyAccount= 1;
+                      if(item.Account__r.Owner.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Id == uid)
+                           item.MyAccount= 1;
+                           
+                       if(item.Account__r.Owner.Manager.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Manager.Id  == uid)   
+                       item.MyAccount= 1; 
+                       }
+                       }
+                     }
+                   
+               return (JSON.stringify(item));
+                   });
+         //  alert(JSON.stringify(vcompanies));
+           var pdata1= $scope.Accts;
+            var finalObj ='';
+           if(pdata1 != '' && pdata1)
+              finalObj  = pdata1.concat(vcompanies);
+           //  finalObj = vcompanies;
+              else
+                 finalObj  = vcompanies;
+               
+  //     alert(JSON.stringify(finalObj) );
+                  $scope.Accts = finalObj ;
+                
+    //    alert(JSON.stringify($scope.Accts) );
+  $scope.$apply();
+     
+          if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+      
+
+}
+
+
+  if(!result.Done)    
+        {
+        $scope.setREMOTECustData (empid,result.nextVal,AcctName,ODPNumber,OMXNumber);
+                }
+     
+       } else if (event.type === 'exception') {
+       $scope.setREMOTECustData(empid,0,AcctName,ODPNumber,OMXNumber);
+     
+                
+            }
+               
+        },
+        {escape: true});
+}
+ $scope.setREMOTEData = function(uid,len,cur, emps,nexv)
+ {
+ $scope.curemp =cur;
+       $scope.totEmp =len;
+       $scope.Repname = emps[cur].Name;
+      $scope.Reppic = emps[cur].SmallPhotoUrl;
+   $('#myModal10').show();
+ Visualforce.remoting.buffer=false;
+ Visualforce.remoting.timeout = 120000;
+ Visualforce.remoting.Manager.invokeAction(
+        '{!$RemoteAction.jsonAssignment.viewAssignents}',
+        emps[cur].OD_Employee_ID__c,nexv,
+        function(result, event) {
+        var nval=0;
+          if (event.status) {
+           nval=result.nextVal;
+        
+    
+           
+        
+        
+      if(result.TotalSize>0)
+      {
+   //   alert('Here');
+               vcompanies= result.AccList;
+     //   alert(JSON.stringify(vcompanies));
+          
+                 vcompanies = vcompanies.filter(function(item) {
+                     
+                    if(item.Proposed_User__r != null )
+                    {
+                     item.Future_User__r = item.Proposed_User__r;
+                  
+                     }
+                     else
+                     {
+                     item.Future_User__r = item.Account__r.Owner;
+                     }
+                        item.MyFutureAccount = 0;
+                      if( item.Future_User__r)
+                      {
+                      if( item.Future_User__r.Id  == uid)
+                         item.MyFutureAccount = 1;
+                      if(item.Future_User__r.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Id == uid)
+                           item.MyFutureAccount = 1;
+                           
+                       if(item.Future_User__r.Manager.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Manager.Id  == uid)   
+                       item.MyFutureAccount = 1; 
+                       }
+                       }
+                     }
+                   
+                    item.MyAccount = 0;
+                      if( item.Account__r.Owner)
+                      {
+                      if( item.Account__r.Owner.Id  == uid)
+                         item.MyAccount= 1;
+                      if(item.Account__r.Owner.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Id == uid)
+                           item.MyAccount= 1;
+                           
+                       if(item.Account__r.Owner.Manager.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Manager.Id  == uid)   
+                       item.MyAccount= 1; 
+                       }
+                       }
+                     }
+                                    return (JSON.stringify(item));
+                   });
+         //  alert(JSON.stringify(vcompanies));
+           var pdata1= $scope.myData;
+            var finalObj ='';
+           if(pdata1 != '')
+              finalObj  = pdata1.concat(vcompanies);
+              else
+                 finalObj  = vcompanies;
+               
+        //   alert(JSON.stringify(finalObj) );
+                  $scope.myData = finalObj ;
+                  $scope.fullData = finalObj;
+                  var data =$scope.myData;
+                
+     
+  
+     
+          $scope.totalServerItems = data.length;
+          $scope.fullLoad = false;
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+        $scope.total = result.TotalSize;
+$scope.threshold = result.nextVal;
+
+}
+
+
+  if(!result.Done)    
+        {
+      $scope.setREMOTEData (uid,len,cur, emps,result.nextVal);
+                }
+        else
+        {
+         $('#myModal10').hide();
+       cur =cur +1;
+     //     alert(cur+'in yes  '+len);
+          if(cur < len)
+          {
+        
+              $scope.setREMOTEData (uid,len,cur, emps,0);
+          }
+          else
+          {
+        //  alert('Last Here');
+              $('#myModal1').modal('hide');
+          }
+        }
+       } else if (event.type === 'exception') {
+       $scope.setREMOTEData (uid,len,cur, emps,0);
+                
+            }
+               
+        },
+        {escape: true});
+}
+    $scope.preUsersLoad= function()
+{ //alert('in pr');
+          angular.forEach($scope.myUsers , function(data, index){
+                           $scope.gridOptions1.selectItem(index, false);
+                });
+                };
+
+$scope.loadData = function()
+{ 
+ var uid= '{!$User.Id}';
+  var mgrs;
+ var ismgr= '{!$User.isManager__c}';
+ var empid = '{!$User.OD_Employee_Id__c}';
+     //alert(empid);
+             $.ajax('/services/data/v29.0/queryAll/?q=SELECT+Id,ReAssignActive__c,RPM__c,USERODEMPID__c,MGRODEMPID__c+from+ReAssignAccess__c+where+USERODEMPID__c=\''+empid+'\'',
+               {
+          beforeSend: function(xhr) {
+            // Set the OAuth header from the session ID
+            xhr.setRequestHeader('Authorization', 'Bearer {!$Api.Session_ID}');
+
+          },
+          success: function (response) {     
+        //  alert('cdf'); 
+           vcompanies= response.records;
+                     $scope.uidvals= vcompanies; 
+             //        alert(JSON.stringify(response));
+             //        alert(vcompanies.length);
+                     i=0;
+                     mgrs = '(';
+                     var rpm = false;
+           while(i<vcompanies.length){
+          if(i>0)
+          {
+          mgrs=mgrs +',';
+          }
+          if(vcompanies[i].RPM__c)
+              rpm = true;
+         mgrs=mgrs+'\''+vcompanies[i].MGRODEMPID__c+'\'';
+         $scope.rmgr = vcompanies[i].MGRODEMPID__c;
+          i=i+1;
+           }
+            
+            
+            mgrs=mgrs+ ')';
+            
+            if(rpm)
+            {
+            $scope.rpm = true;
+             $.ajax('/services/data/v29.0/query?q=SELECT+Id,+Name,SmallPhotoUrl,manager.id,manager.manager.id,manager.manager.name,manager.name,Short_Title__c+from+user+where+isactive=true+and+(OD_Employee_id__C+in+'+mgrs+'+or+manager.OD_Employee_id__C+in+'+mgrs+'+or+manager.manager.OD_Employee_id__c+in+'+mgrs+'+or+manager.manager.manager.OD_Employee_id__c+in+'+mgrs+'+)+order+by+Name',
+             {
+          beforeSend: function(xhr) {
+            // Set the OAuth header from the session ID
+            xhr.setRequestHeader('Authorization', 'Bearer {!$Api.Session_ID}');
+
+          },
+          success: function (response) {      
+           vcompanies= response.records;
+          // var x = $scope.options;
+           //x=x+vcompanies;
+                     $scope.options = vcompanies; 
+                       },
+
+          error: function(jqXHR, textStatus, errorThrown) {
+
+            // Oops - what went wrong?
+
+            alert(jqXHR.status + ': ' + errorThrown);
+
+          }
+
+        }
+
+      );
+            }
+            else
+            {
+                
+             
+                 $.ajax('/services/data/v29.0/query?q=SELECT+Id,+Name,SmallPhotoUrl,manager.id,manager.manager.id,manager.manager.name,manager.name,Short_Title__c+from+user+where+isactive=true+and+(Id=\''+uid+'\'+or+manager.id=\''+uid+'\'+or+manager.manager.id=\''+uid+'\'+)',
+             {
+          beforeSend: function(xhr) {
+            // Set the OAuth header from the session ID
+            xhr.setRequestHeader('Authorization', 'Bearer {!$Api.Session_ID}');
+
+          },
+          success: function (response) {      
+           vcompanies= response.records;
+                     $scope.options = vcompanies; 
+                       },
+
+          error: function(jqXHR, textStatus, errorThrown) {
+
+            // Oops - what went wrong?
+
+            alert(jqXHR.status + ': ' + errorThrown);
+
+          }
+
+        }
+
+      );
+            }
+              $.ajax('/services/data/v29.0/query?q=SELECT+SalesRepId__c,+Resource_Name__c,+dm_id__c,+dm_name__c,+dm_emp_id__c,+rm_id__c,+rm_name__c,+rm_emp_id__c,+vp_id__c,+vp_name__c,+vp_emp_id__c+from+ALLREPID__c+where+(rm_emp_id__c+in+'+mgrs+' +or+vp_emp_id__c+in+'+mgrs+')',
+             {
+          beforeSend: function(xhr) {
+            // Set the OAuth header from the session ID
+            xhr.setRequestHeader('Authorization', 'Bearer {!$Api.Session_ID}');
+
+          },
+          success: function (response) {      
+           vcompanies= response.records;
+                     $scope.myTermReps= vcompanies; 
+                //     alert(JSON.stringify(vcompanies));
+                       },
+
+          error: function(jqXHR, textStatus, errorThrown) {
+
+            // Oops - what went wrong?
+
+            alert(jqXHR.status + ': ' + errorThrown);
+
+          }
+
+        }
+
+      );
+                    $.ajax('/services/data/v29.0/query?q=SELECT+OD_Employee_id__C,SmallPhotoUrl,Id,Name,manager.manager.manager.name,manager.manager.manager.id,manager.name,manager.id,manager.manager.name,manager.manager.id+from+user+where+(OD_Employee_id__C+in+'+mgrs+'+or+manager.OD_Employee_id__C+in+'+mgrs+'+or+manager.manager.OD_Employee_id__c+in+'+mgrs+'+or+manager.manager.manager.OD_Employee_id__c+in+'+mgrs+'+)',
+                             {
+          beforeSend: function(xhr) {
+            // Set the OAuth header from the session ID
+            xhr.setRequestHeader('Authorization', 'Bearer {!$Api.Session_ID}');
+
+          },
+          success: function (response) {  
+                 ausers= response.records;
+               
+                    ausers= ausers.filter(function(item) {
+                
+                     
+                      item.MyUser = 0;
+                      item.PullUser = 0;
+                    if(item.Manager.Id == uid || item.Manager.Manager.Id  == uid || item.Id  == uid)
+                     {
+                         item.MyUser= 1;
+                         if(item.Manager.Id == uid || item.Id  == uid)
+                            item.PullUser = 1;
+                     }
+                    
+                   
+                  
+               return (JSON.stringify(item));
+                   });
+                
+                 $scope.AllUsers =  ausers;
+               
+                 vusers= ausers;
+                 
+                 
+                    vusers= vusers.filter(function(item) {
+                
+                    
+                    if(item.PullUser == 1)
+                     {
+                        return (JSON.stringify(item));
+                     }
+                    
+                   
+                  
+             
+                   });
+                  musers= ausers;
+                 
+                 
+                    musers= musers.filter(function(item) {
+                
+                    
+                    if(item.PullUser != 1)
+                     {
+                        return (JSON.stringify(item));
+                     }
+                    
+                   
+                  
+             
+                   });
+                   $scope.myUsers =musers;
+                  i=0;
+                   var  usrs = '(';
+           $scope.myData ='';
+          
+       
+           if( i<vusers.length )
+           {
+                 $scope.setREMOTEData(uid,vusers.length,i, vusers,0);
+          //  $scope.setRESTData(uid,vusers.length,i, vusers, false, '');
+           }
+           else
+           {
+            $('#myModal1').modal('hide');
+           }
+            
+            
+            
+         
+                   
+          },
+
+          error: function(jqXHR, textStatus, errorThrown) {
+
+            // Oops - what went wrong?
+
+            alert(jqXHR.status + ': ' + errorThrown);
+
+          }
+
+        }
+
+      );
+                     
+           
+                     
+                       },
+
+          error: function(jqXHR, textStatus, errorThrown) {
+
+            // Oops - what went wrong?
+
+            alert(jqXHR.status + ': ' + errorThrown);
+
+          }
+
+        }
+
+      );
+
+      return true;
+      };
+      
+      $scope.loadDataUrl = function(url)
+{ 
+ var uid= '{!$User.Id}';
+
+ var ismgr= '{!$User.isManager__c}';
+ //alert(url);  
+
+// if(ismgr == 'true')
+$.ajax(url,
+        {
+          type : 'GET',
+          allData: true,
+          beforeSend: function(xhr) {
+            // Set the OAuth header from the session ID
+            xhr.setRequestHeader('Authorization', 'Bearer {!$Api.Session_ID}');
+
+          },
+          success: function (response) {
+   //   alert(JSON.stringify(response));
+               vcompanies= response.records;
+                vcompanies = vcompanies.filter(function(item) {
+                
+                     
+                      
+                    if(item.Proposed_User__r != null )
+                    {
+                     item.Future_User__r = item.Proposed_User__r;
+                    
+                     }
+                     else
+                     {
+                     item.Future_User__r = item.Account__r.Owner;
+                     }
+                          item.MyFutureAccount = 0;
+                      if( item.Future_User__r)
+                      {
+                      if( item.Future_User__r.Id  == uid)
+                         item.MyFutureAccount = 1;
+                      if(item.Future_User__r.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Id == uid)
+                           item.MyFutureAccount = 1;
+                           
+                       if(item.Future_User__r.Manager.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Manager.Id  == uid)   
+                       item.MyFutureAccount = 1; 
+                       }
+                       }
+                     }
+                   
+                    item.MyAccount = 0;
+                      if( item.Account__r.Owner)
+                      {
+                      if( item.Account__r.Owner.Id  == uid)
+                         item.MyAccount= 1;
+                      if(item.Account__r.Owner.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Id == uid)
+                           item.MyAccount= 1;
+                           
+                       if(item.Account__r.Owner.Manager.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Manager.Id  == uid)   
+                       item.MyAccount= 1; 
+                       }
+                       }
+                     }
+                     
+               return (JSON.stringify(item));
+                   });
+               var pdata= $scope.myData;
+               var finalObj = pdata.concat(vcompanies);
+     //          alert(finalObj );
+                  $scope.myData = finalObj ;
+                  $scope.fullData = finalObj;
+                  var data =$scope.myData;
+                  
+     
+          $scope.totalServerItems = data.length;
+          $scope.fullLoad = false;
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+              $scope.total = data.length;
+
+        if(!response.done)        
+        $scope.loadDataUrl(response.nextRecordsUrl);
+        else
+         $scope.loading = false;
+                },
+
+          error: function(jqXHR, textStatus, errorThrown) {
+
+            // Oops - what went wrong?
+
+            alert(jqXHR.status + ': ' + errorThrown);
+
+          }
+
+        }
+
+      );
+      return true;
+      };
+      
+    $scope.getPagedDataAsync = function (pageSize, page, searchText) {
+        setTimeout(function () {
+            var data;
+            var uid= '{!$User.Id}';
+           
+    
+       
+            if (searchText) {
+                var ft = searchText.toLowerCase();
+                var srchby=$scope.selectedOptionSrch.name;
+               
+                  if( $scope.tabsec ==  'MyCurrentSmry')    
+      data = $scope.MyCurrentSmryData ;   
+      else if($scope.tabsec ==  'MyProposedSmry')    
+      data =$scope.MyProposedSmry;
+     else if($scope.tabsec ==  'AllMyAccounts')    
+     data = scope.AllMyAccounts;
+     else if(     $scope.tabsec ==  'AllReassigned')   
+     data =  $scope.AllReassigned; 
+     else if($scope.tabsec ==  'ReassignedToMe')   
+     data = $scope.ReassignedToMe;
+     else if($scope.tabsec ==  'ReassignedFromMe')  
+     data =  $scope.ReassignedFromMe;
+    else if($scope.tabsec ==  'ReassignedMyTeam')  
+    data = $scope.ReassignedMyTeam;
+    else
+     data = $scope.fullData ;
+                 data = data.filter(function(item) {
+                         if(srchby == 'Account Name')               return JSON.stringify(item.Account__r.Name).toLowerCase().indexOf(ft) != -1; 
+                 else if(srchby == 'Owner')               return JSON.stringify(item.Account__r.Owner.Name).toLowerCase().indexOf(ft) != -1;
+                 else if(srchby == 'Current Manager')               return JSON.stringify(item.Account__r.Owner.Manager.Name).toLowerCase().indexOf(ft) != -1;
+                 else if(srchby == 'Proposed Owner')               return JSON.stringify(item.Proposed_User__r.Name).toLowerCase().indexOf(ft) != -1;
+                 else if(srchby == 'Proposed Manager')               return JSON.stringify(item.Proposed_User__r.Manager.Name).toLowerCase().indexOf(ft) != -1;
+                 else if(srchby == 'Type')               return JSON.stringify(item.Account__r.RecordType.Name).toLowerCase().indexOf(ft) != -1;
+                 else if(srchby == 'Customer ID')               return JSON.stringify(item.Account__r.Cust_ID__c).toLowerCase().indexOf(ft) != -1; 
+                 else if(srchby == 'Rep ID')               return JSON.stringify(item.SalesRepId__c).toLowerCase().indexOf(ft) != -1;                  
+                 else if(srchby == 'City')               return JSON.stringify(item.Account__r.City__c).toLowerCase().indexOf(ft) != -1;                    
+                else     if(srchby == 'State')               return JSON.stringify(item.Account__r.State__c).toLowerCase().indexOf(ft) != -1;                  
+                 else if(srchby == 'Zip')               return JSON.stringify(item.Account__r.Zip_5digit__c).toLowerCase().indexOf(ft) != -1;                 
+                 else if(srchby == 'Account')               return JSON.stringify(item.Account__r.Related_Account_Record_Type__c).toLowerCase().indexOf(ft) != -1;
+                 else              return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
+                    });
+                     $scope.setPagingData(data,page,pageSize);
+                
+                  
+                        
+            } else {
+            if($scope.fullLoad ==  true)
+            {
+             $('#myModal1').modal('show');
+              var x = $scope.loadData();
+              }
+            else
+            {
+                 if( $scope.tabsec ==  'MyCurrentSmry')    
+      data = $scope.MyCurrentSmryData ;   
+      else if($scope.tabsec ==  'MyProposedSmry')    
+      data =$scope.MyProposedSmry;
+     else if($scope.tabsec ==  'AllMyAccounts')    
+     data = scope.AllMyAccounts;
+     else if(     $scope.tabsec ==  'AllReassigned')   
+     data =  $scope.AllReassigned; 
+     else if($scope.tabsec ==  'ReassignedToMe')   
+     data = $scope.ReassignedToMe;
+     else if($scope.tabsec ==  'ReassignedFromMe')  
+     data =  $scope.ReassignedFromMe;
+    else if($scope.tabsec ==  'ReassignedMyTeam')  
+    data = $scope.ReassignedMyTeam;
+    else
+     data = $scope.fullData ;
+               $scope.setPagingData(data,page,pageSize);
+             
+            }
+       
+            }
+        }, 10);
+    };
+        
+    $scope.setREMOTERepIdData = function(uid,len,cur, emps,nexv)
+ {
+
+ //  var uid= '{!$User.Id}';
+ Visualforce.remoting.buffer=false;
+ Visualforce.remoting.timeout = 120000;
+ Visualforce.remoting.Manager.invokeAction(
+        '{!$RemoteAction.jsonAssignment.viewRepAssignents}',
+        emps[cur].SalesRepId__c,nexv,
+        function(result, event) {
+        var nval=0;
+          if (event.status) {
+           nval=result.nextVal;
+        
+    
+           
+        
+        
+      if(result.TotalSize>0)
+      {
+   //   alert('Here');
+               vcompanies= result.AccList;
+     //   alert(JSON.stringify(vcompanies));
+          
+                 vcompanies = vcompanies.filter(function(item) {
+                     
+                    if(item.Proposed_User__r != null )
+                    {
+                     item.Future_User__r = item.Proposed_User__r;
+                  
+                     }
+                     else
+                     {
+                     item.Future_User__r = item.Account__r.Owner;
+                     }
+                        item.MyFutureAccount = 0;
+                      if( item.Future_User__r)
+                      {
+                      if( item.Future_User__r.Id  == uid)
+                         item.MyFutureAccount = 1;
+                      if(item.Future_User__r.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Id == uid)
+                           item.MyFutureAccount = 1;
+                           
+                       if(item.Future_User__r.Manager.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Manager.Id  == uid)   
+                       item.MyFutureAccount = 1; 
+                       }
+                       }
+                     }
+                   
+                    item.MyAccount = 0;
+                      if( item.Account__r.Owner)
+                      {
+                      if( item.Account__r.Owner.Id  == uid)
+                         item.MyAccount= 1;
+                      if(item.Account__r.Owner.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Id == uid)
+                           item.MyAccount= 1;
+                           
+                       if(item.Account__r.Owner.Manager.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Manager.Id  == uid)   
+                       item.MyAccount= 1; 
+                       }
+                       }
+                     }
+                                    return (JSON.stringify(item));
+                   });
+         //  alert(JSON.stringify(vcompanies));
+           var pdata1= $scope.fullData;
+            var finalObj ='';
+           if(pdata1 != '' && pdata1)
+              finalObj  = pdata1.concat(vcompanies);
+              else
+                 finalObj  = vcompanies;
+               
+        //   alert(JSON.stringify(finalObj) );
+              
+        var existingIDs = [];
+finalObj = $.grep(finalObj, function(v) {
+    if ($.inArray(v.Id, existingIDs) !== -1) {
+        return false;
+    }
+    else {
+        existingIDs.push(v.Id);
+        return true;
+    }
+});
+    $scope.myData = finalObj ;
+                  $scope.fullData = finalObj;
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+
+}
+
+
+  if(!result.Done)    
+        {
+      $scope.setREMOTERepIdData (uid,len,cur, emps,result.nextVal);
+                }
+      
+       } else if (event.type === 'exception') {
+       $scope.setREMOTERepIdData (uid,len,cur, emps,0);
+                
+            }
+               
+        },
+        {escape: true});
+}
+
+$scope.setREMOTERepData = function(emps,nexv)
+ {
+
+   var uid= '{!$User.Id}';
+ Visualforce.remoting.buffer=false;
+ Visualforce.remoting.timeout = 120000;
+ Visualforce.remoting.Manager.invokeAction(
+        '{!$RemoteAction.jsonAssignment.viewRepAssignents}',
+        emps,nexv,
+        function(result, event) {
+        var nval=0;
+          if (event.status) {
+           nval=result.nextVal;
+        
+    
+           
+        
+        
+      if(result.TotalSize>0)
+      {
+   //   alert('Here');
+               vcompanies= result.AccList;
+     //   alert(JSON.stringify(vcompanies));
+          
+                 vcompanies = vcompanies.filter(function(item) {
+                     
+                    if(item.Proposed_User__r != null )
+                    {
+                     item.Future_User__r = item.Proposed_User__r;
+                  
+                     }
+                     else
+                     {
+                     item.Future_User__r = item.Account__r.Owner;
+                     }
+                        item.MyFutureAccount = 0;
+                      if( item.Future_User__r)
+                      {
+                      if( item.Future_User__r.Id  == uid)
+                         item.MyFutureAccount = 1;
+                      if(item.Future_User__r.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Id == uid)
+                           item.MyFutureAccount = 1;
+                           
+                       if(item.Future_User__r.Manager.Manager)
+                      {
+                       if(item.Future_User__r.Manager.Manager.Id  == uid)   
+                       item.MyFutureAccount = 1; 
+                       }
+                       }
+                     }
+                   
+                    item.MyAccount = 0;
+                      if( item.Account__r.Owner)
+                      {
+                      if( item.Account__r.Owner.Id  == uid)
+                         item.MyAccount= 1;
+                      if(item.Account__r.Owner.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Id == uid)
+                           item.MyAccount= 1;
+                           
+                       if(item.Account__r.Owner.Manager.Manager)
+                      {
+                       if(item.Account__r.Owner.Manager.Manager.Id  == uid)   
+                       item.MyAccount= 1; 
+                       }
+                       }
+                     }
+                                    return (JSON.stringify(item));
+                   });
+         //  alert(JSON.stringify(vcompanies));
+           var pdata1= $scope.myRepData;
+            var finalObj ='';
+           if(pdata1 != '' && pdata1)
+              finalObj  = pdata1.concat(vcompanies);
+              else
+                 finalObj  = vcompanies;
+               
+        //   alert(JSON.stringify(finalObj) );
+                  $scope.myRepData = finalObj ;
+                //  $scope.fullData = finalObj;
+       
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+
+}
+
+
+  if(!result.Done)    
+        {
+      $scope.setREMOTERepData ( emps,result.nextVal);
+                }
+      
+       } else if (event.type === 'exception') {
+       $scope.setREMOTERepData ( emps,0);
+                
+            }
+               
+        },
+        {escape: true});
+}
+
+
+//////
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+     $scope.currentItem = "";
+       $scope.Reassign= function () {
+var val= $scope.currentItem;
+var myJSONObject = '{ "Comments__C" : "'+ val+ '", "Future_User__c" : "'+$scope.selectedOption.Id+'","Proposed_User__c" : "'+$scope.selectedOption.Id+'", "Reason__C" : "'+$scope.selectedOptionReason.name+ '" }';
+
+$.each($scope.mySelections, function(idx, obj) {
+    var vid = obj.Id;
+                                $.ajax('/services/data/v29.0/sobjects/ReAssignment__c/'+vid,
+        {
+          type : 'PATCH',
+          data : myJSONObject,
+           dataType: 'text',
+          beforeSend: function(xhr) {
+            // Set the OAuth header from the session ID
+            xhr.setRequestHeader('Authorization', 'Bearer {!$Api.Session_ID}');
+
+          },
+         headers : {'Content-Type' : 'application/json; charset=utf-8'},
+
+          success: function (response) {      
+            var            datax = $scope.fullData ;
+                 datax = datax.filter(function(item) {
+                     
+                    if(JSON.stringify(item.Id).indexOf(vid ) != -1 )
+                    {
+                                      
+                     item.Proposed_User__r = $scope.selectedOption;
+                     item.Future_User__r = $scope.selectedOption;
+                     item.MyFutureAccount = 1;
+                     }
+                   
+               return (JSON.stringify(item));
+                   });
+                  $scope.fullData = datax ;
+                  $scope.myData = datax ;
+                //  alert(JSON.stringify($scope.fullData));
+                  $scope.$apply();
+        
+                        },
+
+          error: function(jqXHR, textStatus, errorThrown) {
+
+            // Oops - what went wrong?
+
+            alert(jqXHR.status + ': ' + errorThrown);
+
+          }
+
+        }
+
+      );
+});
+
+//$scope.filterOptions.filterText='';
+//$scope.Reassigned();
+       $scope.gridOptions.selectAll(false);
+    $scope.allSelected = false;
+      return true;
+        };
+    $scope.$watch('pagingOptions', function (newVal, oldVal) {
+        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+        }
+    }, true);
+    $scope.$watch('filterOptions', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+        }
+    }, true);
+    
+    $scope.aggLY = function (row) {
+    var res = 0;
+
+    var calculateChildren = function(cur) {
+      var res = 0;
+      var remaining;
+      angular.forEach(cur.children, function(a) {
+        remaining = a.getProperty('Account__r.Year_LY__c');
+         
+             if (remaining) { res += remaining; }
+      });
+      return res;
+    };
+
+  
+    var calculateAggChildren = function(cur) {
+      var res = 0;
+      res += calculateChildren(cur);
+      angular.forEach(cur.aggChildren, function(a) {
+        res += calculateAggChildren(a);
+      });
+      return res;
+    };
+
+    return (calculateAggChildren(row) ).toFixed(2);
+  }
+    $scope.aggFC = function (row) {
+    var res = 0;
+
+    var calculateChildren = function(cur) {
+      var res = 0;
+      var remaining;
+      angular.forEach(cur.children, function(a) {
+        remaining = a.getProperty('Account__r.YTD_Sales_TY__c');
+         
+             if (remaining) { res += remaining; }
+      });
+      return res;
+    };
+
+  
+    var calculateAggChildren = function(cur) {
+      var res = 0;
+      res += calculateChildren(cur);
+      angular.forEach(cur.aggChildren, function(a) {
+        res += calculateAggChildren(a);
+      });
+      return res;
+    };
+
+    return (calculateAggChildren(row) ).toFixed(2);
+  }
+     $scope.aggSelect = function (row) {
+    var res = 0;
+   
+    var calSelChildren = function(cur) {
+      var res = 0;
+      var remaining = 0;
+      angular.forEach(cur.children, function(a) {
+      if(a.selected == true)
+      {
+        res += 1;
+       }  
+             
+      }
+      );
+      return res;
+    };
+
+      var selectAllAgg = function(cur) {
+      var res = 0;
+    
+      res +=    calSelChildren (cur);
+     
+      angular.forEach(cur.aggChildren, function(a) {
+        res += selectAllAgg(a);
+      });
+      return res;
+    };
+ return (selectAllAgg(row)) ;
+};
+
+     $scope.aggChkSelect = function (row,e) {
+     var checkbox = e.target;
+    //    alert(checkbox.checked );
+    var res = 0;
+    var calSelChkChildren = function(cur) {
+      var res = 0;
+      var remaining = 0;
+      angular.forEach(cur.children, function(a) {
+       var index = a.rowIndex;
+      if( checkbox.checked)
+       $scope.gridOptions.selectRow(index , true);
+        else 
+        $scope.gridOptions.selectRow(index, false);
+     
+     a.selected = checkbox.checked;
+              res += 1;
+         
+             
+      }
+      );
+      return res;
+    };
+
+      var selectChkAllAgg = function(cur) {
+      var res = 0;
+    
+      res +=    calSelChkChildren (cur);
+     
+      angular.forEach(cur.aggChildren, function(a) {
+        res += selectChkAllAgg(a);
+      });
+      return res;
+    };
+    
+  
+ return (selectChkAllAgg(row)) ;
+};
+
+ $scope.toggSelect = function (row) {
+  var togg= function(row) {
+    row.toggleExpand();
+     }
+  
+ return (togg(row)) ;
+};
+
+// check all
+$scope.cbVal = function(x,y)
+{
+if( x == y )
+return 1;
+else 
+return 0;
+
+};
+  $scope.mySelections4 =[];
+  $scope.gridOptions4 = { data: 'myTermReps',
+ showSelectionCheckbox: true,
+  selectedItems: $scope.mySelections4,
+    multiSelect: true,
+     enableColumnResize: true,
+  columnDefs: [ {field: 'SalesRepId__c', width:150, displayName:'RepId', enableCellEdit: false}, 
+  {field: 'Resource_Name__c', displayName:'Name',width:150, enableCellEdit: false}, 
+   {field: 'dm_name__c', displayName:'Manager Name',width:150, enableCellEdit: false}, 
+    {field: 'rm_name__c', displayName:'L2 Manager Name',width:150, enableCellEdit: false}]};
+$scope.gridOptions1 = { data: 'myUsers',
+ showSelectionCheckbox: true,
+  selectedItems: $scope.mySelections1,
+    multiSelect: true,
+     enableColumnResize: true,
+  columnDefs: [
+        {field: 'Name', displayName:'Employee Name', enableCellEdit: false}, 
+        {field: 'OD_Employee_ID__c', displayName: 'Employee ID', enableCellEdit: false}, 
+        {field: 'Manager.Name', displayName: 'Manager', enableCellEdit: false},
+         {field: 'Manager.Manager.Name', displayName: 'Manager Level2', enableCellEdit: false}                        
+                    
+                     ] };
+ $scope.gridOptions2 = { data: 'Accts',
+ showSelectionCheckbox: true,
+  selectedItems: $scope.mySelections2,
+    multiSelect: true,
+    showFooter: true,
+     enableColumnResize: true,
+  columnDefs: [     {field: 'AccountID__c', displayName:'Customer ID',width: 150, enableCellEdit: false}, 
+                                                      {field: 'Site_Id__c', displayName:'Site ID',width: 150, enableCellEdit: false}, 
+  {field: 'Account__r.Cust_ID__c',width: 150, displayName:'Full Customer ID', enableCellEdit: false, visible: false}, 
+   {field: 'Account__r.Related_Account__r.Name',width: 150, displayName: 'Account Name', enableCellEdit: false},
+        {field: 'Account__r.Name',width: 150, displayName: 'Site Name', width: 150, enableCellEdit: false}, 
+                                   
+                    {field:'Account__r.YTD_Sales_TY__c',width: 150, displayName:'YTD', enableCellEdit: false},
+                     {field:'Account__r.Year_LY__c',width: 150, displayName:'LY Sales', enableCellEdit: false},
+                     {field: 'Account__r.City__c',width: 150, displayName:'City', enableCellEdit: false},                      
+                     {field: 'Account__r.State__c',width: 150, displayName:'State', enableCellEdit: false},                      
+                     {field: 'Account__r.Zip_5digit__c',width: 150, displayName:'Zip', enableCellEdit: false},                   
+                     {field: 'Account__r.Sales_PersonID__r.Name',width: 150, displayName:'Rep ID', enableCellEdit: false},                      
+                    {field:'Account__r.Owner.Name',width: 150, displayName:'Owner', enableCellEdit: false},
+                    {field:'Account__r.Owner.Manager.Name',width: 150, displayName:'Current Manager', enableCellEdit: false},
+                    {field:'Account__r.Owner.Manager.Manager.Name',width: 150, displayName:'Current Manager L2', enableCellEdit: false},
+                    {field:'Proposed_User__r.Name',width: 150, displayName:'Proposed Owner', enableCellEdit: false},
+                    {field:'Proposed_User__r.Manager.Name',width: 150, displayName:'Proposed Manager', enableCellEdit: false},
+                    {field:'Proposed_User__r.Manager.Manager.Name',width: 150, displayName:'Proposed Manager L2', enableCellEdit: false},
+                     {field: 'All', displayName: 'All',width: 150, enableCellEdit: false, visible: false},
+                     {field: 'Account__r.RecordType.Name',width: 150, displayName:'Type', enableCellEdit: false}, 
+                       {field: 'Account__r.Related_Account_Record_Type__c',width: 150, displayName:'Account', enableCellEdit: false},
+                    {field:'Future_User__r.Manager.Name', displayName:'Future Manager',width: 150, enableCellEdit: false, visible: false},
+                    {field:'Future_User__r.Manager.Manager.Name', displayName:'Future Manager L2',width: 150, enableCellEdit: false, visible: false},
+                     {field:'Account__r.Zip__c', displayName:'Zip 9digit', enableCellEdit: false,width: 150},
+                     {field:'Account__r.Related_Account_Record_Type__c', displayName:'Account Type',width: 150, enableCellEdit: false},
+                      { field: 'MyAccount', displayName: 'My Account', width: 60 , cellTemplate:checkboxCellTemplate, pinned: false,sortable:false,enableCellEdit: false },
+                     ] };                    
+
+ $scope.cbVnal = function (row) {
+ // alert(  row.getProperty('MyAccount'));
+  return ((row.MyAccount)>0) ? 1 : 0;  
+  };
+ var checkboxCellTemplate='<div class="ngSelectionCell"><input tabindex="-1" class="ngSelectionCheckbox" type="checkbox" disabled="disabled" ng-checked="cbVnal(row.entity)" /></div>';  
+   $scope.mySelections = [];
+     $scope.formData = {};
+    $scope.gridOptions = {
+       data: 'myData',
+        enablePaging: false,
+        showGroupPanel: true,
+        showFooter: true,
+         enablePinning: true,
+        totalServerItems: 'totalServerItems',
+        pagingOptions: $scope.pagingOptions,
+        showSelectionCheckbox: true,
+        filterOptions: $scope.filterOptions,
+        keepLastSelected: false,
+        enableColumnResize: true, 
+        showColumnMenu: true,
+        showFilter: false,
+        columnDefs: [
+        {field: 'Account__r.Related_Account__r.Name', displayName: 'Account Name', enableCellEdit: false},
+        {field: 'Account__r.Name', displayName: 'Site Name', enableCellEdit: false}, 
+                                     {field: 'AccountID__c', displayName:'Customer ID', enableCellEdit: false}, 
+                  {field: 'Site_Id__c', displayName:'Site ID', enableCellEdit: false}, 
+                    {field: 'Account__r.Cust_ID__c', displayName:'Full Customer ID', enableCellEdit: false, visible: false}, 
+                    {field:'Account__r.YTD_Sales_TY__c', displayName:'YTD', enableCellEdit: false},
+                     {field:'Account__r.Year_LY__c', displayName:'LY Sales', enableCellEdit: false},
+                     {field: 'Account__r.City__c', displayName:'City', enableCellEdit: false},                      
+                     {field: 'Account__r.State__c', displayName:'State', enableCellEdit: false},                      
+                     {field: 'Account__r.Zip_5digit__c', displayName:'Zip', enableCellEdit: false},                   
+                   //  {field: 'Account__r.Sales_PersonID__r.Name', displayName:'Rep ID', enableCellEdit: false},   
+                    {field: 'SalesRepId__c', displayName:'Rep ID', enableCellEdit: false},                      
+                    {field:'Account__r.Owner.Name', displayName:'Owner', enableCellEdit: false},
+                    {field:'Account__r.Owner.Manager.Name', displayName:'Current Manager', enableCellEdit: false},
+                    {field:'Account__r.Owner.Manager.Manager.Name', displayName:'Current Manager L2', enableCellEdit: false},
+                    {field:'Proposed_User__r.Name', displayName:'Proposed Owner', enableCellEdit: false},
+                    {field:'Proposed_User__r.Manager.Name', displayName:'Proposed Manager', enableCellEdit: false},
+                    {field:'Proposed_User__r.Manager.Manager.Name', displayName:'Proposed Manager L2', enableCellEdit: false},
+                     {field: 'All', displayName: 'All', enableCellEdit: false, visible: false},
+                     {field: 'Account__r.RecordType.Name', displayName:'Type', enableCellEdit: false}, 
+                       {field: 'Account__r.Related_Account_Record_Type__c', displayName:'Account', enableCellEdit: false},
+                    {field:'Future_User__r.Manager.Name', displayName:'Future Manager', enableCellEdit: false, visible: false},
+                    {field:'Future_User__r.Manager.Manager.Name', displayName:'Future Manager L2', enableCellEdit: false, visible: false},
+                     {field:'Account__r.Zip__c', displayName:'Zip 9digit', enableCellEdit: false},
+                     {field:'Account__r.Related_Account_Record_Type__c', displayName:'Account Type', enableCellEdit: false},
+                      { field: 'MyAccount', displayName: 'My Account', width: 60 , cellTemplate:checkboxCellTemplate, pinned: false,sortable:false,enableCellEdit: false },
+                     ],
+    //jqueryUIDraggable: true, bug: when used grouping stop work, but column reordering start to work:(
+    selectedItems: $scope.mySelections,
+    multiSelect: true,
+     groups: [],
+    aggregateTemplate: '<div><div  ng-style="rowStyle(row)" class="ngAggregate">   <span class="ngAggregateText"><input type="image" src="{!URLFOR($Resource.grid, 'toggle.png')}"  ng-click="toggSelect(row)" />{{row.label CUSTOM_FILTERS}} (count: {{row.totalChildren()}} {{AggItemsLabel}} Total YTD: {{aggFC(row)}} Total LY Sales:{{ aggLY(row)}} Total Selected: {{aggSelect(row)}} ) </span> <div class="{{row.aggClass()}}"></div><div><input type="checkbox" ng-checked="cbVal(row.totalChildren(),aggSelect(row))"  ng-click="aggChkSelect(row,$event)" /> </div></div>'
+             
+       };
+  $scope.CurrentSmry = function(){
+  $scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();
+   $scope.gridOptions.groupBy('Account__r.Owner.Manager.Manager.Name');
+   $scope.gridOptions.groupBy('Account__r.Owner.Manager.Name');
+    $scope.gridOptions.groupBy('Account__r.Owner.Name');
+       $scope.myData = $scope.fullData ;
+    $scope.tabsec =  'CurrentSmry';   
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+};
+
+
+ $scope.MyCurrentSmry = function(){
+  $scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();
+   $scope.gridOptions.groupBy('Account__r.Owner.Manager.Manager.Name');
+   $scope.gridOptions.groupBy('Account__r.Owner.Manager.Name');
+    $scope.gridOptions.groupBy('Account__r.Owner.Name');
+     var            data = $scope.fullData ;
+                 data = data.filter(function(item) {
+                      if( JSON.stringify(item.MyAccount) == '1')
+                        {
+                         return (JSON.stringify(item));
+                        }
+                        
+                    });
+     $scope.tabsec =  'MyCurrentSmry';  
+
+     $scope.MyCurrentSmryData =  data;           
+    $scope.myData = data;
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+
+};
+
+
+$scope.ProposedSmry = function(){
+$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();
+   $scope.gridOptions.groupBy('Future_User__r.Manager.Manager.Name');
+    $scope.gridOptions.groupBy('Future_User__r.Manager.Name');
+    $scope.gridOptions.groupBy('Future_User__r.Name');
+     $scope.myData = $scope.fullData ;
+   $scope.tabsec=  'ProposedSmry';   
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+};          
+
+$scope.MyProposedSmry = function(){
+$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();
+   $scope.gridOptions.groupBy('Future_User__r.Manager.Manager.Name');
+    $scope.gridOptions.groupBy('Future_User__r.Manager.Name');
+    $scope.gridOptions.groupBy('Future_User__r.Name');
+     var            data = $scope.fullData ;
+                 data = data.filter(function(item) {
+                     
+                      if( JSON.stringify(item.MyFutureAccount) == '1')
+                        {
+                         return (JSON.stringify(item));
+                        }
+                        
+                    });
+    $scope.myData = data;
+   $scope.tabsec=  'MyProposedSmry';    
+     $scope.MyProposedSmry =  data;  
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+};          
+
+$scope.AllData= function(){
+   $scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();
+    $scope.myData = $scope.fullData ;
+  $scope.tabsec=  'AllData';
+
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+};          
+
+$scope.AllMyAccounts= function(){
+   $scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();
+      var            data = $scope.fullData ;
+                 data = data.filter(function(item) {
+                      if( JSON.stringify(item.MyAccount) == '1')
+                        {
+                         return (JSON.stringify(item));
+                        }
+                        
+                    });
+    $scope.myData = data;
+      $scope.tabsec=  'AllMyAccounts';    
+     $scope.AllMyAccounts =  data;  
+        $scope.totalServerItems = data.length;
+ 
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+};  
+$scope.AllReassigned= function(){
+//$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();
+//   $scope.gridOptions.groupBy('Proposed_User__r.Manager.Manager.Name');
+//    $scope.gridOptions.groupBy('Proposed_User__r.Manager.Name');
+//    $scope.gridOptions.groupBy('Proposed_User__r.Name');
+   
+   var            data = $scope.fullData ;
+                 data = data.filter(function(item) {
+                         if(item.Proposed_User__r != null)
+                           return JSON.stringify(item);
+               
+                    });
+   $scope.myData = data;
+       $scope.tabsec=  'AllReassigned';    
+     $scope.AllReassigned=  data;  
+    $scope.totalServerItems = data.length;
+ 
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        } 
+}; 
+
+$scope.ReassignedToMe= function(){
+//$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();
+ //  $scope.gridOptions.groupBy('Proposed_User__r.Manager.Manager.Name');
+ //   $scope.gridOptions.groupBy('Proposed_User__r.Manager.Name');
+  //  $scope.gridOptions.groupBy('Proposed_User__r.Name');
+   
+   var            data = $scope.fullData ;
+                 data = data.filter(function(item) {
+                      if (item.Proposed_User__r != null)
+                       {if( JSON.stringify(item.MyAccount) == '0' && JSON.stringify(item.MyFutureAccount) == '1')
+                        {
+                          return (JSON.stringify(item));
+                        }
+                   }
+                    });
+   $scope.myData = data;
+     $scope.tabsec=  'ReassignedToMe';    
+     $scope.ReassignedToMe=  data;
+   
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+}; 
+
+$scope.ReassignedFromMe= function(){
+//$scope.gridOptions.groupBy();
+//$scope.gridOptions.groupBy();
+//$scope.gridOptions.groupBy();
+
+
+ //  $scope.gridOptions.groupBy('Proposed_User__r.Manager.Manager.Name');
+  //  $scope.gridOptions.groupBy('Proposed_User__r.Manager.Name');
+   // $scope.gridOptions.groupBy('Proposed_User__r.Name');
+   
+  var            data = $scope.fullData ;
+                 data = data.filter(function(item) {
+                         
+                      if (item.Proposed_User__r != null)
+                        if( JSON.stringify(item.MyAccount) == '1' && JSON.stringify(item.MyFutureAccount) == '0')
+                        {
+                          return (JSON.stringify(item));
+                        }
+                  
+                    });
+    $scope.myData = data;
+      $scope.tabsec=  'ReassignedFromMe';    
+     $scope.ReassignedFromMe=  data;
+    
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+}; 
+
+$scope.ReassignedMyTeam= function(){
+$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();$scope.gridOptions.groupBy();
+   $scope.gridOptions.groupBy('Proposed_User__r.Manager.Manager.Name');
+    $scope.gridOptions.groupBy('Proposed_User__r.Manager.Name');
+    $scope.gridOptions.groupBy('Proposed_User__r.Name');
+   
+  var            data = $scope.fullData ;
+                 data = data.filter(function(item) {
+                         
+                        if (item.Proposed_User__r != null)
+                        if( JSON.stringify(item.MyAccount) == '1' && JSON.stringify(item.MyFutureAccount) == '1')
+                        {
+                          return (JSON.stringify(item));
+                        }
+                   
+                    });
+   $scope.myData = data;
+     $scope.tabsec=  'ReassignedMyTeam';    
+     $scope.ReassignedMyTeam=  data;
+    $scope.totalServerItems = data.length;
+   
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+}; 
+            });
+            
+        contrl.$inject = ['$scope', '$filter'];
+   <!--    <div><input type="checkbox" ng-checked="row.entity.value==\'on\'" ng-input="COL_FIELD" /></div>-->
+        </script>
+        <body>     
+            <!-- =========== Binding Controller to Body of Page ============= -->
+            <div ng-controller="ctrlRead">
+                <div class="navbar">
+                          <apex:panelgrid columns="1">
+               <div class="col-lg-6">
+    <div class="input-group">
+      <span class="input-group-btn">
+    <strong>Search:</strong>  <select data-ng-options="o.name for o in optionsSrch" class="btn btn-warning dropdown-toggle" data-ng-model="selectedOptionSrch"></select>
+      </span>
+         <input type="text" ng-model="filterOptions.filterText" class="form-control" size="30"/>
+     </div><!-- /input-group -->
+  </div> 
+  </apex:panelgrid>
+                </div>
+         
+         <div> 
+            <div id = "myModal10" > 
+         <img class="img-responsive" src="{{Reppic}}" alt=""   />  
+          <h4>Loading Rep :  {{Repname}}  --  {{threshold}}/{{total}}</h4>
+         </div>
+  
+   <div class="modal js-loading-bar" id = "myModal1"  >
+ <div class="modal-dialog">
+   <div class="modal-content">
+   <div class="modal-header">
+            <h3>Loading Data Please Wait... This may take several minutes...</h3>
+        </div>
+     <div class="modal-body">
+      <h4> Total Reocords : {{getTotal()}} </h4>
+      <h4>Loading Rep :  {{Repname}}  --  {{threshold}} </h4>
+       <div class="progress progress-popup">
+        <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{getPercentage()}}%">
+    <i class="fa fa-cog fa-spin"></i><span class="sr-only"> {{getPercentage()}}% Complete</span>
+    </div>
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+
+    
+
+         <apex:panelgrid columns="1">
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+ ReAssign Selected Sites
+</button>      
+</apex:panelgrid>
+<apex:panelgrid columns="1">
+ 
+        <!--Info buttons with dropdown menu-->
+        <div class="btn-group">
+            <button data-toggle="dropdown" class="btn dropdown-toggle">Show All<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#" ng-click="AllData()" >Region's Accounts</a></li>
+                 <li><a href="#" ng-click="AllMyAccounts()" >My Team's Accounts</a></li>
+                
+            </ul>
+        </div>
+        <!--Success buttons with dropdown menu-->
+        <div class="btn-group">
+            <button data-toggle="dropdown" class="btn  dropdown-toggle">Current Rep Summary <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+               <li><a href="#" ng-click="CurrentSmry()" >Region's Current Rep Summary</a></li>
+                 <li><a href="#" ng-click="MyCurrentSmry()" >My Team's Current Rep Summary</a></li>
+                 
+            </ul>
+        </div>
+           <div class="btn-group">
+            <button data-toggle="dropdown" class="btn dropdown-toggle"> Proposed Rep Summary<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+               <li><a href="#" ng-click="ProposedSmry()" >Region's Proposed Rep Summary</a></li>
+                 <li><a href="#" ng-click="MyProposedSmry()" >My Team's Proposed Rep Summary</a></li>
+                 
+            </ul>
+        </div>
+        <!--Danger buttons with dropdown menu-->
+        <div class="btn-group">
+            <button data-toggle="dropdown" class="btn dropdown-toggle">Reassigned Accounts<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+               <li><a href="#" ng-click="AllReassigned()" >All Reassigned Accounts </a></li>
+               
+                <li class="divider"></li>
+                  <li><a href="#" ng-click="ReassignedFromMe()" >ReAssigned Away From My Team</a></li>
+                    <li><a href="#" ng-click="ReassignedToMe()" >ReAssigned To My Team</a></li>
+                      <li><a href="#" ng-click="ReassignedMyTeam()" >ReAssigned Within My Team</a></li>
+            </ul>
+        </div>
+   <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalU" ng-click="preUsersLoad()">
+ Pull More Rep's Data
+</button>
+ <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalA" ng-click="preUsersLoad()">
+ Pull More Customer Data
+</button>
+         </apex:panelgrid>
+    </div>
+                   <div class="command-panel">
+        <div class="commands">
+       
+     
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">ReAssign Selected Sites</h4>
+      </div>
+      <div class="modal-body">
+      <apex:panelgrid columns="2">
+      <h4>Rep</h4>
+           <select data-ng-options="o.Name for o in options" data-ng-model="selectedOption"></select>
+           <h4>Reason</h4>
+            <select data-ng-options="o.name for o in optionsReason" data-ng-model="selectedOptionReason"></select>
+        <h4>Comments</h4>
+        <input type="text" name="name" ng-model="currentItem" placeholder="Enter the Comments for..." />
+          
+            <span class="selection-count">{{mySelections.length}} selected items.</span>
+            </apex:panelgrid>
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-primary" ng-click="Reassign()" data-dismiss="modal" ng-disabled="mySelections.length == 0">Reassign</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModalU" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Pull selected Users Data into the table</h4>
+      </div>
+      <div class="modal-body">
+      <div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Active Reps</a></li>
+    <li><a href="#tab2" data-toggle="tab">InActive Reps/ Max House RepIds</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <div class="gridStyle1" ng-grid="gridOptions1" ></div> 
+         <button type="button"  class="btn btn-primary" ng-click="LoadAdtl()" data-dismiss="modal" ng-disabled="mySelections1.length == 0">Load Data</button>
+     
+    </div>
+    <div class="tab-pane" id="tab2">
+     <div class="gridStyle4" ng-grid="gridOptions4" ></div> 
+        <button type="button"  class="btn btn-primary" ng-click="LoadAdtlRepIds()" data-dismiss="modal" ng-disabled="mySelections4.length == 0">Load Data</button>
+     
+    </div>
+  </div>
+</div>
+     
+        
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModalA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <div class="input-group">
+      <span class="input-group-btn">
+    <strong>Search:</strong>  <select data-ng-options="o.name for o in AoptionsSrch" class="btn btn-warning dropdown-toggle" data-ng-model="selectedAOptionSrch"></select>
+      </span>
+         <input type="text" ng-model="AfilterText" class="form-control" size="10"/>
+         
+     </div><!-- /input-group -->
+     <div class="row">
+      <div class="span6" style="text-align:center">
+   <button type="button"  class="btn btn-primary" ng-click="ActsSrch()">Search Data</button>
+    
+  </div>
+  </div>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Pull selected Customer Data into the table</h4>
+      </div>
+      <div class="modal-body">
+      <div class="gridStyle2" ng-grid="gridOptions2" ></div>  
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-primary" ng-click="LoadAdtlActs()" data-dismiss="modal" ng-disabled="mySelections2.length == 0">Load Data</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+    </div>
+                  <div class="gridStyle" ng-grid="gridOptions" ></div>
+                                 </div>
+               
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_9391105</developerName>
+        <masterLabel>Acct Header - Roll Up</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>LBI__Recommendation__c.Account_Owner_Manager__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Alexander  Capasso</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Chad  Graham</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Chris  Pittman</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Christopher  Edler</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Christopher  Lankford</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Darnell  Hamilton</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Gustavo  Parra</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Maelyn  Rexach</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Ronald  Deaver</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Talitha  Searcy</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Teresa  Kendall</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Michelle  Petty</sourceValue>
+            </sourceValues>
+            <value>Graham</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Austin  Kingsbery</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Christy  Mcquade</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Cory  Kaminsky</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>David  Reuter</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Donald  Floyd</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Joe  Morales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>John  Kolodzey</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Mario  Terrazas</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Michaela  Upchurch</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Natalie  Conway</sourceValue>
+            </sourceValues>
+            <value>Reuter</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Benjamin  Aguilar</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Michael  Dickenson</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>William  Hidalgo</sourceValue>
+            </sourceValues>
+            <value>Evans</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Anthony  Eureste</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Brandon  Nsekpong</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Cephas  Martin</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Elisabeth  Perlet</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>James  Mooney</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Michael  Crawford</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Rush  Dhaliwal</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>John  Fallis</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>David  Henson</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Daniel Greenlee</sourceValue>
+            </sourceValues>
+            <value>Henson</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__Campaign__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__DisqualificationReasonDetails__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__DisqualificationReason__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__Name__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.Related_Account__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Follow_Up_Note__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.Last_Account_Activity__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.State__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>FK_$Account.CBS_TY__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>FK_$Account.YTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Account.Sites_Cust_AOPS_ID__c</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.Account_Owner_Manager__c</field>
+    </columns>
+    <columns>
+        <field>BucketField_9391105</field>
+    </columns>
+    <columns>
+        <field>LBI__Recommendation__c.LBI__Play__c</field>
+    </columns>
+    <description>Plays worked (not open) that were created for ISO from Field DML/Account Level Win Room Wins
+These plays are Selling  (Opportunity Expected at the site level) 
+The Play Filter field will have Selling disposition</description>
+    <filter>
+        <criteriaItems>
+            <column>LBI__Recommendation__c.LBI__Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Open,Expired,Suppressed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>LBI__Recommendation__c.LBI_Play_Filter__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Selling</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LBI__Recommendation__c.LBI__OwnerName__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LBI__Recommendation__c.LBI_Play_Filter__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>LBI__Recommendation__c.LBI__Status__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>WinRoom Selling Plays Worked - Dash</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$LBI__Recommendation__c@LBI__Recommendation__c.LBI__Account__c</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>FK_$Account.Sites_Cust_AOPS_ID__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>LBI__Recommendation__c.LBI__DisqualificationDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

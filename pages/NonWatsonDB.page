@@ -1,0 +1,51 @@
+<apex:page controller="OppTrackingHistoryController" sidebar="false"  showHeader="true" applyBodyTag="false"  action="{!getNonWatsonValues}">
+
+ <style type = "text/css">
+        .colHeadr {text-align:center;
+                    font-size:100%;}
+        .tableClass tbody{text-align:right;}
+
+</style> 
+
+<script>
+function myFunction() {
+    window.open("http://www.w3schools.com");
+}
+</script>
+
+
+ <apex:form >
+    <apex:pageBlock title="Non-Watson Funnel">
+             <apex:outputLabel >Pipeline week:</apex:outputLabel>&nbsp;&nbsp;&nbsp; 
+             <apex:inputText value="{!pipelineWeek}"/>&nbsp;&nbsp;&nbsp; 
+             <apex:commandButton value="Search" action="{!getNonWatsonValues}"/>&nbsp;&nbsp; 
+             <apex:commandlink action="{!createPDF}" target="_blank" style="text-decoration: none;">
+                 <apex:commandButton value="Convert to PDF"/>
+                 </apex:commandLink>
+       <br/><br/>
+       <apex:pageBlockTable value="{!stageList}" var="wrapper" id="nonWatsonOpp" headerClass="colHeadr" style="text-align:center" >    
+            <apex:column value="{!wrapper.stageName}" headerValue="Holistic Flow Stage" style="{!if(wrapper.stageName='TOTAL','color:black;font-weight: bold', 'width:15%')}"/>
+            <apex:column value="{!wrapper.Totalowned}" headerValue="Owned" style="width:5%"/>
+            <apex:column value="{!wrapper.Totalteamed}" headerValue="Teamed" style="width:5%"/>
+            <apex:column value="{!wrapper.TotalWatson}" headerValue="TOTAL" style="width:5%"/>
+            <apex:column value="{!wrapper.owned}" headerValue="Remaining Owned" style="width:5%"/>
+            <apex:column value="{!wrapper.teamed}" headerValue="Remaining Teamed" style="width:5%"/>
+            <apex:column value="{!wrapper.total}"  headerValue="Remaining" style="width:5%"/>
+            <apex:column value="{!wrapper.converted}" headerValue="Converted" style="width:5%"/>
+            <apex:column headerValue="Owned $" style="width:10%">
+            <apex:outputText value="{0, Number, $#,###}" style="{!if(wrapper.stageName='TOTAL','color:black;font-weight: bold', 'color:black')}"><apex:param value="{!wrapper.ownedAmount}"/></apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Teamed $" style="width:10%">
+            <apex:outputText value="{0, Number, $#,###}" style="{!if(wrapper.stageName='TOTAL','color:black;font-weight: bold', 'color:black')}"><apex:param value="{!wrapper.teamedAmount}"/></apex:outputText>
+            </apex:column>
+            <apex:column headerValue="Total Opp $" style="width:10%">
+            <apex:outputText value="{0, Number, $#,###}" style="{!if(wrapper.stageName='TOTAL','color:black;font-weight: bold', 'color:black')}"><apex:param value="{!wrapper.totalAmount}"/></apex:outputText>
+             </apex:column>
+            <apex:column headerValue="Rate" style="width:5%"><apex:outputText value="{0,number,0}"><apex:param value="{!wrapper.rate}" /></apex:outputText> 
+            <apex:outputText value="{! If(wrapper.rate !=null ,'%',null) }"    />
+            </apex:column>
+
+      </apex:pageBlocktable>
+    </apex:pageBlock>    
+  </apex:form>
+</apex:page>

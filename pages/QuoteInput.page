@@ -1,0 +1,91 @@
+<apex:page controller="QuoteServiceManual" showHeader="false" sidebar="false">
+<head>
+<style>
+.pbSubheader{
+background-color: #3090C7 !important;
+color: white !important;
+border-color: none !important;
+}
+</style>
+</head>
+<font size="2">
+<apex:form >
+<apex:pageblock title="TD input" rendered="{!BlockVisible}">
+<apex:pagemessages id="msg"></apex:pagemessages>
+<apex:panelgrid columns="2" width="600px">
+<apex:panelgrid columns="1" width="300px">
+<apex:pageblocksection columns="2">
+<!--<apex:pageblocksectionitem >
+<apex:selectList  value="{!selected_option}" size="1">
+ <apex:selectOption item value="Address Sequence" itemLabel="Address Sequence"/>
+ <apex:selectOption item value="Address Key" itemLabel="Address Key"/>
+ <apex:selectOption item value="Inventory Location" itemLabel="Inventory Location"/>
+</apex:selectList>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:inputtext  value="{!selected_value}"/>
+</apex:pageblocksectionitem>-->
+<apex:pageblocksectionitem > 
+<apex:outputlabel value="AOPS_CUSTOMER_ID"/>
+</apex:pageblocksectionitem>
+<apex:pageblocksectionitem >
+<apex:outputPanel >
+ 
+ 
+ 
+ <apex:inputtext ID="AOPS_CUSTOMER_ID"  value="{!AOPS_CUSTOMER_ID}" />
+ </apex:outputPanel>
+ </apex:pageblocksectionitem>
+ 
+ 
+     <apex:pageblocksectionitem > <apex:outputlabel value="QUOTE_NAME"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="QUOTE_NAME"  value="{!QUOTE_NAME }"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="QUOTE_ID"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="QUOTE_ID" value="{!QUOTE_ID }"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="CUSTOMER_SHIP_ID"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="CUSTOMER_SHIP_ID" value="{!CUSTOMER_SHIP_ID }"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="STATUS"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="STATUS" value="{!STATUS }"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="CREATION_DATE"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="CREATION_DATE" value="{!CREATION_DATE }"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="LAST_UPDATE_DATE"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="LAST_UPDATE_DATE" value="{!LAST_UPDATE_DATE}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="CLOSE_DATE"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="CLOSE_DATE" value="{!CLOSE_DATE}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="QUANTITY"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="QUANTITY" value="{!QUANTITY}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="TOTAL_AMOUNT"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="TOTAL_AMOUNT" value="{!TOTAL_AMOUNT}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="COST"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="COST" value="{!COST}"/></apex:outputPanel></apex:pageblocksectionitem>
+      
+      <apex:pageblocksectionitem > <apex:outputlabel value="FNAME"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="FNAME" value="{!FNAME}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="LNAME"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="LNAME" value="{!LNAME}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="PHONE"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="PHONE" value="{!PHONE}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="EMAIL"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="EMAIL" value="{!EMAIL}"/></apex:outputPanel></apex:pageblocksectionitem>
+     <!-- <apex:pageblocksectionitem > <apex:outputlabel value="ROLE"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="ROLE" value="{!ROLE}"/></apex:outputPanel></apex:pageblocksectionitem> -->
+      <apex:pageblocksectionitem > <apex:outputlabel value="A0PS_CONTACT_NUMBER"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="A0PS_CONTACT_NUMBER" value="{!A0PS_CONTACT_NUMBER}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <!-- <apex:pageblocksectionitem > <apex:outputlabel value="USERNAME"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="USERNAME" value="{!USERNAME}"/></apex:outputPanel></apex:pageblocksectionitem> -->
+      <apex:pageblocksectionitem > <apex:outputlabel value="SUBMITTER_FNAME"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="SUBMITTER_FNAME" value="{!SUBMITTER_FNAME}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="SUBMITTER_LNAME"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="SUBMITTER_LNAME" value="{!SUBMITTER_LNAME}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="SUBMITTER_EMAIL"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputtext required="true" ID="SUBMITTER_EMAIL" value="{!SUBMITTER_EMAIL}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="COMMENT"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputTextarea required="true" ID="COMMENT" value="{!COMMENT}"/></apex:outputPanel></apex:pageblocksectionitem>
+      <apex:pageblocksectionitem > <apex:outputlabel value="REMARKS"/></apex:pageblocksectionitem><apex:pageblocksectionitem ><apex:outputPanel > <apex:inputTextarea required="true" ID="REMARKS" value="{!REMARKS}"/></apex:outputPanel></apex:pageblocksectionitem>
+      
+
+<apex:pageblockSectionItem >
+<apex:commandButton action="{!save}"  value="Save" status="processing_msg"/>
+</apex:pageblockSectionItem>
+</apex:pageblocksection>
+
+</apex:panelgrid>
+</apex:panelgrid>
+        </apex:pageBlock>
+    <apex:pageblock Title="Result" rendered="{!VisibleTable}">
+    <apex:pageblockSection >
+    <apex:pageblockTable value="{!QuoteObj}" var="q" >
+       
+     <apex:column headerValue="Quote Upserted" >
+    <apex:outputlink value="/{!q.id}" target="_parent">
+     {!q.Name}
+   </apex:outputlink>
+</apex:column>
+    </apex:pageblockTable>
+    </apex:pageblockSection> 
+    </apex:pageblock> 
+
+        
+        
+</apex:form>
+</font>
+</apex:page>

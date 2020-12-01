@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Account Name --></label>
+        <name>PROSAgreement__AccountName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account --></label>
+        <name>PROSAgreement__Account__c</name>
+        <relationshipLabel><!-- PROS Mass Price Change Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Agreement Record Name --></label>
+        <name>PROSAgreement__AgreementRecordName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Record --></label>
+        <name>PROSAgreement__AgreementRecord_Id__c</name>
+        <relationshipLabel><!-- PROS Mass Price Change Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Agreement Action Status --></label>
+        <name>PROSAgreement__Agreement_Action_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Action --></label>
+        <name>PROSAgreement__Agreement_Action__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Changeset Id --></label>
+        <name>PROSAgreement__Agreement_Changeset_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Error --></label>
+        <name>PROSAgreement__Agreement_Error__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amendment Date --></label>
+        <name>PROSAgreement__Amendment_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contract Name --></label>
+        <name>PROSAgreement__ContractName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contract --></label>
+        <name>PROSAgreement__Contract__c</name>
+        <relationshipLabel><!-- PROS Mass Price Change Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Decision Type --></label>
+        <name>PROSAgreement__DecisionType__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Quote --></label>
+        <name>PROSAgreement__ExternalQuoteId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Id --></label>
+        <name>PROSAgreement__External_Agreement_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- PROS Mass Price Change --></label>
+        <name>PROSAgreement__MassPriceChange__c</name>
+        <relationshipLabel><!-- PROS Mass Price Change Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Quote Name --></label>
+        <name>PROSAgreement__Quote_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- PROS Quote --></label>
+        <name>PROSAgreement__QxQuote__c</name>
+        <relationshipLabel><!-- PROS Mass Price Change Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Reject Reason --></label>
+        <name>PROSAgreement__Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>PROSAgreement__Status__c</name>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- Agreement Action Name is not valid. 
+Allowed Action Names: accept, reject, amend and generateDocument. --></errorMessage>
+        <name>PROSAgreement__Validate_Agreement_Action_Name</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Agreement Action Status is not valid. 
+Allowed Action Status: Start, Success and Failure. --></errorMessage>
+        <name>PROSAgreement__Validate_Agreement_Action_Status</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Content --></label>
+        <name>PROSAgreement__Content</name>
+    </webLinks>
+</CustomObjectTranslation>

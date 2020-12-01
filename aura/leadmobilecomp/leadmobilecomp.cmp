@@ -1,0 +1,312 @@
+<aura:component controller="DealRegistrationController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global">
+    
+    <aura:attribute name="leadObj" type="Lead" default="{'sobjectType': 'Lead'}"/>
+    <aura:attribute name="usStatePicklist" type="List[]" default="[]"></aura:attribute>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/> 
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:if isTrue="{!$Browser.isPhone}">
+        <form class="slds-form--stacked">
+            <div>
+                <header  style="background-color:rgb(83, 81, 81);" class="slds-modal__header slds-theme_shade">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate" style="color: rgb(255, 255, 255)">Deal Registration Form</h2>
+                </header>                
+            </div>
+            <br></br>
+            <div style="width:100%">
+                <h4>Please provide as much information as possible to ensure proper lead routing.</h4>
+                <br></br>
+                <h3 style="background-color: rgb(243, 242, 242);" class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="587:1124;a">
+                    <span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" data-aura-rendered-by="589:1124;a">Client Information</span>
+                </h3>
+            </div>
+            <div >
+                <span> <lightning:input label="First Name"
+                                        name="first_Name"
+                                        aura:id="firstName"
+                                        type="string"
+                                        placeholder=""
+                                        value="{!v.leadObj.First_Name__c}"
+                                        required="true"/></span>
+            </div>
+            <div >
+                <span><lightning:input value="{!v.leadObj.Last_Name__c}" 
+                                       aura:id="lastName"
+                                       label="Last Name" 
+                                       required="true"/></span>
+            </div>
+            <div >
+                <span><lightning:input label="Company"
+                                       name="company"
+                                       aura:id="company"
+                                       type="default"
+                                       placeholder=""
+                                       value="{!v.leadObj.Company}"
+                                       required="true"/></span>
+            </div>
+            <div >
+                <span><lightning:input value="{!v.leadObj.Website}" 
+                                       aura:id="website" 
+                                       label="Website" /></span>
+            </div>
+            <div >
+                <span> <lightning:input label="Email" 
+                                        aura:id="email"  
+                                        value="{!v.leadObj.Email}" 
+                                        required="true"                                                   
+                                        placeholder="example@email.com"/></span>
+            </div>
+            <div >                                   
+                <span><lightning:input aura:id="phone" 
+                                       label="Phone Number" 
+                                       value="{!v.leadObj.Phone}" 
+                                       pattern="[0-9]*"
+                                       maxlength="10"
+                                       minlength="10"
+                                       messageWhenPatternMismatch="Enter 10 digit number."
+                                       messageWhenBadInput="Enter 10 digit number."
+                                       required="true"/></span>
+            </div>
+            <div style="width:100%">
+                <h3 style="background-color: rgb(243, 242, 242);" class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="587:1124;a">
+                    <span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" >Client Address</span>
+                </h3 >   
+            </div>
+            <div>
+                <span> <lightning:input aura:id="address"
+                                        label="Street"
+                                        value="{! v.leadObj.Street }"
+                                        required="true"/></span>
+                
+            </div>
+            <div>
+                <span><lightning:input 
+                                       label="City"
+                                       value="{! v.leadObj.City }"
+                                       required="true"/></span>
+                
+            </div>
+            <div>
+                <span> <lightning:input 
+                                        label="State"
+                                        value="{! v.leadObj.State }" 
+                                        required="true"/></span>
+                
+            </div>
+            <div>
+                <span><lightning:input label="Postal Code"
+                                       value="{! v.leadObj.PostalCode }"
+                                       pattern="[0-9]*"
+                                       maxlength="5"
+                                       minlength="5"
+                                       messageWhenPatternMismatch="Enter 5 digit number."
+                                       messageWhenBadInput="Enter 5 digit number."
+                                       required="true"/></span>
+            </div>
+            <div style="width:100%">
+                <h3 style="background-color: rgb(243, 242, 242);" class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="587:1124;a">
+                    <span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" >Service Information</span>
+                </h3 >   
+                <div >
+                    <span><lightning:select label="Service" class="single" aura:id="itassId" value="{!v.leadObj.ITaaS__c}">
+                        <option text="ITaaS" value="true"/>
+                        <option text="Other" value="false"/>
+                        </lightning:select></span>
+                </div>
+                <div >
+                    <span> <lightning:input label="No. of Employees" 
+                                            class="single" 
+                                            pattern="[0-9]*"
+                                            maxlength="6"
+                                            aura:id="numOfEmployeesId" 
+                                            value="{!v.leadObj.Number_of_Users__c}">
+                        </lightning:input></span>
+                </div>
+                <div >
+                    <span><lightning:select label="Are there servers?" class="single" aura:id="areThereServersId" value="{!v.leadObj.Are_there_servers__c}">
+                        <option  text="Yes" value="Yes"/>
+                        <option  text="No" value="No"/>
+                        <option  text="I don't know" value="I Don't Know"/>
+                        </lightning:select></span>
+                </div>
+                <div>
+                    <div>
+                        <span><lightning:textarea name="comments" value="{!v.leadObj.Comments__c}" label="Comments" aura:id="commentsId" /></span>
+                    </div>
+                </div>
+                <div>
+                    <div style="width: 100%; float:left">
+                        Please allow 24-48 hours for your client to be contacted.
+                    </div>       
+                </div>
+                <br></br>
+                <div>
+                    <div style="text-align: center">
+                        <lightning:button title="Cancel" onclick="{!c.closeModel}">
+                            <span>Cancel</span>
+                        </lightning:button>
+                        <lightning:button variant="neutral"
+                                          aura:id="btnSaveId"
+                                          label="Save"
+                                          title="Save"
+                                          onclick="{!c.clickSave}"/>
+                    </div>
+                    <br></br>
+                </div>
+            </div>
+        </form>
+    </aura:if>
+    <aura:if isTrue="{!$Browser.isTablet}">
+        <form class="slds-form--stacked">
+            <div>
+                <header  style="background-color:rgb(83, 81, 81);" class="slds-modal__header slds-theme_shade">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate" style="color: rgb(255, 255, 255)">Deal Registration Form</h2>
+                </header>                
+            </div>
+            <br></br>
+            <div style="width:100%">
+                <h4>Please provide as much information as possible to ensure proper lead routing.</h4>
+                <br></br>
+                <h3 style="background-color: rgb(243, 242, 242);" class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="587:1124;a">
+                    
+                    <span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" data-aura-rendered-by="589:1124;a">Client Information</span>
+                </h3>
+            </div>
+            <div >
+                <span> <lightning:input label="First Name"
+                                        name="first_Name"
+                                        aura:id="firstName"
+                                        type="string"
+                                        placeholder=""
+                                        value="{!v.leadObj.First_Name__c}"
+                                        required="true"/></span>
+            </div>
+            <div >
+                <span><lightning:input value="{!v.leadObj.Last_Name__c}" 
+                                       aura:id="lastName"
+                                       label="Last Name" 
+                                       required="true"/></span>
+            </div>
+            <div >
+                <span><lightning:input label="Company"
+                                       name="company"
+                                       aura:id="company"
+                                       type="default"
+                                       placeholder=""
+                                       value="{!v.leadObj.Company}"
+                                       required="true"/></span>
+            </div>
+            <div >
+                <span><lightning:input value="{!v.leadObj.Website}" 
+                                       aura:id="website" 
+                                       label="Website" /></span>
+            </div>
+            <div >
+                <span> <lightning:input label="Email" 
+                                        aura:id="email"  
+                                        value="{!v.leadObj.Email}" 
+                                        required="true"                                                   
+                                        placeholder="example@email.com"/></span>
+            </div>
+            <div >                                   
+                <span><lightning:input aura:id="phone" 
+                                       label="Phone Number" 
+                                       value="{!v.leadObj.Phone}" 
+                                       pattern="[0-9]*"
+                                       maxlength="10"
+                                       minlength="10"
+                                       messageWhenPatternMismatch="Enter 10 digit number."
+                                       messageWhenBadInput="Enter 10 digit number."
+                                       required="true"/></span>
+            </div>
+            <div style="width:100%">
+                <h3 style="background-color: rgb(243, 242, 242);" class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="587:1124;a">
+                    <span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" >Client Address</span>
+                </h3 >   
+            </div>
+            <div>
+                <span> <lightning:input aura:id="address"
+                                        label="Street"
+                                        value="{! v.leadObj.Street }"
+                                        required="true"/></span>
+                
+            </div>
+            <div>
+                <span><lightning:input 
+                                       label="City"
+                                       value="{! v.leadObj.City }"
+                                       required="true"/></span>
+                
+            </div>
+            <div>
+                <span> <lightning:input 
+                                        label="State"
+                                        value="{! v.leadObj.State }" 
+                                        required="true"/></span>
+                
+            </div>
+            <div>
+                <span><lightning:input label="Postal Code"
+                                       value="{! v.leadObj.PostalCode }"
+                                       pattern="[0-9]*"
+                                       maxlength="5"
+                                       minlength="5"
+                                       messageWhenPatternMismatch="Enter 5 digit number."
+                                       messageWhenBadInput="Enter 5 digit number."
+                                       required="true"/></span>
+            </div>
+            <div style="width:100%">
+                <h3 style="background-color: rgb(243, 242, 242);" class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container" data-aura-rendered-by="587:1124;a">
+                    <span class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate" >Service Information</span>
+                </h3 >   
+                <div >
+                    <span><lightning:select label="Service" class="single" aura:id="itassId" value="{!v.leadObj.ITaaS__c}">
+                        <option text="ITaaS" value="true"/>
+                        <option text="Other" value="false"/>
+                        </lightning:select></span>
+                </div>
+                <div >
+                    <span> <lightning:input label="No. of Employees" 
+                                            class="single" 
+                                            pattern="[0-9]*"
+                                            maxlength="6"
+                                            aura:id="numOfEmployeesId" 
+                                            value="{!v.leadObj.Number_of_Users__c}">
+                        </lightning:input></span>
+                </div>
+                <div >
+                    <span><lightning:select label="Are there servers?" class="single" aura:id="areThereServersId" value="{!v.leadObj.Are_there_servers__c}">
+                        <option  text="Yes" value="Yes"/>
+                        <option  text="No" value="No"/>
+                        <option  text="I don't know" value="I Don't Know"/>
+                        </lightning:select></span>
+                </div>
+                <div>
+                    <div>
+                        <span><lightning:textarea name="comments" value="{!v.leadObj.Comments__c}" label="Comments" aura:id="commentsId" /></span>
+                    </div>
+                </div>
+                <div>
+                    <div style="width: 100%; float:left">
+                        Please allow 24-48 hours for your client to be contacted.
+                    </div>       
+                </div>
+                <br></br>
+                <div>
+                    <div style="text-align: center">
+                        <lightning:button title="Cancel" onclick="{!c.closeModel}">
+                            <span>Cancel</span>
+                        </lightning:button>
+                        <lightning:button variant="neutral"
+                                          aura:id="btnSaveId"
+                                          label="Save"
+                                          title="Save"
+                                          onclick="{!c.clickSave}"/>
+                    </div>
+                    <br></br>
+                </div>
+            </div>
+        </form>
+    </aura:if>
+</aura:component>

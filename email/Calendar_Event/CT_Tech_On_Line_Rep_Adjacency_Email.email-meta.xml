@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Technology and Channel On Line Adjacency Notification for Assigned Rep</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>CT Tech On Line Rep Adjacency Email</name>
+    <style>freeForm</style>
+    <subject>{!Customer_Transition__c.OMX_Primary_Key__c} - {!Customer_Transition__c.Account_Name__c} Channel On Line Alert</subject>
+    <textOnly>Dear Technology Team:
+
+Account #{!Customer_Transition__c.OMX_Primary_Key__c}, {!Customer_Transition__c.Account_Name__c} has been migrated to OD South. Please contact the customer to advise them that you will be closing their Channel On Line access and educate them on the new Office Depot web ordering process.
+
+Please make sure that their access if removed so that they don&apos;t place an order that will not ship to them once the account has reached DNS status.
+
+Link to Customer: {!Customer_Transition__c.Account_Name__c}
+
+Thank you for your support.
+
+BSD SALES OPERATIONS TEAM</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>$100 Rebate from Clorox thru Office Depot</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Clorox Rebates</name>
+    <style>freeForm</style>
+    <subject>Up To $100 rebate thru Office Depot</subject>
+    <textOnly>{!Contact.FirstName},
+
+
+
+Last year&apos;s flu season was worst we&apos;ve seen in recent years. How did your office fare?
+
+You do a great job of keeping your office and schools stocked with much needed supplies, but are you and your colleagues proactively disinfecting high touch hard surfaces? How often are your breakroom sink handles, desks and door knobs being cleaned and disinfected?
+
+I&apos;m asking because a contaminated doorknob and a person can infect 40 % of office colleagues or classmates in only 4 hours! And flu viruses can live on hard surfaces like doorknobs for up to 48 hours!
+
+Fortunately we&apos;re offering a high value, limited time rebate for Clorox cleaning products. You can receive up to $100 for stocking up on Clorox supplies to keep your office and school safe during this flu season. Clorox Disinfecting Wipes kill 99.9 % of viruses and bacteria, so take advantage of this rebate and buy some Clorox disinfecting products for your office today.
+
+
+
+
+
+Warm Regards,
+
+{!User.Name}
+
+Account Manager
+
+{!User.Email}
+
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

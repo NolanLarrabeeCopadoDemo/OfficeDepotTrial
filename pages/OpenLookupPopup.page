@@ -1,0 +1,86 @@
+<!-- Modified By Vipul Jain for Story#S-442659 (00796006 - Opportunity Mass Reassignment for Active or Inactive Users by U.S. DSMs and Above) on October 24,2016 -->
+<apex:page Controller="OpenLookupPopupCntrl" title="Search"
+  showHeader="false"
+  sideBar="false"
+  tabStyle="User"
+  id="pg">
+
+  <apex:form >
+  <apex:outputPanel id="page" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+
+        <apex:actionRegion >
+          <apex:outputPanel id="top" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+            <apex:outputLabel value="Search" style="font-weight:Bold;padding-right:10px;" for="txtSearch"/>
+            <apex:inputText id="txtSearch" value="{!searchString}" />
+              <span style="padding-left:5px"><apex:commandButton id="btnGo" value="Go" action="{!Search}" rerender="searchResults"></apex:commandButton></span>
+          </apex:outputPanel>
+
+          <apex:outputPanel id="pnlSearchResults" style="margin:10px;height:350px;overflow-Y:auto;" layout="block">
+            <apex:pageBlock id="searchResults">
+              <apex:pageBlockTable value="{!results}" var="a" id="tblResults">
+                <apex:column >
+                  <apex:facet name="header">
+                    <apex:outputPanel >Name</apex:outputPanel>
+                  </apex:facet>
+                   <apex:outputLink value="javascript:top.window.opener.lookupPick2('{!FormTag}','{!TextBox}_lkid','{!TextBox}','{!a.Id}','{!a.Name}', false)" rendered="{!NOT(ISNULL(a.Id))}">{!a.Name}</apex:outputLink>
+                </apex:column>
+                	<apex:column >
+                  <apex:facet name="header">
+                    <apex:outputPanel >Active</apex:outputPanel>
+                  </apex:facet>
+                   <apex:outputField value="{!a.IsActive}" rendered="{!NOT(ISNULL(a.Id))}"></apex:outputField>
+                </apex:column>
+				<apex:column >
+                  <apex:facet name="header">
+                    <apex:outputPanel >Profile</apex:outputPanel>
+                  </apex:facet>
+                   <apex:outputText value="" rendered="{!NOT(ISNULL(a.Id))}">{!a.Profile.Name}</apex:outputText>
+                </apex:column>
+                <apex:column >
+                  <apex:facet name="header">
+                    <apex:outputPanel >Role</apex:outputPanel>
+                  </apex:facet>
+                   <apex:outputText value="" rendered="{!NOT(ISNULL(a.Id))}">{!a.UserRole.Name}</apex:outputText>
+                </apex:column>
+                <apex:column >
+                  <apex:facet name="header">
+                    <apex:outputPanel >Market</apex:outputPanel>
+                  </apex:facet>
+                   <apex:outputText value="" rendered="{!NOT(ISNULL(a.Id))}">{!a.Market__c}</apex:outputText>
+                </apex:column>
+                <apex:column >
+                  <apex:facet name="header">
+                    <apex:outputPanel >Last Login</apex:outputPanel>
+                  </apex:facet>
+                   <apex:outputText value="" rendered="{!NOT(ISNULL(a.Id))}">{!a.LastLoginDate}</apex:outputText>
+                </apex:column>
+                <apex:column >
+                  <apex:facet name="header">
+                    <apex:outputPanel >Phone</apex:outputPanel>
+                  </apex:facet>
+                   <apex:outputText value="" rendered="{!NOT(ISNULL(a.Id))}">{!a.Phone}</apex:outputText>
+                </apex:column>
+                <apex:column >
+                  <apex:facet name="header">
+                    <apex:outputPanel >Mobile</apex:outputPanel>
+                  </apex:facet>
+                   <apex:outputText value="" rendered="{!NOT(ISNULL(a.Id))}">{!a.MobilePhone}</apex:outputText>
+                </apex:column>
+                   <apex:column >
+                  <apex:facet name="header">
+                    <apex:outputPanel >Manager</apex:outputPanel>
+                  </apex:facet>
+                   <apex:outputText value="" rendered="{!NOT(ISNULL(a.Id))}">{!a.Manager__c}</apex:outputText>
+                </apex:column>
+
+
+
+
+
+              </apex:pageBlockTable>
+            </apex:pageBlock>
+          </apex:outputPanel>
+        </apex:actionRegion>
+  </apex:outputPanel>
+  </apex:form>
+</apex:page>

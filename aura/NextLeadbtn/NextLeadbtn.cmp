@@ -1,0 +1,24 @@
+<aura:component controller= "LeadRepQueueAssignment" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,lightning:isUrlAddressable" access="global" >
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="ProfileLoggedIn" type="String"/>
+    <aura:attribute name="recId" type="String" access="Global" />
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="fields" type="Object"/>
+    <aura:attribute name="recordError" type="String"/>
+    <aura:attribute name="currentUser" type="User"/>  
+    <aura:attribute name="showSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="uid" type="String" default="0000000"/>
+
+    <lightning:navigation aura:id="navigationService"/>
+    
+    <force:recordData 
+                      aura:id="recordLoader" 
+                      recordId="{!$SObjectType.CurrentUser.Id}"  
+                      fields="Profile.Name" 
+                      targetFields="{!v.currentUser}"
+                      recordUpdated="{!c.doInit}"/>
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner alternativeText="Loading" size="medium" />
+    </aura:if>
+    
+</aura:component>

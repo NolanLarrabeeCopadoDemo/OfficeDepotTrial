@@ -1,0 +1,109 @@
+<aura:component controller="AccountSummaryController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">   
+    <aura:handler name="init" value="{!this}" action="{!c.doAction}" />  
+    <aura:attribute name="we" type="String"/>
+    <aura:method name="reInitDMLAcc" action="{!c.doAction}" description="Runs the init method again ">
+        <aura:attribute name="param1" type="String"/>
+    </aura:method>
+    
+    <aura:attribute name="dml" type="DML__C" />
+    <aura:attribute name="org" type="Org__c" />
+    <aura:attribute name="items" type="Object"/>  
+    <aura:attribute name="oid" type ="String"/> 
+    
+    <aura:attribute name="subrecordId" type="Id" access="global"/>
+    <aura:attribute name="ind" type ="Boolean" default="false"/> 
+    <aura:attribute name="title" type="String" default="Custom Title"/>
+    
+    <div class="page-section page-main">
+        <lightning:card title="DML Info" iconName="action:fallback" >
+            <lightning:layout multipleRows="fasle">
+                <lightning:layoutItem padding="around-small" size="6">
+                    <lightning:tile>
+                        <p class="slds-p-horizontal_small">
+                             <dl class="slds-dl_horizontal">
+                            <dt class="slds-dl_horizontal__label">
+                                <p class="slds-truncate" title="Alt">DML ID:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate" >{!v.dml.Name} </p>
+                            </dd>
+                              <dt class="slds-dl_horizontal__label">
+                                <p class="slds-truncate" >DML Name:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate" >{!v.dml.DECISION_MAKER_NM__c}</p>
+                            </dd>
+                                             <dt class="slds-dl_horizontal__label">
+                                <p class="slds-truncate" >DML Rep Name:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate" >{!v.dml.Decision_Maker_Rep_Name__c}</p>
+                            </dd>
+                          
+                                     <dt class="slds-dl_horizontal__label">
+                                <p class="slds-truncate" >DML State:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate" >{!v.dml.DML_State__c}</p>
+                            </dd>
+                                   <dt class="slds-dl_horizontal__label">
+                                <p class="slds-truncate" >DML Zip:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate" >{!v.dml.DECISION_MAKER_ZIP_CD__c}</p>
+                            </dd>
+                          </dl>
+                            
+                            
+                            
+                            
+                        </p></lightning:tile>
+                    
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small" size="6">
+                    <lightning:tile>
+                   <!--     <div class="page-section page-right">
+                            <lightning:layoutItem padding="around-small" size="8"> -->
+                                <p>
+                                         
+                                        <dl class="slds-dl_horizontal">
+                                            <dt class="slds-dl_horizontal__label">
+                                                <p class="slds-truncate" title="Company">DUNS #:</p>
+                                            </dt>
+                                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                <p class="slds-truncate" >{!v.dml.DUNS_Number__c}</p>
+                                            </dd>
+                                            <dt class="slds-dl_horizontal__label">
+                                                <p class="slds-truncate" >Effective Start Date:</p>
+                                            </dt>
+                                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                <p class="slds-truncate">{!v.dml.Effective_Start_Date__c}</p>
+                                            </dd>
+                                            <dt class="slds-dl_horizontal__label">
+                                                <p class="slds-truncate" >Effective End Date:</p>
+                                            </dt>
+                                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                <p class="slds-truncate" >{!v.dml.Effective_End_Date__c}</p>
+                                            </dd>
+                                            <dt class="slds-dl_horizontal__label">
+                                                <p class="slds-truncate" >DML Status:</p>
+                                            </dt>
+                                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                <p class="slds-truncate" >{!v.dml.Status__c}</p>
+                                            </dd>
+                                            
+                                            
+                                        </dl>
+                                </p>
+                  <!--          </lightning:layoutItem>
+                        </div> -->
+                    </lightning:tile>
+                </lightning:layoutItem>
+            </lightning:layout>
+            
+        </lightning:card>
+    </div>
+    
+    
+    
+</aura:component>

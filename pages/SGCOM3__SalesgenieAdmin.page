@@ -1,0 +1,19 @@
+<apex:page controller="SGCOM3.SgUserAdminController" action="{!getUser}">
+<apex:messages /> 
+   <apex:pageBlock >
+      <apex:form >
+         <h1>Add/Update Salesgenie Credentials</h1>
+         <table>
+           <tr>
+             <td style="width: 15em;">Salesgenie Username :</td> 
+             <td><apex:inputText value="{!UserId}"></apex:inputText></td>
+           </tr>
+           <tr>
+             <td style="width: 15em;">Salesgenie Password  :</td>
+             <td><apex:inputText value="{!PassWord}"></apex:inputText> {!PassWordMessage}</td>
+           </tr>
+         </table>
+         <apex:commandButton action="{!save}" value="Save"/>
+      </apex:form>
+   </apex:pageBlock>
+</apex:page>

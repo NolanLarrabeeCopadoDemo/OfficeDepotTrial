@@ -1,0 +1,20 @@
+<apex:page standardController="Account" extensions="DupProspects_Customers" showHeader="true" readonly="true">
+    <apex:form >
+        <apex:pageBlock title="List of Duplicate Customers and prospects" id="gridform">
+             <apex:pageBlockButtons >
+                 <apex:commandButton action="{!cancel}" value="Cancel" id="SaveContactButton"/>
+              </apex:pageBlockButtons>
+              <apex:pageBlockSection columns="2"> 
+                <apex:pageBlockTable value="{!wrap}" var="m"  border="1"  cellpadding="100%" >                    
+                   <apex:column width="100%" styleClass="spaceContact"><apex:facet name="header">Account Name</apex:facet>{!m.name}</apex:column>
+                   <apex:column width="80%" styleClass="spaceContact"><apex:facet name="header">Count</apex:facet>{!m.count1}</apex:column>                  
+                 </apex:pageBlockTable>
+       		    </apex:pageBlockSection>
+       		   <!--   <div align="right" style="display:{!IF(NOT(ISNULL(wrap)),'block','none')}">            
+            <font size="1pt">Page #:&nbsp;<apex:outputLabel value="{!PageNumber}"/>&nbsp;out of&nbsp;<apex:outputLabel value="{!totalPageNumber}"/>&nbsp;&nbsp;&nbsp;&nbsp;</font>
+            <apex:commandButton value="Previous" action="{!previousBtnClick}" disabled="{!previousButtonEnabled}" reRender="gridform"></apex:commandButton>
+            <apex:commandButton value="Next" action="{!nextBtnClick}"  disabled="{!nextButtonDisabled}" reRender="gridform" ></apex:commandButton>
+        </div>   -->                                 
+        </apex:pageBlock>  
+    </apex:form>    
+  </apex:page>

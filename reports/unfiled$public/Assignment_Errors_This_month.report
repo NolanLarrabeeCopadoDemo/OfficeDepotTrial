@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>AccountAssignments__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>AccountAssignments__c.Entity_Id__c</field>
+    </columns>
+    <columns>
+        <field>AccountAssignments__c.Error_Message__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>CUST_RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>AccountAssignments__c.Office_Depot</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>AccountAssignments__c.Entity_Id_Padded__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>AccountAssignments__c.Error_Message__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Not able to find SFDC Account record for Entity Id.</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Assignment Errors This month</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$AccountAssignments__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <endDate>2018-02-28</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2018-02-01</startDate>
+    </timeFrameFilter>
+</Report>

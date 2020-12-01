@@ -1,0 +1,139 @@
+<apex:page readOnly="true" controller="ACEReporting_RevMarg_WaterFall" action="{!loadDataProcessPipeline}">
+ 
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        
+        .expandCollapse{
+        -moz-border-radius:5px 5px 5px 5px;
+        -webkit-border-radius:5px 5px 5px 5px;
+        border-radius:5px 5px 5px 5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        align:center; 
+        text-align:center; 
+        font-weight:bold;
+        background-color:#3D8C8C;
+        background-image:none;
+        width:auto;
+        height:auto;
+        color:white;
+        }
+        .borderLeft{
+            border-left: solid 1px black;
+        }
+        .borderRight{
+            border-right: solid 1px black;
+        }
+    </Style>
+    
+    <apex:outputPanel id="bucketPanel">
+        <apex:form >    
+           <apex:sectionHeader title="Reports" id="reports1" subtitle="BSD Price Change Process Progress/Pipeline Reporting"/>
+                
+            <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%">    
+                <apex:outputPanel style="text-align: right;float:right;">
+                           <!-- <a href="/servlet/servlet.FileDownload?file=015M0000000ACus" target="_blank"> <apex:image id="theImage" value="{!$Resource.TalkingPointImage}" width="40" height="18" style="text-align: right;"/></a>-->
+                           &nbsp; 
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!loadDataProcessPipeline}"  status="search_Status_main"/>
+                                        <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid>
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                <!-- Added apex image tag S-346420 by  Rahul  <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/> --> 
+                 <apex:image id="ajax_loading" value="{!$Resource.Ajax_Loading}" height="100" width="100" alt="Loading graphic" />
+             </div>
+         </div>
+         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                 
+             <!-- Revenue Block -->
+             <div style="width:100%;background-color:white;">
+               <apex:outputPanel id="componentPanel" >   
+               <apex:pageBlock id="block">              
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                         
+                         <div class="expandCollapse" width="100%" style="width:100%">
+                             <apex:outputText value="Process Progress/Pipeline" style="color:white;"/>
+                             <!-- <apex:commandLink value="Revenue" action="{!doExpand}" rendered="true" style="color:white;" rerender="block"/>-->
+                         </div>  
+                         <br/>  
+                         
+                         <apex:pageBlockTable value="{!lProgPipeReportDataCls}" var="a" border="1">
+                             <apex:column style="width:50%">
+                                 <apex:facet name="header">Metric</apex:facet>
+                                 <apex:outputPanel rendered="{!a.ParentName == 'In-Process Customers' || a.ParentName == 'Eligible Customers'}" >
+                                     <center><font style="text-align:left;"> {!a.datatype} </font> </center>
+                                 </apex:outputPanel>
+                                 <apex:outputPanel rendered="{!a.ParentName != 'In-Process Customers' && a.ParentName != 'Eligible Customers'}">
+                                      {!a.datatype}
+                                 </apex:outputPanel>
+                             </apex:column>
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">#</apex:facet>
+                                 <a href="/apex/ACEProProgCustomerList?reportType={!reportType}&listtype={!a.datatype}&quarter={!quarterValue}" target="_blank">
+                                 <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.recCount}"/>
+                                 </apex:outputText> 
+                                 </a>
+                             </apex:column>
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Revenue</apex:facet>
+                                     <a href="/apex/ACEProProgCustomerList?reportType={!reportType}&listtype={!a.datatype}&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="${0, number, ###,###,###,##0.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!IF(a.RevenueValue!=null,a.RevenueValue,0)}"/>
+                                     </apex:outputText> 
+                                     </a>
+                             </apex:column>
+                             <apex:column style="width:15%">
+                                 <apex:facet name="header">Margin</apex:facet>
+                                 <a href="/apex/ACEProProgCustomerList?reportType={!reportType}&listtype={!a.datatype}&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="${0, number, ###,###,###,##0.00}" style="white-space:nowrap;">
+                                         <apex:param value="{!IF(a.MarginValue!=null,a.MarginValue,0)}"/>
+                                     </apex:outputText>
+                                     </a>
+                             </apex:column>
+                             
+                             
+                             
+                         </apex:pageBlockTable>    
+                                             
+                 </apex:pageBlock> 
+                 </apex:outputPanel>
+                    
+        </div>  
+      </apex:form>
+         
+          
+           
+    </apex:outputPanel>
+    
+    <script>
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script>
+
+</apex:page>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>CPM Modified</name>
+    <style>freeForm</style>
+    <subject>The CPM {!CPM__c.Support_Number__c} has been Modified</subject>
+    <textOnly>Hello,
+
+The following CPM has been reopened due to modifications.
+
+CPM Support: {!Case.CaseNumber}
+CPM Account Name: {!Account.Name}
+Sales Rep Name: {!Account.OwnerFullName}
+DSM Name: {!Case.DSM__c}
+MD Name: {!Case.Regional_Dir__c}
+VP Name: {!Case.Regional_VP__c}
+
+
+Link to CPM Support: {!Case.Link}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

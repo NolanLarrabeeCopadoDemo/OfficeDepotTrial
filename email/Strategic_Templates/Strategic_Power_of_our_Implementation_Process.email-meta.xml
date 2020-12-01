@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>A partnership opportunity to transform your business.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Power of our Implementation Process</name>
+    <style>freeForm</style>
+    <subject>A partnership opportunity to transform your business.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+
+
+
+
+Did you know Office Depot offers a world class project management team with over 25 years of account implementation experience to help with change management? We successfully transition over 700 accounts per year with companies who take advantage of our new business platform.
+
+
+
+We do all of this based on your timeline and your schedule. Our implementation team consists of Six Sigma and PMI-certified project managers and we are fully committed to performing to the highest standards. We implement proven practices when new customers make the transition to Office Depot. We’d also offer INSERT COMPANY NAME a seamless transition to Office Depot with the ability to provide your business with more business solutions. From workspace supplies to full-service technology solutions, we’re a full-service business platform that can help you with all your office needs.
+
+
+
+It has been over INSERT NUMBER years since you have considered Office Depot—and we have totally transformed our business capabilities. I would like to schedule a brief meeting so that we can show how our capabilities can benefit INSERT COMPANY NAME. We would love for you to experience the Office Depot difference! I am available to meet INSERT DATE AND TIME.
+
+
+
+I appreciate your consideration and look forward to hearing from you.
+
+Thank you,
+
+
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

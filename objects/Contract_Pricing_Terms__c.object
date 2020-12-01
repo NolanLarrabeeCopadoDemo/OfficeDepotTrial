@@ -1,0 +1,2705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <content>Contract_Pricing_Terms_edit_page</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>Contract_Pricing_Terms_edit_page</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>Contract_Pricing_Terms_edit_page</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>Contract_Pricing_Terms_Detail_Page</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Account_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>if((Contract__r.Account.ParentId!=null &amp;&amp; Contract__r.Account.Parent.ParentId!=null &amp;&amp; Contract__r.Account.Parent.Parent.ParentId!=null),
+&apos;Child&apos;,
+if((Contract__r.Account.ParentId!=null &amp;&amp; Contract__r.Account.Parent.ParentId!=null &amp;&amp; Contract__r.Account.Parent.Parent.ParentId==null) ,
+&apos;Parent&apos;,
+if((Contract__r.Account.ParentId!=null &amp;&amp; Contract__r.Account.Parent.ParentId==null),
+&apos;Grand Parent&apos;,
+if((Contract__r.Account.ParentId==null),
+&apos;Great Grand Parent&apos;,
+&apos;Standalone&apos;))))</formula>
+        <label>Account Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Action_requirements_for_deleted_or_disco__c</fullName>
+        <externalId>false</externalId>
+        <label>What Add&apos;l action taken on disc&apos;d sku</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>None</fullName>
+                    <default>true</default>
+                    <label>None</label>
+                </value>
+                <value>
+                    <fullName>None/Contract Silent</fullName>
+                    <default>false</default>
+                    <label>None/Contract Silent</label>
+                </value>
+                <value>
+                    <fullName>Replace with OD Alternate (when possible)</fullName>
+                    <default>false</default>
+                    <label>Replace with OD Alternate (when possible)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Addition_communication_requirements__c</fullName>
+        <externalId>false</externalId>
+        <label>Addition communication requirements</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Notification only</fullName>
+                    <default>false</default>
+                    <label>Notification only</label>
+                </value>
+                <value>
+                    <fullName>Notification and customer approval</fullName>
+                    <default>false</default>
+                    <label>Notification and customer approval</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Additional_DISCO_action__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional DISCO action</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+                <value>
+                    <fullName>Replace with OD alternate (when possible)</fullName>
+                    <default>false</default>
+                    <label>Replace with OD alternate (when possible)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Alternate_restrictions__c</fullName>
+        <externalId>false</externalId>
+        <label>Alternate restrictions</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+                <value>
+                    <fullName>Equal or lesser price</fullName>
+                    <default>false</default>
+                    <label>Equal or lesser price</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Are_obligated_to_pass_on_cost_decreases__c</fullName>
+        <externalId>false</externalId>
+        <label>Are obligated to pass on cost decreases?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CC_Initial_Freeze_Period_in_days__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If contract silent, enter 0. For one quarter enter 90. For 6 months enter 180. For one year enter 365. For two years enter 730. Etc</inlineHelpText>
+        <label>Initial Price Freeze Period (in days)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Prc_Chg_Notice_Reqd_days__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If contract silent, enter 0</inlineHelpText>
+        <label>CC Price Change Notice Req&apos;d (in days)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_Price_Incr_Cap_Pegd2To__c</fullName>
+        <description>What is the second value that the cap is pegged to?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CC Price Increase Cap Pegged To</inlineHelpText>
+        <label>What is the 2nd value that the cap peg?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Static Amount</fullName>
+                    <default>false</default>
+                    <label>Static Amount</label>
+                </value>
+                <value>
+                    <fullName>Consumer Price Index (CPI)</fullName>
+                    <default>false</default>
+                    <label>Consumer Price Index (CPI)</label>
+                </value>
+                <value>
+                    <fullName>Producer Price Index (PPI)</fullName>
+                    <default>false</default>
+                    <label>Producer Price Index (PPI)</label>
+                </value>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Web price</fullName>
+                    <default>false</default>
+                    <label>Web price</label>
+                </value>
+                <value>
+                    <fullName>Operating cost</fullName>
+                    <default>false</default>
+                    <label>Operating cost</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CC_Price_Incr_Cap_Pegd_To__c</fullName>
+        <description>CC Price Increase Cap Pegged To</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CC Price Increase Cap Pegged To</inlineHelpText>
+        <label>What is the price increase cap pegged to</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Static Amount</fullName>
+                    <default>false</default>
+                    <label>Static Amount</label>
+                </value>
+                <value>
+                    <fullName>Consumer Price Index (CPI)</fullName>
+                    <default>false</default>
+                    <label>Consumer Price Index (CPI)</label>
+                </value>
+                <value>
+                    <fullName>Producer Price Index (PPI)</fullName>
+                    <default>false</default>
+                    <label>Producer Price Index (PPI)</label>
+                </value>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Web price</fullName>
+                    <default>false</default>
+                    <label>Web price</label>
+                </value>
+                <value>
+                    <fullName>Operating cost</fullName>
+                    <default>false</default>
+                    <label>Operating cost</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CC_Price_Incr_Capped__c</fullName>
+        <description>Are CC Price Increases Capped?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Are CC Price Increases Capped?</inlineHelpText>
+        <label>Are price increases capped?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CC_Pricing_Update_Frequency_in_days__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If contract silent, enter 0</inlineHelpText>
+        <label>How frequently can we pass increases</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CPI_Price_Incr_Pegd2To__c</fullName>
+        <description>Which Consumer Price Index are price increases pegged to?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Which Consumer Price Index are price increases pegged to?</inlineHelpText>
+        <label>Which Consumer Price Index are price2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting information</fullName>
+                    <default>true</default>
+                    <label>Awaiting information</label>
+                </value>
+                <value>
+                    <fullName>All Items Consumer Price Index for All Urban Consumers (CPI-U)</fullName>
+                    <default>false</default>
+                    <label>All Items Consumer Price Index for All Urban Consumers (CPI-U)</label>
+                </value>
+                <value>
+                    <fullName>Consumer Price Index for Urban Wage Earners and Clerical Workers (CPI-W)</fullName>
+                    <default>false</default>
+                    <label>Consumer Price Index for Urban Wage Earners and Clerical Workers (CPI-W)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CPI_Price_Incr_Pegd_To__c</fullName>
+        <description>CPI Price Increases Are Pegged To</description>
+        <externalId>false</externalId>
+        <inlineHelpText>CPI Price Increases Are Pegged To</inlineHelpText>
+        <label>CPI Price Increases Are Pegged To</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting information</fullName>
+                    <default>true</default>
+                    <label>Awaiting information</label>
+                </value>
+                <value>
+                    <fullName>All Items Consumer Price Index for All Urban Consumers (CPI-U)</fullName>
+                    <default>false</default>
+                    <label>All Items Consumer Price Index for All Urban Consumers (CPI-U)</label>
+                </value>
+                <value>
+                    <fullName>Consumer Price Index for Urban Wage Earners and Clerical Workers (CPI-W)</fullName>
+                    <default>false</default>
+                    <label>Consumer Price Index for Urban Wage Earners and Clerical Workers (CPI-W)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CPTPush__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>CPTPush</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Calendar_period__c</fullName>
+        <externalId>false</externalId>
+        <label>Calendar period</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Daily</fullName>
+                    <default>false</default>
+                    <label>Daily</label>
+                </value>
+                <value>
+                    <fullName>Monthly</fullName>
+                    <default>false</default>
+                    <label>Monthly</label>
+                </value>
+                <value>
+                    <fullName>Quarterly</fullName>
+                    <default>false</default>
+                    <label>Quarterly</label>
+                </value>
+                <value>
+                    <fullName>Semi-annually</fullName>
+                    <default>false</default>
+                    <label>Semi-annually</label>
+                </value>
+                <value>
+                    <fullName>Annually</fullName>
+                    <default>false</default>
+                    <label>Annually</label>
+                </value>
+                <value>
+                    <fullName>Specific date</fullName>
+                    <default>false</default>
+                    <label>Specific date</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Comm_Req_CC_Price_Chg__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If contract silent, enter 0</inlineHelpText>
+        <label>Communication Req&apos;d For CC Price Change</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Notification only</fullName>
+                    <default>false</default>
+                    <label>Notification only</label>
+                </value>
+                <value>
+                    <fullName>Notification and customer approval</fullName>
+                    <default>false</default>
+                    <label>Notification and customer approval</label>
+                </value>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Complex_cap__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Complex cap</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Contract__c</fullName>
+        <externalId>false</externalId>
+        <label>Contract</label>
+        <referenceTo>Contract</referenceTo>
+        <relationshipName>Contract_Pricing_Terms</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>DISCO_communication_requirements__c</fullName>
+        <externalId>false</externalId>
+        <label>DISCO communication requirements</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+                <value>
+                    <fullName>Standard BSD terms</fullName>
+                    <default>false</default>
+                    <label>Standard BSD terms</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Date_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Date 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Date 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Date 3</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Date 4</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Deletion_communication_requirements__c</fullName>
+        <externalId>false</externalId>
+        <label>Deletion communication requirements</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Notification only</fullName>
+                    <default>false</default>
+                    <label>Notification only</label>
+                </value>
+                <value>
+                    <fullName>Notification and customer approval</fullName>
+                    <default>false</default>
+                    <label>Notification and customer approval</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Department_Groups__c</fullName>
+        <description>Logical grouping of Departments</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select Department Groups for this Pricing Term</inlineHelpText>
+        <label>Department Groups</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Select All</fullName>
+                    <default>false</default>
+                    <label>Select All</label>
+                </value>
+                <value>
+                    <fullName>All Except Paper &amp; Toner</fullName>
+                    <default>false</default>
+                    <label>All Except Paper &amp; Toner</label>
+                </value>
+                <value>
+                    <fullName>CBS</fullName>
+                    <default>false</default>
+                    <label>CBS</label>
+                </value>
+                <value>
+                    <fullName>CPD</fullName>
+                    <default>false</default>
+                    <label>CPD</label>
+                </value>
+                <value>
+                    <fullName>Furniture</fullName>
+                    <default>false</default>
+                    <label>Furniture</label>
+                </value>
+                <value>
+                    <fullName>Ink &amp; Toner</fullName>
+                    <default>false</default>
+                    <label>Ink &amp; Toner</label>
+                </value>
+                <value>
+                    <fullName>MPS</fullName>
+                    <default>false</default>
+                    <label>MPS</label>
+                </value>
+                <value>
+                    <fullName>Office Supplies</fullName>
+                    <default>false</default>
+                    <label>Office Supplies</label>
+                </value>
+                <value>
+                    <fullName>Paper</fullName>
+                    <default>false</default>
+                    <label>Paper</label>
+                </value>
+                <value>
+                    <fullName>School Supplies</fullName>
+                    <default>false</default>
+                    <label>School Supplies</label>
+                </value>
+                <value>
+                    <fullName>Services</fullName>
+                    <default>false</default>
+                    <label>Services</label>
+                </value>
+                <value>
+                    <fullName>Technology (Tech Depot)</fullName>
+                    <default>false</default>
+                    <label>Technology (Tech Depot)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Departments__c</fullName>
+        <description>List of Departments</description>
+        <externalId>false</externalId>
+        <inlineHelpText>List of Departments for Pricing Term</inlineHelpText>
+        <label>Departments</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>01 - FURNITURE</fullName>
+                    <default>false</default>
+                    <label>01 - FURNITURE</label>
+                </value>
+                <value>
+                    <fullName>03 - BINDERS</fullName>
+                    <default>false</default>
+                    <label>03 - BINDERS</label>
+                </value>
+                <value>
+                    <fullName>04 - DATED AND FORMS</fullName>
+                    <default>false</default>
+                    <label>04 - DATED AND FORMS</label>
+                </value>
+                <value>
+                    <fullName>05 - PAPER</fullName>
+                    <default>false</default>
+                    <label>05 - PAPER</label>
+                </value>
+                <value>
+                    <fullName>06 - MAILROOM/SHIPPING</fullName>
+                    <default>false</default>
+                    <label>06 - MAILROOM/SHIPPING</label>
+                </value>
+                <value>
+                    <fullName>07 - SCHOOL SUPPLIES</fullName>
+                    <default>false</default>
+                    <label>07 - SCHOOL SUPPLIES</label>
+                </value>
+                <value>
+                    <fullName>08 - LIGHTING</fullName>
+                    <default>false</default>
+                    <label>08 - LIGHTING</label>
+                </value>
+                <value>
+                    <fullName>09 - PC ACCESSORIES</fullName>
+                    <default>false</default>
+                    <label>09 - PC ACCESSORIES</label>
+                </value>
+                <value>
+                    <fullName>10 - DESKTOP COMPUTERS</fullName>
+                    <default>false</default>
+                    <label>10 - DESKTOP COMPUTERS</label>
+                </value>
+                <value>
+                    <fullName>11 - WRITING</fullName>
+                    <default>false</default>
+                    <label>11 - WRITING</label>
+                </value>
+                <value>
+                    <fullName>12 - SPECIALTY PAPER</fullName>
+                    <default>false</default>
+                    <label>12 - SPECIALTY PAPER</label>
+                </value>
+                <value>
+                    <fullName>13 - NOTETAKING</fullName>
+                    <default>false</default>
+                    <label>13 - NOTETAKING</label>
+                </value>
+                <value>
+                    <fullName>14 - INKJET CARTRIDGES</fullName>
+                    <default>false</default>
+                    <label>14 - INKJET CARTRIDGES</label>
+                </value>
+                <value>
+                    <fullName>16 - PRINTERS</fullName>
+                    <default>false</default>
+                    <label>16 - PRINTERS</label>
+                </value>
+                <value>
+                    <fullName>17 - BUSINESS COMMUNICATION</fullName>
+                    <default>false</default>
+                    <label>17 - BUSINESS COMMUNICATION</label>
+                </value>
+                <value>
+                    <fullName>18 - SHRED/STORE SERVICES</fullName>
+                    <default>false</default>
+                    <label>18 - SHRED/STORE SERVICES</label>
+                </value>
+                <value>
+                    <fullName>19 - MOBILITY</fullName>
+                    <default>false</default>
+                    <label>19 - MOBILITY</label>
+                </value>
+                <value>
+                    <fullName>20 - PERFORMANCE PP SRVC</fullName>
+                    <default>false</default>
+                    <label>20 - PERFORMANCE PP SRVC</label>
+                </value>
+                <value>
+                    <fullName>21 - FLASH STORAGE</fullName>
+                    <default>false</default>
+                    <label>21 - FLASH STORAGE</label>
+                </value>
+                <value>
+                    <fullName>22 - MARKETING SERVICES</fullName>
+                    <default>false</default>
+                    <label>22 - MARKETING SERVICES</label>
+                </value>
+                <value>
+                    <fullName>23 - SAFETY, SECURITY, AND MEDICAL</fullName>
+                    <default>false</default>
+                    <label>23 - SAFETY, SECURITY, AND MEDICAL</label>
+                </value>
+                <value>
+                    <fullName>24 - OFFICE ACCESSORIES</fullName>
+                    <default>false</default>
+                    <label>24 - OFFICE ACCESSORIES</label>
+                </value>
+                <value>
+                    <fullName>25 - SEATING</fullName>
+                    <default>false</default>
+                    <label>25 - SEATING</label>
+                </value>
+                <value>
+                    <fullName>26 - SEASONAL PRODUCTS</fullName>
+                    <default>false</default>
+                    <label>26 - SEASONAL PRODUCTS</label>
+                </value>
+                <value>
+                    <fullName>27 - SHREDDERS</fullName>
+                    <default>false</default>
+                    <label>27 - SHREDDERS</label>
+                </value>
+                <value>
+                    <fullName>28 - FILING</fullName>
+                    <default>false</default>
+                    <label>28 - FILING</label>
+                </value>
+                <value>
+                    <fullName>29 - CUSTOM OUTSOURC PRNT</fullName>
+                    <default>false</default>
+                    <label>29 - CUSTOM OUTSOURC PRNT</label>
+                </value>
+                <value>
+                    <fullName>30 - DELIVERY CHARGES</fullName>
+                    <default>false</default>
+                    <label>30 - DELIVERY CHARGES</label>
+                </value>
+                <value>
+                    <fullName>31 - K-12</fullName>
+                    <default>false</default>
+                    <label>31 - K-12</label>
+                </value>
+                <value>
+                    <fullName>32 - CUSTOM IN HOUSE PRNT</fullName>
+                    <default>false</default>
+                    <label>32 - CUSTOM IN HOUSE PRNT</label>
+                </value>
+                <value>
+                    <fullName>33 - CONFIGURE-TO-ORDER</fullName>
+                    <default>false</default>
+                    <label>33 - CONFIGURE-TO-ORDER</label>
+                </value>
+                <value>
+                    <fullName>34 - CUSTOM BUS  ESSTLS</fullName>
+                    <default>false</default>
+                    <label>34 - CUSTOM BUS  ESSTLS</label>
+                </value>
+                <value>
+                    <fullName>35 - CUSTOMER SERVICES</fullName>
+                    <default>false</default>
+                    <label>35 - CUSTOMER SERVICES</label>
+                </value>
+                <value>
+                    <fullName>36 - BSD FORMS &amp; MISC.</fullName>
+                    <default>false</default>
+                    <label>36 - BSD FORMS &amp; MISC.</label>
+                </value>
+                <value>
+                    <fullName>37 - PRODUCT ASSEMBLY</fullName>
+                    <default>false</default>
+                    <label>37 - PRODUCT ASSEMBLY</label>
+                </value>
+                <value>
+                    <fullName>38 - BSD NO COST</fullName>
+                    <default>false</default>
+                    <label>38 - BSD NO COST</label>
+                </value>
+                <value>
+                    <fullName>39 - RESTITUTION</fullName>
+                    <default>false</default>
+                    <label>39 - RESTITUTION</label>
+                </value>
+                <value>
+                    <fullName>40 - NON CODE</fullName>
+                    <default>false</default>
+                    <label>40 - NON CODE</label>
+                </value>
+                <value>
+                    <fullName>41 - COMPUCOM SERVICES</fullName>
+                    <default>false</default>
+                    <label>41 - COMPUCOM SERVICES</label>
+                </value>
+                <value>
+                    <fullName>42 - LABELS</fullName>
+                    <default>false</default>
+                    <label>42 - LABELS</label>
+                </value>
+                <value>
+                    <fullName>43 - BREAKROOM</fullName>
+                    <default>false</default>
+                    <label>43 - BREAKROOM</label>
+                </value>
+                <value>
+                    <fullName>44 - OFFICE ESSENTIALS</fullName>
+                    <default>false</default>
+                    <label>44 - OFFICE ESSENTIALS</label>
+                </value>
+                <value>
+                    <fullName>45 - COMPUCOM SUB SERVICE</fullName>
+                    <default>false</default>
+                    <label>45 - COMPUCOM SUB SERVICE</label>
+                </value>
+                <value>
+                    <fullName>46 - AUDIO AND VIDEO</fullName>
+                    <default>false</default>
+                    <label>46 - AUDIO AND VIDEO</label>
+                </value>
+                <value>
+                    <fullName>47 - CLEAN/PERSONAL CARE</fullName>
+                    <default>false</default>
+                    <label>47 - CLEAN/PERSONAL CARE</label>
+                </value>
+                <value>
+                    <fullName>48 - DISPLAY</fullName>
+                    <default>false</default>
+                    <label>48 - DISPLAY</label>
+                </value>
+                <value>
+                    <fullName>49 - ADMIN SERVICES</fullName>
+                    <default>false</default>
+                    <label>49 - ADMIN SERVICES</label>
+                </value>
+                <value>
+                    <fullName>51 - GENERAL OFFICE PAPER</fullName>
+                    <default>false</default>
+                    <label>51 - GENERAL OFFICE PAPER</label>
+                </value>
+                <value>
+                    <fullName>52 - SPECIALTY PAPER</fullName>
+                    <default>false</default>
+                    <label>52 - SPECIALTY PAPER</label>
+                </value>
+                <value>
+                    <fullName>54 - STATIONERY &amp; CARDS</fullName>
+                    <default>false</default>
+                    <label>54 - STATIONERY &amp; CARDS</label>
+                </value>
+                <value>
+                    <fullName>55 - OD ADVERT. GIVEAWAYS</fullName>
+                    <default>false</default>
+                    <label>55 - OD ADVERT. GIVEAWAYS</label>
+                </value>
+                <value>
+                    <fullName>58 - PRESENTATION</fullName>
+                    <default>false</default>
+                    <label>58 - PRESENTATION</label>
+                </value>
+                <value>
+                    <fullName>59 - OD COMPANY STORE</fullName>
+                    <default>false</default>
+                    <label>59 - OD COMPANY STORE</label>
+                </value>
+                <value>
+                    <fullName>60 - MARKETNG/VISUAL SRVC</fullName>
+                    <default>false</default>
+                    <label>60 - MARKETNG/VISUAL SRVC</label>
+                </value>
+                <value>
+                    <fullName>61 - PC UPGRADES</fullName>
+                    <default>false</default>
+                    <label>61 - PC UPGRADES</label>
+                </value>
+                <value>
+                    <fullName>62 - DIGTL HLTH &amp; FITNESS</fullName>
+                    <default>false</default>
+                    <label>62 - DIGTL HLTH &amp; FITNESS</label>
+                </value>
+                <value>
+                    <fullName>63 - PORTABLE COMPUTERS</fullName>
+                    <default>false</default>
+                    <label>63 - PORTABLE COMPUTERS</label>
+                </value>
+                <value>
+                    <fullName>64 - HOME ENTERTAINMENT</fullName>
+                    <default>false</default>
+                    <label>64 - HOME ENTERTAINMENT</label>
+                </value>
+                <value>
+                    <fullName>65 - TONERS/OTHER IMAGING</fullName>
+                    <default>false</default>
+                    <label>65 - TONERS/OTHER IMAGING</label>
+                </value>
+                <value>
+                    <fullName>66 - BUSINESS MACHINES</fullName>
+                    <default>false</default>
+                    <label>66 - BUSINESS MACHINES</label>
+                </value>
+                <value>
+                    <fullName>67 - PS - 668</fullName>
+                    <default>false</default>
+                    <label>67 - PS - 668</label>
+                </value>
+                <value>
+                    <fullName>68 - WIRLESS &amp; BRDBND DVC</fullName>
+                    <default>false</default>
+                    <label>68 - WIRLESS &amp; BRDBND DVC</label>
+                </value>
+                <value>
+                    <fullName>69 - HOME AUTOMATION</fullName>
+                    <default>false</default>
+                    <label>69 - HOME AUTOMATION</label>
+                </value>
+                <value>
+                    <fullName>71 - SOFTWARE/BOOKS</fullName>
+                    <default>false</default>
+                    <label>71 - SOFTWARE/BOOKS</label>
+                </value>
+                <value>
+                    <fullName>74 - NETWORKING</fullName>
+                    <default>false</default>
+                    <label>74 - NETWORKING</label>
+                </value>
+                <value>
+                    <fullName>75 - TECH DEPOT SERVICES</fullName>
+                    <default>false</default>
+                    <label>75 - TECH DEPOT SERVICES</label>
+                </value>
+                <value>
+                    <fullName>76 - PRE-PAID GIFT CARDS</fullName>
+                    <default>false</default>
+                    <label>76 - PRE-PAID GIFT CARDS</label>
+                </value>
+                <value>
+                    <fullName>77 - MILITARY STORES</fullName>
+                    <default>false</default>
+                    <label>77 - MILITARY STORES</label>
+                </value>
+                <value>
+                    <fullName>78 - DONATIONS/LIABLTIES</fullName>
+                    <default>false</default>
+                    <label>78 - DONATIONS/LIABLTIES</label>
+                </value>
+                <value>
+                    <fullName>79 - MANAGE PRINT SERVICE</fullName>
+                    <default>false</default>
+                    <label>79 - MANAGE PRINT SERVICE</label>
+                </value>
+                <value>
+                    <fullName>80 - BUSINESS SERVICES</fullName>
+                    <default>false</default>
+                    <label>80 - BUSINESS SERVICES</label>
+                </value>
+                <value>
+                    <fullName>81 - BAGS / LUGGAGE</fullName>
+                    <default>false</default>
+                    <label>81 - BAGS / LUGGAGE</label>
+                </value>
+                <value>
+                    <fullName>84 - CUST SUPPORT SUBS</fullName>
+                    <default>false</default>
+                    <label>84 - CUST SUPPORT SUBS</label>
+                </value>
+                <value>
+                    <fullName>85 - STORAGE</fullName>
+                    <default>false</default>
+                    <label>85 - STORAGE</label>
+                </value>
+                <value>
+                    <fullName>86 - SELF SERVICE PRINT SOLUTIONS</fullName>
+                    <default>false</default>
+                    <label>86 - SELF SERVICE PRINT SOLUTIONS</label>
+                </value>
+                <value>
+                    <fullName>87 - SOFTWARE AS A SERV</fullName>
+                    <default>false</default>
+                    <label>87 - SOFTWARE AS A SERV</label>
+                </value>
+                <value>
+                    <fullName>88 - ESD SOFTWARE</fullName>
+                    <default>false</default>
+                    <label>88 - ESD SOFTWARE</label>
+                </value>
+                <value>
+                    <fullName>89 - TECH SERVICES SUB</fullName>
+                    <default>false</default>
+                    <label>89 - TECH SERVICES SUB</label>
+                </value>
+                <value>
+                    <fullName>94 - IMPULSE BUYS</fullName>
+                    <default>false</default>
+                    <label>94 - IMPULSE BUYS</label>
+                </value>
+                <value>
+                    <fullName>95 - GL ADJUSTMENTS</fullName>
+                    <default>false</default>
+                    <label>95 - GL ADJUSTMENTS</label>
+                </value>
+                <value>
+                    <fullName>96 - TECH DEPOT</fullName>
+                    <default>false</default>
+                    <label>96 - TECH DEPOT</label>
+                </value>
+                <value>
+                    <fullName>97 - NON SKUD</fullName>
+                    <default>false</default>
+                    <label>97 - NON SKUD</label>
+                </value>
+                <value>
+                    <fullName>98 - MAILING AND SHIPPING</fullName>
+                    <default>false</default>
+                    <label>98 - MAILING AND SHIPPING</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Detail_of_PPI_index_structure_indicated2__c</fullName>
+        <externalId>false</externalId>
+        <label>Detail of PPI index structure indicated</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Detail_of_PPI_index_structure_indicated__c</fullName>
+        <externalId>false</externalId>
+        <label>Detail of PPI index structure indicated</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Effective_Date_of_this_language__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Date of this language</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>How_frequently_can_we_pass_increases__c</fullName>
+        <externalId>false</externalId>
+        <label>How frequently can we pass increases?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Numeric</fullName>
+                    <default>false</default>
+                    <label>Numeric</label>
+                </value>
+                <value>
+                    <fullName>Calendar</fullName>
+                    <default>false</default>
+                    <label>Calendar</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>How_frequently_must_we_pass_decreases__c</fullName>
+        <externalId>false</externalId>
+        <label>How frequently must we pass decreases?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+                <value>
+                    <fullName>Immediately</fullName>
+                    <default>false</default>
+                    <label>Immediately</label>
+                </value>
+                <value>
+                    <fullName>Same as increases</fullName>
+                    <default>false</default>
+                    <label>Same as increases</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>I_Own_Account__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Contract__r.Account.OwnerId == $User.Id, true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>I Own Account</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>In_days__c</fullName>
+        <externalId>false</externalId>
+        <label>In days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Index_name_s__c</fullName>
+        <externalId>false</externalId>
+        <label>Index name(s)</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_notification_required_to_delete_a_cus__c</fullName>
+        <externalId>false</externalId>
+        <label>Cust Notification Req&apos;d for Disc&apos;d sku</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>None</fullName>
+                    <default>true</default>
+                    <label>None</label>
+                </value>
+                <value>
+                    <fullName>None/Contract Silent</fullName>
+                    <default>false</default>
+                    <label>None/Contract Silent</label>
+                </value>
+                <value>
+                    <fullName>Notification and customer approval</fullName>
+                    <default>false</default>
+                    <label>Notification and customer approval</label>
+                </value>
+                <value>
+                    <fullName>Notification only</fullName>
+                    <default>false</default>
+                    <label>Notification only</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_price_cap_tied_to_an_index__c</fullName>
+        <externalId>false</externalId>
+        <label>Is price cap tied to an index?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Is_there_language_stating_thatapplicable__c</fullName>
+        <externalId>false</externalId>
+        <label>Is there language stating thatapplicable</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Non_standard_terms__c</fullName>
+        <externalId>false</externalId>
+        <label>Non standard terms</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Proprietary terms</fullName>
+                    <default>false</default>
+                    <label>Proprietary terms</label>
+                </value>
+                <value>
+                    <fullName>Stationary terms</fullName>
+                    <default>false</default>
+                    <label>Stationary terms</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Notification_process_for_disco_items__c</fullName>
+        <externalId>false</externalId>
+        <label>Notification process for disco items</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>None</fullName>
+                    <default>true</default>
+                    <label>None</label>
+                </value>
+                <value>
+                    <fullName>No/Contract Silent</fullName>
+                    <default>false</default>
+                    <label>No/Contract Silent</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Notification_time_disco_items_Other__c</fullName>
+        <externalId>false</externalId>
+        <label>Discontinued Product Notification Langua</label>
+        <length>1500</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Other_calendar_period__c</fullName>
+        <externalId>false</externalId>
+        <label>Other calendar period</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_cap_basis__c</fullName>
+        <externalId>false</externalId>
+        <label>Other cap basis</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Price_Incr_Cap_Amt__c</fullName>
+        <description>Price Increase Cap Amount</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If contract silent, enter 0</inlineHelpText>
+        <label>Price Increase Cap Amount</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Price_Incr_Cap_App_Level__c</fullName>
+        <description>Price Increase Cap Application Level</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is the cap applied to each SKU individually, or as an average across multiple SKUs?</inlineHelpText>
+        <label>Price Increase Cap Application Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Discreet SKU</fullName>
+                    <default>false</default>
+                    <label>Discreet SKU</label>
+                </value>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Aggregate of SKUs</fullName>
+                    <default>false</default>
+                    <label>Aggregate of SKUs</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Price_Incr_Cap_App_Scope__c</fullName>
+        <description>Price Increase Cap Application Scope</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Where does the cap apply?</inlineHelpText>
+        <label>Price Increase Cap Application Scope</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>true</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>None/Contract Silent</fullName>
+                    <default>false</default>
+                    <label>None/Contract Silent</label>
+                </value>
+                <value>
+                    <fullName>Category</fullName>
+                    <default>false</default>
+                    <label>Category</label>
+                </value>
+                <value>
+                    <fullName>All Custom Cores</fullName>
+                    <default>false</default>
+                    <label>All Custom Cores</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Price_Incr_Cap_Calc_Scope__c</fullName>
+        <description>Price Increase Cap Calculation Scope</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When calculating compliance to the cap terms, what is the scope of the SKUs that must be considered?</inlineHelpText>
+        <label>Price Increase Cap Calculation Scope</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Price_Incr_Cap_App_Level__c</controllingField>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>true</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>None/Contract Silent</fullName>
+                    <default>false</default>
+                    <label>None/Contract Silent</label>
+                </value>
+                <value>
+                    <fullName>SKU Price</fullName>
+                    <default>false</default>
+                    <label>SKU Price</label>
+                </value>
+                <value>
+                    <fullName>SKU Total Spend</fullName>
+                    <default>false</default>
+                    <label>SKU Total Spend</label>
+                </value>
+                <value>
+                    <fullName>Core Spend</fullName>
+                    <default>false</default>
+                    <label>Core Spend</label>
+                </value>
+                <value>
+                    <fullName>Customer Spend</fullName>
+                    <default>false</default>
+                    <label>Customer Spend</label>
+                </value>
+                <value>
+                    <fullName>Category Spend</fullName>
+                    <default>false</default>
+                    <label>Category Spend</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Discreet SKU</controllingFieldValue>
+                <valueName>SKU Price</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Discreet SKU</controllingFieldValue>
+                <valueName>SKU Total Spend</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Price_Incr_Cap_Period__c</fullName>
+        <description>Price Increase Cap Period</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What time horizon is the cap compliance evaluated on? (ex: &quot;increase should not exceed 5% annually&quot; would be annual; &quot;increase should not exceed 5% over 6 months&quot; = semi-annual)</inlineHelpText>
+        <label>Price Increase Cap Period</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Monthly</fullName>
+                    <default>false</default>
+                    <label>Monthly</label>
+                </value>
+                <value>
+                    <fullName>Quarterly</fullName>
+                    <default>false</default>
+                    <label>Quarterly</label>
+                </value>
+                <value>
+                    <fullName>Semi-Annually</fullName>
+                    <default>false</default>
+                    <label>Semi-Annually</label>
+                </value>
+                <value>
+                    <fullName>Annually</fullName>
+                    <default>false</default>
+                    <label>Annually</label>
+                </value>
+                <value>
+                    <fullName>Needs Validation</fullName>
+                    <default>true</default>
+                    <label>Needs Validation</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Price_Incr_Cap_Type_Unit__c</fullName>
+        <description>Price Increase Cap Type/Units</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Is the cap amount a percent or a dollar amount?</inlineHelpText>
+        <label>Price Increase Cap Type/Units</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>$</fullName>
+                    <default>false</default>
+                    <label>$</label>
+                </value>
+                <value>
+                    <fullName>%</fullName>
+                    <default>false</default>
+                    <label>%</label>
+                </value>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Price_Increase_Cap_2_Type_Units__c</fullName>
+        <externalId>false</externalId>
+        <label>Price Increase Second Cap Type/Units</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>false</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>$</fullName>
+                    <default>false</default>
+                    <label>$</label>
+                </value>
+                <value>
+                    <fullName>%</fullName>
+                    <default>false</default>
+                    <label>%</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Price_Increase_Cap_Amount_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Price Increase Second Cap Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Price_cap_language__c</fullName>
+        <externalId>false</externalId>
+        <label>Price cap language</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Price_requirements_for_added_or_alternat__c</fullName>
+        <externalId>false</externalId>
+        <label>Price requirements for added or alternat</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>None</fullName>
+                    <default>true</default>
+                    <label>None</label>
+                </value>
+                <value>
+                    <fullName>None/Contract Silent</fullName>
+                    <default>false</default>
+                    <label>None/Contract Silent</label>
+                </value>
+                <value>
+                    <fullName>Equal or Lesser Price</fullName>
+                    <default>false</default>
+                    <label>Equal or Lesser Price</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Pricing_Failure__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(ISBLANK(Price_Incr_Cap_Amt__c),ISBLANK(TEXT(Price_Incr_Cap_Type_Unit__c)),ISBLANK(TEXT(Price_Incr_Cap_App_Level__c)),AND(TEXT(Price_Incr_Cap_App_Level__c)=&quot;Discrete SKU&quot;,ISBLANK(TEXT(Price_Incr_Cap_Calc_Scope__c)))) , true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Pricing Failure</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Private_Brand__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Private Brand</description>
+        <externalId>false</externalId>
+        <label>Private Brand</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Relevant_Customer_Level__c</fullName>
+        <externalId>false</externalId>
+        <label>Relevant Customer Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Grandparent</fullName>
+                    <default>false</default>
+                    <label>Grandparent</label>
+                </value>
+                <value>
+                    <fullName>Parent</fullName>
+                    <default>false</default>
+                    <label>Parent</label>
+                </value>
+                <value>
+                    <fullName>Child</fullName>
+                    <default>false</default>
+                    <label>Child</label>
+                </value>
+                <value>
+                    <fullName>Standalone</fullName>
+                    <default>false</default>
+                    <label>Standalone</label>
+                </value>
+                <value>
+                    <fullName>GreatGrandParent</fullName>
+                    <default>false</default>
+                    <label>GreatGrandParent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Required_Timing_Of_CC_Updates__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If contract silent, enter None</inlineHelpText>
+        <label>Required Timing Of CC Updates</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>true</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>None/Contract Silent</fullName>
+                    <default>false</default>
+                    <label>None/Contract Silent</label>
+                </value>
+                <value>
+                    <fullName>Jan</fullName>
+                    <default>false</default>
+                    <label>Jan</label>
+                </value>
+                <value>
+                    <fullName>Feb</fullName>
+                    <default>false</default>
+                    <label>Feb</label>
+                </value>
+                <value>
+                    <fullName>Mar</fullName>
+                    <default>false</default>
+                    <label>Mar</label>
+                </value>
+                <value>
+                    <fullName>Apr</fullName>
+                    <default>false</default>
+                    <label>Apr</label>
+                </value>
+                <value>
+                    <fullName>May</fullName>
+                    <default>false</default>
+                    <label>May</label>
+                </value>
+                <value>
+                    <fullName>Jun</fullName>
+                    <default>false</default>
+                    <label>Jun</label>
+                </value>
+                <value>
+                    <fullName>Jul</fullName>
+                    <default>false</default>
+                    <label>Jul</label>
+                </value>
+                <value>
+                    <fullName>Aug</fullName>
+                    <default>false</default>
+                    <label>Aug</label>
+                </value>
+                <value>
+                    <fullName>Sep</fullName>
+                    <default>false</default>
+                    <label>Sep</label>
+                </value>
+                <value>
+                    <fullName>Oct</fullName>
+                    <default>false</default>
+                    <label>Oct</label>
+                </value>
+                <value>
+                    <fullName>Nov</fullName>
+                    <default>false</default>
+                    <label>Nov</label>
+                </value>
+                <value>
+                    <fullName>Dec</fullName>
+                    <default>false</default>
+                    <label>Dec</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Second_cap_basis__c</fullName>
+        <externalId>false</externalId>
+        <label>Second cap basis</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vendor_Letter_Required_For_CC_Increase__c</fullName>
+        <externalId>false</externalId>
+        <label>Vendor Letter Required For CC Increase</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>Needs validation</fullName>
+                    <default>true</default>
+                    <label>Needs validation</label>
+                </value>
+                <value>
+                    <fullName>Yes - Upon request</fullName>
+                    <default>false</default>
+                    <label>Yes - Upon request</label>
+                </value>
+                <value>
+                    <fullName>Contract silent</fullName>
+                    <default>false</default>
+                    <label>Contract silent</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>What_level_is_the_Consumer_Price_Index2__c</fullName>
+        <externalId>false</externalId>
+        <label>What level is the Consumer Price Index?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Infomation</fullName>
+                    <default>true</default>
+                    <label>Awaiting Infomation</label>
+                </value>
+                <value>
+                    <fullName>U.S. City Average</fullName>
+                    <default>false</default>
+                    <label>U.S. City Average</label>
+                </value>
+                <value>
+                    <fullName>Region</fullName>
+                    <default>false</default>
+                    <label>Region</label>
+                </value>
+                <value>
+                    <fullName>Local Area</fullName>
+                    <default>false</default>
+                    <label>Local Area</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>What_level_is_the_Consumer_Price_Index__c</fullName>
+        <externalId>false</externalId>
+        <label>What level is the Consumer Price Index?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Infomation</fullName>
+                    <default>true</default>
+                    <label>Awaiting Infomation</label>
+                </value>
+                <value>
+                    <fullName>U.S. City Average</fullName>
+                    <default>false</default>
+                    <label>U.S. City Average</label>
+                </value>
+                <value>
+                    <fullName>Region</fullName>
+                    <default>false</default>
+                    <label>Region</label>
+                </value>
+                <value>
+                    <fullName>Local Area</fullName>
+                    <default>false</default>
+                    <label>Local Area</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>What_type_of_customer_communication_is_r__c</fullName>
+        <externalId>false</externalId>
+        <label>Type cust comm req&apos;d permit sku delete</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>None</fullName>
+                    <default>true</default>
+                    <label>None</label>
+                </value>
+                <value>
+                    <fullName>None/Contract Silent</fullName>
+                    <default>false</default>
+                    <label>None/Contract Silent</label>
+                </value>
+                <value>
+                    <fullName>Notification and customer approval</fullName>
+                    <default>false</default>
+                    <label>Notification and customer approval</label>
+                </value>
+                <value>
+                    <fullName>Notification only</fullName>
+                    <default>false</default>
+                    <label>Notification only</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Which_Consumer_Price_Index_local_area2__c</fullName>
+        <externalId>false</externalId>
+        <label>Which Consumer Price Index local area?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>true</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>Chicago-Gary-Kenosha, IL-IN-WI</fullName>
+                    <default>false</default>
+                    <label>Chicago-Gary-Kenosha, IL-IN-WI</label>
+                </value>
+                <value>
+                    <fullName>Los Angeles-Riverside-Orange County, CA</fullName>
+                    <default>false</default>
+                    <label>Los Angeles-Riverside-Orange County, CA</label>
+                </value>
+                <value>
+                    <fullName>New York-Northern NJ-Long Island, NY-NJ-CT-PA</fullName>
+                    <default>false</default>
+                    <label>New York-Northern NJ-Long Island, NY-NJ-CT-PA</label>
+                </value>
+                <value>
+                    <fullName>Atlanta, GA</fullName>
+                    <default>false</default>
+                    <label>Atlanta, GA</label>
+                </value>
+                <value>
+                    <fullName>Boston-Brockton-Nashua, MA-NH-ME-CT</fullName>
+                    <default>false</default>
+                    <label>Boston-Brockton-Nashua, MA-NH-ME-CT</label>
+                </value>
+                <value>
+                    <fullName>Cleveland-Akron, OH</fullName>
+                    <default>false</default>
+                    <label>Cleveland-Akron, OH</label>
+                </value>
+                <value>
+                    <fullName>Dallas-Fort Worth, TX</fullName>
+                    <default>false</default>
+                    <label>Dallas-Fort Worth, TX</label>
+                </value>
+                <value>
+                    <fullName>Detroit-Ann Arbor-Flint, MI</fullName>
+                    <default>false</default>
+                    <label>Detroit-Ann Arbor-Flint, MI</label>
+                </value>
+                <value>
+                    <fullName>Houston-Galveston-Brazoria, TX</fullName>
+                    <default>false</default>
+                    <label>Houston-Galveston-Brazoria, TX</label>
+                </value>
+                <value>
+                    <fullName>Miami-Fort Lauderdale, FL</fullName>
+                    <default>false</default>
+                    <label>Miami-Fort Lauderdale, FL</label>
+                </value>
+                <value>
+                    <fullName>Philadelphia-Wilmington-Atlantic City, PA-NJ-DE-MD</fullName>
+                    <default>false</default>
+                    <label>Philadelphia-Wilmington-Atlantic City, PA-NJ-DE-MD</label>
+                </value>
+                <value>
+                    <fullName>San Francisco-Oakland-San Jose, CA</fullName>
+                    <default>false</default>
+                    <label>San Francisco-Oakland-San Jose, CA</label>
+                </value>
+                <value>
+                    <fullName>Seattle-Tacoma-Bremerton, WA</fullName>
+                    <default>false</default>
+                    <label>Seattle-Tacoma-Bremerton, WA</label>
+                </value>
+                <value>
+                    <fullName>Washington-Baltimore, DC-MD-VA-WV</fullName>
+                    <default>false</default>
+                    <label>Washington-Baltimore, DC-MD-VA-WV</label>
+                </value>
+                <value>
+                    <fullName>Anchorage, AK</fullName>
+                    <default>false</default>
+                    <label>Anchorage, AK</label>
+                </value>
+                <value>
+                    <fullName>Cincinnati-Hamilton, OH-KY-IN</fullName>
+                    <default>false</default>
+                    <label>Cincinnati-Hamilton, OH-KY-IN</label>
+                </value>
+                <value>
+                    <fullName>Denver-Boulder-Greeley, CO</fullName>
+                    <default>false</default>
+                    <label>Denver-Boulder-Greeley, CO</label>
+                </value>
+                <value>
+                    <fullName>Honolulu, HI</fullName>
+                    <default>false</default>
+                    <label>Honolulu, HI</label>
+                </value>
+                <value>
+                    <fullName>Kansas City, MO-KS</fullName>
+                    <default>false</default>
+                    <label>Kansas City, MO-KS</label>
+                </value>
+                <value>
+                    <fullName>Milwaukee-Racine, WI</fullName>
+                    <default>false</default>
+                    <label>Milwaukee-Racine, WI</label>
+                </value>
+                <value>
+                    <fullName>Minneapolis-St, Paul, MN-WI</fullName>
+                    <default>false</default>
+                    <label>Minneapolis-St, Paul, MN-WI</label>
+                </value>
+                <value>
+                    <fullName>Pittsburgh, PA</fullName>
+                    <default>false</default>
+                    <label>Pittsburgh, PA</label>
+                </value>
+                <value>
+                    <fullName>Portland-Salem, OR-WA</fullName>
+                    <default>false</default>
+                    <label>Portland-Salem, OR-WA</label>
+                </value>
+                <value>
+                    <fullName>St. Louis, MO-IL</fullName>
+                    <default>false</default>
+                    <label>St. Louis, MO-IL</label>
+                </value>
+                <value>
+                    <fullName>San Diego, CA</fullName>
+                    <default>false</default>
+                    <label>San Diego, CA</label>
+                </value>
+                <value>
+                    <fullName>Tampa-St. Petersburg-Clearwater, FL</fullName>
+                    <default>false</default>
+                    <label>Tampa-St. Petersburg-Clearwater, FL</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Which_Consumer_Price_Index_local_area__c</fullName>
+        <externalId>false</externalId>
+        <label>Which Consumer Price Index local area?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>true</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>Chicago-Gary-Kenosha, IL-IN-WI</fullName>
+                    <default>false</default>
+                    <label>Chicago-Gary-Kenosha, IL-IN-WI</label>
+                </value>
+                <value>
+                    <fullName>Los Angeles-Riverside-Orange County, CA</fullName>
+                    <default>false</default>
+                    <label>Los Angeles-Riverside-Orange County, CA</label>
+                </value>
+                <value>
+                    <fullName>New York-Northern NJ-Long Island, NY-NJ-CT-PA</fullName>
+                    <default>false</default>
+                    <label>New York-Northern NJ-Long Island, NY-NJ-CT-PA</label>
+                </value>
+                <value>
+                    <fullName>Atlanta, GA</fullName>
+                    <default>false</default>
+                    <label>Atlanta, GA</label>
+                </value>
+                <value>
+                    <fullName>Boston-Brockton-Nashua, MA-NH-ME-CT</fullName>
+                    <default>false</default>
+                    <label>Boston-Brockton-Nashua, MA-NH-ME-CT</label>
+                </value>
+                <value>
+                    <fullName>Cleveland-Akron, OH</fullName>
+                    <default>false</default>
+                    <label>Cleveland-Akron, OH</label>
+                </value>
+                <value>
+                    <fullName>Dallas-Fort Worth, TX</fullName>
+                    <default>false</default>
+                    <label>Dallas-Fort Worth, TX</label>
+                </value>
+                <value>
+                    <fullName>Detroit-Ann Arbor-Flint, MI</fullName>
+                    <default>false</default>
+                    <label>Detroit-Ann Arbor-Flint, MI</label>
+                </value>
+                <value>
+                    <fullName>Houston-Galveston-Brazoria, TX</fullName>
+                    <default>false</default>
+                    <label>Houston-Galveston-Brazoria, TX</label>
+                </value>
+                <value>
+                    <fullName>Miami-Fort Lauderdale, FL</fullName>
+                    <default>false</default>
+                    <label>Miami-Fort Lauderdale, FL</label>
+                </value>
+                <value>
+                    <fullName>Philadelphia-Wilmington-Atlantic City, PA-NJ-DE-MD</fullName>
+                    <default>false</default>
+                    <label>Philadelphia-Wilmington-Atlantic City, PA-NJ-DE-MD</label>
+                </value>
+                <value>
+                    <fullName>San Francisco-Oakland-San Jose, CA</fullName>
+                    <default>false</default>
+                    <label>San Francisco-Oakland-San Jose, CA</label>
+                </value>
+                <value>
+                    <fullName>Seattle-Tacoma-Bremerton, WA</fullName>
+                    <default>false</default>
+                    <label>Seattle-Tacoma-Bremerton, WA</label>
+                </value>
+                <value>
+                    <fullName>Washington-Baltimore, DC-MD-VA-WV</fullName>
+                    <default>false</default>
+                    <label>Washington-Baltimore, DC-MD-VA-WV</label>
+                </value>
+                <value>
+                    <fullName>Anchorage, AK</fullName>
+                    <default>false</default>
+                    <label>Anchorage, AK</label>
+                </value>
+                <value>
+                    <fullName>Cincinnati-Hamilton, OH-KY-IN</fullName>
+                    <default>false</default>
+                    <label>Cincinnati-Hamilton, OH-KY-IN</label>
+                </value>
+                <value>
+                    <fullName>Denver-Boulder-Greeley, CO</fullName>
+                    <default>false</default>
+                    <label>Denver-Boulder-Greeley, CO</label>
+                </value>
+                <value>
+                    <fullName>Honolulu, HI</fullName>
+                    <default>false</default>
+                    <label>Honolulu, HI</label>
+                </value>
+                <value>
+                    <fullName>Kansas City, MO-KS</fullName>
+                    <default>false</default>
+                    <label>Kansas City, MO-KS</label>
+                </value>
+                <value>
+                    <fullName>Milwaukee-Racine, WI</fullName>
+                    <default>false</default>
+                    <label>Milwaukee-Racine, WI</label>
+                </value>
+                <value>
+                    <fullName>Minneapolis-St, Paul, MN-WI</fullName>
+                    <default>false</default>
+                    <label>Minneapolis-St, Paul, MN-WI</label>
+                </value>
+                <value>
+                    <fullName>Pittsburgh, PA</fullName>
+                    <default>false</default>
+                    <label>Pittsburgh, PA</label>
+                </value>
+                <value>
+                    <fullName>Portland-Salem, OR-WA</fullName>
+                    <default>false</default>
+                    <label>Portland-Salem, OR-WA</label>
+                </value>
+                <value>
+                    <fullName>St. Louis, MO-IL</fullName>
+                    <default>false</default>
+                    <label>St. Louis, MO-IL</label>
+                </value>
+                <value>
+                    <fullName>San Diego, CA</fullName>
+                    <default>false</default>
+                    <label>San Diego, CA</label>
+                </value>
+                <value>
+                    <fullName>Tampa-St. Petersburg-Clearwater, FL</fullName>
+                    <default>false</default>
+                    <label>Tampa-St. Petersburg-Clearwater, FL</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Which_Consumer_Price_Index_region2__c</fullName>
+        <externalId>false</externalId>
+        <label>Which Consumer Price Index region?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>true</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>Northeast</fullName>
+                    <default>false</default>
+                    <label>Northeast</label>
+                </value>
+                <value>
+                    <fullName>Midwest (formerly North Central)</fullName>
+                    <default>false</default>
+                    <label>Midwest (formerly North Central)</label>
+                </value>
+                <value>
+                    <fullName>South</fullName>
+                    <default>false</default>
+                    <label>South</label>
+                </value>
+                <value>
+                    <fullName>West</fullName>
+                    <default>false</default>
+                    <label>West</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Which_Consumer_Price_Index_region__c</fullName>
+        <externalId>false</externalId>
+        <label>Which Consumer Price Index region?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>true</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>Northeast</fullName>
+                    <default>false</default>
+                    <label>Northeast</label>
+                </value>
+                <value>
+                    <fullName>Midwest (formerly North Central)</fullName>
+                    <default>false</default>
+                    <label>Midwest (formerly North Central)</label>
+                </value>
+                <value>
+                    <fullName>South</fullName>
+                    <default>false</default>
+                    <label>South</label>
+                </value>
+                <value>
+                    <fullName>West</fullName>
+                    <default>false</default>
+                    <label>West</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Which_Producer_Price_Index_structure2__c</fullName>
+        <externalId>false</externalId>
+        <label>Which Producer Price Index structure?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>true</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>Industry</fullName>
+                    <default>false</default>
+                    <label>Industry</label>
+                </value>
+                <value>
+                    <fullName>Commodity</fullName>
+                    <default>false</default>
+                    <label>Commodity</label>
+                </value>
+                <value>
+                    <fullName>Commodity-based Stage-of-processing</fullName>
+                    <default>false</default>
+                    <label>Commodity-based Stage-of-processing</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Which_Producer_Price_Index_structure__c</fullName>
+        <externalId>false</externalId>
+        <label>Which Producer Price Index structure?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Awaiting Information</fullName>
+                    <default>true</default>
+                    <label>Awaiting Information</label>
+                </value>
+                <value>
+                    <fullName>Industry</fullName>
+                    <default>false</default>
+                    <label>Industry</label>
+                </value>
+                <value>
+                    <fullName>Commodity</fullName>
+                    <default>false</default>
+                    <label>Commodity</label>
+                </value>
+                <value>
+                    <fullName>Commodity-based Stage-of-processing</fullName>
+                    <default>false</default>
+                    <label>Commodity-based Stage-of-processing</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>Contract Pricing Terms</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Contract Pricing Terms Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Contract Pricing Terms</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Account_Level__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>RelevantCustomerLevelCheck</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF((Account_Level__c ==&apos;Parent&apos; &amp;&amp; ISPICKVAL(Relevant_Customer_Level__c, &apos;Grandparent&apos;)), 
+true, 
+IF((Account_Level__c ==&apos;Child&apos; &amp;&amp; (ISPICKVAL(Relevant_Customer_Level__c, &apos;Grandparent&apos;) || 
+ISPICKVAL(Relevant_Customer_Level__c, &apos;Parent&apos;))), 
+true, 
+IF((Account_Level__c ==&apos;Standalone&apos; &amp;&amp; (ISPICKVAL(Relevant_Customer_Level__c, &apos;Grandparent&apos;) || 
+ISPICKVAL(Relevant_Customer_Level__c, &apos;Parent&apos;)||
+ISPICKVAL(Relevant_Customer_Level__c, &apos;Child&apos;))), 
+true, false) ))</errorConditionFormula>
+        <errorDisplayField>Relevant_Customer_Level__c</errorDisplayField>
+        <errorMessage>Relevant Customer Level cannot be higher than the Account level</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+    <webLinks>
+        <fullName>New</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>var Orgid ={!Organization.Id};
+if(Orgid == &apos;00D2h0000000it6MAS&apos;){
+   location.href = &apos;/apex/Contract_Pricing_Terms_edit_page?CF00NE0000001v8i2={!Contract.ContractNumber}&amp;CF00NE0000001v8i2_lkid={!Contract.Id}&amp;scontrolCaching=1&amp;retURL=%2Fapex%2FSpringCMContract2%3Fid%3D{!Contract.Id}%26sfdc.override%3D1&amp;sfdc.override=1&apos;
+}else{
+   location.href = &apos;/apex/Contract_Pricing_Terms_edit_page?CF00NM0000000z2Lr={!Contract.ContractNumber}&amp;CF00NM0000000z2Lr_lkid={!Contract.Id}&amp;scontrolCaching=1&amp;retURL=%2Fapex%2FSpringCMContract2%3Fid%3D{!Contract.Id}%26sfdc.override%3D1&amp;sfdc.override=1&apos;;
+}</url>
+    </webLinks>
+</CustomObject>

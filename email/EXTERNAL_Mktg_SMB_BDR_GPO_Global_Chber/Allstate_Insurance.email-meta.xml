@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Office Depot is now the primary Business supplies vendor for Allstate Insurance Company and as an Allstate Agent</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Allstate Insurance</name>
+    <style>freeForm</style>
+    <subject>Office Depot is now the primary Business supplies vendor for Allstate Insurance Company and as an Allstate Agent</subject>
+    <textOnly>Dear {!Contact.Name},
+
+
+
+Thank you for taking time to visit with me today; it’s genuinely appreciated!
+
+
+As we discussed, Office Depot is now the primary Business supplies vendor for Allstate Insurance Company and as an Allstate Agent, you are now able to access the new Office Depot Allstate Agent program.  The program features discounts up to 10% off our already competitive prices as well as special pricing on in-store print and copy services and access to special purchase and savings opportunities throughout the year.
+
+
+To get started please register for an Account through your gateway by clicking on the Office Depot link then clicking on Register for Account.  Or paste the link below into your browser: https://odams.officedepot.com/registrations/Allstate_agents_reg.php
+
+
+After registering you will receive a confirmation email and a Store Purchasing Card so you can take advantage of Allstate Agent pricing at any of our 1,100 retail stores nationwide.  Your permanent account information will arrive in 2-3 business days.
+
+
+If you have any questions or need to place an immediate order, please contact your Account Manager, Dean Clifford at Dean.Clifford@Officedepot.com
+
+
+I’ve also attached the information on some introductory offers for Allstate Agents.
+
+
+Thank you again and thank you for opting into the program by registering!
+
+
+
+If you have any questions, please don&apos;t hesitate to contact me at the below number. For your reference, your account number is{!Account.Cust_ID__c}
+
+
+Regards,
+{!User.Name}
+Account Manager
+855-DEPOT11 x{!User.ISO_Extension__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

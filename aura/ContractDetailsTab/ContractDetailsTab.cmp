@@ -1,0 +1,237 @@
+<aura:component implements="force:appHostable,lightning:availableForFlowScreens,force:hasRecordId,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="fields" type="Object" />
+    <force:recordData aura:id="forceRecordCmp"
+                      recordId="{!v.recordId }"
+                      layoutType="FULL"
+                      fields="Name,Contract_Type__c,Other_contract_type__c,Is_this_a_renewal__c,Contract_data_verified__c,Contract_Status__c"
+                      mode="VIEW"
+                      targetFields="{!v.fields}"
+                      targetError="{!v.error}" />
+    <div class="slds-box">
+        <lightning:recordViewForm recordId= "{!v.recordId}" objectApiName="Contract">
+            <lightning:messages />
+            
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Account Name</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>   
+                        <lightning:outputField fieldName="AccountId" variant="label-hidden"/>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Customer ID</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="Customer_ID__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Contract Name</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="Name" variant="label-hidden"/>
+                    </span>
+                </div>
+            </div>
+            <br></br>
+            <!-- General Customer Information -->
+            <h3 class="slds-section-title--divider"><b>General Customer Information</b></h3>
+            <br></br>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Basis Level for Customer Agreement</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="Basis_Level_for_Customer_Agreement__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        
+                        <Label class="slds-form-element__label">Contract Development and Negotiation Manager</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        
+                        <lightning:outputField fieldName="Contract_Development_Negotiation_MGR__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Contract Owner</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="Contract_Owner__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Contract Type</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="Contract_Type__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                <aura:if isTrue="{!v.fields.Contract_Type__c =='OTHER'}">
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <Label class="slds-form-element__label">Other Contract Type</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <lightning:outputField fieldName="Other_contract_type__c" variant="label-hidden"/>
+                            
+                        </span>
+                    </div>
+                </aura:if>
+                
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Agreement Status</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="Contract_Status__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                
+                
+                
+                
+                <aura:if isTrue="{!v.fields.Contract_Status__c =='Expired'}">
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <Label class="slds-form-element__label">Renewal Pending</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <lightning:outputField fieldName="Renewal_Pending__c" variant="label-hidden"/>
+                        </span>
+                    </div>
+                </aura:if>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Primary</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="primary__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Status Detail</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="Status_Detail__c" variant="label-hidden"/>
+                        
+                    </span>
+                </div>
+                
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        
+                        <Label class="slds-form-element__label">Contract data verified?</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="Contract_data_verified__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                <aura:if isTrue="{!v.fields.Contract_data_verified__c}">
+                    <!--	<Label class="slds-form-element__label">Current Legacy Max Agreement?</Label>
+                <lightning:outputField fieldName="Current_Legacy_Max_Agreement__c" variant="label-hidden"/> -->
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <Label class="slds-form-element__label">Verified date/time</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <lightning:outputField fieldName="Verified_date_time__c" variant="label-hidden"/>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <Label class="slds-form-element__label">User who verified data</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <lightning:outputField fieldName="User_who_verified_data__c" variant="label-hidden"/>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <Label class="slds-form-element__label">Verification notes</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <lightning:outputField fieldName="Verification_notes__c" variant="label-hidden"/>
+                        </span>
+                    </div>
+                </aura:if>
+                
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">Renewal in progress</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="Is_this_a_renewal__c" variant="label-hidden"/>
+                    </span>
+                </div>
+                <aura:if isTrue="{!v.fields.Is_this_a_renewal__c =='Yes'}">
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <Label class="slds-form-element__label">Renewal notes</Label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12">
+                        <span>
+                            <lightning:outputField fieldName="Refer_to_Prior_CSF__c" variant="label-hidden"/>
+                        </span>
+                    </div>
+                </aura:if>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <Label class="slds-form-element__label">GPO Contract</Label>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>
+                        <lightning:outputField fieldName="GPO_Contract__c" variant="label-hidden" />
+                    </span>
+                </div>
+            </div>  
+        </lightning:recordViewForm>
+    </div>
+</aura:component>

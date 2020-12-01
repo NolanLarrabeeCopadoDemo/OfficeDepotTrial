@@ -1,0 +1,20 @@
+Customer Name: {!Case.Account} 
+Account Number: {!Case.ACCT_Account_Number__c} 
+Requestor Name: {!Case.WRF_Requestor_Name__c} 
+Account Owner: {!Account.OwnerFullName} 
+
+
+Dear {!Case.WRF_Requestor_Name__c}, 
+
+Please provide the customer approval along with an email signature in a PDF formate, to process the below request. Google Tips: To attach an email as a file, open the email and select "Print All". Save as a pdf document. Attach the pdf into your email as a file attachment.
+
+1. Customers email domain name. (joe@companyname.com)
+2. Time and Date stamp.
+3. Proof that the file/sku list provided is the same file/sku list that was sent to the customer. 
+
+Thank you, 
+{!User.FirstName} {!User.LastName} 
+Field-Contracts Team. 
+
+Click below link to go to the support case: 
+https://officedepot.my.salesforce.com/{!Case.Id}

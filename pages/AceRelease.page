@@ -1,0 +1,116 @@
+<apex:page id="pageACE" controller="AceRelease" title="Early Release Request">
+<style>
+    .col1{width:50%;text-align: right; align:right;}
+    .col2 {width:50%;text-align: left; align:left;}
+</style>
+
+<apex:form id="formACE" >
+  <div id="ConfirmPaneldiv" style="display:none;position:absolute; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+  <apex:outputPanel id="ConfirmPanel" layout="block" style="">            
+    <left><b>CONFIRMATION:</b></left><br/> 
+    <hr style="width:100%; color:#0099CC;"/>            
+        <center><b>The selected customer will be submitted for early release. Do you wish to continue?</b></center><br/><br/>                        
+        <apex:panelGrid width="100%" columns="2" columnClasses="col1,col2" cellspacing="15px">
+            <apex:commandButton action="{!Save}" value="Yes" />
+            <apex:commandButton onclick="overlay(false); return false;" value="No" />
+        </apex:panelGrid>
+  </apex:outputPanel>
+  </div>
+  <div id="ConfirmPaneldiv2" style="display:none;position:absolute; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+  <apex:outputPanel id="ConfirmPanel2" layout="block" style="">            
+    <left><b>CONFIRMATION:</b></left><br/> 
+    <hr style="width:100%; color:#0099CC;"/>            
+        <center><b>Do you want to cancel this request?</b></center><br/><br/>                        
+        <apex:panelGrid width="100%" columns="2" columnClasses="col1,col2" cellspacing="15px">
+            <apex:commandButton action="{!Cancel}" value="Yes" />
+            <apex:commandButton onclick="overlay2(false); return false;" value="No" />
+        </apex:panelGrid>
+
+  </apex:outputPanel>
+  </div>
+  <apex:pageblock id="block1" title="Early Release Request">
+  <apex:pagemessages id="msg"></apex:pagemessages>
+  <apex:pageblockButtons location="bottom">
+    <apex:commandButton onClick="overlay(true); return false;" value="Release Changes" style="color:white;background-color:#009933;background-image:none;" />
+    <apex:commandButton onClick="overlay2(true); return false;" value="Cancel" style="color:white;background-color:#0B2F3A;background-image:none;"/>
+  </apex:pageblockButtons>
+  <apex:outputPanel id="radPanl"><apex:outputText >You have indicated that you would like to submit a customer for early release.</apex:outputText></apex:outputPanel>
+  <br/><br/>
+  <b>Customer:</b> &nbsp;&nbsp; {!acepricechanges.customer__r.Name}  
+  <br/><br/>
+  <b>Customer#:</b> &nbsp;&nbsp; {!acepricechanges.customer__r.Cust_ID__c}
+  <br/><br/>
+  <b>Original Release Date:</b> &nbsp;&nbsp; {!currentReleaseDate}  
+  <br/><br/>
+  <b>Current Release Date:</b> &nbsp;&nbsp; {!currentReleaseDate}  
+  <br></br>
+  <p><b>Please select from the options below:</b></p>
+  <p>
+    <apex:selectRadio value="{!responseSelection}" layout="pageDirection" id="SR1" onchange="changeIsSelected();">
+          <apex:actionSupport action="{!rerenderDateSection}" event="onclick" rerender="dateSection"/>
+         <apex:selectOptions value="{!ReleaseOptions}" />
+     </apex:selectRadio> 
+  </p>
+  <br/>
+  <b>If you are scheduling a release, you can choose a date up to but not later than the Original Release Date.</b>
+  <apex:panelGrid ID="dateSection" columns="2" width="400px" style="width:40%;padding-left:6%;">
+    <apex:outputLabel value="Please select the new Release Date:" rendered="{!datesectionDisplay}"/>
+    <apex:inputField value="{!acepricechanges.Sales_Price_Change_Effective_Date_Rep__c}" rendered="{!datesectionDisplay}"/>
+    <apex:outputLabel value="Please select the new Release Date:" rendered="{!NotifysectionDisplay}"/>
+    <apex:inputField value="{!acepricechanges.Customer_Notification_Date_Rep__c}" rendered="{!NotifysectionDisplay}"/>
+  </apex:panelGrid>
+   </apex:pageblock>
+ </apex:form>
+ <script>
+ var isSelected = 0;
+ 
+ function changeIsSelected(){
+     isSelected = 1;
+ }
+ 
+ function overlay(val) 
+         {
+             //alert();
+             //var e= document.getElementByname("{!$Component.pageACE:formACE:block1:SR1:0}");
+             //alert(e);
+            
+            //var myText = "{!$Component.j_id0:j_id2:j_id22:SR}" + ":0";  
+            //var num = document.getElementById("{!$Component.j_id0:j_id2:j_id22:SR1:0}").checked;  //document.getElementById(myText).checked;
+            //alert("num" + num);
+            //var myText1 = "{!$Component.j_id0:j_id2:j_id22:SR}" + ":1"; 
+            //var num1 = document.getElementById("{!$Component.j_id0:j_id2:j_id14:SR1:1}").checked;  //document.getElementById(myText1).checked;
+           // alert("num1" + num1);
+            
+            //if(document.getElementById("{!$Component.j_id0:j_id2:j_id22:SR1:0}").checked == false && document.getElementById("{!$Component.j_id0:j_id2:j_id22:SR1:0}").checked == false)
+            //{
+             // alert("Please select an option to continue."); 
+             // return false;
+            //}
+            
+            if(isSelected == 0){
+                alert("Please select an option to continue."); 
+                return false;
+            }
+            else{
+                if (val) 
+                {
+                  document.getElementById('ConfirmPaneldiv').style.display = 'block';
+                }
+                else 
+                {
+                  document.getElementById('ConfirmPaneldiv').style.display = 'none';
+                }
+            }
+          }
+ function overlay2(val) {
+            if (val) {
+              document.getElementById('ConfirmPaneldiv2').style.display = 'block';
+              
+            }
+            else {
+              document.getElementById('ConfirmPaneldiv2').style.display = 'none';
+             
+            }
+          }
+ </script>
+</apex:page>

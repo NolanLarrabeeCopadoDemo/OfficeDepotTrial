@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Send Quote To customer</name>
+    <style>freeForm</style>
+    <subject>Office Depot Technology Quotation {!Quote.Name}</subject>
+    <textOnly>Dear {!Quote.Customer_Name__c},
+
+Thank you for allowing Office Depot the opportunity to bid on your Technology needs.
+
+Office Depot Technology Solutions Group is uniquely positioned to provide a more comprehensive catalog of commercial technology products, expert solution consultants to support your critical projects, and competitive pricing as your marketplace advocate to countless industry partners. It is my pleasure to submit the attached quotation for your consideration.
+
+Thank you once again for your consideration and feel free to contact me with any questions.
+
+Link to: Approval Link
+
+
+
+Warm Regards,
+{!Quote.OwnerFullName}
+{!Quote.OwnerPhone}
+{!Quote.OwnerEmail}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

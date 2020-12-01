@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Manage your data with on-demand reporting from Office Depot</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Usage Reports</name>
+    <style>freeForm</style>
+    <subject>Manage your data with on-demand reporting from Office Depot</subject>
+    <textOnly>Dear {!Contact.Name},
+
+Do you have all the information you need to effectively manage your expenses?  Are you asking for usage reports from your account manager that take days, even weeks to receive? Having quick access to data is crucial to any managed program to help drive cost saving initiatives and control limits throughout locations and with employees.
+
+At Office Depot, we believe our customers’ data belong to them! Therefore, we have tools directly on our business site that allow our customers to view usage reports and graphical data any time you wish. Your data is organized by variables such as:
+
+
+Spend by location and user
+Spend by product category
+Missed savings opportunities
+And much more!
+
+
+I would like to coordinate a quick demonstration to show you our business solutions platform. It shouldn’t take more than 30 minutes to quickly show you how Office Depot gives you data to help you take control of your business.
+
+I look forward to your response and the opportunity to show how we can help your business!
+
+
+Thank you,
+
+
+{!User.Name}
+{!User.Market__c}
+{!User.Phone} {!User.Extension}
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

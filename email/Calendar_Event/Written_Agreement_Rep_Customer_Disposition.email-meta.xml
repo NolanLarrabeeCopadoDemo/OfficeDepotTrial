@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification that is sent out to Legal team upon Rep Customer Disposition value - Customer request earlier transition date</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Written Agreement Rep Customer Disposition</name>
+    <style>freeForm</style>
+    <subject>Customer Disposition:  {!Customer_Transition__c.OMX_Primary_Key__c} - {!Customer_Transition__c.Account__c}</subject>
+    <textOnly>is requesting an earlier migration date.
+
+Please contact the Sales Representative to determine an agreed upon Migration Start Date.
+
+After contacting the Sales Representative, the Lifecycle Remediation team is required to manually change the REVIEW START DATE in the Transition Object.   This will change the customer status to Rescheduled and will launch the WRF at the appropriate time.
+
+Sincerely,
+
+
+The Migration Management Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

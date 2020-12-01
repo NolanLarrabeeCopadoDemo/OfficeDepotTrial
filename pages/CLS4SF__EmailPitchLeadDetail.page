@@ -1,0 +1,16 @@
+<apex:page standardController="Lead" extensions="CLS4SF.LeadUtils" showHeader="false" sidebar="false">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<script type="text/javascript">
+    window.onload=function(){
+        document.getElementById("cspost").submit();
+        };
+</script>
+<form name="cspost" id="cspost" action="{!postURL}/manage/email/external_link_post" method="POST">
+<input id="crmid" name="crmid" value="crm://salesforce.com/lead/{!Lead.Id}" type="hidden" />    
+<input id="name" name="name" value="{!lead.Name}" type="hidden" />
+<input id="email" name="email" value="{!lead.Name+' <'+lead.Email+'>'}" type="hidden" />
+<input  id="company" name="company" value="{!lead.Company}" type="hidden" />
+<input  id="csrf_token" name="csrf_token" value="{!csrf}" type="hidden" />
+</form>
+</META>
+</apex:page>

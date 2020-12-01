@@ -1,0 +1,7 @@
+<apex:page controller="ca_idea.IdeaLayoutController" showHeader="false" cache="{!doCache}" expires="{!cacheMaxAge}"  action="{!redirectToOverride}">
+	<apex:outputPanel rendered="false">Copyright (c) 2010 salesforce.com, inc. and its licensors.</apex:outputPanel>
+
+	<apex:include pageName="{!layoutOverride}" rendered="{!isLayoutOverridden}" />
+	<apex:include pageName="ca_idea__ideaLayout" rendered="{!!isLayoutOverridden}" />
+
+</apex:page>

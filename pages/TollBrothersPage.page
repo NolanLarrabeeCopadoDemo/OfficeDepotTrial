@@ -1,0 +1,1664 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" applyHtmlTag="false"
+    id="com2GPOPreLogin" controller="com2GPOCommunityLandingController" extensions="xGPOSiteTemplate1ConExt" action="{!loadtypeahead}">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Office Depot</title>
+        
+
+    <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jquery1.11.2.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jqueryui1.11.4.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/bootstrap.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jquery.validate.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/od_JSExtendValidator.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/RequestInvoice.js')}"/> 
+    <apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/Registration.js')}"/> 
+    <apex:includeScript value="{!$Resource.TypeAhead}"/>
+    <link rel="shortcut icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+    <link rel="icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+    <link rel="icon" type="/image/x-ico" href="https://bsdsqs8.officedepot.com/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/buttons.css')}"></link>
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/grid.css')}"></link> <!-- Used in Reg Form -->
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/helper.css')}"></link> <!-- Used in Reg Form -->
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tooltip.css')}"></link> <!-- Used in Reg Form -->
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tips.css')}"></link>
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/bootstrap.min.css')}" />
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/main.css')}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/GPOforms.css')}"></link> 
+    <link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/fixes.css')}" />
+    <script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'eluminate.js')}" />
+    <script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'cmcustom.js')}" />
+    <script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'cmcookie.js')}" />
+
+        <script type="text/javascript">
+            
+            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+            document.title = "Office Depot"
+            if (!window.console) {
+                var console = {
+                    log: function() {},
+                    warn: function() {},
+                    error: function() {},
+                    time: function() {},
+                    timeEnd: function() {}
+                }
+            }
+
+            Visualforce.remoting.timeout = 120000;
+            function saveGPOLead2(id1) {
+                var ret = true;
+                if (document.getElementById('regssoid_id').value=='') {
+                   document.getElementById('regssoid_id').style.border = '1px solid #f00';
+                   document.getElementById('regssoid_id').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regssoid_idEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('regFirstName').value=='') {
+                   document.getElementById('regFirstName').style.border = '1px solid #f00';
+                   document.getElementById('regFirstName').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regFirstNameEM').style.display = 'inline';           
+                    
+                   ret=false;
+                }
+                if (document.getElementById('regLastName').value=='') {
+                   document.getElementById('regLastName').style.border = '1px solid #f00';
+                   document.getElementById('regLastName').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regLastNameEM').style.display = 'inline';           
+                    
+                   ret=false;
+                }
+                if (document.getElementById('jobTitle').value=='') {
+                   document.getElementById('jobTitle').style.border = '1px solid #f00';
+                   document.getElementById('jobTitle').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('jobTitleEM').style.display = 'inline';           
+                    
+                   ret=false;
+                }
+                if (document.getElementById('regPhone').value=='') {
+                   document.getElementById('regPhone').style.border = '1px solid #f00';
+                   document.getElementById('regPhone').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regPhoneEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('regEmail').value=='') {
+                   document.getElementById('regEmail').style.border = '1px solid #f00';
+                   document.getElementById('regEmail').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regEmailEM').style.display = 'inline';           
+                   ret=false;
+                }         
+                if (document.getElementById('DeptName').value=='') {
+                   document.getElementById('DeptName').style.border = '1px solid #f00';
+                   document.getElementById('DeptName').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('DeptNameEM').style.display = 'inline';           
+                   ret=false;
+                } 
+                if (document.getElementById('regccid1').value=='-Please Select-') {
+                   document.getElementById('regccid1').style.border = '1px solid #f00';
+                   document.getElementById('regccid1').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regccid1EM').style.display = 'inline';           
+                   ret=false;
+                }
+                // Default Approver
+                if (document.getElementById('Approver1CostCenter').value=='') {
+                   document.getElementById('Approver1CostCenter').style.border = '1px solid #f00';
+                   document.getElementById('Approver1CostCenter').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('Approver1RequiredEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('Approver1OfficeType').value=='-Please Select-') {
+                   document.getElementById('Approver1OfficeType').style.border = '1px solid #f00';
+                   document.getElementById('Approver1OfficeType').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('Approver1RequiredEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('Approver1FirstName').value=='') {
+                   document.getElementById('Approver1FirstName').style.border = '1px solid #f00';
+                   document.getElementById('Approver1FirstName').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('Approver1RequiredEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('Approver1LastName').value=='') {
+                   document.getElementById('Approver1LastName').style.border = '1px solid #f00';
+                   document.getElementById('Approver1LastName').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('Approver1RequiredEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('Approver1Email').value=='') {
+                   document.getElementById('Approver1Email').style.border = '1px solid #f00';
+                   document.getElementById('Approver1Email').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('Approver1RequiredEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('Approver1JobTitle').value=='') {
+                   document.getElementById('Approver1JobTitle').style.border = '1px solid #f00';
+                   document.getElementById('Approver1JobTitle').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('Approver1RequiredEM').style.display = 'inline';           
+                   ret=false;
+                }
+                
+                
+                
+                // Default Address
+                if (document.getElementById('regAddress1').value=='') {
+                   document.getElementById('regAddress1').style.border = '1px solid #f00';
+                   document.getElementById('regAddress1').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regAddress1EM').style.display = 'inline';           
+                                              
+                   ret=false;
+                }
+                if (document.getElementById('regCity').value=='') {
+                   document.getElementById('regCity').style.border = '1px solid #f00';
+                   document.getElementById('regCity').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regCityEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('regState').value=='') {
+                   document.getElementById('regState').style.border = '1px solid #f00';
+                   document.getElementById('regState').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regStateEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('regBillingZip').value=='') {
+                   document.getElementById('regBillingZip').style.border = '1px solid #f00';
+                   document.getElementById('regBillingZip').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regBillingZipEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (showApprover1 == true){
+                    if (document.getElementById('Approver2CostCenter').value=='') {
+                       document.getElementById('Approver2CostCenter').style.border = '1px solid #f00';
+                       document.getElementById('Approver2CostCenter').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver2RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver2OfficeType').value=='-Please Select-') {
+                       document.getElementById('Approver2OfficeType').style.border = '1px solid #f00';
+                       document.getElementById('Approver2OfficeType').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver2RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver2FirstName').value=='') {
+                       document.getElementById('Approver2FirstName').style.border = '1px solid #f00';
+                       document.getElementById('Approver2FirstName').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver2RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver2LastName').value=='') {
+                       document.getElementById('Approver2LastName').style.border = '1px solid #f00';
+                       document.getElementById('Approver2LastName').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver2RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver2Email').value=='') {
+                       document.getElementById('Approver2Email').style.border = '1px solid #f00';
+                       document.getElementById('Approver2Email').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver2RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver2JobTitle').value=='') {
+                       document.getElementById('Approver2JobTitle').style.border = '1px solid #f00';
+                       document.getElementById('Approver2JobTitle').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver2RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }    
+                }
+                if (showApprover2 == true){
+                    if (document.getElementById('Approver3CostCenter').value=='') {
+                       document.getElementById('Approver3CostCenter').style.border = '1px solid #f00';
+                       document.getElementById('Approver3CostCenter').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver3RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver3OfficeType').value=='-Please Select-') {
+                       document.getElementById('Approver3OfficeType').style.border = '1px solid #f00';
+                       document.getElementById('Approver3OfficeType').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver3RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver3FirstName').value=='') {
+                       document.getElementById('Approver3FirstName').style.border = '1px solid #f00';
+                       document.getElementById('Approver3FirstName').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver3RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver3LastName').value=='') {
+                       document.getElementById('Approver3LastName').style.border = '1px solid #f00';
+                       document.getElementById('Approver3LastName').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver3RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver3Email').value=='') {
+                       document.getElementById('Approver3Email').style.border = '1px solid #f00';
+                       document.getElementById('Approver3Email').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver3RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver3JobTitle').value=='') {
+                       document.getElementById('Approver3JobTitle').style.border = '1px solid #f00';
+                       document.getElementById('Approver3JobTitle').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver3RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                }
+                if (showApprover3 == true){
+                    if (document.getElementById('Approver4CostCenter').value=='') {
+                       document.getElementById('Approver4CostCenter').style.border = '1px solid #f00';
+                       document.getElementById('Approver4CostCenter').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver4RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver4OfficeType').value=='-Please Select-') {
+                       document.getElementById('Approver4OfficeType').style.border = '1px solid #f00';
+                       document.getElementById('Approver4OfficeType').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver4RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver4FirstName').value=='') {
+                       document.getElementById('Approver4FirstName').style.border = '1px solid #f00';
+                       document.getElementById('Approver4FirstName').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver4RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver4LastName').value=='') {
+                       document.getElementById('Approver4LastName').style.border = '1px solid #f00';
+                       document.getElementById('Approver4LastName').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver4RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver4Email').value=='') {
+                       document.getElementById('Approver4Email').style.border = '1px solid #f00';
+                       document.getElementById('Approver4Email').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver4RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Approver4JobTitle').value=='') {
+                       document.getElementById('Approver4JobTitle').style.border = '1px solid #f00';
+                       document.getElementById('Approver4JobTitle').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Approver4RequiredEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                }
+                
+                if (showAddress1 == true) {
+                    if (document.getElementById('Add1Address1').value=='') {
+                       document.getElementById('Add1Address1').style.border = '1px solid #f00';
+                       document.getElementById('Add1Address1').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add1Address1EM').style.display = 'inline';           
+                                                  
+                       ret=false;
+                    }
+                    if (document.getElementById('Add1City').value=='') {
+                       document.getElementById('Add1City').style.border = '1px solid #f00';
+                       document.getElementById('Add1City').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add1CityEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Add1State').value=='') {
+                       document.getElementById('Add1State').style.border = '1px solid #f00';
+                       document.getElementById('Add1State').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add1StateEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Add1Zip').value=='') {
+                       document.getElementById('Add1Zip').style.border = '1px solid #f00';
+                       document.getElementById('Add1Zip').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add1ZipEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                }
+                if (showAddress2 == true) {
+                    if (document.getElementById('Add2Address1').value=='') {
+                       document.getElementById('Add2Address1').style.border = '1px solid #f00';
+                       document.getElementById('Add2Address1').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add2Address1EM').style.display = 'inline';           
+                                                  
+                       ret=false;
+                    }
+                    if (document.getElementById('Add2City').value=='') {
+                       document.getElementById('Add2City').style.border = '1px solid #f00';
+                       document.getElementById('Add2City').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add2CityEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Add2State').value=='') {
+                       document.getElementById('Add2State').style.border = '1px solid #f00';
+                       document.getElementById('Add2State').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add2StateEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Add2Zip').value=='') {
+                       document.getElementById('Add2Zip').style.border = '1px solid #f00';
+                       document.getElementById('Add2Zip').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add2ZipEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                }
+                if (showAddress3 == true) {
+                    if (document.getElementById('Add3Address1').value=='') {
+                       document.getElementById('Add3Address1').style.border = '1px solid #f00';
+                       document.getElementById('Add3Address1').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add3Address1EM').style.display = 'inline';           
+                                                  
+                       ret=false;
+                    }
+                    if (document.getElementById('Add3City').value=='') {
+                       document.getElementById('Add3City').style.border = '1px solid #f00';
+                       document.getElementById('Add3City').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add3CityEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Add3State').value=='') {
+                       document.getElementById('Add3State').style.border = '1px solid #f00';
+                       document.getElementById('Add3State').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add3StateEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                    if (document.getElementById('Add3Zip').value=='') {
+                       document.getElementById('Add3Zip').style.border = '1px solid #f00';
+                       document.getElementById('Add3Zip').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('Add3ZipEM').style.display = 'inline';           
+                       ret=false;
+                    }
+                }
+              
+                
+                if (ret != true || !$('#registrationForm').valid()) {
+                 // Do Nothing
+                } else {
+                    console.log('In save function');
+                    document.getElementById('regerrormessage').innerHTML = 'Saving Registration ....';
+                    
+                    var f1 = new GPOLead();
+                    f1.SSO_Id__c = document.getElementById('regssoid_id').value;
+                    f1.first_name__c = document.getElementById('regFirstName').value;
+                    f1.last_name__c = document.getElementById('regLastName').value;
+                    f1.Job_Title__c = document.getElementById('jobTitle').value;
+                    f1.Phone__c = document.getElementById('regPhone').value;
+                    f1.Extension__c = document.getElementById('extension').value;
+                    f1.email__c = document.getElementById('regEmail').value;
+                    f1.Dept_Name__c = document.getElementById('DeptName').value;
+                    f1.Cost_Center__c = document.getElementById('regccid1').value;
+                    f1.Approver_1_Cost_Center__c = document.getElementById('Approver1CostCenter').value;
+                    f1.Approver_1_Office_Type__c = document.getElementById('Approver1OfficeType').value;
+                    f1.Approver_1_First_Name__c = document.getElementById('Approver1FirstName').value;
+                    f1.Approver_1_Last_Name__c = document.getElementById('Approver1LastName').value;
+                    f1.Approver_1_Email_Address__c = document.getElementById('Approver1Email').value;
+                    f1.Approver_1_Job_Title__c = document.getElementById('Approver1JobTitle').value;
+                    f1.Approver_2_Cost_Center__c = document.getElementById('Approver2CostCenter').value;
+                    f1.Approver_2_Office_Type__c = document.getElementById('Approver2OfficeType').value;
+                    f1.Approver_2_First_Name__c = document.getElementById('Approver2FirstName').value;
+                    f1.Approver_2_Last_Name__c = document.getElementById('Approver2LastName').value;
+                    f1.Approver_2_Email_Address__c = document.getElementById('Approver2Email').value;
+                    f1.Approver_2_Job_Title__c = document.getElementById('Approver2JobTitle').value;
+                    f1.Approver_3_Cost_Center__c = document.getElementById('Approver3CostCenter').value;
+                    f1.Approver_3_Office_Type__c = document.getElementById('Approver3OfficeType').value;
+                    f1.Approver_3_First_Name__c = document.getElementById('Approver3FirstName').value;
+                    f1.Approver_3_Last_Name__c = document.getElementById('Approver3LastName').value;
+                    f1.Approver_3_Email_Address__c = document.getElementById('Approver3Email').value;
+                    f1.Approver_3_Job_Title__c = document.getElementById('Approver3JobTitle').value;
+                    f1.Approver_4_Cost_Center__c = document.getElementById('Approver4CostCenter').value;
+                    f1.Approver_4_Office_Type__c = document.getElementById('Approver4OfficeType').value;
+                    f1.Approver_4_First_Name__c = document.getElementById('Approver4FirstName').value;
+                    f1.Approver_4_Last_Name__c = document.getElementById('Approver4LastName').value;
+                    f1.Approver_4_Email_Address__c = document.getElementById('Approver4Email').value;
+                    f1.Approver_4_Job_Title__c = document.getElementById('Approver4JobTitle').value;
+                    f1.address1__c = document.getElementById('regAddress1').value;
+                    f1.address2__c = document.getElementById('regAddress2').value;
+                    f1.city__c = document.getElementById('regCity').value;
+                    f1.state__c = document.getElementById('regState').value;
+                    f1.zip__c = document.getElementById('regBillingZip').value;
+            
+                    f1.Additional_Address1_1__c = document.getElementById('Add1Address1').value;
+                    f1.Additional_Address2_1__c = document.getElementById('Add1Address2').value;
+                    f1.Additional_City_1__c = document.getElementById('Add1City').value;
+                    f1.Additional_State_1__c = document.getElementById('Add1State').value;
+                    f1.Additional_Zip_1__c = document.getElementById('Add1Zip').value;
+            
+                    f1.Additional_Address1_2__c = document.getElementById('Add2Address1').value;
+                    f1.Additional_Address2_2__c = document.getElementById('Add2Address2').value;
+                    f1.Additional_City_2__c = document.getElementById('Add2City').value;
+                    f1.Additional_State_2__c = document.getElementById('Add2State').value;
+                    f1.Additional_Zip_2__c = document.getElementById('Add2Zip').value;
+                    
+            
+                    f1.Additional_Address1_3__c = document.getElementById('Add3Address1').value;
+                    f1.Additional_Address2_3__c = document.getElementById('Add3Address2').value;
+                    f1.Additional_City_3__c = document.getElementById('Add3City').value;
+                    f1.Additional_State_3__c = document.getElementById('Add3State').value;
+                    f1.Additional_Zip_3__c = document.getElementById('Add3Zip').value;
+                    
+                    f1.Status__c = 'Pending';
+                    f1.Account__c = '{!gpoaccount.id}';
+                    f1.gpo_group__c = '{!selectedGroup.id}';
+                    
+                    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.com2GPOCommunityLandingController.insertUserRegistration}', f1, id1, 
+                        function(result, event) {
+                            console.log(result);
+                            var resultString = '';
+
+                            if (event.status) {
+                                resultString = result;
+                                document.getElementById("regerrormessage").innerHTML = "Successful Registration";
+                                window.location.replace("{!commSetup.URL_Insert__c}com2ThankYouPage?id=" + id1 + "&src=reg" + "&SPC_req=" + 'false');
+                            } else if (event.type === 'exception') {
+                                resultString = event.message + "  " + event.where;
+                                document.getElementById("regerrormessage").innerHTML = resultString;
+                            } else {
+                                resultString = event.message;
+                                document.getElementById("regerrormessage").innerHTML = resultString;
+                            }
+                        }); 
+                }
+                return false;
+            }
+            
+            function GPOLead() {
+                this.SSO_Id__c = null;            
+                this.first_name__c = null;
+                this.last_name__c = null;
+                this.Job_Title__c = null;
+                this.Phone__c = null;
+                this.Extension__c = null;
+                this.email__c = null;
+                this.Dept_Name__c = null;
+                this.Cost_Center__c = null;
+                this.Approver_1_Cost_Center__c = null;
+                this.Approver_1_Email_Address__c = null;
+                this.Approver_1_First_Name__c = null;
+                this.Approver_1_Job_Title__c = null;
+                this.Approver_1_Last_Name__c = null;
+                this.Approver_1_Office_Type__c = null;
+                this.Approver_2_Cost_Center__c = null;
+                this.Approver_2_Email_Address__c = null;
+                this.Approver_2_First_Name__c = null;
+                this.Approver_2_Job_Title__c = null;
+                this.Approver_2_Last_Name__c = null;
+                this.Approver_2_Office_Type__c = null;
+                this.Approver_3_Cost_Center__c = null;
+                this.Approver_3_Email_Address__c = null;
+                this.Approver_3_First_Name__c = null;
+                this.Approver_3_Job_Title__c = null;
+                this.Approver_3_Last_Name__c = null;
+                this.Approver_3_Office_Type__c = null;
+                this.Approver_4_Cost_Center__c = null;
+                this.Approver_4_Email_Address__c = null;
+                this.Approver_4_First_Name__c = null;
+                this.Approver_4_Job_Title__c = null;
+                this.Approver_4_Last_Name__c = null;
+                this.Approver_4_Office_Type__c = null;
+                this.address1__c = null;
+                this.address2__c = null;
+                this.city__c = null;
+                this.state__c = null;
+                this.zip__c = null;
+                this.Status__c = null;
+                
+                
+                
+                this.URL__c = null;
+                this.Business_Name__c = null;
+                this.Notes__c = null;
+                this.GPO_Group__c = null;                
+                //-----------NAIT-21026, 21027----------sTART----------->
+                
+                this.PO_Number__c = null;
+                this.Release__c = null;
+                
+                this.AOPS_Cust_ID__c = null;
+                            
+                //----------NAIT-21026, 21027--------------End----------->
+               
+                
+                this.Additional_Address1_1__c = null;
+                this.Additional_Address2_1__c = null;
+                this.Additional_City_1__c = null;
+                this.Additional_State_1__c = null;
+                this.Additional_Zip_1__c = null;
+                this.Additional_Address1_2__c = null;
+                this.Additional_Address2_2__c = null;
+                this.Additional_City_2__c = null;
+                this.Additional_State_2__c = null;
+                this.Additional_Zip_2__c = null;
+                this.Additional_Address1_3__c = null;
+                this.Additional_Address2_3__c = null;
+                this.Additional_City_3__c = null;
+                this.Additional_State_3__c = null;
+                this.Additional_Zip_3__c = null;
+            }
+            
+           
+            
+        </script>
+         <script type="text/javascript">
+         
+         var showApprover1 = false;
+            var showApprover2 = false;
+            var showApprover3 = false;
+            var showAddress1 = false;
+            var showAddress2 = false;
+            var showAddress3 = false;
+             function showExtraApprover1(e){
+                if (showApprover1 == false){
+                    document.getElementById('ExtraApprover1').style.display = '';
+                    showApprover1 = true;
+                }
+                else {
+                    document.getElementById('ExtraApprover1').style.display = 'none';
+                    showApprover1 = false;
+                }
+            }
+            
+            function showExtraApprover2(e){
+                if (showApprover2 == false){
+                    document.getElementById('ExtraApprover2').style.display = '';
+                    showApprover2 = true;
+                }
+                else {
+                    document.getElementById('ExtraApprover2').style.display = 'none';
+                    showApprover2 = false;
+                }
+            }
+            function showExtraApprover3(e){
+                if (showApprover3 == false){
+                    document.getElementById('ExtraApprover3').style.display = '';
+                    showApprover3 = true;
+                }
+                else {
+                    document.getElementById('ExtraApprover3').style.display = 'none';
+                    showApprover3 = false;
+                }
+            }
+        </script>
+        <!-- used for showing and hiding elements based on admin's settings -->
+        <style>
+            .contentHide {
+                display: none;
+            }
+            .hideRegister {
+                display: none;
+                padding: 0px 0px 0px 0px;
+            }
+            .regular {}
+            .btn {
+                border: 0px;
+            }
+            label .error {
+                display: none !important;
+            }
+            .padding-middle {
+                padding: 30px 0;
+            }
+            outputLabel {
+                color: #7f7f7f;
+            }
+            .hintText {
+                color: #7f7f7f;
+                font-size: 12px;
+            }
+            
+            #registrationPage .sub_header {
+                background: url('../images/Registration-headerBG.jpg') no-repeat -120px 0;
+                height: 120px;
+                width: 100%;
+            }
+            
+            #registrationPage #main {
+                background-color: #f5f5f5;
+                width: 100%;
+            }
+            
+            #registrationPage .register_form {
+                background-color: #fff;
+                border-radius: 8px;
+                padding: 12px;
+                /* position: relative; */
+                bottom: 48px;
+            }
+            
+            #registrationPage .register_form label {
+            /*  display: block; */
+                /* font-weight: bold; */
+                font-weight: normal;
+                /* margin: 8px 0; */
+                
+                color: #7f7f7f;
+            }
+            
+            #registrationPage .register_form label.error {
+                margin-top: 0;
+            }
+            
+            #registrationPage .register_form .steps {
+                color: #999;
+                margin-top: 12px;
+                width: 100%;
+            }
+            
+            #registrationPage h1,
+            #registrationPage h2 {
+                color: #0b669b;
+                font-size: 24px;
+            }
+            
+            #registrationPage .reg_step {
+                display: none;
+            }
+            
+            /* First step shows by default */
+            #registrationPage #regStep1 {
+                display: block;
+            }
+            
+            #registrationPage .btn {
+                min-width: 80px;
+            }
+            
+            /* Radio buttons Y/N for member of chamber */
+            #registrationPage .chamber_member_radios {
+                margin: 12px 0 24px 0;
+            }
+            
+            #registrationPage .chamber_member_radios > label {
+                margin: 0;
+            }
+            
+            #registrationPage .chamber_member_radios > label:first-child {
+                float: left;
+                margin: 0 24px 0 0;
+            }
+            
+            #registrationPage label.error {
+                color: #f00;
+                font-weight: normal;
+            }
+            
+            #regNumEmployees {
+                margin: 12px 0 24px 0;
+                width: 120px;
+            }
+            
+            .reg_sub_links {
+                color: #999;
+                margin-top: 12px;
+            }
+            
+            .reg_sub_links > a {
+                font-size: 12px;
+            }
+            
+            #shippingFormSection {
+                margin-top: 12px;
+            }
+            
+            .borderBlack {
+                border: 1px solid;
+                padding: 10px;
+            }
+            
+            input {
+                margin-right: 7px;
+            }
+            
+            .plusClipArt {
+                height: 30px;
+                width: 30px;
+            }
+            
+        </style>
+    </head>
+
+    <body>
+        <apex:composition template="com2GPOPreLoginVFTemplate">
+            
+            <apex:define name="ODLogo">
+                <a target="_blank" href="https://business.officedepot.com/"><img src="{!URLFOR($Resource.CommunitiesAssets,'images/OD-Biz-Logo.png')}"
+                        title="Office Depot Business - We provide Smart Solutions that help you take care of business."/></a>
+            </apex:define>
+
+            <apex:define name="CustomBrand">
+                <apex:image rendered="{!IF(contains(usingGroup.hideSections__c, "Company Logo"),false,true)}" url="{!IF(AND(showGeneric),URLFOR($Resource.CommunitiesAssets,'images/transparent.png'),ImageRootPath + usingGroup.Community_Image__c  )}"
+                    width="360" height="110" style="float: right;" />
+            </apex:define>
+
+            <apex:define name="Greeting">
+                <div class="{!IF(contains(selectedGroup.hideSections__c,"Greeting"),'contentHide','regular')}" style="font-size: 16px">
+                    <p> <apex:outputText escape="false" value="{!WelcomeMessage1}"/> </p>
+                    <container class="{!IF(hideRegisterLink || $CurrentPage.parameters.id == '1936248' || $CurrentPage.parameters.id == '42519356'|| $CurrentPage.parameters.id == '28737175','hideRegister','regular')}">
+                        <p>Log in to start shopping now!</p>
+                    </container>
+                </div>
+            </apex:define>
+<!--added by ivarada - 4/9/2018 starts -->
+            <apex:define name="LoginButton">
+                 <container class="{!IF(hideRegisterLink,'hideRegister','regular')}">   
+                    
+                    <a type="button" class="btn btn-primary btn-block width-40 {!IF(splOverride,'regular','contentHide')}" data-toggle="modal" data-target="#ODFLead"> Register </a>
+                 <br/>
+                </container>
+                
+                <a type="button" class="btn btn-primary btn-block width-40 {!IF(showGeneric && !splOverride,'regular','contentHide')}" href="{!commSetup.signin_link__c}?cm_sp=Communities-_-{!pageID}-_-SignIn">LOG IN</a>
+                <a type="button" class="btn btn-primary btn-block width-40 {!IF(splOverride,'regular','contentHide')}" href="{!$Label.GPOBSD}">LOG IN</a>
+           
+                <container class="{!IF(hideRegisterLink,'hideRegister','regular')}">
+                    <a type="button" class="btn btn-primary btn-block width-40 {!IF(showGeneric,'contentHide','regular')}" data-toggle="modal" data-target="#ODFLead"> Register </a>
+                </container>
+                
+                
+                
+                <!--added by ivarada - 4/9/2018 ends -->
+            </apex:define>
+
+            <apex:define name="RegisterLink">
+                <p> <a class="underline {!IF(showGeneric,'contentHide','regular')} {!IF(hideRegisterLink || $CurrentPage.parameters.id == '1936248' || $CurrentPage.parameters.id == '42519356','contentHide','regular')}" href="{!commSetup.signin_link__c}?cm_sp=Communities-_-{!pageID}-_-SignIn">Log in to {!selectedGroup.Community_Name__c} as a registered User</a></p>
+            </apex:define>
+
+            <apex:define name="NonBrandedImage">
+                <apex:image id="NonBrandedImage" url="{!URLFOR($Resource.CommunitiesAssets, 'images/pic.jpg')}"
+                    rendered="{!IF(contains(usingGroup.hideSections__c, "Stock Image"),false,true)}" alt="..." />
+            </apex:define>
+ 
+            <apex:define name="bottomRow">
+                <container class="{!IF(showGeneric,'contentHide','regular')}">
+                    <div class="row padding-middle border-top">
+                        <div class="col-md-4 {!IF(contains(usingGroup.hideSections__c,"Request an Account"),'contentHide','regular')}">
+                            <h4>REQUEST AN ACCOUNT</h4>
+                            <p><b>Apply for an account allowing you to make purchases and pay on Net billing terms.</b></p>
+                            <p><b><a class="underline" data-toggle="modal" data-target="#ODInvRequest">Request an Invoice Account</a></b></p>
+                        </div>
+                        
+                        <div class="col-md-4 {!IF(contains(usingGroup.hideSections__c,"Important Downloads"),'contentHide','regular')}">
+                            <h4>IMPORTANT DOWNLOADS </h4>
+                            <ul class="list-unstyled">
+                                <li><b><a class="underline {!IF(hideSPCdownloadLink,'contentHide','regular')}" target="_blank" href="{!commSetup.SPC_Link_Address__c}{!PageId1}">Download Store Purchasing Card</a></b></li>
+                                <li><a class="{!IF(Account_SPC_Allowed_Flag == 'Y', 'regular', 'contentHide')}" target="_blank" href="{!commSetup.SPC_Registration_Link_URL__c}">Personalize Store Purchasing Card</a></li>
+                                
+                                <apex:repeat var="link" value="{!pageLinks}">
+                                    <li><a target="_blank" class="underline {!IF(link.Active__c != True,'contentHide','regular')}" href="{!link.URL_Address__c}">{!link.Label__c}</a></li>
+                                </apex:repeat>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 {!IF(contains(usingGroup.hideSections__c,"Account Information") || (accountOwner.isactive != True) || (accountOwner.System_User__c == True),'contentHide','regular')}">
+                            <h4>ACCOUNT INFORMATION</h4>
+                            <ul class="list-unstyled">
+                                <li><strong>{!accountOwner.Name}</strong></li>
+                                <li>{!accountOwner.Phone}</li>
+                                <li>{!accountOwner.MobilePhone}</li>
+                                <li>{!accountOwner.Email}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </container>
+
+            </apex:define>
+            
+            <apex:define name="Messaging">
+                <container class="{!IF(contains(usingGroup.hideSections__c,"Benefits"),'contentHide','regular')}">
+                    <h4 class="benefits-header">
+                        BENEFITS OF SHOPPING OFFICE DEPOT
+                    </h4>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/icon_personalized.jpg')}"
+                        />
+                        <h4>PERSONALIZED SERVICES</h4>
+                        <p>Expertise that covers a wide range of business needs. Dedicated
+                            account managers to provide customized solutions.
+                        </p>
+                    </div>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/icon_procurement.jpg')}"
+                        />
+                        <h4>FLEXIBLE PROCUREMENT</h4>
+                        <p>Simple ways to shop when, where, and how you want. Custom
+                            delivery &amp; invoicing, plus payment &amp; electronic
+                            procurement options.</p>
+                    </div>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/product_services.jpg')}"
+                        />
+                        <h4>PRODUCTS &amp; SERVICES</h4>
+                        <p>All the products you need, from technology &amp; furniture
+                            to cleaning &amp; breakrooms. Custom copy &amp; print
+                            services, as well as office supplies tailored to your
+                            needs.
+                        </p>
+                    </div>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/cost_control.jpg')}" />
+                        <h4>COST CONTROLS</h4>
+                        <p>Cost-containment solutions such as demand management and
+                            global sourcing.</p>
+                    </div>
+                    <div class="col-md-15 col-sm-3">
+                        <img src="{!URLFOR($Resource.CommunitiesAssets, 'images/sustainable_solutions.jpg')}" />
+                        <h4>SUSTAINABLE SOLUTIONS</h4>
+                        <p>Effective strategies to help make going greener more economical.
+                            Items that help you meet your purchasing goals.</p>
+                    </div>
+                </container>
+            </apex:define>
+
+            <apex:define name="RegisterLoginLinks">
+                <container class="{!IF(hideRegisterLink,'hideRegister','regular')}">
+                    <container class="{!IF(showGeneric,'contentHide','regular')}">
+                        <h4 class="text-center">
+                            <a class="underline" data-toggle="modal" data-target="#ODFLead2">Register</a> to start shopping. Already have an account?
+                            <a class="underline" href="{!commSetup.signin_link__c}?cm_sp=Communities-_-{!pageID}-_-SignIn">Log in</a>
+                        </h4>
+                    </container>
+                </container>
+            </apex:define>
+
+            <apex:define name="Footer">
+                <div class="col-md-6 small">Copyright &copy; {!currentYear} by Office Depot, Inc. All rights
+                    reserved.
+                </div>
+                <div class="col-md-6 small">
+                    <ul class="list-inline pull-right">
+                        <li class="border-none"><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp">Privacy Policy</a></li>
+                        <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/trackingtools.jsp">Online Tracking Tools</a></li>
+                        <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp">Terms of Use</a></li>
+                        <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+            </apex:define>
+
+<apex:define name="NewCustomerRegistration">
+    <div class="modal fade" id="ODFLead">
+        <div class="modal-dialog modal-lg" style="width: auto">
+            <apex:outputPanel rendered="{!showForm}">
+                <!-- BEGIN NEW REGISTRATION FORM STEP 1 thru 3 -->
+                    <div id="registrationPage" class="mainWrapper odgrid_12 gw12 alpha omega">
+                        <!-- Main section -->
+                        <form id="registrationForm" name="registrationForm" class="gw8 register_form" method="post" >
+                                    <div id="regStep1" class="reg_step">
+                                        <section class="p24">
+                                            <h1> User Registration Information</h1>
+                                            <apex:form >
+                                            <apex:outputLabel style="width: 100px" value="{! UserRegistrationFieldsMap['SSO Id'] }" />
+                                            <input type="text" value="" id="regssoid_id" maxlength="6" onkeypress="return IsSSO(event);" required="required"/>
+                                            <span id="regssoid_idEM" style="color: #f00; display: none">This field is required.</span>
+                                            <script type="text/javascript">
+                                                function IsSSO(e) {
+                                                   document.getElementById('regssoid_id').style.border = '1px solid Silver';
+                                                   document.getElementById('regssoid_id').style.backgroundColor = '';
+                                                   document.getElementById('regssoid_idEM').style.display = 'none';
+                                                   return true;
+                                                }
+                                            </script>
+                                            <br />
+                                            <apex:outputLabel style="width: 100px" value="{! UserRegistrationFieldsMap['First Name'] }" />
+                                            <input type="text" value="" name="regFirstName" id="regFirstName" minlength="1" onkeypress="IsFirstName(event)" required="required" maxlength="30" />
+                                            <span id="regFirstNameEM" style="color: #f00; display: none">Enter first name</span>
+                                            <script type="text/javascript">
+                                                function IsFirstName(e) {
+                                                    document.getElementById('regFirstName').style.border ='1px solid Silver';
+                                                    document.getElementById('regFirstName').style.backgroundColor ='';
+                                                    document.getElementById('regFirstNameEM').style.display ='none';
+                                                    return true;
+                                                }
+                                            </script>
+                                            <br />
+                                            <apex:outputLabel style="width: 100px" value="{! UserRegistrationFieldsMap['Last Name'] }" />
+                                            <input type="text" value="" name="regLastName" id="regLastName" minlength="1" required="required" maxlength="30" onkeypress="return IsLastName(event);" />
+                                            <span id="regLastNameEM" style="color: #f00; display: none">Enter last name</span>
+                                            <script type="text/javascript">
+                                                function IsLastName(e) {
+                                                    document.getElementById('regLastName').style.border ='1px solid Silver';
+                                                    document.getElementById('regLastName').style.backgroundColor ='';
+                                                    document.getElementById('regLastNameEM').style.display ='none';
+                                                    return true;
+                                                }
+                                            </script>
+                                            <br />
+                                            <apex:outputLabel style="width: 100px" value="Job Title" />
+                                            <input type="text" value="" id="jobTitle" minlength="1" required="required" maxlength="30" onkeypress="return IsJobTitle(event);" />
+                                            <span id="jobTitleEM" style="color: #f00; display: none">This field is required</span>
+                                            <script type="text/javascript">
+                                                function IsJobTitle(e) {
+                                                    document.getElementById('jobTitle').style.border = '1px solid Silver';
+                                                    document.getElementById('jobTitle').style.backgroundColor = '';
+                                                    document.getElementById('jobTitleEM').style.display = 'none';
+                                                    return true;
+                                                }
+                                            </script>
+                                            <br />
+                                            <apex:outputLabel style="width: 100px" value="{! UserRegistrationFieldsMap['Phone'] }" />
+                                            <input type="text" id="regPhone" minlength="10" required="required" style="margin-right: 10px" maxlength="10" onkeypress="return IsNumeric(event);" />
+                                            <apex:outputLabel value="Ext" />
+                                            <input type="text" value="" id="extension" maxlength="10" style="width: 100px" />
+                                            <span id="regPhoneEM" style="color: #f00; display: none">This field is required </span>
+                                            <span id="phoneError" style="color: Red; display: none">* Input digits (0 - 9)</span>
+                                            <script type="text/javascript">
+                                                function IsNumeric(e) {
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    var keyCode = e.which ? e.which : e.keyCode;
+                                                    var ret = ( (keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                    document.getElementById("phoneError").style.display = ret ? "none" : "inline";
+                                                    document.getElementById('regPhone').style.border = '1px solid Silver';
+                                                    document.getElementById('regPhone').style.backgroundColor ='';
+                                                    document.getElementById('regPhoneEM').style.display ='none';
+                                                    return ret;
+                                                }
+                                            </script>
+                                            <br />
+                                            <apex:outputLabel style="width: 100px" value="{! UserRegistrationFieldsMap['Email Address'] }" />
+                                            <input type="email" value="" name="regEmail" id="regEmail" required="required" maxlength="78" onkeypress="return IsEmail(event);" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
+                                            <span id="regEmailEM" style="color: #f00; display: none ">Enter Email address</span>
+                                            <script type="text/javascript">
+                                                function IsEmail(e) {
+                                                    document.getElementById('regEmail').style.border = '1px solid Silver';
+                                                    document.getElementById('regEmail').style.backgroundColor = '';
+                                                    document.getElementById('regEmailEM').style.display = 'none';
+                                                    return true;
+                                                }
+                                            </script>
+                                            <br />
+                                            <apex:outputLabel style="width: 125px" value="Job or Dept Name" />
+                                            <input type="text" value="" id="DeptName" required="required" maxlength="40" onkeypress="return IsDeptName(event);" />
+                                            <span id="DeptNameEM" style="color: #f00; display: none ">This field is required </span>
+                                            <script type="text/javascript">
+                                                function IsDeptName(e) {
+                                                    document.getElementById('DeptName').style.border = '1px solid Silver';
+                                                    document.getElementById('DeptName').style.backgroundColor = '';
+                                                    document.getElementById('DeptNameEM').style.display = 'none';
+                                                    return true;
+                                                }
+                                            </script>
+                                            <br />
+                                            <apex:outputLabel style="width: 100px" value="{!InvoiceUserRegFieldsMap['Cost Center'] }" />
+                                            <select value="" name="CC_Num" id="regccid1"  onclick="return IsCostCenter(event);">
+                                                <option>-Please Select-</option>
+                                                <apex:repeat value="{!Grp_CCenter_str_list}" var="ccenter_id" >
+                                                    <option>{!ccenter_id.label}</option>
+                                                </apex:repeat>
+                                            </select>
+                                            <span id="regccid1EM" style="color: #f00; display: none ">This field is required </span>
+                                            <script type="text/javascript">
+                                                function IsCostCenter(e) {
+                                                    document.getElementById('regccid1').style.border = '1px solid Silver';
+                                                    document.getElementById('regccid1').style.backgroundColor = '';
+                                                    document.getElementById('regccid1EM').style.display = 'none';
+                                                    return true;
+                                                }
+                                            </script>
+                                            <br /><br />
+                                     
+                                            <div class="borderBlack">
+                                                <p>Enter your 3, 4, or 5 digit Job or Department # below.</p>
+                                                <span id="Approver1RequiredEM" style="color: #f00; display: none; ">Please Check Required Fields <br /></span>
+                                                <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Release'] }" />
+                                                <input type="text" value="" id="Approver1CostCenter" maxlength="5" style="width: 100px" onclick="return IsCostCenter(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsCostCenter(e) {
+                                                        document.getElementById('Approver1CostCenter').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver1CostCenter').style.backgroundColor = '';
+                                                        document.getElementById('Approver1RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="{!InvoiceUserRegFieldsMap['PO Number']}" />
+                                                <select value="" id="Approver1OfficeType" onclick="return IsApprover1OfficeType(event);">
+                                                    <option>-Please Select-</option>
+                                                    <apex:repeat value="{!Grp_PO_Num_str_list}" var="po_num_id" >
+                                                        <option>{!po_num_id.label}</option>
+                                                    </apex:repeat>
+                                                </select>
+                                                <script type="text/javascript">
+                                                    function IsApprover1OfficeType(e) {
+                                                        document.getElementById('Approver1OfficeType').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver1OfficeType').style.backgroundColor = '';
+                                                        document.getElementById('Approver1RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <br />
+                                                <p>Approver Information</p>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['First Name'] }" />
+                                                <input type="text" value="" id="Approver1FirstName" minlength="1" required="required" maxlength="30" onclick="return IsApprover1FirstName(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsApprover1FirstName(e) {
+                                                        document.getElementById('Approver1FirstName').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver1FirstName').style.backgroundColor = '';
+                                                        document.getElementById('Approver1RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                             
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Last Name'] }" />
+                                                <input type="text" id="Approver1LastName" minlength="1" required="required" maxlength="30" onclick="return IsApprover1LastName(event);" />
+                                                 <script type="text/javascript">
+                                                    function IsApprover1LastName(e) {
+                                                        document.getElementById('Approver1LastName').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver1LastName').style.backgroundColor = '';
+                                                        document.getElementById('Approver1RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <br />
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Email Address'] }" />
+                                                <input type="email" id="Approver1Email" required="required" maxlength="78" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" onclick="return IsApprover1Email(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsApprover1Email(e) {
+                                                        document.getElementById('Approver1Email').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver1Email').style.backgroundColor = '';
+                                                        document.getElementById('Approver1RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="Job Title" />
+                                                <input type="text" id="Approver1JobTitle" minlength="1" required="required" maxlength="30" onclick="return IsApprover1JobTitle(event);" />
+                                                <script type="text/javascript">
+                                                    function IsApprover1JobTitle(e) {
+                                                        document.getElementById('Approver1JobTitle').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver1JobTitle').style.backgroundColor = '';
+                                                        document.getElementById('Approver1RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                            </div>
+                                            <br />
+                                            <div id="newApproverButton1" onclick="return showExtraApprover1(event);" class="borderBlack"><img class="plusClipArt" src="{!URLFOR($Resource.CommunitiesAssets,'images/plusClipArt.png')}" />Click to add an additional Approver</div>
+                                            <div class="borderBlack" id="ExtraApprover1" style="display:none">
+                                                <p>Enter your 3, 4, or 5 digit Job or Department # below.</p>
+                                                <span id="Approver2RequiredEM" style="color: #f00; display: none; ">Please Check Required Fields <br /></span>
+                                                <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Release'] }" />
+                                                <input type="text" value="" id="Approver2CostCenter" maxlength="5" style="width: 100px" onclick="return IsCostCenter2(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsCostCenter2(e) {
+                                                        document.getElementById('Approver2CostCenter').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver2CostCenter').style.backgroundColor = '';
+                                                        document.getElementById('Approver2RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="{!InvoiceUserRegFieldsMap['PO Number']}" />
+                                                <select value="" id="Approver2OfficeType" onclick="return IsApprover2OfficeType(event);">
+                                                    <option>-Please Select-</option>
+                                                    <apex:repeat value="{!Grp_PO_Num_str_list}" var="po_num_id" >
+                                                        <option>{!po_num_id.label}</option>
+                                                    </apex:repeat>
+                                                </select>
+                                                <script type="text/javascript">
+                                                    function IsApprover2OfficeType(e) {
+                                                        document.getElementById('Approver2OfficeType').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver2OfficeType').style.backgroundColor = '';
+                                                        document.getElementById('Approver2RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <br />
+                                                <p>Approver Information</p>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['First Name'] }" />
+                                                <input type="text" value="" id="Approver2FirstName" minlength="1" required="required" maxlength="30" onclick="return IsApprover2FirstName(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsApprover2FirstName(e) {
+                                                        document.getElementById('Approver2FirstName').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver2FirstName').style.backgroundColor = '';
+                                                        document.getElementById('Approver2RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                             
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Last Name'] }" />
+                                                <input type="text" id="Approver2LastName" minlength="1" required="required" maxlength="30" onclick="return IsApprover2LastName(event);" />
+                                                 <script type="text/javascript">
+                                                    function IsApprover2LastName(e) {
+                                                        document.getElementById('Approver2LastName').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver2LastName').style.backgroundColor = '';
+                                                        document.getElementById('Approver2RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <br />
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Email Address'] }" />
+                                                <input type="email" id="Approver2Email" required="required" maxlength="78" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" onclick="return IsApprover2Email(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsApprover2Email(e) {
+                                                        document.getElementById('Approver2Email').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver2Email').style.backgroundColor = '';
+                                                        document.getElementById('Approver2RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="Job Title" />
+                                                <input type="text" id="Approver2JobTitle" minlength="1" required="required" maxlength="30" onclick="return IsApprover2JobTitle(event);" />
+                                                <script type="text/javascript">
+                                                    function IsApprover2JobTitle(e) {
+                                                        document.getElementById('Approver2JobTitle').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver2JobTitle').style.backgroundColor = '';
+                                                        document.getElementById('Approver2RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                            </div>
+                                       
+                                            <br />
+                                            <div id="newApproverButton2" class="borderBlack" onclick="return showExtraApprover2(event);"><img class="plusClipArt" src="{!URLFOR($Resource.CommunitiesAssets,'images/plusClipArt.png')}" />Click to add an additional Approver</div>
+                                            <div class="borderBlack" id="ExtraApprover2" style="display:none">
+                                                <p>Enter your 3, 4, or 5 digit Job or Department # below.</p>
+                                                <span id="Approver3RequiredEM" style="color: #f00; display: none; ">Please Check Required Fields <br /></span>
+                                                <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Release'] }" />
+                                                <input type="text" value="" id="Approver3CostCenter" maxlength="5" style="width: 100px" onclick="return IsCostCenter3(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsCostCenter3(e) {
+                                                        document.getElementById('Approver3CostCenter').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver3CostCenter').style.backgroundColor = '';
+                                                        document.getElementById('Approver3RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="{!InvoiceUserRegFieldsMap['PO Number']}" />
+                                                <select value="" id="Approver3OfficeType" onclick="return IsApprover3OfficeType(event);">
+                                                    <option>-Please Select-</option>
+                                                    <apex:repeat value="{!Grp_PO_Num_str_list}" var="po_num_id" >
+                                                        <option>{!po_num_id.label}</option>
+                                                    </apex:repeat>
+                                                </select>
+                                                <script type="text/javascript">
+                                                    function IsApprover3OfficeType(e) {
+                                                        document.getElementById('Approver3OfficeType').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver3OfficeType').style.backgroundColor = '';
+                                                        document.getElementById('Approver3RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <br />
+                                                <p>Approver Information</p>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['First Name'] }" />
+                                                <input type="text" value="" id="Approver3FirstName" minlength="1" required="required" maxlength="30" onclick="return IsApprover3FirstName(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsApprover3FirstName(e) {
+                                                        document.getElementById('Approver3FirstName').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver3FirstName').style.backgroundColor = '';
+                                                        document.getElementById('Approver3RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                             
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Last Name'] }" />
+                                                <input type="text" id="Approver3LastName" minlength="1" required="required" maxlength="30" onclick="return IsApprover3LastName(event);" />
+                                                 <script type="text/javascript">
+                                                    function IsApprover3LastName(e) {
+                                                        document.getElementById('Approver3LastName').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver3LastName').style.backgroundColor = '';
+                                                        document.getElementById('Approver3RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <br />
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Email Address'] }" />
+                                                <input type="email" id="Approver3Email" required="required" maxlength="78" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" onclick="return IsApprover3Email(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsApprover3Email(e) {
+                                                        document.getElementById('Approver3Email').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver3Email').style.backgroundColor = '';
+                                                        document.getElementById('Approver3RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="Job Title" />
+                                                <input type="text" id="Approver3JobTitle" minlength="1" required="required" maxlength="30" onclick="return IsApprover3JobTitle(event);" />
+                                                <script type="text/javascript">
+                                                    function IsApprover3JobTitle(e) {
+                                                        document.getElementById('Approver3JobTitle').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver3JobTitle').style.backgroundColor = '';
+                                                        document.getElementById('Approver3RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                            </div>
+                                      
+                                            <br />
+                                            <div id="newApproverButton3" class="borderBlack" onclick="return showExtraApprover3(event);"><img class="plusClipArt" src="{!URLFOR($Resource.CommunitiesAssets,'images/plusClipArt.png')}" />Click to add an additional Approver</div>
+                                            <div class="borderBlack" id="ExtraApprover3" style="display:none">
+                                                <p>Enter your 3, 4, or 5 digit Job or Department # below.</p>
+                                                <span id="Approver4RequiredEM" style="color: #f00; display: none; ">Please Check Required Fields <br /></span>
+                                                <apex:outputLabel value="{!InvoiceUserRegFieldsMap['Release'] }" />
+                                                <input type="text" value="" id="Approver4CostCenter" maxlength="5" style="width: 100px" onclick="return IsCostCenter4(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsCostCenter4(e) {
+                                                        document.getElementById('Approver4CostCenter').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver4CostCenter').style.backgroundColor = '';
+                                                        document.getElementById('Approver4RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="{!InvoiceUserRegFieldsMap['PO Number']}" />
+                                                <select value="" id="Approver4OfficeType" onclick="return IsApprover4OfficeType(event);">
+                                                    <option>-Please Select-</option>
+                                                    <apex:repeat value="{!Grp_PO_Num_str_list}" var="po_num_id" >
+                                                        <option>{!po_num_id.label}</option>
+                                                    </apex:repeat>
+                                                </select>
+                                                <script type="text/javascript">
+                                                    function IsApprover4OfficeType(e) {
+                                                        document.getElementById('Approver4OfficeType').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver4OfficeType').style.backgroundColor = '';
+                                                        document.getElementById('Approver4RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <br />
+                                                <p>Approver Information</p>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['First Name'] }" />
+                                                <input type="text" value="" id="Approver4FirstName" minlength="1" required="required" maxlength="30" onclick="return IsApprover4FirstName(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsApprover4FirstName(e) {
+                                                        document.getElementById('Approver4FirstName').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver4FirstName').style.backgroundColor = '';
+                                                        document.getElementById('Approver4RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                             
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Last Name'] }" />
+                                                <input type="text" id="Approver4LastName" minlength="1" required="required" maxlength="30" onclick="return IsApprover4LastName(event);" />
+                                                 <script type="text/javascript">
+                                                    function IsApprover4LastName(e) {
+                                                        document.getElementById('Approver4LastName').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver4LastName').style.backgroundColor = '';
+                                                        document.getElementById('Approver4RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <br />
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Email Address'] }" />
+                                                <input type="email" id="Approver4Email" required="required" maxlength="78" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" onclick="return IsApprover4Email(event);"/>
+                                                <script type="text/javascript">
+                                                    function IsApprover4Email(e) {
+                                                        document.getElementById('Approver4Email').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver4Email').style.backgroundColor = '';
+                                                        document.getElementById('Approver4RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="Job Title" />
+                                                <input type="text" id="Approver4JobTitle" minlength="1" required="required" maxlength="30" onclick="return IsApprover4JobTitle(event);" />
+                                                <script type="text/javascript">
+                                                    function IsApprover4JobTitle(e) {
+                                                        document.getElementById('Approver4JobTitle').style.border = '1px solid Silver';
+                                                        document.getElementById('Approver4JobTitle').style.backgroundColor = '';
+                                                        document.getElementById('Approver4RequiredEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                            </div>    
+                                       
+                                            <br/>
+                                       </apex:form>
+                                                <h2> Default Shipping Address </h2>
+                                                <div >
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 1'] }" />
+                                                <input type="text" value="" name="regAddress1" id="regAddress1" minlength="1" required="required" maxlength="25" onkeypress="return IsAddress1(event);" ondrop="return false;" onpaste="return true;"  />
+                                                <span id="regAddress1EM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsAddress1(e) {document.getElementById('regAddress1').style.border ='1px solid Silver';
+                                                        document.getElementById('regAddress1').style.backgroundColor = '';
+                                                        document.getElementById('regAddress1EM').style.display ='none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 2'] }" />
+                                                <input type="text" value="" name="regAddress2" id="regAddress2" maxlength="25"  />
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['City'] }" />
+                                                <input type="text" value="" name="regCity" id="regCity" minlength="1" required="required" maxlength="25" onkeypress="return IsCity(event);" ondrop="return false;" onpaste="return false;"  />
+                                                <span id="regCityEM" style="color: #f00; display: none">This field is required.</span>
+                                                <span id="cityError" style="color: #f00; display: none"><br/>* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsCity(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || (keyCode == 32) || (specialKeys.indexOf(keyCode) != -1) );
+                                                        document.getElementById("cityError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('regCity').style.border = '1px solid Silver';
+                                                        document.getElementById('regCity').style.backgroundColor = '';
+                                                        document.getElementById('regCityEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['State'] }" />
+                                                <input type="text" value="" name="regState" id="regState" minlength="2" maxlength="2" required="required" onkeypress="return IsState(event);" ondrop="return false;" onpaste="return false;"   />
+                                                <span id="regStateEM" style="color: #f00; display: none">This field is required.</span>
+                                                <span id="stateError" style="color: #f00; display: none">* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsState(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (( (keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123) ) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("stateError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('regState').style.border = '1px solid Silver';
+                                                        document.getElementById('regState').style.backgroundColor = '';
+                                                        document.getElementById('regStateEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Zip Code'] }" />
+                                                <input type="text" value="" name="regBillingZip" id="regBillingZip" minlength="5" required="required" maxlength="5" onkeypress="return IsZip(event);" ondrop="return false;" onpaste="return false;"  />
+                                                <span id="regBillingZipEM" style="color: #f00; display: none">This field is required.</span>
+                                                <span id="zipError" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsZip(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = ( (keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("zipError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('regBillingZip').style.border = '1px solid Silver';
+                                                        document.getElementById('regBillingZip').style.backgroundColor = '';
+                                                        document.getElementById('regBillingZipEM').style.display = 'none'
+                                                        return ret;
+                                                    }
+    
+                                                </script>
+                                                </div>
+                                                <h3> Additional Shipping Addresses</h3>
+                                                <div id="newAddressButton1" class="borderBlack" onclick="return showAddAddress1();"><img class="plusClipArt" src="{!URLFOR($Resource.CommunitiesAssets,'images/plusClipArt.png')}" />Click to add an additional Address</div>
+                                                <div class="borderBlack" style="display:none" id="ExtraAddress1">
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 1'] }" />
+                                                <input type="text" id="Add1Address1" minlength="1" required="required" maxlength="25" onkeypress="return IsAdd1Address1(event);"  />
+                                                <span id="Add1Address1EM" style="color: #f00; display: none">required</span>
+                                                <script type="text/javascript">
+                                                    function IsAdd1Address1(e) {
+                                                        document.getElementById('Add1Address1').style.border ='1px solid Silver';
+                                                        document.getElementById('Add1Address1').style.backgroundColor = '';
+                                                        document.getElementById('Add1Address1EM').style.display ='none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 2'] }" />
+                                                <input type="text" id="Add1Address2" maxlength="25" />
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['City'] }" />
+                                                <input type="text" id="Add1City" minlength="1" required="required" maxlength="25" onkeypress="return IsAdd1City(event);"  />
+                                                <span id="Add1CityEM" style="color: #f00; display: none">required</span>
+                                                <span id="Add1cityError" style="color: #f00; display: none"><br/>* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsAdd1City(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || (keyCode == 32) || (specialKeys.indexOf(keyCode) != -1) );
+                                                        document.getElementById("Add1cityError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('Add1City').style.border = '1px solid Silver';
+                                                        document.getElementById('Add1City').style.backgroundColor = '';
+                                                        document.getElementById('Add1CityEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['State'] }" />
+                                                <input type="text" id="Add1State" minlength="2" maxlength="2" required="required" onkeypress="return IsAdd1State(event);"  />
+                                                <span id="Add1StateEM" style="color: #f00; display: none">required</span>
+                                                <span id="Add1stateError" style="color: #f00; display: none">* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsAdd1State(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (( (keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123) ) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("Add1stateError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('Add1State').style.border = '1px solid Silver';
+                                                        document.getElementById('Add1State').style.backgroundColor = '';
+                                                        document.getElementById('Add1StateEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Zip Code'] }" />
+                                                <input type="text" id="Add1Zip" minlength="5" required="required" maxlength="5" onkeypress="return IsAdd1Zip(event);" />
+                                                <span id="Add1ZipEM" style="color: #f00; display: none">required</span>
+                                                <span id="Add1zipError" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsAdd1Zip(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = ( (keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("Add1zipError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('Add1Zip').style.border = '1px solid Silver';
+                                                        document.getElementById('Add1Zip').style.backgroundColor = '';
+                                                        document.getElementById('Add1ZipEM').style.display = 'none'
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                </div>
+                                                <script type="text/javascript">
+                                                    function showAddAddress1(e){
+                                                        if (showAddress1 == false){
+                                                            document.getElementById('ExtraAddress1').style.display = '';
+                                                            showAddress1 = true;
+                                                        }
+                                                        else {
+                                                            document.getElementById('ExtraAddress1').style.display = 'none';
+                                                            showAddress1 = false;
+                                                        }
+                                                    }
+                                                </script>
+                                                <br />
+                                                <div id="newAddressButton2" class="borderBlack" onclick="return showAddAddress2();"><img class="plusClipArt" src="{!URLFOR($Resource.CommunitiesAssets,'images/plusClipArt.png')}" />Click to add an additional Address</div>
+                                                <div class="borderBlack" style="display:none" id="ExtraAddress2">
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 1'] }" />
+                                                <input type="text" id="Add2Address1" minlength="1" required="required" maxlength="25" onkeypress="return IsAdd2Address1(event);"  />
+                                                <span id="Add2Address1EM" style="color: #f00; display: none">required</span>
+                                                <script type="text/javascript">
+                                                    function IsAdd2Address1(e) {
+                                                        document.getElementById('Add2Address1').style.border ='1px solid Silver';
+                                                        document.getElementById('Add2Address1').style.backgroundColor = '';
+                                                        document.getElementById('Add2Address1EM').style.display ='none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 2'] }" />
+                                                <input type="text" id="Add2Address2" maxlength="25" />
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['City'] }" />
+                                                <input type="text" id="Add2City" minlength="1" required="required" maxlength="25" onkeypress="return IsAdd2City(event);"  />
+                                                <span id="Add2CityEM" style="color: #f00; display: none">required</span>
+                                                <span id="Add2cityError" style="color: #f00; display: none"><br/>* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsAdd2City(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || (keyCode == 32) || (specialKeys.indexOf(keyCode) != -1) );
+                                                        document.getElementById("Add2cityError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('Add2City').style.border = '1px solid Silver';
+                                                        document.getElementById('Add2City').style.backgroundColor = '';
+                                                        document.getElementById('Add2CityEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['State'] }" />
+                                                <input type="text" id="Add2State" minlength="2" maxlength="2" required="required" onkeypress="return IsAdd2State(event);" />
+                                                <span id="Add2StateEM" style="color: #f00; display: none">required</span>
+                                                <span id="Add2stateError" style="color: #f00; display: none">* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsAdd2State(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (( (keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123) ) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("Add2stateError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('Add2State').style.border = '1px solid Silver';
+                                                        document.getElementById('Add2State').style.backgroundColor = '';
+                                                        document.getElementById('Add2StateEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Zip Code'] }" />
+                                                <input type="text" id="Add2Zip" minlength="5" required="required" maxlength="5" onkeypress="return IsAdd2Zip(event);" />
+                                                <span id="Add2ZipEM" style="color: #f00; display: none">required</span>
+                                                <span id="Add2zipError" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsAdd2Zip(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = ( (keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("Add2zipError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('Add2Zip').style.border = '1px solid Silver';
+                                                        document.getElementById('Add2Zip').style.backgroundColor = '';
+                                                        document.getElementById('Add2ZipEM').style.display = 'none'
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                </div>
+                                                <script type="text/javascript">
+                                                    function showAddAddress2(e){
+                                                        if (showAddress2 == false){
+                                                            document.getElementById('ExtraAddress2').style.display = '';
+                                                            showAddress2 = true;
+                                                        }
+                                                        else {
+                                                            document.getElementById('ExtraAddress2').style.display = 'none';
+                                                            showAddress2 = false;
+                                                        }
+                                                    }
+                                                </script>
+                                                <br />
+                                                <div id="newAddressButton3" class="borderBlack" onclick="return showAddAddress3();"><img class="plusClipArt" src="{!URLFOR($Resource.CommunitiesAssets,'images/plusClipArt.png')}" />Click to add an additional Address</div>
+                                                <div class="borderBlack" style="display:none" id="ExtraAddress3">
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 1'] }" />
+                                                <input type="text" id="Add3Address1" minlength="1" required="required" maxlength="25" onkeypress="return IsAdd3Address1(event);"  />
+                                                <span id="Add3Address1EM" style="color: #f00; display: none">required</span>
+                                                <script type="text/javascript">
+                                                    function IsAdd3Address1(e) {
+                                                        document.getElementById('Add3Address1').style.border ='1px solid Silver';
+                                                        document.getElementById('Add3Address1').style.backgroundColor = '';
+                                                        document.getElementById('Add3Address1EM').style.display ='none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 2'] }" />
+                                                <input type="text" id="Add3Address2" maxlength="25" />
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['City'] }" />
+                                                <input type="text" id="Add3City" minlength="1" required="required" maxlength="25" onkeypress="return IsAdd3City(event);"  />
+                                                <span id="Add3CityEM" style="color: #f00; display: none">required</span>
+                                                <span id="Add3cityError" style="color: #f00; display: none"><br/>* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsAdd3City(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || (keyCode == 32) || (specialKeys.indexOf(keyCode) != -1) );
+                                                        document.getElementById("Add3cityError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('Add3City').style.border = '1px solid Silver';
+                                                        document.getElementById('Add3City').style.backgroundColor = '';
+                                                        document.getElementById('Add3CityEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['State'] }" />
+                                                <input type="text" id="Add3State" minlength="2" maxlength="2" required="required" onkeypress="return IsAdd3State(event);"/>
+                                                <span id="Add3StateEM" style="color: #f00; display: none">required</span>
+                                                <span id="Add3stateError" style="color: #f00; display: none">* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsAdd3State(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (( (keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123) ) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("Add3stateError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('Add3State').style.border = '1px solid Silver';
+                                                        document.getElementById('Add3State').style.backgroundColor = '';
+                                                        document.getElementById('Add3StateEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                <br/>
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Zip Code'] }" />
+                                                <input type="text" id="Add3Zip" minlength="5" required="required" maxlength="5" onkeypress="return IsAdd3Zip(event);" />
+                                                <span id="Add3ZipEM" style="color: #f00; display: none">required</span>
+                                                <span id="Add3zipError" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsAdd3Zip(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = ( (keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("Add3zipError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('Add3Zip').style.border = '1px solid Silver';
+                                                        document.getElementById('Add3Zip').style.backgroundColor = '';
+                                                        document.getElementById('Add3ZipEM').style.display = 'none'
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                </div>
+                                                <script type="text/javascript">
+                                                    function showAddAddress3(e){
+                                                        if (showAddress3 == false){
+                                                            document.getElementById('ExtraAddress3').style.display = '';
+                                                            showAddress3 = true;
+                                                        }
+                                                        else {
+                                                            document.getElementById('ExtraAddress3').style.display = 'none';
+                                                            showAddress3 = false;
+                                                        }
+                                                    }
+                                                </script>
+                                                <br/>
+                                                
+                                                <p id="regerrormessage" style="color:red"></p>    
+                                                <input type="button" id="submitRegFormBtn" onclick="return saveGPOLead2('{!$CurrentPage.parameters.id}');" value="Submit" class="primary btn btn-block"/>
+                                                </section>
+                                        <div class="col-md-12 small">
+                                            <ul class="list-inline pull-left">
+                                                <li class="border-none"><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp">Privacy Policy</a></li>
+                                                <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/trackingtools.jsp">Online Tracking Tools</a></li>
+                                                <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp">Terms of Use</a></li>
+                                                <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp">Terms &amp; Conditions</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                        </form>
+                    </div>
+                </apex:outputPanel>
+        </div>
+    </div> <!-- END New Custom Registration -->
+</apex:define>
+</apex:composition>
+</body>
+</html>
+</apex:page>

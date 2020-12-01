@@ -1,0 +1,51 @@
+<template>
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{labels.createSiteContactTitle}</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                <template if:true={operation_in_progress}>
+                    <lightning-spinner alternative-text={otherLabels.Utils_Loading_Text} size="small">
+                    </lightning-spinner>
+                </template>
+                <lightning-record-edit-form object-api-name="Contact">
+                    <lightning-messages>
+                    </lightning-messages>
+                    <lightning-input name="FirstName" label={otherLabels.Create_Site_Contact_First_Name} type="text"
+                        onchange={handleInputChange}>
+                    </lightning-input>
+                    <lightning-input name="LastName" label={otherLabels.Create_Site_Contact_Last_Name} type="text"
+                        onchange={handleInputChange} required>
+                    </lightning-input>
+                    <lightning-input name="Email" label={otherLabels.Create_Site_Contact_Email} type="email"
+                        onchange={handleInputChange}>
+                    </lightning-input>
+                    <lightning-input name="Phone" label={otherLabels.Create_Site_Contact_Business_Phone} type="tel"
+                        onchange={handleInputChange}>
+                    </lightning-input>
+                </lightning-record-edit-form>
+                <template if:false={operation_in_progress}>
+                    <template if:true={error}>
+                        <c-error-panel errors={error} friendly-message={otherLabels.Create_Site_Contact_Friendly_Error}>
+                        </c-error-panel>
+                    </template>
+                    <template if:false={error}>
+                    </template>
+                </template>
+            </div>
+            <footer class="slds-modal__footer slds-modal__footer_directional">
+                <button class="slds-button slds-button_destructive-text"
+                    onclick={closeNewSiteContact}>{labels.cancel}</button>
+                <button class="slds-button slds-button_brand" onclick={handleSubmit}>{labels.submit}
+                </button>
+            </footer>
+        </div>
+    </section>
+    <template if:true={backdrop}>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

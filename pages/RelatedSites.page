@@ -1,0 +1,30 @@
+<apex:page standardController="Contact" extensions="RelatedSiteExtension">
+
+ <!-- Related Accounts for this contact -->
+ <apex:pageBlock rendered="{!IF(SiteAccounts.size = 0,false,true)}">
+    <apex:pageBlockTable value="{!SiteAccounts}" var="account">
+     <apex:column headerValue="Name">
+      <apex:outputLink target="_blank" value="/{!account.Id}">{!account.Name}</apex:outputLink>
+     </apex:column>
+     <apex:column value="{!account.AOPS_Seq_ID__c}"/>
+     <apex:column value="{!account.Address1__c}"/>
+     <apex:column value="{!account.City__c}"/>
+     <apex:column value="{!account.State__c}"/>                    
+     <apex:column value="{!account.Ranking__c}"/>
+     <apex:column headerValue="Call Cadence">
+       <apex:outputfield value="{!account.Cadence_Call_Date__c}"/>
+     </apex:column>
+      <apex:column value="{!account.Open_Opp_Amt__c}"/>
+     <apex:column headerValue="Owner">
+      <apex:outputLink target="_blank" value="/{!account.ownerid}">{!account.owner.name}</apex:outputLink>
+     </apex:column>     
+         
+     <apex:column value="{!account.LastActivityDate}" />
+   </apex:pageBlockTable>
+ </apex:pageBlock>
+
+  <!-- Empty List -->
+  <apex:pageBlock rendered="{!IF(SiteAccounts.size = 0,true,false)}">
+     No records to display
+  </apex:pageBlock>
+</apex:page>

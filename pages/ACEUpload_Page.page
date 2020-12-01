@@ -1,0 +1,82 @@
+<apex:page controller="ACEUpload_File" title="Upload Files">
+<!-- <c:ACEUpload_File /> -->
+
+<apex:form id="form1" enctype="multipart/form-data"> 
+      <apex:sectionHeader subtitle="Upload Price Changes from CSV file" title="Remediation/Hosted"/>
+      
+      <apex:pageBlock rendered="{!IsRemedy}" title="Remediation - File Upload">
+         <center> 
+                        
+         <apex:inputFile id="idfile" value="{!contentFile}" filename="{!fileNameRem}" disabled="{!IF(disableUpload=true,true,false)}"/>  
+         
+         <apex:actionRegion >
+         <apex:commandButton onclick="showOverlay();"  disabled="{!IF(disableUpload=true,true,false)}" action="{!Remedy_ReadFile}" value="Upload File" id="theButton" style="width:70px;" status="Status_main"/>
+         <apex:actionStatus startText="Uploading..... Please Wait!" stopText="" startStyle="color:red" id="Status_main"/>      
+         </apex:actionRegion>
+         </center>
+      
+     <div id="overlayDiv" style="display:none;position:fixed; background-color:white; left:30%; top:180px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+          <apex:outputPanel id="ProgressPanel" layout="block">  
+                    <left><b>Please Wait!</b></left><br/> 
+                    <hr style="width:100%; color:#0099CC;"/>            
+                  <!--   <center><img src="/resource/ACEHourglass" alt="Loading graphic"  height="15" width="15"/><b><font style="color:red;">Uploading is in progress.... It may take few minutes to complete.</font></b></center><br/><br/>  -->      
+                   <center> <apex:image id="ajax_loading" value="{!$Resource.ACEHourglass}" alt="Loading graphic"  height="15" width="15"/><b><font style="color:red;">Uploading is in progress.... It may take few minutes to complete.</font></b></center><br/><br/>                      
+          </apex:outputPanel>
+     </div>
+     <br/>
+     <br/>    
+     <apex:pageMessage rendered="{!IF(disableUpload=true,true,false)}" severity="info" title="Info:" strength="1" summary="This Customer is already uploaded."/>
+     <apex:pagemessages /> 
+     <apex:pageblockTable rows="20" value="{!ErrList}" var="err" width="100%" id="errorblocktable" rendered="{!renderErrTable}">
+         <apex:column value="{!err.SKU}" width="20%" headerValue="SKU"/>
+         <apex:column value="{!err.ErrorMsg}" width="80%" headerValue="Error"/>
+     </apex:pageblockTable>
+    </apex:pageBlock>
+    <div id="ErrPopup" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+          <apex:outputPanel id="ErrPanel" layout="block" style="">  
+                    <left><b>Error:</b></left><br/> 
+                    <hr style="width:100%; color:#0099CC;"/>            
+                    <center><b>No file was selected. Please choose a file to upload.</b></center><br/><br/>                        
+                    <center>
+                        <apex:commandButton value="OK" id="closeErr" onclick="hideOverlayErr(); return false;"/>
+                    </center>
+          </apex:outputPanel>
+    </div>
+</apex:form> 
+<div id="contentLoadingMain" style="display:none;position:fixed;top:25%;right:50%;">
+     <div style="text-align: center;">
+         <!-- Added apex image tag S-346420 by  Rahul  <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/> --> 
+                 <apex:image id="ajax_loading" value="{!$Resource.Ajax_Loading}" height="100" width="100" alt="Loading graphic" />
+     </div>
+ </div>
+ 
+ 
+<script>
+    function showOverlay(){
+             //var j = document.getElementById("{!$Component.j_id0:form1:j_id2:idfile}").value;
+             //if(j.length<1){
+              //   alert('if');
+               //  var g = document.getElementById("ErrPopup");                 
+               //  g.style.display = 'block'; 
+                // return false;
+             //}
+             //else{
+                 var e = document.getElementById("overlayDiv");                 
+                 e.style.display = 'block';
+             //}
+             
+                                
+         }
+    function hideOverlay(){
+             var e = document.getElementById("overlayDiv");                 
+                e.style.display = 'none';  
+                                
+         }
+         
+    function hideOverlayErr(){
+             var f = document.getElementById("ErrPopup");                 
+                f.style.display = 'none';  
+                                
+         }
+</script>
+</apex:page>

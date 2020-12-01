@@ -1,0 +1,725 @@
+<aura:component controller="ContractPricingTermsClass" implements="flexipage:availableForRecordHome,force:hasRecordId,lightning:actionOverride" access="global">
+    <aura:html tag="style">
+        
+        .slds-dueling-list {
+        flex-wrap: none;
+        }
+        
+    </aura:html>
+    <aura:attribute name="Displaymode" type="String" />
+    <aura:attribute name="loaderror" type="Boolean" default="false" />
+    <aura:attribute name="validationError" type="Boolean" default="false" />
+    <aura:attribute name="errorMessages" type="String" />
+    <aura:attribute name="error" type="String" />
+    <aura:attribute name="Newsave" type="String" />
+    <aura:attribute name="newCPT" type="Object"/>
+    <aura:attribute name="parentrecordId" type="String"/>
+    <aura:attribute name="SaveNewFlag" type="Boolean" default="false"/>
+    <aura:attribute name="today" type="Date" />
+    <aura:attribute name="newcontract" type="Contract"/>
+    <aura:attribute name="contractfields" type="Contract"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="CPTEvent" event="c:ContractPricingTermsevt" action="{!c.handleComponentEvent}"/> 
+    <aura:attribute name="CPTrec" type="Contract_Pricing_Terms__c" default="{'sobjectType': 'Contract_Pricing_Terms__c'}" />
+    <!--<aura:attribute name="listOptions" type="List" default="[]"/>-->
+    <aura:attribute name="load" type="Boolean" default="true"/>
+    <aura:attribute name="param" type="String"/>
+    <aura:attribute name="dates" type="Date"/>
+    <aura:attribute name="pricecaplanguage" type="String"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="message" type="String"/>
+    <aura:attribute name="curView" type="String" />	
+    <aura:attribute name="fields" type="Object" />
+    <aura:attribute name="notifications" type="String" default="" />
+    <aura:attribute name="pricecappedval" type="String" default="" />
+    <aura:attribute name="conspriceIndexval" type="String" default="" />
+    <aura:attribute name="languagechnge" type="String" default="" />
+    <aura:attribute name="inccappeggedval" type="String" default="" />
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute name="requiredError" type="boolean" />
+    <aura:attribute name="errorMessage" type="String" />
+    
+    <!-- Departement Group and Departement -->
+    <aura:attribute name="listOptions" type="List" default="[]"/>
+    <aura:attribute name="defaultOptions" type="object"/>
+    <aura:attribute name="requiredOptions" type="List" default="[]"/>
+    
+    
+    <force:recordData aura:id="CPTRecordCreator"
+                      layoutType="FULL"
+                      recordId="{!v.recordId}"
+                      targetRecord="{!v.newCPT}"
+                      targetFields="{!v.fields}"
+                      fields="Name,Private_Brand__c,
+                              Effective_Date_of_this_language__c,
+                              CC_Price_Incr_Cap_Pegd2To__c,
+                              Complex_cap__c,
+                              Price_Increase_Cap_Amount_2__c,
+                              CC_Price_Incr_Capped__c,
+                              Is_price_cap_tied_to_an_index__c,
+                              CC_Initial_Freeze_Period_in_days__c,
+                              Price_cap_language__c,
+                              Non_standard_terms__c,
+                              Price_Increase_Cap_2_Type_Units__c,Relevant_Customer_Level__c,Department_Groups__c" 
+                      mode="EDIT" recordUpdated="{!c.handleRecordUpdated}"  targetError="{!v.error}"/>
+    
+    <force:recordData aura:id="ContractRecord"
+                      layoutType="FULL"
+                      recordId="{!v.parentrecordId}"
+                      targetRecord="{!v.newcontract}"
+                      targetFields="{!v.contractfields}"
+                      targetError="{!v.error}"
+                      mode="EDIT"/>
+    
+    
+    <aura:if isTrue="{!v.Displaymode=='View'}">
+        <c:ContractPricingTermsViewPage recordId="{!v.recordId}" parentrecordId="{!v.parentrecordId}" Displayviewmode="{!v.Displaymode}"/>
+    </aura:if>
+    
+    <!-- Display the CPT form -->
+    <aura:if isTrue="{!v.Displaymode!='View'}">
+        <lightning:layout verticalAlign="end" class="slds-page-header slds-page-header--object-home">
+            <div class="slds-align_absolute-left" style="height: 2rem;">
+                <lightning:layoutItem padding="horizontal-small">
+                    <div class="page-section page-header">
+                        <H1 >Custom Core Pricing Terms</H1>
+                        <lightning:input aura:id="recordidfield" name="name" label="Name" class="slds-hidden"
+                                         value="{!v.fields.Id}" required="true"/> 
+                    </div>
+                </lightning:layoutItem>
+            </div>
+            <div class="slds-align_absolute-center" style="height: 2rem;">
+                <lightning:layoutItem class="left-align" size="3" >
+                    <lightning:button variant="brand"  onclick="{! c.saveRecord }" label=" Save " /></lightning:layoutItem>
+                <lightning:layoutItem class="left-align" size="4" >
+                    <lightning:button variant="brand"  class="right-align" label="Save &amp; New"  onclick="{! c.savenewRecord }" /> 
+                </lightning:layoutItem>  
+                <lightning:layoutItem class="left-align" size="4" >
+                    <lightning:button variant="brand"  label="Back to CSF" onclick="{! c.CancelRecord }" /> 
+                </lightning:layoutItem>  
+                <lightning:layoutItem class="left-align" size="2" >
+                    <lightning:button variant="brand"  label="Cancel"  onclick="{! c.CancelRecord }" /> 
+                </lightning:layoutItem> 
+                
+                
+            </div>
+        </lightning:layout> 
+        
+        <lightning:recordEditForm aura:id="edit" recordId="{!v.recordId}"  onerror="{!c.handleOnError}" onload="{!c.handleOnload}" objectApiName="Contract_Pricing_Terms__c"  >
+            <div class="slds-box" style="font-weight: bold;">
+                <lightning:messages></lightning:messages>
+                <div style="margin: auto;">
+                    <aura:if isTrue="{!v.requiredError}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false"> Required Fields are missing.
+                            </ui:message>
+                        </div>
+                    </aura:if>
+                </div>
+                <aura:if isTrue="{!v.validationError}">
+                    <div class="recordError">
+                        <ui:message title="Error" severity="error" closable="false">{!v.errorMessages}</ui:message>
+                    </div>
+                </aura:if> 
+                <aura:if isTrue="{!v.loaderror!=false}">
+                    <aura:if isTrue="{!not(empty(v.error))}">
+                        <div class="recordError">
+                            <ui:message title="Error" severity="error" closable="false">  {!v.error} </ui:message></div>
+                    </aura:if>
+                </aura:if> 
+                <div class="slds-p-around--small">
+                    
+                    <div class="slds-page-header"  style="cursor: pointer;font-weight: bold;font-size: 15px;background-color:#BEBEBE;" onclick="{!c.sectionOne}">
+                        <section class="slds-clearfix">
+                            <div class="slds-float--left ">
+                                <lightning:icon class="slds-show" aura:id="articleOne" iconName="utility:down" size="x-small" alternativeText="Indicates dash"/>
+                                <lightning:icon class="slds-hide" aura:id="articleOne" iconName="utility:right" size="x-small" alternativeText="Indicates add"/>
+                                
+                            </div>
+                            <div class="slds-m-left--large">General Information</div>
+                        </section>
+                    </div>
+                    
+                    <div class="slds-show slds-p-around--medium" aura:id="articleOne">
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Contract Pricing Terms Name&nbsp;</span>  <abbr class="slds-required" title="required">* </abbr>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:input aura:id="namefield" type="text" variant = "label-hidden" maxlength="80" value="{!v.fields.Name}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="4">
+                                <span style="font-weight:bold;"> Relevant customer level(s) for this pricing terms group&nbsp;</span>  <abbr class="slds-required" title="required">* </abbr>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField class="tst" fieldName="Relevant_Customer_Level__c" value="{!v.fields.Relevant_Customer_Level__c}" onchange="{!c.setCPTdepartment}" aura:id="Relevant_Customer_Level" />                     
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Private Brand&nbsp;</span> 
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField  onchange="{!c.setPrivateBrand}" variant = "label-hidden" fieldName="Private_Brand__c"  aura:id="PrivateBrand1"/>
+                                <!-- <lightning:input type="checkbox"  name="input1"  aura:id="PrivateBrand2" />-->
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Non standard terms&nbsp;</span>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField aura:id="Non_standard_terms" fieldName="Non_standard_terms__c" variant = "label-hidden"  value="{!v.fields.Non_standard_terms__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Department Groups&nbsp;</span> 
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField variant = "label-hidden" fieldName="Department_Groups__c" value="{!v.fields.Department_Groups__c}" onchange="{!c.setCPTdepartment}" aura:id="DepGroup"/> 
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        
+                        <lightning:inputfield aura:id="Dep2" fieldName="Departments__c" disabled="true" class="slds-hide"/>
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Departments &nbsp;</span> 
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:dualListbox aura:id="selectOptions" 
+                                                       name="Departments"  
+                                                       disableReordering="true"
+                                                       sourceLabel="Available Options" 
+                                                       selectedLabel="Selected Options" 
+                                                       options="{! v.listOptions }"
+                                                       value="{! v.defaultOptions }"
+                                                       requiredOptions="{! v.requiredOptions }"
+                                                       onchange="{! c.handleChange }"
+                                                       />
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        
+                        
+                    </div>
+                    <div class="slds-page-header"  style="cursor: pointer;font-weight: bold;font-size: 15px;background-color:#BEBEBE;" onclick="{!c.sectionTwo}">
+                        <section class="slds-clearfix">
+                            <div class="slds-float--left">
+                                <lightning:icon class="slds-hide" aura:id="articleTwo" iconName="utility:right" size="x-small" alternativeText="Indicates add"/>
+                                <lightning:icon class="slds-show" aura:id="articleTwo" iconName="utility:down" size="x-small" alternativeText="Indicates dash"/>
+                            </div>
+                            <div class="slds-m-left--large">Details</div>
+                        </section>
+                    </div>
+                    
+                    
+                    
+                    <div class="slds-show slds-p-around--medium" aura:id="articleTwo">
+                        <!--  Details Details -->
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">Contract&nbsp;</span> <strong>
+                                </strong>
+                            </lightning:layoutItem> 
+                            <lightning:layoutItem size="10" padding="around-small">
+                                <a href="{!'/apex/springcmContract2?id=' +v.parentrecordId }" target="_new"><u>  {!v.contractfields.ContractNumber}</u></a>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br> 
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">Initial price freeze period (in days)&nbsp;</span> <abbr class="slds-required" title="required">* </abbr>
+                                <button class="slds-button slds-button_icon" title="If contract silent, enter 0. For one quarter enter 90. For 6 months enter 180. For one year enter 365. For two years enter 730. Etc">
+                                    <lightning:icon class="slds-show" aura:id="infoicon" iconName="utility:info" size="x-small" alternativeText="Indicates dash"/>
+                                </button>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField  aura:id="FreezePeriod"  variant = "label-hidden" fieldName="CC_Initial_Freeze_Period_in_days__c" value="{!v.fields.CC_Initial_Freeze_Period_in_days__c}" />  																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				        
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br> 
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">How frequently can we pass increases?&nbsp;</span>     <abbr class="slds-required" title="required">* </abbr>
+                                <!--   <button class="slds-button slds-button_icon" title="If contract silent, enter 0. For quarterly, enter 90. For semi-annual, enter 180. For annual, enter 365. Etc">
+             <lightning:icon class="slds-show" aura:id="infoicon" iconName="utility:info" size="x-small" alternativeText="Indicates dash"/>
+                      </button> -->
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField variant = "label-hidden" onchange="{!c.freqinc}" fieldName="How_frequently_can_we_pass_increases__c" value="{!v.fields.How_frequently_can_we_pass_increases__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br> 
+                        <aura:if isTrue="{!or(v.fields.How_frequently_can_we_pass_increases__c == 'Numeric')}">
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">In days&nbsp;</span>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden"  fieldName="In_days__c" value="{!v.fields.In_days__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br> 
+                        </aura:if>
+                        
+                        <aura:if isTrue="{!or(v.fields.How_frequently_can_we_pass_increases__c == 'Calendar')}">
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">Calendar period&nbsp;</span>     
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden"  fieldName="Calendar_period__c" value="{!v.fields.Calendar_period__c}" onchange="{!c.CalendarChange}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br> 
+                        </aura:if>
+                        
+                        <aura:if isTrue="{!or(v.fields.Calendar_period__c == 'Other')}">
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">Other calendar period&nbsp;</span>   
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:input variant = "label-hidden" type="Text" maxlength="50" value="{!v.fields.Other_calendar_period__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br> 
+                        </aura:if>
+                        <aura:if isTrue="{!or(v.fields.Calendar_period__c == 'Specific date')}">
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">Date 1&nbsp;</span>     <abbr class="slds-required" title="required">* </abbr>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden"  fieldName="Date_1__c" value="{!v.fields.Date_1__c}" displayDatePicker="true"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br>
+                            </br>
+                        </aura:if>
+                        <aura:if isTrue="{!or(v.fields.Calendar_period__c == 'Specific date')}">
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">Date 2&nbsp;</span>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden"  fieldName="Date_2__c" value="{!v.fields.Date_2__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br>
+                        </aura:if>
+                        <aura:if isTrue="{!or(v.fields.Calendar_period__c == 'Specific date')}">
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">Date 3&nbsp;</span>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden"  fieldName="Date_3__c" value="{!v.fields.Date_3__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br>
+                            </br>
+                        </aura:if>
+                        <aura:if isTrue="{!or(v.fields.Calendar_period__c == 'Specific date')}">
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">Date 4&nbsp;</span>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden"  fieldName="Date_4__c" value="{!v.fields.Date_4__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br> 
+                        </aura:if>
+                        
+                     <!--   <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">Does the contract specify a specific month(s) that pricing for custom core SKUs must be updated?&nbsp;</span>     <abbr class="slds-required" title="required">* </abbr>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Required_Timing_Of_CC_Updates__c" value="{!v.fields.Required_Timing_Of_CC_Updates__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout> -->
+                        <br></br> 
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">Vendor letter required for core increase?&nbsp;</span>     <abbr class="slds-required" title="required">* </abbr>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Vendor_Letter_Required_For_CC_Increase__c" value="{!v.fields.Vendor_Letter_Required_For_CC_Increase__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br> 
+                        <!--  <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Is customer notification required upon discontinuation of a custom core SKU?&nbsp;</span><abbr class="slds-required" title="required">* </abbr> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Notification_process_for_disco_items__c" value="{!v.fields.Notification_process_for_disco_items__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        <aura:if isTrue="{!(v.fields.Notification_process_for_disco_items__c == 'Yes')}">
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;"> Discontinued Product Notification Language&nbsp;</span><abbr class="slds-required" title="required">* </abbr> <strong>
+                                    </strong>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:textarea variant = "label-hidden" type="Long Text Area" maxlength="1500" fieldName="Notification_time_disco_items_Other__c" value="{!v.fields.Notification_time_disco_items_Other__c}"/>
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br>
+                        </aura:if>
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> What additional action must be taken when a custom core list SKU has been discontinued?&nbsp;</span><abbr class="slds-required" title="required">* </abbr> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Action_requirements_for_deleted_or_disco__c" value="{!v.fields.Action_requirements_for_deleted_or_disco__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> What restrictions exist regarding the pricing of added alternate custom core SKUs?&nbsp;</span> <abbr class="slds-required" title="required">* </abbr><strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Price_requirements_for_added_or_alternat__c" value="{!v.fields.Price_requirements_for_added_or_alternat__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> What type of customer communication is required to permit deletion of a SKU on the custom core?&nbsp;</span><abbr class="slds-required" title="required">* </abbr> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Is_notification_required_to_delete_a_cus__c" value="{!v.fields.Is_notification_required_to_delete_a_cus__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> What type of customer communication is required to permit the addition of a SKU onto the custom core?&nbsp;</span><abbr class="slds-required" title="required">* </abbr> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4">
+                                <lightning:inputField variant = "label-hidden"  fieldName="What_type_of_customer_communication_is_r__c" value="{!v.fields.What_type_of_customer_communication_is_r__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br> -->
+                        
+                        
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">What type of customer communication is required to permit pricing changes on the custom core?&nbsp;</span>    <abbr class="slds-required" title="required">* </abbr>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField aura:id="notificationfield" variant = "label-hidden" onchange="{!c.notification}" fieldName="Comm_Req_CC_Price_Chg__c" value="{!v.fields.Comm_Req_CC_Price_Chg__c}"/>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br> 
+                        <aura:if isTrue="{!or(v.fields.Comm_Req_CC_Price_Chg__c == 'Notification only',v.fields.Comm_Req_CC_Price_Chg__c == 'Notification and customer approval')}">
+                            
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">How much notice must be provided before pricing changes can be made? (in days)&nbsp;</span>     <abbr class="slds-required" title="required">* </abbr>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden" fieldName="CC_Prc_Chg_Notice_Reqd_days__c" value="{!v.fields.CC_Prc_Chg_Notice_Reqd_days__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            
+                        </aura:if>
+                        <br></br> 
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Addition communication requirements&nbsp;</span> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Addition_communication_requirements__c" value="{!v.fields.Addition_communication_requirements__c}" />
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Deletion communication requirements&nbsp;</span> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Deletion_communication_requirements__c" value="{!v.fields.Deletion_communication_requirements__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">Alternate restrictions&nbsp;</span> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Alternate_restrictions__c" value="{!v.fields.Alternate_restrictions__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> DISCO communication requirements&nbsp;</span> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField variant = "label-hidden"  fieldName="DISCO_communication_requirements__c" value="{!v.fields.DISCO_communication_requirements__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        
+                        <BR/>
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Additional DISCO action&nbsp;</span> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Additional_DISCO_action__c" value="{!v.fields.Additional_DISCO_action__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br>
+                        
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;"> Are we obligated to pass on cost decreases?&nbsp;</span> <strong>
+                                </strong>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField variant = "label-hidden"  fieldName="Are_obligated_to_pass_on_cost_decreases__c" value="{!v.fields.Are_obligated_to_pass_on_cost_decreases__c}" />
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <BR/>
+                        <aura:if isTrue="{!(v.fields.Are_obligated_to_pass_on_cost_decreases__c == 'Yes')}">
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;"> How frequently must we pass decreases?&nbsp;</span> <strong>
+                                    </strong>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden"  fieldName="How_frequently_must_we_pass_decreases__c" value="{!v.fields.How_frequently_must_we_pass_decreases__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br> 
+                        </aura:if>
+                        
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">Effective date of this language&nbsp;</span>    <abbr class="slds-required" title="required">* </abbr>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField  onchange="{!c.handledate}" variant = "label-hidden" aura:id="currentdate" fieldName="Effective_Date_of_this_language__c" />
+                                
+                            </lightning:layoutItem>
+                            
+                        </lightning:layout>
+                        <br></br> 
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    <div class="slds-page-header"   style="cursor: pointer;font-weight: bold;font-size: 15px;background-color:#BEBEBE;" onclick="{!c.sectionThree}">
+                        <section class="slds-clearfix">
+                            <div class="slds-float--left"> 
+                                <lightning:icon class="slds-hide" aura:id="articleThree" iconName="utility:right" size="x-small" alternativeText="Indicates add"/>
+                                <lightning:icon class="slds-show" aura:id="articleThree" iconName="utility:down" size="x-small" alternativeText="Indicates dash"/>
+                            </div>
+                            <div class="slds-m-left--large">Price Increase Cap Information
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <div aura:id="articleThree" class="slds-show slds-p-around--medium">
+                        <!-- Price Increase Cap Information -->
+                        <lightning:layout horizontalAlign="left">
+                            <lightning:layoutItem size="5">
+                                <span style="font-weight:bold;">Are price increases capped?&nbsp;     <abbr class="slds-required" title="required">* </abbr>
+                                </span>  </lightning:layoutItem>
+                            <lightning:layoutItem size="3">
+                                <lightning:inputField  variant = "label-hidden" aura:id="pricecappedfield" fieldName="CC_Price_Incr_Capped__c" onchange="{!c.pricecapped}" value="{!v.fields.CC_Price_Incr_Capped__c}"/>
+                                
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                        <br></br> 
+                        <aura:if isTrue="{!(v.fields.CC_Price_Incr_Capped__c == 'Yes')}">
+                            
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">Price cap language&nbsp;</span> <abbr class="slds-required" title="required">* </abbr>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField class="nolabel" onchange="{!c.handlelang}" variant = "label-hidden"  aura:id="pricecapf" fieldName="Price_cap_language__c" value="{!v.fields.Price_cap_language__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br>
+                            
+                           <lightning:layout horizontalAlign="left">
+                                        <lightning:layoutItem size="5">
+                                            <span style="font-weight:bold;">Price increase cap amount&nbsp;</span>  <abbr class="slds-required" title="required">* </abbr>
+                                        </lightning:layoutItem>
+                                        <lightning:layoutItem size="3">
+                                            <lightning:inputField variant = "label-hidden" fieldName="Price_Incr_Cap_Amt__c" value="{!v.fields.Price_Incr_Cap_Amt__c}"/>
+                                            
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                    
+                                    <br></br> 
+                                    <lightning:layout horizontalAlign="left">
+                                        <lightning:layoutItem size="5">
+                                            <span style="font-weight:bold;">Price increase unit type&nbsp;</span> <abbr class="slds-required" title="required">* </abbr>
+                                        </lightning:layoutItem>
+                                        <lightning:layoutItem size="3">
+                                            <lightning:inputField variant = "label-hidden"  fieldName="Price_Incr_Cap_Type_Unit__c" value="{!v.fields.Price_Incr_Cap_Type_Unit__c}"/>
+                                            
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                    <br></br>
+                            
+                            <lightning:layout horizontalAlign="left">
+                                        <lightning:layoutItem size="5">
+                                            <span style="font-weight:bold;">Complex cap&nbsp;</span>
+                                        </lightning:layoutItem>
+                                        <lightning:layoutItem size="3">
+                                            <lightning:inputField variant = "label-hidden" onchange="{!c.setComplexCap}" fieldName="Complex_cap__c" aura:id="complexCap"/>
+                                            
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                    <br></br>
+                            
+                           <lightning:layout horizontalAlign="left">
+                                        <lightning:layoutItem size="5">
+                                            <span style="font-weight:bold;">Is price cap tied to an index?&nbsp;</span>
+                                        </lightning:layoutItem>
+                                        <lightning:layoutItem size="3">
+                                                       <lightning:inputField variant = "label-hidden"  fieldName="Is_price_cap_tied_to_an_index__c" value="{!v.fields.Is_price_cap_tied_to_an_index__c}"/>
+                                            
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                    <br></br>
+                            <aura:if isTrue="{!(v.fields.Is_price_cap_tied_to_an_index__c == 'Yes')}"> 
+                             <lightning:layout horizontalAlign="left">
+                                        <lightning:layoutItem size="5">
+                                            <span style="font-weight:bold;">Index name(s)&nbsp;</span>
+                                        </lightning:layoutItem>
+                                        <lightning:layoutItem size="3">
+                                                       <lightning:inputField variant = "label-hidden"  fieldName="Index_name_s__c" value="{!v.fields.Index_name_s__c}"/>
+                                            
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                    <br></br>
+							</aura:if>
+                                
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">Price increase cap application level&nbsp;</span>  <abbr class="slds-required" title="required">* </abbr>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden"  fieldName="Price_Incr_Cap_App_Level__c" value="{!v.fields.Price_Incr_Cap_App_Level__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br>
+                            
+                            <lightning:layout horizontalAlign="left">
+                                <lightning:layoutItem size="5">
+                                    <span style="font-weight:bold;">Price increase cap period&nbsp;</span><abbr class="slds-required" title="required">* </abbr>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem size="3">
+                                    <lightning:inputField variant = "label-hidden"  fieldName="Price_Incr_Cap_Period__c" value="{!v.fields.Price_Incr_Cap_Period__c}"/>
+                                    
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <br></br>
+                            
+                            
+                        </aura:if>
+                        <br></br>
+                        
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <lightning:layout verticalAlign="end" class="slds-page-header slds-page-header--object-home">
+                
+                <div class="slds-align_absolute-center" style="height: 2rem;">
+                    <lightning:layoutItem class="left-align" size="3" >
+                        <lightning:button  variant="brand"  onclick="{!c.saveRecord }" label=" Save " /></lightning:layoutItem>
+                    <lightning:layoutItem class="left-align" size="4" >
+                        <lightning:button variant="brand"  class="right-align" label="Save &amp; New"  onclick="{!c.savenewRecord }" /> 
+                    </lightning:layoutItem>  
+                    <lightning:layoutItem class="left-align" size="4" >
+                        <lightning:button variant="brand"  label="Back to CSF" onclick="{!c.CancelRecord }" /> 
+                    </lightning:layoutItem>  
+                    <lightning:layoutItem class="left-align" size="2" >
+                        <lightning:button variant="brand"  label="Cancel"  onclick="{!c.CancelRecord }" /> 
+                    </lightning:layoutItem> 
+                    
+                    
+                </div>
+            </lightning:layout> 
+        </lightning:recordEditForm>
+        
+    </aura:if>
+</aura:component>

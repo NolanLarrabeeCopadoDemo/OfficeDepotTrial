@@ -1,0 +1,35 @@
+<apex:page standardController="opportunitylineitem" extensions="OpportunityProductController" showHeader="false" sidebar="false" action="{!init}">
+    <div id="LoadingvfDIV" class="slds-spinner_container" style="display:block;">
+        <div class="slds-spinner slds-spinner--large" aria-hidden="false" role="alert">
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div> 
+    <apex:includeLightning />   <apex:slds /> 
+    <div id="LightningComponentid" />    
+    
+    <script>
+    $Lightning.use("c:createOpportunityProducts", function() {
+        $Lightning.createComponent("c:create_GT_US_FieldSalesProducts",
+                                   { 
+                                       oppId : "{!oppId}",
+                                       Pricebook2Id : "{!Pricebook2Id}",
+                                       isPricebookAvailabel : {!isPricebookAvailabel},
+                                       isBSD : {!isBSD},
+                                       isPricebookSelected: {!isPricebookAvailabel},
+                                       DefaultPricebook2Id : "{!DefaultPricebook2Id}",
+                                       hasExistingProducts: {!hasExistingProducts},
+                                       DefaultPricebookName: "{!DefaultPricebookName}",
+                                       ExistingProductsPricebookName: "{!strExistingProductsPricebookName}",
+                                       numOfExistingProducts : {!numOfExistingProducts}
+                                   },
+                                   "LightningComponentid",
+                                   function(cmp) {
+                                       var loadingDivElt = document.getElementById("LoadingvfDIV");
+                                       loadingDivElt.style.display = 'none' ;
+                                       console.log('LWC Componenet added in VF page');
+                                   });
+    });
+    </script>
+    
+</apex:page>

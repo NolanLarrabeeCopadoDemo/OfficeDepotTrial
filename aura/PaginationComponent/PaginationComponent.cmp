@@ -1,0 +1,15 @@
+<aura:component>
+    <aura:attribute name="page" type="integer" default="1" description="using for store page Number"/>
+    <aura:attribute name="pages" type="integer" description="using for store All Pages page Number"/>
+    <aura:attribute name="total" type="integer" description="total records count store "/>
+    <aura:attribute name="label" type="string" default="Records" description="total records count store "/>
+
+    <aura:registerEvent name="PaginationEvent" type="c:PaginationEvent"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:layout class="slds-align_absolute-center">
+        <lightning:button disabled="{!v.page == 1}" variant="brand" label="Previous Page" onclick="{! c.navigate }" />            
+        {!v.total}  ({!v.label}) • page {!v.page} / {!v.pages}
+        <lightning:button disabled="{!v.page == v.pages}" aura:id="previousPage" variant="brand" label="Next Page" onclick="{! c.navigate }" />
+    </lightning:layout>
+</aura:component>

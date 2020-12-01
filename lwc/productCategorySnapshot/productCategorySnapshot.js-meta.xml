@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="recordId" type="String" label="Record Id" description="Automatically bind the page's record id to the component variable"/>
+            <property name="objectApiName" type="String" label="SObject Name" description="Automatically bind the page's records api name to the objectApiName variable"/>
+            <property name="is_collapsible" type="Boolean" label="Should the table be collapsible?" description="Should the Component be displayed in a collapsible manner?" default="false"/>
+            <property name="is_collapsed" type="Boolean" label="Should table start expanded?" description="Should the component start in an expanded state?" default="false"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

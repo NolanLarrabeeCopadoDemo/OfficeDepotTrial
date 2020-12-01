@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dashboard xmlns="http://soap.sforce.com/2006/04/metadata">
+    <backgroundEndColor>#FFFFFF</backgroundEndColor>
+    <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
+    <backgroundStartColor>#FFFFFF</backgroundStartColor>
+    <dashboardType>SpecifiedUser</dashboardType>
+    <isGridLayout>false</isGridLayout>
+    <leftSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity.Amount_CAD__c</column>
+            </chartSummary>
+            <componentType>Funnel</componentType>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingColumn>STAGE_NAME</groupingColumn>
+            <groupingSortProperties/>
+            <header>G&amp;T- All Opportunities By Stage</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>GT_Dashboard_Reports/GT_Business_Dev_Category_w_stage</report>
+            <showPercentage>false</showPercentage>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>Close in Next 120Days - In Stage&lt;120Days</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity.Amount_CAD__c</column>
+            </chartSummary>
+            <componentType>BarGrouped</componentType>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingColumn>BucketField_38941244</groupingColumn>
+            <groupingColumn>STAGE_NAME</groupingColumn>
+            <groupingSortProperties/>
+            <header>G&amp;T- Funnel Value by Category by Stage</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>GT_Dashboard_Reports/GT_Business_Dev_Category_90_75</report>
+            <showPercentage>false</showPercentage>
+            <showValues>true</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>Close in Next 120Days - In Stage&lt;120Days</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <dashboardTableColumn>
+                <column>ACCOUNT_NAME</column>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <aggregateType>Sum</aggregateType>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Amount_CAD__c</column>
+                <showTotal>false</showTotal>
+                <sortBy>RowValueDescending</sortBy>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Product__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>true</drillToDetailEnabled>
+            <footer>Opps Value &gt;100K ,       Excluding Furniture</footer>
+            <groupingSortProperties/>
+            <header>East Region -Top Opportunities</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <maxValuesDisplayed>10</maxValuesDisplayed>
+            <report>GT_Dashboard_Reports/Canada_Top_Accounts_EAST</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+            <title>Close in Next 120Days- In Stage&lt;120 Days</title>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <dashboardTableColumn>
+                <column>ACCOUNT_NAME</column>
+                <sortBy>RowLabelAscending</sortBy>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <aggregateType>Sum</aggregateType>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Amount_CAD__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Product__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingSortProperties/>
+            <header>East Region -Top Opportunities (Furniture)</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <report>GT_Dashboard_Reports/Canada_Top_OPPS_EAST_Furniture</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+            <title>Close in Next 120Days- In Stage&lt;120 Days</title>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>VisualforcePage</componentType>
+            <groupingSortProperties/>
+            <header>YoY Sales by Category (Account Managers Only)</header>
+            <page>GT_FieldMgr_AccountProductData</page>
+            <pageHeightInPixels>390</pageHeightInPixels>
+        </components>
+    </leftSection>
+    <middleSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity.Amount_CAD__c</column>
+            </chartSummary>
+            <componentType>BarStacked</componentType>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingColumn>BucketField_62155675</groupingColumn>
+            <groupingColumn>Opportunity.Customer_Lifecycle__c</groupingColumn>
+            <groupingSortProperties/>
+            <header>G&amp;T-  Verbal Win:Stage By Region ( 90%)</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>GT_Dashboard_Reports/GT_Business_Development_90_Stage_Region</report>
+            <showPercentage>false</showPercentage>
+            <showValues>false</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>Close in Next 60 Days - In Stage&lt;180Days</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity.Amount_CAD__c</column>
+            </chartSummary>
+            <componentType>BarGrouped</componentType>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingColumn>BucketField_51372017</groupingColumn>
+            <groupingColumn>BucketField_19923918</groupingColumn>
+            <groupingSortProperties/>
+            <header>G&amp;T- Verbal Win: Stage by Category by Region (90%)</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>GT_Dashboard_Reports/GT_Category_by_Region_90</report>
+            <showPercentage>false</showPercentage>
+            <showValues>true</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>Close in Next 60 Days - In Stage&lt;45 Days</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <dashboardTableColumn>
+                <column>ACCOUNT_NAME</column>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <aggregateType>Sum</aggregateType>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Amount_CAD__c</column>
+                <showTotal>false</showTotal>
+                <sortBy>RowValueDescending</sortBy>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Product__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>true</drillToDetailEnabled>
+            <footer>Opps Value &gt;100K ,                  Excluding Furniture</footer>
+            <groupingSortProperties/>
+            <header>Central Region - Top Opportunities</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <maxValuesDisplayed>10</maxValuesDisplayed>
+            <report>GT_Dashboard_Reports/Canada_Top_Accounts_Central</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+            <title>Close in Next 120Days - In Stage&lt;120Days</title>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <dashboardTableColumn>
+                <column>ACCOUNT_NAME</column>
+                <sortBy>RowLabelAscending</sortBy>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <aggregateType>Sum</aggregateType>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Amount_CAD__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Product__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingSortProperties/>
+            <header>Central Region - Top Opportunities (Furniture)</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <report>GT_Dashboard_Reports/Canada_Top_OPPS_Central_Furniture</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+            <title>Close in Next 120Days- In Stage&lt;120 Days</title>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity.Amount_CAD__c</column>
+            </chartSummary>
+            <componentType>BarStacked</componentType>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opps Value &gt;25K ( Excluding Paper, OP &amp; Ink Toner)</footer>
+            <groupingColumn>BucketField_38941244</groupingColumn>
+            <groupingColumn>STAGE_NAME</groupingColumn>
+            <groupingSortProperties/>
+            <legendPosition>Bottom</legendPosition>
+            <report>GT_Dashboard_Reports/GT_Opportunities_Category_25K</report>
+            <showPercentage>false</showPercentage>
+            <showValues>false</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <useReportChart>false</useReportChart>
+        </components>
+    </middleSection>
+    <rightSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity.Amount_CAD__c</column>
+            </chartSummary>
+            <componentType>BarStacked</componentType>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingColumn>BucketField_70514322</groupingColumn>
+            <groupingColumn>Opportunity.Customer_Lifecycle__c</groupingColumn>
+            <groupingSortProperties/>
+            <header>G&amp;T-  Propose: Stage By Region (75%)</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>GT_Dashboard_Reports/GT_Business_Development_75_Stage_Region</report>
+            <showPercentage>false</showPercentage>
+            <showValues>false</showValues>
+            <sortBy>RowValueDescending</sortBy>
+            <title>Close in Next 90 Days - In Stage&lt;90 Days</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <aggregate>Sum</aggregate>
+                <axisBinding>y</axisBinding>
+                <column>Opportunity.Amount_CAD__c</column>
+            </chartSummary>
+            <componentType>BarGrouped</componentType>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingColumn>BucketField_51372017</groupingColumn>
+            <groupingColumn>BucketField_61133207</groupingColumn>
+            <groupingSortProperties/>
+            <header>G&amp;T- Propose Stage: by Category by Region (75%)</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>GT_Dashboard_Reports/GT_Category_by_Region_75</report>
+            <showPercentage>false</showPercentage>
+            <showValues>true</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>Close in Next 90 Days - In Stage&lt;90 Days</title>
+            <useReportChart>false</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <dashboardTableColumn>
+                <column>ACCOUNT_NAME</column>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <aggregateType>Sum</aggregateType>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Amount_CAD__c</column>
+                <showTotal>false</showTotal>
+                <sortBy>RowValueDescending</sortBy>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Product__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>true</drillToDetailEnabled>
+            <footer>Opps Value &gt;100K ,                 Excluding Furniture</footer>
+            <groupingSortProperties/>
+            <header>West Region -Top Opportunities</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <report>GT_Dashboard_Reports/Canada_Top_Accounts_West</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+            <title>Close in Next 120Days- In Stage&lt;120 Days</title>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <dashboardTableColumn>
+                <column>ACCOUNT_NAME</column>
+                <sortBy>RowLabelAscending</sortBy>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <aggregateType>Sum</aggregateType>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Amount_CAD__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Product__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingSortProperties/>
+            <header>West Region -Top Opportunities (Furniture)</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <report>GT_Dashboard_Reports/Canada_Top_OPPS_WEST_Furniture</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+            <title>Close in Next 120Days- In Stage&lt;120 Days</title>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <dashboardTableColumn>
+                <column>ACCOUNT_NAME</column>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <aggregateType>Sum</aggregateType>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Amount_CAD__c</column>
+                <showTotal>false</showTotal>
+                <sortBy>RowValueDescending</sortBy>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Product__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>true</drillToDetailEnabled>
+            <footer>Opps Value &gt;100K ,    Excluding Furniture</footer>
+            <groupingSortProperties/>
+            <header>Business Development -Top Opportunities</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <report>GT_Dashboard_Reports/Canada_Top_Account_BD</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+            <title>Close in Next 120Days- In Stage&lt;120 Days</title>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <dashboardTableColumn>
+                <column>ACCOUNT_NAME</column>
+                <sortBy>RowLabelAscending</sortBy>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <aggregateType>Sum</aggregateType>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Amount_CAD__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <dashboardTableColumn>
+                <calculatePercent>false</calculatePercent>
+                <column>Opportunity.Product__c</column>
+                <showTotal>false</showTotal>
+            </dashboardTableColumn>
+            <displayUnits>Integer</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <footer>Opps Value &gt;100K</footer>
+            <groupingSortProperties/>
+            <header>Business Development -Top Opportunities (Furniture)</header>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <report>GT_Dashboard_Reports/Canada_Top_OPPS_BD_Furniture</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
+        </components>
+    </rightSection>
+    <runningUser>ektasingh@grandandtoy.com</runningUser>
+    <textColor>#000000</textColor>
+    <title>GT Canada Dashboard</title>
+    <titleColor>#006600</titleColor>
+    <titleSize>12</titleSize>
+</Dashboard>

@@ -1,0 +1,75 @@
+<template>
+    <h1 class="slds-text-heading--medium">{keyItem}</h1>
+    <!--<lightning-datatable
+                key-field="id"
+                data={variable}
+                onrowselection={getSelected}
+                columns={columns}> 
+    </lightning-datatable>-->
+    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal slds-p-horizontal_small" role="grid">
+    <thead>
+    <tr class="slds-text-title_caps">
+        <th class="slds-cell-shrink" scope="col">  
+            <!-- No title only action , for selection checkbox header -->
+        </th>
+        <th class="slds-cell-shrink" scope="col">
+            <div class="slds-truncate" title="Name">Org Name</div>
+        </th>
+        <th class="slds-cell-shrink" scope="col">
+            <div class="slds-truncate" title="Street">Street</div>
+        </th>
+        <th class="slds-cell-shrink" scope="col">
+            <div class="slds-truncate" title="City">City</div>
+        </th>
+        <th class="slds-cell-shrink" scope="col">
+            <div class="slds-truncate" title="State">State</div>
+        </th>
+        <th class="slds-cell-shrink" scope="col">
+            <div class="slds-truncate" title="Web Site">Web Site</div>
+        </th>
+        <th class="slds-cell-shrink" scope="col">
+            <div class="slds-truncate" title="Line Of Bussiness">Line Of Bussiness</div>
+        </th>
+        <th class="slds-cell-shrink" scope="col">
+            <div class="slds-truncate" title="DUNS Number">DUNS Number</div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <template for:each={newlist} for:item='row' for:index='index'>
+        <tr key={row.id} class="slds-hint-parent">
+            <td data-label="" >
+                <template if:true={row.Selected} >
+                    <lightning-input class="roundstyle" type="checkbox" checked label="" name={index} onblur={onCheckboxChange}></lightning-input>                  
+                </template>
+                <template if:false={row.Selected} >
+                    <lightning-input class="roundstyle" type="checkbox" label="" name={index} onblur={onCheckboxChange}></lightning-input>                  
+                </template>
+                
+            </td>
+            <td data-label="Name">  
+                <div class="slds-truncate" >{row.Business_Name__c}</div>
+            </td>
+            <td data-label="Street">  
+                <div class="slds-truncate" >{row.Address_1__c}</div>
+             </td>
+            <td data-label="City">  
+                <div class="slds-truncate" >{row.City__c}</div>
+            </td>
+            <td data-label="State">  
+                <div class="slds-truncate" >{row.State__c}</div>
+            </td>
+            <td data-label="Website">  
+                <div class="slds-truncate" >{row.Website__c}</div>
+             </td>
+             <td data-label="LOB">  
+                <div class="slds-truncate" >{row.LOB__c}</div>
+             </td>
+             <td data-label="DUNS Number">  
+                <div class="slds-truncate" >{row.DUNS_Number__c}</div>
+             </td>
+        </tr>
+    </template>
+    </tbody>
+    </table>
+</template>

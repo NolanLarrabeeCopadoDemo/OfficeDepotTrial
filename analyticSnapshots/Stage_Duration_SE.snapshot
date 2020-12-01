@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description># of days opportunities remain in each stage - Southeast Region</description>
+    <groupColumn>STAGE_NAME</groupColumn>
+    <mappings>
+        <sourceField>STAGE_NAME</sourceField>
+        <sourceType>tabular</sourceType>
+        <targetField>Reporting_Snapshot__c.Stage__c</targetField>
+    </mappings>
+    <mappings>
+        <aggregateType>Average</aggregateType>
+        <sourceField>STAGE_DURATION</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Reporting_Snapshot__c.Stage_Duration_SE__c</targetField>
+    </mappings>
+    <name>Stage Duration - Southeast</name>
+    <runningUser>055053@officedepot.com</runningUser>
+    <sourceReport>Certification_Metrics_Report/Cert_Avg_Stage_Duration_Southeast</sourceReport>
+    <targetObject>Reporting_Snapshot__c</targetObject>
+</AnalyticSnapshot>

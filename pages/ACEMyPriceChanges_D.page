@@ -1,0 +1,31 @@
+<apex:page controller="ACEMyPriceChanges" showheader="false" contentType="application/vnd.ms-excel#MyPriceChangesExport.xls" id="pg" cache="false" readonly="true">
+  <apex:pageBlock title="List Of SKUs">
+    <apex:pageBlockTable value="{!skulist_d}" var="sku" id="skutable">
+            <apex:column value="{!sku.SKU__c}"/>
+            <apex:column value="{!sku.SKU_Description__c}"/>
+            <apex:column value="{!sku.UOM__c}"/>
+            <!---Added QPU__c for case #00827452--->
+            <apex:column value="{!sku.QPU__c}"/>
+<!--        <apex:column headerValue="Change Type" value="{!sku.Status__c}"/>                      Removed per NAIT-38052 ---->
+            <apex:column headerValue="Annual Usage" value="{!sku.Item_12_Month_Qty__c}"/>
+<!--        <apex:column headerValue="Annual SKU Spend" value="{!sku.Item_12_Month_Sales__c}"/>    Removed per NAIT-38052 ---->
+            <!---Added List_Price__c for case #00827452--->
+<!--        <apex:column value="{!sku.List_Price__c}"/>                                            Removed per NAIT-38052 ---->
+            <apex:column value="{!sku.Current_Sell_Price__c}"/>
+            <apex:column headerValue="New Price" value="{!sku.Approved_Proposed_Price__c}"/>
+<!--        <apex:column value="{!sku.SKU_Last_Update__c}"/>                                       Removed per NAIT-38052 ---->
+            <apex:column value="{!sku.Alt_SKU__c}"/>
+            <apex:column value="{!sku.Alt_SKU_Description__c}"/>
+            <apex:column value="{!sku.Alt_UOM__c}"/>
+            <!---Added Alt_QPU__c & Alt_List_Price__c for case #00827452--->
+            <apex:column value="{!sku.Alt_QPU__c}"/>
+            <apex:column value="{!sku.Alt_List_Price__c}"/>
+            <apex:column value="{!sku.Alt_Sell_Price__c}"/>
+            <apex:column value="{!sku.Sales_Price_Change_Effective_Date_Appro__c}">
+                <apex:facet name="header">Price Change<br/>Effective Date</apex:facet>
+            </apex:column>
+            <apex:column value="{!sku.Approval__c}"/>
+
+    </apex:pageBlockTable>
+  </apex:pageBlock>
+</apex:page>

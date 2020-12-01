@@ -1,0 +1,5 @@
+<apex:page controller="MigrationDashboardController" action="{!pupulateWrittenAgreement}">
+<c:migrationDashboardComponent scheduled="{!migrationStatus.scheduled}" pricing="{!migrationStatus.pricing}" launched="{!migrationStatus.launched}"
+        complete="{!migrationStatus.complete}" total="{!migrationStatus.total}" scheduledPercent="{!migrationStatus.scheduledPercent}" pricingPercent="{!migrationStatus.pricingPercent}"
+        launchedPercent="{!migrationStatus.launchedPercent}" completePercent="{!migrationStatus.completePercent}" totalPercent="{!migrationStatus.totalPercent}"/>
+</apex:page>

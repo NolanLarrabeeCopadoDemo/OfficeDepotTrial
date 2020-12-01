@@ -1,0 +1,256 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recId" type="String" access="Global" /> 
+    <aura:attribute name="fields" type="Object" /> 
+    <aura:attribute name="isClone" type="Boolean" access="Global"/>
+    <aura:attribute name="ContractExpDate1" type="Date" />
+    <aura:attribute name="ContractExpDate2" type="Date" />
+    <aura:attribute name="ContractExpDate3" type="Date" />
+    <aura:attribute name="ContractExpDate4" type="Date" />
+    <aura:attribute name="ContractExpDate5" type="Date" />
+    <aura:attribute name="EffectiveDate1" type="Date" />
+    <aura:attribute name="EffectiveDate2" type="Date" />
+    <aura:attribute name="EffectiveDate3" type="Date" />
+    <aura:attribute name="EffectiveDate4" type="Date" />
+    <aura:attribute name="EffectiveDate5" type="Date" />
+    
+    <aura:attribute name="LegalContractExpDate1" type="Date" />
+    
+    <force:recordData aura:id="forceRecordCmp"
+                      recordId="{!v.recordId }"
+                      layoutType="FULL"
+                      fields="Name,Date_current_Legal_Contract_expires__c,Effective_Date_of_Original_Contract__c,Effective_Date_of_Original_Contract_2__c,Effective_Date_of_Original_Contract_3__c,Effective_Date_of_Original_Contract_4__c,Effective_Date_of_Original_Contract_5__c,Current_contract_expiration_date_1__c,Current_contract_expiration_date_2__c,Current_contract_expiration_date_3__c,Current_contract_expiration_date_4__c,Current_contract_expiration_date_5__c"
+                      mode="VIEW"
+                      targetFields="{!v.fields}"
+                      targetError="{!v.error}"
+                      recordUpdated="{!c.doInit}"/>
+    
+    <lightning:recordEditForm aura:id="myForm11" recordId="{!v.recId}" onsubmit="{!c.onRecordSubmit}" objectApiName="Contract">
+        <lightning:messages />
+        <aura:if isTrue="{!v.isClone}">
+            
+            <lightning:outputField  fieldName="Date_current_Legal_Contract_expires__c" />
+            
+            <aura:set attribute="else">
+                <ui:inputDate aura:id="LegalContractExpDate" value="{!v.LegalContractExpDate1}" displayDatePicker="true" />
+            </aura:set>
+        </aura:if>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Contract Text">Contract</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Effective date of original contract">Effective date of original contract</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Current contract expiration date">Current contract expiration date</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="CSF_Hierarchy_1__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                                <div>
+                                    <lightning:inputField fieldName="CSF_Hierarchy_1__c" variant="label-hidden" />
+                                </div>
+                            </aura:set>
+                        </aura:if> 
+                        
+                        
+                    </th>
+                    <td>
+                        <aura:if isTrue="{!v.isClone}"> 
+                            <div >
+                                <lightning:outputField  fieldName="Effective_Date_of_Original_Contract__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                                <div>
+                                    <ui:inputDate aura:id="EffectiveDate1" value="{!v.EffectiveDate1}" displayDatePicker="true" change="{!c.DateChange}"/>
+                                </div>
+                           </aura:set>
+                        </aura:if> 
+                        
+                    </td>
+                    <td>
+                       <aura:if isTrue="{!v.isClone}">
+                            <div >
+                                <lightning:outputField  fieldName="Current_contract_expiration_date_1__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else"> 
+                                <div>
+                                    <ui:inputDate aura:id="ContractExpDate1" value="{!v.ContractExpDate1}" displayDatePicker="true" change="{!c.DateChange}"/>
+                                </div>
+                          </aura:set>
+                        </aura:if> 
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                   <th scope="row">
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="CSF_Hierarchy_2__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                        <div class="slds-truncate" >
+                            <lightning:inputField fieldName="CSF_Hierarchy_2__c" variant="label-hidden" />
+                        </div>
+                            </aura:set>
+                            </aura:if>
+                    </th>
+                    <td>
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="Effective_Date_of_Original_Contract_2__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                        <div class="slds-truncate">
+                            <ui:inputDate aura:id="EffectiveDate2" value="{!v.EffectiveDate2}" displayDatePicker="true" change="{!c.DateChange}"/>
+                        </div>
+                            </aura:set>
+                        </aura:if>
+                    </td>
+                    <td>
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="Current_contract_expiration_date_2__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                        <div class="slds-truncate" >
+                            <ui:inputDate aura:id="ContractExpDate2" value="{!v.ContractExpDate2}" displayDatePicker="true" change="{!c.DateChange}"/>
+                        </div>
+                            </aura:set>
+                        </aura:if>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="CSF_Hierarchy_3__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                        <div class="slds-truncate" >
+                            <lightning:inputField fieldName="CSF_Hierarchy_3__c" variant="label-hidden" />
+                        </div>
+                            </aura:set>
+                        </aura:if>
+                    </th>
+                    <td>
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="Effective_Date_of_Original_Contract_3__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                        <div class="slds-truncate">
+                            <ui:inputDate aura:id="EffectiveDate3" value="{!v.EffectiveDate3}" displayDatePicker="true" change="{!c.DateChange}"/>
+                        </div>
+                            </aura:set>
+                        </aura:if>
+                    </td>
+                    <td>
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="Current_contract_expiration_date_3__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                        <div class="slds-truncate" >
+                            <ui:inputDate aura:id="ContractExpDate3" value="{!v.ContractExpDate3}" displayDatePicker="true" change="{!c.DateChange}"/>
+                        </div>
+                            </aura:set>
+                        </aura:if>
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="CSF_Hierarchy_4__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                        <div class="slds-truncate" >
+                            <lightning:inputField fieldName="CSF_Hierarchy_4__c" variant="label-hidden" />
+                        </div>
+                            </aura:set>
+                        </aura:if>
+                    </th>
+                    <td>
+                       <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="Effective_Date_of_Original_Contract_4__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else"> 
+                        <div class="slds-truncate">
+                            <ui:inputDate aura:id="EffectiveDate4" value="{!v.EffectiveDate4}" displayDatePicker="true" change="{!c.DateChange}"/>
+                        </div>
+                           </aura:set>
+                        </aura:if>
+                    </td>
+                    <td>
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="Current_contract_expiration_date_4__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else"> 
+                        <div class="slds-truncate" >
+                            <ui:inputDate aura:id="ContractExpDate4" value="{!v.ContractExpDate4}" displayDatePicker="true" change="{!c.DateChange}"/>
+                        </div>
+                            </aura:set>
+                        </aura:if>
+                        
+                    </td>
+                </tr>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="CSF_Hierarchy_5__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else"> 
+                        <div class="slds-truncate" >
+                            <lightning:inputField fieldName="CSF_Hierarchy_5__c" variant="label-hidden" />
+                        </div>
+                            </aura:set>
+                        </aura:if>
+                    </th>
+                    <td>
+                         <aura:if isTrue="{!v.isClone}">
+                         <div>
+                                <lightning:outputField  fieldName="Effective_Date_of_Original_Contract_5__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else"> 
+                        <div class="slds-truncate">
+                            <ui:inputDate aura:id="EffectiveDate5" value="{!v.EffectiveDate5}" displayDatePicker="true" change="{!c.DateChange}" />
+                        </div>
+                        </aura:set>
+                        </aura:if>
+                   
+                    </td>
+                    <td>
+                        <aura:if isTrue="{!v.isClone}">
+                            <div>
+                                <lightning:outputField  fieldName="Current_contract_expiration_date_5__c" variant="label-hidden" />
+                            </div>
+                            <aura:set attribute="else">
+                        <div class="slds-truncate" >
+                            <ui:inputDate aura:id="ContractExpDate5" value="{!v.ContractExpDate5}" displayDatePicker="true" change="{!c.DateChange}"/>
+                        </div>
+                            </aura:set>
+                        </aura:if>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
+        <br/>
+        <div align="center">
+            <lightning:button variant="brand" label="Save" type="submit" disabled="{!v.isClone}"/>
+        </div>
+    </lightning:recordEditForm>
+</aura:component>

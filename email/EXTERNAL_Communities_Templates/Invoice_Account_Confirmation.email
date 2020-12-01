@@ -1,0 +1,12 @@
+Thank you for joining the {!Case.WRF_Current_GPO_Tier__c} and Office Depot Community.<br/>
+We are excited to offer you exclusive benefits and savings as a member.<br/>
+Your account setup request will be processed and you should receive notification with details shortly.<br/>
+<br/>
+{!IF(Account.OwnerId != null, "Please contact your Office Depot representative if you have questions:","Please contact your Office Depot account representative if you have questions.")}<br/>
+
+{!IF(Account.OwnerId != null,Case.AM_Contact_First_Name__c,"")} <br/>
+{!IF(Account.OwnerId != null,Account.OwnerEmail,"")} <br/>
+{!IF(Account.OwnerId != null,Case.AM_Contact_Phone__c,"")} <br/>
+<br/>
+
+<b>Thank you for shopping with Office Depot.</b>

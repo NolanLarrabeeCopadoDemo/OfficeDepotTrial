@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <choices>
+        <name>ApproverGroupDownload</name>
+        <choiceText>Approver Group Download</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Approver Group Download</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ApproverGroupUpload</name>
+        <choiceText>Approver Group Upload</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Approver Group Upload</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AssociationDownload</name>
+        <choiceText>Association Download</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Association Download</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>AssociationUpload</name>
+        <choiceText>Association Upload</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Association Upload</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>BulletinBoardMaintenance</name>
+        <choiceText>Bulletin Board Maintenance</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Bulletin Board Maintenance</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CustomShoppingListDownload</name>
+        <choiceText>Custom Shopping List (CSL) Download</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Custom Shopping List (CSL) Download</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>CustomShoppingListUpload</name>
+        <choiceText>Custom Shopping List (CSL) Upload</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Custom Shopping List (CSL) Upload</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ParentCSLdownload</name>
+        <choiceText>Parent CSL Download</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue> Parent CSL Download</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ParentCSLUpload</name>
+        <choiceText>Parent CSL Upload</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Parent CSL Upload</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ParentLevelWebAccountUploads</name>
+        <choiceText>Parent Level Web Account Uploads</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Parent Level Web Account Uploads</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ParentUserProfileDownload</name>
+        <choiceText>Parent User Profile Download</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Parent User Profile Download</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ParentUserProfileUpload</name>
+        <choiceText>Parent User Profile Upload</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Parent User Profile Upload</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>SingleUserForm</name>
+        <choiceText>Single User Form</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Single User Form</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>SUMADownload</name>
+        <choiceText>SUMA Download</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>SUMA Download</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>SUMAUpload</name>
+        <choiceText>SUMA Upload</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>SUMA Upload</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>UserProfileDownload</name>
+        <choiceText>User Profile Download</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>User Profile Download</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>UserProfileUpload</name>
+        <choiceText>User Profile Upload</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>User Profile Upload</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>WebAccountdownloads</name>
+        <choiceText>Web Account Downloads</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Web Account Downloads</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>WebAccountQuestions</name>
+        <choiceText>Web Account Questions</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue> Web Account Questions</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>WebAccountuploads</name>
+        <choiceText>Web Account Uploads</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Web Account Uploads</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>WorkflowDownload</name>
+        <choiceText>Workflow Download</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Workflow Download</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Workflowupload</name>
+        <choiceText>Workflow Upload</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Workflow Upload</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>Decision</name>
+        <label>Decision</label>
+        <locationX>419</locationX>
+        <locationY>53</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Web_Account_Questions</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_a_Web_Account_Maintenance_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>WebAccountQuestions</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Web_Account_Questionsscreen</targetReference>
+            </connector>
+            <label>Web Account Questions</label>
+        </rules>
+        <rules>
+            <name>Bulletin_Board_Maintenance</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_a_Web_Account_Maintenance_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>BulletinBoardMaintenance</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Bulletin_Board_Screen</targetReference>
+            </connector>
+            <label>Bulletin Board Maintenance</label>
+        </rules>
+        <rules>
+            <name>Web_Account_Upload</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_a_Web_Account_Maintenance_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>WebAccountuploads</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Web_Account_Upload_screen</targetReference>
+            </connector>
+            <label>Web Account Upload</label>
+        </rules>
+        <rules>
+            <name>Web_Account_downloads</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_a_Web_Account_Maintenance_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>WebAccountdownloads</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Web_Account_Downloads_Screen</targetReference>
+            </connector>
+            <label>Web Account downloads</label>
+        </rules>
+        <rules>
+            <name>Parent_Level_Web_Account_Uploads</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_a_Web_Account_Maintenance_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>ParentLevelWebAccountUploads</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CommentsParent_Level_Web</targetReference>
+            </connector>
+            <label>Parent Level Web Account Uploads</label>
+        </rules>
+        <rules>
+            <name>Single_User</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Please_select_a_Web_Account_Maintenance_option</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>SingleUserForm</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>single_user_form_screen</targetReference>
+            </connector>
+            <label>Single User</label>
+        </rules>
+    </decisions>
+    <description>02797187  - Update message/links - Account Maintenance SCOE
+02590214  - add single user form to scoe web account maint</description>
+    <interviewLabel>Web Account Maintenance Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Web Account Maintenance Flow V2.4</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Case</name>
+        <label>Case</label>
+        <locationX>82</locationX>
+        <locationY>564</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <connector>
+            <targetReference>Upload_Attachment</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>WebDownloadtemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtypeid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Web Account downloads</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Web Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>newsubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Case_0</name>
+        <label>Case</label>
+        <locationX>391</locationX>
+        <locationY>387</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <connector>
+            <targetReference>Upload_Attachment</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>Webaccountuploadtemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtypeid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Web Account uploads</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Account Upload</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>newsubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Case_0_0</name>
+        <label>Case</label>
+        <locationX>522</locationX>
+        <locationY>392</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <connector>
+            <targetReference>Upload_Attachment</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>Parentleveltemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtypeid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Parent Level Web Account Uploads</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Account Upload</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>newsubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Case_0_0_0</name>
+        <label>Case</label>
+        <locationX>699</locationX>
+        <locationY>363</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <connector>
+            <targetReference>Upload_Attachment</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtypeid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Bulletin Board Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Web Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>newsubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Case_0_0_0_0</name>
+        <label>Case</label>
+        <locationX>865</locationX>
+        <locationY>273</locationY>
+        <assignRecordIdToReference>recid</assignRecordIdToReference>
+        <connector>
+            <targetReference>Upload_Attachment</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>New_Request__c</field>
+            <value>
+                <elementReference>CommentsWebAccountQuestions</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Queue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordtypeid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Issue_Type__c</field>
+            <value>
+                <stringValue>Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Sub_type__c</field>
+            <value>
+                <stringValue>Web Account Questions</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SCOE_Support_Type__c</field>
+            <value>
+                <stringValue>Web Account Maintenance</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>newsubject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Support_Requester__c</field>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <screens>
+        <name>Bulletin_Board_Screen</name>
+        <label>Bulletin Board Screen</label>
+        <locationX>649</locationX>
+        <locationY>167</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Case_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>link1</name>
+            <fieldText>&lt;p&gt;{!Bulletinlink}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>txt3</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Please upload all attachments on the next screen.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>CommentsParent_Level_Web</name>
+        <label>Parent Level Web Account Uploads Screen</label>
+        <locationX>513</locationX>
+        <locationY>255</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Case_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>Type_of_Parent_Level_Web_Account_Uploads</name>
+            <choiceReferences>ParentCSLUpload</choiceReferences>
+            <choiceReferences>ParentUserProfileUpload</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Type of Parent Level Web Account Uploads:</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>txt2</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Please upload all attachments on the next screen.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Note</name>
+        <label>Note</label>
+        <locationX>684</locationX>
+        <locationY>749</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Case_Submission_Note</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Thank you! Your case has been submitted.  &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>single_user_form_screen</name>
+        <label>single user form screen</label>
+        <locationX>200</locationX>
+        <locationY>160</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>link_display</name>
+            <fieldText>&lt;p&gt;{!link_singleuser}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Upload_Attachment</name>
+        <label>Upload Attachment(s)</label>
+        <locationX>697</locationX>
+        <locationY>593</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Note</targetReference>
+        </connector>
+        <fields>
+            <name>notes</name>
+            <fieldText>&lt;p&gt;Upload Attachment(s)&lt;/p&gt;&lt;p&gt;NOTE: Size limit is 5Mb PER ATTACHMENT. You can combine multiple attachments using WinZip as long as the zipped file is less than 5Mb.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>UploadAttachment</name>
+            <extensionName>forceContent:fileUpload</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>File upload</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>recid</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>multiple</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Web_Account_Downloads_Screen</name>
+        <label>Web Account Downloads Screen</label>
+        <locationX>110</locationX>
+        <locationY>355</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Case</targetReference>
+        </connector>
+        <fields>
+            <name>Please_select_the_type_of_download_s</name>
+            <choiceReferences>AssociationDownload</choiceReferences>
+            <choiceReferences>ApproverGroupDownload</choiceReferences>
+            <choiceReferences>CustomShoppingListDownload</choiceReferences>
+            <choiceReferences>ParentCSLdownload</choiceReferences>
+            <choiceReferences>ParentUserProfileDownload</choiceReferences>
+            <choiceReferences>SUMADownload</choiceReferences>
+            <choiceReferences>UserProfileDownload</choiceReferences>
+            <choiceReferences>WorkflowDownload</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Please select the type of download(s)</fieldText>
+            <fieldType>MultiSelectCheckboxes</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Comments</name>
+            <fieldText>Comments:</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Web_Account_Maintenance</name>
+        <label>Web Account Maintenance</label>
+        <locationX>246</locationX>
+        <locationY>29</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Decision</targetReference>
+        </connector>
+        <fields>
+            <name>Please_select_a_Web_Account_Maintenance_option</name>
+            <choiceReferences>BulletinBoardMaintenance</choiceReferences>
+            <choiceReferences>ParentLevelWebAccountUploads</choiceReferences>
+            <choiceReferences>WebAccountdownloads</choiceReferences>
+            <choiceReferences>WebAccountQuestions</choiceReferences>
+            <choiceReferences>WebAccountuploads</choiceReferences>
+            <choiceReferences>SingleUserForm</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Please select a Web Account Maintenance option:</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>link2</name>
+            <fieldText>&lt;p&gt;{!Uploadslink}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>attachments</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Please upload all attachments on the next screen.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Web_Account_Questionsscreen</name>
+        <label>Web Account Questionsscreen</label>
+        <locationX>837</locationX>
+        <locationY>53</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Case_0_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>CommentsWebAccountQuestions</name>
+            <fieldText>Comments</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>text05</name>
+            <fieldText>&lt;p&gt;Please upload all attachments on the next screen.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Web_Account_Upload_screen</name>
+        <label>Web Account Upload screen</label>
+        <locationX>247</locationX>
+        <locationY>446</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Case_0</targetReference>
+        </connector>
+        <fields>
+            <name>Type_of_Upload</name>
+            <choiceReferences>ApproverGroupUpload</choiceReferences>
+            <choiceReferences>AssociationUpload</choiceReferences>
+            <choiceReferences>CustomShoppingListUpload</choiceReferences>
+            <choiceReferences>SUMAUpload</choiceReferences>
+            <choiceReferences>UserProfileUpload</choiceReferences>
+            <choiceReferences>Workflowupload</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Type of Upload</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Web_Account_Maintenance</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>Bulletinlink</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;Logos: All logos to be included in the body of the text must be attached to this request in .jpg or .gif format.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Text: If special text formatting is needed (underline, bold, different color, etc.), attachment should be in html format&lt;/p&gt;&lt;p style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: sans-serif; font-size: 12px;&quot;&gt;*****For assistance, please download the&lt;/span&gt;&lt;a href=&quot;https://officedepot.my.salesforce.com/sfc/p/#E0000000J4oS4X4O7dDLRJcx5A4lxwxxJGz7N3I=&quot; target=&quot;_blank&quot; style=&quot;color: rgb(0, 0, 0); font-family: sans-serif; font-size: 12px;&quot;&gt;&lt;b&gt;&lt;u&gt; HTML Cheat Sheet &lt;/u&gt;&lt;/b&gt;&lt;/a&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: sans-serif; font-size: 12px;&quot;&gt;. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: sans-serif; font-size: 12px;&quot;&gt;*****For assistance in completing the upload, please download the&lt;/span&gt;&lt;a href=&quot;https://officedepot.my.salesforce.com/sfc/p/#E0000000J4oS/a/44000000XtGU/WmYwmavI38PV0DDh7CT3gBCVqTYDN1UvRS1YforvniY&quot; target=&quot;_blank&quot; style=&quot;color: rgb(0, 0, 0); font-family: sans-serif; font-size: 12px;&quot;&gt;&lt;b&gt;&lt;u&gt; Bulletin Board Upload Procedures &lt;/u&gt;&lt;/b&gt;&lt;/a&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: sans-serif; font-size: 12px;&quot;&gt;. &lt;/span&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>link_singleuser</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;Click the link below to complete &amp;amp; submit a Single User Form&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCT_wWSIFNPkCZMIYRfamZ_g&quot; target=&quot;_blank&quot; style=&quot;background-color: rgb(249, 249, 250); color: rgb(15, 72, 218); font-family: inherit; font-size: 14px;&quot;&gt;&lt;b&gt;Single User Form&lt;/b&gt;&lt;/a&gt;&lt;b style=&quot;background-color: rgb(249, 249, 250); color: rgb(15, 72, 218); font-size: 14px;&quot;&gt;:&amp;nbsp;&lt;/b&gt;&lt;b style=&quot;background-color: rgb(249, 249, 250); color: inherit; font-size: 14px;&quot;&gt;Allows you to make changes to a single user instantly.&amp;nbsp;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;background-color: rgb(249, 249, 250); color: inherit; font-size: 14px;&quot;&gt;Please note: A support case will not be generated for this request &lt;/b&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>newsubject</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>{!Please_select_a_Web_Account_Maintenance_option}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Parentleveltemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Type of Parent Level Web Account Upload: {!Type_of_Parent_Level_Web_Account_Uploads}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>subject</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>{!Please_select_a_Web_Account_Maintenance_option} - {!acctnm1}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Uploadslink</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;ul&gt;&lt;li&gt;&lt;b&gt;Approver Group Upload&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCyZAW26OqzE2MQ1ApBChYlA&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Template&lt;/b&gt;&lt;/a&gt;&lt;b&gt;&amp;nbsp;&amp;amp;&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCQTKRmEADwEi0VSx_9XpwRg&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Instructions&lt;/b&gt;&lt;/a&gt;&lt;b&gt;:&lt;/b&gt;&amp;nbsp;Approver groups are to be used when multiple approvers are needed at a single tier of a workflow.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Association Upload&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCZWAUJO6ig0qRz2cUKeDVgg%22&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Template&lt;/b&gt;&lt;/a&gt;&lt;b&gt;&amp;nbsp;&amp;amp;&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCfEmI_Dwy5UW18z5w5M1WhQ&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Instructions&lt;/b&gt;&lt;/a&gt;&lt;b&gt;:&lt;/b&gt;&amp;nbsp;Associations are the associated lists of header info linked to users (IE PO, Cost Center, Department)&lt;/li&gt;&lt;li&gt;&lt;b&gt;CSL Upload&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DC2X7BeA70n0mh9Z8cxRaLgQ%22&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Template&lt;/b&gt;&lt;/a&gt;&lt;b&gt;&amp;nbsp;&amp;amp;&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCkb0bnfUc7EKSBJNEavS66w&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Instructions&lt;/b&gt;&lt;/a&gt;&lt;b&gt;:&lt;/b&gt;&amp;nbsp;CSLs (&lt;b&gt;C&lt;/b&gt;ustom&amp;nbsp;&lt;b&gt;S&lt;/b&gt;hopping&amp;nbsp;&lt;b&gt;L&lt;/b&gt;ists) are stored SKU lists the customer can utilize for easy selection of items they order frequently.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Parent CSL Upload&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCA9YAyRpBZUylWr_ltPuBUw%22&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Template&lt;/b&gt;&lt;/a&gt;&lt;b&gt;&amp;nbsp;&amp;amp;&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCn5ASStDdEUqzh1v54m4STw%22&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Instructions&lt;/b&gt;&lt;/a&gt;&lt;b&gt;:&lt;/b&gt;&amp;nbsp;Parent CSL Upload template will link CSLs to all child accounts under the parent specified.&lt;/li&gt;&lt;li&gt;&lt;b&gt;SUMA Upload&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCyPCcMZGw9kO1IK3Cn1NFvQ%22&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Template&lt;/b&gt;&lt;/a&gt;&lt;b&gt;&amp;nbsp;&amp;amp;&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCjE-NyW64RUCBnzYyrQjUig&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Instructions&lt;/b&gt;&lt;/a&gt;&lt;b&gt;:&amp;nbsp;&lt;/b&gt;SUMA (&lt;b&gt;S&lt;/b&gt;ingle&amp;nbsp;&lt;b&gt;U&lt;/b&gt;ser&amp;nbsp;&lt;b&gt;M&lt;/b&gt;ultiple&amp;nbsp;&lt;b&gt;A&lt;/b&gt;ccounts) allows a customer to sign-in once and switch between their other accounts.&amp;nbsp;&lt;/li&gt;&lt;li&gt;&lt;b&gt;User Upload&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCgSRicYrQH0ibs0OvSFn9lQ%22&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Template&lt;/b&gt;&lt;/a&gt;&lt;b&gt;&amp;nbsp;&amp;amp;&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DC-TWL9lQvbEyGPrb5hOj3Nw&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Instructions&lt;/b&gt;&lt;/a&gt;&lt;b&gt;:&lt;/b&gt;&amp;nbsp;Make multiple user additions/change all at once.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Workflow Upload&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCpwwC7_DoCkSNbi3m79ldxQ&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Template&lt;/b&gt;&lt;/a&gt;&lt;b&gt;&amp;nbsp;&amp;amp;&amp;nbsp;&lt;/b&gt;&lt;a href=&quot;https://officedepot.seismic.com/Link/Content/DCXsfOaq0DO0aKuXfECnSALA&quot; target=&quot;_blank&quot; style=&quot;font-family: inherit;&quot;&gt;&lt;b&gt;Instructions&lt;/b&gt;&lt;/a&gt;&lt;b&gt;:&lt;/b&gt;&amp;nbsp;Workflows are for tiered approval processes&lt;/li&gt;&lt;/ul&gt;&lt;p style=&quot;text-align: left;&quot;&gt;&lt;br&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Webaccountuploadtemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Type of upload: {!Type_of_Upload}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>WebDownloadtemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Type of Download: {!Please_select_the_type_of_download_s}
+Comments: {!Comments}</text>
+    </textTemplates>
+    <variables>
+        <name>acctid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>acctnm</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>acctnm1</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>Queue</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>00GE0000000uSf2</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>recid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>recordtypeid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>01244000000fR7l</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>userid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

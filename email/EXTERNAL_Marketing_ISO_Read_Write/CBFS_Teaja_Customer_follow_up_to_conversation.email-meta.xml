@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>CBFS Teaja (Customer follow up to conversation)</name>
+    <style>promotionLeft</style>
+    <subject>Office Depot where we aim to be everybody&apos;s cup to tea!</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+
+It was a pleasure speaking with you and introducing you to TEAJA organic teas.
+
+
+To recap our conversation, here are few key features:
+
+
+TEAJA is 100% organic, fair trade and Kosher certified
+TEAJA teas are also dairy free, non allergenic, non GMO, gluten free, and vegan
+With more employees drinking tea, TEAJA is a great way to elevate your tea offerings for the growing demand
+Cost effective; TEAJA loose leaf teas are 50%-70% less expensive than traditional single serve tea options
+Our teas are all created by TEAJA’s very own Worlds most awarded Tea Master
+
+
+Please find the attached information sheet outlining the product highlights, descriptions and ordering information.
+
+
+Here is the video link showing how it works: http://teajaoffice.com/wp-content/uploads/2018/02/teaja_720.mp4
+
+
+
+or Click Here to view and add Teaja to your next purchase!
+
+
+Regards,
+
+{!User.Name}
+
+
+Account Manager
+
+{!User.Email}
+
+(855)337-6811 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

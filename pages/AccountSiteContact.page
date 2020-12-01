@@ -1,0 +1,108 @@
+<apex:page standardController="Account" extensions="AccountSiteContactExtension">
+
+<script>
+function disableClicked(clickToDialLink, title) {
+  origOnClickFunc = clickToDialLink.onclick;
+  clickToDialLink.onclick = function(){ return false; };
+  origColor = clickToDialLink.style.color;
+  clickToDialLink.style.color = "gray";
+  clickToDialLink.title = title;
+  // switch the visible click to dial icons
+  for (i=0; i<clickToDialLink.childNodes.length; i++) {
+    if (clickToDialLink.childNodes[i].src) {
+      clickToDialLink.childNodes[i].style.display = (clickToDialLink.childNodes[i].style.display=="none") ? "inline" : "none";
+    }
+  }
+ // re-enable the link after some timeout
+  window.setTimeout(function() {enableClicked(clickToDialLink, origOnClickFunc, origColor);}, 5000);
+}
+
+// This is called to re-enable a temporarily-disabled click-to-dial link
+function enableClicked(clickToDialLink, origOnClickFunc, origColor) {
+  clickToDialLink.onclick = origOnClickFunc;
+  clickToDialLink.style.color = origColor;
+  clickToDialLink.title = "";
+  // switch the visible click to dial icons
+  for (i=0; i<clickToDialLink.childNodes.length; i++) {
+    if (clickToDialLink.childNodes[i].src) {
+      clickToDialLink.childNodes[i].style.display = (clickToDialLink.childNodes[i].style.display=="none") ? "inline" : "none";
+    }
+  }
+}
+
+</script>
+ <apex:form id="frmblk">
+     <apex:actionFunction name="updSiteContact" action="{!siteContactUpd}" reRender="frmblk">
+             <apex:param name="param1" assignTo="{!selectedsiteContact}" value=""/>
+             <apex:param name="param2" assignTo="{!ActionCode}" value=""/>
+     </apex:actionFunction>
+     
+<apex:pageBlock rendered="{!IF(SiteContacts.size = 0,false,true)}" id="pgblk">
+
+   <apex:pageBlockTable value="{!SiteContacts}" var="contact" >
+     <apex:column headerValue="Actions">
+         <apex:commandlink value="SetPrimary" Onclick="if(confirm('Are you Sure?')) updSiteContact('{!contactSiteMap[contact.Id]}','P');" rerender="pgblk">
+         </apex:commandlink>
+         &nbsp;&nbsp;
+         <apex:commandLink value="Delete" onclick="if(confirm('Are you Sure?')) updSiteContact('{!contactSiteMap[contact.Id]}','D');" rerender="pgblk">
+         </apex:commandLink>
+     </apex:column>
+     <apex:column headerValue="Name">
+      <apex:outputLink target="_blank" value="/{!contact.Id}">{!contact.Name}</apex:outputLink>
+     </apex:column>
+    <!-- <apex:column value="{!contact.Primary_Contact__c}"></apex:column> -->
+       <apex:column headervalue="Primary">
+           <!--<apex:outputText value="{!contactPrimaryMap[contact.Id]}"/> -->
+           <CENTER>
+           <apex:image value="{!$Resource.ACECheckBox}" height="16px" rendered="{!contactPrimaryMap[contact.Id]}"/>
+           </CENTER>
+       </apex:column>
+   
+     <apex:column value="{!contact.Title}"></apex:column>
+     <apex:column value="{!contact.Decision_Maker__c}"></apex:column>
+     <apex:column value="{!contact.Role__c}"></apex:column>
+     <apex:column value="{!contact.Pin__c}" rendered="{!displaypin}"></apex:column>
+     <apex:column headerValue="Email"><apex:outputField value="{!contact.Email}" /></apex:column>
+     
+     <apex:column headerValue="Phone">
+     
+     <span style="display: block;">
+       <img height="1" width="1" onload="if (self.registerClickToDial) registerClickToDial(this.parentNode, false);" title="" alt="" src="/s.gif" />
+       <a onclick="disableClicked(this, 'Click to dial disabled');" href="javascript:sendCTIMessage(%27/CLICK_TO_DIAL?DN={!contact.phone}&amp;ID={!contact.Id}&amp;ENTITY_NAME=Contact%27);">{!contact.phone}
+         <apex:image height="10" width="16" title="Click to dial" alt="Click to dial" url="/img/btn_dial_inline.gif" rendered="{!If(ISNULL(contact.phone),false,true)}"/>
+         <img height="10" width="16" title="Click to dial disabled" style="display: none;" alt="Click to dial disabled" src="/img/btn_nodial_inline.gif" />
+       </a>
+     </span>
+     
+     
+     
+     </apex:column>
+     
+         <apex:column Value="{!contact.Phone_Ext__c}"></apex:column> 
+     
+     <apex:column headerValue="Mobile">
+     <span style="display: block;">
+       <img height="1" width="1" onload="if (self.registerClickToDial) registerClickToDial(this.parentNode, false);" title="" alt="" src="/s.gif" />
+       <a onclick="disableClicked(this, 'Click to dial disabled');" href="javascript:sendCTIMessage(%27/CLICK_TO_DIAL?DN={!contact.MobilePhone}&amp;ID={!contact.Id}&amp;ENTITY_NAME=Contact%27);">{!contact.MobilePhone}
+         <apex:image height="10" width="16" title="Click to dial" alt="Click to dial" url="/img/btn_dial_inline.gif" rendered="{!If(ISNULL(contact.MobilePhone),false,true)}"/>
+         <img height="10" width="16" title="Click to dial disabled" style="display: none;" alt="Click to dial disabled" src="/img/btn_nodial_inline.gif" />
+       </a>
+     </span>
+     </apex:column>
+    
+    <apex:column value="{!contact.lastactivitydate}"></apex:column>
+     
+     </apex:pageBlockTable>
+   
+ </apex:pageBlock>
+    </apex:form>
+ 
+ <apex:pageBlock rendered="{!IF(SiteContacts.size = 0,true,false)}">
+   No records to display
+ </apex:pageBlock>
+ 
+ <apex:outputPanel rendered="false">
+   {!Account.Site_Contact2__c}{!Account.Site_Contact3__c}{!Account.Site_Contact4__c}{!Account.Site_Contact5__c},{!Account.Site_Contact6__c} 
+   {!Account.Site_Primary_Contact__c}
+ </apex:outputPanel>
+</apex:page>

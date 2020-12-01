@@ -1,0 +1,12 @@
+Customer Name: {!Case.Account} 
+Account Number:{!Case.ACCT_Account_Number__c} 
+Requestor Name:{!Case.WRF_Requestor_Name__c} 
+Account Owner: {!Account.OwnerFullName} 
+
+Dear {!Case.WRF_Requestor_Name__c}, 
+
+Sequence #    and Hedberg field on the account #{!Case.ACCT_Account_Number__c}   have been updated with Team Design T as per request.
+
+Thank you, 
+{!User.FirstName} {!User.LastName} 
+Account Maintenance Team.

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account Setup - Pay Method - Check</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Pay Method - Check</name>
+    <style>freeForm</style>
+    <subject>Billing Method - Check  - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Below new request for Accounts Payable Contacts:
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+Small Order Fee:  {!Account_Setup_Request__c.Small_Order_Fee_Flag__c}
+
+Please provide the customer with the following information:
+
+If you are paying by check it’s important to include a few pieces of information to ensure your money is being properly and efficiently applied to your account.  The easiest way is to send your OD remittance stub along with your check to the location on the stub.  If you are not set up to receive invoice stubs, please include the following information with your payment:
+1.	Invoice number – usually 12 digits.  If your AP system is limited to a certain number of characters, please provide as many as possible starting from the first digit (left justified). 
+2.	Invoice amount – dollar amount paid per invoice number 
+3.	Billing ID / customer account number</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

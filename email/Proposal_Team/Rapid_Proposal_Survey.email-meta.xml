@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Rapid Proposal Survey</name>
+    <style>freeForm</style>
+    <subject>Case # {!Case.CaseNumber} {!Case.Thread_Id} {!Account.Name} {!WRF.Type} - Action Required</subject>
+    <textOnly>Description: {!Case.Description}
+
+Requestor Name: {!Case.WRF_Requestor_Name__c}
+
+
+
+Click here to go to the support case
+
+
+
+Good morning/afternoon (insert name),
+
+
+
+It was nice working with you on the (insert account name) proposal. Our goal is to ensure you have the tools needed to complete the Rapid Proposal Process. Please click here to complete a brief survey to help us measure and continuously improve the process - helping you WIN more business. We appreciate your time and value your feedback!
+
+
+
+If this is your first time using Smartsheet simply click on the Work Account Icon on the opening page to view the survey. There is no need to login.
+
+
+
+
+Best regards,
+
+Your Name
+
+Proposal Team
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

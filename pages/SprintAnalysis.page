@@ -1,0 +1,17 @@
+<apex:page controller="SprintanalysisController">
+  <apex:form >
+      <apex:pageBlock >
+          <apex:outputPanel >
+              <b><apex:outputlabel value="Sprint Number : "/></b>
+              <apex:inputText value="{!SprintName}"/>
+              <apex:commandButton value="Fetch Report" action="{!Refresh}" rerender="refreshPanel1"/>
+          </apex:outputPanel>
+          <br/><br/><br/>
+          <apex:pageBlockSection id="refreshPanel1" columns="2">
+              <analytics:reportChart developerName="Sprint_27" showRefreshButton="false" filter="{column:'Case.SPRINT_NAME__c',operator:'equals',value:'{!SprintName}'}" size="medium"></analytics:reportChart>    
+              <analytics:reportChart developerName="No_Of_hrs_Spend_by_Individuals" showRefreshButton="false" filter="{column:'Case.SPRINT_NAME__c',operator:'equals',value:'{!SprintName}'}" size="medium"> </analytics:reportChart>
+              <analytics:reportChart developerName="Efforts_by_Projects" showRefreshButton="false" filter="{column:'Case.SPRINT_NAME__c',operator:'equals',value:'{!SprintName}'}" size="medium"> </analytics:reportChart>
+          </apex:pageBlockSection> 
+      </apex:pageBlock>         
+  </apex:form>
+</apex:page>

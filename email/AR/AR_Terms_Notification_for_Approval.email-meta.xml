@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Extended and Early Discount Terms Notification for Approval</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>AR - Terms Notification for Approval</name>
+    <style>freeForm</style>
+    <subject>Account: {!Case.Account} - {!Case.WRF_Request_Type__c} Approval Request</subject>
+    <textOnly>{!Case.Support_Requester__c} has requested your approval on the following request.
+
+Regional VP: {!Case.Regional_VP__c}
+Account Name: {!Case.Account}
+Request Type: {!Case.WRF_Request_Type__c}
+Support ID: {!Case.CaseNumber}
+Subject: {!Case.Subject}
+
+__________________________________
+
+FOR OFFICE DEPOT SOUTH Approvers:
+
+The request is located here: Review as needed prior to approval or rejection.
+
+
+To approve or reject, REPLY to this email, without changing the To: field, and type Approve or Reject as the first word in the top line of the email. To add notes/comments simply leave a space (no colons or hyphens or any other punctuation) then type the comments
+
+Example: Approve Comments will go here.
+
+Or you can access the case here and click Approve or Reject and add comments.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

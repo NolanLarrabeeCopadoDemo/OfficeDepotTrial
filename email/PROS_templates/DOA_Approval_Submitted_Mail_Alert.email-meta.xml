@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>DOA Approval Submitted Mail Alert</name>
+    <style>freeForm</style>
+    <subject>Quote {!CameleonCPQ__QxQuote__c.Quote_Number__c} has been submitted for Approval</subject>
+    <textOnly>The following Quote has been submitted through the internal approval process:
+
+
+• Quote ID: {!CameleonCPQ__QxQuote__c.Quote_Number__c}
+• CPM Account : {!CameleonCPQ__QxQuote__c.CameleonCPQ__AccountId__c}
+• CPM Account Number : {!CameleonCPQ__QxQuote__c.AOPSID__c}
+• Sales Rep Name: {!CameleonCPQ__QxQuote__c.Sales_Rep__c}
+• MD Name: {!CameleonCPQ__QxQuote__c.Managing_Director__c}
+• VP Name: {!CameleonCPQ__QxQuote__c.VP__c}
+• SVP Name: {!CameleonCPQ__QxQuote__c.SVP__c}
+• CDM Name: {!CameleonCPQ__QxQuote__c.CDM__c}
+• EVP Name: Stephen Mohan
+• CFO Name: Joseph Lower
+
+Please note: If any changes are made to this offer or construct of this deal, Sales will be required to clone, update and resubmit the quote for approvals.
+
+
+
+Link to: Quote
+
+
+Best Regards,
+Office Depot</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

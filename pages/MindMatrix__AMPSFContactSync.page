@@ -1,0 +1,63 @@
+<apex:page controller="MindMatrix.AccountContactsController" action="{!search}" title="Sync Contacts with AMP" tabStyle="Account" showHeader="false" sidebar="false">
+    <apex:form style="padding-top:7px">
+        <div style="position: relative;">
+        <apex:pageBlock mode="edit" id="block" title="Sync Account contact(s) with AMP" rendered="{!IF(seq<=0, true, false)}">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!SyncContacts}" status="status" value="Submit" rerender="block" disabled="{!!Rendered}" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection showHeader="false" title="Sync Account contact(s) with AMP" columns="1" id="accBlockSection">
+                <apex:pageBlockSectionItem >                    
+                    <apex:outputLabel for="searchText">Select Account</apex:outputLabel>
+                    <apex:panelGroup >
+                        <div class="requiredInput"><div class="requiredBlock"></div>
+                            <apex:selectList value="{!accID}" multiselect="false" size="1" required="true" >
+                                <apex:selectOptions value="{!values}" />
+                            </apex:selectList>
+                            <apex:commandButton value="Go!" action="{!search}" rerender="block" status="status" title="Select Account"/>
+                        </div>
+                    </apex:panelGroup>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>             
+            <apex:pageBlockSection title="Contacts" id="resultsBlock" columns="1">
+             <apex:pageMessages />            
+            <apex:pageBlockSectionItem rendered="{!rendered}">  
+            <apex:outputLabel for="searchText">Select Recipient List</apex:outputLabel>
+                <apex:panelGroup >
+                    <div class="requiredInput"><div class="requiredBlock"></div>
+                        <apex:selectList value="{!listID}" multiselect="false" size="1" >
+                            <apex:selectOptions value="{!listValues}" />
+                        </apex:selectList>
+                    </div>
+                </apex:panelGroup>
+            </apex:pageBlockSectionItem>
+            <apex:outputText id="lblMessage" rendered="{!!rendered}" value="No records to display." styleClass="x-grid-empty" />
+                <apex:pageBlockTable value="{!searchResults}" var="c" rendered="{!rendered}" styleClass="x-grid3-body" id="accBlockTable">
+                    <apex:column width="10px">
+                    <apex:inputCheckbox value="{!c.checked}" id="cbContact" onclick="uncheckMain(this,'cbMain')"/>
+                    </apex:column>
+                    <apex:column value="{!c.cont.LastName}, {!c.cont.FirstName}" headerValue="Contact Name"/>
+                    <apex:column value="{!c.cont.Title}" headerValue="Title"/>
+                    <apex:column value="{!c.cont.Email}" headerValue="Email"/>
+                    <apex:column value="{!c.cont.Phone}" headerValue="Phone"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock id="blockSyncRecords" rendered="{!IF(seq > 0, true, false)}" >
+            <apex:pageMessages />
+        </apex:pageBlock>
+        <apex:outputpanel >
+            <apex:actionstatus id="status">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="00Bd0000003nrlY_loading" style="background-color: #fbfbfb;
+                           opacity:0.65;height: 100%; width: 100%;">
+                            <div class="waitingHolder" style="width: 100%; top: 50%;">
+                            <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Please wait...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionstatus>
+        </apex:outputpanel>
+        </div>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,15 @@
+.od-container {
+	outline: none;
+}
+.od-dropdown {
+	transition-property: transform, opacity;
+	transition-duration: 0.2s;
+	transition-timing-function: ease-in-out;
+	transform: translateY(-20px) translateX(-50%);
+	opacity: 0;
+	outline: none;
+}
+.od-dropdown.show {
+	transform: translateY(0px) translateX(-50%);
+	opacity: 1;
+}

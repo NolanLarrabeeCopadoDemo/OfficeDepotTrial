@@ -1,0 +1,261 @@
+<template>
+	<div>
+		<div class="slds-box slds-grid slds-m-bottom_medium" style="height: 300px;">
+			<div class="slds-grid slds-grid_vertical">
+				<div class="slds-grid slds-m-bottom_small">
+					<span class="slds-m-right_small">
+						<lightning-icon icon-name="standard:partner_fund_allocation" title="Accounts Payable & Billing">
+						</lightning-icon>
+					</span>
+					<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Accounts Payable & Billing</div>
+				</div>
+				<div class="slds-scrollable_y slds-grid" style="height: 0; flex: 1;">
+					<lightning-datatable key-field="id" columns={ApAndBilling.columns} data={ApAndBilling.data} hide-checkbox-column>
+					</lightning-datatable>
+				</div>
+			</div>
+		</div>
+		<div class="slds-grid slds-scrollable_x">
+			<div class="slds-box slds-m-right_medium">
+				<div class="slds-grid slds-m-bottom_small">
+					<span class="slds-m-right_small">
+						<lightning-icon icon-name="standard:opportunity_splits" title="Accounts Remaining">
+						</lightning-icon>
+					</span>
+					<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Accounts Remaining</div>
+				</div>
+				<div class="slds-grid">
+					<div class="slds-m-right_medium">
+						<div class="slds-text-heading_small slds-m-bottom_small">
+							Collector
+						</div>
+						<div class="slds-grid">
+							<table class="slds-grow">
+								<tr>
+									<td>Collector Name:</td>
+									<td>{webCollectResult.cus_coll_name}</td>
+								</tr>
+								<tr>
+									<td>Collector Phone:</td>
+									<td>{webCollectResult.cus_coll_phn}</td>
+								</tr>
+								<tr>
+									<td>Collector Email:</td>
+									<td>{webCollectResult.cus_coll_email}</td>
+								</tr>
+								<tr>
+									<td>Lead Name:</td>
+									<td>{webCollectResult.cus_lead_name}</td>
+								</tr>
+								<tr>
+									<td>Lead Phone:</td>
+									<td>{webCollectResult.cus_lead_phn}</td>
+								</tr>
+								<tr>
+									<td>Lead Email:</td>
+									<td>{webCollectResult.cus_lead_email}</td>
+								</tr>
+								<tr>
+									<td>Manager Name:</td>
+									<td>{webCollectResult.cus_mgr_name}</td>
+								</tr>
+								<tr>
+									<td>Manager Phone:</td>
+									<td>{webCollectResult.cus_mgr_phn}</td>
+								</tr>
+								<tr>
+									<td>Manager Email:</td>
+									<td>{webCollectResult.cus_mgr_email}</td>
+								</tr>
+								<tr>
+									<td>AOPS Account ID:</td>
+									<td>{aopsCustId}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div>
+						<div class="slds-text-heading_small slds-m-bottom_small">Balances</div>
+						<div class="slds-grid">
+							<table class="slds-grow">
+								<tr>
+									<td>Current:</td>
+									<td>${_ebizArBalances.curr}</td>
+								</tr>
+								<tr>
+									<td>1 to 30 Days:</td>
+									<td>${_ebizArBalances.pd130}</td>
+								</tr>
+								<tr>
+									<td>31 to 60 Days:</td>
+									<td>${_ebizArBalances.pd3160}</td>
+								</tr>
+								<tr>
+									<td>61 to 90 Days:</td>
+									<td>${_ebizArBalances.pd6190}</td>
+								</tr>
+								<tr>
+									<td>91 to 180 Days :</td>
+									<td>${_ebizArBalances.pd91180}</td>
+								</tr>
+								<tr>
+									<td>181 to 365 Days:</td>
+									<td>${_ebizArBalances.pd181365}</td>
+								</tr>
+								<tr>
+									<td>366+ Days:</td>
+									<td>${_ebizArBalances.pd366}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="slds-box">
+				<div class="slds-grid slds-m-bottom_small">
+					<span class="slds-m-right_small">
+						<lightning-icon icon-name="standard:lead_list" title="Other Information">
+						</lightning-icon>
+					</span>
+					<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Other Information</div>
+				</div>
+				<div class="slds-grid">
+					<table class="slds-m-right_medium slds-grow">
+						<tr>
+							<td>Account Billing:</td>
+							<td>{_ebizBillTerms.abbillingflag}</td>
+						</tr>
+						<tr>
+							<td>Payment Terms:</td>
+							<td>{_ebizBillTerms.paymentterm}</td>
+						</tr>
+						<tr>
+							<td>Billing Frequency:</td>
+							<td>{_ebizBillTerms.paytermfrequency}</td>
+						</tr>
+						<tr>
+							<td>Billing Type:</td>
+							<td>{_ebizBillTerms.billdocsdoctype}</td>
+						</tr>
+						<tr>
+							<td>Billing Delivery Method:</td>
+							<td>{_ebizBillTerms.billdocsdeliverymeth}</td>
+						</tr>
+						<tr if:true={isSpecialHandling}>
+							<td>Special Handling:</td>
+							<td>{_ebizBillTerms.billdocsspecialhandling}</td>
+						</tr>
+						<tr if:false={isSpecialHandling}>
+							<td>Special Handling:</td>
+							<td>N</td>
+						</tr>
+						<tr if:true={isSignatureRequired}>
+							<td>Signature Required:</td>
+							<td>{_ebizBillTerms.billdocssigreq}</td>
+						</tr>
+						<tr if:false={isSignatureRequired}>
+							<td>Signature Required:</td>
+							<td>N</td>
+						</tr>
+					</table>
+					<table class="slds-grow">
+						<tr>
+							<td>Direct Flag:</td>
+							<td>{_ebizBillTerms.billdocsdirectflag}</td>
+						</tr>
+						<tr>
+							<td>Mail Attn:</td>
+							<td>{_ebizBillTerms.billdocsmailattention}</td>
+						</tr>
+						<tr>
+							<td>Comments:</td>
+							<td>{_ebizBillTerms.billdocscomments1}</td>
+						</tr>
+						<tr>
+							<td>Ghost Card:</td>
+							<td>{hasGhostCard}</td>
+						</tr>
+					</table>
+				</div>
+				<div if:false={showCeditInfo} class="slds-m-top_medium">
+					<a href="https://officedepot.sharepoint.com/:x:/r/sites/BSDReportsPortal/_layouts/15/Doc.aspx?sourcedoc=%7B065CCA68-E678-40D8-9452-0A9C5028DA5F%7D&file=AR%20-%20Approaching%20Credit%20Limits.xlsx&action=default&mobileredirect=true" target="_blank">Approaching Credit Limit Report</a>
+				</div>
+				
+				<div class="slds-grid" if:true={noCreditLimit}><br/>No  credit limit information to display</div>
+				<template if:false={showCeditInfo} for:each={_ebizCreditLimits} for:item="item">
+					<div class="slds-m-top_medium" key={item.currencycode}>
+						<div>{item.currencycode}</div>
+						<div class="slds-grid">
+							<div class="slds-m-right_medium">Overall Credit Limit:</div>
+							<div class="slds-col_bump-left">${item.overallcreditlimit}</div>
+						</div>
+						<div class="slds-grid">
+							<div class="slds-m-right_medium">Transaction Credit Limit:</div>
+							<div class="slds-col_bump-left">${item.trxcreditlimit}</div>
+						</div>
+						<!--Start: Added by Rajendra Shahane for NAIT-145905 Display Parent Overall Credit Limit in Customer 360 -->
+						<div class="slds-grid">
+							<div class="slds-m-right_medium"> Open To Buy Credit Limit:</div>
+							<div class="slds-col_bump-left">${item.otbcreditlimit}</div>
+						</div>
+						<div class="slds-grid">
+							<div class="slds-m-right_medium">Overall Parent Hierarchy Level Credit Limit:</div>
+							<div class="slds-col_bump-left">${item.parenthiercreditlimit}</div>
+						</div>
+						<!--End: Added by Rajendra Shahane for NAIT-145905 Display Parent Overall Credit Limit in Customer 360 -->
+					</div>
+				</template>
+			</div>
+			<!--Start: Added by Rajendra Shahane for NAIT-136440 Display Combined Aging for Accounts within a Parent/Child Relationship in Customer 360 -->
+			<div class="slds-box" >
+				<div class="slds-grid slds-m-bottom_small">
+					<span class="slds-m-right_small">
+						<lightning-icon icon-name="standard:lead_list" title="Aging Buckets">
+						</lightning-icon>
+					</span>
+					<div class="slds-text-heading_medium slds-col_bump-top slds-col_bump-bottom">Aging Buckets</div>
+				</div>
+				<div class="slds-grid" if:true={noAgingBuckets}>No aging information to display</div>
+				<div class="slds-grid" if:true={_ebizAgingBucket}>
+                <lightning-accordion allow-multiple-sections-open="true" active-section-name="B">
+                    <template for:each={_ebizAgingBucket} for:item="aging">                        
+                        <lightning-accordion-section key={aging.custaccountid} name={aging.partyname} label={aging.partyname}>
+                            <table class="slds-grow">
+								<tr>
+									<td>Current:</td>
+									<td>${aging.curr}</td>
+								</tr>
+								<tr>
+									<td>1 to 30 Days:</td>
+									<td>${aging.pd130}</td>
+								</tr>
+								<tr>
+									<td>31 to 60 Days:</td>
+									<td>${aging.pd3160}</td>
+								</tr>
+								<tr>
+									<td>61 to 90 Days:</td>
+									<td>${aging.pd6190}</td>
+								</tr>
+								<tr>
+									<td>91 to 180 Days :</td>
+									<td>${aging.pd91180}</td>
+								</tr>
+								<tr>
+									<td>181 to 365 Days:</td>
+									<td>${aging.pd181365}</td>
+								</tr>
+								<tr>
+									<td>366+ Days:</td>
+									<td>${aging.pd366}</td>
+								</tr>
+							</table>
+                        </lightning-accordion-section>
+                    </template>
+                </lightning-accordion>
+			</div>
+		</div>
+		<!--End: Added by Rajendra Shahane for NAIT-136440 Display Combined Aging for Accounts within a Parent/Child Relationship in Customer 360 -->
+		</div>
+	</div>
+</template>

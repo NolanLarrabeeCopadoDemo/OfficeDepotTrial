@@ -1,0 +1,13 @@
+<apex:page standardController="Account" extensions="XrefDataAccount" readOnly="true">
+<apex:pageBlock >
+    <apex:pageBlockTable value="{!LoadData}" var="l" rendered="{!IF(LoadData.size=0,false,true)}">
+       <apex:column value="{!l.AOPS_Id__c}" headerValue="AOPS Number"></apex:column> 
+       <apex:column value="{!l.OMX_Key__c}" headerValue="OMX Key"></apex:column>
+       <apex:column value="{!l.Created_Date__c}" headerValue="AOPS Created Date"></apex:column>
+       <apex:column value="{!l.Source_Desc__c}" headerValue="Source"></apex:column>
+    </apex:pageBlockTable>
+
+    <apex:outputPanel rendered="{!IF(LoadData.size=0,true,false)}">No records to display</apex:outputPanel>
+
+</apex:pageBlock>
+</apex:page>

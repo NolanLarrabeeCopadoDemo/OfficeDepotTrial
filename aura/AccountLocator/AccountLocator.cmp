@@ -1,0 +1,5 @@
+<aura:component implements="force:appHostable">
+            <aura:attribute name="subrecordIdLocator" type="Id" access="global"/>
+    <c:AccountMap />
+    <c:AccountListNew subrecordIdList="{!v.subrecordIdLocator}"/>                                     
+</aura:component>

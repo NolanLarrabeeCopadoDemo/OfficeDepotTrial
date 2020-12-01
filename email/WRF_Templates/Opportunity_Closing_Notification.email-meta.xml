@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>email sent to Bid task owner if the opportunity stage changes to 0%, 90% or 100%</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Opportunity Closing Notification</name>
+    <style>freeForm</style>
+    <subject>Opportunity Closed - {!Case.Subject}</subject>
+    <textOnly>The opportunity attached to this support ticket has been closed.  This may affect current work on this request.  Please review and contact the rep, if necessary, to followup.
+
+Support #:  {!Case.CaseNumber}
+Request Type:  {!Case.WRF_Request_Type__c}
+Account Name:  {!Case.Account}
+Requester Name:  {!Case.WRF_Requestor_Name__c}
+Link to Support Case: Click Here
+Link to Opportunity: Click Here
+New Stage:  {!Opportunity.StageName}
+
+If you are aware of this opportunity closing and are in the process of implementing pricing, please disregard this notification.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

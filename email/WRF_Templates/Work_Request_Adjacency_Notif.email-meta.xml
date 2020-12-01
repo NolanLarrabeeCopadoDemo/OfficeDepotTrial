@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification used for WRFs created with Adjacency.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Work Request Adjacency Notif</name>
+    <style>freeForm</style>
+    <subject>Work Request # {!Case.CaseNumber}: {!Case.Subject} has been created.</subject>
+    <textOnly>*** WORK REQUEST NOTIFICATION ***
+
+The following work request has been created:
+
+WRF #: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+Adjacency: {!Case.WRF_ODP_Solutions__c}
+Sales Rep Name: {!Case.WRF_Requestor_Name__c}
+Company: {!Account.Name}
+Contact Name: {!Contact.Name}
+Size: {!Case.WRF_Oppty_Amount__c)
+
+Click here to go to the case: {!Case.Link}
+
+Thank you</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

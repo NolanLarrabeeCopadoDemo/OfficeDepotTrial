@@ -1,0 +1,43 @@
+<messaging:emailTemplate subject="ACE Customer Changes Notification {!relatedTo.Account__r.name}" recipientType="Contact" 
+relatedToType="Ace_Customer_SKU_Changes__c">
+
+
+
+  <messaging:htmlEmailBody >
+    <html>
+      <body>
+        <STYLE type="text/css">
+          TH {font-size: 11px; font-face: arial;background: #CCCCCC;
+               border-width: 1;  text-align: center } 
+          TD  {font-size: 11px; font-face: verdana } 
+          TABLE {border: solid #CCCCCC; border-width: 1}
+          TR {border: solid #CCCCCC; border-width: 1}
+        </STYLE>
+        <font face="arial" size="2">
+          <p>Dear {!recipient.name},</p>
+          <p>Below is a list of SKU related to the account: {!relatedTo.Account__r.name}.</p>
+          <table border="0" >
+            <tr > 
+               <th>Action</th>
+               <th>Case Number</th>
+               <th>Subject</th>
+               <th>Creator Email</th>
+               <th>Status</th>
+            </tr>
+           <!-- <apex:repeat var="cx" value="{!relatedTo.Cases}">
+              <tr>
+                <td><a href="https://na1.salesforce.com/{!cx.id}">View</a> |  
+                <a href="https://na1.salesforce.com/{!cx.id}/e">Edit</a></td>
+                <td>{!cx.CaseNumber}</td>
+                <td>{!cx.Subject}</td>
+                <td>{!cx.Contact.email}</td>
+                <td>{!cx.Status}</td>
+              </tr>
+            </apex:repeat>    -->             
+          </table>
+          <p />
+        </font>
+      </body>
+    </html>
+  </messaging:htmlEmailBody> 
+ </messaging:emailTemplate>

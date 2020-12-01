@@ -1,0 +1,727 @@
+<apex:page controller="MDR.MapMdrPersonnelDataController" standardStylesheets="false">
+<style>
+  .title {
+      font-size:large;
+  }
+  #intro {
+      font-size:larger;
+  }
+  </style>
+
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+<apex:includeScript value="{!URLFOR($Resource.MDR__ChosenZip, 'chosen.jquery.min.js')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.MDR__ChosenZip, 'chosen.min.css')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.MDR__MDRMapping, 'mdr-mapping.css')}"/>
+<apex:form >
+
+  <apex:pageMessages id="msgs" />
+
+
+<style type="text/css">
+        .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            /* These are the 3 css properties you will need to change so the popup 
+            displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can add 
+            the height property for a fixed size pop up if you want.*/
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+</style>        
+
+  <apex:outputPanel id="relatedobjectpopup">
+  <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+      <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayPopUp}">
+          Please select the reference field on the {!sfReferencingObject} object that should be used to connect to the {!sfReferencedObject} object for mapping purposes.<br/><br/><br/>
+          <!--
+          <apex:selectList id="selectReferenceField" multiselect="false" size="1" value="{!sfReferenceField}" styleClass="chosen" >
+            <apex:selectOptions value="{!lstReferenceFields}"/>
+          </apex:selectList>
+          -->
+          <br /><br />
+          <apex:commandButton value="Save" action="{!closePopup}" rerender="nidFieldMappingTable, msgs, relatedobjectpopup"/>
+      </apex:outputPanel>
+  </apex:outputPanel>
+
+
+
+<div class="mdr-wrapper">
+
+  <h2 class="mdr-step-title">1) Select Salesforce Object(s) Related to Personnel Data</h2>
+  <p style="font-size:larger;">
+  Please use the table below to define the Salesforce objects which contain MDR Personnel data fields.<br /><br />
+  For each object, please identify the field that is used to store the unique MDR-assigned Personnel identifer (i.e. "NID").
+  </p>
+ 
+<apex:outputPanel id="nidFieldMappingTable">
+
+<script>
+  function refreshnidfields() {
+    mappedNID = {!lstMappedNID};
+    mappedPidFields = {!lstMappedPidFields};
+
+    setupChosens();
+
+    var itemSelected = false;
+   
+    $("[id$='selectObject'] option").each(function()
+    {
+      itemSelected = false;
+      for (var i = 0; i < mappedNID.length; i++) 
+      {
+        if ($(this).val().toLowerCase() == mappedNID[i].toLowerCase())
+        {
+          itemSelected = true;
+          $(this).prop('disabled', true);
+        }
+      }
+      if (itemSelected)
+      {
+          $(this).prop('disabled', true);
+      }
+      else
+      {
+          $(this).prop('disabled', false);
+      }
+    }); 
+
+    $("#div_refselect").css("display", "none");
+    $("#div_reftext").css("display", "none");
+
+    $("[id$='selectObject']").val("");
+    $("[id$='selectObject']").trigger("chosen:updated");
+
+    $("[id$='selectNidField']").empty();
+    $("[id$='selectNidField']").trigger("chosen:updated");
+    
+    $("[id$='selectRefField']").empty();
+    $("[id$='selectRefField']").trigger("chosen:updated");
+
+    $("[id$='selectMdrField']").empty();
+
+    if (mappedPidFields.length > 0) {
+      $("[id$='selectMdrField']").append('<option value=""></option>');
+      for (var i2 = 0; i2 < mdrFields.length; i2++)  {
+        var mdrfielditems = mdrFields[i2].split("|");
+        //var mdrfieldvalitems = mdrFields[0].split(":");
+
+        $("[id$='selectMdrField']").append('<option value="' + mdrfielditems[0] + '">' + mdrfielditems[1] + '</option>');
+      }
+    }
+
+    $("[id$='selectMdrField']").trigger("chosen:updated");
+  }  
+</script>
+
+<apex:inputHidden id="PIDMappingToDelete" value="{!pidMappingToDelete}" />
+<apex:inputHidden id="NIDMappingToDelete" value="{!nidMappingToDelete}" />
+<apex:inputHidden id="MappingToDelete" value="{!mappingToDelete}" />
+
+
+<apex:dataTable value="{!lstPidNidFieldMappings}" var="mdrnidfieldmapping" styleClass="mdr-tbl" columnsWidth="28%,28%,28%,16%" headerClass="mdr-tbl--cell-header" rowClasses="odd,even" columnClasses="mdr-tbl--cell-field,mdr-tbl--cell-field,mdr-tbl--cell-field,mdr-tbl--cell-field,mdr-tbl--cell-action" footerClass="mdr-tbl--cell-footer" >
+      <!--<apex:facet name="header">Salesforce Objects selected for MDR field mapping</apex:facet>-->
+
+      <apex:column >
+        <apex:facet name="header">Salesforce Object</apex:facet>
+        <apex:outputText value="{!mdrnidfieldmapping.sfObject}"/>
+      </apex:column>
+
+      <apex:column >
+        <apex:facet name="header">Salesforce Field Containing MDR NID</apex:facet>
+        <apex:outputText value="{!mdrnidfieldmapping.sfNidField}"/>
+      </apex:column>
+
+      <apex:column >
+        <apex:facet name="header">Building Object : Reference Field</apex:facet>
+        <apex:outputText value="{!mdrnidfieldmapping.sfRelatedFields}"/>
+      </apex:column>
+
+      <apex:column >
+        <apex:facet name="header"></apex:facet>
+        <apex:commandLink id="DeleteNidMapping" value="Remove" action="{!deletenidmapping}" onclick="deletenidmapping('{!mdrnidfieldmapping.sfPidId}', '{!mdrnidfieldmapping.sfNidId}');" reRender="nidFieldMappingTable, msgs" onComplete="refreshnidfields();" />
+      </apex:column>
+
+    </apex:dataTable>
+     
+</apex:outputPanel>
+
+   <table class="mdr-tbl">
+      <colgroup span="3"><col width="28%"/><col width="28%"/><col width="28%"/><col width="16%"/></colgroup>
+
+    <tfoot>
+        <tr>
+          <td class="mdr-tbl--cell-footer">
+              <apex:selectList id="selectObject" multiselect="false" size="1" value="{!sfObject}" styleClass="chosen" >
+                <apex:selectOptions value="{!lstSupportedObjects}"/>
+              </apex:selectList>
+            </td>
+            <td class="mdr-tbl--cell-footer" style="position:relative">
+                <select id="selectNidField" multiselect="false" size="1" class="Xchosen" onchange="jQuery('[id$=hiddenField]').val(document.getElementById(this.id).value);"></select>
+                <apex:inputhidden value="{!sfNidField}" id="hiddenField" />
+                <img id="loading" src="{!URLFOR($Resource.MDRMapping, 'spinner-small.gif')}" width="50" style="display:none;position:absolute;top:0;left:100px;right:0;margin:0 auto;height:100%;width:auto;" />
+            </td>
+            <td class="mdr-tbl--cell-footer">
+              <div id="div_refselect" style="display:none">
+                <apex:selectList id="selectRefField" multiselect="false" size="1" value="{!sfRefField}" styleClass="chosen" >
+                  <apex:selectOptions value="{!lstReferenceFields}"/>
+                </apex:selectList>
+              </div>
+              <div id="div_reftext" style="display:none">
+                <apex:outputLabel id="lbl_reftext" />
+                <apex:inputHidden id="hid_reftext" value="{!hidRefText}" />
+              </div>
+            </td>
+            <td class="mdr-tbl--cell-action">
+              <apex:commandButton id="AddMappedObject" action="{!addmappedobject}" styleClass="mdr-button" value="Add Mapping Object" reRender="nidFieldMappingTable, msgs, relatedobjectpopup" onComplete="refreshnidfields();" />
+            </td>
+        </tr>
+    </tfoot>
+
+  </table>
+
+    <h2 class="mdr-step-title">2) Map MDR Fields to Selected Salesforce Objects</h2>
+    <p style="font-size:larger;">
+    Please select the MDR fields that you wish to map and their corresponding Salesforce fields.<br /> <br /> 
+    All appropriate fields will be available for the objects selected above (in Step #1). 
+    </p>
+    
+
+
+<apex:outputPanel id="fieldMappingTable">
+
+<script>
+    function refreshsfdcfields() {
+    /*
+        mappedSFDC = {!lstMappedSFDC};
+
+        //setupChosens();
+
+        setupSfdcFieldsDropdown();
+    */
+    }
+
+    function updateSelectedFieldsList(){
+        mappedSFDC.push($("[id$='selectSfdcField']").val())
+    }
+</script>
+
+  <apex:dataTable value="{!mdrfieldmappings}" var="mdrfieldmapping" styleClass="mdr-tbl" columnsWidth="44%, 40%, 16%" headerClass="mdr-tbl--cell-header" rowClasses="odd,even" columnClasses="mdr-tbl--cell-field,mdr-tbl--cell-field,mdr-tbl--cell-action" footerClass="mdr-tbl--cell-footer" >
+
+      <apex:column >
+        <apex:facet name="header">MDR Field</apex:facet>
+        <apex:outputText value="{!mdrfieldmapping.MDR__MDR_Field__c}" styleClass="mdr-tbl--link-icon"/>
+      </apex:column>
+
+      <apex:column >
+        <apex:facet name="header">Salesforce Field</apex:facet>
+        <apex:outputText value="{!mdrfieldmapping.MDR__Salesforce_Object__c} : {!mdrfieldmapping.MDR__Salesforce_Field__c}"/>
+      </apex:column>
+
+      <apex:column >
+        <apex:facet name="header"></apex:facet>
+          <apex:commandlink id="DeleteMapping" value="Remove" action="{!deletemapping}" onclick="deletemapping('{!mdrfieldmapping.Id}', '{!mdrfieldmapping.MDR__Salesforce_Field__c}');" rerender="fieldMappingTable, msgs" oncomplete="updateSelectedFieldsList();" />
+      </apex:column>
+
+    </apex:dataTable>
+    
+</apex:outputPanel>
+
+    <table class="mdr-tbl">
+        <colgroup span="3"><col width="44%"/><col width="40%"/><col width="16%"/></colgroup>
+        
+            <tfoot>
+                <tr>
+                    <td class="mdr-tbl--cell-footer">
+                        <apex:selectList id="selectMdrField" multiselect="false" size="1" value="{!mdrField}" styleClass="chosen" >
+                            <apex:selectOptions value="{!lstMdrFields}"/>
+                        </apex:selectList>
+                    </td>
+                    <td class="mdr-tbl--cell-footer" style="position:relative">
+                        <select id="selectSfdcField" multiselect="false" size="1" class="Xchosen" onchange="jQuery('[id$=hiddensfField]').val(document.getElementById(this.id).value);"></select>
+                        <apex:inputhidden value="{!sfField}" id="hiddensfField" />
+                        <img id="loadingfields" src="{!URLFOR($Resource.MDRMapping, 'spinner-small.gif')}" width="50" style="display:none;position:absolute;top:0;left:100px;right:0;margin:0 auto;height:100%;width:auto;" />
+                    </td>
+                    <td class="mdr-tbl--cell-action">
+                        <apex:commandbutton id="AddMappedField" action="{!addmappedfield}" styleclass="mdr-button" value="Add Mapped Field" rerender="fieldMappingTable, msgs" onclick="updateSelectedFieldsList();" oncomplete="refreshsfdcfields();" />
+                    </td>
+                </tr>
+           </tfoot>
+       
+    </table>
+
+    <apex:commandButton id="SaveMappings" action="{!save}" styleClass="mdr-button mdr-button-submit" value="Save Personnel Mappings" rendered="{!displaySave}" reRender="msgs" />
+  
+  </div>
+  
+</apex:form>
+
+<script>
+
+  var mappedPID = {!lstMappedPID};
+  var mappedNID = {!lstMappedNID};
+  var mappedSFDC = {!lstMappedSFDC};
+  var objectfields = "";
+  var refObjectsfields = {!lstRefObjectsAndFields};
+  var fields = "";
+  var mappedPidFields = {!lstMappedPidFields};
+  var mdrFields = {!lstMdrFieldsList};
+
+   function getandSetFields(selectedItem) {
+        console.log('getandSetFields: ' + selectedItem);
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.MapMdrPersonnelDataController.getSfdcFields}',
+            selectedItem,
+            function(result, event){
+                if (event.status) {
+                    var objectfields = result;
+
+                    $("[id$=selectNidField]").empty();
+
+                    $("[id$=selectNidField]").append('<option value=""></option>');
+
+                    for (var i = 0; i < objectfields.length; i++)  {
+                      var objectfielditems = objectfields[i].split("|");
+                      var objectfieldvalitems = objectfielditems[0].split(":");
+
+                      if (objectfieldvalitems[0].replace(/&quot;/g,"").toLowerCase() == selectedItem) {
+                        if ((objectfieldvalitems[1] == "DOUBLE") || (objectfieldvalitems[1] == "INTEGER") || (objectfieldvalitems[1] == "STRING")) {
+                          $("[id$=selectNidField]").append('<option value="' + objectfielditems[0] + '">' + objectfielditems[1] + '</option>');
+                        }
+                      }
+                    }
+
+                    $("[id$='selectNidField']").trigger("chosen:updated");
+
+                } else if (event.type === 'exception') {
+                  //  document.getElementById("responseErrors").innerHTML = event.message;
+                } else {
+                   // document.getElementById("responseErrors").innerHTML = event.message;
+                    }
+                    $("#loading").hide();
+                },
+                {escape: true}
+            );
+    }
+
+   function getandSetObjectsFields(selectedItem) {
+        console.log('getandSetObjectsFields: ' + mappedPID);
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.MapMdrPersonnelDataController.getSfdcObjectsFields}',
+            mappedNID,
+            function(result, event){
+                if (event.status) {
+
+                    console.log('event.status');
+                    var objectfields = result;
+                    console.log('fields: ' + objectfields);
+
+                    $("[id$=selectSfdcField]").empty();
+                    $("[id$=selectSfdcField]").append('<option value=""></option>');
+
+                    for (var i = 0; i < objectfields.length; i++)  {
+                        var objectfielditems = objectfields[i].split("|");
+                        var objectfieldvalitems = objectfielditems[0].split(":");
+
+                        console.log('objectfielditems: ' + objectfielditems);
+                        console.log('objectfieldvalitems: ' + objectfieldvalitems);
+
+                        var itemSelected = false;
+
+                        if ((objectfieldvalitems[1] != "ID") && (objectfieldvalitems[1] != "REFERENCE")) {
+                            for (var i3 = 0; i3 < mappedSFDC.length; i3++)
+                            {
+                                if (mappedSFDC[i3] != null)
+                                {
+                                  if (mappedSFDC[i3].toLowerCase() == objectfielditems[0].toLowerCase()) {
+                                    itemSelected = true;
+                                    break;
+                                  }
+                                }
+                            }
+
+                            for (var i4 = 0; i4 < mappedPidFields.length; i4++)
+                            {
+                              if (mappedPidFields[i4].toLowerCase() == objectfielditems[0].toLowerCase()) {
+                                itemSelected = true;
+                                break;
+                              }
+                            }
+
+                            var fieldvalues = objectfielditems[0].split(':');
+                            var displaytext = fieldvalues[0] + ' : ' + fieldvalues[2] + ' (' + fieldvalues[1] + ')';
+
+                            if (itemSelected) {
+                              $("[id$=selectSfdcField]").append('<option value="' + objectfielditems[0] + '" disabled>' + displaytext  + '</option>');
+                            }
+                            else {
+                              $("[id$=selectSfdcField]").append('<option value="' + objectfielditems[0] + '">' + displaytext + '</option>');
+                            }
+                        }
+                    }
+
+                    $("[id$='selectSfdcField']").trigger("chosen:updated");
+
+                } else if (event.type === 'exception') {
+                    console.log('exception');
+                  //  document.getElementById("responseErrors").innerHTML = event.message;
+                } else {
+                    console.log('no exception');
+                   // document.getElementById("responseErrors").innerHTML = event.message;
+                    }
+                    $("#loadingfields").hide();
+                },
+                {escape: true}
+            );
+    }
+
+  jQuery(document).ready(function(){
+
+    setupChosens();
+
+    //******************************
+    // Salesforce Object (selectObject): display fields for selected object in selectNidField
+    //******************************
+    $("[id$='selectObject']").change(function () {
+
+        var objectName = $(this).val();
+        var options = [];
+        $("#loading").show();
+        getandSetFields( $(this).val());
+
+    });
+
+    //******************************
+    // MDR Field (selectMdrField):
+    //    display fields for objects with mapped pid field
+    //    display fields whose types match the MDR field
+    //    disable if already mapped
+    //******************************
+    $("[id$='selectMdrField']").change(function () {
+        console.log('selectMdrField change');
+        var objectName = $(this).val();
+        var options = [];
+        $("#loadingfields").show();
+        getandSetObjectsFields( $(this).val());
+    });
+
+    //******************************
+    // Salesforce Object (selectObject): display fields for selected object in selectNidField
+    //******************************
+    $("[id$='selectObject']").change(function () {
+        var objectName = $(this).val();
+        var options = [];
+
+        var objectfields = {!lstSFDCFields};
+
+        $("[id$='selectNidField']").empty();
+        $("[id$='selectNidField']").append('<option value=""></option>');
+
+        $("[id$='selectRefField']").empty();
+        $("[id$='selectRefField']").append('<option value=""></option>');
+
+        for (var i = 0; i < objectfields.length; i++)  {
+          var objectfielditems = objectfields[i].split("|");
+          var objectfieldvalitems = objectfielditems[0].split(":");
+          if (objectfieldvalitems[0].toLowerCase() == objectName) {
+            if ((objectfieldvalitems[1] == "DOUBLE") || (objectfieldvalitems[1] == "INTEGER") || (objectfieldvalitems[1] == "STRING")) {
+              $("[id$='selectNidField']").append('<option value="' + objectfielditems[0] + '">' + objectfielditems[1] + '</option>');
+            }
+          }
+        }
+        $("[id$='selectNidField']").trigger("chosen:updated");
+        $("[id$='selectRefField']").trigger("chosen:updated");
+
+        //Now go through the reference fields, find the one(s) for the selected object, and determine whether to display a dropdown or
+        //just text
+        var lastrefobject = '';
+        var refobjecttext = '';
+        var numrefs = 0;
+        var needdropdown = false;
+
+        var refobjectarray = [];
+        var refobjectentry = {};
+        var refobjectname = '';
+        var reffields = [];
+        var iobjects = 0;
+        var ifields = 0;
+
+        for (var i = 0; i < refObjectsfields.length; i++)  {
+          //potentialObject + ':' + referencedObject + ':' + fieldName
+          var reffieldvalitems = refObjectsfields[i].split(":");
+          if (reffieldvalitems[0].toLowerCase() == objectName.toLowerCase()) {
+
+            if (lastrefobject.toLowerCase() == reffieldvalitems[1].toLowerCase()) {
+
+              reffields[ifields] = reffieldvalitems[2];
+              ifields += 1;
+
+              //numrefs += 1;
+              //if (numrefs > 1) {
+              //  needdropdown = true;
+              //}
+            }
+            else {
+
+              if (refobjectname != '') {
+                refobjectentry.objectname = refobjectname;
+                refobjectentry.fields = reffields;
+                refobjectarray[iobjects] = refobjectentry;
+                iobjects += 1;
+              }
+              refobjectentry = {};
+              refobjectname = '';
+              reffields = [];
+
+              refobjectname = reffieldvalitems[1];
+              reffields[0] = reffieldvalitems[2];
+              ifields = 1;
+
+              lastrefobject = reffieldvalitems[1];
+              //numrefs = 1;
+            }
+          }
+        }
+
+        //add last entry
+        refobjectentry.objectname = refobjectname;
+        refobjectentry.fields = reffields;
+        refobjectarray[iobjects] = refobjectentry;
+
+        for (var i = 0; i < refobjectarray.length; i++) {
+          if (refobjectarray[i].fields.length > 1) {
+            needdropdown = true;
+            for (var i2 = 0; i2 < refobjectarray[i].fields.length; i2++) {
+              $("[id$='selectRefField']").append('<option value="' + refobjectarray[i].objectname + ':' + refobjectarray[i].fields[i2] + '">' + refobjectarray[i].objectname + ':' + refobjectarray[i].fields[i2] + '</option>');
+            }
+          }
+          else {
+            refobjecttext += refobjectarray[i].objectname + ':' + refobjectarray[i].fields[0] + ' ';
+            $("[id$='hid_reftext']").val(refobjecttext);
+          }
+        }
+
+        if (needdropdown) {
+          $("[id$='selectRefField']").trigger("chosen:updated");
+          $("#div_refselect").css("display", "inline");
+          $("#div_reftext").css("display", "none");
+        }
+        else {
+          $("#div_refselect").css("display", "none");
+          $("#div_reftext").css("display", "inline");
+          $("[id$='lbl_reftext']").text(refobjecttext);
+        }
+
+    });
+
+
+    //******************************
+    // MDR Field (selectMdrField):
+    //    display fields for objects with mapped nid field
+    //    display fields whose types match the MDR field
+    //    disable if already mapped
+    //******************************
+    $("[id$='selectMdrField']").change(function () {
+        setupSfdcFieldsDropdown();
+    });
+
+    //******************************
+    // Add Mapped Field
+    //******************************
+    $("[id$=AddMappedField]").click(function () {
+
+      $("[id$='selectSfdcField']").empty();
+      $("[id$='selectSfdcField']").trigger("chosen:updated");
+
+      $("[id$='selectMdrField']").val("");
+      $("[id$='selectMdrField']").trigger("chosen:updated");
+
+    });
+
+  });
+
+  function setupChosens() {
+
+    $("[id$='selectObject']").chosen({
+      search_contains:true,
+      width:'240px',
+      placeholder_text_single:'Please select a Salesforce object'
+    });
+
+    $("[id$='selectNidField']").chosen({
+      search_contains:true,
+      width:'300px',
+      placeholder_text_single:'Please select a Salesforce field'
+    });
+
+    $("[id$='selectRefField']").chosen({
+      search_contains:true,
+      width:'300px',
+      placeholder_text_single:'Please select a Related field'
+    });
+
+    $("[id$='selectMdrField']").chosen({
+      search_contains:true,
+      width:'350px',
+      placeholder_text_single:'Please select an MDR field'
+    });
+
+    $("[id$='selectSfdcField']").chosen({
+      search_contains:true,
+      width:'310px',
+      placeholder_text_single:'Please select a Salesforce field'
+    });
+
+    //******************************
+    // No MDR fields to select if no objects have been mapped yet.
+    //******************************
+    if (mappedNID.length == 0)
+    {
+      $("[id$='selectMdrField']").empty();
+      $("[id$='selectMdrField']").trigger("chosen:updated");
+    }
+
+    //******************************
+    // Salesforce Objects (selectObject): disable if already selected/mapped
+    //******************************
+    for (var i = 0; i < mappedNID.length; i++)
+    {
+      $("[id$='selectObject'] option").each(function()
+      {
+        if (mappedNID[i] == $(this).val())
+        {
+          $(this).prop('disabled', true);
+          return;
+        }
+      });
+    }
+
+    $("[id$='selectObject']").trigger("chosen:updated");
+
+
+    //******************************
+    // Salesforce NID Fields (selectNidField): empty until they select an object
+    //******************************
+    $("[id$='selectNidField']").empty();
+    $("[id$='selectNidField']").append('<option value="">&nbsp;</option>');
+    $("[id$='selectNidField']").trigger("chosen:updated");
+
+    //******************************
+    // Salesforce Reference Fields (selectRefField): empty until they select an object
+    //******************************
+    $("[id$='selectRefField']").empty();
+    $("[id$='selectRefField']").append('<option value="">&nbsp;</option>');
+    $("[id$='selectRefField']").trigger("chosen:updated");
+
+
+    //******************************
+    // Salesforce Fields (selectSfdcField):
+    //    disable if already mapped to
+    //    empty until they select an MDR field
+    //******************************
+    $("[id$='selectSfdcField']").empty();
+    $("[id$='selectSfdcField']").append('<option value="">&nbsp;</option>');
+    $("[id$='selectSfdcField']").trigger("chosen:updated");
+
+  }
+
+  function setupSfdcFieldsDropdown() {
+
+      var options = []
+      ,   sfdcField = $("[id$='selectSfdcField']");
+
+      sfdcField.empty();
+
+      sfdcField.append('<option value=""></option>');
+
+      for (var i = 0; i < mappedNID.length; i++)  {
+
+        for (var i2 = 0; i2 < objectfields.length; i2++)  {
+          var objectfielditems = objectfields[i2].split("|");
+          var objectfieldvalitems = objectfielditems[0].split(":");
+
+          if (mappedNID[i].toLowerCase() == objectfieldvalitems[0].toLowerCase()) {
+            //object has nid field mapped, so ok to include (if field type matches)
+
+            if ((objectfieldvalitems[1] != "ID") && (objectfieldvalitems[1] != "REFERENCE")) {
+              var itemSelected = false;
+
+              for (var i3 = 0; i3 < mappedSFDC.length; i3++)
+              {
+                if (mappedSFDC[i3].toLowerCase() == objectfielditems[0].toLowerCase()) {
+                  itemSelected = true;
+                  break;
+                }
+              }
+
+              for (var i4 = 0; i4 < mappedPidFields.length; i4++)
+              {
+                if (mappedPidFields[i4].toLowerCase() == objectfielditems[0].toLowerCase()) {
+                  itemSelected = true;
+                  break;
+                }
+              }
+
+              if (itemSelected) {
+                sfdcField.append('<option value="' + objectfielditems[0] + '" disabled>' + objectfielditems[1] + '</option>');
+              }
+              else {
+                sfdcField.append('<option value="' + objectfielditems[0] + '">' + objectfielditems[1] + '</option>');
+              }
+            }
+          }
+        }
+      }
+        // sfdcField.append('<option value="test">just a test</option>');
+
+
+        // alert('k'+document.body.scrollHeight);
+
+        // alert('sfdcField.height' + sfdcField.height());
+
+      sfdcField.trigger("chosen:updated");
+
+        // alert('l'+document.body.scrollHeight);
+
+  }
+
+  function deletenidmapping(pidmappingid, nidmappingid) {
+    $("[id$='PIDMappingToDelete']").val(pidmappingid);
+    $("[id$='NIDMappingToDelete']").val(nidmappingid);
+  }
+
+  function deletemapping(mappingid, mappingname) {
+    console.log('mappingid: ' + mappingid);
+    console.log('mappingname: ' + mappingname);
+    console.log('mappedSFDC: ' + mappedSFDC);
+    $("[id$='MappingToDelete']").val(mappingid);
+    var newMappedSFDC = [];
+    for (var i3 = 0; i3 < mappedSFDC.length; i3++) {
+        if (mappedSFDC[i3] != null) {
+            if (mappedSFDC[i3].indexOf(mappingname) == -1) {
+                newMappedSFDC.push(mappedSFDC[i3]);
+            }
+        }
+    }
+    mappedSFDC = newMappedSFDC;
+  }
+
+</script>  
+</apex:page>

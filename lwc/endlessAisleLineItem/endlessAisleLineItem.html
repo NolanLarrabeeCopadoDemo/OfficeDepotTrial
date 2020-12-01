@@ -1,0 +1,263 @@
+<template>
+	<div class={lineItemClass}>
+		<div class="slds-has-flexi-truncate">
+			<div class="slds-grid slds-p-around_medium">
+				<div class="slds-col_bump-right slds-grid slds-m-right_medium slds-grow slds-scrollable_none">
+					<div class="slds-form-element slds-m-right_medium">
+						<div class="slds-form-element__control">
+							<div class="slds-checkbox">
+								<input type="checkbox" name="options" id="options" value="options"
+									onchange={onSelectionChange} />
+								<label class="slds-checkbox__label" for="options">
+									<span class="slds-checkbox_faux od-lineitem-custom-checkbox"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="slds-grid slds-grid_vertical slds-scrollable_none">
+						<div class="slds-grid">
+							<template if:false={isValid}>
+								<div class="slds-m-right_medium">
+									<lightning-icon icon-name="utility:error" alternative-text="Error"
+										size="small" title="Error" variant="error">
+									</lightning-icon>
+								</div>
+							</template>
+							<h1 class="slds-text-heading_small slds-truncate" style="font-weight: 500;">
+								{_lineItemData.itemDescription}
+							</h1>
+						</div>
+						<div class="slds-scrollable_x slds-grid slds-col_bump-top">
+							<span class="slds-text-color_weak slds-m-right_small" style="font-size: x-small;">
+								Sold by {_lineItemData.supplierName}
+							</span>
+							<template if:true={isExpanded}>
+								<template if:true={isMpnAvailable}>
+									<span class="slds-text-color_weak slds-m-right_small" style="font-size: x-small;">
+										MFG Part #: {_lineItemData.mfgPartNumber}
+									</span>
+								</template>
+								<template if:true={isMfgIdAvailable}>
+									<span class="slds-text-color_weak slds-m-right_small" style="font-size: x-small;">
+										MFG: {_lineItemData.vendorManufacturerName}
+									</span>
+								</template>
+							</template>
+						</div>
+					</div>
+				</div>
+				<div
+					class="slds-col_bump-left slds-grid">
+					<div class="slds-col_bump-left slds-m-right_small slds-col_bump-top" style="width: 120px;">
+						<lightning-input onblur={onInputBlur} label="Unit Price" value={_lineItemData.customerPrice}
+							type="number"
+							formatter="currency" min="0.01" step="any" onchange={onUnitPriceChange}
+							message-when-bad-input=" " message-when-range-underflow=" " message-when-range-overflow=" ">
+						</lightning-input>
+					</div>
+					<div class="slds-m-right_small slds-col_bump-top" style="width: 80px;">
+						<lightning-input onblur={onInputBlur} label="Qty" value={_lineItemData.quantity} type="number"
+							min="1" max="9999" step="1"
+							onchange={onQuantityChange} message-when-bad-input=" " message-when-range-underflow=" "
+							message-when-range-overflow=" "
+							message-when-step-mismatch=" "></lightning-input>
+					</div>
+					<div class="slds-m-right_medium slds-col_bump-top" style="width: 100px;">
+						<lightning-input label="Subtotal" value={_lineItemData.totalPrice}
+							formatter="currency"
+							type="number"
+							read-only>
+						</lightning-input>
+					</div>
+					<div class="slds-grid slds-col_bump-top">
+						<button class="slds-button slds-m-right_small slds-button_neutral slds-text-align_center"
+							style="box-shadow: none;"
+							onclick={onEditValuesClick}>
+							<span class={expandButtonClass} style="position: absolute;">Expand</span>
+							<span class={collapseButtonClass}>Collapse</span>
+						</button>
+						<lightning-button-menu alternative-text="Toggle menu" menu-alignment="right"
+							icon-size="small"
+							variant="border-filled">
+							<lightning-menu-item label={editValuesButtonMenuLabel} value="edit-values"
+								prefix-icon-name="utility:quote"
+								onclick={onEditValuesClick}>
+							</lightning-menu-item>
+							<lightning-menu-item label="UPC Lookup" value="upc-lookup"
+								prefix-icon-name="utility:search"
+								onclick={onUPCLookupClick}>
+							</lightning-menu-item>
+							<lightning-menu-item label="More Details" value="more-details"
+								prefix-icon-name="utility:richtextbulletedlist"
+								onclick={onMoreDetailsClick}>
+							</lightning-menu-item>
+							<lightning-menu-item label="Remove" value="remove" prefix-icon-name="utility:delete"
+								onclick={onRemoveClick}>
+							</lightning-menu-item>
+						</lightning-button-menu>
+					</div>
+				</div>
+			</div>
+			<div style={expandedDivClass}>
+				<div class="od-group-field-container slds-p-horizontal_medium">
+					<div class="slds-col_bump-left slds-grid slds-scrollable_x slds-p-vertical_medium">
+						<div class="od-group-field slds-m-right_medium">
+							<div class="slds-grid slds-m-bottom_small">
+								<span class="slds-m-right_small">Line #</span>
+								<div class="slds-col_bump-left">
+									<lightning-input onblur={onInputBlur} variant="label-hidden" label="Line #"
+										value={_lineItemData.lineNumber}
+										type="number" min="0"
+										step="1" onchange={onLineNumberChange} required
+										message-when-value-missing=" "
+										message-when-bad-input=" " message-when-range-underflow=" ">
+									</lightning-input>
+								</div>
+							</div>
+							<div class="slds-grid">
+								<span class="slds-m-right_small">Vendor Quote ID</span>
+								<div class="slds-col_bump-left">
+									<template if:false={wasCostModified}>
+										<lightning-input onblur={onInputBlur} variant="label-hidden"
+											label="Vendor Quote ID"
+											value={_lineItemData.vendorQuoteNumber}
+											type="text" onchange={onVendorQuoteNumberChange}
+											message-when-pattern-mismatch=" "></lightning-input>
+									</template>
+									<template if:true={wasCostModified}>
+										<lightning-input onblur={onInputBlur} variant="label-hidden"
+											label="Vendor Quote ID" pattern="\S+"
+											value={_lineItemData.vendorQuoteNumber}
+											type="text" onchange={onVendorQuoteNumberChange}
+											message-when-value-missing=" "
+											message-when-pattern-mismatch=" "
+											required></lightning-input>
+									</template>
+								</div>
+							</div>
+						</div>
+						<div class="od-group-field slds-m-right_medium">
+							<div class="slds-m-bottom_small">
+								<div class="slds-form-element slds-grid">
+									<span class="slds-m-right_small">OD MFG ID</span>
+									<div class="slds-col_bump-left slds-grid" style="flex: 1; width: 0;">
+										<div class="slds-grow">
+											<input onblur={onInputBlur} type="text" class="slds-input"
+												value={_lineItemData.odManufacturerId} required readonly />
+										</div>
+										<div class="slds-m-left_x-small">
+											<lightning-button-icon icon-name="utility:search" alternative-text="Search"
+												title="Search" onclick={onManufacturerLookupClick} variant="brand">
+											</lightning-button-icon>
+										</div>
+										<div class="slds-m-left_x-small">
+											<lightning-button-icon icon-name="utility:close" alternative-text="Clear"
+												title="Clear" onclick={onManufacturerClearClick}>
+											</lightning-button-icon>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="slds-grid">
+								<span class="slds-m-right_small">MFG Part #</span>
+								<div class="slds-col_bump-left">
+									<lightning-input onblur={onInputBlur} variant="label-hidden" label="MFG Part #"
+										value={_lineItemData.mfgPartNumber} type="text"
+										onchange={onMfgPartNumberChange}>
+									</lightning-input>
+								</div>
+							</div>
+						</div>
+						<div class="od-group-field slds-m-right_medium">
+							<div class="slds-m-bottom_small slds-grid">
+								<span class="slds-m-right_small">Original Cost</span>
+								<div class="slds-col_bump-left">
+									<lightning-input label="Original Cost"
+										value={_lineItemData.originalCost}
+										type="number"
+										formatter="currency" variant="label-hidden" read-only></lightning-input>
+								</div>
+							</div>
+							<div class="slds-grid">
+								<span class="slds-m-right_small">Cost</span>
+								<div class="slds-col_bump-left">
+									<lightning-input onblur={onInputBlur} label="Cost"
+										value={_lineItemData.adjustedCost} type="number"
+										formatter="currency" variant="label-hidden" min="0.01" step="any"
+										onchange={onCostChange}
+										message-when-bad-input=" " message-when-range-underflow=" ">
+									</lightning-input>
+								</div>
+							</div>
+						</div>
+						<div class="od-group-field slds-m-right_medium">
+							<div class="slds-grid slds-m-bottom_small">
+								<span class="slds-m-right_small">List Price</span>
+								<div class="slds-col_bump-left">
+									<lightning-input label="List Price"
+										value={_lineItemData.maxListPrice} type="number"
+										formatter="currency" variant="label-hidden" read-only>
+									</lightning-input>
+								</div>
+							</div>
+							<div class="slds-grid">
+								<span class="slds-m-right_small">Shipping</span>
+								<div class="slds-col_bump-left">
+									<lightning-input onblur={onInputBlur} variant="label-hidden" label="Shipping"
+										value={_lineItemData.shipping}
+										type="number"
+										formatter="currency" min="0" step="any" onchange={onShippingChange}
+										message-when-bad-input=" " message-when-range-underflow=" ">
+									</lightning-input>
+								</div>
+							</div>
+						</div>
+						<div
+							class="od-group-field slds-grid">
+							<span class="slds-m-right_small">Margin</span>
+							<template if:true={isMarginPercentSelected}>
+								<lightning-input onblur={onInputBlur} variant="label-hidden" type="number"
+									name="margin-percent"
+									value={_lineItemData.marginPercent} formatter="decimal"
+									step="any"
+									label="Margin" onchange={onMarginPercentChange} message-when-bad-input=" ">
+								</lightning-input>
+							</template>
+							<template if:true={isMarginDollarSelected}>
+								<lightning-input onblur={onInputBlur} variant="label-hidden" type="number"
+									name="margin-dollar"
+									value={_lineItemData.marginDollar} formatter="currency"
+									step="any"
+									label="Margin" onchange={onMarginDollarChange} message-when-bad-input=" ">
+								</lightning-input>
+							</template>
+							<form class="slds-m-left_x-small">
+								<fieldset>
+									<div class="slds-form-element__control">
+										<div class="slds-radio_button-group">
+											<span class="slds-button slds-radio_button">
+												<input type="radio" name="radio" class="percent-1"
+													id="percent-1"
+													onchange={onMarginPercentSelection} />
+												<label class="slds-radio_button__label" for="percent-1">
+													<span class="slds-radio_faux">%</span>
+												</label>
+											</span>
+											<span class="slds-button slds-radio_button">
+												<input type="radio" name="radio" class="dollar-1" id="dollar-1"
+													onchange={onMarginDollarSelection} />
+												<label class="slds-radio_button__label" for="dollar-1">
+													<span class="slds-radio_faux">$</span>
+												</label>
+											</span>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

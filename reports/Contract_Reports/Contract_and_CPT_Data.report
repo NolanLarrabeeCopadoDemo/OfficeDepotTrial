@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CONTRACT_ID</field>
+    </columns>
+    <columns>
+        <field>CONTRACT_NUMBER</field>
+    </columns>
+    <columns>
+        <field>Contract.GP_decr_req_to_be_applied_to_Cust_Core__c</field>
+    </columns>
+    <columns>
+        <field>Contract.Parent_decr_req_applied_to_Cust_Core__c</field>
+    </columns>
+    <columns>
+        <field>Contract.Child_decr_req_to_be_applied_to_Cus_Core__c</field>
+    </columns>
+    <columns>
+        <field>Contract.Standalonedecr_req_to_be_applied_to_Cust__c</field>
+    </columns>
+    <columns>
+        <field>Contract_Pricing_Terms__c.Are_obligated_to_pass_on_cost_decreases__c</field>
+    </columns>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Contract_Pricing_Terms__c.Relevant_Customer_Level__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Contract and CPT Data</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>ContractCustomEntity$Contract_Pricing_Terms__c</reportType>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>START_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

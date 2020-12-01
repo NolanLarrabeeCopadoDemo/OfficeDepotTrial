@@ -1,0 +1,243 @@
+<apex:page readOnly="true" controller="ACE_SKU_List_Controller" action="{!getURL}" 
+            showHeader="true" sidebar="true" title="Impacted SKU List" id="page1">
+    <Style>
+        // .headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: white;}
+        .col1 {width:50%;}
+        .col2 {width:40%;}
+        .col3 {width:10%;text-align: right; align:right;}
+        .btn1{width:33%;text-align: left; align:left;}
+        .btn2 {width:33%;text-align: right; align:center;}
+        .btn3 {width:33%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+    </Style>
+     
+    
+    
+    <apex:sectionHeader title="SKU List : {!batch}" subtitle="SKUs With Price Changes"/>
+    <apex:form id="form1">    
+     <apex:actionFunction name="Refresh_rec1" action="{!Refresh_rec}" reRender="table,buttons1,buttons2" status="search_Status_main"/>
+        
+    <apex:pageBlock id="pg">                    
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:panelGrid width="100%" columns="3" columnClasses="btn1,btn2,btn3">           
+                        
+            <apex:outputPanel id="out1" >
+                <B>Search by SKU: </B> <apex:inputText id="text1" value="{!SearchText}" onkeypress="if(event.keyCode==13){Refresh_rec(this);return false;}" /> 
+                                       <apex:commandButton value="Search" status="search_Status_main" reRender="table,buttons1,buttons2" action="{!Refresh_rec}" />
+                                     <div id="contentLoadingMain" style="display:none;position:fixed;top:50%;right:50%;">
+                                         <div style="text-align: center;">
+                                           <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/>
+                                         </div>
+                                     </div>
+                                     <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/> 
+            </apex:outputPanel>
+                       
+            <apex:outputpanel style="text-align: center; align:center;">
+                <apex:outputLabel style="font-weight:bold">Filter By:&nbsp;&nbsp;</apex:outputLabel>
+                <apex:selectList id="dropStatus" value="{!status}" size="1" style="width:auto" onchange="Refresh_rec(this);" >      
+                    <apex:selectOption itemValue="None" itemLabel="--None--"/>              
+                    <apex:selectOption itemValue="C" itemLabel="Vendor Cost"/>
+                    <apex:selectOption itemValue="M" itemLabel="Margin"/>
+                    <apex:selectOption itemValue="D" itemLabel="Discontinued"/>
+                </apex:selectList> 
+                
+            </apex:outputpanel>
+            
+            <apex:outputPanel style="text-align: right;float:right;">
+                                    <apex:selectList value="{!OwnerValue}" multiselect="false" size="1" onchange="Refresh_rec(this);">
+                                        <apex:selectOption itemValue="Owned by me" itemLabel="Owned by me"/>
+                                        <apex:selectOption itemValue="Owned by my team" itemLabel="Owned by my team"/>
+                                        <apex:selectOption itemValue="Owned by others" itemLabel="Owned by others"/>
+                                        <apex:selectOption itemValue="All" itemLabel="All"/>
+                                    </apex:selectList> 
+            </apex:outputPanel>   
+            
+            </apex:panelGrid>             
+            <apex:outputPanel id="table">
+                <apex:panelGrid id="buttons1" width="100%" columns="2" columnClasses="btn1,btn2">
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!prevPage}" value="<< Previous <<" status="search_Status_main" rendered="{!DisablePrevious}" reRender="table" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!nextPage}" value=">> Next >>" status="search_Status_main" rendered="{!DisableNext}" reRender="table" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                </apex:panelGrid>
+                
+            
+                
+                <apex:pageBlockTable value="{!clsSKUListTable}" var="sku" width="100%" rendered="{!renderTab}">
+                    <apex:column >
+                      <!-- <a href="/{!sku.skuId}" id="{!sku.sID}" target="_blank">
+                      {!sku.sid}
+                      </a> -->
+                      {!sku.sid}
+                      
+                      <apex:facet name="header">
+                          <apex:commandLink action="{!sortCust}" reRender="table">
+                                  <apex:outputText >SKU</apex:outputText>  &nbsp; 
+                                  <apex:param name="fieldName" value="SKU" assignTo="{!getFieldName}"/>
+                                  <apex:image id="sortInAsc" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SKU'}"/> 
+                                  <apex:image id="sortInDesc" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SKU'}"/>
+                          </apex:commandLink>                      
+                      </apex:facet>
+                      
+                    </apex:column>
+                    <apex:column value="{!sku.skuDescription}">
+                        <apex:facet name="header">
+                          <apex:commandLink action="{!sortCust}" reRender="table">
+                                  <apex:outputText >SKU Description</apex:outputText>
+                                  <apex:param name="fieldName" value="SKUDesc" assignTo="{!getFieldName}"/>
+                                  <apex:image id="sortInAscSKUDesc" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SKUDesc'}"/> 
+                                  <apex:image id="sortInDescSKUDesc" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SKUDesc'}"/>
+                          </apex:commandLink>                      
+                      </apex:facet>
+                    </apex:column> 
+                    <!-- <apex:column value="{!sku.CoreListID}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                                  <apex:outputText >Core List ID</apex:outputText>  &nbsp; 
+                                  <apex:param name="fieldName" value="CoreListID" assignTo="{!getFieldName}"/>
+                                  <apex:image id="sortInAsc11" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'CoreListID'}"/> 
+                                  <apex:image id="sortInDesc11" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'CoreListID'}"/>
+                        </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+               
+                    
+                    <apex:column value="{!sku.OwningCustomer}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                                  <apex:outputText >Owning Customer<br/>Corelist Priority</apex:outputText>  &nbsp; 
+                                  <apex:param name="fieldName" value="OwningCustomer" assignTo="{!getFieldName}"/>
+                                  <apex:image id="sortInAsc12" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'OwningCustomer'}"/> 
+                                  <apex:image id="sortInDesc12" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'OwningCustomer'}"/>
+                        </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                         -->
+                    <apex:column value="{!sku.ChangeType}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                                  <apex:outputText >Change Type</apex:outputText>  &nbsp; 
+                                  <apex:param name="fieldName" value="ChangeType" assignTo="{!getFieldName}"/>
+                                  <apex:image id="sortInAsc1" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'ChangeType'}"/> 
+                                  <apex:image id="sortInDesc1" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'ChangeType'}"/>
+                        </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column value="{!sku.VendorName}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                                  <apex:outputText >Primary Vendor</apex:outputText>  &nbsp; 
+                                  <apex:param name="fieldName" value="PrimVen" assignTo="{!getFieldName}"/>
+                                  <apex:image id="sortInAscPrimVen" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'PrimVen'}"/> 
+                                  <apex:image id="sortInDescPrimVen" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'PrimVen'}"/>
+                        </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column headerValue="% Increase">
+                        <!-- <apex:outputText value="{0, number, ###,###,###,##0.0}%">
+                             <apex:param value="{!sku.ChangeAmount}"/>
+                         </apex:outputText>     -->
+                         {!sku.ChangeAmount}               
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                                  <apex:outputText >% Increase</apex:outputText>  &nbsp; 
+                                  <apex:param name="fieldName" value="Percent" assignTo="{!getFieldName}"/>
+                                  <apex:image id="sortInAsc5" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Percent'}"/> 
+                                  <apex:image id="sortInDesc5" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Percent'}"/>
+                        </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column headerValue="Annual Usage" >
+                         <apex:outputText value="{0, number, ###,###,###,###}">
+                             <apex:param value="{!sku.UnitVolumeN}"/>
+                         </apex:outputText>                    
+                
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                                  <apex:outputText >Annual Usage</apex:outputText>  &nbsp; 
+                                  <apex:param name="fieldName" value="UnitVolume" assignTo="{!getFieldName}"/>
+                                  <apex:image id="sortInAsc2" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'UnitVolume'}"/> 
+                                  <apex:image id="sortInDesc2" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'UnitVolume'}"/>
+                        </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column headerValue="Spend Impact" >
+                      <apex:outputText value="{0, number, ###,###,###,##0.0}%">
+                             <apex:param value="{!sku.SPNDIMPACT}"/>
+                         </apex:outputText>  
+                        <apex:facet name="header">
+                            <apex:commandLink action="{!sortCust}" reRender="table">
+                                      <apex:outputText >Spend Impact</apex:outputText>  &nbsp; 
+                                      <apex:param name="fieldName" value="SpendImpact" assignTo="{!getFieldName}"/>
+                                      <apex:image id="sortInAsc3" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SpendImpact'}"/> 
+                                      <apex:image id="sortInDesc3" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SpendImpact'}"/>
+                            </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>    
+                    
+                    <apex:column >
+                        <a href="/apex/ACE_SKU_Page?skuid={!sku.sID}&Vendor={!sku.VendorName}&batch={!batch}&ownerValue={!ownerValue}" target="_blank">{!SKU.ImpactedCustomer} </a>
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                                  <apex:outputText ># Impacted Customers</apex:outputText>  &nbsp; 
+                                  <apex:param name="fieldName" value="ImpCust" assignTo="{!getFieldName}"/>
+                                  <apex:image id="sortInAscImpCust" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'ImpCust'}"/> 
+                                  <apex:image id="sortInDescImpCust" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'ImpCust'}"/>
+                        </apex:commandLink>
+                        </apex:facet>
+                    </apex:column>
+                </apex:pageBlockTable> 
+                
+                
+                <apex:panelGrid id="buttons2" width="100%" columns="2" columnClasses="btn3,btn4">
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!prevPage}" value="<< Previous <<" status="search_Status_main" rendered="{!DisablePrevious}" reRender="table" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!nextPage}" value=">> Next >>" status="search_Status_main" rendered="{!DisableNext}" reRender="table" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                </apex:panelGrid>
+            </apex:outputPanel>
+            <br/>
+            
+                         
+        
+    </apex:pageBlock>
+    <script>
+        function Refresh_rec(val)
+        {
+            //var keycode=e.keyCode;
+            //alert(keycode);
+            //if (keycode==13){
+                 Refresh_rec1();
+            // alert('alert in val>' + val.value);
+            var elem = document.getElementById(val.id);
+            // alert('elem:' + elem);
+            elem.focus();
+            //}
+            //return false;
+            
+            
+            
+        }
+        
+        function loading_Main(val) {
+                 if (val) {
+                   document.getElementById('contentLoadingMain').style.display = 'block';
+                   
+                 }
+                 else {
+                   document.getElementById('contentLoadingMain').style.display = 'none';
+                  
+                 }
+               }
+    </script>
+    </apex:form>    
+</apex:page>

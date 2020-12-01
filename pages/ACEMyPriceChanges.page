@@ -1,0 +1,539 @@
+<apex:page controller="ACEMyPriceChanges" showheader="false" contentType="{!pageContent}" id="pg" cache="false">
+  <br></br>
+
+     &nbsp;<apex:image url="{!$Resource.ACEODLogo}" width="600px" height="30px"/>
+<br></br>
+  <script>
+        function Refresh_rec(val)
+        {
+            Refresh_rec1();
+            //alert('alert in val' + val.id);
+            // var elem = document.getElementById(val.id);
+            // alert('elem:' + elem);
+            //elem.focus();
+            
+            
+        }
+        
+  </script>
+  <style>
+      .btn1{width:50%;text-align: left; align:left;}
+      .btn2 {width:50%;text-align: right; align:right;}
+      .btn3{width:50%;text-align: left; align:left;}
+      .btn4 {width:50%;text-align: left; align:left;}
+  </style>
+  <apex:pagemessages id="msg"></apex:pagemessages>
+  <br></br>
+   <apex:form id="form1">
+   <apex:pageBlock rendered="{!displayHeader}" title="My Account Details">       
+           <apex:panelGrid columns="1" width="100%" columnClasses="btn3,btn4">               
+               <apex:outputPanel >
+                   <apex:outputLabel style="font-weight:bold">Customer:</apex:outputLabel>&nbsp;&nbsp;<apex:outputText >{!ACEPriceChangeRec.Customer__r.Name}</apex:outputText>
+               </apex:outputPanel>  
+               <apex:outputPanel >
+                   <apex:outputLabel style="font-weight:bold">Account Number:</apex:outputLabel>&nbsp;&nbsp;<apex:outputText >{!ACEPriceChangeRec.Customer__r.AOPS_Cust_Id__c}</apex:outputText>
+               </apex:outputPanel>             
+               <apex:outputPanel >
+                   <apex:outputLabel style="font-weight:bold">My Sales Rep:</apex:outputLabel>&nbsp;&nbsp;<apex:outputText >{!ACEPriceChangeRec.Customer__r.Owner.Name}</apex:outputText>
+               </apex:outputPanel>
+               
+           </apex:panelGrid>
+           <br/>
+           <apex:pageMessage rendered="{!displayDisclaimer}" severity="info" strength="1" title="Disclaimer:" summary="Information subject to change. Please check back again."></apex:pageMessage>                   
+   </apex:pageBlock>
+  
+   <apex:pageBlock id="pg1" rendered="{!AND(displaypage,displayResponse,NOT(displayDisclaimer))}" >
+       <apex:actionRegion renderRegionOnly="true" immediate="true">
+      <apex:OutputText value="My Response - " style="font-size:15px;font-weight:Bold"/>
+      <apex:OutputText value="{!ACEPriceChangeRec.Customer_Response__c}" style="font-size:15px;color:{!CASE(ACEPriceChangeRec.Customer_Response__c,'Approved','Green','Rejected','Red','#FFBF00')};font-weight:Bold"/>
+      <br></br><br></br>
+      <apex:panelGrid columnClasses="btn1,btn2" columns="2" width="100%">
+          <apex:outputPanel rendered="{!IF(ACEPriceChangeRec.Customer_Comments__c != null,true,false)}">
+               <apex:outputLabel value="My Comments:" style="font-weight:bold;" />&nbsp;<apex:OutputText value="{!ACEPriceChangeRec.Customer_Comments__c}" label="My Comments:"/>
+               <br/>
+          </apex:outputPanel>
+          <apex:outputPanel rendered="{!IF(ACEPriceChangeRec.Customer_Comments__c != null,true,false)}">           
+          </apex:outputPanel>
+          
+          <apex:outputPanel rendered="{!displayApproval}"> 
+                  <apex:outputLabel value="Please Enter Your Comments:" style="font-weight:bold;"/>&nbsp;<apex:inputField value="{!ACEPriceChangeRec.Customer_Comments__c}" label="Please Enter Your Comments" style="width:95%;" required="true"/> 
+                  <br/>
+          </apex:outputPanel>
+          <apex:outputPanel rendered="{!displayApproval}">           
+          </apex:outputPanel>
+          
+          <apex:outputPanel rendered="{!displayApproval}"> 
+                  <apex:outputLabel value="Please Enter Your Name:" style="font-weight:bold;"/>&nbsp;<apex:inputField value="{!ACEPriceChangeRec.Customer_Comments_Submitter__c}" label="Please Enter Your Name" style="width:95%;" required="true" rendered="true"/> 
+                  <br/>
+          </apex:outputPanel> 
+          <apex:outputPanel rendered="{!displayApproval}">           
+          </apex:outputPanel>       
+      </apex:panelGrid>
+      <br/>
+              
+       <apex:commandButton value="Approve" action="{!AppRec}" rendered="{!displayApproval}"/>
+       <apex:commandButton value="Please have my Rep contact me" action="{!RejRec}" rendered="{!displayApproval}"/> 
+       </apex:actionRegion>
+   </apex:pageblock>
+   
+  <apex:pageBlock rendered="{!displaypage}" title="My Core List Price Changes" id="pg2">
+  <apex:actionRegion id="region2" immediate="true" renderRegionOnly="true">
+  <b>To download a list of your price changes, please click here</b> &nbsp;&nbsp;&nbsp; <apex:commandButton onClick="window.open('/MyPriceChanges/ACEMyPriceChanges_D?pkey={!pageKey}', '_blank');" value="Download SKUs" rerender="skutable"/>
+  <br></br><br></br>
+      <apex:outputPanel id="out1" >
+                <B>Search by SKU: </B> <apex:inputText id="text1" value="{!SearchText}" onkeypress="if(event.keyCode==13){Refresh_rec(this);return false;}"/> 
+                                       &nbsp;&nbsp;&nbsp;&nbsp;<apex:commandButton value="Search" status="search_Status_main" reRender="msg,skutable1,skutable2,buttons4" action="{!Refresh_rec}"/>
+                                     <div id="contentLoadingMain" style="display:none;position:fixed;top:50%;right:50%;">
+                                         <div style="text-align: center;">
+                                           <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/>
+                                         </div>
+                                     </div>
+                                     <apex:actionStatus startText="Searching... Please wait!" stopText="" startStyle="color:red;"/> <!-- onstart="loading_Main(true)" onstop="loading_Main(false)"/ -->
+      </apex:outputPanel>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <apex:outputPanel >
+          <apex:inputCheckbox onchange="Refresh_rec(this);" value="{!displayHighlighted}" label="Records Modified After Notification Generation"/>
+          <apex:outputLabel style="font-weight:bold"> Records Modified After Notification Generation</apex:outputLabel>
+      </apex:outputPanel>
+  <apex:actionFunction id="act1" name="Refresh_rec1" action="{!Refresh_rec}" reRender="msg,skutable1,skutable2,buttons4"  status="search_Status_main"/>        
+  
+  <br/>
+
+
+<apex:pageBlockSection >Account Changes Requiring Your Approval</apex:pageBlockSection>
+  <apex:pageBlockTable value="{!skulistApproval}" var="sku" id="skutable1">
+             <apex:column value="{!sku.SKU__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}"> 
+                              <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >SKU</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="SKU__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SKU__c'}"/> 
+                                          <apex:image id="sortInDesc" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SKU__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            
+            <apex:column value="{!sku.SKU_Description__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+                    <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                              <apex:outputText >SKU Description</apex:outputText>  &nbsp; 
+                              <apex:param name="fieldName" value="SKU_Description__c" assignTo="{!getFieldName}"/>
+                              <apex:image id="sortInAsc1" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SKU_Description__c'}"/> 
+                              <apex:image id="sortInDesc1" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SKU_Description__c'}"/>
+                      </apex:commandLink>                      
+                  </apex:facet>
+            </apex:column>
+            
+            <apex:column value="{!sku.UOM__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >UOM</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="UOM__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc2" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'UOM__c'}"/> 
+                                          <apex:image id="sortInDesc2" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'UOM__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <!----Added QPU__c for case #00827452----->
+            <apex:column value="{!sku.QPU__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >QPU</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="QPU__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc7" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'QPU__c'}"/> 
+                                          <apex:image id="sortInDesc7" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'QPU__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+<!-- Removing per NAIT-38052             
+            <apex:column value="{!sku.Status__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Change Type</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Status__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc21" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Status__c'}"/> 
+                                          <apex:image id="sortInDesc21" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Status__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>                                         
+<!-- Removing per NAIT-38052  -->                          
+            <apex:column value="{!sku.Item_12_Month_Qty__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Annual Usage</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Item_12_Month_Qty__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc31" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Item_12_Month_Qty__c'}"/> 
+                                          <apex:image id="sortInDesc31" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Item_12_Month_Qty__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+<!-- Removing per NAIT-38052
+            <apex:column value="{!sku.Item_12_Month_Sales__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Annual SKU <br/> Spend</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Item_12_Month_Sales__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc3" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Item_12_Month_Sales__c'}"/> 
+                                          <apex:image id="sortInDesc3" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Item_12_Month_Sales__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+Removing per NAIT-38052 -->            
+            <!------Added List_Price__c for case #00827452----->
+<!-- Removing per NAIT-38052            
+            <apex:column value="{!sku.List_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >List Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="List_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc9" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'List_Price__c'}"/> 
+                                          <apex:image id="sortInDesc9" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'List_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+Removing per NAIT-38052 -->            
+            <apex:column value="{!sku.Current_Sell_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Current Sell<br/> Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Current_Sell_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc4" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Current_Sell_Price__c'}"/> 
+                                          <apex:image id="sortInDesc4" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Current_Sell_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <apex:column value="{!sku.Approved_Proposed_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <!-- <apex:outputText style="{!IF(sku.Price_Changed_After_Notify__c == true,'color:Red; font-weight:Bold;','')}">{!sku.Approved_Proposed_Price__c}</apex:outputText> -->
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >New Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Approved_Proposed_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc5" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Approved_Proposed_Price__c'}"/> 
+                                          <apex:image id="sortInDesc5" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Approved_Proposed_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+<!-- Removing per NAIT-38052 -->
+<!--            <apex:column value="{!sku.SKU_Last_Update__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <!-- <apex:outputText style="{!IF(sku.Price_Changed_After_Notify__c == true,'color:Red; font-weight:Bold;','')}">{!sku.Approved_Proposed_Price__c}</apex:outputText> -->
+<!--            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >SKU Last <br/> Update</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="SKU_Last_Update__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc51" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SKU_Last_Update__c'}"/> 
+                                          <apex:image id="sortInDesc51" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SKU_Last_Update__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+<!--NAIT-38052 -->            
+            <apex:column value="{!sku.Alt_SKU__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+                              <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Alt SKU</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_SKU__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc11" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_SKU__c'}"/> 
+                                          <apex:image id="sortInDesc11" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_SKU__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            
+            <apex:column value="{!sku.Alt_SKU_Description__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+                    <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                              <apex:outputText >Alt SKU Description</apex:outputText>  &nbsp; 
+                              <apex:param name="fieldName" value="Alt_SKU_Description__c" assignTo="{!getFieldName}"/>
+                              <apex:image id="sortInAsc12" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_SKU_Description__c'}"/> 
+                              <apex:image id="sortInDesc12" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_SKU_Description__c'}"/>
+                      </apex:commandLink>                      
+                  </apex:facet>
+            </apex:column>
+                                       
+            <apex:column value="{!sku.Alt_UOM__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Alt UOM</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_UOM__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc22" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_UOM__c'}"/> 
+                                          <apex:image id="sortInDesc22" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_UOM__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <!----Added Alt_QPU__c for case #00827452----->
+            <apex:column value="{!sku.Alt_QPU__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Alt QPU</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_QPU__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc8" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_QPU__c'}"/> 
+                                          <apex:image id="sortInDesc8" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_QPU__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <!-----Added Alt_QPU__c for case #00827452------>
+            <apex:column value="{!sku.Alt_List_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Alt <br/>List Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_List_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc10" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_List_Price__c'}"/> 
+                                          <apex:image id="sortInDesc10" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_List_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            
+            <apex:column value="{!sku.Alt_Sell_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Alt <br/> Sell Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_Sell_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc23" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_Sell_Price__c'}"/> 
+                                          <apex:image id="sortInDesc23" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_Sell_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <apex:column value="{!sku.Sales_Price_Change_Effective_Date_Appro__c}" rendered="{!displayeffectiveDate}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable1,buttons4">
+                                          <apex:outputText >Price Change<br/>Effective Date</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Sales_Price_Change_Effective_Date_Appro__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc6" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Sales_Price_Change_Effective_Date_Appro__c'}"/> 
+                                          <apex:image id="sortInDesc6" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Sales_Price_Change_Effective_Date_Appro__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+  </apex:pageBlockTable>
+  
+  
+   <br/>
+   <br/>
+
+  <apex:pageBlockSection >Account Changes Not Requiring Your Approval</apex:pageBlockSection>
+  <apex:pageBlockTable value="{!skulistNonApproval}" var="sku" id="skutable2">
+             <apex:column value="{!sku.SKU__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}"> 
+                              <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >SKU</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="SKU__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAscNon" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SKU__c'}"/> 
+                                          <apex:image id="sortInDescNon" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SKU__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            
+            <apex:column value="{!sku.SKU_Description__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+                    <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                              <apex:outputText >SKU Description</apex:outputText>  &nbsp; 
+                              <apex:param name="fieldName" value="SKU_Description__c" assignTo="{!getFieldName}"/>
+                              <apex:image id="sortInAsc1Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SKU_Description__c'}"/> 
+                              <apex:image id="sortInDesc1Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SKU_Description__c'}"/>
+                      </apex:commandLink>                      
+                  </apex:facet>
+            </apex:column>
+            
+            <apex:column value="{!sku.UOM__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >UOM</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="UOM__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc2Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'UOM__c'}"/> 
+                                          <apex:image id="sortInDesc2Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'UOM__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <!----Added QPU__c for case #00827452----->
+            <apex:column value="{!sku.QPU__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >QPU</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="QPU__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc7Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'QPU__c'}"/> 
+                                          <apex:image id="sortInDesc7Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'QPU__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+ <!-- Removing per NAIT-38052            
+            <apex:column value="{!sku.Status__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Change Type</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Status__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc21Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Status__c'}"/> 
+                                          <apex:image id="sortInDesc21Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Status__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>                                         
+ <!-- Removing per NAIT-38052 -->                        
+            <apex:column value="{!sku.Item_12_Month_Qty__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Annual Usage</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Item_12_Month_Qty__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc31Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Item_12_Month_Qty__c'}"/> 
+                                          <apex:image id="sortInDesc31Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Item_12_Month_Qty__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+<!-- Removing per NAIT-38052                                                                                                
+            <apex:column value="{!sku.Item_12_Month_Sales__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Annual SKU <br/> Spend</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Item_12_Month_Sales__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc3Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Item_12_Month_Sales__c'}"/> 
+                                          <apex:image id="sortInDesc3Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Item_12_Month_Sales__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+<!-- Removing per NAIT-38052 -->            
+            <!------Added List_Price__c for case #00827452----->
+<!-- Removing per NAIT-38052            
+            <apex:column value="{!sku.List_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >List Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="List_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc9Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'List_Price__c'}"/> 
+                                          <apex:image id="sortInDesc9Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'List_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+<!-- Removing per NAIT-38052 -->            
+            <apex:column value="{!sku.Current_Sell_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Current Sell<br/> Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Current_Sell_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc4Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Current_Sell_Price__c'}"/> 
+                                          <apex:image id="sortInDesc4Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Current_Sell_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <apex:column value="{!sku.Approved_Proposed_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <!-- <apex:outputText style="{!IF(sku.Price_Changed_After_Notify__c == true,'color:Red; font-weight:Bold;','')}">{!sku.Approved_Proposed_Price__c}</apex:outputText> -->
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >New Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Approved_Proposed_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc5Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Approved_Proposed_Price__c'}"/> 
+                                          <apex:image id="sortInDesc5Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Approved_Proposed_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+      <!-- Removing per NAIT-38052 -->
+      <!--      <apex:column value="{!sku.SKU_Last_Update__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <!-- <apex:outputText style="{!IF(sku.Price_Changed_After_Notify__c == true,'color:Red; font-weight:Bold;','')}">{!sku.Approved_Proposed_Price__c}</apex:outputText> -->
+      <!--      <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >SKU Last <br/> Update</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="SKU_Last_Update__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc51Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SKU_Last_Update__c'}"/> 
+                                          <apex:image id="sortInDesc51Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SKU_Last_Update__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>   -->
+      <!-- Removing per NAIT-38052 -->            
+            <apex:column value="{!sku.Alt_SKU__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+                              <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Alt SKU</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_SKU__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc11Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_SKU__c'}"/> 
+                                          <apex:image id="sortInDesc11Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_SKU__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            
+            <apex:column value="{!sku.Alt_SKU_Description__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+                    <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                              <apex:outputText >Alt SKU Description</apex:outputText>  &nbsp; 
+                              <apex:param name="fieldName" value="Alt_SKU_Description__c" assignTo="{!getFieldName}"/>
+                              <apex:image id="sortInAsc12Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_SKU_Description__c'}"/> 
+                              <apex:image id="sortInDesc12Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_SKU_Description__c'}"/>
+                      </apex:commandLink>                      
+                  </apex:facet>
+            </apex:column>
+                                       
+            <apex:column value="{!sku.Alt_UOM__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Alt UOM</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_UOM__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc22Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_UOM__c'}"/> 
+                                          <apex:image id="sortInDesc22Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_UOM__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <!----Added Alt_QPU__c for case #00827452----->
+            <apex:column value="{!sku.Alt_QPU__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Alt QPU</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_QPU__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc8Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_QPU__c'}"/> 
+                                          <apex:image id="sortInDesc8Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_QPU__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <!-----Added Alt_QPU__c for case #00827452------>
+            <apex:column value="{!sku.Alt_List_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Alt <br/>List Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_List_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc10Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_List_Price__c'}"/> 
+                                          <apex:image id="sortInDesc10Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_List_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            
+            <apex:column value="{!sku.Alt_Sell_Price__c}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Alt <br/> Sell Price</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Alt_Sell_Price__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc23Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Alt_Sell_Price__c'}"/> 
+                                          <apex:image id="sortInDesc23Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Alt_Sell_Price__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+            <apex:column value="{!sku.Sales_Price_Change_Effective_Date_Appro__c}" rendered="{!displayeffectiveDate}" style="{!IF(sku.Price_Changed_After_Notify__c == true,'background-color:#E6E6FA; font-weight:Bold;','')}">
+            <apex:facet name="header">
+                                  <apex:commandLink action="{!sortCust}" reRender="skutable2,buttons4">
+                                          <apex:outputText >Price Change<br/>Effective Date</apex:outputText>  &nbsp; 
+                                          <apex:param name="fieldName" value="Sales_Price_Change_Effective_Date_Appro__c" assignTo="{!getFieldName}"/>
+                                          <apex:image id="sortInAsc6Non" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Sales_Price_Change_Effective_Date_Appro__c'}"/> 
+                                          <apex:image id="sortInDesc6Non" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Sales_Price_Change_Effective_Date_Appro__c'}"/>
+                                  </apex:commandLink>                      
+                              </apex:facet>
+            </apex:column>
+  </apex:pageBlockTable>
+  
+  
+    
+  <apex:panelGrid id="buttons4" width="100%" columns="2" columnClasses="btn1,btn2">
+     <apex:outputPanel >
+         <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="skutable1,skutable2,buttons4" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+     </apex:outputPanel>
+     <apex:outputPanel >
+         <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="skutable1,skutable2,buttons4" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+     </apex:outputPanel>
+  </apex:panelGrid>  
+  
+  
+   
+  
+  </apex:actionRegion>
+  
+  
+  
+  
+  <br/>
+  <font style="font-weight:bold;"><apex:outputText style="color:red; font-weight:bold;">Legend:</apex:outputText></font><br/>
+  <font><apex:outputText style="color:red;">D = Discontinued SKU<br/>R = Rep Deleted SKU</apex:outputText></font>
+  </apex:pageblock> 
+  
+  </apex:form>
+ 
+</apex:page>

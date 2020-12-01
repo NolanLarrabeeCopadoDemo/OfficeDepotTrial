@@ -1,0 +1,28 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="GPONewsCredSelectCntrl">
+<!-- <apex:stylesheet value="https://business.officedepot.com/610075097/bundles/en_US_bsd_business/master.css" />
+  <apex:stylesheet value="https://business.officedepot.com/1536517939/bundles/en_US_bsd_business/leadGenForm.css" />
+
+<script type="text/javascript" src="https://business.officedepot.com/1456582030/bundles/en_US_bsd_business/leadGenForm.js" ></script>
+-->
+
+
+ 
+
+
+<apex:repeat value="{!postNewsCredHdrs}" var="M">  
+
+<div class="tip gw2">
+           <img src="{!M.link}"/>
+           <a href="{!M.guid}" target="_blank">
+          {!M.title}
+           </a>               
+   </div>
+  
+     
+<!--<li class='gw3 ' ><a href="{!M.guid}">
+  <img src="{!M.link}"/><span>{!M.title}</span>
+ </a> </li>
+ -->
+ </apex:repeat> 
+
+</apex:page>

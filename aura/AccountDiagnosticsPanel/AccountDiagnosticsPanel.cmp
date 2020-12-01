@@ -1,0 +1,170 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="AccountDiagnostics" access="global" >
+
+	<aura:handler name="change" value="{!v.selected_account}" action="{!c.look_up_onchange}"/>
+
+	<aura:attribute name="selected_account" type="Account"/>
+	<aura:attribute name="record_selected" type="Boolean" default="False"/>
+
+	<aura:attribute name="myAccount" type="Account"/>
+	<aura:attribute name="my_account_message" type="Object"/>
+	<aura:attribute name="my_account_setup_request" type="Object"/>
+	<aura:attribute name="my_account_service_data" type="Object"/>
+
+
+	<aura:attribute name="activeSections" type="List" default="[]" />
+
+
+
+
+	<lightning:layout class="slds-page-header slds-page-header--object-home">
+		<lightning:layoutItem >
+			<lightning:icon iconName="standard:scan_card" alternativeText="Account Diagnostics" />
+		</lightning:layoutItem>
+		<lightning:layoutItem padding="horizontal-small">
+			<div class="page-section page-header">
+				<h1 class="slds-text-heading--label">Account Diagnostics</h1>
+				<h2 class="slds-text-heading--medium">Find Account</h2>
+			   <!-- <lightning:button class="slds-text-align_right" label="Cancel"  onclick="{! c.navigatetohomepage }" />--> 
+			</div>
+		</lightning:layoutItem>
+			 <lightning:layoutItem padding="horizontal-small" size="10" class="right-align">
+	 			<lightning:button label="Cancel"  onclick="{! c.navigatetohomepage }" /> 
+		  </lightning:layoutItem>
+	</lightning:layout>
+	
+	<!-- Paramaterize accounts messages, Currently customer, account_setup_requested, and prospect.-->
+    <!--SELECT Id, DeveloperName, SobjectType FROM RecordType WHERE SobjectType='Account' -->
+	<div style="margin: auto;width: 75%;">
+		<!--Progress Bar -->
+		<c:strike_lookup
+			label="Account"
+			object="Account"
+			searchField="Name"
+			placeholder="Search for an Account"
+			iconName="standard:account"
+			subtitleField="RecordType"
+
+			limit="30"
+			loadingMessage="Loading..."
+			errorMessage="Invalid input"
+			value="{!v.selected_account}"
+            filter="RecordTypeId IN ('012E00000008dTaIAI', '012E00000008dTZIAY', '012E00000008dTbIAI') "
+			/>
+
+		<aura:if isTrue="{!(v.record_selected)}">
+			<div class="c-container">
+				<!--Account Information-->
+				<lightning:accordion aura:id="accordion" activeSectionName="{! v.activeSections }" allowMultipleSectionsOpen="true">
+					<lightning:accordionSection name="account_information_accordian" label="Account Information">
+						<aura:if isTrue="{!(v.record_selected)}">
+							<!-- Display a lightning card with details about the record -->
+							<div class="Record Details"> 
+								<lightning:card iconName="standard:account" title="{!v.selected_account.Name}" >
+									<div class="slds-p-horizontal--small">
+										<p class="slds-text-heading--small">
+											<lightning:formattedText title="Account Name" value="{!v.myAccount.Name}" />
+										</p>
+										<p class="slds-text-heading--small">
+											<lightning:formattedText title="Address" value="{!v.myAccount.Address1__c}" />
+										</p>
+										<p class="slds-text-heading--small">
+											<lightning:formattedText title="City" value="{!v.myAccount.City__c}" />
+										</p>
+										<p class="slds-text-heading--small">
+											<lightning:formattedText title="State" value="{!v.myAccount.State__c}" />
+										</p>
+										<p class="slds-text-heading--small">
+											<lightning:formattedText title="Zip" value="{!v.myAccount.Zip__c}" />
+										</p>
+									</div>
+								</lightning:card>
+							</div>
+						</aura:if>
+					</lightning:accordionSection>
+
+					<lightning:accordionSection name="Account_Message" label="Account Message">
+						<div class="Record Details"> 
+							<lightning:card iconName="standard:account" title="Account Message" >
+								<div class="slds-p-horizontal--small">
+
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="Record ID" value="{!v.my_account_message.Id}" />
+									</p>
+
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="OPERATION" value="{!v.my_account_message.OPERATION__c}" />
+									</p>
+
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="Created Date" value="{!v.my_account_message.CreatedDate}" />
+									</p>
+
+								</div>
+							</lightning:card>
+						</div>
+					</lightning:accordionSection>
+
+					<lightning:accordionSection name="Account_Setup_Request" label="Account Setup Request">
+						<div class="Record Details"> 
+							<lightning:card iconName="standard:account" title="Account Setup Request Data" >
+								<div class="slds-p-horizontal--small">
+		
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="Record ID" value="{!v.my_account_setup_request.Id}" />
+									</p>
+		
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="Status" value="{!v.my_account_setup_request.Status__c}" />
+									</p>
+		
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="Created Date" value="{!v.my_account_setup_request.CreatedDate}" />
+									</p>
+		
+								</div>
+							</lightning:card>
+						</div>
+					</lightning:accordionSection>
+	
+					<!--Id, ACCOUNT_NAME__c, Batch_Processed__c, Status__c-->
+					<lightning:accordionSection name="Account_Service_Data" label="Account Service Data">
+						<div class="Record Details"> 
+							<lightning:card iconName="standard:account" title="Account Service Data" >
+								<div class="slds-p-horizontal--small">
+		
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="Record ID" value="{!v.my_account_service_data.Id}" />
+									</p>
+		
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="Status" value="{!v.my_account_service_data.Status__c}" />
+									</p>
+		
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="Created Date" value="{!v.my_account_service_data.CreatedDate}" />
+									</p>
+
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="Batch Processed" value="{!v.my_account_service_data.Batch_Processed__c}" />
+									</p>
+
+									<p class="slds-text-heading--small">
+										<lightning:formattedText title="AOPS_CUSTOMER_ID__c" value="{!v.my_account_service_data.AOPS_CUSTOMER_ID__c}" />
+									</p>
+								</div>
+							</lightning:card>
+						</div>
+					</lightning:accordionSection>
+				</lightning:accordion>
+			</div>
+		
+		<!-- Display Lightning Data Service errors, if any -->
+			<aura:if isTrue="{!not(empty(v.recordError))}">
+				<div class="recordError">{!v.recordError}</div>
+			</aura:if>
+		</aura:if>
+
+
+	</div>
+	
+</aura:component>

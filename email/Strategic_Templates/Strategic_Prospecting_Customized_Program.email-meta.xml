@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>We do more than office supplies. We transform businesses.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Prospecting Customized Program</name>
+    <style>freeForm</style>
+    <subject>We do more than office supplies. We transform businesses.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+Through my research, I have identified INSERT COMPANY NAME as an enterprise that would greatly benefit from a customized procurement program offered through our Business Solutions Division.
+
+
+Office Depot Business Solutions works with companies to create and implement programs that reduce Total Costs of Ownership.
+
+Some of the benefits INSERT COMPANY NAME would experience are:
+
+Current Program Consult
+Targeted product savings (typically over 15%)
+Customized “Core-list” for maximum cost containment on the products most important to you
+Customized E-Procurement System at business.officedepot.com
+Real Time Reporting that is clear and measurable
+Consolidated and customized billing options
+Professional program implementation
+Vendor Consolidation: Including Cleaning and Facilities, Technology and Print Services
+In-store purchasing options
+Proactive, dedicated Account Management with meaningful business reviews
+
+With targeting the lowest total delivered costs in our industry, Office Depot Business Solutions has proven to exceed customers’ expectations.
+
+
+I respectfully ask for the opportunity to start a discovery conversation to explore your customized program benefits. I am available to meet INSERT DATE AND TIME. Thank you for your consideration and I look forward to your reply, or feel free to call me to discuss.
+
+
+
+Thank you,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Customer Maintenance: Bill-to Update</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Bill-To Update</name>
+    <style>freeForm</style>
+    <subject>Bill-To Update - Account {!Account.Cust_ID__c} - {!Account.Name}</subject>
+    <textOnly>NEW PROCESS!!!
+All Contract Customer Maintenance, Pricing, SPC and ECommerce requests can now be submitted easily right from Salesforce.com!  Beginning February 4, no further requests will be accepted via email.  Please search &quot;Account Maint&quot; in the Answers tab to learn more information.
+
+
+&lt;Enter contractmaint@officedepot.com in the additional cc field and remove this section&gt;
+
+
+Team,
+
+Please make the following changes to the Bill-To for Account {!Account.Cust_ID__c} - {!Account.Name}:
+
+
+Addr Line 1:
+Addr Line 2:
+City:
+St:
+Zip:
+
+
+Note: Also need to attach customer request from a valid E-mail domain or company letterhead to this E-mail.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

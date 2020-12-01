@@ -1,0 +1,74 @@
+<apex:page standardController="CameleonCPQ__QuoteRelease__c" extensions="CameleonCPQ.CPQQuoteRelease_VFCtrl" showHeader="false" sidebar="false" docType="html-5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/> 
+  <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'custom/css/app.css')}"/> 
+  <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jQuery2.0.3.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/jquery.touchwipe.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/js/main.min.js')}"/>
+  <style type="text/css">
+    .forceGlobalModalIndicator .indicatorContainer .message {
+       background: #354452;
+       border: none;
+       color: #FFFFFF;
+    }
+    .apexMsg td {
+       font-size:16px;
+       font-weight:bold;
+       text-align:center;
+       color:red;
+    }
+    .editPage > div > div > div > * {
+        padding: 5px;
+    }
+  </style>
+  <apex:messages layout="table" styleClass="apexMsg"/>
+  
+  <script type="text/javascript">
+    $jq=jQuery.noConflict(); 
+    function toggleWaitingScreen(){
+       $jq("#loadingStatus").toggleClass("hidden");
+       $jq("#_gModal_Message").html("In progress..");
+    }
+    function deleteRelease() {
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.CPQQuoteRelease_VFCtrl.deleteRelease}',
+            '{!QuoteRelease__c.Id}',
+            function(cpqInfo, event) {
+              if(event.status) {
+                 if(cpqInfo.cpqStatus!='0') {
+                    errPageUrl = $jq('<div/>').html(cpqInfo.cpqUrl).text();
+                    top.location.href = errPageUrl;
+                 }
+                 else {
+                    goBackToQuote(cpqInfo.quoId);
+                 }
+              }
+              if(event.type=='exception') {
+                 console.log(event.message);
+                 alert(event.message);
+                 top.location.href = '{!URLFOR($Action.QuoteRelease__c.View, QuoteRelease__c.Id)}';
+                 return false;
+              }
+            },
+            { buffer: false, escape: true, timeout: 120000 }
+        );
+    }
+    function goBackToQuote(qId) {
+        if( (typeof sforce != 'undefined') && sforce && (!!sforce.one) ) {
+            sforce.one.navigateToSObject(qId,'detail');
+        }
+        else {
+            // Set the window's URL using a Visualforce expression
+            window.location.href = '/'+qId;
+        }
+    }
+    toggleWaitingScreen();
+    deleteRelease();
+  </script>
+  <div id="loadingStatus" class="hidden forceGlobalModalIndicator oneStyle oneOne">
+    <div class="modal-glass">&nbsp;</div>
+    <div class="indicatorContainer" role="alert">
+      <img class="spinnerIcon icon uiImage" alt="" src="/auraFW/resources/aura/s.gif"/>
+      <div class="message" id="_gModal_Message"/>
+    </div>
+  </div>
+</apex:page>

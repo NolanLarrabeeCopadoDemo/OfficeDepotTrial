@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Our transformation is your gain.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Financial #2: Basic Info</name>
+    <style>freeForm</style>
+    <subject>Our transformation is your gain.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+My name is INSERT YOUR NAME.  I am a business development executive with Office Depot with a focus solely on enterprise accounts. I am sure you get emails like this all the time, but this one has the potential to drive real value to your organization.
+
+I have been going over your vision statement &quot;INSERT VISION STATEMENT&quot;. It struck me as a philosophy very similar to Office Depot&apos;s, which is why I am contacting you.
+
+
+
+At Office Depot, we partner with customers to drive real value. We have transformed into a full business platform that includes offering our customers a full technology services offering. We have the potential to impact business in a much different way. As an example, I easily saved one of my clients $155,000 a year.  By my calculations, if we were to do the same thing for INSERT COMPANY NAME, you could realize a cost reduction that would equate to a net sales increase of over $X.X million annually (based on your net margins from 2017).  Should you achieve that net increase in sales AND reduce the costs at the same time, the impact would be significant.
+
+May I have some time to sit with you or someone on your team to discuss how Office Depot can help INSERT COMPANY NAME? I am available to meet INSERT DATE AND TIME. I appreciate your consideration and look forward to hearing from you.
+
+
+
+Thank you,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

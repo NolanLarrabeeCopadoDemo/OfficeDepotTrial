@@ -1,0 +1,38 @@
+<apex:page standardController="Account" extensions="ReassignAccount"   readOnly="false">
+    <apex:form >
+    <script>
+     function reload(){
+     parent.location.reload();
+
+     }
+    </script>
+    <apex:pageBlock id="pb1">
+    <apex:pageMessages />
+    <center><apex:commandButton action="{!createAssignment}" value="New Assignment" rendered="{!showNew}"    reRender="pb1"/>
+    <apex:commandButton action="{!SaveRecord}" value="Save" rendered="{!showRow}" oncomplete="reload();" reRender="pb1"/>
+    <apex:commandButton action="{!CancelRec}" value="Cancel" rendered="{!showCancel}"  reRender="pb1"/>
+
+    </center>
+
+    <br/>
+        <apex:pageBlockTable value="{!accList}" var="l"
+            rendered="{!IF(accList.size=0,false,true)}">
+                       <apex:column headerValue="New Owner">
+                       <apex:inputField value="{!l.New_Owner__c}"  rendered="{!IF(l.id==null,true,false)}"/>                       
+                       <apex:commandLink value=" {!l.New_Owner__r.name}"  rendered="{!IF(l.id!=null,true,false)}" onclick="window.open('/{!l.New_Owner__c}')"/>                       
+                       </apex:column>
+            
+            <apex:column value="{!l.Status__c }" />
+            <apex:column headerValue="Approver">
+            <apex:commandLink value=" {!l.Approver__r.name}" onclick="window.open('/{!l.Approver__c}')"/>
+            </apex:column>            
+            <apex:column headerValue="Requestor">
+            <apex:commandLink value=" {!l.Requestor__r.name}" onclick="window.open('/{!l.Requestor__c}')"/>
+            </apex:column>
+            <apex:column value="{!l.Approve_Reject_Date__c}" />
+        </apex:pageBlockTable>
+        <apex:outputPanel rendered="{!IF(accList.size==0,true,false)}">No records to display</apex:outputPanel>
+
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

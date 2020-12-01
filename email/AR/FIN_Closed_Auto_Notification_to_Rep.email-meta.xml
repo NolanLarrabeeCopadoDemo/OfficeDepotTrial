@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>SCOE: Generic Closed Template to be used for most closed cases</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>FIN Closed Auto Notification to Rep</name>
+    <style>freeForm</style>
+    <subject>Case# {!Case.CaseNumber} - {!Case.Account} - {!Case.ACCT_Account_Number__c} - Status: Closed</subject>
+    <textOnly>Dear {!Case.Support_Requester__c},
+
+Your case has been completed. Please see the comments/resolution section below for any details regarding your request.
+
+Support Details:
+Support Case: {!Case.CaseNumber}
+Support Subject: {!Case.Subject}
+Status: Closed
+
+
+Customer Details:
+Customer Name: {!Case.Account}
+Account Number: {!Case.ACCT_Account_Number__c}
+Account Owner: {!Account.OwnerFullName}
+
+
+For more details, please click the link below while logged onto the network:
+https://officedepot.my.salesforce.com/{!Case.Id}
+
+This is a system generated email. Please do not reply.
+
+Thank you.
+
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

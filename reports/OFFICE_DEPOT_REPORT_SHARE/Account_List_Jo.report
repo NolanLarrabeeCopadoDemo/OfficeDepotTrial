@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>Account.Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>USERS.NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <description>List of accounts from John F</description>
+    <filter>
+        <booleanFilter>(1 AND ( 2 OR 3 OR 4 or 5))</booleanFilter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Account.Customer</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ACCOUNT.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>,AAA,AAFES,Ace Hardware,AES Corp,Ahold USA INC,AIRGAS,AKIN GUMP STRAUSS HAUER &amp; FELD,Alaska Air Group,Allianz,Allstate Agent and EPP,AMEDISYS,AMEDISYS EPP,AMWAY,AREVA,ARGOS USA,Avon,Avon IBO,Balfour Beatty Construction,BAYER,Bechtel,Best Buy,BIO Platinum,Brinker,Cap Gemini US,Cash America,Cat Logistics,CD&amp;R,CD&amp;R EPP Accts,Cengage Learning,Central Garden &amp; Pet  Empyloee,Central Garden &amp; Pet Company,CEVA,Chevron/Texaco,Chubb Group,Church Partners,Cisco Systems,COLGATE PALMOLIVE CO,Comerica,COMMERCIAL METALS CO,Corinthian Colleges,Corrections Corp of America,Covidien,Cracker Barrel</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ACCOUNT.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Cushman &amp; WakeField,Darden,David Weekley Homes,Davita,Dean Foods,Del Monte Corp,Deloitte &amp; Touche,Delta Airlines,Delta Airlines Employee Prog,DHL Exel,DirecTV,DST Systems,Dupont,Eastman Employee Purchase,EcoLab,Education Management,Emerson,Entrepreneurs&apos; Organization,Exxon/Mobil Lee Office Solutio,Fidelity Investments,Fidelity Investments-Canada,Fidelity Parent,Fifth Third Bank,First American Title,Flowserve,FMC TECHNOLOGIES,Ford Dealerships,Fortress,Freeway Insurance,GDF Suez Energy NA,General Motors,Gibson Consulting,Goodrich,Google,Graybar,GREYSTAR,Guess Jeans,Halifax Media Group,Harris Corporation,Harte Hanks,HD Supply Fac. Mtce Resale,Healthcare ManagementSystems,Hearst,Henry Ford Health System,Henry Schein External,Hertz Corp,Hilton Hotels,Hitachi,IAC WPS,IBM Key MRO,ICAHN ENTERPRISES,Ignite Restaurant Group,Information On Demand,Ingram Micro,ISC Ford Motor Tier 1,ISC FORD MOTOR TIER 1 CANADA,J.P. Morgan Chase,Jack in the Box,Keller Williams,Kohlberg and Company,Lennox,Lennox Dea</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ACCOUNT.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Money Services,Inc dba Aegon,Monsanto,MSDW,National Oilwell,NCR,Newell/Rubbermaid Corp,News Corp,NextEra Energy,Nordstrom,Onyx - (Part of BIO),Oracle Canada,ORACLE USA INC,Oxy Chem,PCC Structurals,PDME Halliburton,Physiotherapy Associates,PLS Financial Services,PNC PROMO,Publicis,Pulte Group,Radio Shack,Rearden Commerce,Riverside,Royal DSM,Safran USA,Sanmina,SC Johnson,Schneider Electric,Schnitzer Steel,Securitas Security,Seventh Day Adventist,SHAW EPP,Shaw Group,Siemens,Siemens EPP,SiteStuff,SiteStuff Procure to Pay,Six continents (IHG US),SIX FLAGS,Southwest Airlines,SPX Corp,Stacy Thompson EPP,Sterling Partners LLC,Strategic Source School Progra,StrategicSource,Supermedia,Tetra Tech,TEVA Pharmaceutical</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ACCOUNT.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Texas Instruments,THE STANDARD INSURANCE CO.,Time Warner,Time Warner Cable,Title Max,TOPSOURCE,Triumph Group Inc,UMPQUA BANK,UPS Employee Program,US Oncology,Verizon,VF CANADA,VIACOM,Visa,Warner Brothers Studios,West Corp.,Weyerhaeuser,Willis Group,WPS Lear Canada Hosted,WPS Lear US Hosted,XEROX</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Account List - John F</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

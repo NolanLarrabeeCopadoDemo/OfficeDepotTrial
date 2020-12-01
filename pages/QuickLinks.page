@@ -1,0 +1,293 @@
+<apex:page controller="QuikLnkCtrl">
+	<script>
+		function OpenInNewTab(url)
+		{
+			var win = window.open(url, '_blank');
+			win.focus();
+		}
+	</script>
+	<apex:form >
+		<html>
+		<head>
+			<link class="user" href="/sCSS/23.0/sprites/1317831957000/Theme3/default/forceComHomepage.css" rel="stylesheet" type="text/css"
+			/>
+			<title>Quick Links</title>
+		</head>
+		<body>
+			<div class="header-right">
+				<div class="bPageTitle">
+					<div class="ptBody secondaryPalette">
+						<div class="content">
+							<div class="header-text"></div>
+						</div>
+						<div class="links"></div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<table class="two-column">
+				<tr>
+					<td width="918">
+						<div class="getting-started-block" id="gettingStarted">
+							<table class="gs-links">
+								<tr>
+									<td class="gs-middle">
+										<div class="steps-header">Quick Link Tools</div>
+										<div class="steps-text">
+											Use the quick links below to help with day to day activities. Please email
+											<a target="_blank" href="{!$Label.Mail_To_Quick_Links}">salesforce@officedepot.com</a>
+											to notify of broken links.
+										</div>
+									</td>
+									<td>
+										<img class="header-img-left" src="/img/gettingstarted/create_app_end.png" />
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="links-block">
+							<h2 id="Account Maintenance">Account Maintenance</h2>
+							<table class="linkblock">
+								<tr>
+									<td valign="top">
+										<table class="linkblock">
+											<td valign="top">
+												<p>
+													<apex:image url="{!$Resource.clean}" width="50" height="50" /> DupeBlocker
+												</p>
+												<ul>
+													<li>
+														<a href="{!$Label.DupeBlocker_Help_Leads}" title="DupeBlocker Help - Leads" target="_blank">DupeBlocker Help - Leads</a>
+													</li>
+												</ul>
+											</td>
+										</table>
+									</td>
+									<td valign="top">
+										<p>
+											<apex:image url="{!URLFOR($Resource.Icons, 'ecommerce.jpg')}" width="45" height="51" /> Ecommerce Setup Forms
+										</p>
+										<ul>
+											<li>
+												<a target="_blank" href="{!$Label.Ecommerce_Setup_Form_Single_User}" title="Ecommerce Setup">Ecommerce Setup Form (Single User)</a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Ecommerce_Support_Cust_is_already_setup}" title="Ecommerce Support (Cust is already setup)">Ecommerce Support (Tech Support for Business.officedepot.com website)</a>
+											</li>
+										</ul>
+									</td>
+									<td valign="top"></td>
+									<td valign="top">
+										<apex:image url="{!URLFOR($Resource.Icons, 'pricing.jpg')}" style="vertical-align: middle" width="50" height="53"
+										/> Pricing Compliance
+										<ul>
+											<li>
+												<a target="_blank" href="{!$Label.DealMakerTool}" title="DealMaker Tool 3.0">DealMaker Tool</a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Prospect_Customer_Win_Loss_report}" title="Prospect Customer Win/Loss report ">Prospect Customer Win/Loss report </a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Existing_Customer_Transition_Report}" title="Existing Customer Transition Report ">Existing Customer Transition Report </a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Margin_Performance_Tracking}" title="Margin Performance Tracking ">Margin Performance Tracking </a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Customer_Savings_Plan}" title="Customer Savings Plan">Customer Savings Plan</a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Green_Analysis}" title="Green Analysis">Green Analysis</a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Field_Work_Requests}" title="Field Work Requests">Field Work Requests</a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.MOV_Analysis}" title="MOV Analysis">MOV Analysis</a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Standard_Price_Plans}" title="Standard Price Plans">Standard Price Plans</a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Core_Exception_Report}" title="Core Exception Report">Core Exception Report</a>
+											</li>
+											<li>
+												<a target="_blank" href="{!$Label.Customer_Rebates}" title="Customer Rebates">Customer Rebates</a>
+											</li>
+										</ul>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="getting-started-block" id="newFeatures">
+							<div id="top-line-nf">
+								<div class="links-block">
+									<h2 id="quicklinks"></h2>
+									<table class="linkblock">
+										<tr>
+											<td valign="top">
+												<apex:image url="{!URLFOR($Resource.Icons, 'application.jpg')}" style="vertical-align: middle" width="50" height="51"
+												/>
+												<h2>Applications</h2>
+												<ul>
+													<li>
+														<a target="_blank" href="{!$Label.iSell}" title="Business Reviews">iSell</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.OD_Learning_Portal}" title="Business Reviews">OD Learning Portal</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.GMillennia}" title="GMIL">GMillennia (CC Role)</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.GMillennia_Non_CC_Role}" title="GMillennia (Non CC Role)">GMillennia (Non CC Role)</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.SCOE_Flow}" title="SCOE">SCOE</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.BSD_Website}" title="BSD Site">BSD Website
+														</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.KRONOS}" title="KRONOS">KRONOS</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.mycloud}" title="mycloud">mycloud</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Motus}" title="Business Reviews">Motus</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.SalesGenie}" title="SalesGenie">SalesGenie</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.FROSCH}" title="Carlson Wagonlit Travel">Carlson Wagonlit Travel</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.iExpense}" title="iExpense">iExpense</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Help_Desk_Self_Service_Ticket}" title="Help Desk Self-Service Ticket">Help Desk Self-Service Ticket</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Seismic}" title="Seismic">Seismic</a>
+													</li>
+												</ul>
+											</td>
+											<td valign="top">
+												<apex:image url="{!URLFOR($Resource.Icons, 'marketing.jpg')}" style="vertical-align: middle" width="51" height="51"
+												/>
+												<h2>Marketing</h2>
+												<ul>
+													<li>
+														<a target="_blank" href="http://officedepotdigital.s3.amazonaws.com/custom/cbfs.html" title="Marketing Personalizer">Marketing Personalizer</a>
+													</li>
+													<li>
+														<apex:commandLink action="{!MarketPage}" target="_blank" title="Market Builder">Market Builder Site</apex:commandLink>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Market_Builder_User_Instruction}" title="Contract Marketing Site">Market Builder User Instructions
+														</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Contract_Marketing_Site}" title="Contract Marketing Site">Contract Marketing Site</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Project_Y_Video}" title="Project Y Video">Project Y Video</a>
+													</li>
+												</ul>
+											</td>
+											<td valign="top">
+												<apex:image url="{!URLFOR($Resource.Icons, 'reports.jpg')}" style="vertical-align: middle" width="25" height="27"
+												/>
+												<h2>Reports</h2>
+												<ul>
+													<li>
+														<a target="_blank" href="{!$Label.Cognos}" title="Cognos">Cognos</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.KPI_scorecard}" title="KPI Scorecard">KPI Scorecard</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Manual_Adjustment_Detail_By_Customer_by_Rep_Sales_Credit_BDM}" title="Manual Adjustment Detail By Customer by Rep - Sales Credit BDM">Manual Adjustment Detail By Customer by Rep - Sales Credit BDM</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Manual_Adjustment_Detail_By_Customer_by_Rep_Sales_Credit_Non_BDM}" title="Manual Adjustment Detail By Customer by Rep - Sales Credit Non-BDM">Manual Adjustment Detail By Customer by Rep - Sales Credit Non-BDM</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Accounts_Receivable_BDM}" title="Accounts Receivable BDM">Accounts Receivable BDM</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Accounts_Receivable_Non_BDM}" title="Accounts Receivable Non-BDM">Accounts Receivable Non-BDM
+														</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Ink_and_Toner_Blitz_Report}" title="Accounts Receivable Non-BDM">Ink and Toner Blitz Report
+														</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Ink_Toner_Usage}">Ink/Toner Usage
+														</a>
+													</li>
+													<li>
+														<a target="_blank" href="{!$Label.Approaching_Credit_Limit_Report}" title="Approaching Credit Limit Report">Approaching Credit Limit Report</a>
+													</li>
+												</ul>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<apex:image url="{!URLFOR($Resource.Icons, 'training.jpg')}" style="vertical-align: middle" width="30" height="32" />
+												<h2>Training</h2>
+												<ul>
+													<li>
+														<a href="{!$Label.The_Training_Hub}" target="_blank">The Training Hub</a>
+													</li>
+													<li>
+														<a href="{!$Label.The_Resource_Directory}" target="_blank">The Resource Directory</a>
+													</li>
+													<li>
+														<a href="{!$Label.Playbook}" target="_blank">Playbook</a>
+													</li>
+												</ul>
+											</td>
+											<td valign="top">
+												<apex:image url="{!URLFOR($Resource.Icons,'global.jpg')}" style="vertical-align: middle" width="25" height="27"
+												/>
+												<h2>Global</h2>
+												<ul>
+													<li>
+														<a href="{!$Label.Global_Accounts_and_GPOs}" target="_blank">Global Accounts and GPOs</a>
+													</li>
+													<li>
+														<a href="{!$Label.Fact_Sheet}" target="_blank">Fact Sheet</a>
+													</li>
+												</ul>
+											</td>
+
+											<td valign="top">
+												<apex:image url="{!URLFOR($Resource.Icons,'ecommerce.jpg')}" style="vertical-align: middle" width="35" height="35"
+												/>
+												<h2>Upload Templates</h2>
+												<ul>
+													<li>
+														<a href="{!$Resource.Leads_Upload_Update_Template}" target="_blank">Leads Upload/Update Template</a>
+													</li>
+													<li>
+														<a href="{!$Label.Opportunity_Upload_Update_Template}" target="_blank">Opportunity Upload/Update Template</a>
+													</li>
+												</ul>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</body>
+		</html>
+	</apex:form>
+</apex:page>

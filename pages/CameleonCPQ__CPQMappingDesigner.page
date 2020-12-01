@@ -1,0 +1,499 @@
+<apex:page sidebar="false" standardController="CameleonCPQ__MappingSet__c" extensions="CameleonCPQ.CPQMappingDesigner_VFCtrl">
+  <link rel="stylesheet" href="{!URLFOR($Resource.CPQBuilder_JQueryPlugins,'jstree/themes/classic/style.css')}"/>
+  <script src="{!URLFOR($Resource.CPQBuilder_JQueryPlugins,'jquery/jquery.js')}" type="text/javascript"></script>
+  <script src="{!URLFOR($Resource.CPQBuilder_JQueryPlugins,'jstree/jquery.jstree.js')}" type="text/javascript"></script>
+  <script src="{!URLFOR($Resource.CPQBuilder_JQueryPlugins,'jstree/jquery.hotkeys.js')}" type="text/javascript"></script>
+  <script src="{!URLFOR($Resource.CPQBuilder_JQueryPlugins,'jsplitter/splitter.js')}" type="text/javascript"></script>
+
+  <style>
+    .splitter {height: 600px; width: 1024px; border: 1px solid #aaa;}
+    .splitter div {overflow: auto;}
+    .vsplitbar {width: 2px; background: #aaa;}
+    .bPageBlock .pbHeader .pbTitle {width:70%;}
+    .bPageBlock {border-top: none;}
+    .filterOverview .bFilterView .bFilter .fFooter {padding-left:0px;}
+    .filterOverview .bFilterView .bFilter .fFooter span,
+    .filterOverview .bFilterView .bFilter .fFooter a {padding-left:5px;padding-right:3px;}
+    .required {border-left: 2px solid #FF0000;}
+    .mappingPanelSection {margin-bottom:15px;}
+    .mappingPanelSection .syncColumn {padding-left:10px;}
+    .loading {background:url('{!URLFOR($Resource.CPQBuilder_JQueryPlugins,'jstree/themes/classic/throbber.gif')}') center center no-repeat !important;
+      margin-left: 10px;
+      padding-left: 15px;
+      border: none
+    }
+    #panelSfdcObjects input.panelBtn {margin:10px 0 10px 10px;}
+    .overlayDialog{visibility:visible;display:block;left:40%;padding:10px;position:absolute;margin-left:-250px;top:200px;}
+    .mappingPopupBg{background-color:black;opacity:0.20;position:absolute;width: 100%;height:100%;top:0;left:0;z-index:9998;}
+    .selectObj{width:250px;}
+    .limitedWidth {max-width:1024px;}
+    .mappingPanel {margin:20px 0 20px 0px;}
+    .btnSelectList {margin: 0 8px 0 5px !important;}
+    .productPopupBody {padding: 2em !important;}
+    .productPopup {width: 50%;}
+    .productPopupSrchBox {margin: 0 0 10px 0;}
+    .searchIcon {margin: 0 10px 0 0 !important;}
+  </style>
+
+  <script type="text/javascript">
+    $jq=jQuery.noConflict();
+    var refreshSplitter=false;
+
+    $jq().ready(function(){
+        $jq("#panelBuilder").splitter();
+        $jq('#panelSfdcObjects').delegate('#objectsTree a', 'click', function(event) {
+            event.preventDefault();
+        });
+        initObjectsTree();
+    });
+
+    function initObjectsTree() {
+        if ($jq("#panelBuilder").length) {
+            if(refreshSplitter) {
+               $jq("#panelBuilder").splitter("resize", 500);
+               setTimeout(function () {$jq("#panelBuilder").css("width", "100%").trigger("resize"); }, 500);
+            }
+            else { // Always refresh splitter for further page refreshes
+               refreshSplitter=true;
+            }
+            $jq("#objectsTree")
+                .jstree({
+                    "themes" : {
+                        "theme" : "classic",
+                        "dots"  : true,
+                        "icons" : false
+                    },
+                    "ui" : {
+                        "select_limit" : 1
+                    },
+                    "plugins" : ["themes","html_data","ui","hotkeys"],
+                    "core" : { "initially_open" : [ "relObject_0" ] }
+                })
+                // EVENTS
+                .bind("select_node.jstree", function (event, data) {
+                    dspObjectFields(data.rslt.obj.attr("id"));
+                });
+                // INSTANCES
+                setTimeout(function () { $jq("#objectsTree").jstree("set_focus"); }, 500);
+        }
+    }
+
+    setTimeout(function () {$jq("#panelBuilder").css("width", "100%").trigger("resize"); }, 2500);
+
+    function addObject(objId,objName,parentObjId) {
+      $jq("#objectsTree").jstree("create_node", $jq('#'+parentObjId), "inside" ,{attr : {'id':objId,'class':'jstree-leaf'}, state: "open", data: { title : objName } } );
+      $jq("#objectsTree").jstree("deselect_node",'#'+parentObjId);
+      $jq("#objectsTree").jstree("select_node",'#'+objId);
+    }
+
+    function removeObject(objId,parentObjId) {
+      $jq("#objectsTree").jstree("delete_node", $jq('#'+objId));
+      $jq("#objectsTree").jstree("select_node",'#'+parentObjId);
+    }
+
+    function refreshTree() {
+      $jq("#objectsTree").jstree("refresh");
+    }
+
+    function noInsertAllowed() {
+      alert('{!substitute($Label.MSG_MP_NOADDOBJ, "'", "\'")}');
+    }
+    function noRemoveAllowed() {
+      alert('{!substitute($Label.MSG_MP_NODELOBJ, "'", "\'")}');
+    }
+
+    function updSelectedProduct(prCode) {
+      $jq("[id$='"+$jq("#prCodeTextId").val()+"']").html(prCode);
+      $jq("[id$='"+$jq("#prCodeInputId").val()+"']").val(prCode);
+    }
+
+    function setProductType(outId, inputId) {
+      $jq("#prCodeTextId").val(outId);
+      $jq("#prCodeInputId").val(inputId);
+    }
+
+    function isEnterKey(e) {
+      var keynum;
+      if(window.event) {
+         keynum = e.keyCode;
+      }
+      if(keynum == 13) {
+         e.preventDefault();
+         return true;
+      }
+      else {
+         return false;
+      }
+    }
+
+  </script>
+
+
+  <apex:sectionHeader title="{!$ObjectType.CameleonCPQ__MappingSet__c.label}" subtitle="{!$Label.cameleoncpq__mp_subtitle}"/>
+  <apex:form >
+    <apex:variable id="displayObjectsPanel" var="displayObjectsPanel" value="{!AND(NOT(isPRODUCTS_OUT),NOT(isOPPORTUNITY_PRODUCTS_OUT))}" />
+    <apex:variable id="displayOppProductSettings" var="displayOppProductSettings" value="{!isOPPORTUNITY_PRODUCTS_OUT}" />
+    <apex:variable id="displayProductSettings" var="displayProductSettings" value="{!isPRODUCTS_OUT}" />
+    <apex:pageBlock id="mappingSetPanel" mode="edit">
+       <apex:pageBlockButtons location="bottom">
+          <apex:outputPanel rendered="{!uploadVisible==false}">
+             <apex:commandButton value="{!$Label.cameleoncpq__btn_save}" action="{!save}"/>
+             <apex:commandButton value="{!$Label.cameleoncpq__btn_delete}" action="{!deleteMapSet}"/>
+             <apex:commandButton value="{!$Label.cameleoncpq__btn_clone}" action="{!openClonePopup}" rerender="clonePopup" status="treeLoading"/>
+             <apex:outputPanel rendered="{!mapSetAttID!=null}">
+               <a class="btn" style="padding: 3px 5px 4px; text-decoration: none;" target="_blank" href="{!URLFOR($Action.Attachment.Download,mapSetAttID)}">{!$Label.BTN_EXPORT}</a>
+             </apex:outputPanel>
+             <apex:commandButton value="{!$Label.cameleoncpq__btn_import}" action="{!showUpload}"/>
+          </apex:outputPanel>
+          <apex:outputPanel rendered="{!uploadVisible}">
+             <apex:inputFile value="{!attBody}" filename="{!attName}" />
+             <apex:commandButton value="{!$Label.cameleoncpq__btn_upload_mapset}" action="{!uploadMapSet}" />
+             <apex:commandButton value="{!$Label.cameleoncpq__btn_cancel}" action="{!URLFOR($Action.MappingSet__c.View, mapSetId)}" />
+          </apex:outputPanel>
+       </apex:pageBlockButtons>
+       <apex:pageBlockSection columns="2">
+          <apex:outputText value="{!CameleonCPQ__MappingSet__c.Name}"/>
+          <apex:outputPanel layout="block" rendered="{!uploadVisible==false}">
+             <apex:outputLabel value="Mapping Type:" for="mappingType"/>
+             <apex:selectList id="mappingType" value="{!mappingType}" size="1" onchange="mapTypeView();">
+                <apex:selectOptions value="{!authorizedMappingTypes}"/>
+             </apex:selectList>
+          </apex:outputPanel>
+          <apex:actionFunction name="mapTypeView" action="{!selectMapping}" rerender="displayObjectsPanel, displayOppProductSettings, displayProductSettings, objectsMappingPanel, oppProductsSyncSettings, quoteProductsSyncSettings" status="treeLoading" oncomplete="initObjectsTree();" />
+       </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:outputPanel id="objectsMappingPanel" layout="block">
+        <apex:pageBlock rendered="{!!uploadVisible && displayObjectsPanel}">
+           <apex:pageMessages />
+           <apex:actionFunction name="dspObjectFields" action="{!setSelectedObject}" rerender="addObjBtn,rmvObjBtn,objFieldsMapping" status="treeLoading">
+              <apex:param name="selectedObjectId" value=""/>
+           </apex:actionFunction>
+           <apex:actionFunction name="filterView" action="{!validate}" rerender="objFieldsMapping" status="treeLoading"/>
+           <div id="panelBuilder" class="splitter">
+              <div id="panelSfdcObjects" class="panel">
+                   <apex:outputPanel layout="block" id="mappingSetLeftPanel">
+                       <apex:outputPanel layout="block" id="treeBtns" rendered="{!NOT(isCONTRACT_OUT)}">
+                           <apex:commandButton id="addObjBtn" value="{!$Label.cameleoncpq__btn_add_object}" styleClass="panelBtn" onclick="{!IF(OR(selectedObject.level<1,selectedObject.level>1),'noInsertAllowed(); return false;','')}" action="{!openObjListPopup}" rerender="objListPopup" status="treeLoading"/>
+                           <apex:commandButton id="rmvObjBtn" value="{!$Label.cameleoncpq__btn_remove_object}" styleClass="panelBtn" onclick="{!IF(selectedObject.level<1,'noRemoveAllowed(); return false;','')}" action="{!removeSelectedObject}" oncomplete="removeObject('relObject_{!selectedObject.objId}','relObject_{!selectedObject.parentObjId}');"/>
+                           <apex:commandButton id="morObjBtn" value="More Objects" styleClass="panelBtn" rendered="{!AND(selectedObject.level<1,selectedObject.objSchema.hasMoreFieldsToLoad)}" action="{!selectedObject.loadMoreRelatedObjects}" oncomplete="refreshTree();" rerender="treeBtns,rootLinkedObjects" status="treeLoading"/>
+                       </apex:outputPanel>
+                       <apex:outputPanel layout="block" rendered="{!NOT(isCONTRACT_OUT)}">
+                           <div id="objectsTree" class="jstree jstree-0 jstree-default jstree-focused">
+                               <ul>
+                                   <apex:variable var="rootObjSchema" value="{!objectsList['0'].objSchema}"/>
+                                   <li class="jstree-leaf" id="relObject_0"><apex:outputLink value="#"><apex:outputText style="font-weight:bold;" value="{!rootObjSchema.objName}"/></apex:outputLink>
+                                       <apex:outputPanel layout="block" id="rootLinkedObjects">
+                                           <apex:actionStatus startStyleClass="loading" styleClass="loading" id="treeLoading"/>
+                                           <ul>
+                                               <apex:repeat value="{!objectsList['0'].relObjects}" var="relObjLv1">
+                                                   <apex:variable var="objLvl1Schema" value="{!relObjLv1.objSchema}"/>
+                                                   <li id="relObject_{!relObjLv1.objId}" class="jstree-leaf"><apex:outputLink value="#"><apex:outputText value="{!objLvl1Schema.objName}"/><apex:outputText rendered="{!relObjLv1.rsKey.keyField!=null}" value=" [{!relObjLv1.rsKey.usrKeyField}]"/></apex:outputLink>
+                                                       <ul>
+                                                           <apex:repeat value="{!relObjLv1.relObjects}" var="relObjLv2">
+                                                               <apex:variable var="objLvl2Schema" value="{!relObjLv2.objSchema}"/>
+                                                               <li id="relObject_{!relObjLv2.objId}" class="jstree-leaf"><apex:outputLink value="#"><apex:outputText value="{!objLvl2Schema.objName}"/><apex:outputText rendered="{!relObjLv2.rsKey.relName!=null}" value=" [{!relObjLv2.rsKey.relName}]"/></apex:outputLink></li>
+                                                           </apex:repeat>
+                                                       </ul>
+                                                   </li>
+                                               </apex:repeat>
+                                           </ul>
+                                       </apex:outputPanel>
+                                   </li>
+                               </ul>
+                           </div>
+                       </apex:outputPanel>
+                   </apex:outputPanel>
+              </div>
+              <div id="panelMapping" class="panel">
+                 <apex:pageBlock id="objFieldsMapping" title="{!IF(isCONTRACT_OUT, 'ContractLineItem', selectedObject.objSchema.objDescr + ' fields')}">
+                    <apex:outputPanel id="syncMode" layout="block" styleClass="mappingPanelSection" rendered="{!isOBJECTS_OUT && selectedObject.rsKey.relType==2}">
+                       <apex:actionRegion >
+                          <apex:selectRadio value="{!selectedObject.syncMode}" layout="pageDirection">
+                             <apex:selectOptions value="{!SYNCOUT_TYPES}"/>
+                             <apex:actionSupport event="onchange" action="{!validate}" rerender="objFieldsMapping" status="mapLoading"/>
+                          </apex:selectRadio>
+                       </apex:actionRegion>
+                       <apex:outputPanel id="syncColumn" styleClass="syncColumn">
+                          <apex:outputText value="{!$Label.cameleoncpq__mp_sync_column}"/>&nbsp;
+                          <apex:inputText value="{!selectedObject.syncField}"/>
+                       </apex:outputPanel>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!isCONTRACT_OUT}">
+                       <apex:outputPanel id="contractSyncField" styleClass="syncColumn">
+                          <apex:outputText value="{!$Label.cameleoncpq__mp_sync_column}"/>&nbsp;
+                          <apex:inputText value="{!contractSyncField}"/>
+                       </apex:outputPanel>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="block" styleClass="filterOverview" rendered="{!NOT(isCONTRACT_OUT)}">
+                       <apex:outputPanel layout="block" styleClass="bFilterView">
+                          <apex:outputPanel styleClass="bFilter">
+                             <apex:outputPanel styleClass="fFooter">
+                                <apex:commandLink action="{!selectAll}" value="{!$Label.cameleoncpq__btn_select_all}" rerender="objFieldsTable" />
+                                 |
+                                <apex:commandLink action="{!deselectAll}" value="{!$Label.cameleoncpq__btn_unselect_all}" rerender="objFieldsTable"/>
+                                 |
+                                <apex:outputPanel >
+                                   <apex:outputText value=" {!$Label.cameleoncpq__mp_mapped_only}">
+                                      <apex:inputCheckbox selected="{!filteredView}" value="{!filteredView}" id="filteredView" onChange="filterView();"/>
+                                   </apex:outputText>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!AND(selectedObject.objSchema.hasMoreFieldsToLoad,selectedObject.level>0)}">
+                                  |
+                                   <apex:commandLink action="{!selectedObject.getMoreFieldsMapping}" value="{!$Label.cameleoncpq__btn_more_fields}" rerender="objFieldsMapping" id="moreFields" status="mapLoading" />
+                                </apex:outputPanel>
+                             </apex:outputPanel>
+                             <apex:actionStatus startStyleClass="loading" styleClass="loading" id="mapLoading"/>
+                          </apex:outputPanel>
+                       </apex:outputPanel>
+                    </apex:outputPanel>
+                    <apex:pageBlockTable rendered="{!AND(selectedObject.level!=0, NOT(isCONTRACT_OUT))}" value="{!IF(filteredView,selectedObject.mappedFields,selectedObject.fieldsMapping)}" var="fieldMapping" id="objFieldsTable" rowClasses="odd,even" styleClass="list" >
+                       <apex:column styleClass="{!IF(AND(fieldMapping.isRequired,isOBJECTS_OUT),'required','')}">
+                          <apex:facet name="header"></apex:facet>
+                          <apex:inputCheckbox selected="{!fieldMapping.isMapped}" value="{!fieldMapping.isMapped}"/>
+                       </apex:column>
+                       <apex:column >
+                          <apex:facet name="header">{!$Label.cameleoncpq__mp_sfdc_field}</apex:facet>
+                          <apex:outputText value="{!fieldMapping.sfdcField}"/>
+                       </apex:column>
+                       <apex:column rendered="{!isOBJECTS_OUT}">
+                          <apex:facet name="header">{!IF(selectedObject.rsKey.relType==1,$Label.cameleoncpq__mp_cpq_field,$Label.cameleoncpq__mp_cpq_column)}</apex:facet>
+                          <apex:inputText value="{!fieldMapping.cpqField}"/>
+                       </apex:column>
+                    </apex:pageBlockTable>
+                 </apex:pageBlock>
+              </div>
+           </div>
+           <apex:outputPanel id="objListPopup">
+              <apex:outputPanel styleClass="mappingPopupBg" layout="block" rendered="{!objLstPopupDisplayed}"/>
+              <apex:outputPanel styleClass="overlayDialog" layout="block" rendered="{!objLstPopupDisplayed}">
+                 <apex:outputPanel styleClass="topRight" layout="block">
+                    <apex:outputPanel styleClass="topLeft" layout="block">
+                       <apex:outputLink styleClass="dialogClose"/>
+                       <h2><apex:outputText value="{!$Label.cameleoncpq__mp_select_obj}"/></h2>
+                    </apex:outputPanel>
+                 </apex:outputPanel>
+                 <apex:outputPanel styleClass="middle" layout="block">
+                    <apex:outputPanel styleClass="innerContent" layout="block">
+                       <apex:selectList styleClass="selectObj" value="{!selectedObjectName}" size="1">
+                          <apex:selectOptions value="{!selectedObject.childObjects}"/>
+                       </apex:selectList>
+                    </apex:outputPanel>
+                    <apex:outputPanel styleClass="buttons" layout="block">
+                       <apex:actionStatus startStyleClass="loading" styleClass="loading" id="objLoading"/>
+                       <apex:commandButton value="{!$Label.cameleoncpq__btn_more_objects}" style="{!IF(selectedObject.hasMoreChildObjToLoad, '', 'display:none;')}" action="{!openObjListPopup}" status="objLoading" rerender="objListPopup" />
+                       <apex:commandButton value="{!$Label.cameleoncpq__btn_ok}" action="{!selectedObject.addRelatedObject}" rerender="objListPopup" oncomplete="addObject('relObject_{!selectedObject.objId}','{!selectedObject.objSchema.objName}'+'{!IF(AND(selectedObject.level>1, selectedObject.rsKey.relName!=null),' ['+selectedObject.rsKey.relName+']','')}','relObject_{!selectedObject.parentObjId}');"/>
+                       <apex:commandButton value="{!$Label.cameleoncpq__btn_cancel}" action="{!closeObjListPopup}" rerender="objListPopup"/>
+                    </apex:outputPanel>
+                 </apex:outputPanel>
+                 <apex:outputPanel styleClass="bottomRight" layout="block">
+                    <apex:outputPanel styleClass="bottomLeft" layout="block"/>
+                 </apex:outputPanel>
+              </apex:outputPanel>
+           </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:outputPanel>
+    <apex:outputPanel id="oppProductsSyncSettings" layout="block">
+        <apex:outputPanel rendered="{!!uploadVisible && displayOppProductSettings}" layout="block" styleClass="mappingPanel">
+            <apex:variable id="moreOppFields" var="dspMoreOppFields" value="{!moreOppFields}" />
+            <apex:variable id="moreOppProductFields" var="dspMoreOppProductFields" value="{!moreOppProductFields}" />
+            <apex:variable id="moreQuoFields" var="dspMoreQuoFields" value="{!moreQuoFields}" />
+            <apex:actionFunction name="filterOppView" action="{!validate}" rerender="oppProductFieldsTable" status="oppMapLoading"/>
+            <apex:actionFunction name="refUnrefSyncID" action="{!refUnrefSyncId}" rerender="oppProductFieldsTable" status="oppMapLoading"/>
+            <apex:actionFunction name="refUnrefDispSeq" action="{!refUnrefDispSeq}" rerender="oppProductFieldsTable" status="oppMapLoading"/>
+            <apex:actionFunction name="displayMoreOppFields" action="{!validate}" rerender="moreOppFields, oppProductLookups" status="oppMapLoading"/>
+            <apex:actionFunction name="displayMoreOppProductFields" action="{!validate}" rerender="moreOppProductFields, oppProductLookups, oppProductFieldsTable" status="oppMapLoading"/>
+            <apex:actionFunction name="displayMoreQuoFields" action="{!validate}" rerender="moreQuoFields, oppProductLookups" status="oppMapLoading"/>
+            <apex:pageBlock id="oppProductLookups" title="{!$Label.cameleoncpq__mp_opp_products_title}">
+                <apex:pageMessages />
+                <apex:pageBlockSection columns="1">
+                   <apex:pageBlockSectionItem >
+                      <apex:outputLabel value="{!$Label.cameleoncpq__mp_opp_sync_active}" for="oppSyncActive"/>
+                      <apex:inputCheckbox selected="{!oppProductSyncSettings.isActive}" value="{!oppProductSyncSettings.isActive}" id="oppSyncActive"/>
+                   </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem helpText="{!$Label.cameleoncpq__mp_tip_opp_lookup}">
+                      <apex:outputLabel value="{!$Label.cameleoncpq__mp_opp_lookup}" for="oppLookup"/>
+                      <apex:selectList id="oppLookup" value="{!oppProductSyncSettings.oppLookupField}" size="1">
+                         <apex:selectOptions value="{!oppLookups}"/>
+                         <apex:commandButton value="{!$Label.cameleoncpq__btn_more_fields}" rendered="{!dspMoreQuoFields}" styleClass="btnSelectList" action="{!validate}" id="moreQuoFields" status="oppMapLoading" onComplete="displayMoreQuoFields();" />
+                      </apex:selectList>
+                   </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem helpText="{!$Label.cameleoncpq__mp_tip_quo_lookup}">
+                      <apex:outputLabel value="{!$Label.cameleoncpq__mp_quo_lookup}" for="quoLookup"/>
+                      <apex:selectList id="quoLookup" value="{!oppProductSyncSettings.activeQuoLookupField}" size="1">
+                         <apex:selectOptions id="oppFieldsList1" value="{!quoLookups}"/>
+                         <apex:commandButton value="{!$Label.cameleoncpq__btn_more_fields}" rendered="{!dspMoreOppFields}" styleClass="btnSelectList" action="{!validate}" id="moreOppFields1" status="oppMapLoading" onComplete="displayMoreOppFields();" />
+                      </apex:selectList>
+                   </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem helpText="{!$Label.cameleoncpq__mp_tip_opp_status}">
+                      <apex:outputLabel value="{!$Label.cameleoncpq__mp_opp_sync_status}" for="syncStatus"/>
+                      <apex:selectList id="syncStatus" value="{!oppProductSyncSettings.oppSyncStatusField}" size="1">
+                         <apex:selectOptions value="{!oppTextFields}"/>
+                         <apex:commandButton value="{!$Label.cameleoncpq__btn_more_fields}" rendered="{!dspMoreOppFields}" styleClass="btnSelectList" action="{!validate}" id="moreOppFields1" status="oppMapLoading" onComplete="displayMoreOppFields();" />
+                      </apex:selectList>
+                   </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <div style="height:20px"></div>
+            <apex:pageBlock id="oppProductFieldsMapping" title="{!$Label.cameleoncpq__mp_opp_pr_map_title}">
+                <apex:pageBlockSection columns="1">
+                   <apex:pageBlockSectionItem helpText="{!$Label.cameleoncpq__mp_tip_opp_syncid}">
+                     <apex:outputLabel value="{!$Label.cameleoncpq__mp_sync_opp_type}" for="oppProductSyncID"/>
+                     <apex:selectList id="oppProductSyncID" value="{!oppProductSyncSettings.syncIdentifierField}" size="1" onChange="refUnrefSyncID();">
+                        <apex:selectOptions value="{!oppProductTextFields}"/>
+                        <apex:commandButton value="{!$Label.cameleoncpq__btn_more_fields}" rendered="{!dspMoreOppProductFields}" styleClass="btnSelectList" action="{!validate}" id="moreOppPrFields1" status="oppMapLoading" onComplete="displayMoreOppProductFields();" />
+                     </apex:selectList>
+                   </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem helpText="{!$Label.cameleoncpq__mp_tip_opp_seq}">
+                     <apex:outputLabel value="{!$Label.cameleoncpq__mp_opp_pr_sequence}" for="oppProductSeq"/>
+                     <apex:selectList id="oppProductSeq" value="{!oppProductSyncSettings.displaySequenceField}" size="1" onChange="refUnrefDispSeq();">
+                        <apex:selectOptions value="{!oppProductNumFields}"/>
+                        <apex:commandButton value="{!$Label.cameleoncpq__btn_more_fields}" rendered="{!dspMoreOppProductFields}" styleClass="btnSelectList" action="{!validate}" id="moreOppPrFields2" status="oppMapLoading" onComplete="displayMoreOppProductFields();" />
+                     </apex:selectList>
+                   </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <div style="height:20px"></div>
+                <apex:outputPanel layout="block" styleClass="filterOverview" >
+                   <apex:outputPanel layout="block" styleClass="bFilterView">
+                      <apex:outputPanel styleClass="bFilter">
+                         <apex:outputPanel styleClass="fFooter">
+                            <apex:commandLink action="{!selectAll}" value="{!$Label.cameleoncpq__btn_select_all}" rerender="oppProductFieldsTable" />
+                             |
+                            <apex:commandLink action="{!deselectAll}" value="{!$Label.cameleoncpq__btn_unselect_all}" rerender="oppProductFieldsTable" />
+                             |
+                            <apex:outputPanel >
+                               <apex:outputText value=" {!$Label.cameleoncpq__mp_mapped_only}">
+                                  <apex:inputCheckbox selected="{!filteredView}" value="{!filteredView}" id="filteredOppView" onChange="filterOppView();"/>
+                               </apex:outputText>
+                            </apex:outputPanel>
+                            <apex:outputPanel >
+                              |
+                               <apex:commandLink action="{!validate}" value="{!$Label.cameleoncpq__btn_more_fields}" rendered="{!dspMoreOppProductFields}" id="moreFields" status="oppMapLoading" onComplete="displayMoreOppProductFields();"/>
+                            </apex:outputPanel>
+                         </apex:outputPanel>
+                         <apex:actionStatus startStyleClass="loading" styleClass="loading" id="oppMapLoading"/>
+                      </apex:outputPanel>
+                   </apex:outputPanel>
+                </apex:outputPanel>
+                <apex:pageBlockTable value="{!IF(filteredView,selectedObject.mappedFields,selectedObject.fieldsMapping)}" var="fieldMapping" id="oppProductFieldsTable" rowClasses="odd,even" styleClass="list limitedWidth" >
+                   <apex:column >
+                      <apex:facet name="header"></apex:facet>
+                      <apex:inputCheckbox selected="false" value="{!fieldMapping.isMapped}" rendered="{!!fieldMapping.isLocked}" />
+                   </apex:column>
+                   <apex:column >
+                      <apex:facet name="header">{!$Label.cameleoncpq__mp_opp_pr_field}</apex:facet>
+                      <apex:outputText value="{!fieldMapping.sfdcField}"/>
+                   </apex:column>
+                   <apex:column >
+                      <apex:facet name="header">{!$Label.cameleoncpq__mp_quo_field}</apex:facet>
+                      <apex:selectList id="oppFields" value="{!fieldMapping.cpqField}" size="1" rendered="{!!fieldMapping.isLocked}">
+                         <apex:selectOptions value="{!quoteLineFields}"/>
+                      </apex:selectList>
+                      <apex:outputText value="{!fieldMapping.cpqField}"  rendered="{!fieldMapping.isLocked}"/>
+                   </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    <apex:outputPanel id="quoteProductsSyncSettings" layout="block">
+        <apex:outputPanel rendered="{!uploadVisible==false && displayProductSettings}" layout="block" styleClass="mappingPanel">
+            <apex:actionFunction name="displayProductsPopup" action="{!openProductsListPopup}" rerender="productsPopupContainer" status="openPrPopupStatus"/>
+            <apex:actionFunction name="closeProductsListPopup" action="{!closeProductsListPopup}" rerender="productsPopupContainer" status="openPrPopupStatus"/>
+            <input type="hidden" id="prCodeInputId" value=""/>
+            <input type="hidden" id="prCodeTextId" value=""/>
+            <apex:pageBlock title="{!$Label.cameleoncpq__mp_products_title}">
+               <apex:pageMessages />
+               <apex:pageBlockSection columns="1">
+                   <apex:pageBlockSectionItem >
+                      <apex:outputLabel value="{!$Label.cameleoncpq__mp_pr_sync_active}" for="prSyncActive"/>
+                      <apex:inputCheckbox id="prSyncActive" selected="{!productSyncSettings.isActive}" value="{!productSyncSettings.isActive}" />
+                   </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem helpText="{!$Label.cameleoncpq__mp_tip_pr_lookup}">
+                     <apex:outputLabel value="{!$Label.cameleoncpq__mp_product_lookup}" for="prLookup"/>
+                     <apex:selectList id="prLookup" value="{!productSyncSettings.productLookupField}" size="1">
+                        <apex:selectOptions value="{!productLookups}"/>
+                     </apex:selectList>
+                   </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem helpText="{!$Label.cameleoncpq__mp_tip_fb_product}">
+                     <apex:outputLabel value="{!$Label.cameleoncpq__mp_fallback_pr}" for="productFB"/>
+                     <apex:outputText id="productFB" value="{!productSyncSettings.fallbackPRODUCT}">
+                        <apex:image id="searchIcon" value="/img/s.gif" styleClass="searchIcon lookupIcon" onClick="setProductType('{!$Component.productFB}','{!$Component.inputProductFB}'); displayProductsPopup();" />
+                        <apex:inputHidden value="{!productSyncSettings.fallbackPRODUCT}" id="inputProductFB"/>
+                     </apex:outputText>
+                   </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem helpText="{!$Label.cameleoncpq__mp_tip_fb_spec}">
+                     <apex:outputLabel value="{!$Label.cameleoncpq__mp_fallback_sp}" for="specificFB"/>
+                     <apex:outputText id="specificFB" value="{!productSyncSettings.fallbackSPECIFIC}">
+                        <apex:image id="searchIcon" value="/img/s.gif" styleClass="searchIcon lookupIcon" onClick="setProductType('{!$Component.specificFB}','{!$Component.inputSpecificFB}'); displayProductsPopup();"/>
+                        <apex:inputHidden value="{!productSyncSettings.fallbackSPECIFIC}" id="inputSpecificFB"/>
+                     </apex:outputText>
+                   </apex:pageBlockSectionItem>
+                   <apex:actionStatus startStyleClass="loading" styleClass="loading" id="openPrPopupStatus"/>
+               </apex:pageBlockSection>
+               <apex:outputPanel id="productsPopupContainer">
+                   <apex:actionFunction name="displayProductsList" action="{!validate}" rerender="productsPopupContainer" status="searchProductsStatus"/>
+                   <apex:outputPanel id="productsPopup" rendered="{!productsPopupDisplayed}">
+                      <apex:outputPanel styleClass="mappingPopupBg" layout="block" />
+                      <apex:outputPanel styleClass="productPopup overlayDialog" layout="block">
+                         <apex:outputPanel styleClass="topRight" layout="block">
+                            <apex:outputPanel styleClass="topLeft" layout="block">
+                               <apex:outputLink styleClass="dialogClose"/>
+                               <h2><apex:outputText value="{!$Label.cameleoncpq__mp_search_products}"/></h2>
+                            </apex:outputPanel>
+                         </apex:outputPanel>
+                         <apex:outputPanel styleClass="productPopupBody middle" layout="block">
+                            <apex:selectList id="srchModes" value="{!srchMode}" styleClass="productPopupSrchBox" size="1">
+                               <apex:selectOptions value="{!SEARCH_MODES}"/>
+                               <apex:inputText value="{!srchKey}" id="srchKey" onChange="displayProductsList();" />
+                            </apex:selectList>
+                            <apex:actionStatus startStyleClass="loading" styleClass="loading" id="searchProductsStatus"/>
+                            <apex:pageBlockTable value="{!productList}" var="product" id="productList" rowClasses="odd,even" styleClass="list limitedWidth" >
+                               <apex:column >
+                                  <apex:facet name="header">{!$Label.cameleoncpq__mp_pr_code}</apex:facet>
+                                  <apex:outputLink value=""/>
+                                  <apex:commandLink action="{!validate}" value="{!product.name}" onComplete="updSelectedProduct(this.innerHTML); closeProductsListPopup();" />
+                               </apex:column>
+                               <apex:column >
+                                  <apex:facet name="header">{!$Label.cameleoncpq__mp_pr_desc}</apex:facet>
+                                  <apex:outputText value="{!product.description}"/>
+                               </apex:column>
+                            </apex:pageBlockTable>
+                            <apex:outputPanel styleClass="buttons" layout="block">
+                               <apex:commandButton value="{!$Label.cameleoncpq__btn_cancel}" action="{!closeProductsListPopup}" rerender="productsPopupContainer"/>
+                            </apex:outputPanel>
+                         </apex:outputPanel>
+                         <apex:outputPanel styleClass="bottomRight" layout="block">
+                            <apex:outputPanel styleClass="bottomLeft" layout="block"/>
+                         </apex:outputPanel>
+                      </apex:outputPanel>
+                   </apex:outputPanel>
+               </apex:outputPanel>
+            </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    <apex:outputPanel id="clonePopup">
+       <apex:outputPanel rendered="{!clonePopupDisplayed}">
+          <apex:outputPanel styleClass="mappingPopupBg" layout="block" />
+          <apex:outputPanel styleClass="overlayDialog" layout="block">
+             <apex:outputPanel styleClass="topRight" layout="block">
+                <apex:outputPanel styleClass="topLeft" layout="block">
+                   <apex:outputLink styleClass="dialogClose"/>
+                   <h2><apex:outputText value="Enter new Mapping Set Name"/></h2>
+                </apex:outputPanel>
+             </apex:outputPanel>
+             <apex:outputPanel styleClass="middle" layout="block">
+                <apex:outputPanel styleClass="innerContent" layout="block">
+                   <apex:inputText value="{!newMappingSetName}" id="clonedMS"/>
+                </apex:outputPanel>
+                <apex:outputPanel styleClass="buttons" layout="block">
+                   <apex:commandButton value="{!$Label.cameleoncpq__btn_ok}" action="{!cloneMapSet}" rerender="clonePopup" />
+                   <apex:commandButton value="{!$Label.cameleoncpq__btn_cancel}" action="{!closeClonePopup}" rerender="clonePopup"/>
+                </apex:outputPanel>
+             </apex:outputPanel>
+             <apex:outputPanel styleClass="bottomRight" layout="block">
+                <apex:outputPanel styleClass="bottomLeft" layout="block"/>
+             </apex:outputPanel>
+          </apex:outputPanel>
+       </apex:outputPanel>
+    </apex:outputPanel>
+  </apex:form>
+</apex:page>

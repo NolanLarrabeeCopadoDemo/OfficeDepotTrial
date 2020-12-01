@@ -1,0 +1,85 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false"  applyHtmlTag="false"  controller="com2GPOCommunityLandingController">
+
+<html>
+<head>
+<title> Office Depot </title>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jquery1.11.2.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jqueryui1.11.4.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/bootstrap.min.js')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jquery.validate.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/od_JSExtendValidator.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/passwordStrengthMeter.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/RequestInvoice.js')}"/>
+
+
+
+<link rel="shortcut icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" type="/image/x-ico" href="https://bsdsqs8.officedepot.com/favicon.ico"/>
+
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/buttons.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/grid.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/helper.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tooltip.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/style.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tips.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/registration.css')}"></link>
+<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/bootstrap.min.css')}" />
+<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/main.css')}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/GPOforms.css')}"></link>
+
+<script>
+    document.title="Office Depot" 
+</script>
+
+<style>
+    .contentHide{
+        display:none;
+    }
+</style> 
+</head>
+    
+<body>
+     <div class="container-fluid header">
+        <header class="container">
+            <div class="col-md-12">
+                <a target="_blank" href="https://business.officedepot.com/"><img src="{!URLFOR($Resource.CommunitiesAssets,'images/OD-Biz-Logo.png')}" title="Office Depot Business - We provide Smart Solutions that help you take care of business."/></a>
+            </div>
+        </header>
+    </div>
+    <div class="container padding-md">
+        <div class="col-md-3">
+            <img src="{!URLFOR($Resource.CommuStaticResources,'images/happyGirls.png')}"/>
+        </div>
+        <div class="{!IF(($CurrentPage.parameters.src) != 'maint','col-md-9','contentHide')}">
+            <h1> Thank You for Registering </h1>
+            <p> Your Registration has been successfully submitted! Our team will contact you within the next 3 - 5 business days.<br/><br/> 
+            Learn more about how Office Depot makes business personal. 
+                <a href="{!commsetup.url_insert__c}GPOHome?id={!$CurrentPage.parameters.id}"> CLICK HERE </a>
+            </p>
+        </div>
+        <div class="{!IF(($CurrentPage.parameters.src) == 'maint','col-md-9','contentHide')}">
+            <h1> Thank You </h1>
+            <p> Your request will be processed and you should receive notification with details shortly.</p>
+            <p>For more information, please contact your account administrator. </p>
+            <p>Thank you for shopping with Office Depot.</p><br/>
+                <a href="{!commsetup.url_insert__c}GPOHome?id={!$CurrentPage.parameters.id}"> Click here to return</a>
+        </div>
+    </div>
+    <div class="container">
+        <footer class="row padding-md footer border-top">
+            <div class="col-md-6 small">Copyright &copy; {!currentYear} by Office Depot, Inc. All rights reserved. </div>
+            <div class="col-md-6 small">
+                    <ul class="list-inline pull-right">
+                        <li class="border-none"><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp">Privacy Policy</a></li>
+                        <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/trackingtools.jsp">Online Tracking Tools</a></li>
+                        <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp">Terms of Use</a></li>
+                        <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp">Terms &amp; Conditions</a></li>
+                    </ul>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+</apex:page>

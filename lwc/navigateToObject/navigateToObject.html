@@ -1,0 +1,11 @@
+<template>
+    <template if:true={loading_url}>
+        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </template>
+    <template if:false={loading_url}>
+        <template if:true={error}>
+            <c-error-panel errors={error} friendly-message={friendly_message}></c-error-panel>
+        </template>
+    </template>
+
+</template>

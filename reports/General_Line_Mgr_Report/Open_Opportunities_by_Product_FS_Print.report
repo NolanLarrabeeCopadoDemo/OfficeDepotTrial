@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_75180609</developerName>
+        <masterLabel>Division</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>User.Region__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>CPD Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>CBS Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>MPS Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Furniture Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Technology Sales</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Public - K12 Solutions</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Public Cooperatives</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Growth Initiatives</sourceValue>
+            </sourceValues>
+            <value>Adjacenies &amp; Public</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Enterprise BD - Central</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Enterprise BD - Northeast</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Enterprise BD - West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Canada</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Healthcare and Buying Groups</sourceValue>
+            </sourceValues>
+            <value>Enterprise BD &amp; Canada</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Northeast</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Southeast</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>West</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Inside Sales</sourceValue>
+            </sourceValues>
+            <value>Field Sales &amp; Inside Sales</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>AMOUNT</column>
+        </chartSummaries>
+        <chartType>HorizontalBarStacked</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>User.Region__c</groupingColumn>
+        <legendPosition>Bottom</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <secondaryGroupingColumn>Opportunity.Product__c</secondaryGroupingColumn>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>User.Market__c</field>
+    </columns>
+    <columns>
+        <field>OWNER_MANAGER</field>
+    </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>OWNER_TITLE</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_TYPE</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Segment__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Primary_Competitor1__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Customer_Lifecycle__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Amount_Forecast__c</field>
+    </columns>
+    <description>How many open opportunities my team have been created this fiscal year?</description>
+    <filter>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>0%-Leads from Web/Sales Online,100%-Won,0%-Lost,0%-Walkaway,0%-Duplicate/Cancelled</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.Product_Subtype__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Automatic Toner Replenishment (ATR)</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Opportunity.Opportunity_Business_Pro</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Region__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>,Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>AMOUNT</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.IOWNACCOUNT__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>yes</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.Product__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_75180609</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>User.Region__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Open Opportunities by Product-FS &amp; Print</name>
+    <params>
+        <name>open</name>
+        <value>open</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

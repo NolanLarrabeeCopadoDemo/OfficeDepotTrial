@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account  Setup - Small Order Fee Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Small Order Fee</name>
+    <style>freeForm</style>
+    <subject>Small Order Fee  - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Below new request for Accounts Payable Contacts:
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Owner: {!Account_Setup_Request__c.OwnerFullName}
+Small Order Fee:  {!Account_Setup_Request__c.Small_Order_Fee_Flag__c}
+
+Salesforce Link to Records:
+Salesforce Account Setup Request Record:  https://cs7.salesforce.com/{!Account_Setup_Request__c.Id}
+Salesforce Account Record: &lt;a href=&quot;https://cs7.salesforce.com/{!Account_Setup_Request__c.AccountId__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

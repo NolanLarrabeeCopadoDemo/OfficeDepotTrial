@@ -1,0 +1,18 @@
+<apex:page standardController="Ace_Customer_SKU_Changes__c" extensions="ACESKUIGMCustomPage">
+<style>
+    .btn1{width:50%;text-align: center; align:center;}
+    .btn2 {width:50%;text-align: center; align:center;}
+</style>
+    
+    <apex:panelGrid width="100%" columns="2" rendered="{!RenderFields}">
+        <apex:outputPanel style="text-align: center; align:center;">
+              <apex:outputLabel style="font-weight:bold;">IGM GROSS ($):</apex:outputLabel>&nbsp;
+              <apex:outputText value="{!IGMGROSSDOLLAR}"/>
+        </apex:outputPanel>
+        <apex:outputPanel style="text-align: center; align:center;">
+              <apex:outputLabel style="font-weight:bold;">IGM GROSS (%):</apex:outputLabel> &nbsp;
+              <apex:outputText value="{!IGMGROSSPERCENT}%"/>
+        </apex:outputPanel>                    
+    </apex:panelGrid>
+  
+</apex:page>

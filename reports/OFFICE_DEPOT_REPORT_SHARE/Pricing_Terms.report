@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Contract_Pricing_Terms__c$Name</field>
+    </columns>
+    <columns>
+        <field>Contract_Pricing_Terms__c$Department_Groups__c</field>
+    </columns>
+    <columns>
+        <field>Contract_Pricing_Terms__c$Contract__c.Name</field>
+    </columns>
+    <columns>
+        <field>Contract_Pricing_Terms__c$Contract__c.Account.Name</field>
+    </columns>
+    <columns>
+        <field>Contract_Pricing_Terms__c$Contract__c.Account.Furniture_TY__c</field>
+    </columns>
+    <columns>
+        <field>Contract_Pricing_Terms__c$Contract__c.Account.Furniture_LY__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Pricing Terms</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Contract_Pricing_Terms_With_Contracts_and_Accounts__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Contract_Pricing_Terms__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,1764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionCalls>
+        <name>Case_Creation_Notification_for_Workspace_Interiors</name>
+        <label>Case Creation Notification for Workspace Interiors</label>
+        <locationX>659</locationX>
+        <locationY>791</locationY>
+        <actionName>Case.Case_Creation_Notification_for_Workspace_Interiors</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>File_Upload</targetReference>
+        </connector>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>CreateWorkspaceCase</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Case_Creation_Notification_for_Workspace_Interiors_0</name>
+        <label>Case Creation Notification for Workspace Interiors</label>
+        <locationX>997</locationX>
+        <locationY>861</locationY>
+        <actionName>Case.Case_Creation_Notification_for_Workspace_Interiors</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>File_Upload_5</targetReference>
+        </connector>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>CreateWorkspaceCase</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Case_Creation_Notification_for_Workspace_Interiors_0_0</name>
+        <label>Case Creation Notification for Workspace Interiors</label>
+        <locationX>1275</locationX>
+        <locationY>784</locationY>
+        <actionName>Case.Case_Creation_Notification_for_Workspace_Interiors</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>File_Upload_4</targetReference>
+        </connector>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>CreateWorkspaceCase</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <choices>
+        <name>Architectual_Finish_Selection_Interior_Finishes</name>
+        <choiceText>Architectual Finish Selection (Interior Finishes)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Architectual Finish Selection (Interior Finishes)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Art_Work</name>
+        <choiceText>Artwork</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Artwork</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Base_Plans_Attached</name>
+        <choiceText>Base Plans Attached</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Base Plans Attached</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Base_Plans_Existing</name>
+        <choiceText>Base Plans Existing</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Base Plans Existing</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Block_Plan</name>
+        <choiceText>Block Plan</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Block Plan</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Break_Rooms</name>
+        <choiceText>Break Rooms</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Break Rooms</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Buying_Group_Response</name>
+        <choiceText>Buying Group Response</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Buying Group Response</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Conference_Rooms</name>
+        <choiceText>Conference Rooms</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Conference Rooms</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Custom_Specials</name>
+        <choiceText>Custom/Specials</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Custom/Specials</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Customer_to_Provide</name>
+        <choiceText>Customer to Provide</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Customer to Provide</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Design_Team_East_Noelle_Monek</name>
+        <choiceText>Design Team - East</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Design Team - East</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Design_Team_Midwest_Angie_Petcash</name>
+        <choiceText>Design Team - Midwest</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Design Team - Midwest</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Design_Team_West_Paul_Borden</name>
+        <choiceText>Design Team - West</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Design Team - West</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Double_Check</name>
+        <choiceText>Double Check</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Emerging_Partnerships_East</name>
+        <choiceText>Emerging Partnerships East</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Emerging Partnerships East</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Emerging_Partnerships_West</name>
+        <choiceText>Emerging Partnerships West</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Emerging Partnerships West</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Fab_Fin_Selection_research</name>
+        <choiceText>Fab/Fin Selection research</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Fab/Fin Selection research</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Field_Dimensions_Attached</name>
+        <choiceText>Field Dimensions Attached</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Field Dimensions Attached</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Field_Dimensions_Needed</name>
+        <choiceText>Field Dimensions Needed</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Field Dimensions Needed</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>File_Rooms</name>
+        <choiceText>File Rooms</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Files Rooms</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Furniture_Plan_with_budgetary_planning</name>
+        <choiceText>Furniture Plan with budgetary planning</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Furniture Plan with budgetary planning</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Furniture_Plan_with_complete_finishes</name>
+        <choiceText>Furniture Plan with complete finishes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Furniture Plan with complete finishes</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>G_L_Refferals</name>
+        <choiceText>G/L Refferals</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>G/L Refferals</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Global</name>
+        <choiceText>Global</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Global</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>High</name>
+        <choiceText>2-High</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>2-High</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>HON</name>
+        <choiceText>HON</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>HON</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Inscape</name>
+        <choiceText>Inscape</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inscape</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Installation_Drawings</name>
+        <choiceText>Installation Drawings</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Installation Drawings</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Intereriors_Generated</name>
+        <choiceText>Intereriors Generated</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Intereriors Generated</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Inventory_Existing_Furniture</name>
+        <choiceText>Inventory Existing Furniture</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Inventory Existing Furniture</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>K12_CTE_Spaced</name>
+        <choiceText>K12-CTE Spaced</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>K12-CTE Spaced</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>K12_Makerspaces</name>
+        <choiceText>K12-Makerspaces</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>K12-Makerspaces</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>K12_Media_Comments</name>
+        <choiceText>K12-Media Comments</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>K12-Media Comments</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>K12_Modern_Classroom</name>
+        <choiceText>K12-Modern Classroom</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>K12-Modern Classroom</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>K12_STEM_Spaces</name>
+        <choiceText>K12-STEM Spaces</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>K12-STEM Spaces</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Kimball</name>
+        <choiceText>Kimball</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Kimball</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>LLS_Project</name>
+        <choiceText>LLS Project</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>LLS Project</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Lobby_Reception</name>
+        <choiceText>Lobby/Reception</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Lobby/Reception</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Low</name>
+        <choiceText>4-Low</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>4-Low</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Manufacturer_Refferal</name>
+        <choiceText>Manufacturer Refferal</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Manufacturer Refferal</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Medium</name>
+        <choiceText>3-Medium</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>3-Medium</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>N_A_Specifications_Only</name>
+        <choiceText>N/A - Specifications Only</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>N/A - Specifications Only</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>National</name>
+        <choiceText>National</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>National</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>NeedSelecting</name>
+        <choiceText>Need Selecting</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Need Selecting</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>New_Project_BPA_Military</name>
+        <choiceText>New Project BPA Military</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New Project BPA Military</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>New_Project_IFS</name>
+        <choiceText>New Project IFS</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New Project IFS</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>New_Project_Interiors</name>
+        <choiceText>New Project Interiors</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New Project Interiors</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>New_Project_K12_Interiors</name>
+        <choiceText>New Project K12/Interiors</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New Project K12/Interiors</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>New_RFP_Interiors</name>
+        <choiceText>New RFP Interiors</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>New RFP Interiors</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Other</name>
+        <choiceText>Other</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PreDetermined</name>
+        <choiceText>Pre-determined (Please fill in finish codes below)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Pre-determined (Please fill in finish codes below)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Private_Offices</name>
+        <choiceText>Private Offices</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Private Offices</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Public_Sector</name>
+        <choiceText>Public Sector</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Public Sector</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>QuickShip</name>
+        <choiceText>Quick Ship</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Quick Ship</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Reconfiguration</name>
+        <choiceText>Reconfiguration</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Reconfiguration</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Sales_to_Provide</name>
+        <choiceText>Sales to Provide</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Sales to Provide</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Seating</name>
+        <choiceText>Seating</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Seating</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Signage</name>
+        <choiceText>Signage</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Signage</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Specify_Your_Own_Value</name>
+        <choiceText>Specify Your Own Value</choiceText>
+        <dataType>String</dataType>
+        <userInput>
+            <isRequired>false</isRequired>
+        </userInput>
+        <value>
+            <stringValue>Specify Your Own Value</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Specify_your_own_value_1</name>
+        <choiceText>Specify your own value</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Specify_Your_value</name>
+        <choiceText>Specify Your value</choiceText>
+        <dataType>String</dataType>
+        <userInput>
+            <isRequired>false</isRequired>
+        </userInput>
+        <value>
+            <stringValue>Specify Your value</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>SpecifyYourOwnValueImput</name>
+        <choiceText>Specify Your Own Value</choiceText>
+        <dataType>String</dataType>
+        <userInput>
+            <isRequired>false</isRequired>
+            <promptText>Specify Your Own Value</promptText>
+        </userInput>
+        <value>
+            <stringValue>Specify Your Own Value Imput</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Standard</name>
+        <choiceText>Standard</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Standard</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Strategic_Partnership_East</name>
+        <choiceText>Strategic Partnership East</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Strategic Partnership East</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Strategic_Partnership_West</name>
+        <choiceText>Strategic Partnership West</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Strategic Partnership West</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Teknion</name>
+        <choiceText>Teknion</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Teknion</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Training_Rooms</name>
+        <choiceText>Training Rooms</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Trainging Rooms</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Trendway</name>
+        <choiceText>Trendway</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Walls</name>
+        <choiceText>Walls</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Walls</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Workstation</name>
+        <choiceText>Workstation</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Workstation</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X3D_Isometric</name>
+        <choiceText>3D Isometric</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>3D Isometric</stringValue>
+        </value>
+    </choices>
+    <constants>
+        <name>Case_Origin</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Workspace Interiors</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Priority_High</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>2-High</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Priority_Low</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>4-Low</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <description>Case Priority - Medium</description>
+        <name>Priority_Medium</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>3-Medium</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>RID0121k0000004P6q</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>0121k0000004P6q</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <name>Priority_Decision</name>
+        <label>Priority Decision</label>
+        <locationX>989</locationX>
+        <locationY>539</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>High_Decision</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Priority_Picklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>High</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Case1</targetReference>
+            </connector>
+            <label>High Decision</label>
+        </rules>
+        <rules>
+            <name>Medium_Decision</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Priority_Picklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Medium</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Case_2</targetReference>
+            </connector>
+            <label>Medium Decision</label>
+        </rules>
+        <rules>
+            <name>Low_Decision</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Priority_Picklist</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Low</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Case_3</targetReference>
+            </connector>
+            <label>Low Decision</label>
+        </rules>
+    </decisions>
+    <description>Flow created for Interior Sellers -  Design Request off the Opportunity - removed validation</description>
+    <dynamicChoiceSets>
+        <name>Design_Team_Picklist</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Design_Team__c</picklistField>
+        <picklistObject>Case</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>Name</name>
+        <dataType>String</dataType>
+        <displayField>Id</displayField>
+        <object>User</object>
+        <outputAssignments>
+            <assignToReference>fullName</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>Priority_Level</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Priority</picklistField>
+        <picklistObject>Case</picklistObject>
+    </dynamicChoiceSets>
+    <formulas>
+        <name>Oppt_Owner_Name</name>
+        <dataType>String</dataType>
+        <expression>{!Rep_name}</expression>
+    </formulas>
+    <interviewLabel>Furniture Design Requests {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Furniture Design Requests v1.3</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Case1</name>
+        <label>Create Case1</label>
+        <locationX>678</locationX>
+        <locationY>675</locationY>
+        <assignRecordIdToReference>CreateWorkspaceCase</assignRecordIdToReference>
+        <connector>
+            <targetReference>Case_Creation_Notification_for_Workspace_Interiors</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>DescriptionText</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Design_Team__c</field>
+            <value>
+                <elementReference>Design_Team_Picklist</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Due_Date__c</field>
+            <value>
+                <elementReference>Requested_Due_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Origin</field>
+            <value>
+                <elementReference>Case_Origin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <elementReference>Priority_High</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>RecTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Designer__c</field>
+            <value>
+                <elementReference>Requested_Designer</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Project_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WRF_Opportunity__c</field>
+            <value>
+                <elementReference>oppID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_2</name>
+        <label>Create Case 2</label>
+        <locationX>982</locationX>
+        <locationY>734</locationY>
+        <assignRecordIdToReference>CreateWorkspaceCase</assignRecordIdToReference>
+        <connector>
+            <targetReference>Case_Creation_Notification_for_Workspace_Interiors_0</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>DescriptionText</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Design_Team__c</field>
+            <value>
+                <elementReference>Design_Team_Picklist</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Due_Date__c</field>
+            <value>
+                <elementReference>Requested_Due_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Origin</field>
+            <value>
+                <elementReference>Case_Origin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <elementReference>Priority_Medium</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>RecTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Designer__c</field>
+            <value>
+                <elementReference>Requested_Designer</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Project_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WRF_Opportunity__c</field>
+            <value>
+                <elementReference>oppID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Case_3</name>
+        <label>Create Case 3</label>
+        <locationX>1268</locationX>
+        <locationY>651</locationY>
+        <assignRecordIdToReference>CreateWorkspaceCase</assignRecordIdToReference>
+        <connector>
+            <targetReference>Case_Creation_Notification_for_Workspace_Interiors_0_0</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>DescriptionText</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Design_Team__c</field>
+            <value>
+                <elementReference>Design_Team_Picklist</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Due_Date__c</field>
+            <value>
+                <elementReference>Requested_Due_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Origin</field>
+            <value>
+                <elementReference>Case_Origin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <elementReference>Priority_Low</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>RecTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Designer__c</field>
+            <value>
+                <elementReference>Requested_Designer</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>Project_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WRF_Opportunity__c</field>
+            <value>
+                <elementReference>oppID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordCreates>
+    <recordLookups>
+        <name>Account_Name</name>
+        <label>Account Name</label>
+        <locationX>390</locationX>
+        <locationY>48</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>opportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>acctid</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>acctown</assignToReference>
+            <field>Account_Owner_Name__c</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>acctid</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>acctnm</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>opportunity</name>
+        <label>opportunity</label>
+        <locationX>536</locationX>
+        <locationY>48</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Sales_Person</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>oppID</elementReference>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <outputAssignments>
+            <assignToReference>opptnm</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>Opptown</assignToReference>
+            <field>OwnerId</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>oppstagename</assignToReference>
+            <field>StageName</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Sales_Person</name>
+        <label>Sales Person</label>
+        <locationX>662</locationX>
+        <locationY>49</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Design_Request_Workflow_Page_1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ExtIDSalesPerson__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Salesperson</elementReference>
+            </value>
+        </filters>
+        <object>Sales_Person__c</object>
+        <outputAssignments>
+            <assignToReference>Rep_id</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>Rep_name</assignToReference>
+            <field>User_Name__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>user</name>
+        <label>user</label>
+        <locationX>732</locationX>
+        <locationY>244</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>userid</elementReference>
+            </value>
+        </filters>
+        <object>User</object>
+        <outputAssignments>
+            <assignToReference>username</assignToReference>
+            <field>Full_Name__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <screens>
+        <name>Case_Created_2</name>
+        <label>Case Created</label>
+        <locationX>1289</locationX>
+        <locationY>1092</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Case_Created_3</name>
+            <fieldText>Thank you! Your case has been submitted.</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Case_Created_message</name>
+        <label>Case Created message</label>
+        <locationX>663</locationX>
+        <locationY>1078</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Case_Created</name>
+            <fieldText>Thank you! Your case has been submitted.</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Case_Created_Message_1</name>
+        <label>Case Created Message</label>
+        <locationX>988</locationX>
+        <locationY>1125</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Created_Case_1</name>
+            <fieldText>Thank you! Your case has been submitted.</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Design_Request_Workflow_Page_1</name>
+        <label>Design Request Workflow Page 1</label>
+        <locationX>991</locationX>
+        <locationY>29</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Design_Request_Workflow_Page_2</targetReference>
+        </connector>
+        <fields>
+            <name>Project_Name</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>opptnm</elementReference>
+            </defaultValue>
+            <fieldText>Project/Opportunity Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>OpportunityStage</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>oppstagename</elementReference>
+            </defaultValue>
+            <fieldText>Opportunity Stage</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Customer_Profile_Account</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>acctnm</elementReference>
+            </defaultValue>
+            <fieldText>Customer Profile Account</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;(Sales - for new Customers - Please add into Customer Profile first) &lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;</helpText>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Type_of_Request</name>
+            <choiceReferences>New_Project_Interiors</choiceReferences>
+            <choiceReferences>New_Project_IFS</choiceReferences>
+            <choiceReferences>New_Project_BPA_Military</choiceReferences>
+            <choiceReferences>New_Project_K12_Interiors</choiceReferences>
+            <choiceReferences>New_RFP_Interiors</choiceReferences>
+            <choiceReferences>Reconfiguration</choiceReferences>
+            <choiceReferences>LLS_Project</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Type of Request</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Project_Address</name>
+            <fieldText>Project Address</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <helpText>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;If actual address is unknown, please enter city, state for idenitifying design codes&lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;</helpText>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>RFP</name>
+            <choiceReferences>G_L_Refferals</choiceReferences>
+            <choiceReferences>Manufacturer_Refferal</choiceReferences>
+            <choiceReferences>Intereriors_Generated</choiceReferences>
+            <choiceReferences>Buying_Group_Response</choiceReferences>
+            <choiceReferences>Specify_Your_Own_Value</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>RFP Scope</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Project_Scope</name>
+            <fieldText>Project Scope</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <helpText>&lt;DIV ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#000000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;&lt;B&gt;Overview of request&lt;/B&gt;&lt;/FONT&gt;&lt;/DIV&gt;</helpText>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Design_Request_Workflow_Page_2</name>
+        <label>Design Request Workflow Page 2</label>
+        <locationX>987</locationX>
+        <locationY>158</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Design_Request_Workflow_Page_3</targetReference>
+        </connector>
+        <fields>
+            <name>Design_Scope_1</name>
+            <choiceReferences>Workstation</choiceReferences>
+            <choiceReferences>Private_Offices</choiceReferences>
+            <choiceReferences>Walls</choiceReferences>
+            <choiceReferences>Seating</choiceReferences>
+            <choiceReferences>Conference_Rooms</choiceReferences>
+            <choiceReferences>Training_Rooms</choiceReferences>
+            <choiceReferences>Lobby_Reception</choiceReferences>
+            <choiceReferences>File_Rooms</choiceReferences>
+            <choiceReferences>Break_Rooms</choiceReferences>
+            <choiceReferences>Signage</choiceReferences>
+            <choiceReferences>Art_Work</choiceReferences>
+            <choiceReferences>K12_Modern_Classroom</choiceReferences>
+            <choiceReferences>K12_Makerspaces</choiceReferences>
+            <choiceReferences>K12_CTE_Spaced</choiceReferences>
+            <choiceReferences>K12_Media_Comments</choiceReferences>
+            <choiceReferences>K12_STEM_Spaces</choiceReferences>
+            <choiceReferences>Other</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Design Scope</fieldText>
+            <fieldType>MultiSelectCheckboxes</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Design_Services_Requested</name>
+            <choiceReferences>Block_Plan</choiceReferences>
+            <choiceReferences>Furniture_Plan_with_budgetary_planning</choiceReferences>
+            <choiceReferences>Furniture_Plan_with_complete_finishes</choiceReferences>
+            <choiceReferences>X3D_Isometric</choiceReferences>
+            <choiceReferences>Fab_Fin_Selection_research</choiceReferences>
+            <choiceReferences>Architectual_Finish_Selection_Interior_Finishes</choiceReferences>
+            <choiceReferences>Double_Check</choiceReferences>
+            <choiceReferences>Installation_Drawings</choiceReferences>
+            <choiceReferences>Inventory_Existing_Furniture</choiceReferences>
+            <choiceReferences>Other</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Design Services Requested</fieldText>
+            <fieldType>MultiSelectCheckboxes</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Design_Request_Workflow_Page_3</name>
+        <label>Design Request Workflow Page 3</label>
+        <locationX>999</locationX>
+        <locationY>281</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Design_Request_Workflow_Page_4</targetReference>
+        </connector>
+        <fields>
+            <name>Requested_Designer</name>
+            <dataType>String</dataType>
+            <fieldText>Requested Designer</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>Optional for sales, requested designer not guaranteed</helpText>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Project_Manager_Required</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Project Manager Required</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Project_Manager</name>
+            <dataType>String</dataType>
+            <fieldText>Project Manager</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Project_Specialist_Name</name>
+            <dataType>String</dataType>
+            <fieldText>Project Specialist</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Design_Team</name>
+            <choiceReferences>Design_Team_Picklist</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Design Team</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Salesperson</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>fullName</elementReference>
+            </defaultValue>
+            <fieldText>Salesperson</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>Enter a name or email address</helpText>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>BSD_Seller</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>acctown</elementReference>
+            </defaultValue>
+            <fieldText>BSD Seller</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Base_Plans</name>
+            <choiceReferences>Base_Plans_Attached</choiceReferences>
+            <choiceReferences>Base_Plans_Existing</choiceReferences>
+            <choiceReferences>Sales_to_Provide</choiceReferences>
+            <choiceReferences>Customer_to_Provide</choiceReferences>
+            <choiceReferences>Field_Dimensions_Attached</choiceReferences>
+            <choiceReferences>Field_Dimensions_Needed</choiceReferences>
+            <choiceReferences>N_A_Specifications_Only</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Base Plans</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Client_s_Budget</name>
+            <dataType>Currency</dataType>
+            <fieldText>Client&apos;s Budget</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>Enter an estimated overal budget for the project</helpText>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Design_Request_Workflow_Page_4</name>
+        <label>Design Request Workflow Page 4</label>
+        <locationX>997</locationX>
+        <locationY>414</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Priority_Decision</targetReference>
+        </connector>
+        <fields>
+            <name>Lead_Time</name>
+            <choiceReferences>Standard</choiceReferences>
+            <choiceReferences>QuickShip</choiceReferences>
+            <choiceReferences>Custom_Specials</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Lead Time</fieldText>
+            <fieldType>MultiSelectCheckboxes</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Vendor_s_Specified</name>
+            <choiceReferences>Inscape</choiceReferences>
+            <choiceReferences>HON</choiceReferences>
+            <choiceReferences>National</choiceReferences>
+            <choiceReferences>Global</choiceReferences>
+            <choiceReferences>Kimball</choiceReferences>
+            <choiceReferences>Teknion</choiceReferences>
+            <choiceReferences>Trendway</choiceReferences>
+            <choiceReferences>Other</choiceReferences>
+            <choiceReferences>Specify_your_own_value_1</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Vendor(s) Specified</fieldText>
+            <fieldType>MultiSelectCheckboxes</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Finishes</name>
+            <choiceReferences>PreDetermined</choiceReferences>
+            <choiceReferences>NeedSelecting</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Finishes</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Finish_Codes</name>
+            <dataType>String</dataType>
+            <fieldText>Finish Codes</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Requested_Due_Date</name>
+            <dataType>Date</dataType>
+            <fieldText>Requested Due Date</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>Sales to update</helpText>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Priority_Picklist</name>
+            <choiceReferences>High</choiceReferences>
+            <choiceReferences>Medium</choiceReferences>
+            <choiceReferences>Low</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>Medium</defaultSelectedChoiceReference>
+            <fieldText>Priority</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>File_Upload</name>
+        <label>File Upload</label>
+        <locationX>664</locationX>
+        <locationY>933</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Case_Created_message</targetReference>
+        </connector>
+        <fields>
+            <name>File_Limit</name>
+            <fieldText>Upload Attachment(s)
+NOTE: Size limit is 5Mb PER ATTACHMENT. You can combine multiple attachments using WinZip as long as the zipped file is less than 5Mb.</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>File_Upload_1</name>
+            <extensionName>forceContent:fileUpload</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Upload Related File(s)</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>CreateWorkspaceCase</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>multiple</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>File_Upload_4</name>
+        <label>File Upload</label>
+        <locationX>1292</locationX>
+        <locationY>944</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Case_Created_2</targetReference>
+        </connector>
+        <fields>
+            <name>File_Limit_3</name>
+            <fieldText>Upload Attachment(s)
+NOTE: Size limit is 5Mb PER ATTACHMENT. You can combine multiple attachments using WinZip as long as the zipped file is less than 5Mb.</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>File_Upload_3</name>
+            <extensionName>forceContent:fileUpload</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Upload Related File(s)</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>CreateWorkspaceCase</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>multiple</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>File_Upload_5</name>
+        <label>File Upload</label>
+        <locationX>1002</locationX>
+        <locationY>997</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Case_Created_Message_1</targetReference>
+        </connector>
+        <fields>
+            <name>size_limit</name>
+            <fieldText>Upload Attachment(s)
+NOTE: Size limit is 5Mb PER ATTACHMENT. You can combine multiple attachments using WinZip as long as the zipped file is less than 5Mb</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>File_Upload_2</name>
+            <extensionName>forceContent:fileUpload</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Upload Related File(s)</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>CreateWorkspaceCase</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>multiple</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Account_Name</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>CaseCreatedTemplate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Your case was created. Thank you.</text>
+    </textTemplates>
+    <textTemplates>
+        <name>casemessage</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Your case has been submitted. Thank you</text>
+    </textTemplates>
+    <textTemplates>
+        <name>DescriptionText</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Project Name: {!Project_Name}
+Type of Request: {!Type_of_Request}
+Project Address: {!Project_Address}
+RFP: {!RFP}
+Project Manager: {!Project_Manager}
+Project Scope: {!Project_Scope}
+Design Scope: {!Design_Scope_1}
+Design Services Requested: {!Design_Services_Requested}
+Requested Designer: {!Requested_Designer}
+Project Manager Required: {!Project_Manager_Required}
+Project Manager: {!Project_Manager}
+Project Specialist:  {!Project_Specialist_Name}
+Design Team: {!Design_Team_Picklist}
+Salesperson: {!Salesperson}
+BSD Seller: {!BSD_Seller}
+Base Plans: {!Base_Plans}
+Client&apos;s Budget: {!Client_s_Budget}
+Lead Time: {!Lead_Time}
+Vendor(s) Specified: {!Vendor_s_Specified}
+Finishes: {!Finishes}
+Finish Codes: {!Finish_Codes}
+Requested Due Date: {!Requested_Due_Date}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>Priority_Field</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>{!Priority_Picklist}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SubjectText</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>Interior Designer Request: Request Type: {!Type_of_Request}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>userlookup</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>project_manager_1</text>
+    </textTemplates>
+    <variables>
+        <name>acctid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>acctnm</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>Account Owner</description>
+        <name>acctown</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>Create Workspace Interiors Case</description>
+        <name>CreateWorkspaceCase</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>custid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>fullName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>opp_acctID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>oppID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>oppstagename</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>opportunity name</description>
+        <name>opptnm</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>Opptown= {!Opportunity.OwnerFullName}</description>
+        <name>Opptown</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>project_manager_name</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>project_manger_name</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>RecTypeID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>0122S000000NRLC</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>Rep_id</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>Rep_name</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>salespersonid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>userid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>username</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

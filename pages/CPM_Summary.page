@@ -1,0 +1,27 @@
+<apex:page standardController="CPM__c">
+
+<style type="text/css">
+.tftable {color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+.tftable th {font-size:16px;background-color:#acc8cc;border-width: 1px;padding: 3px;border-style: solid;border-color: #729ea5;text-align:center;}
+.tftable tr {background-color:#d4e3e5;}
+.tftable td {border-width: 1px;padding: 3px;border-style: solid;border-color: #729ea5;text-align:right;}
+.tftable .align{padding-left:2em;text-align:left}
+.tftable .notesalign{padding: 20px; padding-left:2em;text-align:left;}
+.tftable tr:hover {background-color:#ffffff;}
+</style>
+
+<table class="tftable" border="1">
+<tr><th colspan="4"> Deal Summary</th></tr>
+<tr><td width="18%"><b>Prospective Annual Revenue</b></td><td class="align" width="33%"><apex:outputField value="{!CPM__c.Annual_Revenue_calc__c}"/></td><td width="18%"><b>Historical Gross Sales</b></td><td class="align"><apex:outputField value="{!CPM__c.Gross_Sales_Historical__c}"/></td></tr>
+<tr><td width="18%"><b>Prospective Contract Revenue (Gross)</b></td><td class="align" width="33%"><apex:outputField value="{!CPM__c.Total_Contract_Revenue_Gross__c}"/></td><td width="18%"><b>Prospective Contract Revenue (Net)</b></td><td class="align"><apex:outputField value="{!CPM__c.Total_Contract_Revenue_Net__c}"/></td></tr>
+<tr><td><b>Length of Term (years)</b></td><td class="align"><apex:outputField value="{!CPM__c.Length_of_Term_years__c}"/></td><td><b>Out Clause</b></td><td class="align"><apex:outputField value="{!CPM__c.Out_Clause__c}"/></td></tr>
+<tr><td><b>Guardrail Test</b></td><td class="align"><apex:outputField value="{!CPM__c.PM_Test__c}"/></td><td><b>Cashflow Test</b></td><td class="align"><apex:outputField value="{!CPM__c.Cashflow_Test__c}"/></td></tr>
+<!--<tr><td><b>Gross IMU % (TDC)</b></td><td class="align"><apex:outputField value="{!CPM__c.Gross_IMU_TDC__c}"/></td><td><b>Net IMU % (TDC)</b></td><td class="align"><apex:outputField value="{!CPM__c.Net_IMU_TDC_Percent__c}"/></td></tr>-->
+<!--<tr><td><b>Pocket Margin %</b></td><td class="align"><apex:outputField value="{!CPM__c.Pocket_Margin_Projected__c}"/></td><td><b>Historical Pocket Margin %</b></td><td class="align"><apex:outputField value="{!CPM__c.Pocket_Margin_Historical__c}"/></td></tr>-->
+<tr><td><b>Net IGM / Customer Margin %</b></td><td class="align"><apex:outputField value="{!CPM__c.Net_IGM_Customer_Margin_Percent__c}"/></td><td><b>Historica Net IGM %</b></td><td class="align"><apex:outputField value="{!CPM__c.Initial_Gross_Margin_Percent_Historical__c}"/></td></tr>
+<tr><td><b>Contribution Margin %</b></td><td class="align"><apex:outputField value="{!CPM__c.Contribution_Margin_Projected_Percent__c}"/></td><td><b>Historical Contribution Margin %</b></td><td class="align"><apex:outputField value="{!CPM__c.Contribution_Margin_Historical_Percent__c}"/></td></tr>
+<tr><td><b>Cash Rebate $</b></td><td class="align"><apex:outputField value="{!CPM__c.Cash_Rebate__c}"/></td><td><b>Performance Rebate $</b></td><td class="align"><apex:outputField value="{!CPM__c.Performance_Rebate__c}"/></td></tr>
+<tr><td><b>Analyst Notes</b></td><td class="notesalign" colspan="3"><apex:outputField value="{!CPM__c.Analyst_Notes__c}"/></td></tr>
+</table>
+
+</apex:page>

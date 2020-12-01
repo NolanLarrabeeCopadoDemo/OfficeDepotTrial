@@ -1,0 +1,706 @@
+<!-- Member Landing Site Template 6 -->
+
+<!-- This is the Member Page redering of VF Template6 --> 
+
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false"  applyHtmlTag="false" id="CommunitiesHomeSiteTemplate1" controller="com2GPOCommunityLandingController" extensions="xGPOSiteTemplate1ConExt">
+ 
+    
+    
+    
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Office Depot</title>
+<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+       <!--Allows two captcha to appear on one page START-->
+        <script src="https://www.google.com/recaptcha/api.js?onload=myCallBack&render=explicit" html-async="async"></script>
+        <script type="text/javascript">
+            var recaptcha1;
+            var recaptcha2;
+            var myCallBack = function() {
+                //Render the recaptcha1 on the element with ID "recaptcha1"
+                recaptcha1 = grecaptcha.render('recaptcha1', {
+                    'sitekey': '{!publicKey}', //Replace this with your Site key
+                    'theme': 'light'
+                });
+
+                //Render the recaptcha2 on the element with ID "recaptcha2"
+                recaptcha2 = grecaptcha.render('recaptcha2', {
+                    'sitekey': '{!publicKey}', //Replace this with your Site key
+                    'theme': 'light'
+                });
+            };
+
+        </script>
+        <!--Allows two captcha to appear on one page END-->
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jquery1.11.2.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jqueryui1.11.4.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/bootstrap.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/jquery.validate.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/lib/od_JSExtendValidator.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/passwordStrengthMeter.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.CommunitiesAssets,'js/Registration.js')}"/> 
+
+<!--
+<apex:includeScript value="{!URLFOR($Resource.CommuStaticResources,'js/lib/jquery1.11.2.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.CommuStaticResources,'js/lib/jqueryui1.11.4.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.BSGPO, 'js/bootstrap.js')}"  />
+<apex:includeScript value="{!URLFOR($Resource.CommuStaticResources,'js/lib/jquery.validate.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.CommuStaticResources,'js/lib/od_JSExtendValidator.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.CommuStaticResources,'js/passwordStrengthMeter.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.CommuStaticResourcesGPO,'js/GPORegistration.js')}" />
+-->
+<link rel="shortcut icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+<link rel="icon" type="/image/x-ico" href="https://bsdsqs8.officedepot.com/favicon.ico" />
+
+
+<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.BSD,'css/bsdcss.css')}"></link>
+
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/style.css')}"></link> <!-- Used in Reg Form -->
+<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.CommunitiesAssets, 'css/bootstrap.min.css')}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/GPOforms.css')}"></link> 
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tips.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/buttons.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/grid.css')}"></link> <!-- Used in Reg Form -->
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/helper.css')}"></link> <!-- Used in Reg Form -->
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/tooltip.css')}"></link> <!-- Used in Reg Form -->
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/style.css')}"></link> <!-- Used in Reg Form -->
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/registration.css')}"></link>
+
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResources,'css/distributorBrand.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommuStaticResourcesGPO,'css/GPOstyle.css')}"></link>
+<link rel="stylesheet" type="text/css" media="screen" href="{!URLFOR($Resource.CommunitiesAssets,'css/fixes.css')}" />
+ 
+<script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'eluminate.js')}"/>
+<script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'cmcustom.js')}"/>   
+<script type="text/javascript" src="{!URLFOR($Resource.CoreMetricJS,'cmcookie.js')}"/> 
+<script type="text/javascript">
+    $.fn.modal.Constructor.prototype.enforceFocus = function () { };
+    document.title="Office Depot" 
+    if(!window.console) {
+        var console = {
+            log : function(){},
+            warn : function(){},
+            error : function(){},
+            time : function(){},
+            timeEnd : function(){}
+        }
+    }
+    
+    Visualforce.remoting.timeout = 120000;   
+    function saveGPOLead(id1) {
+                var ret = true;
+                var pwdChk = {!selectedGroup.private__c};
+                // Captcha
+                if (document.getElementById('g-recaptcha-response').value == '') {
+                    //Must contain regerrormessage start
+                    document.getElementById("regerrormessage").innerHTML = 'Please Validate Captcha';
+                    ret = false;
+                } else {
+                    document.getElementById("regerrormessage").innerHTML = '';
+                }
+                //Must contain regerrormessage end
+                if (document.getElementById('regLoginName').value=='') {
+                   document.getElementById('regLoginName').style.border = '1px solid #f00';
+                   document.getElementById('regLoginName').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regLoginNameEM').style.display = 'inline';           
+                    
+                   ret=false;
+                }
+                if (pwdChk != true ) {
+                     if (document.getElementById('regPassword').value=='') {
+                       document.getElementById('regPassword').style.border = '1px solid #f00';
+                       document.getElementById('regPassword').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('regPasswordEM').style.display = 'inline';           
+                        
+                       ret=false;
+                    }
+                   
+                     if (document.getElementById('regConfirmPassword').value=='') {
+                       document.getElementById('regConfirmPassword').style.border = '1px solid #f00';
+                       document.getElementById('regConfirmPassword').style.backgroundColor = '#f2bfbf';
+                       document.getElementById('regConfirmPasswordEM').style.display = 'inline';           
+                        
+                       ret=false;
+                    }
+                }
+               
+                 if (document.getElementById('regFirstName').value=='') {
+                   document.getElementById('regFirstName').style.border = '1px solid #f00';
+                   document.getElementById('regFirstName').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regFirstNameEM').style.display = 'inline';           
+                    
+                   ret=false;
+                }
+               
+                 if (document.getElementById('regLastName').value=='') {
+                   document.getElementById('regLastName').style.border = '1px solid #f00';
+                   document.getElementById('regLastName').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regLastNameEM').style.display = 'inline';           
+                    
+                   ret=false;
+                }
+    
+                 if (document.getElementById('regCompanyName').value=='') {
+                   document.getElementById('regCompanyName').style.border = '1px solid #f00';
+                   document.getElementById('regCompanyName').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regCompanyNameEM').style.display = 'inline';           
+                    
+                   ret=false;
+                }
+               
+                 if (document.getElementById('regPhone').value=='') {
+                   document.getElementById('regPhone').style.border = '1px solid #f00';
+                   document.getElementById('regPhone').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regPhoneEM').style.display = 'inline';           
+                    
+                   ret=false;
+                }
+       
+                 if (document.getElementById('regEmail').value=='') {
+                   document.getElementById('regEmail').style.border = '1px solid #f00';
+                   document.getElementById('regEmail').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regEmailEM').style.display = 'block';           
+                    
+                   ret=false;
+                }         
+                if (document.getElementById('regAddress1').value=='') {
+                   document.getElementById('regAddress1').style.border = '1px solid #f00';
+                   document.getElementById('regAddress1').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regAddress1EM').style.display = 'inline';           
+                                              
+                   ret=false;
+                }
+                if (document.getElementById('regCity').value=='') {
+                   document.getElementById('regCity').style.border = '1px solid #f00';
+                   document.getElementById('regCity').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regCityEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('regState').value=='') {
+                   document.getElementById('regState').style.border = '1px solid #f00';
+                   document.getElementById('regState').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regStateEM').style.display = 'inline';           
+                   ret=false;
+                }
+                if (document.getElementById('regBillingZip').value=='') {
+                   document.getElementById('regBillingZip').style.border = '1px solid #f00';
+                   document.getElementById('regBillingZip').style.backgroundColor = '#f2bfbf';
+                   document.getElementById('regBillingZipEM').style.display = 'inline';           
+                   ret=false;
+                }
+                
+                
+                
+                    
+                console.log('val ' + ret);
+                if (ret != true || !$('#registrationForm').valid()) {
+                 // Do Nothing
+                } else {
+                    console.log('In save function');
+                    document.getElementById('regerrormessage').innerHTML = 'Saving Registration ....';
+                    
+                    var f1 = new GPOLead();
+                    f1.Login_Name__c = document.getElementById('regLoginName').value;
+                    f1.first_name__c = document.getElementById('regFirstName').value;
+                    f1.last_name__c = document.getElementById('regLastName').value;
+                    f1.email__c = document.getElementById('regEmail').value;
+                    f1.Phone__c = document.getElementById('regPhone').value;
+                    f1.address1__c = document.getElementById('regAddress1').value;
+                    f1.address2__c = document.getElementById('regAddress2').value;
+                    f1.city__c = document.getElementById('regCity').value;
+                    f1.state__c = document.getElementById('regState').value;
+                    f1.zip__c = document.getElementById('regBillingZip').value;
+                    f1.URL__c = document.getElementById('regWebsite1').value;
+                    f1.WCW_Range__c = document.getElementById('regNumEmployees').value;
+                    f1.Business_Name__c = document.getElementById('regCompanyName').value;
+                  //  f1.DUNS__c = document.getElementById('regDuns').value;
+                    f1.Notes__c = document.getElementById('regNotes').value;
+                    f1.Status__c = 'Pending';
+                    var pwd = document.getElementById('regPassword').value;
+
+                    if (document.getElementById('g-recaptcha-response').value != null) {
+                        var s = document.getElementById('g-recaptcha-response').value;
+                        f1.Recaptcha__c = s.substring(0, 90);
+                    }
+
+                    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.com2GPOCommunityLandingController.insertLeads}', f1, id1, pwd, 
+                        function(result, event) {
+                            console.log(result);
+                            var resultString = '';
+
+                            if (event.status) {
+                                resultString = result;
+                                document.getElementById("regerrormessage").innerHTML = "Successful Registration";
+                                //window.location.replace("/com2ThankYouPage?id=" + id1);
+                                window.location.replace("/com2ThankYouPage?id=" + id1 + "&src=reg");
+                            } else if (event.type === 'exception') {
+                                resultString = event.message + "  " + event.where;
+                                document.getElementById("regerrormessage").innerHTML = resultString;
+                            } else {
+                                resultString = event.message;
+                                document.getElementById("regerrormessage").innerHTML = resultString;
+                            }
+                        });
+                }
+                return false;
+            }
+    
+   
+
+    function GPOLead()
+    {
+        this.Id = null;
+        this.Name = null;
+        this.Login_Name__c = null;
+        this.first_name__c = null;
+        this.last_name__c = null;
+        this.email__c = null;
+        this.Phone__c = null;
+        this.address1__c = null;
+        this.address2__c = null;
+        this.city__c = null;
+        this.state__c = null;
+        this.zip__c = null;
+        this.URL__c = null;
+        this.WCW_Range__c = null;
+        this.Business_Name__c = null;
+        this.DUNS__c = null;
+        this.Notes__c = null;
+        this.Status__c = null;
+        this.Recaptcha__c = null;
+    
+    }
+    
+    function type1CoreM(pageId,eventId,catId) {
+       var b = "-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"1"+"-_-"+"-_-"+"-_-"+"-_-"+pageId;    
+       cmCreateConversionEventTag(eventId, "1", catId, null,b, null);
+    }
+    
+    function type2CoreM(pageId,eventId,catId) {
+         var b = "-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+"-_-"+pageId;    
+         cmCreateConversionEventTag(eventId, "2", catId, null,b, null);
+    }
+</script>
+
+
+<style>
+    .contentHide{
+    display:none;
+    }
+</style> 
+</head>          
+<body>
+
+<apex:composition template="GPOVFHomeTemplate1">
+
+
+<apex:define name="CustomBrand">
+   <apex:image rendered="{!IsImageDefined}" url="{!ImageRootPath}{!selectedGroup.Community_Image__c}&blah={!selectedGroup.LastModifiedDate} " width="360" height="110" style="float: right;" />    
+</apex:define>
+
+<apex:define name="NewsColumn">
+    
+    <!--
+    
+    <ul>
+        <li>
+            <strong>
+                MARKETING HEADING TITLE
+            </strong>
+            <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+        </li>
+        <li>
+            <strong>
+                MARKETING HEADING TITLE
+            </strong>
+            <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+        </li>
+        <li>
+            <strong>
+                MARKETING HEADING TITLE
+            </strong>
+            <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+        </li>
+        <li>
+            <strong>
+                MARKETING HEADING TITLE
+            </strong>
+            <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </div>
+        </li>
+    </ul> 
+    -->
+    
+<apex:repeat value="{!newsItems}" var="thenews" id="theRepeat">
+  
+     <li>
+    <strong>{!thenews.value1__c }</strong>
+       <div>
+          {!thenews.value2__c }
+       </div>
+     </li>
+   
+</apex:repeat>
+
+</apex:define> 
+
+
+
+<apex:define name="AccountOwner">               
+ <div class="{!IF((accountOwner.Name!=null&&accountOwner.ISACTIVE!=false&&accountOwner.Name!='Salesforce DataloaderNorth'&&accountOwner.Name!='Salesforce'&&accountOwner.Name!='Dataloader'&&accountOwner.Name!='Generic Rsd-Iso'&&accountOwner.Name!='Generic Rsd-North'
+ &&accountOwner.Name!='Generic Rsd-South'
+ &&accountOwner.Name!='Generic Rsd-West'
+ &&accountOwner.Name!='Salesforce API'
+ &&accountOwner.Name!='Soa Connection'
+ &&accountOwner.Name!='bsd user'
+ &&accountOwner.Name!='SpringCM Admin'
+ &&accountOwner.Name!='Odsfa Odsfa'
+ ),'contact_card_wrapper','contentHide')}">    
+    
+    <div class="contact_card" style="box-sizing: content-box">
+        <apex:image id="profileImage" rendered="{!IF(accountOwner.FullPhotoUrl!=null,true,false)}" url="{!accountOwner.FullPhotoUrl}" width="73" height="71" styleClass="fleft"/>
+        <apex:image id="profileImageDefault" rendered="{!IF(accountOwner.FullPhotoURL!=null,false,true)}" url="{!URLFOR($Resource.CommuStaticResourcesV2,'images/GPOAcctMgr-blue-smiley.png')}" width="73" height="71" styleClass="fleft"/>
+        
+        
+    <div class="side_text">
+        <span class="info"> FOR PROGRAM INFORMATION: </span>
+        <div class="title"> 
+            Account Manager <br></br>
+            <strong> {!accountOwner.Name} </strong>
+            <br></br>{!accountOwner.Phone}
+            <br></br>{!accountOwner.MobilePhone}
+        </div>
+    </div>
+    <div class="email" style="word-wrap: break-word;">
+        <a href="mailto:{!accountOwner.Email}"> {!accountOwner.Email} </a>
+    </div>
+    
+    </div>
+    </div>
+    <br class="spacer" />
+</apex:define>
+
+
+<apex:define name="LoginBlueBox">
+    <div class="sign_in blue_box">
+    
+    <h2>
+        Login
+    </h2>
+    Enter your existing username and password to access community information and shop Office Depot products and services.
+
+    <a class="btn primary db" href="{!commSetup.signin_link__c}?cm_sp=Communities-_-{!pageID}-_-SignIn">
+        LOGIN
+    </a>
+   </div>
+</apex:define>   
+
+<apex:define name="CreateAccountBlueBox">
+    <div class="{!IF(accountOwner.Name!=null,'create_account blue_box','contentHide')}">
+    <h2>
+        New Customer
+    </h2>
+    By creating your own user profile, you will be able to purchase items at the negotiated price for your company.
+
+    
+    
+        
+        <a class="btn primary db" data-toggle="modal" data-target="#ODFLead">
+                                    CREATE NEW USER
+                                </a>
+     
+    </div>
+</apex:define>                            
+
+<apex:define name="RegisteredBlueBox">
+    <div class="{!IF(accountOwner.Name!=null,'contentHide','sign_in blue_box')}">
+    
+    <h2>
+        Registered Customers
+    </h2>
+    Enter your existing username and password to acceess community
+    information and shop Office Depot products and services
+
+    <a class="btn primary db" href="{!commSetup.signin_link__c}">
+        LOGIN
+    </a>
+   </div>
+</apex:define>                            
+
+
+<apex:define name="NewCustomerRegistration">
+    <!-- BEGIN New Custom Registration -->
+    <div class="modal fade" id="ODFLead">
+        <div class="modal-dialog">
+            <apex:outputPanel rendered="{!showForm}">
+                <!-- BEGIN NEW REGISTRATION FORM STEP 1 thru 3 -->
+                    <div id="registrationPage" class="mainWrapper odgrid_12 gw12 alpha omega">
+                        <!-- Main section -->
+                        <form id="registrationForm" name="registrationForm" class="gw8 register_form" method="post">
+                                    <div id="regStep1" class="reg_step">
+                                        <section class="p24">
+                                            <h1> New User Registration </h1>
+                                            <p class="mb24" id="greyText"> Enter your information to create a new user profile. </p>
+                            
+                                            
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['Login Name'] }" />
+                                            <input type="text" minlength="6" maxlength="80" name="regLoginName" id="regLoginName" required="required" onkeypress="return IsLoginName(event);" onfocus="type1CoreM('{!pageid}','Step1of3','CommunitiesRegistration')"/>
+                                            <span id="regLoginNameEM" style="color: #f00; display: none">This field is required.</span>
+                                            <script type="text/javascript">
+                                                function IsLoginName(e) {
+                                                   document.getElementById('regLoginName').style.border = '1px solid Silver';
+                                                   document.getElementById('regLoginName').style.backgroundColor = '';
+                                                   document.getElementById('regLoginNameEM').style.display = 'none';
+                                                   return true;
+                                                }
+                                            </script>
+                                            
+                                            <div class="{!IF(selectedGroup.private__c == true,'contentHide','')}">
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Password'] }" />
+                                                <input type="password" name="regPassword" id="regPassword" class="check_password_strength" maxlength="30" onkeypress="return Ispwd1(event);" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$" required="required" onfocus="type1CoreM('{!pageid}','Step1of3','CommunitiesRegistration')" />
+                                                <span id="regPasswordEM" style="color: #f00; display: none">Enter password</span>
+                                                <script type="text/javascript">
+                                                    function Ispwd1(e) {
+                                                        document.getElementById('regPassword').style.border ='1px solid Silver';
+                                                        document.getElementById('regPassword').style.backgroundColor ='';
+                                                        document.getElementById('regPasswordEM').style.display ='none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Confirm Password'] }" />
+                                                <input type="password" name="regConfirmPassword" id="regConfirmPassword" maxlength="30" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$" required="required" onkeypress="return Ispwd2(event);" onfocus="type1CoreM('{!pageid}','Step1of3','CommunitiesRegistration')"/>
+                                                <span id="regConfirmPasswordEM" style="color: #f00; display: none">Enter confirmation password</span>
+                                                <script type="text/javascript">
+                                                    function Ispwd2(e) {
+                                                        document.getElementById('regConfirmPassword').style.border = '1px solid Silver';
+                                                        document.getElementById('regConfirmPassword').style.backgroundColor = '';
+                                                        document.getElementById('regConfirmPasswordEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <div class="odTooltip caretLeft" aria-describedby="regPassword">
+                                                    Password must be 8-30 characters and contain at least one uppercase letter, at least
+                                                    one lower case letter
+                                                    and one number.
+                                                </div>
+                                            </div>
+                                            <br/><br/>
+                                            <h2> Contact Information </h2>
+                                            
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['First Name'] }" />
+                                            <input type="text" value="" name="regFirstName" id="regFirstName" minlength="1" onkeypress="IsFirstName(event)" required="required" maxlength="30" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')" />
+                                            <span id="regFirstNameEM" style="color: #f00; display: none">Enter first name</span>
+                                            <script type="text/javascript">
+                                                function IsFirstName(e) {
+                                                    document.getElementById('regFirstName').style.border ='1px solid Silver';
+                                                    document.getElementById('regFirstName').style.backgroundColor ='';
+                                                    document.getElementById('regFirstNameEM').style.display ='none';
+                                                    return true;
+                                                }
+                                            </script>
+                                            
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['Last Name'] }" />
+                                            <input type="text" value="" name="regLastName" id="regLastName" minlength="1" required="required" maxlength="30" onkeypress="return IsLastName(event);" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')" />
+                                            <span id="regLastNameEM" style="color: #f00; display: none">Enter last name</span>
+                                            <script type="text/javascript">
+                                                function IsLastName(e) {
+                                                    document.getElementById('regLastName').style.border ='1px solid Silver';
+                                                    document.getElementById('regLastName').style.backgroundColor ='';
+                                                    document.getElementById('regLastNameEM').style.display ='none';
+                                                    return true;
+                                                }
+                                            </script>
+                                            
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['Company Name'] }" />
+                                            <input type="text" value="" name="regCompanyName" id="regCompanyName" minlength="1" required="required" maxlength="30" onkeypress="return IsCompanyName(event);" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"/>
+                                            <span id="regCompanyNameEM" style="color: #f00; display: none">This field is required</span>
+                                            <script type="text/javascript">
+                                                function IsCompanyName(e) {
+                                                    console.log('in iscompnay');
+                                                    document.getElementById('regCompanyName').style.border = '1px solid Silver';
+                                                    document.getElementById('regCompanyName').style.backgroundColor = '';
+                                                    document.getElementById('regCompanyNameEM').style.display = 'none';
+                                                    return true;
+                                                }
+                                            </script>
+                                            
+                                            <apex:outputLabel value="{! UserRegistrationFieldsMap['Phone'] }" />
+                                            <input type="text" value="" name="regPhone" id="regPhone" minlength="10" required="required" maxlength="10" onkeypress="return IsNumeric(event);" ondrop="return false;" onpaste="return false;" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"/>
+                                            <span id="regPhoneEM" style="color: #f00; display: none">This field is required </span>
+                                            <span id="phoneError" style="color: Red; display: none">* Input digits (0 - 9)</span>
+                                            <br />
+                                            <script type="text/javascript">
+                                                function IsNumeric(e) {
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    var keyCode = e.which ? e.which : e.keyCode;
+                                                    var ret = ( (keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                    document.getElementById("phoneError").style.display = ret ? "none" : "inline";
+                                                    document.getElementById('regPhone').style.border = '1px solid Silver';
+                                                    document.getElementById('regPhone').style.backgroundColor ='';
+                                                    document.getElementById('regPhoneEM').style.display ='none';
+                                                    return ret;
+                                                }
+                                            </script>
+                                                
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Email Address'] }" />
+                                                <input type="email" value="" name="regEmail" id="regEmail" required="required" maxlength="78" onkeypress="return IsEmail(event);" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"/>
+                                                <span id="regEmailEM" style="color: #f00; display: none">Enter Email address</span>
+                                                <script type="text/javascript">
+                                                    function IsEmail(e) {
+                                                        document.getElementById('regEmail').style.border = '1px solid Silver';
+                                                        document.getElementById('regEmail').style.backgroundColor = '';
+                                                        document.getElementById('regEmailEM').style.display = 'none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <div class="{!IF(hideWebsite == true, 'contentHide', 'regular')}">
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Website'] }" />
+                                                    <input type="text" value="" name="regWebsite1" id="regWebsite1" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')" />
+                                                </div>
+                                                
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Number of Employees'] }" />
+                                                <select value="" name="regNumEmployees" id="regNumEmployees">
+                                                    <option>1-19</option>
+                                                    <option>20-49</option>
+                                                    <option>50-99</option>
+                                                    <option>100-149</option>
+                                                    <option>150-199</option>
+                                                    <option>200-249</option>
+                                                    <option>250-500</option>
+                                                    <option>500+</option>
+                                                </select>
+                                                
+                                                
+                                                <div class="{!IF(hideNotes == true, 'contentHide', 'regular')}">
+                                                    <apex:outputLabel value="{! UserRegistrationFieldsMap['Notes'] }" />
+                                                    <input type="text" value="" name="regNotes" id="regNotes" maxlength="255" onfocus="type1CoreM('{!pageid}','Step2of3','CommunitiesRegistration')"/>
+                                                </div>
+                                                <br/><br/>
+                                                
+                                                <h2> Shipping Address </h2>
+                                                
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 1'] }" />
+                                                <input type="text" value="" name="regAddress1" id="regAddress1" minlength="1" required="required" maxlength="25" onkeypress="return IsAddress1(event);" ondrop="return false;" onpaste="return true;" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"/>
+                                                <span id="regAddress1EM" style="color: #f00; display: none">This field is required.</span>
+                                                <script type="text/javascript">
+                                                    function IsAddress1(e) {document.getElementById('regAddress1').style.border ='1px solid Silver';
+                                                        document.getElementById('regAddress1').style.backgroundColor = '';
+                                                        document.getElementById('regAddress1EM').style.display ='none';
+                                                        return true;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Address 2'] }" />
+                                                <input type="text" value="" name="regAddress2" id="regAddress2" maxlength="25" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"/>
+                                                
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['City'] }" />
+                                                <input type="text" value="" name="regCity" id="regCity" minlength="1" required="required" maxlength="25" onkeypress="return IsCity(event);" ondrop="return false;" onpaste="return false;" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"/>
+                                                <span id="regCityEM" style="color: #f00; display: none">This field is required.</span>
+                                                <span id="cityError" style="color: #f00; display: none"><br/>* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsCity(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (((keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123)) || (keyCode == 32) || (specialKeys.indexOf(keyCode) != -1) );
+                                                        document.getElementById("cityError").style.display = ret ? "none" : "inline";
+                                                                    document.getElementById('regCity').style.border = '1px solid Silver';
+                                                                    document.getElementById('regCity').style.backgroundColor = '';
+                                                                    document.getElementById('regCityEM').style.display = 'none';
+                                                                    return ret;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['State'] }" />
+                                                <input type="text" value="" name="regState" id="regState" minlength="2" maxlength="2" required="required" onkeypress="return IsState(event);" ondrop="return false;" onpaste="return false;" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')" />
+                                                <span id="regStateEM" style="color: #f00; display: none">This field is required.</span>
+                                                <span id="stateError" style="color: #f00; display: none">* Invalid Character</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    function IsState(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = (( (keyCode > 57 && keyCode < 91) || (keyCode > 96 && keyCode < 123) ) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("stateError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('regState').style.border = '1px solid Silver';
+                                                        document.getElementById('regState').style.backgroundColor = '';
+                                                        document.getElementById('regStateEM').style.display = 'none';
+                                                        return ret;
+                                                    }
+                                                </script>
+                                                
+                                                <apex:outputLabel value="{! UserRegistrationFieldsMap['Zip Code'] }" />
+                                                <input type="text" value="" name="regBillingZip" id="regBillingZip" minlength="5" required="required" maxlength="5" onkeypress="return IsZip(event);" ondrop="return false;" onpaste="return false;" onfocus="type1CoreM('{!pageid}','Step3of3','CommunitiesRegistration')"/>
+                                                <span id="regBillingZipEM" style="color: #f00; display: none">This field is required.</span>
+                                                <span id="zipError" style="color: #f00; display: none">* Input digits (0 - 9)</span>
+                                                <script type="text/javascript">
+                                                    var specialKeys = new Array();
+                                                    specialKeys.push(8); //Backspace
+                                                    specialKeys.push(9); //Tab
+                                                    //specialKeys.push(45); //Dash
+                                                    function IsZip(e) {
+                                                        var keyCode = e.which ? e.which : e.keyCode
+                                                        var ret = ( (keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                                                        document.getElementById("zipError").style.display = ret ? "none" : "inline";
+                                                        document.getElementById('regBillingZip').style.border = '1px solid Silver';
+                                                        document.getElementById('regBillingZip').style.backgroundColor = '';
+                                                        document.getElementById('regBillingZipEM').style.display = 'none'
+                                                        return ret;
+                                                    }
+    
+                                                </script>
+                                                <br/><br/><br/>
+    
+                                                <div id="cid">
+                                                    <div id="recaptcha1" class="g-recaptcha" onchange="return IsCaptcha(event);"></div>
+                                                    <script type="text/javascript">
+                                                        function IsCaptcha(e) {
+                                                            document.getElementById("regerrormessage").innerHTML = '';
+                                                        }
+                                                    </script>
+                                                </div>
+                                                
+                                                <p id="regerrormessage" style="color:red"></p>           
+                                                <input type="button" id="submitRegFormBtn" onclick="return saveGPOLead('{!$CurrentPage.parameters.id}');" value="Submit" class="primary btn btn-block" style="font-size:14px;"/>
+                                            </section>
+                                        <div class="col-md-12 small">
+                                            <ul class="list-inline pull-right">
+                                                <li class="border-none"><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp">Privacy Policy</a></li>
+                                                <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/trackingtools.jsp">Online Tracking Tools</a></li>
+                                                <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp">Terms of Use</a></li>
+                                                <li><a target="_blank" href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp">Terms &amp; Conditions</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                    </div>
+                </apex:outputPanel>
+        </div>
+    </div> <!-- END New Custom Registration -->
+    
+    </apex:define>
+  
+</apex:composition>  
+</body>
+</html>
+
+
+</apex:page>

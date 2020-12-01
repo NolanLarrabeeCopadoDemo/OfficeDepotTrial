@@ -1,0 +1,213 @@
+<!-- Site Template 1 - VF Template-->
+
+<!-- Defines core structure and dynamic elements for Site Template 1 --> 
+
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false"  applyHtmlTag="false"  controller="com2GPOCommunityLandingController">
+
+    
+
+
+
+    <div class="mainWrapper odgrid_12 gw12 alpha omega">
+        
+        <!--  OD Global header -->
+        <div class="header clearfix">
+            <div class="logoContainer gw3">
+                <a href="http://business.officedepot.com">
+                    <!--
+<img src="images/brand.png" alt="Office Depot Business - We provide Smart Solutions that help you take care of business." title="Office Depot Business - We provide Smart Solutions that help you take care of business.">
+-->
+                    <img src="{!URLFOR($Resource.CommuStaticResources,'images/brand.png')}" alt="Office Depot Business - We provide Smart Solutions that help you take care of business." title="Office Depot Business - We provide Smart Solutions that help you take care of business."/>
+                </a>
+                <p class="business_soln_label">
+                    Business Solutions Division
+                </p>
+            </div>
+            <div class="gw9">
+                <!--
+<img src="images/customBrand.png" class="business_brand_logo fright"/>
+-->
+                <apex:insert name="CustomBrand"/>
+            </div>
+        </div>
+        
+        <div class="sub_header fright gw12 alpha omega">
+            <!-- If(session user is logged in) => show this
+<a class="btn link_style" href="#">
+Logout
+</a>
+-->
+        </div>
+        
+        <!-- Column 1, left Main section -->
+        <div id="main" class="gw8 alpha"><!-- Using div id="main" here to allow styles to hook for old browsers since html5 styles can't be applied in old browsers -->
+            <main>
+                <div class="salutation">
+                    <h1>
+                        Welcome
+                    </h1>
+                    
+                    <p>
+                        Order and purchase all the essential products your business needs to thrive.
+                        <br/>
+                        Find products for everything from shipping to cleaning to breakroom - all in one place.
+                    </p>
+                </div>
+                
+                <!-- These sub grid elements are within gw10, so can only sum up to that amount -->
+                <div class="hero_section clearfix">
+                    <div class="gw4 alpha">
+                        <!--
+<div class="sign_in blue_box">
+<h2>
+Login
+</h2>
+Enter your existing username and password to access community information and shop Office Depot products and services.
+
+<a class="btn primary db" href="{!commSetup.signin_link__c}">
+LOGIN
+</a>
+</div>
+-->
+                        <apex:insert name="LoginBlueBox"/>  
+                    </div>
+                    
+                    <div class="gw4 omega">
+                        
+                        <!--
+<h2>
+Don't Have an Account?
+</h2>
+Create a new account to begin shopping Office Depot at the negotiated prices for your organization.
+
+
+<a class="btn primary db" href="#">
+CREATE ACCOUNT
+</a>
+-->
+                        
+                        <apex:insert name="CreateAccountBlueBox"/>
+                        
+                        
+                    </div>
+               
+                    </div>
+
+                    <!-- Helpful tips images/link grid, 3x2 -->
+                    <div class="service_section">
+                        <div class="gw4 alpha">
+                            <div class="gray_box">
+                                <h3>
+                                    industry <strong>solutions</strong>
+                                </h3>
+
+                                <p>
+                                    Get support tailored to your business size and industry, from education to government &#38; much more.
+                                </p>
+
+                                <a class="btn learn_more" href="https://business.officedepot.com/a/content/prelogin/industrysolutions/?cm_sp=Communities-_-{!pageID}-_-Tile1" target="_blank">
+                                    LEARN MORE
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gw4 omega">
+                            <div class="gray_box">
+                                <h3>
+                                    shop <strong>products</strong>
+                                </h3>
+
+                                <p>
+                                    Find all the essential items you need to keep your business running as efficiently as possible.
+                                </p>
+
+                                <a class="btn learn_more" href="https://business.officedepot.com/a/content/prelogin/products/?cm_sp=Communities-_-{!pageID}-_-Tile2" target="_blank">
+                                    LEARN MORE
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="clear gw4 alpha">
+                            <div class="gray_box">
+                                <h3>
+                                    services &#38; <strong>support</strong>
+                                </h3>
+
+                                <p>
+                                    From copy &#38; print to procurement &#38; payment solutions, we help you stay focused on the big picture.
+                                </p>
+
+                                <a class="btn learn_more" href="https://business.officedepot.com/a/content/prelogin/servicesolutions/?cm_sp=Communities-_-{!pageID}-_-Tile3" target="_blank">
+                                    LEARN MORE
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="omega gw4 omega">
+                            <div class="gray_box">
+                                <h3>
+                                    dynamic <strong>programs</strong>
+                                </h3>
+
+                                <p>
+                                    Get involved with Office Depot's many efforts to support diversity, the community and the environment.
+                                </p>
+
+                                <a class="btn learn_more" href="https://business.officedepot.com/a/content/prelogin/programs/?cm_sp=Communities-_-{!pageID}-_-Tile4" target="_blank">
+                                    LEARN MORE
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+            </div>
+            <div id="aside" class="gw4">
+                <aside>
+                
+                    <!-- ACCT Manager -->
+<apex:insert name="AccountOwner"/>
+
+
+                    <div class="news_column">
+                        <h3>
+                            Office Depot
+                        </h3>
+
+                        <h5>
+                            NEWS &#38; INFORMATION
+                        </h5>
+
+<ul>
+<!-- News Column --> 
+<apex:insert name="NewsColumn" />
+<!-- News Column -->    
+
+</ul>
+
+                    </div>
+                </aside>
+
+            </div>
+
+    </div>
+  
+ <div class="mainWrapper odgrid_12 gw12 alpha omega">
+ 
+            <div id="copyright">
+                
+                
+                    <p class="footer_login_copyright">Copyright © {!currentYear} by Office Depot, Inc. All rights reserved.</p>
+                    <div class="footer_login_terAndCon">
+                    <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp" class="defaultLink" target="_blank">Privacy Policy</a> |
+                    <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp" class="defaultLink" target="_blank">Terms of Use</a> |
+                     <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp" class="defaultLink" target="_blank">Terms &#38; Conditions</a>
+                    </div>
+                
+            </div>
+ </div>
+
+        
+<apex:insert name="NewCustomerRegistration"/>
+
+  
+</apex:page>

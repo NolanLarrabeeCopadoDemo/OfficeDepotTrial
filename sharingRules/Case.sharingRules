@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Case_Sharing_Rule_Contract_Division</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Case Sharing Rule - Contract Division</label>
+        <sharedTo>
+            <role>ContractDivision</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Work Request,Support,IT Cases</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Case_Sharing_Rule_GT_Tech_Reps</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Case Sharing Rule - GT Tech Reps</label>
+        <sharedTo>
+            <role>Inside_Sales_Tech_Reps</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>IT Cases</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Case_Sharing_Rule_ISO_and_Inside_Sales</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Case Sharing Rule - ISO and Inside Sales</label>
+        <sharedTo>
+            <group>ISO_and_Inside_Sales</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Work Request,Support,IT Cases</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Case_Sharing_Rule_SCOE</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Allow Sales Org to add notes &amp; attachments to a SCOE Support Cases</description>
+        <label>Case Sharing Rule - SCOE</label>
+        <sharedTo>
+            <group>SCOE_Case_Attachments</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Work Request,SCOE Cases,Finance,Deployment Request</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Case_Sharing_Rule_Support</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Case Sharing Rule - Support</label>
+        <sharedTo>
+            <role>Support</role>
+        </sharedTo>
+        <booleanFilter>1</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Maintenance,Work Request,Support,IT Cases</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Workspace_Interiors_Design_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>So that multiple people on the Workspace interiors case can be working on it together</description>
+        <label>Workspace Interiors Design Sharing</label>
+        <sharedTo>
+            <group>WorkSpace_Interiors_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Workspace Interiors</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

@@ -1,0 +1,261 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="SubmitDOAApproval" action="{!OnloadPage}"
+           lightningStylesheets="true" showHeader="false">
+    <style>
+        * {
+        font-size: 13px;
+        }
+        .mx_auto {
+        margin-left: auto;
+        margin-right: auto;
+        }
+        .my_auto {
+        margin-top: auto;
+        margin-bottom: auto;
+        }
+        .ml_auto {
+        margin-left: auto !important;
+        }
+        .mr_0 {
+        margin-right: 0 !important;
+        }
+        .mr_auto {
+        margin-right: auto;
+        }
+        .fit {
+        width: fit-content;
+        height: fit-content;
+        }
+        .flex {
+        display: flex;
+        }
+        .full-size {
+        width: 100%;
+        height: 100%;
+        }
+        .full-height {
+        height: 100vh;
+        }
+        .shadow {
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.25) !important;
+        }
+        .moe-fixed-width1 {
+        width: 300px;
+        max-width: 300px;
+        min-width: 300px;
+        }
+        .moe-footer {
+        background-color: rgb(243, 242, 242);
+        }
+        hr {
+        margin: 1rem 0 !important;
+        }
+        .inputFieldContainer div:last-child {
+        display: flex;
+        height: 30px;
+        }
+        .inputFieldContainer div:last-child .errorMsg {
+        display: none;
+        }
+        .inputFieldContainer div:last-child select {
+        margin-right: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        }
+        .inputFieldContainer div:last-child span input {
+        height: 100%;
+        border-radius: 5px;
+        background-color: hsl(0, 0%, 95%);
+        padding-left: 0.4rem;
+        }
+        .bPageBlock {
+        border: none !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        }
+        .slds-scope {
+        background: lightblue !important;
+        height: 100vh !important;
+        width: 100vw !important;
+        display: flex !important;
+        }
+        .messageTable tr {
+        vertical-align: middle !important;
+        }
+        .message {
+        margin-bottom: 2rem !important;
+        }
+        input {
+        outline: none !important;
+        border-width: 2px;
+        border-style: solid;
+        
+        transition: border-color 0.2s !important;
+        border-color: #ced4da;
+        }
+        input:focus {
+        border-color: hsl(210, 100%, 60%);
+        }
+        .lookupIcon {
+        margin-left: 0.2rem !important;
+        }
+        .requiredBlock {
+        top: 3px !important;
+        bottom: 3px !important;
+        width: 7px !important;
+        left: -10px !important;
+        border-radius: 10px !important;
+        }
+        .checkboxContainer span:first-child {
+        margin-left: auto;
+        }
+        .checkboxContainer span:first-child img {
+        width: 30px;
+        height: 24px;
+        }
+        .outputFieldContainer span {
+        padding: 5px;
+        background-color: hsl(0, 0%, 95%);
+        min-width: 200px;
+        width: 100%;
+        display: block;
+        margin-top: 0.1rem;
+        border-radius: 10px;
+        }
+        .outputFieldContainer {
+        position: relative;
+        padding: 10px;
+        border-radius: 10px;
+        
+        transition: box-shadow 0.2s;
+        box-shadow: none;
+        }
+        .outputFieldContainer:hover {
+        box-shadow: 0 3px 10px 1px rgba(0, 0, 0, 0.25);
+        }
+        .inputFieldContainer {
+        position: relative;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        
+        transition: box-shadow 0.2s;
+        box-shadow: none;
+        }
+        .inputFieldContainer:hover {
+        box-shadow: 0 3px 10px 1px rgba(0, 0, 0, 0.25);
+        }
+        .headerTitle {
+        font-size: 32px !important;
+        }
+        input[type=checkbox] {
+        height: 20px !important;
+        width: 20px !important;
+        }
+        .btn {
+        font-size: inherit;
+        }
+        .requiredBlock {
+        width: 0 !important;
+        }
+    </style>
+    <apex:form id="form" styleClass="my_auto mx_auto fit">
+        <apex:slds />
+        <apex:includeLightning />
+        <apex:pageBlock rendered="{!(quoteRecord.New_Contract_Amendment_DOA__c && quoteRecord.CDM__c == null)}">
+            Unable to submit for internal approval. Please provide CDM involved on this quote to submit the quote
+            for internal approval.
+            <apex:commandButton value="OK" action="{!Cancel}" oncomplete="window.top.location.reload()"/>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!(quoteRecord.Primary_Quote__c == false) }">
+            The Quote is Not Primary.
+            <apex:commandButton value="OK" action="{!Cancel}" />
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <div class="full-size">
+                <div class="slds-card fit my_auto mx_auto">
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body flex">
+                                <span class="slds-icon_container slds-icon-standard-approval">
+                                    <svg aria-hidden="true" class="slds-icon"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <use
+                                             xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#approval')}">
+                                        </use>
+                                    </svg>
+                                </span>
+                                <h2 class="slds-text-heading_large slds-m-left_small">Approval</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="fit mx_auto">
+                            <apex:pageMessages id="showmsg"></apex:pageMessages>
+                            <apex:outputPanel rendered="{!AND(CameleonCPQ__QxQuote__c.DOA_Approval_Status__c != $Label.Approval_Submitted, CameleonCPQ__QxQuote__c.DOA_Approval_Status__c != $Label.DOA_Approved,isApproval, isEditable, !isInvalidProduct)}">
+                                <div class="slds-p-left_small">
+                                    <div class="slds-text-heading_small slds-m-bottom_x-small moe-fixed-width1 flex">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.Compliance__c.Label}<apex:inputField styleClass="slds-m-left_small ml_auto" value="{!quoteRecord.Compliance__c}" /></div>
+                                    <div class="slds-text-heading_small slds-m-bottom_x-small moe-fixed-width1 flex">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.BSD_Queue__c.Label}<apex:inputField styleClass="slds-m-left_small ml_auto" value="{!quoteRecord.BSD_Queue__c}" /></div>
+                                    <div class="slds-text-heading_small slds-m-bottom_x-small moe-fixed-width1 flex">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.Finance_Queue__c.Label}<apex:inputField styleClass="slds-m-left_small ml_auto" value="{!quoteRecord.Finance_Queue__c}" /></div>
+                                    <div class="slds-text-heading_small moe-fixed-width1  flex">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.B2B_Integration_Queue__c.Label}<apex:inputField styleClass="slds-m-left_small ml_auto" value="{!quoteRecord.B2B_Integration_Queue__c}" /></div>
+                                </div>
+                                <hr />
+                                <div class="flex">
+                                    <div class="slds-m-right_xx-large">
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.CDM_Approver__c.Label}</div><apex:inputField required="{!quoteRecord.New_Contract_Amendment_DOA__c}" value="{!quoteRecord.CDM_Approver__c}" /></div>
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.Managing_Director__c.Label}</div><apex:inputField value="{!quoteRecord.Managing_Director__c}" /></div>
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.CPD_Director__c.Label}</div><apex:inputField value="{!quoteRecord.CPD_Director__c}" /></div>
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.CBFS_Director__c.Label}</div><apex:inputField value="{!quoteRecord.CBFS_Director__c}" /></div>
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.Senior_Director__c.Label}</div><apex:inputField value="{!quoteRecord.Senior_Director__c}" /></div>
+                                    </div>
+                                    <div>
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.CBFS_VP__c.Label}</div><apex:inputField value="{!quoteRecord.CBFS_VP__c}" /></div>
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.VP__c.Label}</div><apex:inputField value="{!quoteRecord.VP__c}" /></div>
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.SVP__c.Label}</div><apex:inputField value="{!quoteRecord.SVP__c}" /></div>
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.EVP__c.Label}</div><apex:inputField value="{!quoteRecord.EVP__c}" /></div>
+                                        <div class="inputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.CFO__c.Label}</div><apex:inputField value="{!quoteRecord.CFO__c}" /></div>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!AND(CameleonCPQ__QxQuote__c.DOA_Approval_Status__c != $Label.Approval_Submitted,CameleonCPQ__QxQuote__c.DOA_Approval_Status__c != $Label.DOA_Approved, isApproval, !isEditable, !isInvalidProduct)}">
+                                <div class="slds-p-left_small">
+                                    <div class="slds-text-heading_small slds-m-bottom_x-small moe-fixed-width1 checkboxContainer flex">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.Compliance__c.Label}<apex:outputField styleClass="slds-m-left_small" value="{!quoteRecord.Compliance__c}" /></div>
+                                    <div class="slds-text-heading_small slds-m-bottom_x-small moe-fixed-width1 checkboxContainer flex">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.BSD_Queue__c.Label}<apex:outputField styleClass="slds-m-left_small" value="{!quoteRecord.BSD_Queue__c}" /></div>
+                                    <div class="slds-text-heading_small slds-m-bottom_x-small moe-fixed-width1 checkboxContainer flex">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.Finance_Queue__c.Label}<apex:outputField styleClass="slds-m-left_small" value="{!quoteRecord.Finance_Queue__c}" /></div>
+                                    <div class="slds-text-heading_small moe-fixed-width1 checkboxContainer flex">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.B2B_Integration_Queue__c.Label}<apex:outputField styleClass="slds-m-left_small" value="{!quoteRecord.B2B_Integration_Queue__c}" /></div>
+                                </div>
+                                <hr />
+                                <div class="flex">
+                                    <div class="slds-m-right_xx-large">
+                                        <div class="outputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.CDM_Approver__c.Label}</div><apex:outputField value="{!quoteRecord.CDM_Approver__c}" /></div>
+                                        <div class="outputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.Managing_Director__c.Label}</div><apex:outputField value="{!quoteRecord.Managing_Director__c}" /></div>
+                                        <div class="outputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.CPD_Director__c.Label}</div><apex:outputField value="{!quoteRecord.CPD_Director__c}" /></div>
+                                        <div class="outputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.CBFS_Director__c.Label}</div><apex:outputField value="{!quoteRecord.CBFS_Director__c}" /></div>
+                                        <div class="outputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.Senior_Director__c.Label}</div><apex:outputField value="{!quoteRecord.Senior_Director__c}" /></div>
+                                    </div>
+                                    <div> 
+                                        <div class="outputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.VP__c.Label}</div><apex:outputField value="{!quoteRecord.VP__c}" /></div>
+                                        <div class="outputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.SVP__c.Label}</div><apex:outputField value="{!quoteRecord.SVP__c}" /></div>
+                                        <div class="outputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.EVP__c.Label}</div><apex:outputField value="{!quoteRecord.EVP__c}" /></div>
+                                        <div class="outputFieldContainer"><div class="slds-text-heading_small">{!$ObjectType.CameleonCPQ__QxQuote__c.fields.CFO__c.Label}</div><apex:outputField value="{!quoteRecord.CFO__c}" /></div>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </div>
+                    </div>
+                    <div class="slds-card__footer moe-footer">
+                        <div class="flex full-size">
+                            <div class="fit mx_auto">
+                                <apex:outputPanel rendered="{!AND(CameleonCPQ__QxQuote__c.DOA_Approval_Status__c != $Label.Approval_Submitted,CameleonCPQ__QxQuote__c.DOA_Approval_Status__c != $Label.DOA_Approved, isApproval , quoteRecord.Primary_Quote__c == true, !isInvalidProduct)}">
+                                    <apex:commandButton styleClass="slds-button slds-button_brand slds-m-right_x-large slds-p-horizontal_x-large" disabled="{!disabl}" action="{!SubmitApproval}" value="Submit" reRender="form" />
+                                    <apex:commandButton styleClass="slds-button slds-button_destructive slds-p-horizontal_x-large" action="{!Cancel}" value="Cancel" />
+                                </apex:outputPanel>
+                                <!-- <apex:outputPanel rendered="{isApproval}"> -->
+                                <apex:commandButton action="{!Cancel}" value="Back to Quote" />
+                                <!--  </apex:outputPanel> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,85 @@
+<!--Communities v2 - Custom GPO Group Edit VF Page -->
+<!-- has a controller extension: EditGPOGroupCntr -->
+
+<apex:page standardController="GPO_Group__c" extensions="EditGPOGroupCntr" readOnly="false" >
+<script>
+
+</script>
+<apex:includeScript value="/lightning/lightning.out.js"/>
+
+<apex:sectionHeader title="Edit GPO Group" />
+    <apex:form >
+        <apex:pageBlock title="Edit GPO Group">
+            <apex:pageMessages />
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Save" action="{!Save}" />
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="2">
+                <apex:inputField value="{!GPO_Group__c.Community_Name__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Account__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Welcome_Title__c}"/>
+                <apex:inputField value="{!GPO_Group__c.GPO_Template__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Community_Image__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Activated__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Private__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2">
+                <apex:inputField value="{!GPO_Group__c.hideSections__c}"/>
+                <apex:inputField value="{!GPO_Group__c.hideSectionsPost__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Hide_SPC_Download_Link_Prelogin__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Hide_SPC_Download_Link_PostLogin__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2">
+                <apex:inputField value="{!GPO_Group__c.InheritParentLogo__c}"/>
+                <apex:inputField value="{!GPO_Group__c.InheritParentGreetingMessage__c}"/>
+                <apex:inputField value="{!GPO_Group__c.InheritParentFields__c}"/>
+                <apex:inputField value="{!GPO_Group__c.InheritParentPageComponents__c}"/>
+                <apex:inputField value="{!GPO_Group__c.InheritParentPageLinks__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2">
+                <apex:selectList label="Greeting Message" value="{!messageId}" onchange="changeMsg();">
+                    <apex:selectOptions id="picklistValue" value="{!Items}"/>
+                </apex:selectList>
+                <apex:actionFunction name="changeMsg" rerender="output" />
+                <apex:outputText id="output" escape="false" label="Selected Message" value="{!selected}" />
+            </apex:pageBlockSection>
+            <!--NAIT-21026-->
+            <apex:pageBlockSection columns="2">
+                <apex:inputField value="{!GPO_Group__c.PO_Number_Setup__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Cost_Center_Setup__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Release_Setup__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Desktop_Setup__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Custom_Catalog_Code__c}"/> <!--NAIT-21040-->
+                <apex:inputField value="{!GPO_Group__c.Account_Selection__c}"/> <!--NAIT-21041-->
+                <apex:inputField value="{!GPO_Group__c.Account_Selection_Disabled__c}"/> <!--NAIT-21041-->
+                <apex:inputField value="{!GPO_Group__c.Allow_Ship_To_Address_Selection__c}"/><!--NAIT-21032--->
+                <apex:inputField value="{!GPO_Group__c.User_Maintenance_Allowed__c}"/><!--NAIT-21068--->
+                <apex:inputField value="{!GPO_Group__c.Hide_Register_Link__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Restrict_Login__c}"/><!--Added by Rajendra Shahane for NAIT-155579 Remove the login option from the following community pages.-->
+                <apex:inputField value="{!GPO_Group__c.Approver_Information_Section__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Additional_Addresses__c}"/>
+                <apex:inputField value="{!GPO_Group__c.Additional_Cost_Centers__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <!--
+        <div id="lightning" />
+
+        <script>
+            $Lightning.use("c:MyApp", function() {
+              $Lightning.createComponent("c:MadhelloWorld",
+              { label : "" },
+              "lightning",
+              function(cmp) {
+                // do some stuff
+              });
+            });
+        </script>
+        -->
+        
+    
+        
+    </apex:form>
+    
+</apex:page>

@@ -1,0 +1,8 @@
+<!--
+ - This page is launched by clicking the "New" button from the Support tab.
+ - This page will route to SCOE based on the user's profile.
+ - If the user's profile isn't supposed to be routed to SCOE,
+ 	this page will simply route to the default case creation page.
+ -->
+<apex:page standardController="Case" extensions="RouteNewCase" action="{!OnPageLoad}">
+</apex:page>

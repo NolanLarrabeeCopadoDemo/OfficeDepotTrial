@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingGuestRules>
+        <fullName>Customer360_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Customer360 Access</label>
+        <sharedTo>
+            <guestUser>Customer360</guestUser>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Account_Level__c</field>
+            <operation>notEqual</operation>
+            <value>Header</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account_Level__c</field>
+            <operation>notEqual</operation>
+            <value>Site</value>
+        </criteriaItems>
+    </sharingGuestRules>
+    <sharingGuestRules>
+        <fullName>pros_access_to_site</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>pros access to site</label>
+        <sharedTo>
+            <guestUser>PROSQuoteApproval</guestUser>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+    </sharingGuestRules>
+    <sharingOwnerRules>
+        <fullName>Account_Sharing_Support</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Edit</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Edit</opportunityAccessLevel>
+        </accountSettings>
+        <label>Account Sharing - Support</label>
+        <sharedTo>
+            <role>Support</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>TZ_Default_sharing_is_R_W</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Read</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Read</opportunityAccessLevel>
+        </accountSettings>
+        <label>TZ: Default sharing is R/W</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Tech_Zone</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Tech_Zone</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

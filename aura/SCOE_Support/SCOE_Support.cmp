@@ -1,0 +1,40 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="fields" type="Object" />
+    
+    <aura:attribute name="inputError" type="Boolean" />
+    <aura:attribute name="errorMessage" type="String" />
+    <aura:attribute name="AccRecord" type="Account" />
+     <aura:attribute name="OppRecord" type="Opportunity" />
+     <aura:attribute name="type" type="String" />
+     <aura:attribute name="Casetype" type="String" />
+    
+    <force:recordData aura:id="forceRecordCmp"
+    recordId="{!v.recordId }"
+    layoutType="FULL"
+    fields="Name,Cust_ID__c"
+    mode="VIEW"
+    targetFields="{!v.fields}"
+    targetError="{!v.error}"
+    recordUpdated="{!c.doInit}"/>
+    
+    <aura:html tag="style">
+        .slds-modal__container{
+        width: 75%;
+        max-width: 100rem;
+        }
+    </aura:html>
+    <div style="margin: auto;width: 75%;">
+    <aura:if isTrue="{!v.inputError}">
+      <div class="recordError">
+        <ui:message title="Error" severity="error" closable="false">
+          {!v.errorMessage}
+        </ui:message>
+      </div>
+    </aura:if>
+  </div>
+    
+    <div style="margin: 0 auto;width: 82%;max-width: 100rem;min-width: 20rem;max-height: 100rem;" class="FlowContainer">
+    <lightning:flow aura:id="flowData" onstatuschange="{!c.handleStatusChange}"/>
+    </div>
+</aura:component>

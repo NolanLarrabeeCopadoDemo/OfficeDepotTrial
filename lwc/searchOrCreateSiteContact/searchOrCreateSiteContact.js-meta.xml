@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Account</object>
+            </objects>
+            <property name="recordId" type="String" label="Account Record Id" description="The Account Record Id" default=""/>
+        </targetConfig>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="Site Account Record Id" description="The Site Account Record Id" default=""/>
+            <property name="isFlow" type="Boolean" label="Is the Component in a flow?" description="Is the Component in a flow? Set True for Flows" default="false"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

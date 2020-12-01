@@ -1,0 +1,284 @@
+<apex:page readOnly="true" title="Vendavo Dashboard Reporting" controller="ACEReporting_RevMarg_WaterFall" action="{!VendSKUListReportData_1}">
+ 
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        
+        .expandCollapse{
+        -moz-border-radius:5px 5px 5px 5px;
+        -webkit-border-radius:5px 5px 5px 5px;
+        border-radius:5px 5px 5px 5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        align:center; 
+        text-align:center; 
+        font-weight:bold;
+        background-color:#3D8C8C;
+        background-image:none;
+        width:auto;
+        height:auto;
+        color:white;
+        }
+        .borderLeft{
+            border-left: solid 1px black;
+        }
+        .borderRight{
+            border-right: solid 1px black;
+        }
+    </Style>
+    
+    <apex:outputPanel id="bucketPanel">
+        <apex:form >    
+           <apex:sectionHeader title="Reports" id="reports1" subtitle="Vendavo Dashboard Report"/>
+            <apex:actionFunction name="Refresh_pg1" action="{!vendavoRep_searchBtnclick}" reRender="block,buttons3" status="search_Status_main">
+                <apex:param name="Searchtype" value="" assignTo="{!Searchtype}" />    
+            </apex:actionFunction>        
+            
+            <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%">    
+                <apex:outputPanel style="text-align: right;float:right;">
+                           <!-- <a href="/servlet/servlet.FileDownload?file=015M0000000ACus" target="_blank"> <apex:image id="theImage" value="{!$Resource.TalkingPointImage}" width="40" height="18" style="text-align: right;"/></a>-->
+                           &nbsp; 
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!VendSKUListReportData_1}"  status="search_Status_main"/>
+                                        <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid>
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                 <!-- Added apex image tag S-346420 by  Rahul  <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/> --> 
+                 <apex:image id="ajax_loading" value="{!$Resource.Ajax_Loading}" height="100" width="100" alt="Loading graphic" />
+             </div>
+         </div>
+         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                 
+             <!-- Revenue Block -->
+             <div style="width:100%;background-color:white;">
+               <apex:outputPanel id="componentPanel" >   
+               <apex:pageBlock id="block">              
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                         
+                         <div class="expandCollapse" width="100%" style="width:100%">
+                             <apex:outputText value="Vendavo Dashboard Report" style="color:white;"/>
+                         </div>  
+                         <br/>  
+                         
+                         <apex:outputPanel >
+                                    <B>Search by Customer Number: </B> <apex:inputText id="text1" tabindex="0" value="{!searchWord}" onkeypress="if(event.keyCode==13){Refresh_Search(this,'Customer');return false;}"/> &nbsp;&nbsp;&nbsp;
+                                    <apex:commandButton onclick="Refresh_Search_btn('Customer'); return false;" value="Search" tabindex="1"/>
+                         </apex:outputPanel>             
+                         <apex:outputPanel >
+                                    <B>Search by SKU Number: </B> <apex:inputText id="text2" tabindex="2" value="{!searchWordSKU}" onkeypress="if(event.keyCode==13){Refresh_Search(this,'SKU'); return false;}"/> &nbsp;&nbsp;&nbsp;
+                                    <apex:commandButton onclick="Refresh_Search_btn('SKU'); return false;" value="Search" tabindex="3"/>
+                         </apex:outputPanel>   
+                         
+                         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+                                         <div style="text-align: center;">
+                                           <!-- Added apex image tag S-346420 by  Rahul  <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/> --> 
+                                              <apex:image id="ajax_loading" value="{!$Resource.Ajax_Loading}" height="100" width="100" alt="Loading graphic" />
+                                         </div>
+                         </div>
+                         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/> 
+                         <!--sfdc - 910711--->
+                         <apex:commandbutton onClick="window.open('/apex/apex/ACE_SKU_Vendavo_Report_Download?reportType=Vendavo&Searchtype={!Searchtype}&searchWord={!searchWord}&searchWordSKU={!searchWordSKU}&SKUDownload=Yes', '_blank');" value="Export SKUs" rerender="componentPanel" />
+                         <!-- sfdc 910711 --->
+                         
+                         <apex:pageBlockTable value="{!lVendSKUListReportData_1}" var="a" border="1">
+                             <apex:column >                                 
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true"> 
+                                       <apex:outputText >Transmission<br/>Date</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="TransmissionDate" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc2" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'TransmissionDate'}"/> 
+                                       <apex:image id="sortInDesc2" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'TransmissionDate'}"/> 
+                                   </apex:commandLink>                      
+                                 </apex:facet>                                  
+                                 <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                     <!--<apex:param value="{!a.Sales_Price_Change_Effective_Date_Approv__c}" /> --910711-->
+                                     <apex:param value="{!a.TransmissionDate}" />
+                                 </apex:outputText>
+                             </apex:column>
+                             
+                             <apex:column >
+                                 <apex:facet name="header">Status </apex:facet>
+                                  <!--{!IF(a.Implementation_Status_Code__c == 'DATA-SUCCESS','Executed',IF(a.Implementation_Status_Code__c == 'DATA-FAILED','Failed',IF(a.Implementation_Status_Code__c == 'DATA-SENT','Transmitted',IF(a.Implementation_Status_Code__c == 'SCH' && ((a.Proposed_Price_with_Cap__c==a.Approved_Proposed_Price__c && a.Alt_SKU__c == false && a.Status__c <> 'Deleted') || (a.Price_Changes_Type__c == 'D' && a.SKU_Alt__c == '')),'No Change - No Need to Transmit',IF(a.Implementation_Status_Code__c == 'SCH-PEN' || a.Implementation_Status_Code__c == 'SCH','Not Yet Transmitted',a.Implementation_Status_Code__c)))))}-->
+                                 {!a.Status}
+                             </apex:column>
+                             
+                             <apex:column ><!-- sfdc 910711 -start -->
+                                 <!--{!a.Implementation_Status__c}-->
+                                 {!a.StatusDetails}
+                                 <apex:facet name="header">Status Details</apex:facet>                                              
+                             </apex:column> <!-- sfdc 910711 -end -->
+                             
+                             <apex:column >
+                                 <!--{!a.Ace_customer_core_changes__r.ace_customer_price_changes__r.Owning_Customer_ID__c}-->
+                                 {!a.CustomerNum}
+                                 <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Customer #</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="VCustNo" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc4" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'VCustNo'}"/> 
+                                       <apex:image id="sortInDesc4" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'VCustNo'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet> 
+                             </apex:column>
+                             <apex:column >
+                                <apex:facet name="header">
+                                   <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                       <apex:outputText >Customer Name</apex:outputText>  &nbsp; 
+                                       <apex:param name="fieldName" value="VCustName" assignTo="{!getFieldName}"/>
+                                       <apex:image id="sortInAsc5" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'VCustName'}"/> 
+                                       <apex:image id="sortInDesc5" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'VCustName'}"/>
+                                   </apex:commandLink>                      
+                                 </apex:facet> 
+                                <!--<a href="/{!a.Ace_customer_core_changes__r.ace_customer_price_changes__r.id}" target="_blank"> {!a.Ace_customer_core_changes__r.ace_customer_price_changes__r.Customer__r.name} </a> -->
+                                 <a href="/{!a.CustomerNameId}" target="_blank"> {!a.CustomerName} </a>
+                             </apex:column>
+                             <apex:column ><!-- sfdc 910711---added sorting for this column -->                                 
+                                 <apex:facet name="header">
+                                 <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                 <apex:outputText >Core #</apex:outputText>  &nbsp; 
+                                 <apex:param name="fieldName" value="VCoreId" assignTo="{!getFieldName}"/>
+                                 <apex:image id="sortInAsc6" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'VCoreId'}"/> 
+                                 <apex:image id="sortInDesc6" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'VCoreId'}"/>
+                                 </apex:commandLink>
+                                 </apex:facet>
+                                <!--<a href="/{!a.Ace_customer_core_changes__r.id}" target="_blank"> {!a.Ace_customer_core_changes__r.name} </a>-->
+                                 <a href="/{!a.CoreNumId}" target="_blank"> {!a.CoreId} </a>
+                             </apex:column>
+                             <apex:column ><!-- sfdc 910711---added sorting for this column -->                                 
+                                 <apex:facet name="header">
+                                 <apex:commandLink action="{!sortCust}" reRender="componentPanel" immediate="true">
+                                 <apex:outputText >SKU</apex:outputText>  &nbsp; 
+                                 <apex:param name="fieldName" value="VSkuId" assignTo="{!getFieldName}"/>
+                                 <apex:image id="sortInAsc7" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'VSkuId'}"/> 
+                                 <apex:image id="sortInDesc7" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'VSkuId'}"/>
+                                 </apex:commandLink>
+                                 </apex:facet>
+                                 <!--<a href="/{!a.id}" target="_blank">  {!a.SKU__c} </a> -->
+                                 <a href="/{!a.skuId}" target="_blank">  {!a.SKUNum} </a>
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">SKU<br/>Action</apex:facet>
+                                 {!a.SKUAction}
+                                <!--  <apex:outputText value="SKU Delete" rendered="{!(a.Alternate_Chosen_Flag__c == false && a.Status__c =='Deleted') || a.Price_Changes_Type__c == 'D'}" />
+                                  <apex:outputText value="SKU Replace" rendered="{!a.Alternate_Chosen_Flag__c == true && a.Status__c =='Deleted'}" />
+                                  <apex:outputText value="Price Change" rendered="{!a.Status__c == 'Active' && a.Price_Changes_Type__c != 'D'}" />
+                                  <!--sfdc 910711--start
+                                  <apex:outputText value="Date Change" rendered="{!a.Status__c == 'Active' && a.Sales_Price_Change_Effective_Date__c != a.Sales_Price_Change_Effective_Date_Approv__c}" />
+                                  <apex:outputText value="Price & Date Change" rendered="{!a.Status__c == 'Active' && a.Price_Changes_Type__c != 'D' && a.Sales_Price_Change_Effective_Date__c != a.Sales_Price_Change_Effective_Date_Approv__c}" />
+                                  <!--sfdc 910711---end-->
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">SKU<br/>Price</apex:facet>
+                                 <apex:outputPanel rendered="{!a.SKUPrice != null}">
+                                 <apex:outputText value="${0, number, ###,###,###,##0.00}" style="white-space:nowrap;">
+                                         <!--<apex:param value="{!a.Approved_Proposed_Price__c}"/>-->
+                                     <apex:param value="{!a.SKUPrice}"/>
+                                 </apex:outputText> 
+                                 </apex:outputPanel>
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">SKU Alt #</apex:facet>
+                                 <!--<apex:outputPanel rendered="{!a.Alternate_Chosen_Flag__c == true && a.Status__c =='Deleted'}"  >-->
+                                      {!a.SKUAlt} <!--{!a.SKU_Alt__c}-->
+                                  <!--</apex:outputPanel> -->
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">SKU Alt Price</apex:facet>
+                                  <!-- <apex:outputPanel rendered="{!a.Alternate_Chosen_Flag__c == true && a.Status__c =='Deleted' && a.SKU_Alt__c != null && a.SKU_Alt__c != '' }"  >-->
+                                    <apex:outputPanel rendered="{!a.SKUAltPrice != null}">
+                                     <apex:outputText value="${0, number, ###,###,###,##0.00}" style="white-space:nowrap;">
+                                     <apex:param value="{!a.SKUAltPrice}"/>
+                                     <!--<apex:param value="{!map_ID_SKU[a.SKU_Alt__c+a.Ace_customer_core_changes__r.name+a.Ace_customer_core_changes__r.ace_customer_price_changes__r.Owning_Customer_ID__c]}"/> -->    
+                                     </apex:outputText>
+                                   </apex:outputPanel>
+                             </apex:column>
+                             <apex:column >
+                                 <apex:facet name="header">Vendavo Current Price</apex:facet>
+                                 <apex:outputPanel rendered="{!a.VendavoCurrentPrice != null}">
+                                  <apex:outputText value="${0, number, ###,###,###,##00.00}" style="white-space:nowrap;">
+                                          <apex:param value="{!a.VendavoCurrentPrice}"/> 
+                                          <!--<apex:param value="{!a.Current_Sell_Price__c}"/> -->
+                                           <!--sfdc-910711 --added below line--->
+                                         <!--<apex:param value="{!map_SKU_current_vendvo_price[a.Ace_customer_core_changes__r.name+a.SKU_Alt__c]}"/> <!--sfdc-910711 --->
+                                  </apex:outputText> 
+                                 </apex:outputPanel>
+                             </apex:column>
+                             
+                             
+                         </apex:pageBlockTable>    
+                          <apex:panelGrid id="buttons3" width="100%" columns="2" columnClasses="btn3,btn4">
+                             <apex:outputPanel >
+                                 <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                             </apex:outputPanel>
+                             <apex:outputPanel >
+                                 <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="componentPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                             </apex:outputPanel>
+                         </apex:panelGrid>
+                         
+                                             
+                 </apex:pageBlock> 
+                 </apex:outputPanel>
+                    
+        </div>  
+      </apex:form>
+         
+          
+           
+    </apex:outputPanel>
+    
+    <script>
+        function Refresh_Search(val,type)
+        {
+            // alert('alert in val>' + val.id);
+            // alert('alert in type' + type);
+            Refresh_pg1(type);
+            // alert('alert in val>' + val.id);
+            var elem = document.getElementById(val.id);
+            // alert('elem:' + elem);
+            elem.focus();
+            
+            
+        }
+        function Refresh_Search_btn(type)
+        {
+            // alert('alert in val>' + val.id);
+            // alert('alert in type' + type);
+            Refresh_pg1(type);
+            // alert('alert in val>' + val.id);
+            //var elem = document.getElementById(val.id);
+            // alert('elem:' + elem);
+            //elem.focus();
+            
+            
+        }
+       
+   
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script>
+
+</apex:page>

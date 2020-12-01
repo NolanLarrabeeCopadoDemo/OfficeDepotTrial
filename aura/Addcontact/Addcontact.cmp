@@ -1,0 +1,143 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" 
+                controller="AddContactController" >
+    <aura:attribute name="objContact" type="contact" default="{'sobjectType':'contact'}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <ltng:require scripts="{!$Resource.PhoneNumberFormat}" />
+    <aura:attribute name="userrole" type="String" />
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <div class="slds-align_absolute-center">
+        <div style="width:100%;" class="slds-text-align_center slds-text-heading_medium">
+            <p class="slds-section-title--divider slds-text-color_success"><b>User Management</b></p>
+        </div>
+    </div>
+    <br/>
+    <div class="slds-align_absolute-center">
+        <div style="width:95%;" class="slds-text-heading_medium">
+            <p class="slds-section-title--divider"><b>User Information</b></p>
+        </div>
+    </div>
+   <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-align_absolute-center" style="width:35%;">
+            <lightning:input 
+                             label="First Name"
+                             required="true"
+                             value="{!v.objContact.FirstName}"
+                             aura:id="firstname_id"/>
+        </div>
+        <div style="width:25%;"/>
+        <div class="slds-col slds-align_absolute-center">
+            <lightning:input 
+                             label="Last Name"
+                             required="true"
+                             value="{!v.objContact.LastName}"
+                             aura:id="lastname_id"/>
+        </div>
+        <div style="width:25%;"/>
+    </div>
+    <div style="width:25%;"/>    
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-align_absolute-center" style="width:35%;">
+         <!--   <lightning:input 
+                             label="Phone" 
+                             value="{!v.objContact.Phone}"     
+                             maxlength="10" 
+                             minlength="10"
+                             required="true"
+                             aura:id="phone_id"/>-->
+            <lightning:input style="width:185px;" onchange ="{!c.handleBlur}" placeholder="(999) 999-9999"  maxlength="10" minlength="10" pattern=".{0}|.{10,}" label="Phone" value="{!v.objContact.Phone}" required="true" aura:id="phone_id" messageWhenBadInput="Enter 10 digit number."/>
+        </div>
+        <div style="width:25%;"/>
+        <div class="slds-col slds-align_absolute-center">
+            <lightning:input 
+                             label="Email"
+                             required="true"
+                             value="{!v.objContact.Email}"
+                             aura:id="email_id"/>
+        </div>
+        <div style="width:25%;"/>
+    </div> 
+    <div style="width:25%;"/>    
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-align_absolute-center" style="width:35%;">
+            <lightning:input 
+                             label="Title" 
+                             value="{!v.objContact.Title}"     
+                             maxlength="128" 
+                             required="true"
+                             aura:id="title_id"/>
+        </div>
+       <div style="width:25%;"/>
+        <div class="slds-col slds-align_absolute-center">
+           <lightning:input 
+                             label="Title" 
+                             value="{!v.objContact.Title}"     
+                             maxlength="10" 
+                             required="true"
+                             class="slds-hidden"/>
+        </div>
+        <div style="width:25%;"/>
+    </div> 
+     
+    <br/>
+    <div class="slds-align_absolute-center">
+        <div style="width:95%;" class="slds-text-heading_medium">
+            <p class="slds-section-title--divider"><b>Account Name and Role</b></p>
+        </div>
+    </div>
+   
+    <br/>
+    <div class="slds-grid slds-wrap">
+        
+        <div class="slds-col slds-align_absolute-center" style="width:35%;">
+            <lightning:input 
+                             label="Account Name"
+                             disabled="true"
+                             value="{!v.objContact.Account}"
+                             aura:id="Accname_id"/>
+        </div>
+        <div style="width:25%;"/>
+        <div class="slds-col slds-align_absolute-center">
+            <aura:if isTrue="{!v.userrole =='Executive'}">
+                <lightning:select label="Select the Role" name="a_opt" aura:id="a_opt">
+                    <option title="Manager,Users rolling up/reporting to them and can access compensation data." value="Executive">Executive</option>
+                    <option title="Managers has Users rolling up/reporting to them." value="Manager">Manager</option>
+                    <option title="Individual Partner User (no reports)" value="User">User</option>
+                </lightning:select>     
+            </aura:if> 
+            
+            <aura:if isTrue="{!v.userrole =='Manager'}">
+                <lightning:select label="Select the Role" name="a_opt" aura:id="a_opt">
+                    <option title="Managers has Users rolling up/reporting to them." value="Manager">Manager</option>
+                    <option title="Individual Partner User (no reports)" value="User">User</option>
+                </lightning:select>
+            </aura:if> 
+            
+            <aura:if isTrue="{!v.userrole =='Worker'}">
+                <lightning:select label="Select the Role" name="a_opt" aura:id="a_opt">
+                    <option title="Individual Partner User (no reports)" value="User">User</option>
+                </lightning:select>
+            </aura:if> 
+        </div>
+        <div style="width:30%;"/>
+    </div>
+    <div style="width:27%;"/>
+    <br/>
+    <div class="slds-align_absolute-center">
+        <lightning:button variant="neutral" 
+                          class="slds-button slds-button_brand" 
+                          label="Submit" 
+                          title="Success" 
+                          onclick="{!c.savepartnercontact}"/>  
+    </div> 
+    <br/>
+</aura:component>

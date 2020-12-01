@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Partner__c.Relationship_Type__c</field>
+    </columns>
+    <columns>
+        <field>Partner__c.Diversity_Manager__c</field>
+    </columns>
+    <columns>
+        <field>Partner__c.Partner_Migration_Status__c</field>
+    </columns>
+    <columns>
+        <field>Partner__c.Platform__c</field>
+    </columns>
+    <columns>
+        <field>Partner__c.Customer_Count__c</field>
+    </columns>
+    <columns>
+        <field>Partner__c.YTD_Sales_TY__c</field>
+    </columns>
+    <columns>
+        <field>Partner__c.Opportunity_Count__c</field>
+    </columns>
+    <columns>
+        <field>Partner__c.Opportunity_Amount__c</field>
+    </columns>
+    <description>Listing of all partners, partnership type, their Diversity Manager, migration status, IT stack, and rollup of customer and opportunity info</description>
+    <format>Tabular</format>
+    <name>Partner Migration Readiness Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Partner__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>CUST_NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Partner__c.Relationship_Start_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

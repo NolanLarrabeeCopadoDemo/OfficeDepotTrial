@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Tier 1 Adjacency Notification for Mailbox</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>CT Tier1 Rep Adjacency Email</name>
+    <style>freeForm</style>
+    <subject>{!Customer_Transition__c.Account_OMX_Key__c} - {!Customer_Transition__c.Account_Name__c} Tier 1 Alert</subject>
+    <textOnly>Dear Tier 1 Support Team:
+
+Please be advised this OD North Customer has been placed in a status of ON DECK.
+
+We have determined that the Customer is a Tier 1 Customer. Please contact the Sales Representative that manages the account to determine which Tier 1 Partner this Customer will be using.
+
+Link to Customer: {!Customer_Transition__c.Link}
+
+Thank you for your support.
+
+BSD SALES OPERATIONS TEAM</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

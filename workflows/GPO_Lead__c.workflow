@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Communities_User_Maintenance</fullName>
+        <description>Communities User Maintenance</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>community.request@officedepot.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>EXTERNAL_Communities_Templates/Communities_User_Maintenance</template>
+    </alerts>
+    <alerts>
+        <fullName>GPO_Lead_Email_to_Admin</fullName>
+        <ccEmails>ben.chaichinda@officedepot.com</ccEmails>
+        <description>GPO Lead Email to Admin</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SU_CommuContact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>salesforce@officedepot.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>EXTERNAL_Communities_Templates/Community_Admin_Approval_Required_Private_V1_0</template>
+    </alerts>
+    <alerts>
+        <fullName>GPO_Send_Successful_Reg_Email_for_Public</fullName>
+        <description>GPO Send Successful Reg Email for Public</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>community.request@officedepot.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>EXTERNAL_Communities_Templates/GPO_Send_Immediate_SuccessRegEmail_Public</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Immediate_Success_User_Reg_Email</fullName>
+        <description>Send Immediate Success User Reg Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>community.request@officedepot.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>EXTERNAL_Communities_Templates/GPO_Send_Immediate_SuccessRegEmail_Private</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>GPO_Lead_Update_Private2True</fullName>
+        <field>Private__c</field>
+        <literalValue>1</literalValue>
+        <name>GPO Lead Update Private2True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Communities User Maintenance Request</fullName>
+        <actions>
+            <name>Communities_User_Maintenance</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>GPO_Lead__c.User_Maintenance_Form__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>GPO Lead Private</fullName>
+        <actions>
+            <name>GPO_Lead_Email_to_Admin</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Send_Immediate_Success_User_Reg_Email</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>GPO_Lead_Update_Private2True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>GPO_Lead__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Pending</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>GPO Send Success Reg Email Public</fullName>
+        <actions>
+            <name>GPO_Send_Successful_Reg_Email_for_Public</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>GPO_Lead__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

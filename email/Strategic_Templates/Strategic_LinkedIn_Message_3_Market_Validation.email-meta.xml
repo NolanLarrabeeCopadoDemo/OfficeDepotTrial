@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Can we chat? There’s lots to discuss.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic:  LinkedIn Message #3: Market Validation</name>
+    <style>freeForm</style>
+    <subject>Can we chat? There’s lots to discuss.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+I located your name on LinkedIn.  I understand that INSERT COMPANY NAME reviewed its supply program in late 2013. Since that time, the office services industry has changed greatly and so has Office Depot—consolidation of major players, enhanced insight, visibility, compliance tools, paper at a two-year low, category expansion driving client leverage.
+
+Respectfully, I am requesting a meeting to discuss the following:
+
+
+INSERT COMPANY NAME overall strategy
+Industry trends
+Why a Market Validation makes sense
+
+
+I am available to meet on INSERT DATE AND TIME. If there is a more convenient time, please propose.  I appreciate your consideration.
+
+
+
+Thank you,
+
+
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,797 @@
+<aura:component controller="partnerLeadC" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <meta name="viewport" content="width=device-width"/>
+    <aura:attribute name="One" type="Boolean" default="false" />
+    <aura:attribute name="allLinkedin" type="Partner_Registration_Linkedin__mdt"/>
+    <aura:attribute name="allGoogle" type="Partner_Registration_Google__mdt"/>
+    <aura:attribute name="allFacebook" type="Facebook_Registration__mdt"/>
+    <aura:attribute name="Two" type="Boolean" default="false" />
+    <aura:attribute name="Three" type="Boolean" default="false" />
+    <aura:attribute name="Four" type="Boolean" default="false" />
+    <aura:attribute name="Five" type="Boolean" default="false" />
+    <aura:attribute name="Six" type="Boolean" default="false" />
+    <aura:attribute name="scrollCheckIntervalId"
+                    type="String"
+                    description="In the renderer.js, the interval id for periodically checking scroll position. Used when unrendering component to cancel interval check."
+                    access="private"/>
+    <ltng:require scripts="{!$Resource.PhoneNumberFormat}" />
+    <aura:handler name="change" value="{!v.scrollCheckIntervalId}" action="{!c.handleValueChange}"/> 
+    <aura:attribute name="backgroundImageURL" type="String" default=""/>
+    <aura:attribute name="backgroundImageURL1" type="String" default=""/>
+    <aura:attribute name="becomepartnerImageURL" type="String" default=""/>
+    <aura:attribute name="opensansFontURL" type="String" default=""/>
+    <aura:attribute name="testimonialImageURL" type="String" default=""/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:attribute name="showMe" type="Boolean" default="false" />
+    <aura:attribute name="isEditMode" type="Boolean" default="false" />
+    <aura:attribute name="today" type="Date" />
+    <aura:attribute name="calEvents" type="PartnerEventsWrapper[]" />
+    <aura:attribute name="isOpenDesk" type="boolean" default="false"/> 
+    <aura:attribute name="googleIcon" type="String"/>
+    <aura:attribute name="StatePicklist" type="List[]" default="[]"></aura:attribute>
+    <aura:attribute name="leadSubmitted" type="String" />
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute name="li_lead" type="Lead" default="{'sobjectType':'Lead'}"/>
+    <aura:attribute name="obackgroundImageURL" type="String" default=""/>
+    <aura:attribute name="image" type="String" default=""/>
+    <!-- <ltng:require styles="{!$Resource.macro + '/css/style.css'}"/>-->
+    <ltng:require styles="{!$Resource.Macro1 + '/css/style.css'}"/>
+    
+    <!-- Added by aravind Header starts here -->
+    <aura:attribute type="string" name="PreviousNode" />
+    <aura:attribute type="string" name="PreviousNodeLi" />
+    <aura:attribute name="selectedOption" type="String"/>
+    <aura:attribute name="filteredOptions" type="String[]"/>
+    <aura:attribute name="searchKey" type="String"/>
+    <aura:attribute name="searchKeyAddress" type="String"/>
+    <aura:attribute name="placeholder" type="String" default="Enter a location"/>
+    <aura:attribute name="placeResponse" type="String" default="test"></aura:attribute>
+    <aura:registerEvent name="addressComponentEvent" type="c:AddressAutoCompleteEvent"/>
+    
+    
+    <div style="position:sticky;top:0px;z-index:999;" class="slds-grid slds-wrap SmallDevicePadd StickyHeader" data-aura-class="cOLC_Header">
+        <div class="slds-col slds-size--12-of-12 FixedTemplate">
+            <div class="slds-grid slds-wrap bgsldsheader" style="background: rgba(241,243,244,0.80); rgba(78,85,93,0.95);">
+                <div title="logo" class="slds-col slds-large-size--3-of-12 LogoDiv"><a><img src="{!$Resource.PRM_Microsite_Images + '/OD_CompuCom_Dual_Logo.png'}"/></a></div>
+                <div class="slds-col slds-small-size--7-of-12 slds-medium-size--7-of-12 slds-large-size--9-of-12 hideOnlargerscreen ham_menu_box">
+                    <div id="ham_menu_register" class="ham_menu_register" onclick="{!c.openmodal}" ><img src="{!$Resource.PRM_Microsite_Images + '/Get_Started_Link.png'}" /></div>
+                    <div class=" ham_menu " onclick="{!c.HamburgerMenu}"><img src="{!$Resource.PRM_Microsite_Images + '/Menu_Burger.svg'}" />
+                    </div> 
+                </div>
+                <div id="HamburgerMenu_list" class="slds-col slds-large-show slds-small-size--2-of-12 slds-medium-size--2-of-12 slds-large-size--9-of-12 TabsDiv padd5Top LargeNavBar">
+                    <div class="change slds-col slds-small-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12 " id="HamburgerMenu_close"  >
+                        <div class="cross_bars" onclick="{!c.HamburgerMenu_close}">  <div class="bar1"></div>
+                            <div class="bar2"></div><div class="bar3"></div></div><div style="clear:both;"></div>
+                        <ul class="mainNavigation" id="mainNavigation" >
+                            <li class="navLi" aura:id="OverviewLi"><a class="regularFont here" href="#overView" onmouseup="{!c.ScrollOverview}" aura:id="Overview" >Overview</a></li>
+                            <li class="navLi" aura:id="BenefitsLi"><a class="regularFont here" href="#benefits" onmouseup="{!c.ScrollBenefits}" aura:id="Benefits">Benefits</a></li>
+                            <li class="navLi" aura:id="SolutionsLi"><a class="regularFont here" href="#solutions" onmouseup="{!c.ScrollSolutions}" aura:id="Solutions" >Solutions</a></li>
+                            <li class="navLi" aura:id="ProcessLi"><a class="regularFont here" href="#process" onmouseup="{!c.ScrollProcess}" aura:id="Process" >Process</a></li>
+                            <li class="navLi" aura:id="EventsLi" ><a class="regularFont" href="#events" onmouseup="{!c.ScrollEvents}" aura:id="Events" >Events</a></li>
+                            <li class="navLi" aura:id="PartnersLi"><a class="regularFont" href="#partners" onmouseup="{!c.ScrollPartners}"  aura:id="Partners">Partners</a></li>
+                            <li class="navLi" style="display:none;" aura:id="ContactLi"><a class="regularFont" href="#contact" onmouseup="{!c.ScrollContact}"  aura:id="Contact">Contact</a></li>
+                            <li class="navLi partnerLogin" style="text-align:center;"><a href="{!$Label.c.PRM_Link}" ><img src="{!$Resource.PRM_Microsite_Images + '/LoginIcon.svg'}"/> Partner Login</a></li>
+                        </ul> 
+                        <div class="registerClass">
+                            <div id="RegisterDiv" onclick="{!c.openmodal}" onmouseover="{!c.HoverIn}" onmouseout="{!c.HoverOut}" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div> 
+    <!-- for small screen -->
+    <!-- Added by aravind Header Ends  here -->
+    <!-- faraz code starts here -->
+    
+    <body class="slds-scope">
+        <div class="slds-grid slds-grid_vertical">
+            <div id="topSection" class="banner">
+                <img class="slds-show_small" src="{!$Resource.Macro1 +'/images/hero-image-desktop_2.jpg'}" alt="accelarate your growth" />
+                <img class="slds-hide_medium" src="{!$Resource.Macro1 +'/images/hero-image.jpg'}" alt="accelarate your growth" />
+                <div class="banner-description">
+                    <h2>A striking new approach to Managed IT</h2>
+                    <p>Join the Office Depot™ Partner Program and get on the fast track to success.</p>
+                    <a href="#/" style="text-decoration: none;" class="become-partner-link slds-float_right" onclick="{!c.openmodal}" >Become a Partner</a><br/>
+                    <!--  <a class="contact-link slds-float_right" href="#/"></a>-->
+                </div>
+            </div>
+            <div id="overView"  class="partner-with-us-section" style=" padding-top: 90px;">
+                <h5>Partner with Office Depot™</h5>
+                <h1>We’ll take you further</h1>
+                <div class="slds-p-horizontal_x-small">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <div class="slds-grid">
+                                <div class="partner-section-inner">
+                                    <h3 class="tagline border-bottom-left">You and Office Depot™</h3>
+                                    <p>Differentiating your business from the competition requires innovation, acceleration and the right partnership.</p>
+                                    <p class="large-text red-text">With Office Depot™ as your partner, you have access to unmatched IT proficiency, leading-edge Managed IT solutions and program benefits that work for you. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <div class="slds-grid">
+                                <div class="partner-section-inner border-red-left">
+                                    <h3 class="tagline border-bottom-left">A True Partnership</h3>
+                                    <p>The Office Depot™ Partner Program provides you with the tools, resources and benefits to help you build, run and grow a profitable managed services business. From marketing and education to deal registration, we have created a robust sales enablement and support program that puts you on the fast track to success.</p>
+                                    <p class="large-text">Becoming a partner is simple.</p>
+                                    <a class="learn-more-qualifying" onclick="{!c.openmodal}" href="#/">Learn more &nbsp;></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div id="overView" class="slds-grid slds-grid_vertical">            
+            <div class="slds-grid slds-wrap">                    
+                
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12 slds-order_2 slds-medium-order_1 col">
+                    <div class="join-us-left">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 .slds-show_large"  >
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_5-of-12">
+                                <p >Ready to deliver best-in-class managed technology solutions to your small to medium business customer?</p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                                <div class="join-us-left-buttons">
+                                    <a class="join-us-button" onclick="{!c.openmodal}" style="text-decoration: none;" href="#/">Join us today</a>
+                                    <!-- <a class="learn-more-link" href="#/">Learn more</a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-order_1 slds-medium-order_2 col" style="background: #b90000;">
+                    <div class="image">
+                        <img  src="{!$Resource.Macro1 +'/images/image.jpg'}" alt="image" />                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div id="benefits" class="slds-grid slds-grid_vertical" style="padding-bottom:70px; background-color:#F1F3F4;">
+            <div class="paddingDiv"></div>
+            <div class="partner-benefits-section">
+                <h5>Partner Benefits</h5>
+                <h1>Achieve new level of success</h1>
+                <p>The Office Depot™ Partner Program was designed to provide IT partners and specialized business consultants with access to technical know-how and support in delivering enterprise-level Managed IT Service. Our mission is to provide our business partners with the perfect service to add to their own portfolio of services that will differentiate them from their competitors, 
+                    drive demand for their business and accelerate growth.</p>
+                <h3 class="tagline border-bottom-center">Benefits partners and your customers can expect:</h3>
+                <div class="benefits-blocks">
+                    <div class="slds-p-horizontal_x-small">
+                        <div class="slds-grid slds-wrap" style="max-width: 800px;margin: 0 auto;">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-order_1" id="One" onclick="{! c.toggle }">
+                                <div class="benefits-block-single" id="oneActive" >
+                                    <p>Simplified Sales &amp; Order Processes</p>
+                                    <img src="{!$Resource.PRM_Microsite_Images + '/Tile_1icon.png'}" alt="sales" />
+                                    
+                                </div>
+                            </div>
+                            <aura:if isTrue="{!v.One}">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-box slds-order_2 slds-medium-order_4 slds-large-order_4">
+                                    <p id="showContent" style="background-color: #F1F3F4;text-align: center;"><img src="{!$Resource.Macro1 +'/images/Tile_1.png'}"></img></p>
+                                </div>
+                            </aura:if>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-order_2" id="Two" onclick="{! c.toggle }">
+                                <div class="benefits-block-single" id="twoActive">
+                                    <p>Deliver More Value to Your Customers</p>
+                                    <img src="{!$Resource.PRM_Microsite_Images + '/Tile_2icon.png'}" alt="value" />
+                                </div>
+                            </div>
+                            <aura:if isTrue="{!v.Two}">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-box slds-order_3 slds-medium-order_4 slds-large-order_4">
+                                    <p id="showContent" style="background-color: #F1F3F4;text-align: center;"><img src="{!$Resource.Macro1 +'/images/Tile_2.png'}"></img></p>
+                                </div>
+                            </aura:if>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-order_3 " id="Three" onclick="{! c.toggle }">
+                                <div class="benefits-block-single" id="threeActive">
+                                    <p>Tap into New Revenue Streams</p>
+                                    <img src="{!$Resource.PRM_Microsite_Images + '/Tile_3icon.png'}" alt="Revenue" />
+                                </div>
+                            </div>
+                            <aura:if isTrue="{!v.Three}">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-box slds-order_4 slds-medium-order_4 slds-large-order_4">
+                                    <p id="showContent" style="background-color: #F1F3F4;text-align: center;"><img src="{!$Resource.Macro1 +'/images/Tile_3.png'}"></img></p>
+                                </div>
+                            </aura:if>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-order_5" id="Four" onclick="{! c.toggle }">
+                                <div class="benefits-block-single" id="fourActive">
+                                    <p>Access to Sales &amp; Marketing Tools</p>
+                                    <img src="{!$Resource.PRM_Microsite_Images + '/Tile_4icon.png'}" alt="It Tech Nationwide" />
+                                </div>
+                            </div>
+                            <aura:if isTrue="{!v.Four}">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-box slds-order_6 slds-medium-order_4 slds-large-order_4">
+                                    <p id="showContent" style="background-color: #F1F3F4;text-align: center;"><img src="{!$Resource.Macro1 +'/images/Tile_4.png'}"></img></p>
+                                </div>
+                            </aura:if>
+                            
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-order_6" id="Five" onclick="{! c.toggle }">
+                                <div class="benefits-block-single" id="fiveActive">
+                                    <p>Access to Industry Trends &amp; Customer Insights</p>
+                                    <img src="{!$Resource.PRM_Microsite_Images + '/Tile_5icon.png'}" alt="Retail store" />
+                                </div>
+                            </div>
+                            <aura:if isTrue="{!v.Five}">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-box slds-order_7 slds-medium-order_4 slds-large-order_4">
+                                    <p id="showContent" style="background-color: #F1F3F4;text-align: center;"><img src="{!$Resource.Macro1 +'/images/Tile_5.png'}"></img></p>
+                                </div>
+                            </aura:if>
+                            
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-order_7" id="Six" onclick="{! c.toggle }">
+                                <div class="benefits-block-single" id="sixActive">
+                                    <p>Enterprise-Level Tech Services &amp; Support</p>
+                                    <img src="{!$Resource.PRM_Microsite_Images + '/Tile_6icon.png'}" alt="tech" />
+                                </div>
+                            </div>
+                            <aura:if isTrue="{!v.Six}">
+                                <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-box slds-order_8 slds-medium-order_4 slds-large-order_4">
+                                    <p id="showContent" style="background-color: #F1F3F4;text-align: center;"><img src="{!$Resource.Macro1 +'/images/Tile_6.png'}"></img></p>
+                                </div>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id ="solutions" class="slds-grid slds-grid_vertical" style="padding-top: 90px;">
+            <div class="partner-benefits-section solutions-section">
+                <h5>Solutions</h5>
+                <h1>Qualified support at your fingertips</h1>
+                <p>We offer advice, security and end-to-end IT support to a diverse range of businesses across industries. You deserve competent IT support, no matter the size of your business. With Office Depot™ Managed IT as a Service, you’ll have that and more.</p>
+                <h3 class="tagline border-bottom-center">Delivering 24/7/365 IT Support</h3>
+                <div class="support-blocks">
+                    <div class="slds-p-horizontal_x-small">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 p-0">
+                                <div class="support-block-single">
+                                    <img class="service-img" src="{!$Resource.Macro1 +'/images/Support-icon.svg'}" alt="" />
+                                    <h4>Support</h4>
+                                    <p class="bolder-p">Maximize productivity</p>
+                                    <p class="lighter-p">Our solutions increase efficiency, decrease downtime and enhance your customers’ experience.</p>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                <div class="support-block-single">
+                                    <img class="service-img" src="{!$Resource.Macro1 +'/images/Security-icon.svg'}" alt="" />
+                                    <h4>Security</h4>
+                                    <p class="bolder-p">If you have it, we help you protect it</p>
+                                    <p class="lighter-p">Nearly 14 million small businesses in the U.S. have experienced a security breach. We can help keep your network, business data and customers protected.</p>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                <div class="support-block-single">
+                                    <img class="service-img" src="{!$Resource.Macro1 +'/images/Monitoring-icon.svg'}" alt="" />
+                                    <h4>Monitoring</h4>
+                                    <p class="bolder-p">Keeping you running smoothly</p>
+                                    <p class="lighter-p">We are continually running, examining and reporting on critical events to avoid any interruptions to your service.</p>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                <div class="support-block-single">
+                                    <img class="service-img" src="{!$Resource.Macro1 +'/images/Advice-icon.svg'}" alt="" />
+                                    <h4>Advice</h4>
+                                    <p class="bolder-p">Prepare your business for the future</p>
+                                    <p class="lighter-p">With over 30 years of nationwide, award-winning Managed IT Services experience, we have the skills and resources to keep your lights on and your customers happy.</p>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="packages-section">
+                    <h3 class="tagline border-bottom-center">One Package to Get the Job Done</h3>
+                    
+                    <div class="packages-block">
+                        <h3>Managed IT as a Service</h3>
+                        <p>For businesses looking to scale with the ultimate in support, efficiency and security</p>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="slds-grid slds-wrap">
+                                    <p class="large-text red-text">Advanced IT Security</p>
+                                    <ul class="packages-menu">
+                                        <li>Proactive Anti-virus </li>
+                                        <li>Intelligent Threat Protection </li>
+                                        <li>Advanced Email Protection </li>
+                                        
+                                        <li>Next-Gen Firewall </li>
+                                        <li>Proactive Monitoring &amp; Reporting </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="slds-grid slds-wrap">
+                                    <p class="large-text red-text">Advanced IT Support</p>
+                                    <ul class="packages-menu">
+                                        <li>Remote support with Microsoft Active Directory and Windows Patch Management</li>
+                                        <li>Virtual CIO Advice</li>
+                                        <li>Hardware Support</li>
+                                        
+                                        <li>Vendor Management</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#/" style="background-color:#324D99; color:#fff;" onclick="{!c.openmodal}" class="get-started-button">Get Started</a>
+                    </div>
+                </div>
+                <h3 class="tagline border-bottom-center">Add-on Subscription Services</h3>
+                <div class="subscription-block">
+                    <div class="slds-p-horizontal_x-small">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="partner-section-inner">
+                                        <p class="tagline">Enterprise-level IT capabilities for your small business</p>
+                                        <p class="large-text red-text">We understand that your business may need additional, personalized support services. Our add-on services are designed with you in mind, providing the value that smaller managed service providers can’t touch.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="partner-section-inner border-red-left">
+                                        <p class="tagline">Add-on services that can be added to the packages at a monthly cost </p>
+                                        <ul class="add-on-menu">
+                                            <li>Comprehensive Mobile Device Management (MDM)</li>
+                                            <li>Microsoft Office 365 Business Premium Office Applications</li>
+                                            <li>4G Wireless Failover</li>
+                                            <li>Additional Off-site Data Backup (charged per Terabyte)</li>
+                                            <li>Cloud Backup (charged per desktop)</li>
+                                            <li>On-Site Tech Support (Best-in-Class)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="paddingDiv"></div>
+        
+        <div id = "process" class="slds-grid slds-grid_vertical">
+            <div class="paddingDiv"></div>
+            <div class="process-section">
+                <div class="slds-p-horizontal_x-small" style="background-color:#F1F3F4;">
+                    <div class="slds-grid slds-wrap process-top">                            
+                        
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12  process-left">
+                            <div class="process-inner-body">
+                                <div class="process-inner-content">
+                                    <h5>The Partnering Process</h5>
+                                    <h1>Here's what to expect:</h1>
+                                    <ul class="process-list">
+                                        <li><span class="list-count">1</span> <p>Fill out and submit the Office Depot™ Partner registration form.</p></li>
+                                        <li><span class="list-count">2</span> <p>In a short period of time, a channel account manager will contact you to go over your application/qualifications.</p></li>
+                                        <li><span class="list-count">3</span> <p>Within a week, you should receive your approval and you can start forming your customer relationships.</p></li>
+                                    </ul>
+                                </div>
+                                <div class="join-process-left">
+                                    <p>Start your registration.</p>
+                                    <div class="join-us-left-buttons">
+                                        <a class="join-us-button" onclick="{!c.openmodal}" style="text-decoration: none;"  href="#/">Join us today</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 process-right">
+                            <img src="{!$Resource.Macro1 +'/images/Image_v2.jpg'}" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <!--
+                                    <p class="red-headline large-text red-text">Hear from our Partners and Channel Executives about the Office Depot Partner Program.</p>
+                                    <div class="testimonial-margins">
+                                    <div class="testimonial-section">
+                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla</p>               
+                                     <p class="color-red">- Lorem ipsumdolo</p>
+                                      </div>
+                                      </div>
+                          -->
+            </div>
+        </div>
+        
+    </body>
+    
+    
+    <!-- Process page ends here -->    
+    <!--Added by aravind Events Tab Starts here-->
+    
+    <div id="events" style="background:white;">
+        <div class="box odbox eventbox" >
+            <div class="odbox_heading_1 slds-size_12-of-12">
+                News &amp; Events
+            </div>
+            <div class="odbox_heading_2 slds-size_12-of-12">
+                Let’s meet up
+            </div>
+            <div class="odbox_heading_3 slds-size_12-of-12">
+                Looking to get more insight and information at a personal level with one of our account managers? 
+                
+                Take a look and see if we will be in your city, and contact us to set up time to meet.
+            </div>
+            <div class="odbox_heading_4 slds-size_12-of-12">
+                Upcoming Events<span></span>
+            </div>
+            
+        </div>
+        <div class="box" > <div class="event_container" style="padding-bottom:25px;padding-top:30px;background: #F1F3F4;">
+            <lightning:layout horizontalAlign="space" verticalAlign="center" multipleRows="true">
+                <aura:iteration items="{!v.calEvents}" var="events">
+                    <lightning:layoutItem flexibility="auto" size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="6">
+                        <div class="slds-truncate eventbox" title="{!events.Name}" >
+                            <div class="slds-grid slds-wrap event-wrap" >
+                                <div class="slds-col slds-size_3-of-12 graybg">
+                                    <div class="slds-col slds-size_12-of-12 eventMonth">
+                                        {!events.Start_Month}
+                                    </div>
+                                    <div class="slds-col slds-size_12-of-12 eventDay">
+                                        {!events.Start_Day}
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-small-size_9-of-12 slds-medium-size-size_9-of-12 slds-size_7-of-12">
+                                    <div class="slds-col slds-size_12-of-12 eventDateFormat">
+                                        {!events.Start_Date_Format} - {!events.End_Date_Format}
+                                    </div>
+                                    <div class="slds-col slds-size_12-of-12 eventName">
+                                        <a href="{!events.URL}" target="_blank">{!events.name} </a>
+                                    </div>
+                                    <div class="slds-col slds-size_12-of-12 eventWeekMonth" >
+                                        <!--  {!events.Start_Date_Weekday}, {!events.Start_Month} &nbsp;{!events.Start_Day}, {!events.Start_Date_Year} | -->{!events.location }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+                </aura:iteration>
+            </lightning:layout>
+            </div>
+        </div> 
+    </div>
+    
+    <!--Added by aravind Events Tab Ends here-->
+    <!--Added by aravind Partner Tab Starts here -->
+    <div id="partners">
+        <div class="box odbox" style="">
+            <div class="Rp2_text slds-size_12-of-12" style="padding-bottom:30px;">
+                Our Partners
+            </div>
+            <div class="odbox_heading_2 slds-size_12-of-12">
+                The best of the best
+            </div>
+            <div class="odbox_heading_3 slds-large-size_12-of-12">
+                We have partnered with some of the nation’s best Master Agents, allowing tens of thousands of IT partners across the U.S. 
+                to add our nationally recognized Managed IT Services to their product portfolios.
+            </div>
+            <div class="odbox_heading_4 slds-large-size_12-of-12 slds-size_12-of-12" >
+                We Can Help You Stand Out<span></span>
+            </div>
+            <div class="partner_indus odbox_detail slds-grid slds-grid_align-space slds-grid_vertical-align-center slds-wrap">
+                <div class="partner_logo slds-col slds-size_6-of-12 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+                    <a><img src="{!$Resource.PRM_Microsite_Images + '/MicroCorpLogo-notagline.png'}"/></a>
+                </div>
+                <div class="partner_logo_1 slds-col slds-size_6-of-12 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+                    <a><img src="{!$Resource.PRM_Microsite_Images + '/TelarusNoTagline.png'}"/></a>
+                </div>
+                <div class="partner_logo_2 slds-col slds-size_6-of-12 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+                    <a><img src="{!$Resource.PRM_Microsite_Images + '/TCGtranslucent.png'}"/></a>
+                </div>
+                <div class="partner_logo_3 slds-col slds-size_6-of-12 slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <a><img src="{!$Resource.PRM_Microsite_Images + '/TBI-Logowithtagline.png'}"/></a>
+                </div>
+                <div class="partner_logo_4 slds-col slds-size_12-of-12 slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                    <a><img src="{!$Resource.PRM_Microsite_Images + '/MoJoTechLogo-translucent.png'}"/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--Added by aravind Partner Tab Ends here -->
+    <!--Added by aravind Contact Tab Starts here-->
+    <div id="contact" style="display:none;">
+        <div class="box" style="background-color:#F1F3F4; text-align:center;">
+            <div class="Rp2_text slds-size_12-of-12">
+                Contact
+            </div>
+            <div class="Con_Logo slds-size_12-of-12 slds-align_absolute-center">
+                <a><img src="{!$Resource.PRM_Microsite_Images + '/David-Beagle.svg'}"/></a>
+            </div>
+            <div class="Bp2_text slds-size_12-of-12">
+                David Beagle
+            </div>
+            <div class="RP1_text slds-size_12-of-12">
+                Sr. National Director and Channel Chief<span></span>
+            </div>
+            <div class="odbox_heading_3 slds-large-size_12-of-12" style="padding-bottom:20px;">
+                David brings 15+ years of experience to Office Depot™ channel program. Prior to Office Depot™, David worked to build successful channel programs for VoIP, UCC and networking companies such as ICG Communications, Covad Communications, M5 Networks, ShoreTel and Fonality.
+            </div>
+            <div class=" Bp1_text slds-size_12-of-12">
+                For more information, email: <a href="mailto:channelprogram@officedepot.com">channelprogram@officedepot.com</a>
+            </div>
+        </div>
+        <img aura:id="BackToTop" id="BackToTop" class="toptoscroll" onclick="{!c.top}" oncomplete="window.scrollTo('Top',0,0);"  src="{!$Resource.PRM_Microsite_Images + '/BackToTop_Icon.svg'}" />
+    </div>
+    <!--Added by aravind Contact Tab Ends here -->
+    <!--Added by aravind Footer Starts here -->
+    <div id="footer" style="padding-bottom:10px;">
+        <div class="slds-grid slds-grid_align-space slds-grid_vertical-align-center slds-wrap slds-large-size_12-of-12" style=" padding-top: 87px; padding-bottom:20px;">
+            <div class="slds-col slds-large-size_2-of-12"></div>
+            <div class="slds-col slds-small-size_1-of-2 slds-large-size_4-of-12" style="font-size: 12px;">Copyright © {!v.today} by Office Depot, Inc. All rights reserved.</div>
+            <div class="slds-col slds-large-size_1-of-12"></div>
+            <div class="slds-col slds-small-size_2-of-2 slds-large-size_3-of-12" style="font-size: 12px;">
+                <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/privacypolicy.jsp" target="_blank">Privacy Policy</a> |
+                <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse1.jsp" target="_blank">Terms of Use</a> |
+                <a  href="https://business.officedepot.com/specialLinks.do?file=/customerservice/termsofuse.jsp" target="_blank">Terms &#38; Conditions</a>
+            </div> 
+            <div class="slds-col slds-large-size_2-of-12"></div>
+        </div>
+    </div>
+    <!--Added by aravind Footer Tab Ends here -->
+    
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>    
+    <aura:if isTrue="{!v.isOpenDesk}">
+        <div aura:id="prm" class="reg-page slds-modal_large">
+            <!--right and left-->    
+            <section aura:id="prm" role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" style="background-color:rgb(255,255,255);">
+                <!-- top and bottom-->
+                <div class="slds-modal__container slds-modal_large " aura:id="Modalbox" style="background-color:rgb(255,255,255,);">
+                    <div class="slds-scrollable slds-grid slds-wrap" aura:id="Modalbox" id="fasak">
+                        <!--div class="slds-grid slds-wrap"-->
+                        <aura:if isTrue="{!v.leadSubmitted}">
+                            <div class="slds-grid slds-wrap" style="background-color:rgba(255,255,255,0.5);">
+                                <!--line one with icon-->
+                                <div class="slds-col slds-large-size_4-of-12" style="padding-top:120px;"/>
+                                <div class="slds-col slds-large-size_4-of-12 " style="padding-top:64px;text-align:center;">
+                                    <img src="{!$Resource.PRM_Microsite_Images +'/checkiconsvg.jpg'}" style="max-height :40px;background-color:rgb(216, 237, 255);"/>
+                                </div>
+                                <div class="slds-col slds-large-size_4-of-12" style="padding-top:64px;"/>
+                                <!--First line of text-->
+                                <div class="slds-col slds-large-size_4-of-12"/>
+                                <div class="slds-col slds-large-size_4-of-12 slds-size_1-of-1" style="font-family: OpenSans-Semibold;font-size: 28px;color: #273039;letter-spacing: -0.45px;text-align: center;">
+                                    Thank You.
+                                </div>
+                                <div class="slds-col slds-large-size_4-of-12"/>
+                                <!--Second line of text-->
+                                <div class="slds-col slds-large-size_3-of-12"/>
+                                <div class="slds-col slds-large-size_6-of-12 slds-size_1-of-1" style="font-family: OpenSans-Semibold;font-size: 28px;color: #273039;letter-spacing: -0.45px;text-align: center;">
+                                    Your Request was Successfully Received.
+                                </div>
+                                <div class="slds-col slds-large-size_3-of-12"/>
+                                <!--paragraph--> 
+                                <div class="slds-col slds-large-size_3-of-12"/>
+                                <div class="slds-col slds-large-size_6-of-12 slds-size_1-of-1" style="font-family: OpenSans;font-size: 14px;color: #273039;letter-spacing: 0;text-align: center;line-height: 16px;">
+                                    In a short period of time, you will be contacted by a channel account manager who will go over your application/qualifications.
+                                </div>
+                                <div class="slds-col slds-large-size_3-of-12"/>
+                                <!--Clode button-->
+                                <div class="slds-col slds-large-size_4-of-12" style="padding-bottom:150px;padding-top:15px;"/>
+                                <div class="slds-col slds-large-size_4-of-12 slds-size_1-of-1" style="font-family: OpenSans;font-size: 14px;color: #273039;letter-spacing: 0;text-align: center;line-height: 16px;padding-bottom:150px;padding-top:10px;">
+                                    <img style='max-height :40px;'  src="{!$Resource.PRM_Microsite_Images +'/PartnerRegistrationClose.jpg'}" onclick="{!c.closeModal}"/>
+                                </div>
+                                <div class="slds-col slds-large-size_4-of-12" style="padding-bottom:150px;padding-top:15px;"/>
+                            </div>
+                            <aura:set attribute="else">
+                                <div class="slds-grid slds-wrap " style="background-color: rgba(255,255,255,.9);">
+                                    <!--close icon-->
+                                    <div class="slds-col slds-large-size_11-of-12 slds-size_11-of-12"/>
+                                    <div class="slds-col slds-large-size_1-of-12 slds-size_1-of-12" style="text-align:right;font-weight:lighter;">
+                                        <img style='max-height :20px;'  src="{!$Resource.PRM_Microsite_Images +'/PartnerRegistrationModalClose.jpg'}" onclick="{!c.closeModal}"/>
+                                    </div>
+                                    <!--Partner Registration heading-->
+                                    <div class="slds-col slds-large-size_5-of-12" style="padding-top:30px;"/>
+                                    <div class="slds-align_absolute-center slds-col slds-large-size_2-of-12 slds-size_12-of-12" style="padding-top:1px;">
+                                        <span style="font-family: OpenSans-Light;font-size: 20px;color: #B30000;letter-spacing: -0.45px;text-align: center;line-height: 35px;">Partner Registration</span>
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12" style="padding-top:57px;"/>
+                                    <div class="slds-col slds-large-size_1-of-12" style="padding-top:57px;"/>
+                                    <!--First heading-->
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_4-of-12" style="padding-top:30px;padding-left:13px;">
+                                        <span style="font-family: OpenSans;font-size: 14px;color: #273039;letter-spacing: 0;line-height: 16px;">Required Information</span>
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <!--First section of fields-->
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input label="FirstName" value="{!v.li_lead.FirstName}" required="true" aura:id="fnameid" /> 
+                                    </div>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input label ="LastName"  value="{!v.li_lead.LastName}" required="true" aura:id="lnameid"/> 
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12"/>        
+                                    <!--Second section of fields-->
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input label="Email" value="{!v.li_lead.Email}" required="true" aura:id="emailid"/> 
+                                    </div>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input onchange ="{!c.handleBlur}" placeholder="(999) 999-9999"  maxlength="10" minlength="10" pattern=".{0}|.{10,}" label="Phone" value="{!v.li_lead.Phone}" required="true" aura:id="phoneid" messageWhenBadInput="Enter 10 digit number."/>
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12"/>        
+                                    <!--third section of fields-->
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input label="Title" value="{!v.li_lead.Title}" required="true" aura:id="titleid" /> 
+                                    </div>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input label="Company Name" value="{!v.li_lead.Company}" required="true" aura:id="cnameid"/> 
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12"/>        
+                                    <!--Fourth section of fields-->
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:select label="Company Size"  value="{!v.li_lead.Partner_Size__c}">
+                                            <option value="" selected="selected">
+                                            </option>
+                                            <option value="consultant or micro-firm">
+                                                &#60; 10 employees
+                                            </option>
+                                            <option value="small firm">
+                                                &#60; 11-50 employees
+                                            </option>
+                                            <option value="small to mid-size firm">
+                                                &#60; 51-250 employees
+                                            </option>
+                                            <option value="mid-sized to large firm">
+                                                &#60; 250-500 employees
+                                            </option>
+                                            <option value="large to enterprise">
+                                                &#60; 501 employees
+                                            </option>
+                                        </lightning:select> 
+                                    </div>
+                                    
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input label="Website" value="{!v.li_lead.Website}" aura:id="websiteid"/>         
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12"/>        
+                                    <!--Fifth section of fields-->
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_4-of-12" style="padding-top:30px;padding-left:13px;">
+                                        <span style="font-family: OpenSans;font-size: 14px;color: #273039;letter-spacing: 0;line-height: 16px;">Additional Information</span>
+                                        <p style="font-family: OpenSans;font-size: 12px;color: #273039;letter-spacing: 0;line-height: 16px; padding-top:2px;">Address Search</p>
+                                    </div>
+                                    
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <!--sixth section of fields-->                                                
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_4-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px; padding-top:5px;">        
+                                        <div class="slds-form-element">
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-combobox_container slds-has-inline-listbox">
+                                                    <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-combobox-lookup"
+                                                         aria-expanded="false"
+                                                         aria-haspopup="listbox"
+                                                         role="combobox"
+                                                         aura:id="searchLookup">
+                                                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left"
+                                                             aura:id="iconDirection">
+                                                            <ui:inputText aura:id ="clearLoc"  updateOn="keyup"
+                                                                          keyup="{!c.keyPressController}"
+                                                                          class="slds-input slds-combobox__input"
+                                                                          value="{!v.searchKey}"
+                                                                          placeholder="{!v.placeholder}"/>
+                                                            
+                                                        </div>
+                                                        <div id="listbox-unique-id" role="listbox">
+                                                            <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid"
+                                                                role="presentation">
+                                                                
+                                                                <aura:iteration items="{!v.filteredOptions}" var="option">
+                                                                    <li role="presentation"
+                                                                        class="slds-listbox__item"
+                                                                        onclick="{!c.selectOption}"
+                                                                        data-value="{!option.value}"
+                                                                        data-record="{!option.label}"
+                                                                        data-placeid="{!option.placeid}"
+                                                                        data-cityInfo="{!option.cityInfo}">
+                                                                        
+                                                                        <span id="listbox-option-unique-id-01"
+                                                                              class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                                                              role="option">
+                                                                            <span class="slds-media__body">
+                                                                                <span class="slds-listbox__option-text slds-listbox__option-text_entity">{!option.label}</span>
+                                                                            </span>
+                                                                        </span>
+                                                                    </li>
+                                                                </aura:iteration>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>							
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input aura:id="addid" label="Address" value="{!v.li_lead.Street}" />         
+                                    </div>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input aura:id="cityid" label="City" value="{!v.li_lead.City}"/> 
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12"/>        
+                                    <!--seventh section of fields-->
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:select aura:id="stateId" label="State" required="true" value="{!v.li_lead.State}" 
+                                                          onchange="{!c.onChange }" 
+                                                          messageWhenValueMissing="Choose one!">
+                                            <option value="">--</option>
+                                            <aura:iteration items="{!v.StatePicklist}" var="col">
+                                                <option value="{!col.value}" text="{!col.label}"></option>
+                                            </aura:iteration>
+                                        </lightning:select>
+                                    </div>
+                                    <div class="slds-col slds-large-size_2-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input aura:id="zip" label="Zip" value="{!v.li_lead.PostalCode}"/> 
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12"/>        
+                                    <!--eigth section of fields-->
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_4-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:textarea aura:id="benfits" value="{!v.li_lead.How_is_the_lead_getting_benifitted__c}" placeholder="150 characters" label="How would your company benefit from becoming an Office Depot partner?"  maxlenght="150"/>                     
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12"/>    
+                                    <!--ninth section of fields-->
+                                    <div class="slds-col slds-large-size_4-of-12"/>
+                                    <div class="slds-col slds-large-size_4-of-12 slds-size_1-of-1" style="padding-right:10px;padding-left:10px;">
+                                        <lightning:input aura:id="hearus"  value="{!v.li_lead.How_did_you_hear_about_us__c}" label="How did you hear about us? " placeholder="150 characters" /> 
+                                    </div>
+                                    <div class="slds-col slds-large-size_4-of-12"/>        
+                                    <!--tenth section of fields-->
+                                    <div class="slds-col slds-large-size_5-of-12"/>        
+                                    <div class=" slds-align_absolute-center slds-col slds-large-size_2-of-12 slds-size_12-of-12" style="padding-top:15px;">  
+                                        <img style='max-height :50px;'  src="{!$Resource.PRM_Microsite_Images +'/PartnerRegistrationApplyNow.jpg'}" onclick="{!c.submitLead}"/>
+                                    </div>
+                                    <div class="slds-col slds-large-size_5-of-12"/> 
+                                    <div class="slds-col slds-large-size_5-of-12"/>        
+                                    <div class="slds-col slds-large-size_2-of-12 slds-align_absolute-center slds-size_1-of-1" style="padding-top:5px;">  
+                                        -Or-
+                                    </div>
+                                    <div class="slds-col slds-large-size_5-of-12"/>        
+                                    <div class="slds-col slds-large-size_5-of-12"/>        
+                                    <div class="slds-col slds-large-size_2-of-12 slds-align_absolute-center slds-size_1-of-1" style="padding-top:5px;">  
+                                        Register with
+                                    </div>
+                                    <div class="slds-col slds-large-size_5-of-12"/>        
+                                    <div class="slds-col slds-large-size_5-of-12"/>        
+                                    <div class="slds-col slds-large-size_2-of-12 slds-align_absolute-center slds-size_1-of-1" style="padding-top:5px;padding-bottom:10px;padding-right:9px;">  
+                                        <div style="padding-left:13px;">
+                                            <a onclick="{!c.getAccessTokenGoogle}" ><img src="{!$Resource.PRM_Microsite_Images +'/googleSvg.png'}" /></a>
+                                        </div>
+                                        <div style="padding-left:13px;">
+                                            <a onclick="{!c.getAccessTokenFB}" ><img src="{!$Resource.PRM_Microsite_Images +'/facebooksvg.png'}" /></a>
+                                        </div>
+                                        <div style="padding-left:13px;">
+                                            <a onclick="{!c.getAccessTokenLnkdn}" ><img src="{!$Resource.PRM_Microsite_Images +'/linkedinSvg.png'}" /></a> 
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-large-size_5-of-12"/>  
+                                </div>
+                            </aura:set>
+                        </aura:if>     
+                        <!--/div-->
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" id="Modalbackdrop"></div>
+        </div>
+    </aura:if>  
+</aura:component>

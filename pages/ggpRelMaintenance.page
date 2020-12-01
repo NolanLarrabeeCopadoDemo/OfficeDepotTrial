@@ -1,0 +1,21 @@
+<apex:page controller="ggpRelController" tabStyle="Account">
+<apex:form >
+     <apex:pagemessages escape="false" id="msg"></apex:pagemessages>
+     <apex:pageBlock Title="Great GrandParent Relationship Maintenance" rendered="{!allowGPEdit}">
+        <apex:pageBlockSection columns="1">
+             <apex:outputField value="{!acct.GP_Id__c}" label="Grandparent ID"/>
+             <apex:outputField value="{!acct.name}" label="Grandparent Name"/>
+             <apex:inputField value="{!acct.parentid}" />
+             <apex:inputField value="{!gRelHist.Requestor__c}" required="true"/>
+             <apex:inputField value="{!gRelHist.Notes__c}" style="width:300px;height=800px;"/>
+        </apex:pageBlockSection>
+        <br/><br/> 
+         <center>
+          <apex:commandButton value="Submit" action="{!saveRecord}"/>
+          <apex:actionRegion >
+            <apex:commandButton value="Cancel" action="{!cancelRecord}" immediate="true"/>
+          </apex:actionRegion>
+         </center>
+     </apex:pageBlock>
+   </apex:form>
+</apex:page>

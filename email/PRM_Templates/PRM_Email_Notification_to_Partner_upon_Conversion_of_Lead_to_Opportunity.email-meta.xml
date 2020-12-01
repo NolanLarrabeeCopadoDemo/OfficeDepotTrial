@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification to Partner upon Conversion of Lead to Opportunity</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>PRM_Email_Letterhead</letterhead>
+    <name>PRM Email Notification to Partner upon Conversion of Lead to Opportunity</name>
+    <style>freeForm</style>
+    <subject>{!Opportunity.Name}- Update : Moved to Qualified Opportunity</subject>
+    <textOnly>Hi {!Opportunity.Partner_Sub_Agent_Contact__c},
+
+Your sales lead has been moved to a qualified opportunity with an estimated close date of {!Opportunity.CloseDate}.
+
+Click here to access your Opportunity.
+
+
+Thanks,
+Channel Support</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

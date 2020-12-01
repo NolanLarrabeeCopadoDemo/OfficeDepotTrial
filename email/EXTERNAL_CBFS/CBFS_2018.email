@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> Office Depot </title>
+</head>
+
+<style>
+  @media only screen and (max-width:715px)
+  {
+    .container 
+    {
+      width: 95% !important;
+    }
+
+    center 
+    {
+      min-width: auto !important;
+    }
+  }
+</style>
+
+<body>
+  
+  <table class="body" border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+    <tbody>
+      <tr>
+        <td>
+          
+          <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+            <tr>
+              <td align="center" style="width:100% !important;border-collapse:collapse;">
+                  <div align="center">
+                    
+                    <center data-parsed="" style="min-width:640px;width:100%">
+                  
+                      <table class="container" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="width:640px;">
+                        <tr>
+                          <td align="center" style="font-family:Helvetica, Arial, sans-serif; font-size:30px; color:#cccccc;" bgcolor="#FFFFFF">
+
+                            <table align="center" style="background-color:#ffffff;width:100%;" border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td align="center" valign="top">
+                                  <img src="http://email.gerardagency.com/officedepot/ofd0430-marketing-portal-emails/overall-cbfs/header_640.jpg"
+                                    alt="Office Depot - Cleaning, Breakroom and Facilities" width="640" height="280" style="display:block;width:auto;max-width:100%;height:auto;">
+                                </td>
+                              </tr>
+                            </table>
+
+                            <table width="100%" border="0" cellpadding="20">
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    
+                                    <table align="center" style="background-color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111;; margin-bottom:10px; width:100%;"
+                                      border="0" cellpadding="0" cellspacing="0">
+                                      <tr>
+                                        <td align="left" valign="top" style="padding: 10px 0px; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111;">Hi {!Contact.FirstName},</td>
+                                      </tr>
+                                      <tr>
+                                        <td align="left" valign="top" style="padding: 10px 0px; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111;">Did you know that Office Depot<sup style="font-size: 60%;line-height: 0; position: relative; vertical-align: baseline; top: -0.8em; font-weight:normal;">&reg;</sup> has so much more than office supplies? We also carry a complete selection of cleaning, breakroom and facilities solutions to keep your workspace spotless and your employees energized throughout the day. Choose from all this and much more:</td>
+                                      </tr>
+                                      <tr>
+                                        <td align="left" valign="top" style="padding: 10px 0px; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111;">• Gourmet coffees, brewers and supplies
+                                          <br> • Full-service filtered water systems
+                                          <br> • Candies, cookies and healthy snacks
+                                          <br> • Soaps and sanitizers
+                                          <br> • Tissues and towels
+                                          <br> • Cleaners and chemicals
+                                          <br> • Heavy-duty cleaning equipment and accessories</td>
+                                      </tr>
+                                      <tr>
+                                        <td align="left" valign="top" style="padding: 10px 0px; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111;">Why not save time and get everything for your business all in one place? That can mean fewer deliveries, less impact on the environment and most importantly … more savings!</td>
+                                      </tr>
+                                      <tr>
+                                        <td align="left" valign="top" style="padding: 10px 0px; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111;">Ready to get started? Click the button below to begin shopping through our website.</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td align="left" valign="top" style="padding: 10px 0px; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111;">
+                                          <a href="https://business.officedepot.com/">
+                                            <img src="http://email.gerardagency.com/officedepot/ofd0430-marketing-portal-emails/overall-cbfs/cta_shopnow.gif" width="135" height="31" alt="Shop Now">
+                                          </a>
+                                        </td>
+                                      </tr>
+
+                                      <tr>
+                                        <td align="left" valign="top" style="padding: 10px 0px; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111;">Thanks again for your business! Meeting and exceeding your needs is our #1 goal.</td>
+                                      </tr>
+                                      <tr>
+                                        <td align="left" valign="top" style="padding: 10px 0px; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#111111;">
+                                          Sincerely,<br> 
+
+<div>
+	<span style="font-size: 14px; font-family: arial, helvetica, sans-serif; font-weight: bold; line-height: 30px;">{!User.Name}</span><br>
+  <span style="font-size: 12px; font-family: arial, helvetica, sans-serif; font-weight: bold; font-style: italic; line-height: 24px;">{!User.TitleTrimmed__c}</span><br>
+  <img src="http://email.gerardagency.com/officedepot/signature/images/ofd-siglogo.jpg" width="347" height="23" alt=""/><br>
+  <span style="font-size: 12px; font-family: arial, helvetica, sans-serif; font-weight: normal; line-height: 24px;"> {!User.Street} | {!User.City}, {!User.State} {!User.PostalCode}<br>
+  {!if(!ISBLANK(User.My_Customer_Contact__c), 'Tel: '+User.My_Customer_Contact__c,'' )}<br>
+  Email: {!User.Email}</span>
+</div></td>
+                                      </tr>
+                                    </table>
+
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                          </td>
+                        </tr>
+                      </table>
+                    
+                    </center>
+                </div>
+              </td>
+            </tr>
+          </table>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <center>
+    <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #6D6E71; font-size: 8px; line-height: 12px; font-weight: normal; letter-spacing: -.3px; width: 98%; margin: 10px 0px 0px;">Office Depot is a trademark of The Office Club, Inc. OfficeMax is a trademark of OMX, Inc. © 2018 Office Depot, Inc.</p>
+  </center>
+
+</body>
+
+</html>

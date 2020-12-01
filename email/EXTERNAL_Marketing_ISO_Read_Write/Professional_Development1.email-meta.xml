@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Awareness to edu customers that we offer PD</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>K-12 Professional Development</name>
+    <style>freeForm</style>
+    <subject>Office Depot Professional Development Services</subject>
+    <textOnly>{!Contact.FirstName},
+
+I&apos;m reaching out to you today to learn more about your professional development initiatives for your district.
+Today education is always changing and Office Depot is changing with it. In addition to our traditional school supplies, we now offer a wide variety of Professional Development solutions.
+Please take a few minutes to look at our digital catalog and and learn more about our solutions. We have partnered with Master Teacher to offer a wide range of services such as workshops, online training courses and a new and innovative online classroom observation tool.
+
+Office Depot Professional Development Catalog
+Do you have 30 minutes next week for us to chat about your needs for professional development?
+Thank you!
+
+
+
+{!User.Name}
+
+Account Manager
+
+{!User.Email}
+
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

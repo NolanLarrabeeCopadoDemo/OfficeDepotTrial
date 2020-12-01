@@ -1,0 +1,60 @@
+<template>
+	<div class="slds-backdrop slds-backdrop_open slds-transition-hide moe-transition"
+		style="transition: opacity 250ms; z-index: 9001;">
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1" class="slds-modal slds-grid slds-fade-in-open">
+			<div
+				class="slds-col_bump-top slds-col_bump-bottom slds-col_bump-left slds-col_bump-right slds-size_4-of-12 slds-grid slds-grid_vertical"
+				style="height: 70%;">
+				<header class="slds-modal__header">
+					<h2 class="slds-text-heading_medium">Manufacturer Lookup</h2>
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+						title="Close"
+						onclick={onClose}>
+						<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+							size="small">
+						</lightning-icon>
+					</button>
+				</header>
+				<div class="slds-modal__content slds-p-around_medium slds-grid slds-grid_vertical"
+					id="modal-content-id-1" style="flex: 1;">
+					<div class="slds-grid slds-m-bottom_medium">
+						<div class="slds-m-right_medium slds-grow">
+							<lightning-input type="search" label="Manufacturer Name" value={manufacturerName}
+								onchange={onSearchChange} variant="label-hidden"
+								placeholder="Manufacturer Name" onkeypress={onSearchKeyPress} is-loading={isLoading}>
+							</lightning-input>
+						</div>
+						<button class="slds-button slds-button_outline-brand" onclick={onSearchClick}>Search</button>
+					</div>
+					<div class="slds-is-relative" style="height: 0; flex: 1; overflow-y: auto;">
+						<template if:false={isLoading}>
+							<lightning-datatable key-field="Id" data={manufacturerOptions} max-row-selection="1"
+								columns={columns} onrowselection={onTableRowSelection}>
+							</lightning-datatable>
+						</template>
+						<template if:true={isLoading}>
+							<c-endless-aisle-loader></c-endless-aisle-loader>
+						</template>
+					</div>
+				</div>
+				<footer class="slds-modal__footer slds-grid">
+					<div class="slds-col_bump-right">
+						<lightning-button label="Close" title="Close" onclick={onClose}>
+						</lightning-button>
+					</div>
+					<div class="slds-col_bump-left">
+						<template if:true={isSomeLineItemSelected}>
+							<button class="slds-button slds-button_brand slds-m-right_x-small"
+								onclick={onSetManufacturer}>Set Manufacturer</button>
+						</template>
+						<template if:false={isSomeLineItemSelected}>
+							<button class="slds-button slds-button_brand slds-m-right_x-small" disabled>Set
+								Manufacturer</button>
+						</template>
+					</div>
+				</footer>
+			</div>
+		</section>
+	</div>
+</template>

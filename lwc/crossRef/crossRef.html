@@ -1,0 +1,73 @@
+<template>
+   
+    <div class="slds-card slds-card_boundary" >
+        <lightning-accordion allow-multiple-sections-open
+                             active-section-name="Item Cross Ref">
+            <lightning-accordion-section name="Item Cross Ref" label="Item Cross Ref">
+               
+                
+                    <div style="width: auto;">
+                        
+
+                                    
+                                        <div style="margin-left:4%">
+                                            <div>
+                                                <lightning-input 
+                                                        label=""
+                                                        name="fileuploader" 
+                                                        onchange={handleFilesChange}
+                                                        type="file"
+                                                        record-id={recordId}
+                                                        accept={acceptedFormats}
+                                                        onuploadfinished={handleUploadFinished} 
+                                                        multiple>
+                                                </lightning-input>
+                                            </div><br/>
+                                            <div class="slds-text-body_small slds-text-color_error">{fileName}
+                                                <template if:true={showLoadingSpinner}>
+                                                    <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+                                                </template>
+                                            </div><br/>
+                                            <div>
+                                                <lightning-button class="slds-m-top--medium" label={UploadFile} onclick={handleSave} variant="brand" disabled={isFalse}></lightning-button>
+                                            </div>
+                                        </div><br/>
+                                        <div class="slds-col" style="margin-left:4%">
+                                            
+                                                <div class="slds-text-color_default">{refreshDateTime}</div>
+                                                <div>
+                                                    <span>                    
+                                                        <lightning-button label={Refresh}
+                                                            disabled={isFalse}
+                                                            variant="brand" 
+                                                            onclick={refreshdata}
+                                                        >
+                                                        </lightning-button>
+                                                    </span>
+                                                </div>    
+                                            
+                                        </div>
+                                        <br/>
+
+                        
+                            <template if:true={data}>
+                                <lightning-datatable
+                                            data={data}
+                                            columns={columns}
+                                            sorted-by={sortedBy}
+                                            sorted-direction={sortedDirection}
+                                            default-sort-direction = "desc"
+                                            key-field="id"
+                                            onrowaction={callRowAction}
+                                            onsort={updateColumnSorting}
+                                    > 
+                                </lightning-datatable>
+                            </template>
+                         
+                    </div>
+                    
+                
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </div>
+</template>

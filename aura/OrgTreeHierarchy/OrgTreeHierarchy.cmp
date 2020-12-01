@@ -1,0 +1,223 @@
+<aura:component controller="OrgHierarchyDetailsControllerUpdates" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global">   
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> -->  
+    
+    <aura:attribute name="isDataLoaded" type="Boolean" default="false"/>
+    <aura:attribute name="recId" type="String" access="Global" /> 
+    <aura:attribute name="fields" type="Object" /> 
+    
+    <aura:attribute name="items" type="Object"/>  
+    <aura:attribute name="recordId" type="String"/>  
+    <aura:attribute name="subrecordId" type="Id" access="global"/>
+    <aura:attribute name="subaccountId" type="Id" access="global"/>
+    <aura:attribute name="showForm" type="boolean"  default="false"/>
+    <aura:attribute name="currentIdVal" type="String"/>   
+    <aura:attribute name="org" type="Org__c[]" />
+    <aura:attribute name="mapOptions" type="Object" default='{"zoom": 3,"gestureHandling": "greedy"}' />
+    <aura:attribute name="mapOptionsCenter" type="Object" />
+    <aura:attribute name="mapData" type="Object[]" />
+    <aura:attribute name="refreshFlag" type="boolean" default="false"/> 
+    <aura:attribute name="updateFlag" type="boolean" /> 
+    <aura:attribute name="showOrgDetails" type="boolean" default="false"/> 
+    <aura:handler name="Result" event="c:ACSLC_SelectAccountEvt" action="{!c.handleSelect}" />
+    <aura:registerEvent name="ResultData" type="c:HandleSelectEvent"/>
+    
+    
+     <force:recordData aura:id="forceRecordCmp"
+                      recordId="{!v.recordId }"
+                      layoutType="FULL"
+                      fields="Name"
+                      mode="VIEW"
+                      targetFields="{!v.fields}"
+                      targetError="{!v.error}"
+                      recordUpdated="{!c.doInit}"/>
+    
+    <lightning:card>
+  
+    <div class="slds-page-header" style="width:100%;">
+        <div class="slds-media">
+            <div class="slds-media__figure">
+                
+            </div>
+            <div class="slds-media__body">
+                <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Org Dashboard">Org Dashboard</h1>
+            </div>
+        </div>
+    </div>
+       
+    <!--Lightning Tree-->
+      
+    <div class="slds-grid slds-wrap" style="border:1px solid #D3D3D3;width:105%;margin-left: 50px;background-color:#ffffff">
+   		<div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12"   style="height: 500px;width:30%;overflow-y: auto;">
+       		<lightning:accordion > 
+                <div class="hide">
+                	<ui:inputCheckbox label="show All records "  aura:id="checkbox" change="{!c.updateTreeNew}" />
+            	</div>
+                <lightning:accordionSection name="Filter" label="Filter">
+                    <fieldset class="slds-form--compound">
+                        <div class="slds-form-element__row" style="margin-left: auto;">
+                            <div class="slds-form-element slds-size--1-of-10">
+                                <lightning:icon size="x-small" iconName="custom:custom14" />
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-1">
+                                <ui:inputCheckbox label="Prospects " aura:id="checkboxProspect" change="{!c.updateTreeNew}"/>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="slds-form--compound">
+                        <div class="slds-form-element__row" style="margin-left: auto;">
+                            <div class="slds-form-element slds-size--1-of-10">
+                    <lightning:icon size="x-small" iconName="standard:account"/>
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-1" >
+                        <ui:inputCheckbox label="Customers "  aura:id="checkboxCustomer" change="{!c.updateTreeNew}" />
+                            </div>
+                        </div>
+                </fieldset>   
+                
+                                <div class="hide">
+
+                     <fieldset class="slds-form--compound">
+                        <div class="slds-form-element__row" style="margin-left: auto;">
+                            <div class="slds-form-element slds-size--1-of-10">
+                    <lightning:icon size="x-small" iconName="standard:address"/>
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-1" >
+                        <ui:inputCheckbox label="Sites "  aura:id="checkboxSite" change="{!c.updateTreeNew}"/>
+                            </div>
+                        </div>
+                </fieldset>  
+                                    </div>
+                
+                                     <fieldset class="slds-form--compound">
+                        <div class="slds-form-element__row" style="margin-left: auto;">
+                            <div class="slds-form-element slds-size--1-of-10">
+                             <!-- <img class="Image" src="{!$Resource.Business_Icon}"/>-->
+                               <lightning:icon size="x-small" iconName="custom:custom61"/>
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-1" >
+                        <ui:inputCheckbox label="Organizations "  aura:id="checkboxOrphan" change="{!c.updateTreeNew}"/>
+                            </div>
+                        </div>
+                </fieldset> 
+                    
+                    
+                            <fieldset class="slds-form--compound">
+                        <div class="slds-form-element__row" style="margin-left: auto;">
+                            <div class="slds-form-element slds-size--1-of-10">
+                    <lightning:icon size="x-small" iconName="custom:custom11" />
+                            </div>
+                            <div class="slds-form-element slds-size--1-of-1" >
+                                <ui:outputText aura:id="nameOutput" value="Master Organization"/>
+                            </div>
+                        </div>
+                </fieldset>              
+                    
+                    
+                    
+                    
+                
+                
+        </lightning:accordionSection>
+       </lightning:accordion>
+            <lightning:accordion >
+                <lightning:accordionSection name="Customer Relationship Hierarchy" label="Customer Relationship Hierarchy"> <br/>
+                    <!--<lightning:tree items="{!v.items}" onselect="{!c.handleSelect}" >
+
+                    </lightning:tree>  -->
+                        <aura:if isTrue="{!v.isDataLoaded}">
+                            <c:OrgTreeNodeHierarchy subrecordId="{!v.subrecordId}" subaccountId="{!v.subaccountId}"/>
+                            <aura:set attribute="else">
+                                False
+                            </aura:set>
+                        </aura:if> 
+                    
+            
+
+                </lightning:accordionSection>
+            </lightning:accordion>
+            
+         </div>
+       <div class="slds-col--padded slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12" style="width:68%;overflow-x: auto;">
+           
+            <aura:if isTrue="{!v.showOrgDetails}">
+             <!--- <c:OrgDetailsComponent1 aura:id="child"/>   -->
+      
+            
+      
+<div class="slds-page-header color-background-button-success " style=" background-color: rgb(226, 255, 244);" >
+  <div class="slds-media">
+    <div class="slds-media__figure">
+    <lightning:icon iconName="custom:custom50" size="large" alternativeText="Indicates approval"/>
+    </div>
+    <div class="slds-media__body">
+     <c:AccountOrgDetailsComponent aura:id="childAcc"/>
+    </div>
+  </div>
+</div>
+                
+                
+                
+  <div class="demo-only demo-only-spacing demo-only-padding " style="width: 920px; ">
+              <c:ContactDetailsComponent aura:id="childContact"/>
+              <c:OpportunityDetailsComponent aura:id="childOpp"/>
+              <c:CaseDetailsComponent aura:id="childCase"/>
+              <c:TaskDetailsComponent aura:id="childTask"/>
+              <c:SiteDetailsComponent aura:id="childSite"/>
+              <c:SalesDetailComponent aura:id="childSales"/>
+              <c:ContractDetailsComponent aura:id="childContract"/>
+              <c:NoteDetailsComponent aura:id="childNote"/>
+              <c:PricingDetailsComponent aura:id="childPricing"/>
+              <c:CustomerDetailsComponent aura:id="childCustomer"/>
+              <c:RepDetailsComponent aura:id="childRep"/>
+               <c:DMLOrgComponent aura:id="childAccDML"/>
+             <!-- <c:OrgRelatedComponent aura:id="childAccRelated"/>   -->
+
+               
+
+   </div>
+            </aura:if>
+        </div>        
+        
+    </div>
+    
+    
+
+    
+    <!--
+        <div class="slds-grid slds-wrap" style="width:80%;margin: auto">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                    <c:OrgReportComponent currentIdValue="{!v.subrecordId}" />  
+
+        </div>
+    </div>
+    
+    
+    -->
+    
+    
+  <div class="slds-grid slds-wrap" style="width:100px;margin-left: 50px;">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+            <aura:if isTrue="{!v.isDataLoaded}">
+                            <c:AccountLocator subrecordIdLocator="{!v.subrecordId}" />
+                            <aura:set attribute="else">
+                                False
+                            </aura:set>
+                        </aura:if> 
+            
+            <!-- <lightning:accordion>  
+                <lightning:accordionSection name="Map" label="Map">
+                    
+                </lightning:accordionSection>    
+            </lightning:accordion> -->
+        </div>
+    </div>
+    
+   <!-- <div>
+        <lightning:spinner alternativeText="Processing.." title="Processing.." aura:id="spnr" variant="brand" size="large" />
+    </div> -->
+     <div class="exampleHolder">
+        <lightning:spinner aura:id="mySpinner" class="slds-hide"/>
+    </div>
+    </lightning:card>
+</aura:component>

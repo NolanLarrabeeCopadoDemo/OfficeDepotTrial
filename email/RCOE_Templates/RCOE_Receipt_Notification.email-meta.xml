@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>RCOE Receipt Notification</name>
+    <style>freeForm</style>
+    <subject>Reporting Request Received:  {!Case.Subject}</subject>
+    <textOnly>{!Case.00NE0000001u1nj},
+
+
+Thank you for your Reporting request submission.  We appreciate the opportunity to work with you.
+
+
+We have received the request and will be in contact soon.
+
+
+Thank you,
+
+
+Reporting Center of Excellence</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

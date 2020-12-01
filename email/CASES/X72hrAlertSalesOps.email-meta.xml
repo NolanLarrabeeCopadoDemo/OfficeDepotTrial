@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Close case after 72 hours no activity and clone to reopen.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>72hrAlertSalesOps</name>
+    <style>freeForm</style>
+    <subject>Support Case {!Case.CaseNumber} - Closed due to inactivity - please review.</subject>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

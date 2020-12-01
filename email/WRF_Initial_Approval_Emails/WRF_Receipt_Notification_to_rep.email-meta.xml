@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that a request was received and who is assigned.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Auto Notification to Rep</name>
+    <style>freeForm</style>
+    <subject>WRF Received Subject:{!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+Thank you for your Work Request submission for {!Case.Account}.  We appreciate the opportunity to work with you.
+
+Your Support # is {!Case.CaseNumber}
+You can click here to view the request in Salesforce.com.
+
+You will receive another communication as soon as a team has been assigned to your request.
+
+Thank you,
+
+Pricing &amp; Profitability</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

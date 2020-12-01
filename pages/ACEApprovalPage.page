@@ -1,0 +1,24 @@
+<apex:page controller="ACEApprovalPageController">
+  <apex:sectionHeader title="Approval Request" subtitle="Customer Core Price Changes: {!batchname}"/>
+  <apex:form >
+      <apex:pageBlock title="Approve/Reject Approval Request">
+          <apex:pageBlockSection columns="1" >
+               <apex:pageBlockSectionItem >
+                   Batch Name:
+                <apex:outputText value="{!BatchName}"/>          
+               </apex:pageBlockSectionItem> 
+               <apex:pageBlockSectionItem >
+                   Comments: <apex:inputTextarea value="{!Comments}"  rows="5" style="width:400px"/>
+                
+               </apex:pageBlockSectionItem> 
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Approve" action="{!approveFunc}"/>
+              <apex:commandButton value="Reject" action="{!rejectFunc}"/>
+              <apex:commandButton value="Cancel" action="{!Cancel}"/>
+          </apex:pageBlockButtons>
+          
+      </apex:pageBlock>
+          
+  </apex:form>
+</apex:page>

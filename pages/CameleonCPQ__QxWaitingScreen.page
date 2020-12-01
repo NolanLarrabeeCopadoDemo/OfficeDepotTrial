@@ -1,0 +1,139 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="CameleonCPQ.QxVFQuoteProcessController" rendered="{!NOT(isLightningUI)}" showHeader="false" sidebar="false" docType="html-5.0">
+   <apex:slds />
+   <apex:includeScript value="{!URLFOR($Resource.CameleonCPQ__CPQBuilder_JQueryPlugins,'jquery/jquery.js')}"/>
+   <script src="/soap/ajax/44.0/connection.js" />
+   <script type="text/javascript">
+     $jq = jQuery.noConflict();
+   
+     // The dialog's top position in pixels.
+     var dialogTopPosition = 500;
+   
+     // Minimum time that the dialog is shown in ms.
+     var minimumWaitTime = 2000;
+   
+     // After the minimum wait time, check if the sync is done in this many ms.
+     var checkTimeAfterMinimum = 3000;
+   
+     // The number of attempts (2seconds) before hiding the waiting page.
+     var attempts = 0;
+   
+     /**
+     * Hides the waiting screen.
+     */
+     var hideWaitingScreen = function() {
+         $jq("[id$='{!$Component.waitingScreen}']").toggleClass("hidden", true);
+     };
+   
+     /**
+     * Show waiting screen.
+     */
+     var showWaitingScreen = function() {
+         $jq("[id$='{!$Component.waitingScreen}']").toggleClass("hidden", false);
+     };
+   
+     /**
+     * Set the checkCanHideWaitingScreen function to execute every timePeriod milliseconds.
+     */
+     var setCanHideWaitingCall = function(timePeriod, redirectUrl) {
+         // Loop until the synchronization is completed
+         attempts = 0;
+         setTimeout(function(){checkCanHideWaitingScreen(redirectUrl);}, timePeriod);
+     };
+
+     function checkWaitScreenRequired() {
+       Visualforce.remoting.Manager.invokeAction(
+           '{!$RemoteAction.QxVFQuoteProcessController.isWaitScreenRequired}',
+           '{!IF($CurrentPage.parameters.qId!=null,$CurrentPage.parameters.qId,QxQuote__c.Id)}',
+           '{!IF($CurrentPage.parameters.qId!=null,true,false)}',
+           function(waitInfo, event) {
+             if(event.status && waitInfo.isWaitPageRequired===true) {
+                if(waitInfo.isFromWaitPage===true) {
+                   showWaitingScreen();
+                   
+                   // Loop until the synchronization is completed
+                   setCanHideWaitingCall(minimumWaitTime, waitInfo.redirectUrl);
+                }
+                else {
+                   // Redirect to waiting screen page in full screen mode
+                   top.location.href = waitInfo.redirectUrl;
+                }
+             }
+             if(event.type=='exception') {
+                console.log(event.message);
+             }
+           },
+           {escape: false}
+        );
+     }
+
+     /**
+     * Show/hide the dialog when the page is ready.
+     */
+     $jq(document).ready(function()
+     {
+         checkWaitScreenRequired();
+     });
+
+
+     /*
+     * This function queries the Quote object and retrieve the Synchronization status.
+     * If the value of this field is <IN_PROGRESS> then it means the synchronization process is still in progress.
+     */
+     function checkSyncInProgress()
+     {
+         sforce.connection.sessionId = '{!$Api.Session_ID}';
+         try
+         {
+            var qr = sforce.connection.query("SELECT CameleonCPQ__SyncStatus__c FROM CameleonCPQ__QxQuote__c where Id='{!IF($CurrentPage.parameters.qId!=null,$CurrentPage.parameters.qId,CameleonCPQ__QxQuote__c.Id)}'");
+            if (qr.size == 0)
+            {
+               return false;
+            }
+            else
+            {
+               var records = qr.getArray("records");
+               if (records.length > 0)
+               {
+                 return records[0].CameleonCPQ__SyncStatus__c=='IN_PROGRESS';
+               }
+            }
+         }
+         catch (error)
+         {
+            console.error(error.faultstring);
+            return false;
+         }
+     }
+   
+     /*
+     * This function checks for the CameleonCPQ__SyncStatus__c field and hides the waiting screen if <false>.
+     * If true, a maximum of 30 attempts is performed (interval=2sec).
+     */
+     function checkCanHideWaitingScreen(redirectUrl)
+     {
+         if(!checkSyncInProgress() || attempts > 30)
+         {
+             hideWaitingScreen();
+   
+             // Update UI
+             top.location.href = redirectUrl;
+         }
+         else if(attempts<=30)
+         { 
+           console.log('retrying..('+attempts+')');
+           attempts++;
+           setTimeout(function(){checkCanHideWaitingScreen(redirectUrl);}, checkTimeAfterMinimum);
+         }
+     }
+   </script>
+
+   <apex:outputPanel id="waitingScreen" styleClass="hidden" layout="block">
+      <div id="loadingStatus" class="slds-spinner_container">
+        <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+          <span class="slds-assistive-text" id="_gModal_Message"/>
+          <div class="slds-spinner__dot-a"></div>
+          <div class="slds-spinner__dot-b"></div>
+        </div>
+      </div>
+   </apex:outputPanel>
+</apex:page>

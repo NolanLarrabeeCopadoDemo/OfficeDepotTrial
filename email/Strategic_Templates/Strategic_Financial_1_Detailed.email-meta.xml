@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Would love to positively impact your business!</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: Financial #1: Detailed</name>
+    <style>freeForm</style>
+    <subject>Would love to positively impact your business!</subject>
+    <textOnly>Dear {!Contact.Name},
+
+My name is INSERT YOUR NAME and I am a Business Development Executive with Strategic Business Solutions at Office Depot. You may think of us as an office supply company, however our business platform solutions can bring significant value to INSERT COMPANY NAME.
+
+
+I took some time to analyze your INSERT TIMEPERIOD FOR FINANCIAL RESULTS. While reviewing the numbers, I noticed an underlying theme coming from your CEO, INSERT CEO NAME—&quot;INSERT KEY THEME&quot;.  We can help with this.
+
+
+Based on my research, INSERT COMPANY NAME has a minimum annual office supply spend of approximately $INSERT OFFICE SPEND AMOUNT (conservatively). On average my clients realize an annual savings of 12-18% compared to their current program which comes to approximately $INSERT OFFICE SPEND AMOUNT x 18% that drops to your bottom line. And, for an organization of your size, this figure may seem small at face value.
+
+
+Based on your YTD Net Margin of INSERT FINANCIAL STATEMENT’S NET MARGIN NUMBER, Office Depot&apos;s reduction of costs per year is equivalent to INSERT NUMBER ABOVE x NET MARGIN NUMBER. Over a standard 3-year partnership with Office Depot this would be equivalent to INSERT COMPANY NAME increasing its revenue by $INSERT LAST NUMBER x 3 which is significant.
+
+
+INSERT CUSTOMER FIRST NAME, it has been over INSERT NUMBER of years since Office Depot consulted with you; a lot has changed with our company’s capabilities including the acquisition of CompuCom—one of the world’s leading technology services companies. I’d like to listen and learn more about INSERT COMPANY’s goals and objectives.
+
+
+May I have some time to better understand exactly how much of an impact we can have for INSERT COMPANIY NAME? I look forward to hearing from you!
+
+
+
+
+
+Thank you,
+
+
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

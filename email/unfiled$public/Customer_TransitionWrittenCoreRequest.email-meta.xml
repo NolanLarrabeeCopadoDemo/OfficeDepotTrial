@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Customer Transition Written Core Request</name>
+    <style>freeForm</style>
+    <subject>Written Agreement Custom Core Request Alert</subject>
+    <textOnly>This mail is generated because it satisfies the below condition in customer Transition
+
+Status : {!Customer_Transition__c.Status__c}
+Written Agreement : {!Customer_Transition__c.Written_Agreement__c}
+Local Core : {!Customer_Transition__c.Local_Core__c}
+Written agreement core request : {!Customer_Transition__c.Written_Agreement_Custom_Core_Request__c}
+Customer Transition Type : {!Customer_Transition__c.Customer_Transition_Type2__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

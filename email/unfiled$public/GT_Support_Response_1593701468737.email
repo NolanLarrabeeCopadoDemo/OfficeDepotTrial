@@ -1,0 +1,62 @@
+<html>
+ <head> 
+  <title></title> 
+ </head> 
+ <body style="height: auto; min-height: auto;">
+  <!--StartFragment--> 
+  <table cellpadding="0" cellspacing="0" height="450" id="topTable" style="font-family: &quot;Times New Roman&quot;; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(204, 204, 204); text-decoration-style: initial; text-decoration-color: initial;" width="500"> 
+   <tbody> 
+    <tr valign="top"> 
+     <td style="background-color: rgb(255, 255, 255); vertical-align: top; height: 100px; text-align: left;"><img beditid="r1sp1" blabel="headerImage" border="0" id="r1sp1" src="https://officedepot.my.salesforce.com/servlet/servlet.ImageServer?id=015E00000059PoB&amp;oid=00DE0000000J4oS" /></td> 
+    </tr> 
+    <tr valign="top"> 
+     <td style="background-color: rgb(170, 170, 255); height: 5px;">&nbsp;</td> 
+    </tr> 
+    <tr valign="top"> 
+     <td height="300" style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-size: 12pt; font-family: arial;" styleinsert="1"> 
+      <table border="0" cellpadding="5" cellspacing="5" height="400" width="550"> 
+       <tbody> 
+        <tr height="400" valign="top"> 
+         <td aeditid="c1r1" locked="0" style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-size: 12pt; font-family: arial;" teditid="c1r1"> <p style="margin-top: 0px; margin-bottom: 0px;"><span style="font-size: 15.55px; background-color: rgb(255, 255, 255);">Dear&nbsp;{{{Case.IT_Created_By__c}}},</span></p> 
+          <div style="font-size: 15.55px;">
+            &nbsp; 
+          </div> 
+          <div style="font-size: 15.55px;">
+            We have received your Support request&nbsp;{{{Case.Number__c}}} regarding&nbsp;{{{Case.Subject}}}. 
+          </div> 
+          <div style="font-size: 15.55px;">
+            &nbsp; 
+          </div> 
+          <div style="font-size: 15.55px;">
+            You may review the progress on this case by referring to the link below. You will be contacted with any questions/concerns and will also be notified when your case has been completed. 
+          </div> 
+          <div style="font-size: 15.55px;">
+            &nbsp; 
+          </div> 
+          <div style="font-size: 15.55px;">
+            &nbsp; 
+          </div> 
+          <div style="font-size: 15.55px;"> 
+           <span style="font-size: 15.55px; background-color: rgb(255, 255, 255);"><font size="3">To access this case click the below link:&nbsp;</font></span> 
+           <a href="https://officedepot.lightning.force.com/lightning/{{{Case.Id}}}"><span style="font-size: 15.55px; background-color: rgb(255, 255, 255);"><font size="3">{{{Case.Number__c}}}</font></span></a> 
+          </div> <p style="margin-top: 0px; margin-bottom: 0px;">&nbsp;</p> 
+          <div style="font-size: 15.55px;">
+            &nbsp; 
+          </div> 
+          <div style="font-size: 15.55px;">
+            &nbsp; 
+          </div> 
+          <div style="font-size: 15.55px;">
+            Regards, 
+           <br /> {{{Sender.Username}}} 
+           <br /> {{{Sender.Email}}} 
+          </div> </td> 
+        </tr> 
+       </tbody> 
+      </table> </td> 
+    </tr> 
+   </tbody> 
+  </table> 
+  <!--EndFragment-->
+ </body>
+</html>

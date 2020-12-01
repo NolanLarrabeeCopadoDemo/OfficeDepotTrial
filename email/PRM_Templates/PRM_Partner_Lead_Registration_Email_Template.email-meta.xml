@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification to Partner upon Registering a Deal</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>PRM_Email_Letterhead</letterhead>
+    <name>PRM Partner Lead Registration Email Template</name>
+    <style>freeForm</style>
+    <subject>{!Lead.Name} : Partner Lead Registration</subject>
+    <textOnly>Hi {!Lead.Partner_Sub_Agent_Contact__c},
+
+Thank you for your Lead Registration. If you have a partner portal login and password, you can monitor the status of the lead submitted. Otherwise, you will be contacted by your Channel Account Manager shortly.
+
+
+Thanks,
+
+Channel Support.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

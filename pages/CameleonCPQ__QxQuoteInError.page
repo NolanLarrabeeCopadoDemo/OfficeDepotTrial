@@ -1,0 +1,24 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" showHeader="false" sidebar="false" docType="html-5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/> 
+  <style>
+  .dot {
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      display: inline-block;
+  }
+  .green {
+      background-color: green;
+  }
+  .red {
+      background-color: red;
+  }
+  .grey {
+      background-color: grey;
+  }
+  </style>
+  <apex:outputField value="{!CameleonCPQ__QxQuote__c.CameleonCPQ__QuoteErrors__c}" rendered="false"/>
+  <apex:outputPanel id="statusIcon" layout="block">
+     <span class="dot {!IF(QxQuote__c.QuoteErrors__c==null,'grey',IF(QxQuote__c.QuoteErrors__c>0,'red','green'))}"></span>
+  </apex:outputPanel>
+</apex:page>

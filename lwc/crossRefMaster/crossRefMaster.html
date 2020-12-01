@@ -1,0 +1,263 @@
+<template>
+
+    <div if:false={dataLoaded}>
+        <lightning-spinner
+        variant="brand"
+        size="large">
+    </lightning-spinner>
+    </div>
+
+    <div if:true={ToastToBeDisplayed} style="height: 4rem;" class="slds-show">
+        <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_toast" role="status">
+                <span class="slds-assistive-text">{variant}</span>
+                <span class="slds-icon_container" title="Alert">
+                    <lightning-icon icon-name="utility:warning" size="small" variant="inverse"></lightning-icon>
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small ">{MessageToBeDisplayed}</h2>
+                </div>
+                <div class="slds-notify__close">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close" onclick={closeModel}>
+                        <lightning-icon icon-name="utility:close" size="small" variant="inverse"> </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+
+    <lightning-card  title="Cross Ref Master">
+            <div class="slds-clearfix">
+                <div class="slds-p-around_medium lgc-bg slds-grid slds-grid_vertical-align-end">
+                    <lightning-input type="text" id="product_id" value={ProductId} label="Product Id" onchange={productKey} class="slds-p-right_xx-small slds-col"></lightning-input>
+                    <lightning-input type="text" id="competitor" value={Competitor} label="Competitor Name" onchange={competitorKey} class="slds-p-right_xx-small slds-col"></lightning-input>
+                    <lightning-input type="text" id="od_sku" value={ODsku} label="OD Sku" onchange={odskuKey} class="slds-p-right_xx-small slds-col"></lightning-input>
+                    <lightning-input type="text" id="ModifiedBy" value={ModifiedBy} label="Modified By" onchange={modByChange} class="slds-p-right_xx-small slds-col"></lightning-input>
+                    <lightning-input type="date" id="ModifiedDate" value={ModifiedDate} label="Modified Date" onchange={modDateChange} class="slds-p-right_xx-small slds-col"></lightning-input>
+                    <lightning-button variant="brand" label="Search" title="Search"  onclick={handleSearch} class="slds-m-right_x-small header-buttons slds-col"></lightning-button> 
+                </div>
+            </div>
+            <br/>
+            <lightning-datatable 
+                key-field="competitor_product_id" 
+                data={crossRefMasterRecords} 
+                columns={columns}
+                onsave={handleSaveForEdit}
+                draft-values={draftValues}
+                onrowselection={getSelectedRecords}>
+                
+            </lightning-datatable>
+            <br/>
+            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center">
+            
+                <div class="slds-col">
+                    <span>
+                        <lightning-button variant="brand" label="Add" title="Add"   onclick={AddRecord} class="slds-m-right_x-small header-buttons slds-col"></lightning-button> 
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                        <lightning-button variant="brand" label="Delete" title="Delete"   onclick={DeleteRecord} class="slds-m-right_x-small header-buttons slds-col"></lightning-button> 
+                    </span>
+                </div>
+            </div>
+
+
+        
+                <div style="align-content: center;padding-left: 550px;">
+                    
+                    </div>    
+    </lightning-card>
+
+    <template if:true={isOpenModal}>
+        <div style="height: 500px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseModal}>
+                            <lightning-icon icon-name="utility:close" variant="inverse" alternative-text="Close" size="medium">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Screen</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-text-heading_small slds-text-align_center">
+                            <div class="slds-form">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-01"><b>Competitor Product ID</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={CompetitorProductId} name="input1" onchange={IDChange}></lightning-input>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-02"><b>Competitor Name</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={CompetitorName} name="input2" onchange={NameChange}></lightning-input>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-02"><b>Competitor UOM</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={CompetitorUOM} name="input3" onchange={UOMChange}></lightning-input>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-02"><b>Customer QPU</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={CustomerQPU} name="input4" onchange={QPUChange}></lightning-input>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-02"><b>Source</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={SourceValue} name="input4" onchange={SourceChange}></lightning-input>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-02"><b>Type</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={Type} name="input6" onchange={TypeChange}></lightning-input>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-02"><b>OD SKU</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={ODSku} name="input7" onchange={ODSkuChange}></lightning-input>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-02"><b>OD SKU UOM</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={ODSkuUOM} name="input8" onchange={ODSkuUOMChange}></lightning-input>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-02"><b>OD SKU QPU</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={ODSkuQPU} name="input9" onchange={ODSkuQPUChange}></lightning-input>
+                                    </div>
+                                </div>
+
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <label class="slds-form-element__label" for="stacked-input-id-02"><b>Cross Notes Details</b></label>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" value={CrossNotesDetails} name="input9" onchange={CrossNotesChange}></lightning-input>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Save" variant="brand" onclick={SaveEditedRecord}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </template>
+
+
+    <br>
+    <template if:true={AlwaysTrue}>
+        <div class="slds-card">
+            <lightning-accordion allow-multiple-sections-open
+                active-section-name="Master Upload">
+                <lightning-accordion-section name="Master Maintenance Upload" label="Master Maintenance Upload">
+                    <div style="width: auto;">
+                        <div style="margin-left:4%">
+                            <div>
+                                <lightning-input label="" 
+                                                name="fileuploader" 
+                                                onchange={handleFilesChange}
+                                                type="file"
+                                                record-id={recordId}
+                                                accept={acceptedFormats}
+                                                onuploadfinished={handleUploadFinished} 
+                                                >
+                                </lightning-input>
+                            </div><br/>
+                            <div class="slds-text-body_small slds-text-color_error">{fileName}
+                                <template if:true={showLoadingSpinner}>
+                                    <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+                                </template>
+                            </div><br/>
+                            <div>
+                                <lightning-button class="slds-m-top--medium" label={UploadFile} onclick={handleSave} variant="brand" disabled={isFalse}></lightning-button>
+                            </div>
+                        </div><br/>
+                        <div class="slds-col" style="margin-left:4%">
+                                            
+                                                <div class="slds-text-color_default">{refreshDateTime}</div>
+                                                <div>
+                                                    <span>                    
+                                                        <lightning-button label={Refresh}
+                                                            disabled={isFalse}
+                                                            variant="brand" 
+                                                            onclick={refreshdata}
+                                                        >
+                                                        </lightning-button>
+                                                    </span>
+                                                </div>    
+                                            
+                                        </div>
+                                        <br/>
+                        <div style="height: 15rem;">                
+                            <template if:true={data}>
+                                <lightning-datatable
+                                                data={data}
+                                                columns={filecolumns}
+                                                sorted-by={sortedBy}
+                                                sorted-direction={sortedDirection}
+                                                key-field="id"
+                                                onrowaction={callRowAction}
+                                                onsort={updateColumnSorting}
+                                                onloadmore={loadMoreData}> 
+                                </lightning-datatable>
+                            </template>
+                        </div>
+                    </div>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+    </template>
+    
+        <div>
+            <template if:true={isErrorMessageOpenModal}>
+                <div style="height: 500px;">
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleErrorCloseModal}>
+                                    <lightning-icon icon-name="utility:close" variant="inverse" alternative-text="Close" size="medium">
+                                    </lightning-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Master Maintenance Errors</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                                <div class="slds-text-heading_small slds-text-align_center">
+                                    <div if:false={NoErrors}>
+                                        <lightning-datatable
+                                                        data={errorData}
+                                                        columns={errorColumns}
+                                                        key-field="id">
+                                        </lightning-datatable>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </div>
+            </template>
+        </div>
+    
+</template>

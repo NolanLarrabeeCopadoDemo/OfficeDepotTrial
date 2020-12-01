@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ProcessInstance$TargetName</field>
+    </columns>
+    <columns>
+        <field>ProcessInstance$CreatedDate</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>ProcessInstance$ProcessDefinition</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>DOA CPM Approval</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ProcessInstance$CurrentNodeName</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>President Approval</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <name>CPMs - Approval Chain Includes Steve C</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Approval_Record__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>ProcessInstance$CreatedDate</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>ProcessInstance$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

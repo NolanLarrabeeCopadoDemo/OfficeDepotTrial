@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ProcessInstance$TargetName</field>
+    </columns>
+    <columns>
+        <field>ProcessInstance$Status</field>
+    </columns>
+    <columns>
+        <field>ProcessInstance$CurrentNodeName</field>
+    </columns>
+    <columns>
+        <field>ProcessInstance$ProcessDefinition</field>
+    </columns>
+    <columns>
+        <field>ProcessInstance$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>ProcessInstance$CreatedBy</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>ProcessInstance$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>P</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ProcessInstance$CurrentNodeName</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>Compliance Queue Approval</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>CPM - Pending Compliance Approvals</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Process_Instance__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>ProcessInstance$TargetName</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>ProcessInstance$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- Score will use the selected model to score records that match the criteria for this rule. --></help>
+        <label><!-- Action --></label>
+        <name>LBI__Action__c</name>
+        <picklistValues>
+            <masterLabel>Enrich Only</masterLabel>
+            <translation><!-- Enrich Only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Score</masterLabel>
+            <translation><!-- Score --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Score &amp; Enrich</masterLabel>
+            <translation><!-- Score &amp; Enrich --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Criteria Logic --></label>
+        <name>LBI__CriteriaLogic__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select a model to use with this rule. --></help>
+        <label><!-- Lattice Model --></label>
+        <name>LBI__Model__c</name>
+        <relationshipLabel><!-- Lattice Scoring Rules --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Number of Clauses --></label>
+        <name>LBI__NumberOfClauses__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select an object that this rule will apply to. The rule will only affect objects with this record type based on the settings for the selected model. --></help>
+        <label><!-- Object --></label>
+        <name>LBI__Object__c</name>
+        <picklistValues>
+            <masterLabel>Account</masterLabel>
+            <translation><!-- Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Contact</masterLabel>
+            <translation><!-- Contact --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lead</masterLabel>
+            <translation><!-- Lead --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Rule Name --></label>
+        <name>LBI__RuleName__c</name>
+    </fields>
+    <fields>
+        <help><!-- Choose when this rule should run: when new records are created (create), when records are changed (update), or scoring is run manually (on demand) --></help>
+        <label><!-- Trigger --></label>
+        <name>LBI__Trigger__c</name>
+        <picklistValues>
+            <masterLabel>Create</masterLabel>
+            <translation><!-- Create --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Create and Update</masterLabel>
+            <translation><!-- Create and Update --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>On Demand</masterLabel>
+            <translation><!-- On Demand --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update</masterLabel>
+            <translation><!-- Update --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Active --></label>
+        <name>LBI__isActive__c</name>
+    </fields>
+</CustomObjectTranslation>

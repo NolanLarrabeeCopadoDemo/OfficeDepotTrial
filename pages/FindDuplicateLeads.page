@@ -1,0 +1,281 @@
+<apex:page standardController="Lead" extensions="DuplicateLeadsExtension" action="{!validateLead}">
+  <apex:sectionHeader title="Lead" subTitle="{!Lead.Name} - Search for Duplicates"/>
+  <apex:pageMessages />
+  
+  <script type="text/javascript">
+        function checkAll(cb,cbid)
+        {
+            var inputElem = document.getElementsByTagName("input");                    
+            for(var i=0; i<inputElem.length; i++)
+            {            
+                 if(inputElem[i].id.indexOf(cbid)!=-1){                                       
+                    inputElem[i].checked = cb.checked;
+                }
+            }
+        }
+        
+        function verifyAll(leadsfound, cbid)
+        {
+            if(leadsfound == 'false')
+                return false; // return from here itself...
+
+            var inputElem = document.getElementsByTagName("input");
+            var oneChecked = false;
+            for(var i=0; i<inputElem.length; i++)
+            {            
+                if(inputElem[i].id.indexOf(cbid)!=-1)
+                {   
+                    if(inputElem[i].checked)
+                    {
+                        oneChecked = true;
+                    }
+                }
+            }
+            if(oneChecked)
+            {
+                return true;
+            }
+            else
+            {
+                alert('At least one Lead need to be selected to Close');
+                return false;
+            }
+        }
+        
+        function selectAccount(accountsfound, cbid)
+        {
+            if(accountsfound == 'false')
+                return false; // return from here itself...
+            var inputElem = document.getElementsByTagName("input");
+            var oneChecked = false;
+
+            var hiddenElement = '';// = document.getElementById("j_id0:myform:accountBlock:hidSelectedAccount");  //hidSelectedAccount
+
+            for(var i=0; i<inputElem.length; i++)
+            {  
+                if(inputElem[i].id.indexOf('hidSelectedAccount')!=-1)
+                {
+                    hiddenElement = inputElem[i];
+                }
+            }
+            for(var i=0; i<inputElem.length; i++)
+            {  
+                if(inputElem[i].id.indexOf(cbid)!=-1)
+                {
+                    if(inputElem[i].checked)
+                    {
+                        hiddenElement.value = inputElem[i].value;
+                        oneChecked = true;
+                    }
+                }
+            }
+            if(oneChecked)
+            {
+                return true;
+            }
+            else
+            {
+                alert('At least one Account need to be selected to link to the Lead');
+                return false;
+            }
+
+        }
+  </script>
+
+  
+  <apex:form rendered="{!isLeadValidationSuccessful}" id="myform">
+
+    <apex:pageBlock mode="maindetail">
+      <apex:pageBlockButtons > 
+        <apex:commandButton value="Search"  action="{!searchLeads}" >
+        </apex:commandButton>
+        <apex:commandButton value="Cancel"  action="{!BackToLead}" />
+      </apex:pageBlockButtons> 
+     <apex:pageblocksection columns="1">
+         <apex:pageblockSectionItem >
+                 <apex:outputLabel >Name: </apex:outputLabel>
+             <apex:outputPanel layout="inline">
+                 <apex:inputcheckbox id="chkName" value="{!blName}" />
+                 <apex:inputText value="{!strName}" label="Name" />
+             </apex:outputPanel>
+         </apex:pageblockSectionItem>
+         <apex:pageblockSectionItem >
+             <apex:outputLabel >Last Name: </apex:outputLabel>
+             <apex:outputPanel layout="inline">
+             <apex:inputcheckbox id="chkLastName" value="{!blLastName}" />
+             <apex:outputText value="{!strLastName}" label="LastName"/>
+             </apex:outputPanel>
+         </apex:pageblockSectionItem>
+         <apex:pageblockSectionItem >
+             <apex:outputLabel >Company: </apex:outputLabel>
+             <apex:outputPanel >
+             <apex:inputcheckbox id="chkCompany" value="{!blCompany}" />
+             <apex:inputText value="{!strCompany}" label="Company"/>
+             </apex:outputPanel>
+         </apex:pageblockSectionItem>
+         <apex:pageblockSectionItem >
+             <apex:outputLabel >Email: </apex:outputLabel>
+         <apex:outputPanel >
+             <apex:inputcheckbox id="chkEmail" value="{!blEmail}" />
+             <apex:outputText value="{!strEmail}" label="Email"/>
+             </apex:outputPanel>
+         </apex:pageblockSectionItem>
+         <apex:pageblockSectionItem >
+             <apex:outputLabel >Email Domain: </apex:outputLabel>
+         <apex:outputPanel >
+             <apex:inputcheckbox id="chkEmailDomain" value="{!blEmailDomain}" />
+             <apex:outputText value="{!strEmailDomain}"/>
+             </apex:outputPanel>
+         </apex:pageblockSectionItem>
+         <apex:pageblockSectionItem >
+             <apex:outputLabel >Phone: </apex:outputLabel>
+         <apex:outputPanel >
+             <apex:inputcheckbox id="chkPhone" value="{!blPhone}" />
+             <apex:inputText value="{!strPhone}" label="Phone"/>
+             </apex:outputPanel>
+         </apex:pageblockSectionItem>
+         
+         
+         <apex:pageblockSectionItem >
+<hr />
+         </apex:pageblockSectionItem>
+         
+         
+         
+         <apex:pageblockSectionItem >
+             <apex:outputLabel >Zip: </apex:outputLabel>
+         <apex:outputPanel >
+             <apex:inputcheckbox id="chkZip" value="{!blZip}" />
+             <apex:inputText value="{!strZip}" label="Zip"/>
+             </apex:outputPanel>
+         </apex:pageblockSectionItem>
+         <apex:pageblockSectionItem >
+             <apex:outputLabel >State: </apex:outputLabel>
+         <apex:outputPanel >
+             <apex:inputcheckbox id="chkState" value="{!blState}" />
+             <apex:inputText value="{!strState}" label="State"/>
+             </apex:outputPanel>
+         </apex:pageblockSectionItem>
+     </apex:pageblocksection>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Matching Leads" id="myblock" tabStyle="Lead">
+    
+        <apex:facet name="header">
+            <div class="bRelatedList" id="divLead">
+                <div class="listRelatedObject leadBlock"><div class="bPageBlock brandSecondaryBrd secondaryPalette"><div class="pbHeader">
+                    <table  border="0" cellpadding="0" cellspacing="0"><tr><td class="pbTitle"><img src="/s.gif" alt="" width="12" height="1" class="minWidth" title="" style="margin-right: 0.25em;" /><img src="/s.gif" alt=""  class="relatedListIcon" title=""/><h3 class="bodyBold">Matching Leads</h3></td>
+                     <td class="pbButton">
+                     <input value="Close Leads"  class="btn" name="closeLead" onclick="if(verifyAll('{!matchingLeadsFound}', 'checkedone')){closeSelectedLeads();}" title="Close Leads" type="button" />
+                     </td>
+                    </tr>
+                    </table>
+                </div></div></div>
+            </div>
+        </apex:facet>
+<apex:actionFunction name="closeSelectedLeads" action="{!closeLeads}" />
+     <apex:pageblocktable value="{!MatchedLeads}" var="objLead" id="mytable" rendered="{!matchingLeadsFound}"> 
+        <apex:column >
+            <apex:inputcheckbox value="{!objLead.leadChecked}" id="checkedone"/>
+            <apex:facet name="header"><apex:inputcheckbox value="{!objLead.leadChecked}" onclick="checkAll(this,'checkedone')" rendered="{!matchingLeadsFound}" /></apex:facet>
+        </apex:column>
+        <apex:column headerValue="Name">
+            <apex:outputLink value="/{!objLead.dupLead.Id}" >{!objLead.dupLead.Name}</apex:outputLink>
+        </apex:column>
+        <apex:column value="{!objLead.dupLead.Company}" headerValue="Company"/>
+        <apex:column value="{!objLead.dupLead.Status}" headerValue="Status"/>
+        <apex:column value="{!objLead.dupLead.Email}" headerValue="Email"/>
+        <apex:column value="{!objLead.dupLead.Phone}" headerValue="Phone"/>
+        <apex:column value="{!objLead.dupLead.City__c}" headerValue="City"/>
+        <apex:column value="{!objLead.dupLead.State__c}" headerValue="State"/>
+        <apex:column value="{!objLead.dupLead.Zip__c}" headerValue="Zip" />
+        <apex:column value="{!objLead.dupLead.OwnerId}" headerValue="Owner"/> 
+     </apex:pageblocktable>
+     <apex:OutputLabel value="No Matching Leads Found" rendered="{!NOT(matchingLeadsFound)}" />
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Matching Contacts" id="contactblock"  tabStyle="Contact">
+
+        <apex:facet name="header">
+            <div class="bRelatedList" id="divContact">
+            <!-- Begin ListElement -->
+            
+            <!-- WrappingClass -->
+            <div class="listRelatedObject contactBlock"><div class="bPageBlock brandSecondaryBrd secondaryPalette"><div class="pbHeader"><table  border="0" cellpadding="0" cellspacing="0"><tr><td class="pbTitle"><img src="/s.gif" alt="" width="12" height="1" class="minWidth" title="" style="margin-right: 0.25em;" /><img src="/s.gif" alt=""  class="relatedListIcon" title=""/><h3 class="bodyBold">Matching Contacts</h3></td></tr>
+            </table>
+            </div></div></div>
+            <!-- End ListElement -->
+            </div>
+        </apex:facet>
+
+     <apex:pageblocktable value="{!MatchingContacts}" var="objContact" id="contacttable" rendered="{!matchingContactsFound}">
+        <apex:column headerValue="Action">
+            <apex:outputLink value="/{!objContact.Id}/e" >Edit</apex:outputLink>
+        </apex:column>
+        <apex:column headerValue="Name">
+            <apex:outputLink value="/{!objContact.Id}" >{!objContact.Name}</apex:outputLink>
+        </apex:column>
+        <apex:column headerValue="Account Name">
+            <apex:outputLink value="/{!objContact.Account.Id}" >{!objContact.Account.Name}</apex:outputLink>
+        </apex:column>
+        <apex:column value="{!objContact.Account_Recordtype__c}" headerValue="Account Recordtype"/>
+        <apex:column value="{!objContact.Phone}" headerValue="Phone"/>
+        <apex:column value="{!objContact.MobilePhone}" headerValue="Mobile"/>
+        <apex:column value="{!objContact.Email}" headerValue="Email"/>
+        <apex:column value="{!objContact.MailingStreet}" headerValue="Mailing Street"/>
+        <apex:column value="{!objContact.MailingCity}" headerValue="Mailing City"/>
+        <apex:column value="{!objContact.MailingState}" headerValue="Mailing State/Province"/>
+        <apex:column value="{!objContact.OwnerId}" headerValue="Owner"/> 
+     </apex:pageblocktable>
+     <apex:OutputLabel value="No Matching Contacts Found" rendered="{!NOT(matchingContactsFound)}" />
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Matching Accounts" id="accountBlock" tabStyle="Account">
+
+        <apex:facet name="header">
+            <div class="bRelatedList" id="divAccount">
+                <div class="listRelatedObject accountBlock"><div class="bPageBlock brandSecondaryBrd secondaryPalette"><div class="pbHeader">
+                    <table  border="0" cellpadding="0" cellspacing="0"><tr><td class="pbTitle"><img src="/s.gif" alt="" width="12" height="1" class="minWidth" title="" style="margin-right: 0.25em;" /><img src="/s.gif" alt=""  class="relatedListIcon" title=""/><h3 class="bodyBold">Matching Accounts</h3></td>
+                     <td class="pbButton">
+                     <input value="Link Lead to selected Account"  class="btn" name="linkLead" onclick="if(selectAccount('{!matchingAccountsFound}', 'linkLeadRadio')){LinkSelectedLead();}" title="Link Lead" type="button" />
+                     </td>
+                    </tr>
+                    </table>
+                </div></div></div>
+            </div>
+        </apex:facet>
+<apex:actionFunction name="LinkSelectedLead" action="{!linkLead}" />
+
+     <apex:outputPanel rendered="{!matchingAccountsFound}">
+     <apex:pageblocktable value="{!MatchingAccounts}" var="objAccount" id="acountTable" >
+        <apex:column headerValue="Select">
+            <input name="linkLeadRadio" id="linkLeadRadio" value="{!objAccount.Id}" type="radio" />
+        </apex:column> 
+        <apex:column headerValue="Action">
+            <apex:outputLink value="/{!objAccount.Id}/e" >Edit</apex:outputLink>
+        </apex:column>
+<!--        <apex:column headerValue="Select">
+            <apex:commandLink action="{!linkLead}" value="Link Lead">
+                <apex:param name="accountParam" assignTo="{!selectedAccountId}" value="{!objAccount.Id}" />
+            </apex:commandLink>
+        </apex:column> 
+-->
+        <apex:column headerValue="Name">
+            <apex:outputLink value="/{!objAccount.Id}" >{!objAccount.Name}</apex:outputLink>
+        </apex:column>
+        <apex:column value="{!objAccount.AOPS_Cust_Id__c}" headerValue="Cust Id"/>
+        <apex:column value="{!objAccount.RecordType.Name}" headerValue="Record Type"/>
+        <apex:column value="{!objAccount.Stage__c}" headerValue="Stage"/>
+        <apex:column value="{!objAccount.Address1__c}" headerValue="Address1"/>
+        <apex:column value="{!objAccount.City__c}" headerValue="City"/>
+        <apex:column value="{!objAccount.State__c}" headerValue="State"/>
+        <apex:column value="{!objAccount.LastActivityDate}" headerValue="Last Activity"/>
+        <apex:column value="{!objAccount.Status__c}" headerValue="Status"/>
+        <apex:column value="{!objAccount.OwnerId}" headerValue="Owner"/> 
+     </apex:pageblocktable>
+     <apex:inputhidden value="{!selectedAccountId}" Id="hidSelectedAccount"/>
+     </apex:outputPanel>
+     <apex:OutputLabel value="No Matching Accounts Found" rendered="{!NOT(matchingAccountsFound)}" />
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

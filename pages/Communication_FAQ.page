@@ -1,0 +1,301 @@
+<apex:page showHeader="false"  applyBodyTag="false" renderAs="PDF" > <!-- -->
+
+ 
+  <head>
+  <style>
+    h1
+    {
+    color: #CF0000;
+    font-size: 10pt;  
+    <!--font-family: Helvetica ; -->
+    }
+    </style>
+       
+    </head>
+  
+   
+
+    <body >
+    
+   <table >
+       <tr  style="background-image: url({!$Resource.faq_header}); background-repeat:no-repeat; height:905px; width:700px;"> 
+           <td >
+               <div style=" padding-left: 180px; padding-right:55px; padding-top: 100px; padding-bottom: 4px;text-align:justify;">
+                   <p><span style="font-face: Helvetica Light; font-size: 9pt; "> 
+                    This FAQ document has been developed for account managers so that you understand
+                    your role in OfficeMax customer transitions and are prepared to help implement a
+                    smooth transition to Office Depot. Our ultimate goal is to create a positive customer
+                    experience — one where customers feel our tagline, “Business Made Personal,” and
+                    value our commitment to their success.</span></p>
+                    <p><h1> 
+                    1.  Do I have to transition my customer or can I renew on the
+                    OfficeMax stack?</h1></p>
+                    
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <ul style="list-style-type:disc; font-size: 9pt">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">You do NOT have to transition your customer to the Office Depot stack if the
+                customer’s preference is to remain on the OfficeMax platform. However, you must
+                still indicate the customer’s choice through the SFDC Disposition section and
+                work toward a renewal offer, as their agreement is expiring.</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">If you are renewing on the OfficeMax platform, you should still approach the
+                renewal with a focus to reduce/simplify or eliminate incentives/rebates, negotiate
+                out of problematic terms or requirements and remove any cost floors from the
+                pricing offer whenever possible.</span></li>
+                </ul>
+                </span>
+                
+                    
+                   <p><h1>2. How do I access my Customer Review and Transition Pipeline Report
+                      in SFDC?</h1></p>
+                   
+                <span style="font-family: Helvetica Light; font-size: 9pt; ">
+                <ul style="list-style-type:disc;font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Training materials are located in First Place (SAVO) and are readily available for
+                your use.</span></li>
+                </ul>
+                </span>
+                
+               <p><h1>3.  How will I know when my customer is set for possible transition? </h1></p>
+                <span style="font-family: Helvetica Light; font-size: 9pt; ">  
+                <ul style="list-style-type:disc;font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">The Customer Review and Transition Pipeline Report will allow you to review each
+                of your Written Agreement customers and when they are coming up for review.
+                Each Written Agreement customer has a specific review date that is set prior to
+                when their agreement will end.</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">When the review date arrives, you will be sent an email advising you to set an
+                appointment with the customer, and a WRF will be created on your behalf. You
+                will be required to set up the appointment and enter the Customer’s Disposition
+                decision in SFDC so that we know if we must move forward or take a different
+                action.</span></li>
+                </ul>
+                </span>
+                <p><h1>4.  What do I need to know now that my customer has been identified for
+                transition?</h1></p>
+                <span style="font-family: Helvetica Light; font-size: 9pt; ">  
+                <ul style="list-style-type:disc;font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">When you receive an email advising you to reach out to your Written Agreement
+                customer, an Implementation Manager will be assigned to work with you
+                throughout the entire process. That individual’s name will appear on the
+                Customer Transition Object in SFDC, so you will know whom to contact.</span></li>
+                </ul>
+                </span>
+         </div>
+      </td>
+   </tr>             
+ </table>
+ <br/><br/>
+  <table>
+       <tr  style="background-image: url({!$Resource.faq_header}); background-repeat:no-repeat; height:900px; width:700px;"> 
+           <td >
+               <div style=" padding-left: 180px; padding-right:55px; padding-top: 100px; padding-bottom: 15px;text-align:justify;">                
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <p><h1>5.  Is there a process that we need to follow?</h1></p>
+                <ul style="list-style-type:disc;font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Yes. As soon as you are notified that your customer is now ready for review, you
+                are required to speak with the customer and advise immediately, through the
+                SFDC Disposition section, what choice the customer has made. The following are
+                the disposition choices:</span></li>
+                </ul>
+                <ul style="list-style-type:disc;font-size: 9pt;padding-left: 50px;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Customer agrees to the migration</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Account already transitioned (Comments box will open —
+                please provide the ODP account number)</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Customer going to RFP</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Customer requests delay (Comments box will open -
+                please provide new review date)</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Customer requests earlier transition date (Comments
+                box will open — please provide new review date)</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Extend current OMX contract</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Lost account</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Not My Account (your manager must reassign the account in TOPS)</span></li>
+                </ul>
+                </span>
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <p><h1>6.  Where is the training for how to provide the customer disposition?</h1></p>   
+                <ul style="list-style-type:disc; font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">All training material is located in First Place (SAVO)</span></li>
+                </ul>
+                </span>
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <p><h1>7.   What is the single most important thing to communicate to our
+                customer?</h1></p>   
+                <ul style="list-style-type:disc; font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">The single most important thing that our customers need to know is that
+                transitioning is simple, and their customer experience will be much better. The
+                entire Office Depot team is committed to flawless implementation and execution
+                on their behalf. We’ve got the tools and the know-how to build a customized plan
+                that proceeds with the timing and resources that are best for each customer.
+                Throughout this transition, it’s business as usual, and customers can expect
+                the same great service and support.</span></li>
+                </ul>
+                </span> 
+
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <p><h1>8.   How can we achieve successful communication?</h1></p>   
+                <ul style="list-style-type:disc; font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">By consistently following our Communications Framework, we will present
+                professional, well-planned messaging to each customer and key stakeholders.
+                Achieving communication success during customer transitions means that
+                we have:</span></li>
+                </ul>
+                <ol style="list-style-type: upper-roman; font-size: 9pt;padding-left: 50px; ">
+                <li>Addressed possible concerns about the transition</li>
+                <li>Set their expectations of what is to come</li>
+                <li>Prepared them for the changes</li>
+                <li>Paved the way toward a seamless, positive customer experience</li>
+                </ol>
+                </span>  
+                        
+        </div>
+      </td>
+   </tr>             
+ </table>
+ <br/><br/>
+  <table>
+       <tr  style="background-image: url({!$Resource.faq_header}); background-repeat:no-repeat; height:880px; width:710px;"> 
+           <td >
+               <div style=" padding-left: 180px; padding-right:55px; padding-top: 110px; padding-bottom: 10px;text-align:justify;">                
+                <p><h1>9.   What is my role as account manager?</h1></p>   
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <ul style="list-style-type:disc; font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Ultimately, your role is to serve as the customer advocate and pave the way
+                toward a positive customer experience. You should also be prepared to:</span></li>
+                </ul>
+                <ol style="list-style-type: upper-roman; font-size: 9pt;padding-left: 50px; ">
+                <li>Help set appropriate customer expectations</li>
+                <li>Facilitate the flow of information between the customer and implementation
+                team</li>
+                </ol>
+                </span> 
+                
+                <p><h1>10.  With whom do I set up this meeting?</h1></p>   
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <ul style="list-style-type:disc; font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Ideally, you will set up this meeting with the highest level of management within
+                the customer’s business. The VP of Procurement is always an ideal person to
+                work with during the transition. However, there are always other stakeholders in
+                this effort, such as Accounts Payable and IT Resources to name a few.</span></li>
+                </ul>
+                </span> 
+                
+                <p><h1>11.  Who will manage the customer’s implementation?</h1></p>   
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <ul style="list-style-type:disc;font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">A dedicated implementation project manager has been assigned to your
+                customer’s business, and our entire implementation team is there to ensure that
+                he/she has the best customer experience possible. Our team of experts has
+                experience with large and small customers across a variety of industries. They’re
+                PMI certified with an average tenure of 14 years, and they have successfully
+                execute transitions for more than 700 accounts per year.</span></li>
+                </ul>
+                </span>  
+                 
+                <p><h1>12.  How can I find out who my Implementation Manager is?</h1></p>   
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <ul style="list-style-type:disc;font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">You simply go in to SFDC, enter your customer account number, click on the
+                Transition Tab and check for the name of the Implementation Manager for the
+                account. If, for some reason, that information is not present, THEN you would
+                contact Laura Hammer (817) 358-3036 or Barb Peterson (513) 319-4099.</span></li>
+                </ul>
+                </span>
+                
+               <p><h1>13.  How should we handle questions from the customer?</h1></p>   
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <ul style="list-style-type:disc;font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">We should address customer questions using an open, honest and customerfocused
+                approach. All customer communication should be personal, friendly and
+                conversational, but still professional. Remember, we’re working from a leadership
+                position and delivering positive news. More importantly, if you don’t know the
+                answer to a question, always advise the customer that you will get an answer and
+                then immediately contact your Manager for guidance.</span></li>
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">When speaking with a customer, your tone should be:</span></li>
+                </ul>
+                <ol style="list-style-type: upper-roman; font-size: 9pt;padding-left: 50px;">
+                <li>Personal</li>
+                <li>Calm and confident</li>
+                <li>Warm and welcoming</li>
+                <li>Customer-focused and benefit-oriented</li>
+                <li>Open, transparent</li>
+                <li>Authentic</li>
+                <li>Optimistic and positive, without appearing overconfident or stiff</li>
+                </ol>
+                </span>
+        </div>
+      </td>
+   </tr>             
+ </table>
+ <br/><br/>
+ <br/><br/>
+ <br/><br/>
+  <table>
+       <tr  style="background-image: url({!$Resource.faq_header}); background-repeat:no-repeat; height:880px; width:700px;"> 
+           <td >
+               <div style=" padding-left: 180px; padding-right:55px; padding-bottom: 250px;padding-top: 5px; text-align:justify;">                
+                           
+                <p><h1>14.  What can I expect to see from Marketing?</h1></p>   
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <ul style="list-style-type:disc;font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">Marketing has worked with the Implementation Team to develop a
+                communications process flow, a framework and standards for communicating
+                with customers, and key communications pieces designed for specific
+                audiences. A digital welcome packet will contain a variety of communications to
+                make sure that the right stakeholders are pre-informed about what they’ll
+                experience. For example, Receiving may need to be notified of a different
+                delivery driver, and Finance/Accounts Payable will receive information regarding
+                a modified invoice that now includes the Office Depot logo. This is important
+                information to ensure a smooth transition.</span></li>
+                </ul>
+                </span> 
+                 
+                <p><h1>15.  Who is available to answer questions if I am unable to determine if my
+                customer is going to be given a review date or if my customer wishes
+                to change something?</h1></p>   
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                <ul style="list-style-type:disc;font-size: 9pt;">
+                <li><span style="font-family: Helvetica Light; font-size: 9pt; ">If you have any questions regarding the new Customer Review and Transition
+                Pipeline Report, please email <a href="mailto:webmaster@example.com">customertransitionrequests@officedepot.com.</a></span></li>
+                </ul>                
+                </span>  
+
+     </div>
+    </td>
+   </tr>             
+ </table>
+ <!--<br/><br/>
+  <table>
+       <tr  style="background-image: url({!$Resource.faq_header}); background-repeat:no-repeat; height:900px; width:700px;"> 
+           <td >
+               <div style=" padding-left: 180px; padding-right:55px; padding-top: 100px; padding-bottom: 15px;text-align:justify;">                
+                           
+                 
+                <p><h1>16.  What can I expect to see from Marketing?</h1></p>   
+                <span style="font-family: Helvetica Light; font-size: 9pt; "> 
+                Marketing has worked with the John Rogers Transition Team to develop a communications process flow, 
+                a framework and standards for communicating with customers, and key communications pieces designed for 
+                specific audiences. A digital welcome packet will contain a variety of communications to make sure that 
+                the right stakeholders are preinformed about what they’ll experience. For example, Receiving may need to
+                be notified of a different delivery driver, and Finance/ Accounts Payable will receive information regarding
+                a modified invoice that now includes the Office Depot logo. This is important information to ensure a smooth
+                transition. (See examples below.)</span>  
+                 <p><span style="font-family: Helvetica Light; font-size: 9pt;color : red "> 
+                Recommended New Marketing Communications Vehicles</span>                         
+                </p>  
+                 <p><table><tr><td><span style="font-family: Helvetica; font-size: 9pt;color : black ;"> 
+                Communications Framework</span> <br/>
+                 <img src="{!$Resource.comm_fw}" height="140px" width="200px"></img>  
+                  </td><td><span style="font-family: Helvetica; font-size: 9pt;color : black ;"> 
+                Email Example</span> <br/>
+                 <img src="{!$Resource.email_example}" height="250px" width="120px"></img> 
+                  </td></tr><tr><td><span style="font-family: Helvetica; font-size: 9pt;color : black ;"> 
+                Communications Process Flow</span> <br/>
+                 <img src="{!$Resource.comm_process}" height="160px" width="280px"></img></td></tr></table>                                 
+                </p>              
+</div>
+                           </td>
+     </tr>
+  </table >-->
+  
+  </body>
+ 
+ </apex:page>

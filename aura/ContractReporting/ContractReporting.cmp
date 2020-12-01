@@ -1,0 +1,257 @@
+<aura:component controller="CSFController" implements="force:appHostable,lightning:availableForFlowScreens,force:hasRecordId,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="recId" type="String" access="Global" />
+    <aura:attribute name="fields" type="Object" access="Global" />
+    <aura:attribute name="error" type="String" access="Global" /> 
+    <aura:attribute name="objInfo" type="Contract" default="{sobjectType : 'Contract'}" />
+    <aura:attribute name="PicklistOptions" type="List" default="[]"/>
+    <aura:attribute name="PenaltyPickListValues" type="List" default="[]"/>
+    <aura:attribute name="YesCheckBoxValues" type="List" default="[]"/>
+    <aura:attribute name="PerfomanceText3" type="String"/>
+    <aura:attribute name="PerfomanceText2" type="String"/>
+    <aura:attribute name="PerfomanceText1" type="String"/>
+    <force:recordData aura:id="forceRecordCmp"
+                      recordId="{!v.recordId }"
+                      layoutType="FULL"
+                      fields="Name,TextBox_1__c,TextBox_2__c,TextBox_3__c,TextBox_3_Yes__c,TextBox_2_Yes__c,TextBox_1_Yes__c,TextBox_3_Penalty__c,TextBox_2_Penalty__c,TextBox_1_Penalty__c,Penalty_for_not_meeting__c,Performance_Notification_Requirements__c,Lang_in_contract_for_Perf_Notif_Requirem__c,Reporting_Requirements_In_Legal_Agreemen__c,Reporting_Penalties_for_late_reports__c,Report_Frequency__c,Report_Frequency_Other__c"
+                      mode="VIEW"
+                      targetFields="{!v.fields}"
+                      targetError="{!v.error}"
+                      recordUpdated="{!c.doInit}"/>
+    <div class="slds-box">
+        <lightning:recordViewForm recordId= "{!v.recordId}" objectApiName="Contract">
+            <lightning:messages />
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+			<Label class="slds-form-element__label">Account Name</Label>
+                            </span>
+                </div>
+                
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="AccountId" variant="label-hidden"/>
+                            </span>
+                    </div>
+                    
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Customer ID</Label>
+                            </span>
+                        </div>
+                       
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Customer_ID__c" variant="label-hidden"/>
+                            </span>
+                            </div>
+                        </div>
+            <br></br>
+            <!-- Reporting -->
+            <h3 class="slds-section-title--divider"><b>Reporting</b></h3>
+            <br></br>
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+			<Label class="slds-form-element__label">Reporting requirements in legal agreement?</Label>
+                            </span>
+                </div>
+                  <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <lightning:outputField fieldName="Reporting_Requirements_In_Legal_Agreemen__c" variant="label-hidden"/>
+                      </span>
+                </div>
+                  
+            <aura:if isTrue="{!v.fields.Reporting_Requirements_In_Legal_Agreemen__c =='Yes'}">
+				  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Reporting Requirements:</Label>
+                      </span>
+                </div>
+                  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Reporting_Requirements__c" variant="label-hidden"/>
+                      </span>
+                </div>
+                <aura:if isTrue="{!v.fields.Reporting_Requirements__c =='OTHER'}">
+                      <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Other reporting type</Label>
+                          </span>
+                    </div>
+                      <div class="slds-col slds-size_6-of-12">
+                            <span>
+			<lightning:outputField fieldName="Other_reporting_type__c" variant="label-hidden"/>
+                          </span>
+                    </div>
+            </aura:if>
+				  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Report Description (all Reporting Requirements):</Label>
+                      </span>
+                </div>
+                  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Report_Description__c" variant="label-hidden"/>
+                      </span>
+                </div>
+                  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Are there reporting penalties for late reports?</Label>
+                      </span>
+                </div>
+                  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Reporting_Penalties_for_late_reports__c" variant="label-hidden"/>
+                      </span>
+                </div>
+                <aura:if isTrue="{!v.fields.Reporting_Penalties_for_late_reports__c =='Yes'}">
+                      <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Other Report Penalties Description:</Label>
+                          </span>
+                    </div>
+                      <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Other_Report_Penalties_Description__c" variant="label-hidden"/>
+                          </span>
+                    </div>
+                          </aura:if>
+              <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Report frequency</Label>
+                  </span>
+                </div>
+                  <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <lightning:outputField fieldName="Report_Frequency__c" variant="label-hidden"/>
+                      </span>
+                </div>
+                
+                <aura:if isTrue="{!v.fields.Report_Frequency__c =='Other'}">
+                      <div class="slds-col slds-size_6-of-12">
+                            <span>
+                <Label class="slds-form-element__label">Report frequency (Other):</Label>
+                          </span>
+                    </div>
+                      <div class="slds-col slds-size_6-of-12">
+                            <span>
+				<lightning:outputField fieldName="Report_Frequency_Other__c" variant="label-hidden"/>
+                          </span>
+                    </div>
+                </aura:if>
+                
+            </aura:if>
+            
+            </div>
+            <br></br>
+            
+            <!-- Performance Requirements   -->
+            <h3 class="slds-section-title--divider"><b>Performance Requirements</b></h3>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title=""></div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Yes">Yes</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Penalty for not meeting?">Penalty for not meeting?</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.PicklistOptions}" var="item" indexVar="index">
+                        <tr class="slds-hint-parent">
+                            <th scope="row">
+                                <div>
+                                    <ui:inputText value="{!item.PickListVal}" disabled="true"/>
+                                </div>
+                            </th>
+                            
+                            <td>
+                                <div >
+                                    <ui:outputCheckBox aura:id="{!index}" value="{!item.YesCheckBox}"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <ui:outputCheckBox aura:id="{!index}" value="{!item.PenaltyCheckBox}"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                    
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <ui:inputText aura:id="OtherRowText1" value="{!v.fields.TextBox_1__c}" disabled="true"/>
+                        </th>
+                        
+                        <td>
+                            <div >
+                                <ui:outputCheckBox aura:id="OtherRowCheckbox1" value="{!v.fields.TextBox_1_Yes__c}"/>
+                            </div>
+                        </td>
+                        <td>
+                            <div  >
+                                <ui:outputCheckBox aura:id="OtherRowPenalty1" value="{!v.fields.TextBox_1_Penalty__c}"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" >
+                                <ui:inputText aura:id="OtherRowText2" value="{!v.fields.TextBox_2__c}" disabled="true"/>
+                            </div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate">
+                                <ui:outputCheckBox aura:id="OtherRowCheckbox2" value="{!v.fields.TextBox_2_Yes__c}"/>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >
+                                <ui:outputCheckBox aura:id="OtherRowPenalty2" value="{!v.fields.TextBox_2_Penalty__c}"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" >
+                                <ui:inputText aura:id="OtherRowText3" value="{!v.fields.TextBox_3__c}" disabled="true"/>
+                            </div>
+                        </th>
+                        <td>
+                            <div class="slds-truncate">
+                                <ui:outputCheckBox aura:id="OtherRowCheckbox3" value="{!v.fields.TextBox_3_Yes__c}"/>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >
+                                <ui:outputCheckBox aura:id="OtherRowPenalty3" value="{!v.fields.TextBox_3_Penalty__c}"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            
+            <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+            <Label class="slds-form-element__label">Language in contract for performance requirements</Label>
+                            </span>
+                </div>
+              
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <lightning:outputField fieldName="Lang_in_contract_for_Perf_Notif_Requirem__c" variant="label-hidden"/>
+                            </span>
+                </div>
+            </div>
+        </lightning:recordViewForm>
+    </div>
+    
+</aura:component>

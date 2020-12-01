@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that their request is below the threshold - Pricing Strategy</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF &lt;24k Pricing Strategy</name>
+    <style>freeForm</style>
+    <subject>WRF Unable to Process: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+Thank you for your Work Request submission for {!Case.Account}.
+
+
+Unfortunately, this particular request falls under the threshold for us to assign an analyst.
+
+
+Please contact the following for assistance with your request:
+
+
+For new prospects and SFDC users, use the Self Service Pricing Tool for &lt;$24k and choose Elite, Premier, or Custom.
+
+For current customers and non-SFDC users, send request to the TDR Pricing Request email box.
+
+
+Thank you,
+
+BSD BIDS</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

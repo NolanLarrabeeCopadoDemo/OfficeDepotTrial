@@ -1,0 +1,218 @@
+<apex:page sidebar="false" showHeader="false"  Controller="FieldRep_AccountSalesHistoryExtension" readOnly="true">
+  <style>
+       
+  
+      th { 
+        font-size:90%;
+            font-weight:bold 
+             
+            }
+       
+        .redChar{
+            color: #117822;
+  font-size:90%;
+            font-weight:bold         
+        }
+        </style>
+        <apex:form >
+        <table>
+            <tr>
+              <td> <apex:outputLabel ><b>{!$Label.Select_User_lbl}</b></apex:outputLabel> &nbsp;&nbsp;&nbsp;&nbsp; </td>
+              <td> <apex:inputField value="{!dummyAccount.OwnerId}" /> </td>
+              <td> <apex:commandButton value="{!$Label.Refresh_lbl}" action="{!AccountsRefresh}" ></apex:commandButton></td>
+            </tr>
+        </table> 
+        <br/>  
+    <apex:pageBlock >   
+    
+          
+    
+                    <table class="list" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="Month Stats" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="Rev" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="IMU%" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="MTD TY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement" ><apex:outputText style="font-size:90%;" value="{0, Number,$#,###}">
+                            <apex:param value="{!siteAccountHistory.MTD_Sales_TY}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;"  value="{0, Number, #%}">
+                            <apex:param value="{!siteAccountHistory.MTD_Sales_TY_IMU2}"/></apex:outputText></td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="MTD LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                             <apex:param value="{!siteAccountHistory.MTD_Sales_LY}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, ##0.##%}">
+                             <apex:param value="{!siteAccountHistory.MTD_Sales_LY_IMU2}"/></apex:outputText></td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="MTD Diff" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.MTD_Sales_Diff}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="------" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="Monthly LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                             <apex:param value="{!siteAccountHistory.Monthly_LY}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, ##0.##%}">
+                             <apex:param value="{!siteAccountHistory.Monthly_LY_IMU_Per}"/></apex:outputText></td>
+                        </tr>
+                       
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="ADS for Current Month" />
+                            
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                             <apex:param value="{!siteAccountHistory.ADS_Current_Month}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="------" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even last">
+                            <td><apex:outputText value="ADS for Last Month" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.ADS_Last_Month}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="------" />
+                            </td>
+                        </tr>
+                    </table>
+
+
+<br></br>
+                
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="Quarter Stats" />
+                            </th>
+                            <th class="CurrencyElement" ><apex:outputText value="Rev" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="IMU%" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="QTD TY" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.QTD_Sales_TY}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, ##0.##%}">
+                            <apex:param value="{!siteAccountHistory.QTD_Sales_TY_IMU2}"/></apex:outputText></td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="QTD LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.QTD_Sales_LY}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, ##0.##%}">
+                            <apex:param value="{!siteAccountHistory.QTD_Sales_LY_IMU2}"/></apex:outputText></td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="QTD Diff" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                             <apex:param value="{!siteAccountHistory.QTD_Sales_Diff}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="------" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="Quarter LY" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                             <apex:param value="{!siteAccountHistory.Quarter_LY}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, ##0.##%}">
+                             <apex:param value="{!siteAccountHistory.Quarter_LY_IMU_per}"/></apex:outputText></td>
+                        </tr>
+                       
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="ADS for Current Qtr" />
+                            
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.ADS_Current_Qtr}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="------" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even last">
+                            <td><apex:outputText value="ADS for Last Qtr" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.ADS_Last_Qtr}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="------" />
+                            </td>
+                        </tr>
+                    </table>
+
+<br></br>
+               
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="headerRow">
+                            <th><apex:outputText value="Year Stats" />
+                            </th>
+                            <th class="CurrencyElement" ><apex:outputText value="Rev" />
+                            </th>
+                            <th class="CurrencyElement"><apex:outputText value="IMU%" />
+                            </th>
+                        </tr>
+                        <tr class="dataRow even first">
+                            <td><apex:outputText value="YTD TY" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.YTD_Sales_TY}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, ##0.##%}">
+                            <apex:param value="{!siteAccountHistory.YTD_Sales_TY_IMU2}"/></apex:outputText></td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="YTD LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.YTD_Sales_LY}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, ##0.##%}">
+                            <apex:param value="{!siteAccountHistory.YTD_Sales_LY_IMU2}"/></apex:outputText></td>
+                        </tr>
+                        <tr class="dataRow even">
+                            <td><apex:outputText value="YTD Diff" />
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.YTD_Sales_Diff}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="------" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="Year LY" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.Year_LY}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, ##0.##%}">
+                            <apex:param value="{!siteAccountHistory.Year_LY_IMU_per}"/></apex:outputText></td>
+                        </tr>
+                      
+                        <tr class="dataRow odd">
+                            <td><apex:outputText value="ADS for Current Yr" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                             <apex:param value="{!siteAccountHistory.ADS_Current_Yr}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="------" />
+                            </td>
+                        </tr>
+                        <tr class="dataRow even last">
+                            <td><apex:outputText value="ADS for Last Yr" /> 
+                            </td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="{0, Number, $#,###}">
+                            <apex:param value="{!siteAccountHistory.ADS_Last_Yr}"/></apex:outputText></td>
+                            <td class=" dataCell  CurrencyElement"><apex:outputText style="font-size:90%;" value="------" />
+                            </td>
+                        </tr>
+                    </table>       
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

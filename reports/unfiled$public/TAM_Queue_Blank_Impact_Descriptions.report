@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filter>
+        <criteriaItems>
+            <column>OWNER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>TAM Solutions</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.IT_Impact__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Outside_Support_Rep__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Kristina Widner,Phyllis Phipps,Nicole Ball,Phillip Gracik,Cathy Armstrong,Andrea Mcfarlane,Jim King,April Morrison,Jason Davis,Tracy Creger,Vickie Hall,Stephanie Burks,Lisa Steele,Rachel Addison,Helen Lyall,Julie Mcreynolds</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>FiscalWeek</dateGranularity>
+        <field>CREATED_DATE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Case.IT_Impact__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>TAM Queue Blank Impact Descriptions</name>
+    <params>
+        <name>units</name>
+        <value>h</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <endDate>2018-12-29</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2018-05-21</startDate>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account  Setup - ePro</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>ePro Email</name>
+    <style>freeForm</style>
+    <subject>eProcurement - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Customer Info:Customer Name: 
+
+{!Account_Setup_Request__c.Account__c}Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}Created Date:  {!Account_Setup_Request__c.CreatedDate}Owner: {!Account_Setup_Request__c.OwnerFullName}
+
+ePro Information:
+Using eProcurement System?: {!Account_Setup_Request__c.Using_Customer_eProcurement_system__c}
+Billed via EDI or Electronic Email/FTP?: {!Account_Setup_Request__c.billed_via_EDI_or_electronic_email_FTP__c} 
+Current ERP Platform: {!Account_Setup_Request__c.00NE0000000Lhod}
+EDI or Punch Out: {!Account_Setup_Request__c.EDI_or_Punch_Out__c}
+Contact eMail EB Setup: {!Account_Setup_Request__c.00NE0000000Lhnq}
+Contact Person for EB Setup: {!Account_Setup_Request__c.00NE0000000Lhnn}
+Contact Phone for EB Setup: {!Account_Setup_Request__c.00NE0000000Lhno}
+Contact Title: {!Account_Setup_Request__c.00NE0000000Lhnp}
+Process for handling invoice exceptions: {!Account_Setup_Request__c.00NE0000000LhqS}
+
+Salesforce Link to Records:
+Salesforce Account Setup Request Record:  https://cs7.salesforce.com/{!Account_Setup_Request__c.Id}
+Salesforce Account Record: https://cs7.salesforce.com/{!Account_Setup_Request__c.AccountId__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

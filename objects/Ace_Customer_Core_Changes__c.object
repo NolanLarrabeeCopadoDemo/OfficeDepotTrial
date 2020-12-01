@@ -1,0 +1,1290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Price Change Process UI</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>ACE_Customer_Price_Changes__c</fullName>
+        <externalId>false</externalId>
+        <label>Batch</label>
+        <referenceTo>ACE_Customer_Price_Changes__c</referenceTo>
+        <relationshipLabel>Customer Core Changes</relationshipLabel>
+        <relationshipName>Ace_Customer_Core_Changes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Approved_Proposed_Price__c</fullName>
+        <description>Rollup of price to be used in IGM % calculations</description>
+        <externalId>false</externalId>
+        <label>New Price</label>
+        <summarizedField>Ace_Customer_SKU_Changes__c.Approved_Proposed_Price__c</summarizedField>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $ 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $ 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $ 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $ 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cap_Lost_Margin_Dollar__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Cap Lost Margin Dollar $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CoreID__c</fullName>
+        <externalId>true</externalId>
+        <label>CoreID</label>
+        <length>100</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Core_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Core Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Margin_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Margin_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Margin_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Margin_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Margin__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Current Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Current_Sell_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Aggregate of the Current Sell Price</description>
+        <externalId>false</externalId>
+        <label>Current Sell Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Forecasted_Spend_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Forecasted Spend 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Forecasted_Spend_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Forecasted Spend 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Forecasted_Spend_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Forecasted Spend 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Forecasted_Spend_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Forecasted Spend 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Gross_IGM_Basis_Point_Increase__c</fullName>
+        <externalId>false</externalId>
+        <formula>New_Gross_IGM1__c-Old_Gross_IGM1__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gross IGM Basis Point Increase</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Item_12_Month_Qty__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sold Qty for this Core, Last 12 calendar months from current date
+Same Time Period as of Sales</description>
+        <externalId>false</externalId>
+        <label>Item 12 Month Qty</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Item_12_Month_Sales__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Vendavo PA</description>
+        <externalId>false</externalId>
+        <label>Item 12 Month Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Item_3_Month_Qty__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sold Qty for this Core, Last 3 calendar months from current date
+Same Time Period as of Sales</description>
+        <externalId>false</externalId>
+        <label>Item 3 Month Qty</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Item_3_Month_Sales__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sales for this Core, Last 3 calendar months from current date</description>
+        <externalId>false</externalId>
+        <label>Item 3 Month Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Item_6_Month_Qty__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sold Qty for this Core, Last 6 calendar months from current date
+Same Time Period as of Sales</description>
+        <externalId>false</externalId>
+        <label>Item 6 Month Qty</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Item_6_Month_Sales__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Vendavo PA</description>
+        <externalId>false</externalId>
+        <label>Item 6 Month Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Item_9_Month_Qty__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Accumulated SKU Sold Qty for this Core, Last 9 calendar months from current date
+Same Time Period as of Sales</description>
+        <externalId>false</externalId>
+        <label>Item 9 Month Qty</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Item_9_Month_Sales__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Vendavo PA</description>
+        <externalId>false</externalId>
+        <label>Item 9 Month Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_Exposure_before_change__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Margin Exposure (before change)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Margin_wo_Change_WAPO__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Current_Sell_Price__c = 0,Current_Sell_Price__c = null) , 0,(Current_Sell_Price__c-New_WAPO_Cost__c)/Current_Sell_Price__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Margin w/o Change WAPO</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Margin_wo_Change_WATD__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Current_Sell_Price__c = 0,Current_Sell_Price__c = null) , 0, (Current_Sell_Price__c-New_WATD_Cost__c)/Current_Sell_Price__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Margin w/o Change WATD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>New_Gross_IGM1_Rollup_Dollar__c</fullName>
+        <description>New_Gross_IGM1_Rollup_Dollar</description>
+        <externalId>false</externalId>
+        <label>New_Gross_IGM1_Rollup_Dollar</label>
+        <summarizedField>Ace_Customer_SKU_Changes__c.New_Gross_IGM__c</summarizedField>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Update_Timing_Action__c</field>
+            <operation>equals</operation>
+            <value>T</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>New_Gross_IGM1_Rollup_Percent__c</fullName>
+        <description>New_Gross_IGM1_Rollup_Percent</description>
+        <externalId>false</externalId>
+        <label>New_Gross_IGM1_Rollup_Percent</label>
+        <summarizedField>Ace_Customer_SKU_Changes__c.New_Gross_IGM1__c</summarizedField>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Update_Timing_Action__c</field>
+            <operation>equals</operation>
+            <value>T</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>New_Gross_IGM1__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Approved_Proposed_Price__c = 0,Approved_Proposed_Price__c = null) , 0, (New_Gross_IGM__c / Approved_Proposed_Price__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>New Gross IGM %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>New_Gross_IGM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New Gross IGM $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_IGM_Change__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New IGM $ Change</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_List_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Aggregate of the List price</description>
+        <externalId>false</externalId>
+        <label>New List Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_Sell_Price_Dollar_Change_Amount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>New Sell Price Dollar $ Change Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_Sell_Price_Percentage_Change_Amoun__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Current_Sell_Price__c = 0,Current_Sell_Price__c = null) , 0, New_Sell_Price_Dollar_Change_Amount__c/Current_Sell_Price__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>New Sell Price % Change Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>New_WAPO_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Aggregate of New WAPO Cost</description>
+        <externalId>false</externalId>
+        <label>New WAPO Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>New_WATD_Cost__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This holds the aggregate of the New WATD Cost</description>
+        <externalId>false</externalId>
+        <label>New WATD Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>NoOfSKUGovernedByActiveWrittenAgreement__c</fullName>
+        <externalId>false</externalId>
+        <label># of Skus Governed By Active WA</label>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.SKU_Governed_By_Active_Written_Agreement__c</field>
+            <operation>equals</operation>
+            <value>Y</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Update_Timing_Action__c</field>
+            <operation>equals</operation>
+            <value>T</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Old_Gross_IGM1__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Current_Sell_Price__c = 0,Current_Sell_Price__c = null) , 0, Old_Gross_IGM__c/Current_Sell_Price__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Old Gross IGM</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Old_Gross_IGM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old Gross IGM $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Old_WAPO_Margin1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old WAPO Margin $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Old_WAPO_Margin__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Current_Sell_Price__c = 0,Current_Sell_Price__c = null) , 0, Old_WAPO_Margin1__c/Current_Sell_Price__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Old WAPO Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Old_WAPO__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This is a aggregate of the Old WAPO Cost</description>
+        <externalId>false</externalId>
+        <label>Old WAPO</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Old_WATD_SRM1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Old WATD SRM $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Old_WATD_SRM__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Current_Sell_Price__c = 0,Current_Sell_Price__c = null) , 0, Old_WATD_SRM1__c/Current_Sell_Price__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Old WATD SRM</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Old_WATD__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This is a aggregate of Old WATD cost</description>
+        <externalId>false</externalId>
+        <label>Old WATD</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Margin__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Projected Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_New_List_Less_Disc_Without_Cap__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(New_List_Price__c = 0,New_List_Price__c = null) , 0, (New_List_Price__c - Approved_Proposed_Price__c)/New_List_Price__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proposed New List Less Disc w/o Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_Price_Without_Cap__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Proposed Price Without Cap - Aggregate</description>
+        <externalId>false</externalId>
+        <label>Proposed Price Without Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_Price_with_Cap__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Aggrigate of the Proposed Price with Cap</description>
+        <externalId>false</externalId>
+        <label>Proposed Price with Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_SRM_with_Cap1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Proposed SRM $ with Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_SRM_with_Cap__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Approved_Proposed_Price__c = 0,Approved_Proposed_Price__c = null) , 0, Proposed_SRM_with_Cap1__c/Approved_Proposed_Price__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proposed SRM with Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_WAPO_Margin_with_Cap1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Proposed WAPO Margin $ with Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Proposed_WAPO_Margin_with_Cap__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Approved_Proposed_Price__c = 0,Approved_Proposed_Price__c = null) , 0, Proposed_WAPO_Margin_with_Cap1__c/Approved_Proposed_Price__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proposed WAPO Margin with Cap</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Remediation_Hold__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This flag if marked true will not allow data to be released to vendavo. The flag will be unset when the data is loaded back in by remediation team.</description>
+        <externalId>false</externalId>
+        <label>Remediation Hold</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Report_New_Gross_IGM_ACE__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Used in Reports</description>
+        <externalId>false</externalId>
+        <label>Report New Gross IGM ACE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Report_SKU_Count__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This field gets populated from batch process and does not get updated.</description>
+        <externalId>false</externalId>
+        <label>Report SKU Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Report_Total_Spend_Impact_12_Month_ACE__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>Used in Reports</description>
+        <externalId>false</externalId>
+        <label>Report Total Spend Impact 12 Month ACE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Report_Total_Spend_Impact_12_Month_C_Typ__c</fullName>
+        <description>Report filed for Revenue&amp; Margin Report for C,M types</description>
+        <externalId>false</externalId>
+        <label>Report_Total_Spend_Impact_12_Month_C_Typ</label>
+        <summarizedField>Ace_Customer_SKU_Changes__c.Report_Total_Spend_Impact_12_Month_ACE__c</summarizedField>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Price_Change_Type__c</field>
+            <operation>equals</operation>
+            <value>C</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Report_Total_Spend_Impact_12_Month_M_Typ__c</fullName>
+        <description>Report Field for SKU of change type &apos;M&apos; type</description>
+        <externalId>false</externalId>
+        <label>Report_Total_Spend_Impact_12_Month_M_Typ</label>
+        <summarizedField>Ace_Customer_SKU_Changes__c.Report_Total_Spend_Impact_12_Month_ACE__c</summarizedField>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Price_Change_Type__c</field>
+            <operation>equals</operation>
+            <value>M</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Field_MarkDown__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Reporting Erosion Field MarkDown</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Margin_CAP__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Reporting Erosion Margin CAP</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Margin_Field_MarkDown__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Reporting Erosion Margin Field MarkDown</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Margin__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Reporting Erosion Margin</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Revenue_CAP__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Reporting Erosion Revenue CAP</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Erosion_Revenue__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Reporting Erosion Revenue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_ExposureDaysEarly_Sale_Erosion__c</fullName>
+        <externalId>false</externalId>
+        <label>Reporting ExposureDaysEarly Sale Erosion</label>
+        <summarizedField>Ace_Customer_SKU_Changes__c.Reporting_ExposureDaysEarly_Sale_Erosion__c</summarizedField>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Update_Timing_Action__c</field>
+            <operation>equals</operation>
+            <value>T</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Exposure_Days_Initial__c</fullName>
+        <externalId>false</externalId>
+        <label>Reporting Exposure Days Initial</label>
+        <summarizedField>Ace_Customer_SKU_Changes__c.Reporting_Exposure_Days_Initial__c</summarizedField>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Update_Timing_Action__c</field>
+            <operation>equals</operation>
+            <value>T</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Reporting_Exposure_Days_Sale_Erosion__c</fullName>
+        <externalId>false</externalId>
+        <label>Reporting Exposure Days Sale Erosion</label>
+        <summarizedField>Ace_Customer_SKU_Changes__c.Reporting_Exposure_Days_Sale_Erosion__c</summarizedField>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Update_Timing_Action__c</field>
+            <operation>equals</operation>
+            <value>T</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>SKU_Revenue_Impact__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU Revenue Impact</label>
+        <summarizedField>Ace_Customer_SKU_Changes__c.Price_Exception_Revenue_Impact__c</summarizedField>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Approval_status__c</field>
+            <operation>equals</operation>
+            <value>Pending</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Update_Timing_Action__c</field>
+            <operation>equals</operation>
+            <value>T</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>SKUcount__c</fullName>
+        <externalId>false</externalId>
+        <label>SKU Count</label>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Status__c</field>
+            <operation>notEqual</operation>
+            <value>Inactive</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Ace_Customer_SKU_Changes__c.Update_Timing_Action__c</field>
+            <operation>equals</operation>
+            <value>T</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Ace_Customer_SKU_Changes__c.Ace_Customer_Core_Changes__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>SRM_Basis_Point_Increase__c</fullName>
+        <externalId>false</externalId>
+        <formula>Proposed_SRM_with_Cap__c-Old_WATD_SRM__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SRM Basis Point Increase</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>SRM_Differential__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>SRM Differential $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Spend_Impact_12_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Spend Impact 12 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Spend_Impact_3_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Spend Impact 3 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Spend_Impact_6_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Spend Impact 6 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Spend_Impact_9_Month__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Spend Impact 9 Month</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>WAPO_Cost_Change__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Old_WAPO__c = 0,Old_WAPO__c = null) , 0, (New_WAPO_Cost__c-Old_WAPO__c)/Old_WAPO__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>WAPO Cost Change</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>WATD_Cost_Change1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>WATD Cost $ Change</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>WATD_Cost_Change__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(Old_WATD__c = 0,Old_WATD__c = null) , 0, (New_WATD_Cost__c-Old_WATD__c)/Old_WATD__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>WATD Cost Change</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>batchId__c</fullName>
+        <externalId>false</externalId>
+        <label>batchId</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Customer Core Changes</label>
+    <nameField>
+        <label>Core</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Customer Core Changes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

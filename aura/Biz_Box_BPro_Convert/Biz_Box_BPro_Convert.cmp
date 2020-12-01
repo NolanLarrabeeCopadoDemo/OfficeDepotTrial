@@ -1,0 +1,198 @@
+<!--
+    On a record page for a lead, Pull the Lead ID. Use the Lead ID to get the Owner of the lead.
+    The RecordType of the created Prospect and Contact will be defaulted to that of the Owner of the lead.
+
+    The Person Converting the Lead should be able to assign the owner of the lead prior to conversion. This assignment
+    will change the default recordtypes of the prospect to the that of the new owner.
+ -->
+
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" controller="BizBox_BusPro_Lead_Convert_Aura">
+    <aura:attribute name="ConvertStartButtonPressed" type="Boolean" default="false"/>
+    <aura:attribute name="ConvertCommitButtonPressed" type="Boolean" default="false"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute type="Account" name="ConvertedAccount"/>
+    <aura:attribute name="ConvertedContact" type="Contact"/>
+    <aura:attribute name="MyLead" type="Lead"/>
+    <aura:attribute name="IsConverted" type="Boolean" default="false"/>
+    <aura:attribute name="ErrorMessage" type="String"/>
+    <aura:attribute name="SubmissionInProgress" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.myInit}"/>
+
+
+    <aura:if isTrue="{!v.ConvertStartButtonPressed}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Convert Lead</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                    <!--  Error Message-->
+                    <aura:if isTrue="{!v.ErrorMessage!=null}">
+                        <div class="c-container">
+                            <lightning:layout horizontalAlign="space">
+                                <h3 class="slds-text-color_error"> <strong>{!v.ErrorMessage}</strong></h3>
+                            </lightning:layout>
+                        </div>
+
+                        <aura:set attribute="else">
+                            <!-- If Account and Contact are Valid, show them and link to their pages. -->
+                            <aura:if isTrue="{!and(v.ConvertedAccount!=null, v.ConvertedContact!=null)}">
+                                <div class="c-container">
+                                    <lightning:layout horizontalAlign="space">
+                                        <!-- Account -->
+                                        <lightning:layoutItem flexibility="auto" padding="around-small">
+                                            <lightning:tile label="Account" href="{!'/' + v.ConvertedAccount.Id}">
+                                                <aura:set attribute="media">
+                                                    <lightning:icon iconName="standard:account"/>
+                                                </aura:set>
+                                                <dl class="slds-dl_horizontal">
+
+                                                </dl>
+                                            </lightning:tile>
+                                        </lightning:layoutItem>
+                                        <!-- Contact -->
+                                        <lightning:layoutItem flexibility="auto" padding="around-small">
+                                            <lightning:tile label="Contact" href="{!'/' + v.ConvertedContact.Id}">
+                                                <aura:set attribute="media">
+                                                    <lightning:icon iconName="standard:contact"/>
+                                                </aura:set>
+                                                <dl class="slds-dl_horizontal">
+
+                                                </dl>
+                                            </lightning:tile>
+                                        </lightning:layoutItem>
+                                    </lightning:layout>
+                                </div>
+
+                                <!-- It the Contact and Account are not populated, show the account. -->
+                                <aura:set attribute="else">
+                                    <aura:if isTrue="{!v.MyLead!=null}">
+                                        <div class="c-container">
+                                            <lightning:layout horizontalAlign="space">
+                                                <lightning:layoutItem flexibility="auto" padding="around-small">
+                                                    <lightning:tile label="Lead" href="{!'/' + v.MyLead.Id}">
+                                                        <aura:set attribute="media">
+                                                            <lightning:icon iconName="standard:account"/>
+                                                        </aura:set>
+                                                        <dl class="slds-dl_horizontal">
+                                                            <dt class="slds-dl_horizontal__label">
+                                                                <p class="slds-truncate" title="Company">Company:</p>
+                                                            </dt>
+                                                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                <p class="slds-truncate" title="{!v.MyLead.Company}">{!v.MyLead.Company}</p>
+                                                            </dd>
+                                                            <dt class="slds-dl_horizontal__label">
+                                                                <p class="slds-truncate" title="Name">Name:</p>
+                                                            </dt>
+                                                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                <p class="slds-truncate" title="{!v.MyLead.Name}">{!v.MyLead.Name}</p>
+                                                            </dd>
+                                                            <dt class="slds-dl_horizontal__label">
+                                                                <p class="slds-truncate" title="Email">Email:</p>
+                                                            </dt>
+                                                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                                                <p class="slds-truncate" title="{!v.MyLead.Email}">{!v.MyLead.Email}</p>
+                                                            </dd>
+                                                        </dl>
+                                                    </lightning:tile>
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                        </div>
+
+                                        <aura:set attribute="else">
+                                            <div style="display: none"></div>
+                                        </aura:set>
+                                    </aura:if>
+                                </aura:set>
+                            </aura:if>
+                        </aura:set>
+                    </aura:if>
+
+                </div>
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <div class="c-container">
+                        <lightning:layout horizontalAlign="space">
+
+                            <!-- If the lead is converted or submission is in progress. -->
+                            <aura:if isTrue="{!v.IsConverted}">
+                                <lightning:layoutItem flexibility="auto" padding="around-small">
+                                    <div style="display:none;"></div>
+                                </lightning:layoutItem>
+
+                                <aura:set attribute="else">
+                                    <lightning:layoutItem flexibility="auto" padding="around-small">
+                                        <aura:if isTrue="{!v.SubmissionInProgress == false}">
+                                            <lightning:button label="Cancel" onclick="{!c.hideModal}"/>
+                                            <aura:set attribute="else">
+                                                <div style="display: none;"></div>
+                                            </aura:set>
+                                        </aura:if>
+
+                                    </lightning:layoutItem>
+                                </aura:set>
+
+                            </aura:if>
+
+                            <lightning:layoutItem flexibility="auto" padding="around-small">
+                                <!-- Hide Convet if there is an error.-->
+                                <aura:if isTrue="{!or(v.IsConverted, v.SubmissionInProgress)}">
+
+                                    <aura:if isTrue="{!v.SubmissionInProgress}">
+                                        <!-- Spinner -->
+                                        <lightning:layoutItem flexibility="auto" padding="around-small">
+                                                Converting....
+                                        </lightning:layoutItem>
+
+                                        <aura:set attribute="else">
+                                            <lightning:layoutItem flexibility="auto" padding="around-small">
+                                                Conversion Success!
+                                            </lightning:layoutItem>
+                                        </aura:set>
+
+                                    </aura:if>
+
+                                    <aura:set attribute="else">
+
+                                        <aura:if isTrue="{!v.ErrorMessage==null}">
+
+                                            <lightning:layoutItem flexibility="auto" padding="around-small">
+                                                <lightning:button label="Convert" variant="brand" onclick="{!c.startConvert}"/>
+                                            </lightning:layoutItem>
+
+                                            <aura:set attribute="else">
+                                                <div style="display: none"></div>
+                                            </aura:set>
+
+                                        </aura:if>
+
+
+                                    </aura:set>
+                                </aura:if>
+
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </div>
+                </footer>
+            </div>
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+        <aura:set attribute="else">
+
+            <lightning:card title="Convert">
+                <lightning:layout horizontalAlign="space">
+                    <lightning:layoutItem flexibility="auto" padding="around-small">
+                        <lightning:button label="Convert" onclick="{!c.showModal}"/>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:card>
+
+        </aura:set>
+    </aura:if>
+
+</aura:component>

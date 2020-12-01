@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that their request is below the threshold - non-Pricing Strategy</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF &lt;24k non-Pricing Strategy</name>
+    <style>freeForm</style>
+    <subject>WRF Unable to Process: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+Thank you for your Work Request submission for {!Case.Account}.
+
+
+Unfortunately, this particular request falls under the threshold for us to assign an analyst.
+
+
+Please utilize the Bid Builder tool, which can be found at the following link:
+
+
+http://sp.na.odcorp.net/sites/BSG/FWR/default.aspx
+
+
+Select &quot;Excel Lists and Bid Builder&quot;, then &quot;Fill out this Form&quot;.
+
+
+Thank you,
+
+BSD BIDS</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

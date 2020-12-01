@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>RCC Notification for Mailbox</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>CT RCC Rep Adjacency Email</name>
+    <style>freeForm</style>
+    <subject>{!Customer_Transition__c.Account_OMX_Key__c} - {!Customer_Transition__c.Account_Name__c} Retail Connect/Store Purchasing Card Alert</subject>
+    <textOnly>Dear {!Account.OwnerFullName}:
+
+Please be advised this OD North Customer is in the process of being migrated to OD South and the OD North account will be closed.
+
+We have determined that the Customer has Retail Connect Cards.  Please contact this Customer and provide the Customer with new Store Purchasing Cards.  The Retail Connect Cards will be closed within 30 days of the account migration.
+
+Link to Customer: {!Customer_Transition__c.Link}
+
+Thank you for your support. Instructions below:
+
+You have three choices for processing your Store Purchasing Card:
+
+Option 1:
+
+Salesforce Request – from customer record
+Click Account Maintenance button
+Choose SPC/Pcard
+
+Option 2:
+
+Email completed form to: SPCProcessing@officedepot.com
+
+Option 3:
+
+Fax completed form to: 888-438-9066
+
+
+
+BSD SALES OPERATIONS TEAM</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

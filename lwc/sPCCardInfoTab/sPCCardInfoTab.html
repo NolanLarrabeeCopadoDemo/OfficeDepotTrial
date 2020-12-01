@@ -1,0 +1,54 @@
+<template>
+    <div if:false={errormessage} style=" padding-left: 20px;">
+        <div> SPC Information </div>
+       
+        <table style= "width:80%; padding-left:20px" border="1"  >
+                <tr>
+                <td>
+               SPC#
+            </td>
+            <td>
+                Creation Date
+            </td>
+            <td>
+                PO#
+            </td>
+            <td>
+                Address Sequence
+            </td>
+            <td>
+                Department
+            </td>
+            <td>
+                Daily Dollar Limit
+            </td>
+            <td>
+                Daily Transaction Limit
+            </td>
+            <td>
+                CardHolder Name
+            </td>
+            <td>
+                CardHolder Phone
+            </td>
+            <td>
+                Credit Code
+            </td>
+          </tr>
+
+        <template for:each={spccardinfoObj} for:item='item'>
+                  
+                 <tr key={item.id}>
+                     <td>
+                         {item.CardNumber}
+                     </td>
+                     <td>
+                         {item.CreateDate}
+                     </td>
+                 </tr>
+            </template>  
+        </table>              
+
+</div>
+<div if:true={errormessage} > <span class="text1"> Account has no Customer ID </span></div>
+</template>

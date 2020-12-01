@@ -1,0 +1,138 @@
+<apex:page controller="GT_AccountSetup_EXT"  >
+
+ <style>
+                 .bPageBlock {
+                            
+                 }
+
+             .body { background-color: white; }
+               </style>
+
+    <apex:outputPanel id="hiddenPannel" style="display:none;" />
+   <apex:form styleClass="myFormStyle" >
+       <center>
+             
+   <apex:pageBlock id="pb" >     
+    
+    <table    align="center" border="0" width="80%">
+        <tr><td align="left" >
+          
+     <h1><u><font color="black" size="4">{!$Label.GT_Account_Setup_lbl}</font></u></h1>
+     </td></tr></table>
+     
+     
+      <apex:pageMessages > </apex:pageMessages>
+       
+             <table   style = "width:100%;background-color:white;"> 
+        
+                <tr><td >&nbsp;</TD><td></td>
+                <td  align="LEFT">
+                    <table  border="0.5" width="15%"><tr><td><b>{!$Label.GT_Account_Setup_lbl_1}</b></td></tr>
+                    </table>
+                </TD>
+                </TR>
+                
+              <tr>
+                <td align="right"> <input type="radio" id="s1" name= "masterSetup" value="1" checked="true" /> </td>
+                <td></td>
+                <td  style = "width:90%;"> <table border="0" > <tr><td align="left">1) {!$Label.GT_Account_Setup_lbl_2}<br/><br/>2)  {!$Label.GT_Account_Setup_lbl_3}<br/><br/>3) {!$Label.GT_Account_Setup_lbl_4}<br/><br/>4) {!$Label.GT_Account_Setup_lbl_5}                    </td></tr></table>
+                </td>
+              </tr>
+            
+            
+              <tr><td >&nbsp;</TD><td></td><td align="left"><br/><b> {!$Label.GT_Account_Setup_lbl_6}</b><br/><br/></TD>
+              </TR>
+              
+            
+             <tr> 
+                <td align="right"> <input type="radio" id="s2y" name="conditionSetup" value="2Y" checked="true" /> </td>
+                <td></td>
+                <td rowspan="2" style = "width:90%;"><table border="0"><tr><td align ="left"> {!$Label.GT_Account_Setup_lbl_7} <br/><br/><b> {!$Label.GT_Account_Setup_lbl_8}</b> <br/><br/> {!$Label.GT_Account_Setup_lbl_9}<br/>{!$Label.GT_Account_Setup_lbl_14}</td></tr></table></td>
+             </tr> 
+        
+             <tr>
+              <td align="right"> <br/><br/><input type="radio" id="s2n" name="conditionSetup" value="2N" /> </td>
+              <td></td><td></td>
+             </tr>
+             
+         
+         <br/><br/>
+              
+        <tr><td >&nbsp;</TD><td></td><td align="center">&nbsp;</TD>
+          </TR>
+        
+         <tr><td >&nbsp;</TD><td></td><td  align="LEFT">
+        <table border="0.5" width="15%"><tr><td><b> {!$Label.GT_Account_Setup_lbl_10}</b></td></tr></table>
+        </TD>
+          </TR>
+        
+        
+        <tr> 
+        <td align="right"> <input type="radio" id="s3" name="masterSetup" value="3" onclick="setCheckedFalse();"/> </td><td></td>
+        <td style = "width:90%;"> <table border="0"> <tr><td><left> {!$Label.GT_Account_Setup_lbl_11}</left></td></tr></table></td>
+        </tr>
+        
+         <tr></tr>
+       
+        
+        </table>
+        
+        
+        <br/>
+        
+        <table align="center"  border="1" width="80%"  style = "background-color:white;">
+        <tr><td align="left" style = "width:30px;">
+        <font color="black">  {!$Label.GT_Account_Setup_lbl_12}
+
+        </font>
+        </td></tr></table>
+
+        <br/>
+        <br/>
+        
+         <table align="center" border="0" width="70%">
+        <tr><td align="left" >
+        
+        <apex:commandButton action="{!basicAuthCallout}" value="{!$Label.GT_Account_Setup_lbl_13}" id="theButton" onclick="getMasterValue(this.form);" >
+                <apex:param name="masterSetup" value="" assignTo="{!masterSetupVar}" />
+                <apex:param name="conditionSetup" value="" assignTo="{!conditionalSetupVar}" />
+                </apex:commandbutton>
+        
+        </td></tr></table>
+        
+        </apex:pageBlock>
+       
+       </center>
+       
+  </apex:form>
+  <script>
+      function getMasterValue(frm){
+        var message = "Your chose:\n\n"
+        
+       //For each radio button if it is checked get the value and break.
+       for (var i = 0; i < frm.masterSetup.length; i++){
+          if (frm.masterSetup[i].checked){
+             var masterSetupVar = frm.masterSetup[i].value
+             message = message + "\n" + frm.masterSetup[i].value
+             message = message + "\n" + masterSetupVar 
+             break
+          }
+       }
+       for (var i = 0; i < frm.conditionSetup.length; i++){
+          if (frm.conditionSetup[i].checked){
+             var conditionalSetupVar = frm.conditionSetup[i].value
+             message = message + "\n" + frm.conditionSetup[i].value
+             message = message + "\n" + conditionalSetupVar
+             break
+          }
+       }
+    }
+    function setCheckedFalse(){
+        document.getElementById("s1").checked = false;  
+        document.getElementById("s2y").checked = false;
+        document.getElementById("s2n").checked = false;
+    }
+
+
+    </script>
+</apex:page>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notification that gets sent to Business Analyst letting them know of CPM Rejection</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>CPM Rejection Notification</name>
+    <style>freeForm</style>
+    <subject>CPM Request has been Rejected:  {!Case.Account} - {!Case.Region__c}</subject>
+    <textOnly>The following CPM Request has been Rejected:
+
+CPM Support ID:  {!Case.CaseNumber}
+CPM Account:  {!Case.Account}
+
+
+Link to CPM Support:
+
+https://officedepot.my.salesforce.com/{!Case.Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

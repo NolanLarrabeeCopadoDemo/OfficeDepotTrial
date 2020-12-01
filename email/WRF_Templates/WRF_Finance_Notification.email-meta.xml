@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify Finance that a request was received and who is assigned.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Finance Notification</name>
+    <style>freeForm</style>
+    <subject>Finance Notification of WRF Received: {!Case.Subject}</subject>
+    <textOnly>The following Work Request has been submitted that meets the guidelines for Finance notification:
+
+
+Account Name: {!Case.ACCT_Name__c}
+
+Account ID: {!Case.ACCT_Account_Number__c}
+
+Product Line: {!Case.WRF_Prod_Type__c}
+
+Request Type: {!Case.WRF_Request_Type__c}
+
+
+Requestor: {!Case.WRF_Requestor_Name__c}
+
+Requestor Phone:  {!Case.WRF_Requestor_Mobile__c}
+
+Market Sector: {!Case.ACCT_Market_Sector__c}
+
+Account Potential: {!Case.WRF_Potential_Amount__c}
+
+Opportunity Amount:  {!Case.WRF_Oppty_Amount__c}
+
+Written Agreement:  {!Case.WRF_Written_Agreement__c}
+
+Requested Pricing Structure:  {!Case.WRF_Prcng_Optns__c}
+
+Rebates:  {!Case.WRF_Incentives__c}
+
+
+Thank you,
+
+
+Pricing &amp; Profitability</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

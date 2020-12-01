@@ -1,0 +1,14 @@
+<apex:page standardController="Account" extensions="CLS4SF.AccountUtils" showHeader="false" sidebar="false">
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<script type="text/javascript">
+    window.onload=function(){
+        document.getElementById("cspost").submit();
+        };
+</script>
+<form name="cspost" id="cspost" action="{!postURL}/manage/live" method="POST">
+<input  id="crmid" name="crmid" value="crm://salesforce.com/account/{!Account.Id}" type="hidden" />
+<input  id="company" name="company" value="{!account.name}" type="hidden" />
+<input  id="csrf_token" name="csrf_token" value="{!csrf}" type="hidden" />
+</form>
+</META>
+</apex:page>

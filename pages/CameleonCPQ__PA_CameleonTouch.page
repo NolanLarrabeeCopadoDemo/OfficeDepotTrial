@@ -1,0 +1,11 @@
+<apex:page standardController="CameleonCPQ__Quote__c" extensions="CameleonCPQ.PA_CameleonTouch_VFCtrl" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no"/> 
+  <script type="text/javascript">
+    function displayQuoteContent() {
+      if((typeof sforce != 'undefined') && (sforce != null)) {
+         sforce.one.navigateToURL('camTouch://{!JSENCODE(Quote__c.CameleonTouchParam__c)}');
+      }
+    }
+    displayQuoteContent();
+  </script>
+</apex:page>

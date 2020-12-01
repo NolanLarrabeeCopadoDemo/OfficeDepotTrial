@@ -1,0 +1,440 @@
+<apex:page id="page_main" standardController="Account" readOnly="false"
+    extensions="Prospect_Edit_Extension">
+    <style>
+      .headerRow .TableTitle 
+      {
+        background-color: skyblue !important;
+        background-image: none !important; //This is needed if you want to overwrite the header background
+        color: black !important; 
+        font-weight:bold !important; 
+      }
+      
+        .lookupIcon {common.css (line 4245)
+        background-image:url(/img/func_icons/util/lookup20.gif);
+        background-position:left top;
+        height:20px;
+        width:20px;
+        }
+        
+        img {common.css (line 75)
+        border:0pt none;
+        }   
+            </style>  
+ 
+<script type="text/javascript">
+        
+       /* var prcTemplateSelected = '{!Account.Pricing_template_cd__c}';
+        function captureSelected(theElement)
+        {
+            for (var i = 0; i < theElement.length; i++)
+            {
+              if(theElement.options[i].selected)
+              prcTemplateSelected = theElement.options[i].text;              
+            }
+            //populateparentaccount(prcTemplateSelected);
+              
+        }
+        function openLookup(baseURL, width, modified, searchParam)
+        {
+            var originalbaseURL = baseURL;
+            var originalwidth = width;
+            var originalmodified = modified;
+            var originalsearchParam = searchParam;
+            //alert(originalbaseURL+','+originalwidth+','+originalmodified+','+originalsearchParam );
+            var lookupType = baseURL.substr(baseURL.length-3, 3);
+            if (modified == '1') baseURL = baseURL + searchParam;
+
+            var isCustomLookup = false;
+
+            // Following "001" is the lookup type for Account object
+            if(lookupType == "001")
+            {
+                var urlArr = baseURL.split("&");
+                var txtId = '';
+                if(urlArr.length > 2) 
+                {
+                  urlArr = urlArr[1].split('=');
+                  txtId = urlArr[1];
+                }
+
+                // Following is the url of Custom Lookup page.
+                baseURL = "/apex/CustomAccountLookup?txt=" + txtId;
+
+                baseURL = baseURL + "&prcTempSel=" + prcTemplateSelected;
+                
+                 //alert('PT value selected is : '+prcTemplateSelected); 
+
+                baseURL = baseURL + "&frm=" + escapeUTF("{!$Component.theForm}");
+                if (modified == '1') 
+                {
+                  baseURL = baseURL + "&lksearch=" + searchParam;
+                }
+
+                // Following is the ID of custom lookup field (Related Pricing Template Account)
+                if(txtId.indexOf('theLookupToOverride') > -1 )
+                {
+                  isCustomLookup = true;
+                }
+            }
+
+
+            if(isCustomLookup == true)
+            {
+                openPopup(baseURL, "lookup", 350, 480, "width="+width+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+            }
+            else 
+            {
+             if (modified == '1') originalbaseURL = originalbaseURL + originalsearchParam;
+                openPopup(originalbaseURL, "lookup", 350, 480, "width="+originalwidth+",height=480,toolbar=no,status=no,directories=no,menubar=no,resizable=yes,scrollable=no", true);
+            } 
+        }*/
+    </script>
+    
+    <!--NAIT-2823 --start--to stop default enterkey load page-->
+    <script type="text/javascript">   
+    function stopRKey(evt) { 
+      var evt = (evt) ? evt : ((event) ? event : null); 
+      var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+      if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+    } 
+    document.onkeypress = stopRKey;
+    </script>
+    <!--NAIT-2823 --end---->
+
+
+    <apex:sectionHeader title="Account Edit" subtitle="{!Account.name}" />
+    <!--<apex:includeScript value="/soap/ajax/24.0/connection.js" />-->
+    
+    <apex:form id="form1">
+        <apex:pagemessages id="msg"></apex:pagemessages>
+        <!--<apex:actionFunction name="populateparentaccount" action="{!populateparentaccount}" >
+            <apex:param name="PricingTempValuecon" value="prcTemplateSelected"/>
+            <apex:actionSupport reRender="theLookupToOverride"/>           
+            </apex:actionFunction>-->
+<!--This is for custom lookup as a page blok table-->
+<apex:pageBlock rendered="{!showiframe}">
+<apex:pageBlockButtons location="both">
+        <apex:commandButton action="{!closeLookupSection}" style="align:center" value="Close" reRender="form1,theLookupToOverride1" />
+    </apex:pageBlockButtons>
+<apex:outputPanel id="page" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+        <apex:actionRegion >  
+          <apex:outputPanel id="top" layout="block" style="margin:5px;padding:10px;padding-top:2px;">
+          <apex:outputLabel style="font-size:20px;font-weight:Bold;padding-right:10px;">Search</apex:outputLabel><hr></hr><br></br>           
+            <apex:outputLabel value="Customer ID" style="font-weight:Bold;padding-right:10px;" for="txtSearch1"/>
+            <apex:inputText id="txtSearch1" value="{!aopsidsearch}" />&nbsp;&nbsp;&nbsp;
+            <apex:outputLabel value="Account Name" style="font-weight:Bold;padding-right:10px;" for="txtSearch"/>
+            <apex:inputText id="txtSearch" value="{!searchString}" />
+              <span style="padding-left:5px">
+                <apex:commandButton id="btnGo" value="Go" action="{!Search}" rerender="searchResults" status="refresh1">
+                </apex:commandButton>
+               </span>
+               <apex:actionStatus startText=" loading.."  id="refresh1">
+               <apex:facet name="start">
+                   <img src="/img/loading.gif" title="loading.." /><font size="2">Please Wait...</font>
+               </apex:facet>
+               </apex:actionStatus>    
+          </apex:outputPanel>
+ 
+          <apex:outputPanel id="pnlSearchResults" style="margin:10px;height:350px;overflow-Y:auto;" layout="block">
+            <apex:pageBlock id="searchResults" title="Search Results">
+             <apex:outputLabel rendered="{!rerendererror}"><font color="red">The search returned more than the maximum number of rows (50). Please refine your search criteria.</font></apex:outputLabel>            
+              <apex:pageBlockTable value="{!Results}" var="a" id="tblResults">
+                <apex:column headerClass="TableTitle">
+                  <apex:facet name="header">
+                    <apex:outputPanel >Customer ID</apex:outputPanel>
+                  </apex:facet>
+                   <!--<apex:outputLink value="javascript:top.window.opener.lookupPick2('{!FormTag}','{!TextBox}_lkid','{!TextBox}','{!a.Id}','{!a.Name}', false)" rendered="{!NOT(ISNULL(a.Id))}">{!a.Name}</apex:outputLink>-->
+                   <apex:commandLink value="{!a.AOPS_Cust_Id__c}" action="{!filllookup}" reRender="form1,theLookupToOverride1">                  
+                       <apex:param value="{!a.AOPS_Cust_Id__c}" name="selectedRecord"/>
+                       <apex:param value="{!a.id}" name="selectedRecordid"/>
+                   </apex:commandLink>
+                </apex:column>
+                <apex:column headerValue="Name" value="{!a.name}" headerClass="TableTitle"/>
+                  <!--<apex:column headerValue="Hierarchy" value="{!a.Hierarchy__c}"/>-->
+              </apex:pageBlockTable>
+              <!--<apex:pageMessages></apex:pageMessages>-->
+            </apex:pageBlock>
+          </apex:outputPanel>
+        </apex:actionRegion>
+  </apex:outputPanel>
+</apex:pageBlock>
+</apex:form>
+<!--The logic ends here--> 
+ 
+      <apex:form id="form2">
+        <apex:pageBlock id="pbedit" title="Account Edit" mode="edit">
+        <apex:pageBlockSection id="accountParentRec"></apex:pageBlockSection>
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Save" action="{!SaveAllData}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!SaveAllData}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Account Information" columns="2">
+                <apex:inputField value="{!Account.Name}" required="true" />
+                <apex:outputField value="{!Account.RecordTypeId}"/>
+                <!-- Commented By Vipul Jain on 28 September,2016 for Story# 442666
+                                (00713515 -  Hide the "Parent Account" field on prospect page (not the customer page)) -->
+                <!--<apex:inputField value="{!Account.ParentId}" required="false" />-->
+                <!-- END -->
+                <apex:inputField value="{!Account.Status__c}" required="false" />
+                <apex:outputField value="{!Account.Account_Owner__c}"  />
+                <apex:inputField value="{!Account.Customer_Lifecycle__c}"
+                    required="false" />
+                <apex:outputField value="{!Account.Sales_PersonID__c}" />
+                <apex:inputField value="{!Account.Sector__c}" required="true" />
+                <apex:inputField value="{!Account.Phone}" required="false" />
+                <apex:inputField value="{!Account.Segment__c}" required="true" />
+                <apex:inputField value="{!Account.Website}" required="false" />
+                <apex:inputField value="{!Account.Buying_Group__c}" required="true" />
+                <apex:inputField value="{!Account.Rep_Call_Date__c}"
+                    required="false" />
+                <!--<apex:inputField value="{!Account.Pricing_template_cd__c}" id="thePricingTemplate" onchange="captureSelected(this)"
+                    required="true">
+                    <apex:actionSupport event="onchange" action="{!populateparentaccount}"/>
+                    </apex:inputfield>-->  
+                    <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Pricing Template</apex:outputLabel>
+                    <apex:actionRegion >
+                    <apex:inputField value="{!Account.Pricing_template_cd__c}" id="thePricingTemplate"
+                    required="true">
+                    <apex:actionSupport event="onchange" action="{!populateparentaccount}" reRender="theLookupToOverride1"/><!--oncomplete="captureSelected(this);" reRender="theLookupToOverride1"-->
+                    </apex:inputField>
+                    </apex:actionRegion>
+                    </apex:pageBlockSectionItem>
+                    <!--<apex:inputField value="{!Account.Pricing_template_cd__c}"
+                    required="true">
+                    <apex:actionSupport event="onchange" action="{!populateparentaccount}"/>
+                    </apex:inputfield>-->
+                <apex:inputField value="{!Account.Est_Spend__c}" required="true" />
+                <apex:inputField value="{!Account.Industry_OD_SIC_Rep__c}"
+                    required="true" />
+                <apex:inputField value="{!Account.Payment_Term__c}" required="true" />
+                <apex:inputField value="{!Account.Org_WCW_Count_Rep__c}"
+                    required="true" />
+                <!--apex:inputField value="{!Account.Credit_Terms__c}" required="true" /-->
+                <apex:inputField value="{!Account.Dupe_ID__c}" required="false" />
+                <apex:inputField value="{!Account.OneSource__OSKeyID__c}"
+                    required="false" />
+                                 
+                <apex:inputField value="{!Account.MPS_Parent_Account__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Primary_Product__c}"
+                    required="true" />
+                    
+                <apex:pageblockSectionItem >
+                
+                <apex:outputLabel >Attach Parent Pricing</apex:outputLabel>
+                <apex:outputPanel id="theLookupToOverride1">
+                <apex:actionRegion >
+               <!-- <div class="requiredInput">
+                 <div class="requiredBlock"></div> -->
+                <apex:inputtext value="{!Account.Related_Parent_Account__c}" required="false" />
+               <apex:commandLink reRender="form1">
+                    <!--<apex:image height="20px" width="20px" value="{!$Resource.LookupIcon}">-->
+                    <img src="/s.gif" class="lookupIcon" onmouseout="this.className='lookupIcon';" alt="Asset Lookup (New Window)" onmouseover="this.className='lookupIconOn';">
+                    <apex:actionSupport event="onclick" reRender="form1" action="{!openlookup}" status="refresh"/>
+                    </img>
+                    <!--</apex:image>-->
+                </apex:commandlink>
+                <br></br><apex:actionStatus startText=" loading.."  id="refresh">
+                                       <apex:facet name="start">
+                                           <img src="/img/loading.gif" title="loading.." /><font size="2">Please Wait...</font>
+                                       </apex:facet>
+                               </apex:actionStatus>    
+                <!--</div> -->                
+                </apex:actionRegion>
+                </apex:outputPanel>    
+                </apex:pageblockSectionItem>
+                
+                <!-- This pageblockSectionItem has been added by Mohamad -->
+                <!-- <apex:pageblockSectionItem >
+                    <apex:outputLabel >Duplicate Disposition</apex:outputLabel>
+                    <apex:inputField value="{!Account.Duplicate_Disposition__c}" required="false" />
+                </apex:pageblockSectionItem> -->
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Area(s) of Interest</apex:outputLabel>
+                    <apex:inputField value="{!Account.Products__c}" required="false" />
+                </apex:pageblockSectionItem>
+                <apex:pageblockSectionItem >
+                    <apex:outputLabel >Duplicate Disposition</apex:outputLabel>
+                    <apex:inputField value="{!Account.Duplicate_Disposition__c}" required="false" />
+                </apex:pageblockSectionItem>
+                                   
+                     <!--<apex:pageBlockSectionItem >                      
+                    <apex:outputLabel >Related Pricing Template Account</apex:outputLabel>
+                    <apex:outputPanel id="theLookupToOverride1">
+                 <apex:inputfield required="false" value="{!Account.Related_Pricing_Template_Account__c}" id="theLookupToOverride"/>
+                </apex:outputPanel>
+                </apex:pageBlockSectionItem>-->
+            <!--    <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Related Pricing Template Account</apex:outputLabel>
+                    <apex:outputPanel id="theLookupToOverride1">
+                 <apex:inputtext required="false" value="{!Account.Related_Pricing_Template_Account__c}" id="theLookupToOverride">
+                 </apex:inputtext>
+                 <apex:commandLink onclick="openLookup();"><apex:image value="{!$Resource.LookupIcon}"/></apex:commandLink>
+                </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputtext value="{!Account.Related_Pricing_Template_Account__c}" id="theLookupToOverride1"/>-->
+            </apex:pageBlockSection>
+            
+                <!--NAIT-2823 --start---->
+            <apex:pageBlockSection title="Address search" columns="1">
+                <apex:pageBlockSectionItem >
+                    <c:GPlaces_Comp address1_id="page_main:form2:pbedit:addr_pbs1:id1" 
+                                    state_id="page_main:form2:pbedit:addr_pbs1:id2"
+                                    address2_id="page_main:form2:pbedit:addr_pbs1:id3" 
+                                    zip_id="page_main:form2:pbedit:addr_pbs1:id4"
+                                    city_id="page_main:form2:pbedit:addr_pbs1:id5" 
+                                    country_id="page_main:form2:pbedit:addr_pbs1:id6"
+                                    acc_name_id="page_main:form2:pbedit:accountParentRec2:accname" 
+                                    phone_id="page_main:form2:pbedit:accountParentRec2:phoneid">
+                    </c:GPlaces_Comp>
+                   
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!--NAIT-2823 --end---->
+            
+            <apex:pageBlockSection id="addr_pbs1" title="Address Info" columns="2">
+                <apex:inputField id="id1" value="{!Account.Address1__c}" required="true" />
+                <apex:inputField id="id2" value="{!Account.State__c}" required="true" />
+                <apex:inputField id="id3" value="{!Account.Address2__c}" required="false" />
+                <apex:inputField id="id4" value="{!Account.Zip__c}" required="true" />
+                <apex:inputField id="id5" value="{!Account.City__c}" required="true" />                                                 
+                <apex:inputField id="id6" value="{!Account.Country__c}" required="true" />    
+                <apex:inputField value="{!Account.Address_Validated__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Address_Validation_Error__c}"
+                    required="false" />
+                <apex:inputcheckbox value="{!Account.Potential_DeDuplicate__c}"
+                    required="false" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Additional Prospect Information"
+                columns="2">
+                <apex:inputField value="{!Account.Copiers__c}" required="false" />
+                <apex:inputField value="{!Account.Copier_Fleet_Expiration_Date__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Potential_Printers__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Setup_URL1__c}"
+                    required="false" />
+            </apex:pageBlockSection>
+         <!--   <apex:pageBlockSection title="Global Accounts" columns="2">
+                <apex:inputField style="width:270px;" value="{!Account.Current_Supplier__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.BOT_Leverage__c}" required="false" />
+                <apex:inputField value="{!Account.Contract_Expiration_Date__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Global_Leverage__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Contract_Extension_Terms__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.International_Existing__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Anticipated_RFP_Date__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.International_Opportunities__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Anticipated_Decision_Date__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Strategic_Focus_Plan_1__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Anticipated_Implementation_Date__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Strategic_Focus_Plan_2__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Last_12mo_Purchase__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Strategic_Focus_Plan_3__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Strategic_Focus_Plan_4__c}"
+                    required="false" />
+            </apex:pageBlockSection> -->
+           <!-- <apex:pageBlockSection title="CPM" columns="2">
+                <apex:inputField value="{!Account.CPM_Revenue__c}" required="false" />
+                <apex:inputField value="{!Account.Actual_Revenue__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.CPM_Gross_IMU__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Actual_Gross_IMU__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.CPM_Net_IMU__c}" required="false" />
+                <apex:inputField value="{!Account.Actual_Net_IMU__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.CPM_PM__c}" required="false" />
+                <apex:inputField value="{!Account.Actual_PM__c}" required="false" />
+                <apex:inputField value="{!Account.CPM_Operating_Profit__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Actual_Operating_Profit__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.CPM_Effective_Rebate__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Actual_Effective_Rebate__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.CPM_Incentive__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Actual_Incentive__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.CPM_on_Core__c}" required="false" />
+                <apex:inputField value="{!Account.Actual_on_Core__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.CPM_Core_IMU__c}" required="false" />
+                <apex:inputField value="{!Account.Actual_Core_IMU__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.CPM_Non_Core_IMU__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Actual_Non_Core_IMU__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.CPM_Core_Items__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Actual_Core_Items__c}"
+                    required="false" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="SAO" columns="2">
+                <apex:inputField value="{!Account.Total__c}" required="false" />
+                <apex:inputField value="{!Account.CPM_Objectives__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Classification__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Strength_of_Relationship__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Solutions__c}" required="false" />
+                <apex:inputField value="{!Account.Accounts_Receivables__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Margin_Initiatives__c}"
+                    required="false" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Shades of Green" columns="2">
+                <apex:inputField value="{!Account.Not_Green__c}" required="false" />
+                <apex:inputField value="{!Account.Mid_Green__c}" required="false" />
+                <apex:inputField value="{!Account.Light_Green__c}" required="false" />
+                <apex:inputField value="{!Account.Dark_Green__c}" required="false" />
+            </apex:pageBlockSection>-->
+            <apex:pageBlockSection title="System Information" columns="2">
+                <apex:inputField value="{!Account.Legacy_CreatedDate__c}"
+                    required="false" />
+                <apex:inputField value="{!Account.Legacy_LastModifiedDate__c}"
+                    required="false" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>      
+        <!--<apex:pageBlock rendered="{!notvalidadd}">
+            <apex:pageblocksection >
+                <apex:inputHidden id="addressCorrection" value="{!addressCorrection}" />
+                <script>
+                var confirmation = confirm('Address is not Valid. Do you wants to correct it?');               
+                if(confirmation){
+                    document.getElementById('{!$Component.addressCorrection}').value = true;
+                }else{
+                    document.getElementById('{!$Component.addressCorrection}').value = false;
+                    //callSaveMethod();
+                }
+                </script>
+            </apex:pageblocksection>
+        </apex:pageBlock>
+        <apex:actionFunction name="callSaveMethod" id="callSaveMethod" action="{!SaveAllData}">
+        </apex:actionFunction>-->
+    </apex:form>
+</apex:page>

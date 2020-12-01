@@ -1,0 +1,11 @@
+<apex:component controller="PricingMain" allowDML="true">
+<apex:form >
+    <apex:outputLink value="http://sp.na.odcorp.net/sites/BSG/fbac/pdt/SB/Shared%20Documents/Sku%20Builder.xls" target="_blank">Sku Cross-Ref (Self-Serve)</apex:outputLink>
+    <br></br>
+    <apex:outputLink value="http://sp.na.odcorp.net/sites/BSG/fbac/pdt/SB/Shared%20Documents/Sku%20Builder%20Request%20Form.xls" target="_blank">Sku Cross-Ref (Assisted)</apex:outputLink>
+    <br></br><br></br>
+<apex:inputFile fileName="CustomerSKU" value="{!customerSKUfile}"></apex:inputFile>
+        <br></br><br></br>
+        <apex:commandButton value="Upload" action="{!itemload}"/>
+</apex:form>
+</apex:component>

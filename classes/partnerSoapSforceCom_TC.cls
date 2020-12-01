@@ -1,0 +1,236 @@
+@isTest
+
+private class partnerSoapSforceCom_TC
+{
+
+    static testMethod void  partnerSoapSforceCom_TC()
+    {
+        Test.setMock(WebServiceMock.class, new PartnerSoapMockImpl()); // Comment Removed by Mohit for Story S-350563    
+        partnerSoapSforceCom partSoap = new partnerSoapSforceCom ();
+        partnerSoapSforceCom.getUserInfo_element usrelem = new partnerSoapSforceCom.getUserInfo_element();
+        partnerSoapSforceCom.LoginResult log = new partnerSoapSforceCom.LoginResult ();
+        partnerSoapSforceCom.DescribeSoftphoneLayoutResult DesSft = new partnerSoapSforceCom.DescribeSoftphoneLayoutResult() ;
+        partnerSoapSforceCom.ProcessResult pr = new partnerSoapSforceCom.ProcessResult();
+        partnerSoapSforceCom.queryMore_element inst1=new partnerSoapSforceCom.queryMore_element();
+        partnerSoapSforceCom.DescribeSoftphoneLayoutItem inst2=new partnerSoapSforceCom.DescribeSoftphoneLayoutItem();
+        partnerSoapSforceCom.logout_element inst3=new partnerSoapSforceCom.logout_element();
+        partnerSoapSforceCom.DescribeSoftphoneLayoutSection inst4=new partnerSoapSforceCom.DescribeSoftphoneLayoutSection();
+        partnerSoapSforceCom.describeDataCategoryGroupsResponse_element inst5=new partnerSoapSforceCom.describeDataCategoryGroupsResponse_element();
+        partnerSoapSforceCom.PerformQuickActionRequest inst6=new partnerSoapSforceCom.PerformQuickActionRequest();
+        partnerSoapSforceCom.describeQuickActionsResponse_element inst7=new partnerSoapSforceCom.describeQuickActionsResponse_element();
+        partnerSoapSforceCom.PerformQuickActionResult inst8=new partnerSoapSforceCom.PerformQuickActionResult();
+        partnerSoapSforceCom.ResetPasswordResult inst9=new partnerSoapSforceCom.ResetPasswordResult();
+        partnerSoapSforceCom.merge_element inst10=new partnerSoapSforceCom.merge_element();
+        partnerSoapSforceCom.describeSoftphoneLayoutResponse_element inst11=new partnerSoapSforceCom.describeSoftphoneLayoutResponse_element();
+        partnerSoapSforceCom.describeGlobal_element inst12=new partnerSoapSforceCom.describeGlobal_element();
+        partnerSoapSforceCom.RecordTypeInfo inst13 = new partnerSoapSforceCom.RecordTypeInfo();
+        partnerSoapSforceCom.queryResponse_element inst14=new partnerSoapSforceCom.queryResponse_element();
+        partnerSoapSforceCom.DescribeColumn inst15=new partnerSoapSforceCom.DescribeColumn ();
+        partnerSoapSforceCom.emptyRecycleBinResponse_element inst16=new partnerSoapSforceCom.emptyRecycleBinResponse_element();
+        partnerSoapSforceCom.EmptyRecycleBinResult inst17=new partnerSoapSforceCom.EmptyRecycleBinResult();
+        partnerSoapSforceCom.loginResponse_element inst18=new partnerSoapSforceCom.loginResponse_element();
+        partnerSoapSforceCom.describeDataCategoryGroupStructures_element inst19=new partnerSoapSforceCom.describeDataCategoryGroupStructures_element();
+        partnerSoapSforceCom.Email inst20=new partnerSoapSforceCom.Email();
+        partnerSoapSforceCom.describeSoftphoneLayout_element inst21=new partnerSoapSforceCom.describeSoftphoneLayout_element();
+        partnerSoapSforceCom.getServerTimestamp_element inst22=new partnerSoapSforceCom.getServerTimestamp_element();
+        partnerSoapSforceCom.GetUserInfoResult inst23=new partnerSoapSforceCom.GetUserInfoResult();
+        partnerSoapSforceCom.ChildRelationship inst24=new partnerSoapSforceCom.ChildRelationship();
+        partnerSoapSforceCom.process_element inst25=new partnerSoapSforceCom.process_element();
+        partnerSoapSforceCom.DescribeLayoutComponent inst26=new partnerSoapSforceCom.DescribeLayoutComponent();
+        partnerSoapSforceCom.QueryResult inst27=new partnerSoapSforceCom.QueryResult();
+        partnerSoapSforceCom.performQuickActions_element inst28=new partnerSoapSforceCom.performQuickActions_element();
+        partnerSoapSforceCom.QueryOptions_element inst29=new partnerSoapSforceCom.QueryOptions_element();
+        partnerSoapSforceCom.LeadConvertResult inst30=new partnerSoapSforceCom.LeadConvertResult();
+        partnerSoapSforceCom.CallOptions_element inst31=new partnerSoapSforceCom.CallOptions_element();
+        partnerSoapSforceCom.sendEmailMessage_element inst32=new partnerSoapSforceCom.sendEmailMessage_element();
+        partnerSoapSforceCom.processResponse_element inst33=new partnerSoapSforceCom.processResponse_element();
+        partnerSoapSforceCom.MruHeader_element inst34=new partnerSoapSforceCom.MruHeader_element();
+        partnerSoapSforceCom.describeAvailableQuickActions_element inst35=new partnerSoapSforceCom.describeAvailableQuickActions_element();
+        partnerSoapSforceCom.DescribeSearchScopeOrderResult inst36=new partnerSoapSforceCom.DescribeSearchScopeOrderResult();
+        partnerSoapSforceCom.Soap inst37=new partnerSoapSforceCom.Soap();
+        
+        /*inst37.describeGlobal();
+        inst37.logout();
+        inst37.getUserInfo();
+        inst37.getServerTimestamp();
+        inst37.setPassword('','');
+        inst37.describeTabs();
+        inst37.login('','');
+        inst37.search_x('');
+        inst37.queryMore('');
+        inst37.describeSearchScopeOrder();
+        inst37.describeSoftphoneLayout();
+        inst37.queryAll('');
+        inst37.resetPassword('');
+        inst37.query('');
+        */
+        
+        partnerSoapSforceCom.ProcessWorkitemRequest inst38=new partnerSoapSforceCom.ProcessWorkitemRequest();
+        partnerSoapSforceCom.SessionHeader_element inst39=new partnerSoapSforceCom.SessionHeader_element();
+        partnerSoapSforceCom.AllOrNoneHeader_element inst40=new partnerSoapSforceCom.AllOrNoneHeader_element();
+        partnerSoapSforceCom.DescribeDataCategoryGroupStructureResult inst41=new partnerSoapSforceCom.DescribeDataCategoryGroupStructureResult();
+        partnerSoapSforceCom.DescribeSoftphoneLayoutInfoField inst42=new partnerSoapSforceCom.DescribeSoftphoneLayoutInfoField();
+        partnerSoapSforceCom.describeTabsResponse_element inst43=new partnerSoapSforceCom.describeTabsResponse_element();
+        partnerSoapSforceCom.describeTabs_element inst44=new partnerSoapSforceCom.describeTabs_element();
+        partnerSoapSforceCom.describeGlobalResponse_element inst45=new partnerSoapSforceCom.describeGlobalResponse_element();
+        partnerSoapSforceCom.DescribeLayoutButton inst46=new partnerSoapSforceCom.DescribeLayoutButton();
+        partnerSoapSforceCom.describeDataCategoryGroups_element inst47=new partnerSoapSforceCom.describeDataCategoryGroups_element();
+        partnerSoapSforceCom.SendEmailError inst48=new partnerSoapSforceCom.SendEmailError();
+        partnerSoapSforceCom.DescribeLayoutItem inst49=new partnerSoapSforceCom.DescribeLayoutItem();
+        partnerSoapSforceCom.AllowFieldTruncationHeader_element inst50=new partnerSoapSforceCom.AllowFieldTruncationHeader_element();
+        partnerSoapSforceCom.getDeletedResponse_element inst51=new partnerSoapSforceCom.getDeletedResponse_element();
+        partnerSoapSforceCom.SaveResult inst52=new partnerSoapSforceCom.SaveResult();
+        partnerSoapSforceCom.deleteResponse_element inst53=new partnerSoapSforceCom.deleteResponse_element();
+        partnerSoapSforceCom.convertLead_element inst54=new partnerSoapSforceCom.convertLead_element();
+        partnerSoapSforceCom.describeSObjects_element inst55=new partnerSoapSforceCom.describeSObjects_element();
+        partnerSoapSforceCom.describeDataCategoryGroupStructuresResponse_element inst56=new partnerSoapSforceCom.describeDataCategoryGroupStructuresResponse_element();
+        partnerSoapSforceCom.emptyRecycleBin_element inst57=new partnerSoapSforceCom.emptyRecycleBin_element();
+        partnerSoapSforceCom.update_element inst58=new partnerSoapSforceCom.update_element();
+        partnerSoapSforceCom.DisableFeedTrackingHeader_element inst59=new partnerSoapSforceCom.DisableFeedTrackingHeader_element();
+        partnerSoapSforceCom.search_element inst60=new partnerSoapSforceCom.search_element();
+        partnerSoapSforceCom.searchResponse_element inst61=new partnerSoapSforceCom.searchResponse_element();
+        partnerSoapSforceCom.MergeResult inst62=new partnerSoapSforceCom.MergeResult();
+        partnerSoapSforceCom.describeQuickActions_element inst63=new partnerSoapSforceCom.describeQuickActions_element();
+        partnerSoapSforceCom.DescribeAvailableQuickActionResult inst64=new partnerSoapSforceCom.DescribeAvailableQuickActionResult();
+        partnerSoapSforceCom.RelatedListSort inst65=new partnerSoapSforceCom.RelatedListSort();
+        partnerSoapSforceCom.describeSObject_element inst66=new partnerSoapSforceCom.describeSObject_element();
+        partnerSoapSforceCom.invalidateSessionsResponse_element inst67=new partnerSoapSforceCom.invalidateSessionsResponse_element();
+        partnerSoapSforceCom.LoginScopeHeader_element inst68=new partnerSoapSforceCom.LoginScopeHeader_element();
+        partnerSoapSforceCom.EmailFileAttachment inst69=new partnerSoapSforceCom.EmailFileAttachment();
+        partnerSoapSforceCom.convertLeadResponse_element inst70=new partnerSoapSforceCom.convertLeadResponse_element();
+        partnerSoapSforceCom.delete_element inst71=new partnerSoapSforceCom.delete_element();
+        partnerSoapSforceCom.sendEmail_element inst72=new partnerSoapSforceCom.sendEmail_element();
+        partnerSoapSforceCom.DescribeQuickActionListResult inst73=new partnerSoapSforceCom.DescribeQuickActionListResult();
+        partnerSoapSforceCom.DescribeLayoutButtonSection inst74=new partnerSoapSforceCom.DescribeLayoutButtonSection();
+        partnerSoapSforceCom.updateResponse_element inst75=new partnerSoapSforceCom.updateResponse_element();
+        partnerSoapSforceCom.queryAll_element inst76=new partnerSoapSforceCom.queryAll_element();
+        partnerSoapSforceCom.retrieve_element inst77=new partnerSoapSforceCom.retrieve_element();
+        partnerSoapSforceCom.describeSearchLayoutsResponse_element inst78=new partnerSoapSforceCom.describeSearchLayoutsResponse_element();
+        partnerSoapSforceCom.GetServerTimestampResult inst79=new partnerSoapSforceCom.GetServerTimestampResult();
+        partnerSoapSforceCom.RelatedList inst80=new partnerSoapSforceCom.RelatedList();
+        partnerSoapSforceCom.describeSearchScopeOrderResponse_element inst81=new partnerSoapSforceCom.describeSearchScopeOrderResponse_element();
+        partnerSoapSforceCom.retrieveResponse_element inst82=new partnerSoapSforceCom.retrieveResponse_element();
+        partnerSoapSforceCom.queryAllResponse_element inst83=new partnerSoapSforceCom.queryAllResponse_element();
+        partnerSoapSforceCom.invalidateSessions_element inst84=new partnerSoapSforceCom.invalidateSessions_element();
+        partnerSoapSforceCom.create_element inst85=new partnerSoapSforceCom.create_element();
+        partnerSoapSforceCom.ProcessSubmitRequest inst86=new partnerSoapSforceCom.ProcessSubmitRequest();
+        partnerSoapSforceCom.describeLayoutResponse_element inst87=new partnerSoapSforceCom.describeLayoutResponse_element();
+        partnerSoapSforceCom.createResponse_element inst88=new partnerSoapSforceCom.createResponse_element();
+        partnerSoapSforceCom.ProcessRequest inst89=new partnerSoapSforceCom.ProcessRequest();
+        partnerSoapSforceCom.DescribeSearchLayoutResult inst90=new partnerSoapSforceCom.DescribeSearchLayoutResult();
+        partnerSoapSforceCom.LeadConvert inst91=new partnerSoapSforceCom.LeadConvert();
+        partnerSoapSforceCom.getServerTimestampResponse_element inst92=new partnerSoapSforceCom.getServerTimestampResponse_element();
+        partnerSoapSforceCom.DescribeQuickActionListItemResult inst93=new partnerSoapSforceCom.DescribeQuickActionListItemResult();
+        partnerSoapSforceCom.DeletedRecord inst94=new partnerSoapSforceCom.DeletedRecord();
+        partnerSoapSforceCom.SearchResult inst95=new partnerSoapSforceCom.SearchResult();
+        partnerSoapSforceCom.LocaleOptions_element inst96=new partnerSoapSforceCom.LocaleOptions_element();
+        partnerSoapSforceCom.DescribeSoftphoneScreenPopOption inst97=new partnerSoapSforceCom.DescribeSoftphoneScreenPopOption();
+        partnerSoapSforceCom.getUpdatedResponse_element inst98=new partnerSoapSforceCom.getUpdatedResponse_element();
+        partnerSoapSforceCom.query_element inst99=new partnerSoapSforceCom.query_element();
+        partnerSoapSforceCom.StreamingEnabledHeader_element inst100=new partnerSoapSforceCom.StreamingEnabledHeader_element();
+        partnerSoapSforceCom.DescribeDataCategoryGroupResult inst101=new partnerSoapSforceCom.DescribeDataCategoryGroupResult();
+        partnerSoapSforceCom.DataCategoryGroupSobjectTypePair inst102=new partnerSoapSforceCom.DataCategoryGroupSobjectTypePair();
+        partnerSoapSforceCom.getDeleted_element inst103=new partnerSoapSforceCom.getDeleted_element();
+        partnerSoapSforceCom.PackageVersion inst104=new partnerSoapSforceCom.PackageVersion();
+        partnerSoapSforceCom.DataCategory inst105=new partnerSoapSforceCom.DataCategory();
+        partnerSoapSforceCom.GetDeletedResult inst106=new partnerSoapSforceCom.GetDeletedResult();
+        partnerSoapSforceCom.DescribeGlobalResult inst107=new partnerSoapSforceCom.DescribeGlobalResult();
+        partnerSoapSforceCom.DescribeLayoutResult inst108=new partnerSoapSforceCom.DescribeLayoutResult();
+        partnerSoapSforceCom.DescribeLayoutSection inst109=new partnerSoapSforceCom.DescribeLayoutSection();
+        partnerSoapSforceCom.AssignmentRuleHeader_element inst110=new partnerSoapSforceCom.AssignmentRuleHeader_element();
+        partnerSoapSforceCom.describeSearchLayouts_element inst111=new partnerSoapSforceCom.describeSearchLayouts_element();
+        partnerSoapSforceCom.PackageVersionHeader_element inst112=new partnerSoapSforceCom.PackageVersionHeader_element();
+        partnerSoapSforceCom.SingleEmailMessage inst113=new partnerSoapSforceCom.SingleEmailMessage();
+        partnerSoapSforceCom.login_element inst114=new partnerSoapSforceCom.login_element();
+        partnerSoapSforceCom.MassEmailMessage inst115=new partnerSoapSforceCom.MassEmailMessage();
+        partnerSoapSforceCom.SendEmailResult inst116=new partnerSoapSforceCom.SendEmailResult();
+        partnerSoapSforceCom.mergeResponse_element inst117=new partnerSoapSforceCom.mergeResponse_element();
+        partnerSoapSforceCom.PicklistForRecordType inst118=new partnerSoapSforceCom.PicklistForRecordType();
+        partnerSoapSforceCom.getUpdated_element inst119=new partnerSoapSforceCom.getUpdated_element();
+        partnerSoapSforceCom.DescribeTabSetResult inst120=new partnerSoapSforceCom.DescribeTabSetResult();
+        partnerSoapSforceCom.upsertResponse_element inst121=new partnerSoapSforceCom.upsertResponse_element();
+        partnerSoapSforceCom.Field inst122=new partnerSoapSforceCom.Field();
+        partnerSoapSforceCom.describeSObjectsResponse_element inst123=new partnerSoapSforceCom.describeSObjectsResponse_element();
+        partnerSoapSforceCom.getUserInfoResponse_element inst124=new partnerSoapSforceCom.getUserInfoResponse_element();
+        partnerSoapSforceCom.undeleteResponse_element inst125=new partnerSoapSforceCom.undeleteResponse_element();
+        partnerSoapSforceCom.UpsertResult inst126=new partnerSoapSforceCom.UpsertResult();
+        partnerSoapSforceCom.setPasswordResponse_element inst127=new partnerSoapSforceCom.setPasswordResponse_element();
+        partnerSoapSforceCom.DescribeSObjectResult inst128=new partnerSoapSforceCom.DescribeSObjectResult();
+        partnerSoapSforceCom.logoutResponse_element inst129=new partnerSoapSforceCom.logoutResponse_element();
+        partnerSoapSforceCom.InvalidateSessionsResult inst130=new partnerSoapSforceCom.InvalidateSessionsResult();
+        partnerSoapSforceCom.describeLayout_element inst131=new partnerSoapSforceCom.describeLayout_element();
+        partnerSoapSforceCom.DescribeLayout inst132=new partnerSoapSforceCom.DescribeLayout();
+        partnerSoapSforceCom.RecordTypeMapping inst133=new partnerSoapSforceCom.RecordTypeMapping();
+        partnerSoapSforceCom.DescribeGlobalSObjectResult inst134=new partnerSoapSforceCom.DescribeGlobalSObjectResult();
+        partnerSoapSforceCom.sendEmailResponse_element inst135=new partnerSoapSforceCom.sendEmailResponse_element();
+        partnerSoapSforceCom.DescribeQuickActionResult inst136=new partnerSoapSforceCom.DescribeQuickActionResult();
+        partnerSoapSforceCom.PicklistEntry inst137=new partnerSoapSforceCom.PicklistEntry();
+        partnerSoapSforceCom.UserTerritoryDeleteHeader_element inst138=new partnerSoapSforceCom.UserTerritoryDeleteHeader_element();
+        partnerSoapSforceCom.DebuggingInfo_element inst139=new partnerSoapSforceCom.DebuggingInfo_element();
+        partnerSoapSforceCom.SearchRecord inst140=new partnerSoapSforceCom.SearchRecord();
+        partnerSoapSforceCom.describeSObjectResponse_element inst141=new partnerSoapSforceCom.describeSObjectResponse_element();
+        partnerSoapSforceCom.undelete_element inst142=new partnerSoapSforceCom.undelete_element();
+        partnerSoapSforceCom.RelatedListColumn inst143=new partnerSoapSforceCom.RelatedListColumn();
+        partnerSoapSforceCom.GetUpdatedResult inst144=new partnerSoapSforceCom.GetUpdatedResult();
+        partnerSoapSforceCom.DeleteResult inst145=new partnerSoapSforceCom.DeleteResult();
+        partnerSoapSforceCom.EmailHeader_element inst146=new partnerSoapSforceCom.EmailHeader_element();
+        partnerSoapSforceCom.queryMoreResponse_element inst147=new partnerSoapSforceCom.queryMoreResponse_element();
+        partnerSoapSforceCom.upsert_element inst148=new partnerSoapSforceCom.upsert_element();
+        partnerSoapSforceCom.performQuickActionsResponse_element inst149=new partnerSoapSforceCom.performQuickActionsResponse_element();
+        partnerSoapSforceCom.OwnerChangeOptions_element inst150=new partnerSoapSforceCom.OwnerChangeOptions_element();
+        partnerSoapSforceCom.DescribeLayoutRow inst151=new partnerSoapSforceCom.DescribeLayoutRow();
+        partnerSoapSforceCom.describeAvailableQuickActionsResponse_element inst152=new partnerSoapSforceCom.describeAvailableQuickActionsResponse_element();
+        partnerSoapSforceCom.UndeleteResult inst153=new partnerSoapSforceCom.UndeleteResult();
+        partnerSoapSforceCom.DescribeSoftphoneLayoutCallType inst154=new partnerSoapSforceCom.DescribeSoftphoneLayoutCallType();
+        partnerSoapSforceCom.setPassword_element inst155=new partnerSoapSforceCom.setPassword_element();
+        partnerSoapSforceCom.resetPassword_element inst156=new partnerSoapSforceCom.resetPassword_element();
+        partnerSoapSforceCom.Error inst157=new partnerSoapSforceCom.Error();
+        partnerSoapSforceCom.SetPasswordResult inst158=new partnerSoapSforceCom.SetPasswordResult();
+        partnerSoapSforceCom.DebuggingHeader_element inst159=new partnerSoapSforceCom.DebuggingHeader_element();
+        partnerSoapSforceCom.sendEmailMessageResponse_element inst160=new partnerSoapSforceCom.sendEmailMessageResponse_element();
+        partnerSoapSforceCom.resetPasswordResponse_element inst161=new partnerSoapSforceCom.resetPasswordResponse_element();
+        partnerSoapSforceCom.MergeRequest inst162=new partnerSoapSforceCom.MergeRequest();
+        partnerSoapSforceCom.describeSearchScopeOrder_element inst163=new partnerSoapSforceCom.describeSearchScopeOrder_element();
+        partnerSoapSforceCom.DescribeTab inst164=new partnerSoapSforceCom.DescribeTab();
+        
+        
+        partnerSoapSforceCom.Soap partnerSoap=new partnerSoapSforceCom.Soap();
+        
+        // Start :Added by Mohit for Story S-350563
+        partnerSoap.describeAvailableQuickActions('testParent');
+        partnerSoap.describeGlobal();
+        String[] ids = new String[]{'id1','id2'};    
+        partnerSoap.retrieve_x('testList','testType',ids);
+        partnerSoap.describeLayout('testType',ids);
+        partnerSoap.emptyRecycleBin(ids);
+        partnerSoap.logout();
+        partnerSoap.invalidateSessions(ids);
+        partnerSoap.getUserInfo();
+        partnerSoap.getServerTimestamp();
+        partnerSoap.describeSearchLayouts(ids);
+        String[] quickActs = new String[]{'testAction1','testAction2'};
+        partnerSoap.describeQuickActions(quickActs);
+        partnerSoap.setPassword('testUN','testPwd');
+        partnerSoap.sendEmailMessage(ids);
+        partnerSoap.delete_x(ids);
+        partnerSoap.describeTabs();
+        partnerSoap.login('testUN','testPwd');
+        partnerSoap.search_x('testSearch');
+        partnerSoap.queryMore('testQuery');
+        
+        partnerSoap.describeSearchScopeOrder();
+        partnerSoap.describeSoftphoneLayout();
+        partnerSoap.queryAll('testQuery');
+        partnerSoap.resetPassword('testPwd');
+        partnerSoap.query('testQuery');
+        partnerSoap.undelete_x(ids);
+        
+        Datetime startTime = Datetime.newInstance(2015, 9, 13);
+        Datetime endTime = startTime.addDays(2);
+        partnerSoap.getUpdated('testType',startTime,endTime);
+        partnerSoap.getDeleted('testType',startTime,endTime);
+        
+        // Stop //
+   }
+
+}

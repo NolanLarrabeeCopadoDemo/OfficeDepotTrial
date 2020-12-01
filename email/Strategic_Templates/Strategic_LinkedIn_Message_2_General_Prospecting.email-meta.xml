@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>There’s more to Office Depot.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: LinkedIn Message #2: General Prospecting</name>
+    <style>freeForm</style>
+    <subject>There’s more to Office Depot.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+I located your name on LinkedIn as an appropriate contact. With the acquisition of CompuCom, I am pleased to have the opportunity to talk with customers about Office Depot’s complete business platform—from office supplies to technology services, we offer customers like you more services than ever!
+
+
+
+Understanding that it may have been a few years since INSERT COMPANY NAME last reviewed its office related programs, I’d like to respectfully request the opportunity to meet and learn about your organizational initiatives. I’d also spend time providing an update on the supply market in general. Are you available to meet the week of INSERT DATE AND TIME? If you have a more convenient time, please propose. Thank you for your consideration!
+
+
+Thank you,
+
+
+{!User.Name}
+{!User.Market__c}
+{!User.Phone} {!User.Extension}
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

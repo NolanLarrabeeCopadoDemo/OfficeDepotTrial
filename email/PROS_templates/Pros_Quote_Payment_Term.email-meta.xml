@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Pros Quote Payment Term</name>
+    <style>freeForm</style>
+    <subject>The CPM Request {!CameleonCPQ__QxQuote__c.Quote_Number__c} has been Approved</subject>
+    <textOnly>Quote ID : {!CameleonCPQ__QxQuote__c.Quote_Number__c}
+
+Quote Account Name : {!CameleonCPQ__QxQuote__c.QuoteAccountName__c}
+
+Sales Rep Name : {!CameleonCPQ__QxQuote__c.Sales_Rep__c}
+
+Opportunity Name: {!CameleonCPQ__QxQuote__c.OpportunityId__c}
+
+DOA Managing Director Name : {!CameleonCPQ__QxQuote__c.Managing_Director__c}
+
+DOA CPD Director Name : {!CameleonCPQ__QxQuote__c.CPD_Director__c}
+
+DOA VP Name : {!CameleonCPQ__QxQuote__c.VP__c}
+
+DOA SVP Name : {!CameleonCPQ__QxQuote__c.SVP__c}
+
+DOA EVP Name : {!CameleonCPQ__QxQuote__c.EVP__c}
+
+DOA CFO Name : {!CameleonCPQ__QxQuote__c.CFO__c}
+
+DOA CDM Name : {!CameleonCPQ__QxQuote__c.CDM__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

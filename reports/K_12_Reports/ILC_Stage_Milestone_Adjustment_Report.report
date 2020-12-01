@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ILC_Stage_Milestone_Adjustment__c.Adjustment_Period__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>ILC_Stage_Milestone_Adjustment__c.ILC_Name__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Stage_Milestone_Adjustment__c.MileStone__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Stage_Milestone_Adjustment__c.Summary_Stage__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Stage_Milestone_Adjustment__c.Watson_Non_Watson__c</field>
+    </columns>
+    <columns>
+        <field>ILC_Stage_Milestone_Adjustment__c.Adjustment_ValueAmount__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>ILC Stage Milestone Adjustment Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$ILC_Stage_Milestone_Adjustment__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

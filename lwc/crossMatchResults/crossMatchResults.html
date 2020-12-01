@@ -1,0 +1,243 @@
+<template >
+
+    <div if:false={dataLoaded}>
+        <lightning-spinner
+        variant="brand"
+        size="large">
+    </lightning-spinner>
+    </div>
+    
+    <template if:true={ToastToBeDisplayed} >
+    <div style="height: 500px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-text-heading_small slds-text-align_center">
+                        <div class="slds-notify_container slds-is-relative">
+                            <div class="slds-notify slds-notify_toast" role="status">
+                                <span class="slds-assistive-text">{variant}</span>
+                                <span class="slds-icon_container" title="Alert">
+                                    <lightning-icon icon-name="utility:warning" size="small" variant="inverse"></lightning-icon>
+                                </span>
+                                <div class="slds-notify__content">
+                                    <h2 class="slds-text-heading_small ">{MessageToBeDisplayed}</h2>
+                                </div>
+                                <div class="slds-notify__close">
+                                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close" onclick={closeModel}>
+                                        <lightning-icon icon-name="utility:close" size="small" variant="inverse"> </lightning-icon>
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</template>
+    
+    <!--Cross Match Results Screen-->
+    <template if:true={ResultScreen}>
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-opportunity" title="opportunity">
+                                <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#opportunity"></use>
+                                </svg>
+                                <span class="slds-assistive-text">opportunity</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title="Cross Match Results"><b>Cross Match Results</b></span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-text-heading_small" style="padding-right: 75px;">
+                    <p><b> Hit Rate % : <lightning-formatted-number value={hitRate} ></lightning-formatted-number></b></p>
+                    <br/>
+                    <p><b> No Of Matches : <lightning-formatted-number value={noOfMatches} ></lightning-formatted-number></b></p>
+                    <br/>
+                    <p><b> No Of No Matches : <lightning-formatted-number value={noOfNoMatches} ></lightning-formatted-number></b></p>
+                </div>
+                <div class="slds-text-heading_small">
+                    <p><b> Created Date and Time : <lightning-formatted-text value={createdTimeStamp} ></lightning-formatted-text></b></p>
+                    <br/>
+                    <p><b> File Name : <lightning-formatted-text value={fileName} ></lightning-formatted-text></b></p>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="slds-card">
+            <lightning-card title=""> 
+                <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center">
+            
+                    <div if:true={NoErrors} class="slds-col">
+                        <span>
+                            <lightning-button variant="brand" label="Add To Recommendations"
+                                                onclick={addRecommendations}>
+                            </lightning-button>
+                            
+                        </span>
+                    </div>&nbsp;
+                    <div class="slds-col">
+                        <span>
+                            <a target="_self" class="slds-button slds-button_brand" download="CPQImport.csv" href={hrefdata1} onclick={exportToCSV}  
+                               style="margin-left: 0%;">CPQ Import</a></span>
+                    </div> &nbsp;
+                    <div class="slds-col">
+                        <span>
+                            <a target="_self" class="slds-button slds-button_brand" download="ExportToCSV.csv" href={hrefdata} onclick={downloadAll}  
+                               style="margin-left: 2%;">Download</a></span>
+                    </div> &nbsp;
+
+                    <div if:true={NoErrors} style="padding-left: 550px;; width:auto">  
+                        <select class="slds-select" name="MatchType" onchange={MatchType} >
+                            <option value="All">All</option>
+                            <option value="PreferredMatch">Preferred</option>
+                            <option value="ExactMatch">Exact</option>
+                            <option value="FunctionalMatch">Functional</option>
+                            <option value="Bulk">Bulk</option>
+                            <option value="NoMatch">No Match</option>
+                        </select> 
+                    </div>
+                </div>
+                
+                <br/>
+
+
+                <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center">
+            
+                    <div if:true={NoErrors} class="slds-col">
+                        <span>
+                            <lightning-button variant="brand" name="PreviousPage" label="PreviousPage"
+                                                onclick={getData}>
+                            </lightning-button>
+                            
+                        </span>
+                    </div>
+                    &nbsp;
+                    <div if:true={NoErrors} class="slds-col">
+                        <span>
+                            <lightning-button variant="brand" name="NextPage" label="NextPage"
+                                                onclick={getData}>
+                            </lightning-button>
+                            
+                        </span>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div if:true={NoErrors} style="height: 500px;">
+                    
+                        <lightning-datatable 
+                                            class={rowRemoval}   
+                                            data={data}
+                                            columns={columns}
+                                            key-field="id"
+                                            sorted-by={sortBy}
+                                            sorted-direction={sortDirection}
+                                            onsort={handleSortdata}
+                                            onsave={handleSave}
+                                            draft-values={draftValues}
+                                            onrowselection={getSelectedRecords}
+                                            show-row-number-column="false"
+                                            >
+                        </lightning-datatable>
+                    
+            </div>
+            
+                 
+            <div if:false={NoErrors}>
+                <lightning-datatable
+                                     data={errorData}
+                                     columns={errorColumns}
+                                     key-field="id">
+                </lightning-datatable>
+            </div>
+            </lightning-card>
+        </div>
+        <br/>
+         
+        
+        
+    </template>
+    
+    
+    <!--Recommendation Screen-->
+   <!-- <template if:true={requestApprovalScreen}>
+        <div class="slds-card">
+            <lightning-accordion allow-multiple-sections-open
+                                 active-section-name="Request For Approval">
+                
+                <lightning-accordion-section name="Request For Approval" label="Request For Approval">
+                    
+                    <lightning-button label="Request Approval"
+                                      onclick={RequestApproval}>
+                    </lightning-button> 
+                    <br/>
+                    <lightning-card> 
+                        <br/>
+                        <div style="width: auto;">
+                            
+                            <lightning-datatable
+                                                 data={sentforapprovaldata}
+                                                 columns={requestApprovalColumns}
+                                                 key-field="id"
+                                                 onsave={handleSave}
+                                                 draft-values={draftValues}
+                                                 onrowselection={getSelectedRecordsForApproval}>
+                            </lightning-datatable>
+                        </div>
+                    </lightning-card>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+    </template>-->
+    
+    <!--Approval Screen-->
+   <!-- <template if:true={submitApprovalScreen}>
+        <div class="slds-card">
+            <lightning-accordion allow-multiple-sections-open
+                                 active-section-name="Submit For Approval">
+                
+                <lightning-accordion-section name="Submit For Approval" label="Submit For Approval">
+                    
+                    <lightning-button label="Submit Approval"
+                                      onclick={SubmitApproval}>
+                    </lightning-button> 
+                    <br/>
+                    <lightning-card> 
+                        <br/>
+                        <div style="width: auto;">
+                            
+                            <lightning-datatable
+                                                 data={approvalData}
+                                                 columns={submitForApprovalColumns}
+                                                 key-field="id"
+                                                 show-row-number-column="false"
+                                                 onrowaction={callRowAction}
+                                                 draft-values={draftValues}
+                                                 onrowselection={getSelectedRecords}>
+                            </lightning-datatable>
+                        </div>
+                    </lightning-card>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+    </template> -->
+    
+    
+</template>

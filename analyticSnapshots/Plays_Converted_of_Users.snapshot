@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Measures how many reps have converted a play from salesPRISM</description>
+    <groupColumn>User.Region__c</groupColumn>
+    <mappings>
+        <sourceField>User.Region__c</sourceField>
+        <sourceType>tabular</sourceType>
+        <targetField>Reporting_Snapshot__c.Name</targetField>
+    </mappings>
+    <mappings>
+        <aggregateType>Sum</aggregateType>
+        <sourceField>User.UserCount__c</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Reporting_Snapshot__c.Plays_Converted_of_Users__c</targetField>
+    </mappings>
+    <name>Plays Converted - % of Users</name>
+    <runningUser>055053@officedepot.com</runningUser>
+    <sourceReport>Certification_Metrics_Report/Cert_Metrics_salesPRISM_Converted</sourceReport>
+    <targetObject>Reporting_Snapshot__c</targetObject>
+</AnalyticSnapshot>

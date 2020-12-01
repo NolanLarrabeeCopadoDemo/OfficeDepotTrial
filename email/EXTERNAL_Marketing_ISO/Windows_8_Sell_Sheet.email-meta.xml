@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Windows 8 Sell Sheet</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Windows 8 Sell Sheet</name>
+    <style>freeForm</style>
+    <subject>Windows 8 is now available!</subject>
+    <textOnly>Dear {!Contact.Name},
+
+Windows 8 is now available!
+
+
+Thank you as always for being a loyal Office Depot customer.  The latest technology and software are vital for keeping your business productive. Meet the new Windows 8. Details are in the attached flyer and there are links to additional information. Meet the new Windows 8 and see what it can do for you.
+
+If you have any questions, please don&apos;t hesitate to contact me at the below number. For your reference, your account number is {!Account.AOPS_Cust_Id__c}.
+
+Thank you again for your time and your continued business with Office Depot.
+
+
+Regards,
+{!User.Name}
+Account Manager
+855-DEPOT11 x{!User.ISO_Extension__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

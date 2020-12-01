@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>This custom setting will hold the AMP Install name and developer token. This will be used to call the api&apos;s with admin user who has created the token.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>MindMatrix__GroupJSON__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This will store the JSON for profile and user groups link in SF and AMP.</description>
+        <externalId>false</externalId>
+        <label>GroupJSON</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MindMatrix__InstallUrl__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This field should contain the install url of AMP say, https://xyz.amp.vg/</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field should contain the install url of AMP say, https://xyz.amp.vg/</inlineHelpText>
+        <label>Install Url</label>
+        <length>100</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MindMatrix__SSOPopupMessage__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This is the pop up message shown when showing the alert to user for doing SSO.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the pop up message shown when showing the alert to user for doing SSO.</inlineHelpText>
+        <label>SSOPopupMessage</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MindMatrix__SSOPopupSettings__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This will store all the other settings related to pop shown to user for doing SSO. For example border color,bg color etc.</description>
+        <externalId>false</externalId>
+        <label>SSOPopupSettings</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MindMatrix__Token__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This field should contain the developer api token created by the admin user.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field should contain the developer api token created by the admin user.</inlineHelpText>
+        <label>Token</label>
+        <length>200</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MindMatrix__UserToken__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This will save the token for respective user logged in.</description>
+        <externalId>false</externalId>
+        <label>UserToken</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>AMPAPIDetails</label>
+    <visibility>Public</visibility>
+</CustomObject>

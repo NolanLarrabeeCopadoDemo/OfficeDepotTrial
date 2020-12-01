@@ -1,0 +1,42 @@
+<apex:page standardController="Account" extensions="businessProInfo" title="Business Pro Account">
+   
+      <apex:pagemessages escape="false" id="msg"></apex:pagemessages>
+         <apex:PageBlock >
+            <apex:form id="bpro">
+            <center>
+             <apex:commandButton value="Modify BusinessPro Rep" action="{!changeOwner}" rendered="{!AND(!displayEdit,chgOwner)}" reRender="bpro,msg"/>
+            </center>
+            <br/>
+             <apex:pageBlockSection columns="2" collapsible="false" rendered="{!!displayEdit}">
+                <apex:outputField value="{!bpInfo.Name}"/>
+                <apex:outputField value="{!bpInfo.OD_Employee_ID__c}"/>
+                <apex:outputField value="{!bpInfo.Phone}"/>
+                <apex:outputField value="{!bpInfo.Email}"/>
+                <apex:outputField value="{!boInfo.BusinessPro__r.Store__c}" label="Business Pro Store#"/> 
+                <apex:outputField value="{!boInfo.Start_Date__c}" label="Business Pro Start Date"/>
+               <!-- <apex:outputField value="{!boInfo.End_Date__c}" label="Business Pro End Date"/> -->
+             </apex:pageBlockSection>
+             <apex:pageBlockSection columns="2" rendered="{!displayEdit}" title="New BusinessPro Details" collapsible="false">
+                 <apex:inputField value="{!newBo.BusinessPro__c}" required="true"/> 
+                 <apex:inputField value="{!newBo.Start_Date__c}" required="true"/> 
+             </apex:pageBlockSection>
+                <center>
+                  <!-- <apex:commandButton value="Submit" action="{!saveBpro}" reRender="bpro,msg" rendered="{!displayEdit}"/>
+                   <apex:commandButton value="Cancel" action="{!cancelBpro}" reRender="bpro,msg" rendered="{!displayEdit}" immediate="true"/>
+                  -->
+                 <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                       Processing,Please Wait...
+                    </apex:facet>
+                    <apex:facet name="stop">
+                     <apex:outputPanel >
+                      <apex:commandButton value="Submit" action="{!saveBpro}" status="status" reRender="bpro,msg" rendered="{!displayEdit}"/>
+                      <apex:commandButton value="Cancel" action="{!cancelBpro}" reRender="bpro,msg" rendered="{!displayEdit}" immediate="true"/>
+                     </apex:outputPanel>
+                    </apex:facet>
+                  </apex:actionStatus>
+                </center>
+           </apex:form> 
+          </apex:PageBlock>
+
+</apex:page>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>K-12 C2L Website Voicemail</name>
+    <style>freeForm</style>
+    <subject>Committed to Learning with Office Depot</subject>
+    <textOnly>Hello {!Contact.FirstName},
+
+
+I am sorry I missed you. I called today to share some exciting news with you.
+
+We are so excited to announce that Office Depot has just launched our own Committed to Learning website for a holistic approach to education solutions.
+
+Committed to Learning integrates Office Depot&apos;s education-focused contract division with a wealth of best-in-class partners across the instructional ecosystem of people, classrooms, content data and materials. Personalizing the learning journey.
+
+Please click COMMITTED TO LEARNING to see what we have brought to you.
+
+Let me know if you have any questions.
+
+THANK YOU!
+
+{!User.Name}
+
+Account Manager
+
+{!User.Email}
+
+(855)DEPOT11 ext. {!User.ISO_Extension__c}
+
+https://business.officedepot.com
+
+Customer Service: (888) 263-3423</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

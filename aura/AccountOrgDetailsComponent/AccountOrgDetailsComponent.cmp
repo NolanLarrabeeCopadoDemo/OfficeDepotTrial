@@ -1,0 +1,204 @@
+<aura:component controller="OrgHierarchyDetailsController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">   
+    
+    <aura:method name="reInitAcc" action="{!c.doAction}" description="Runs the init method again ">
+        <aura:attribute name="param1" type="String"/>
+    </aura:method>
+        
+    <aura:attribute name="currentIdRec" type="String"/>   
+    
+    <aura:attribute name="currentId" type="String"/>   
+    <aura:attribute name="accountId" type="Id"/>
+    <aura:attribute name="isAccountOrOrg" type="boolean"/>
+    <aura:attribute name="showModel" type="boolean" default="false"/>
+    
+    
+    
+    <div >        
+        <aura:if isTrue="{!v.accountId}">
+            <div > 
+
+                <aura:if isTrue="{!v.isAccountOrOrg}">Account Information
+
+                    <lightning:recordViewForm recordId="{!v.accountId}" objectApiName="Account">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-5">
+                                                               
+                                 <div >
+                                  <label> Logo </label>
+                                 <lightning:outputField  label ="Logo"   variant = "label-hidden" fieldName="Logo__c" />
+                                 </div>    
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                <div >
+                                  <label> Name </label>
+                                 <lightning:outputField  label ="Name"   variant = "label-hidden" fieldName="Name" />
+                                 </div>                              </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                
+                                <div >
+                                  <label> Cust Id </label>
+                                 <lightning:outputField  label ="Cust ID"   variant = "label-hidden" fieldName="Cust_ID__c" />
+                                 </div>  
+
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                 <div >
+                                  <label> Address </label>
+                                     
+   <!-- <lightning:formattedAddress
+        street="Address1__c"
+        city="City__C"
+        country="US"
+        province="State__C"
+    /> -->
+
+                                     
+                                     
+                                 <lightning:outputField  label ="Address"   variant = "label-hidden" fieldName="Address1__c" />
+                                      <lightning:outputField  label ="Address"   variant = "label-hidden" fieldName="City__c" />
+                                      <lightning:outputField  label ="Address"   variant = "label-hidden" fieldName="State__c" />
+                                 </div>  
+
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                
+                                 <div >
+                                  <label> Country </label>
+                                 <lightning:outputField  label ="Country"   variant = "label-hidden" fieldName="Country__c" />
+                                 </div>  
+                                
+                            </div>
+                        </div>
+                        
+                        
+
+
+
+
+                        
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-5">
+                               <div >
+                                  <label> Employee Count </label>
+                                 <lightning:outputField  label ="Employee Count"   variant = "label-hidden" fieldName="NumberOfEmployees" />
+                                 </div>   
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                <div >
+                                  <label> Company type </label>
+                                 <lightning:outputField  label ="Company type"   variant = "label-hidden" fieldName="Account_Type__c" />
+                                 </div>                                                                 
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                 <div >
+                                  <label> Industry </label>
+                                 <lightning:outputField  label ="Industry"   variant = "label-hidden" fieldName="Industry" />
+                                 </div>                                                                                                 
+                            </div>
+                             <div class="slds-col slds-size_1-of-5">
+                                <div >
+                                  <label> Entity Type </label>
+                                 <lightning:outputField  label ="Entity Type"   variant = "label-hidden" fieldName="Account_Type__c" />
+                                 </div>                                                                                                 
+
+                            </div>
+                            <div class="slds-col slds-size_1-of-5">
+                                
+                             <div >
+                              <label> Website</label>
+                             <lightning:outputField  label ="Website"   variant = "label-hidden" fieldName="Website" />
+                             </div>   
+                                                                                                                                
+                            </div>
+
+                        </div>
+
+                        
+                        
+                    </lightning:recordViewForm>
+
+                    <aura:set attribute="else">
+                        Org Information
+
+                        <lightning:recordViewForm recordId="{!v.accountId}" objectApiName="Org__c">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_1-of-4">
+                                    <div >
+                                      <label> Business Name</label>
+                                     <lightning:outputField  label ="Business Name"   variant = "label-hidden" fieldName="Business_Name__c" />
+                                     </div> 
+
+                                </div>
+                                <div class="slds-col slds-size_1-of-4">
+                                     <div >
+                                      <label> Address</label>
+                                     <lightning:outputField  label ="Address"   variant = "label-hidden" fieldName="Address_1__c" />
+                                     </div> 
+
+                                    
+                                </div>
+                                <div class="slds-col slds-size_1-of-4">
+                                     <div >
+                                      <label> Employee count</label>
+                                     <lightning:outputField  label ="Employee count"   variant = "label-hidden" fieldName="Employee_Count__c" />
+                                     </div> 
+
+                                    
+                                </div>
+                                <div class="slds-col slds-size_1-of-4">
+                                     <div >
+                                      <label>OD Annual Sales</label>
+                                     <lightning:outputField  label ="OD Annual Sales"   variant = "label-hidden" fieldName="Sales_TY_text__c" />
+                                     </div> 
+
+                                    
+                                </div>
+
+                            </div>
+                            
+                            
+                            
+                              <div class="slds-grid">
+                                  
+                                <div class="slds-col slds-size_1-of-4">                                    
+                                     <div >
+                                      <label> Website</label>
+                                     <lightning:outputField  label ="Website"   variant = "label-hidden" fieldName="Website__c" />
+                                     </div>                                     
+                                </div>
+                                <div class="slds-col slds-size_1-of-4">
+                                     <div >
+                                      <label> Industry </label>
+                                     <lightning:outputField  label ="Industry"   variant = "label-hidden" fieldName="Primary_Industry__c" />
+                                     </div>                                                                                                                                     
+                                </div>
+                                <div class="slds-col slds-size_1-of-4">
+                                     <div >
+                                      <label> Type </label>
+                                     <lightning:outputField  label ="Type"   variant = "label-hidden" fieldName="Type__c" />
+                                     </div>                                                                                                                                     
+                                </div>
+                              <div class="slds-col slds-size_1-of-4">
+                                     <div >
+                                      <label> Revenue </label>
+                                     <lightning:outputField  label ="Revenue"   variant = "label-hidden" fieldName="SITE_SALES_AMT__c" />
+                                     </div>                                                                                                                                     
+                                </div>
+
+                            </div>
+                        </lightning:recordViewForm>
+                    </aura:set>
+
+                </aura:if>
+            </div>
+            <aura:set attribute="else">
+                <div >Org Information </div>  
+            </aura:set>
+        </aura:if>
+</div>
+
+
+
+
+     
+</aura:component>

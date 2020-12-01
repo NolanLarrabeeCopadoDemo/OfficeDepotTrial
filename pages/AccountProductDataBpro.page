@@ -1,0 +1,413 @@
+<apex:page standardController="Account">
+ 
+  <style>
+  .redText {
+    color :red;
+  }
+  .blackText {
+    color :black;
+  }
+  .nth-child {
+  background-color: #DBDFE0;
+ 
+  }
+.last-child{
+  background-color: #CFD3D4;
+  border-color: #000000;
+
+ 
+ 
+}
+
+  </style>
+  <apex:pageBlock rendered="{!IF(Account.BSD_Account_Number__c == NULL,true,false)}">
+  
+  <table class="list" border="0" cellspacing="0" cellpadding="0" width="100%">
+    <tbody>
+      
+      <tr class="headerRow">
+        <th><apex:outputText value="Category" /></th>
+        <th class="CurrencyElement"><apex:outputText value="TY Sales TD" /></th> 
+        <th class="CurrencyElement"><apex:outputText value="TY IMU%" /></th>
+        <th class="CurrencyElement"><apex:outputText value="LY Sales TD" /></th>
+        <th class="CurrencyElement"><apex:outputText value="LY IMU%" /></th>
+        <th class="CurrencyElement"><apex:outputtext value="Sales Diff" /></th> 
+       <!-- <th class="CurrencyElement"><apex:outputText value="Potential" /></th>  -->
+        <th class="CurrencyElement"><apex:outputText value="Last Order" /></th>                  
+        <th class="CurrencyElement"><apex:outputText value="Last Order $" /></th>                     
+    
+      </tr>
+      
+      <tr class="dataRow odd">
+       <td><b><apex:outputText value="Paper"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Paper_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Paper_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Paper_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.paper_IMU_LY_per__c}"/></td>      
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Paper_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Paper_Diff__c}"/></apex:outputPanel></td> 
+      <!-- <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Paper_Pot__c}"/></td> -->
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Paper_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Paper_Last_Order_amt__c}"/></td>
+           
+      </tr>
+      
+      
+      <tr class="nth-child">
+       <td><b><apex:outputText value="Ink Toner"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Ink_Toner_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Ink_Toner_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Ink_Toner_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Ink_Toner_IMU_LY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Ink_Toner_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Ink_Toner_Diff__c}"/></apex:outputPanel></td>
+       <!-- <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Ink_Toner_Pot__c}"/></td> -->
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Ink_Toner_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Ink_Toner_Last_Order_amt__c}"/></td>
+       
+      </tr>
+      
+       <tr class="dataRow odd">
+       <td><b><apex:outputText value="Furniture"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Furniture_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Furniture_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Furniture_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Furniture_IMU_LY_per__c}"/></td>  
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Furniture_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Furniture_Diff__c}"/></apex:outputPanel></td>  
+       <!-- <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Furniture_Pot__c}"/></td> -->
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Furniture_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Furniture_last_order_amt__c}"/></td>
+     
+      </tr>
+      
+       <tr class="nth-child">
+       <td><b><apex:outputText value="CBS"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CBS_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CBS_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CBS_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CBS_IMU_LY_per__c}"/></td>       
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.CBS_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.CBS_Diff__c}"/></apex:outputPanel></td>
+       <!-- <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CBS_Pot__c}"/></td> -->
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CBS_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CBS_Last_order_amt__c}"/></td>
+     
+      </tr>
+     
+      <tr class="dataRow odd">
+        <td><b><apex:outputText value="CPD" /></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CPD_TY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CPD_IMU_TY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CPD_LY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CPD_IMU_LY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.CPD_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.CPD_Diff__c}"/></apex:outputPanel></td>
+        <!-- <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CPD_Pot__c}"/></td>-->
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CPD_Last_Order__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.CPD_Last_order_amt__c}"/></td>
+     
+      </tr>
+       
+       <tr class="nth-child">
+       <td><b><apex:outputText value="Tech"/></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Tech_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Tech_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Tech_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Tech_IMU_LY_per__c}"/></td>      
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Tech_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Tech_Diff__c}"/></apex:outputPanel></td> 
+       <!--<td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Tech_Pot__c}"/></td>-->
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Tech_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Tech_Last_Order_amt__c}"/></td>
+     
+      </tr>
+      
+       <tr class="dataRow odd">
+        <td><b><apex:outputText value="Filing & Binding"/></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Filing_Binding_TY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Filing_Binding_IMU_TY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Filing_Binding_LY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Filing_Binding_IMU_LY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Filing_Binding_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Filing_Binding_Diff__c}"/></apex:outputPanel></td> 
+        <!--<td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Filing_Binding_Pot__c}"/></td> -->
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Filing_Binding_Last_Order__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Filing_Binding_Last_Order_amt__c}"/></td>
+     
+      </tr>
+      
+      <tr class="nth-child">
+       <td><b><apex:outputText value="Labels & Forms"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Labels_Forms_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Labels_Forms_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Labels_Forms_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Labels_Forms_IMU_LY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Labels_Forms_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Labels_Forms_Diff__c}"/></apex:outputPanel></td> 
+       <!--<td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Labels_Forms_Pot__c}"/></td>-->
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Labels_Forms_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Labels_Forms_Last_Order_amt__c}"/></td>
+      </tr>
+      
+      
+        <tr class="dataRow odd">
+       <td><b><apex:outputText value="Writing Drafting"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Writing_Drafting_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Writing_Drafting_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Writing_Drafting_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Writing_Drafting_IMU_LY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Writing_Drafting_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Writing_Drafting_Diff__c}"/></apex:outputPanel></td>
+       <!--<td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Writing_Drafting_Pot__c}"/></td>-->
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Writing_Drafting_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Writing_Drafting_Last_Order_amt__c}"/></td>
+
+      </tr>
+          
+           
+      <tr class="nth-child">
+        <td><b><apex:outputText value="Office Essentials"/></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Office_Essentials_TY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Office_Essentials_IMU_TY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Office_Essentials_LY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Office_Essentials_IMU_LY_per__c}"/></td>       
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Office_Essentials_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Office_Essentials_Diff__c}"/></apex:outputPanel></td>
+        <!--<td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Office_Essentials_Pot__c}"/></td>-->
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Office_Essentials_Last_Order__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Office_Essentials_Last_Order_amt__c}"/></td>
+
+      </tr>
+           
+      <tr class="dataRow odd">
+       <td><b><apex:outputText value="MPS"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MPS_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MPS_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MPS_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MPS_IMU_LY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.MPS_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.MPS_Diff__c}"/></apex:outputPanel></td>
+       <!--<td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MPS_Pot__c}"/></td>-->
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MPS_Last_Order__c   }"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.MPS_Last_order_amt__c}"/></td>
+
+      </tr>
+      
+      
+      <tr class="nth-child">
+       <td style="border-bottom:1px solid #727272;"><b><apex:outputText value="Miscellaneous"/></b></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Miscellaneous_TY__c}"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Miscellaneous_IMU_TY_per__c}"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Miscellaneous_LY__c}"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Miscellaneous_IMU_LY_per__c}"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Miscellaneous_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Miscellaneous_Diff__c}"/></apex:outputPanel></td>
+       <!--<td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Miscellaneous_Pot__c}"/></td>-->
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Miscellaneous_Last_Order__c   }"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Miscellaneous_Last_Order_amt__c}"/></td>
+
+      </tr>
+      
+         
+      <tr class="last-child">
+       <td><b><apex:outputText value="Total"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Total_TY_Sales_to_Date__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{!Account.Total_TY_IMU_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Total_LY_Sales_to_Date__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{!Account.Total_LY_IMU_Per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.Total_Sales_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Total_Sales_Diff__c}"/></apex:outputPanel></td>
+       <!--<td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.Total_Potential_to_Date__c}"/></td>-->
+       <td class=" dataCell  CurrencyElement"><apex:outputtext value="-----"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputtext value="-----"/></td>
+
+      </tr>
+    </tbody>
+  </table> 
+
+  </apex:pageBlock>
+  
+  <apex:pageBlock rendered="{!IF(Account.BSD_Account_Number__c == NULL,false,true)}">
+  
+  <table class="list" border="0" cellspacing="0" cellpadding="0" width="100%">
+    <tbody>
+      
+      <tr class="headerRow">
+        <th><apex:outputText value="Category" /></th>
+        <th class="CurrencyElement"><apex:outputText value="TY Sales TD" /></th> 
+        <th class="CurrencyElement"><apex:outputText value="TY IMU%" /></th>
+        <th class="CurrencyElement"><apex:outputText value="LY Sales TD" /></th>
+        <th class="CurrencyElement"><apex:outputText value="LY IMU%" /></th>
+        <th class="CurrencyElement"><apex:outputtext value="Sales Diff" /></th> 
+        <th class="CurrencyElement"><apex:outputText value="Potential" /></th>  
+        <th class="CurrencyElement"><apex:outputText value="Last Order" /></th>                  
+        <th class="CurrencyElement"><apex:outputText value="Last Order $" /></th>                     
+    
+      </tr>
+      
+      <tr class="dataRow odd">
+       <td><b><apex:outputText value="Paper"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Paper_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Paper_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Paper_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.paper_IMU_LY_per__c}"/></td>      
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Paper_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.Paper_Diff__c}"/></apex:outputPanel></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Paper_Pot__c}"/></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Paper_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Paper_Last_Order_amt__c}"/></td>
+           
+      </tr>
+      
+      
+      <tr class="nth-child">
+       <td><b><apex:outputText value="Ink Toner"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Ink_Toner_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Ink_Toner_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Ink_Toner_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Ink_Toner_IMU_LY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Ink_Toner_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.Ink_Toner_Diff__c}"/></apex:outputPanel></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Ink_Toner_Pot__c}"/></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Ink_Toner_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Ink_Toner_Last_Order_amt__c}"/></td>
+       
+      </tr>
+      
+       <tr class="dataRow odd">
+       <td><b><apex:outputText value="Furniture"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Furniture_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Furniture_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Furniture_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Furniture_IMU_LY_per__c}"/></td>  
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Furniture_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.Furniture_Diff__c}"/></apex:outputPanel></td>  
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Furniture_Pot__c}"/></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Furniture_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Furniture_last_order_amt__c}"/></td>
+     
+      </tr>
+      
+       <tr class="nth-child">
+       <td><b><apex:outputText value="CBS"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CBS_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CBS_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CBS_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CBS_IMU_LY_per__c}"/></td>       
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.CBS_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.CBS_Diff__c}"/></apex:outputPanel></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CBS_Pot__c}"/></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CBS_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CBS_Last_order_amt__c}"/></td>
+     
+      </tr>
+     
+      <tr class="dataRow odd">
+        <td><b><apex:outputText value="CPD" /></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CPD_TY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CPD_IMU_TY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CPD_LY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CPD_IMU_LY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.CPD_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.CPD_Diff__c}"/></apex:outputPanel></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CPD_Pot__c}"/></td> 
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CPD_Last_Order__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.CPD_Last_order_amt__c}"/></td>
+     
+      </tr>
+       
+       <tr class="nth-child">
+       <td><b><apex:outputText value="Tech"/></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Tech_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Tech_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Tech_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Tech_IMU_LY_per__c}"/></td>      
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Tech_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.Tech_Diff__c}"/></apex:outputPanel></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Tech_Pot__c}"/></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Tech_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Tech_Last_Order_amt__c}"/></td>
+     
+      </tr>
+      
+       <tr class="dataRow odd">
+        <td><b><apex:outputText value="Filing & Binding"/></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Filing_Binding_TY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Filing_Binding_IMU_TY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Filing_Binding_LY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Filing_Binding_IMU_LY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Filing_Binding_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.Filing_Binding_Diff__c}"/></apex:outputPanel></td> 
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Filing_Binding_Pot__c}"/></td> 
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Filing_Binding_Last_Order__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Filing_Binding_Last_Order_amt__c}"/></td>
+     
+      </tr>
+      
+      <tr class="nth-child">
+       <td><b><apex:outputText value="Labels & Forms"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Labels_Forms_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Labels_Forms_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Labels_Forms_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Labels_Forms_IMU_LY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Labels_Forms_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.Labels_Forms_Diff__c}"/></apex:outputPanel></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Labels_Forms_Pot__c}"/></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Labels_Forms_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Labels_Forms_Last_Order_amt__c}"/></td>
+      </tr>
+      
+      
+        <tr class="dataRow odd">
+       <td><b><apex:outputText value="Writing Drafting"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Writing_Drafting_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Writing_Drafting_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Writing_Drafting_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Writing_Drafting_IMU_LY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Writing_Drafting_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.Writing_Drafting_Diff__c}"/></apex:outputPanel></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Writing_Drafting_Pot__c}"/></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Writing_Drafting_Last_Order__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Writing_Drafting_Last_Order_amt__c}"/></td>
+
+      </tr>
+          
+           
+      <tr class="nth-child">
+        <td><b><apex:outputText value="Office Essentials"/></b></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Office_Essentials_TY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Office_Essentials_IMU_TY_per__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Office_Essentials_LY__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Office_Essentials_IMU_LY_per__c}"/></td>       
+        <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Office_Essentials_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.Office_Essentials_Diff__c}"/></apex:outputPanel></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Office_Essentials_Pot__c}"/></td> 
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Office_Essentials_Last_Order__c}"/></td>
+        <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Office_Essentials_Last_Order_amt__c}"/></td>
+
+      </tr>
+           
+      <tr class="dataRow odd">
+       <td><b><apex:outputText value="MPS"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.MPS_TY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.MPS_IMU_TY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.MPS_LY__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.MPS_IMU_LY_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.MPS_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.MPS_Diff__c}"/></apex:outputPanel></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.MPS_Pot__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.MPS_Last_Order__c   }"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.MPS_Last_order_amt__c}"/></td>
+
+      </tr>
+      
+      
+      <tr class="nth-child">
+       <td style="border-bottom:1px solid #727272;"><b><apex:outputText value="Miscellaneous"/></b></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Miscellaneous_TY__c}"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Miscellaneous_IMU_TY_per__c}"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Miscellaneous_LY__c}"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Miscellaneous_IMU_LY_per__c}"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Miscellaneous_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.Miscellaneous_Diff__c}"/></apex:outputPanel></td>
+      <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Miscellaneous_Pot__c}"/></td> 
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Miscellaneous_Last_Order__c   }"/></td>
+       <td style="border-bottom:1px solid #727272;" class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Miscellaneous_Last_Order_amt__c}"/></td>
+
+      </tr>
+      
+         
+      <tr class="last-child">
+       <td><b><apex:outputText value="Total"/></b></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Total_TY_Sales_to_Date__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{!Account.BSD_Account_Number__r.Total_TY_IMU_per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Total_LY_Sales_to_Date__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputText value="{!Account.BSD_Account_Number__r.Total_LY_IMU_Per__c}"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputPanel styleClass="{!if(Account.BSD_Account_Number__r.Total_Sales_Diff__c < 0,'redText','blackText')}" layout="block"><apex:outputField value="{!Account.BSD_Account_Number__r.Total_Sales_Diff__c}"/></apex:outputPanel></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputField value="{!Account.BSD_Account_Number__r.Total_Potential_to_Date__c}"/></td> 
+       <td class=" dataCell  CurrencyElement"><apex:outputtext value="-----"/></td>
+       <td class=" dataCell  CurrencyElement"><apex:outputtext value="-----"/></td>
+
+      </tr>
+    </tbody>
+  </table> 
+
+  </apex:pageBlock>
+   
+</apex:page>

@@ -1,0 +1,153 @@
+<aura:component controller="CustomerApprovalLightningExtension" implements="force:hasRecordId,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:appHostable" access="global">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="writtenAgreement" type="boolean" />
+    <aura:attribute name="writtenAgreementOnApproval" type="boolean" />
+    <aura:attribute name="customerQuote" type="boolean" />
+    <aura:attribute name="ThankYouMessage" type="boolean" />
+    <aura:attribute name="QuoteWithNoProducts" type="boolean" />
+    <aura:attribute name="quoteAccountName" type="string" />
+    <aura:attribute name="customerApprovalRequired" type="boolean" />
+    <aura:attribute name="customerQuoteNotificationWritten" type="boolean" />
+    <aura:attribute name="messageForResponse" type="boolean" />
+    <aura:attribute name="currentQuote" type="CameleonCPQ__QxQuote__c" default="{ 'sobjectType': 'CameleonCPQ__QxQuote__c' }" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="slds-p-around_large">
+        <div class="slds-col_bump-left slds-col_bump-right" style="width: fit-content;">
+            <div class="slds-col_bump-left slds-col_bump-right slds-m-bottom_large">
+                <div>
+                    <img src="{!$Resource.ODHorizontalLogoRed}" style="height: 50px;" />
+                </div>
+                <h1 class="slds-text-heading_large">Quote Approval</h1>
+            </div>
+             <aura:if isTrue="{!v.messageForResponse}">
+                                <div><p>
+                                    <h1 class="slds-text-heading_large">The details in this letter outlining your changes are no longer accessible at this time. If you have any questions or need any assistance, please reach out to your sales representative.
+                                    
+                                    We appreciate your business and continued partnership.
+                                    </h1> </p>
+                                    
+                                    
+                                    
+                                </div>
+                            </aura:if>
+            <aura:if isTrue="{!v.customerQuote}">
+                <div class="slds-m-bottom_medium slds-box">
+                    <lightning:recordEditForm aura:id="recordViewForm"
+                                              recordId="{!v.recordId}"
+                                              objectApiName="CameleonCPQ__QxQuote__c">
+                        <lightning:messages />
+                        <div class="slds-grid slds-m-bottom_small">
+                            <div style="min-width: 200px;">
+                                Name
+                            </div>
+                            <ui:outputText value="{!v.quoteAccountName}"/>
+                        </div>
+                        
+                        <div>
+                           
+                            <aura:if isTrue="{!v.writtenAgreement==true}">
+                                <div class="slds-box slds-m-bottom_medium">
+                                    <div class="slds-align_absolute-center">
+                                        <table class="slds-table slds-table--bordered slds-table--striped slds-table--cell-buffer" style="width: unset;">
+                                            <thead>
+                                                <tr class="slds-text-title--caps">
+                                                    <th><span class="slds-truncate">Current Account Setup</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Account Name</td>
+                                                    <td>{!v.currentQuote.CameleonCPQ__AccountId__r.Name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Account Number</td>
+                                                    <td>{!v.currentQuote.CameleonCPQ__AccountId__r.AOPS_Cust_Id__c}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Parent Name</td>
+                                                    <td>{!v.currentQuote.Parent__r.Name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>GrandParent Name</td>
+                                                    <td>{!v.currentQuote.Grandparent__r.Name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Great GrandParent Name</td>
+                                                    <td>{!v.currentQuote.Great_Grandparent__r.Name}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="slds-table slds-table--bordered slds-table--striped slds-table--cell-buffer" style="width: unset;">
+                                            <thead>
+                                                <tr class="slds-text-title--caps">
+                                                    <th><span class="slds-truncate">Future Account Setup</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Account Name</td>
+                                                    <td>{!v.currentQuote.CameleonCPQ__AccountId__r.Name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Account Number</td>
+                                                    <td>{!v.currentQuote.CameleonCPQ__AccountId__r.AOPS_Cust_Id__c}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Parent Name</td>
+                                                    <td>{!v.currentQuote.Default_Parent__r.Name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>GrandParent Name</td>
+                                                    <td>{!v.currentQuote.Default_Grandparent__r.Name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Great GrandParent Name</td>
+                                                    <td>{!v.currentQuote.Default_Great_Grandparent__r.Name}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </aura:if>
+                            
+                        </div>
+                        <aura:if isTrue="{!and(v.customerQuoteNotificationWritten == true,v.customerApprovalRequired == true)}"> 
+                            <div class="slds-grid slds-m-bottom_small">
+                                <div style="min-width: 200px;">
+                                    Customer Response
+                                </div>
+                                <lightning:inputField fieldName="Customer_Response__c" value="{!v.currentQuote.Customer_Response__c}" requried="true" variant="label-hidden" />
+                            </div>
+                            <div class="slds-grid">
+                                <div style="min-width: 200px;">
+                                    Customer Approval Status
+                                </div>
+                                <lightning:button variant="brand" label="Approve" title="Approve" onclick="{! c.handleApproval }" />
+                                <lightning:button variant="brand" label="Reject" title="Reject" onclick="{! c.handleRejection }" />
+                                <lightning:button variant="brand" label="Request to be contacted" title="Request to be contacted" onclick="{! c.handleRequestingInformation }" />
+                                <aura:set attribute="else">
+                                    <lightning:button variant="brand" label="Request to be contacted" title="Requested to be contacted" onclick="{! c.handleRequestingInformation }" />
+                                </aura:set>
+                            </div>
+                        </aura:if> 
+                    </lightning:recordEditForm>
+                </div>
+                <div>
+                    <aura:if isTrue="{!or(v.currentQuote.Customer_communication_requirements__c == 'Notification', v.currentQuote.Customer_communication_requirements__c == 'Notification &amp; Approval')}">
+                        <aura:if isTrue="{!v.QuoteWithNoProducts}">
+                            <h3 class="slds-text-heading_medium">Quote Document</h3>
+                            <iframe security="restricted" src="{!v.currentQuote.Document_Downloadable_URL__c}" width="800" height="800" />
+                        </aura:if>
+                    </aura:if>
+                </div>
+             
+            </aura:if>
+             <aura:if isTrue="{!v.ThankYouMessage}">
+            <div>
+                        <h1 class="slds-text-heading_large">Thank you for your response.</h1> 
+                    </div> 
+            </aura:if>
+        </div>
+    </div>
+</aura:component>

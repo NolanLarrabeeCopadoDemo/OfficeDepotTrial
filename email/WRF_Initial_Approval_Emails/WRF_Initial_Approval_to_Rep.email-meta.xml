@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that a request has been submitted to Managing Director for Initial Approval</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF Initial Approval to Rep</name>
+    <style>freeForm</style>
+    <subject>WRF Submitted for Initial Approval: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+Thank you for your Work Request submission for {!Case.Account}.  We appreciate the opportunity to work with you.
+
+
+Your request has been submitted to your Managing Director for approval:
+
+
+If approved, you will receive a notification of team assignment
+If rejected, you will receive an email notification
+
+
+***Please note: pricing work will not begin until Managing Director approval is received.
+
+
+Your Support Number is {!Case.CaseNumber}
+
+You can click here to view the request via Salesforce.
+
+
+Thank you,
+
+
+Your Support Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

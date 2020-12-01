@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_88493567</developerName>
+        <masterLabel>Transition Accounts</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Customer_Transition__c.Sequential_Status__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>06. On Deck</sourceValue>
+            </sourceValues>
+            <value>02. Pricing</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>07. Launched</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>08. Ready for eCom Mod</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>09. Audit 2</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>10. Ready to Order</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>11. Auto Redirected</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>12. Redirect Stopped</sourceValue>
+            </sourceValues>
+            <value>03. Launched</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>02. Scheduled</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>03. Rescheduled</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>04. Awaiting Disposition</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>05. Awaiting RFP</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>05. OMX Extension in Development</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>01. Unscheduled</sourceValue>
+            </sourceValues>
+            <value>01. Scheduled</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>13. Transition Complete</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>15. Administrative Close</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>14. Loss of Customer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>14. Transition Complete</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>15. Loss of Customer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>16. Administrative Close</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>13. TOOP</sourceValue>
+            </sourceValues>
+            <value>04. Complete</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>VerticalColumnStacked</chartType>
+        <enableHoverLabels>true</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>BucketField_88493567</groupingColumn>
+        <legendPosition>Right</legendPosition>
+        <location>CHART_TOP</location>
+        <secondaryGroupingColumn>Customer_Transition__c.Sequential_Status__c</secondaryGroupingColumn>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Large</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>Customer_Transition__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Review_Start_Date__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Customer_Disposition__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Written_Agreement__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.OMX_Primary_Key__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Account__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.AOPS_Assigned_AOPS_Account_ID__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Account_Owner__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.DSM__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Managing_Director__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.RVP__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Regional_Migration_Manager__c</field>
+    </columns>
+    <description>All Accounts set in the following bucket status Pre Launched &amp; Post Launched</description>
+    <filter>
+        <criteriaItems>
+            <column>Customer_Transition__c.Customer_Transition_Type2__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Child,Standalone</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Customer_Transition__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Loss of Customer,UnScheduled</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Customer_Transition__c.OMX_Primary_Key__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notContain</operator>
+            <value>-</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_88493567</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Customer_Transition__c.Sequential_Status__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Transition Accounts</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Customer_Transition__c</reportType>
+    <scope>team</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Customer_Transition__c.Review_Start_Date__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Customer_Transition__c.Agreement_Expiration_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

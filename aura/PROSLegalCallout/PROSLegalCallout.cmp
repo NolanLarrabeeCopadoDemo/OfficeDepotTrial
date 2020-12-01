@@ -1,0 +1,81 @@
+<aura:component controller="ProsApprovalController" implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="Global">    
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="isButtonActive" type="Boolean" default="false" />
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="approvers" type="List" />
+    <aura:attribute name="value" type="List" />
+    <aura:attribute name="Approver1" type="String" />
+    <aura:attribute name="Approver2" type="String"/>
+    <aura:attribute name="Approver3" type="String"/>
+    <aura:attribute name="Approver4" type="String"/>   
+    <aura:attribute name="approvalCount" type="Integer" default="0"/>
+    
+    
+    
+    <div id="spinnerDiv" class="slds-spinner_container" style="position: fixed;display:block;">
+        <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>   
+    
+    <header class="slds-modal__header">
+        <h2 class="slds-text-heading_medium">
+            Legal Callout for Approval
+        </h2>
+    </header>
+    <div style="{! 'height:' + v.bodyHeight + 'px;max-height:' + v.bodyHeight + 'px;overflow-y: auto !important;'}">
+        <lightning:recordEditForm aura:id="myForm11" objectApiName="CameleonCPQ__QxQuote__c" onload="{!c.recordLoaded}" onsubmit="{!c.onRecordSubmit}">
+            <lightning:card>
+                <div class="slds-p-horizontal--small">
+                    <span><lightning:inputField aura:Id="IssueType" fieldName="Type__c" onchange="{!c.activateButton}"/></span>
+                    
+                    <lightning:checkboxGroup name="Issue Term" label="Issue Term" options="{! v.options }" value="{! v.value }" /> <!--onchange="{! c.handleChange }" -->
+                    
+                </div>
+            </lightning:card>            
+            <div align="center">           
+                <lightning:button aura:id="Close" class="slds-m-top_small slds-button_brand" onclick="{!c.ClosePage}" label="Cancel" />   
+                <lightning:button aura:id="Save" class="slds-m-top_small slds-button_brand" type="submit" label="Get Approvers" />     
+            </div>                
+        </lightning:recordEditForm>        
+        <lightning:card>
+            <div class="slds-p-horizontal--small">
+                <aura:if isTrue="{!not(empty(v.approvers))}">                    
+                    <aura:iteration items="{!v.approvers}" var="item">
+                        <ol class="slds-list_ordered slds-has-dividers_around-space">
+                            <li class="slds-item">
+                                {!item.Name}, {!item.Job_Code_Level__c}
+                            </li>
+                        </ol>
+                    </aura:iteration>
+                 </aura:if> 
+                
+                <aura:if isTrue="{!v.approvalCount ge 1}">
+                    <c:lightningCustomLookup object="User" field="Name" onselect="{!c.handleUser1LookupChange}"></c:lightningCustomLookup>
+                </aura:if>
+                <aura:if isTrue="{!v.approvalCount ge 2}">
+                    <c:lightningCustomLookup object="User" field="Name" onselect="{!c.handleUser2LookupChange}"></c:lightningCustomLookup>
+                </aura:if>
+                <aura:if isTrue="{!v.approvalCount ge 3}">
+                    <c:lightningCustomLookup object="User" field="Name" onselect="{!c.handleUser3LookupChange}"></c:lightningCustomLookup>
+                </aura:if>
+                <aura:if isTrue="{!v.approvalCount ge 4}">
+                    <c:lightningCustomLookup object="User" field="Name" onselect="{!c.handleUser4LookupChange}"></c:lightningCustomLookup>
+                </aura:if>
+                    
+                             
+            </div>
+            <aura:if isTrue="{!v.isButtonActive}">
+                <div align="center">
+                    <lightning:button class="slds-m-top_small slds-button_brand" onclick="{!c.submitForApproval}" label="Submit for Approval" /> 
+                </div>
+            </aura:if>
+        </lightning:card>
+    </div>
+    <!--<footer class="slds-modal__footer">
+        
+    </footer> -->
+    
+</aura:component>

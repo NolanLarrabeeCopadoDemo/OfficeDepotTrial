@@ -1,0 +1,227 @@
+<template>
+
+        <div>
+    
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12">&nbsp;<br>&nbsp;<br></div>
+    
+    
+                <div class="slds-col slds-size_1-of-12"></div>
+    
+                <div class="slds-col slds-size_10-of-12">
+                    
+                        <div class="slds-align_absolute-center" style="height:2rem">
+                            <span class="slds-card__header-title" style="color: rgb(0, 4, 255);"><b>SUB-ORDER LIST PREVIEW</b></span>
+                        </div>
+                    
+    
+                    <div class="slds-col slds-size_12-of-12"><br></div>
+    
+                    <template if:true={isErrorExist}>
+                        <div class="slds-col slds-size_12-of-12" style="color:rgb(172, 7, 7);">
+                            
+                            <b>{errorMessage}</b>
+                            
+                            <br>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12"><br></div>
+                    </template>
+    
+                    <article class="slds-card">
+                        <div class="slds-card__header slds-grid">
+                            <div class="slds-col slds-size_1-of-3">
+    
+                                <div class="slds-media__body">
+                                    <span><b>Quote :</b> {quoteName}</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <div class="slds-media__body">
+                                    <span><b>Opportunity :</b> {opportunityName}</span>
+                                </div>
+    
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <div class="slds-media__body">
+                                    <span><b>Account :</b> {accountName}</span>
+                                </div>
+    
+                            </div>
+                        </div>
+    
+                    </article>
+
+                    <span class="slds-card__header-title"> <br><b>Sub-Order List</b>&nbsp;&nbsp;
+                        <lightning-button onclick={handleItemListExpanded} label="Expand All"></lightning-button>
+                        <!--<lightning-button onclick={handleItemListCollapsed} label="Collapse All"></lightning-button>-->
+                    </span>
+                </div>
+            </div>
+    
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-12"></div>
+                <div class="slds-col slds-size_10-of-12">
+                    <template for:each={orderList} for:item="custOrder">
+                        <div key={custOrder.sfdcQuoteId}>
+                            <div class="slds-col slds-size_12-of-12" style="color: rgb(172, 7, 7);"><br>  <br></div>
+                            <article class="slds-card">
+                                <div class="slds-card__header slds-grid">
+                                    <div class="slds-col slds-size_2-of-5">
+                                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                            <div class="slds-media__figure">
+                                                <span class="slds-icon_container slds-icon-standard-output">
+                                                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                                        <use
+                                                            xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#output">
+                                                        </use>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                            <div class="slds-media__body">
+                                                <template if:true={custOrder.isSubOrderErrorExist}>
+                                                    <span><lightning-helptext icon-variant="error" content={custOrder.orderErrorList}></lightning-helptext>Order header validation failed.</span><br>
+                                                </template>
+                                                <span><b>Sub-Order - {custOrder.vendorName}</b></span><br>                                                
+                                                <span>Vendor# : {custOrder.vendorNumber}</span><br>
+                                                <span>Vendor Quote# : {custOrder.vendorQuoteId}</span><br>
+                                                <span>Aops Customer ID :{custOrder.aopsCustId}</span><br>
+                                                <span>Aops Order Number :{custOrder.aopsOrderNumber}</span><br>
+                                                <span>Order Method : {custOrder.orderMethod}</span><br>
+                                                <span>Total Cost: ${custOrder.orderTotalCost}</span><br>
+                                                <span>Total Price: ${custOrder.orderTotalPrice}</span><br>
+                                                <span>Total S&H Fee: ${custOrder.shippingHandleFee}</span><br>
+                                                
+                                            </div>
+                                        </header>
+                                        <div class="slds-media__body">
+                                                
+                                        </div>
+                                        <div class="slds-media__body">
+                                                
+                                        </div>
+                                        <div class="slds-media__body">
+                                                
+                                        </div>
+                                    </div>
+                                    
+                                   
+                                    <div class="slds-col slds-size_1-of-5">
+                                        <div class="slds-media__body">
+                                                <span><b>Ship To:</b> <br></span>
+                                            <span>AOPS Seq ID: {custOrder.shipToAopsSeqID}<br>
+                                                {custOrder.shipToAddress1}
+                                                {custOrder.shipToAddress2}<br>
+                                                {custOrder.shipToCity}<br>
+                                                {custOrder.shipToState}-
+                                                {custOrder.shipToZip}<br>
+                                                {custOrder.shipTocountry}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_2-of-5">
+                                        <lightning-textarea name={custOrder.sequenceNumber} label="Order Comments" value={custOrder.orderComments} maxlength="500" onchange={handleNoteChanges}></lightning-textarea>
+                                    </div>
+                                </div>
+    
+                                <div class="slds-card__body slds-is-collapsed example-accordion">
+    
+                                    <div class="slds-grid slds-wrap slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered">
+                                        <div class="slds-col slds-size_1-of-8">
+                                            <div style="color: rgb(49, 8, 230); padding-left:10px;"><b>Line#</b></div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-8">
+                                            <div style="color: rgb(49, 8, 230); "><b>OD Item#</b></div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-8">
+                                            <div style="color: rgb(49, 8, 230);"><b>Description</b></div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-8">
+                                            <div style="color: rgb(49, 8, 230); text-align: center;"><b>Qty</b></div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-8">
+                                            <div style="color: rgb(49, 8, 230);"><b>Unit Cost</b></div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-8">
+                                            <div style="color: rgb(49, 8, 230);"><b>S&H Fee</b></div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-8">
+                                                <div style="color: rgb(49, 8, 230);"><b>Total Cost</b></div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-8">
+                                            <div style="color: rgb(49, 8, 230);"><b>Total Price</b></div>
+                                         </div>
+                                         
+                                    </div>
+                                    <template for:each={custOrder.quoteLineItemList} for:item="QuoteLineItem">
+                                        <div key={QuoteLineItem.Id}>
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col slds-size_1-of-8" style="padding-left:10px;">
+                                                    {QuoteLineItem.Line_Number__c}
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-8" >
+                                                    <template if:true={QuoteLineItem.Is_Error_Message_Exist__c}>
+                                                        <lightning-helptext icon-variant="error" content={QuoteLineItem.Error_Message__c}></lightning-helptext>
+                                                    </template>
+                                                        {QuoteLineItem.OD_Item_Number__c}
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-8">
+                                                    {QuoteLineItem.Description}
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-8" style="text-align: center;">
+                                                    {QuoteLineItem.Quantity}
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-8">
+                                                    ${QuoteLineItem.Cost__c}
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-8">
+                                                    ${QuoteLineItem.Shipping_Handling__c}
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-8">
+                                                    ${QuoteLineItem.Total_Cost__c}
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-8">
+                                                    ${QuoteLineItem.Total_Price__c}
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </template>
+    
+                                </div>
+    
+                            </article>
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_12-of-12">
+                                    <div class="border:solid;">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="slds-col slds-size_1-of-12"></div>
+            </div>
+            
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12">&nbsp;</div>
+                <div class="slds-col slds-size_8-of-12"></div>
+                
+                <template if:true={isAutomaticOrder}>
+                    <button name="placeorder" class="slds-button slds-button_success" disabled={isErrorExist} onclick={handlePlaceOrder}>Place Order</button>&nbsp;
+                </template>
+                <template if:true={isManualOrder}>
+                    <button class="slds-button slds-button_brand" disabled={isErrorExist} onclick={handleManualOrder}>Place Manual Order</button> &nbsp;
+                </template>
+                <button class="slds-button slds-button_destructive"  onclick={handleBackToQuote}>Return To Quote</button>
+                <div class="slds-col slds-size_12-of-12">&nbsp;<br></div>
+                <div class="slds-col slds-size_8-of-12"></div>
+            </div>
+        </div>
+        <template if:true={showSpinner}>
+            <div class="placeOrderHolder">
+                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+            </div>
+        </template>
+    </template>

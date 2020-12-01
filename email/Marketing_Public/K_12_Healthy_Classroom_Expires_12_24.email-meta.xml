@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>K-12 Healthy Classroom Expires 12/24</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>K-12 Healthy Classroom Expires 12/24</name>
+    <style>freeForm</style>
+    <subject>Healthy Classroom Information</subject>
+    <textOnly>Dear {!Contact.FirstName},
+
+As always thank you for being a loyal Office Depot customer!
+
+
+As we move into cold and flu season, I want to share the attached Lysol Workplace Products guide, which highlights the most popular Lysol workplace products that my customers are buying.  It seems that this year, more than previous years, my customers are using these Lysol products to keep their offices clean and employees healthy.
+
+
+If you have questions or would like more information on workplace hygiene, please call or email.  For your reference, your account number is {!Account.Cust_ID__c}.
+
+
+Thank you again for your time and your continued business!
+
+
+{!User.Name}
+
+Business Account Manager |Inside Sales BSD
+
+9501 Amberglen Blvd., Building H, Suite 200, Austin, TX 78729
+
+Tel: 855-337-6811 Ext: {!User.ISO_Extension__c} | Fax: 561.438.9719 | {!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

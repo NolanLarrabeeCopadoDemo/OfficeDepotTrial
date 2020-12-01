@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Executive Suite Coffee</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Executive Suite Coffee</name>
+    <style>none</style>
+    <subject>Executive Suite Coffee</subject>
+    <textOnly>Untitled Document
+
+Hi {!Contact.FirstName},
+I want to take a minute to let you know  about a delicious way to save! Our exclusive brand of coffee, Executive Suite®, offers the national brand quality that your employees are craving — at a price that you and your budget will love.
+From the rich boldness of Seattle Roast to the delightful fusion of Donut Shop Blend, there’s a gourmet flavor to satisfy everyone in the office.
+Plus we roast, grind and package every order on a weekly basis — so each one achieves its full potential and taste profile.
+
+Please view the customized digital presentation that I put together for you.
+
+Let me know if you’d like any more information, or if you’d like to try a sample or two. I’d be happy to send them to you!
+Sincerely,
+{!User.Name} 
+{!User.TitleTrimmed__c}
+Office Depot
+{!User.Street}|{!User.City}, {!User.State} {!User.PostalCode} 
+Tel:1 (888)-263-3426 | {!if( !ISBLANK( BLANKVALUE(User.Extension, User.Phone)) ,&apos; O: &apos; +BLANKVALUE(User.Extension, User.Phone) ,&apos;&apos;)} Email: {!User.Email} 
+
+Office Depot is a trademark of The Office Club, Inc. OfficeMax is a trademark of OMX, Inc. © 2016 Office Depot, Inc.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

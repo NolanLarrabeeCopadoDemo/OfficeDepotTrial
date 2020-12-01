@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Customer Transition Green Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>CT Green Email</name>
+    <style>freeForm</style>
+    <subject>{!Customer_Transition__c.AOPS_ID__c} - {!Customer_Transition__c.Account_Name__c} Green Spend Alert</subject>
+    <textOnly>Dear Green Team:
+
+Please be advised this OD North Customer has been placed in a status of ON DECK.
+
+That means we are beginning migration discussions with the customer about pricing, implementation, etc.  This customer is currently utilizing Green services.
+
+Please contact the Sales Representative who manages this account.   If the Customer has any special set up needs, it is your responsibility to work with the Sales Representative to ensure that business is not adversely impacted during migration.
+
+This is also an excellent opportunity to increase the spend in the Green Universe.
+
+Link to Customer: {!Customer_Transition__c.Account_Name__c}
+
+Thank you for your support.
+
+BSD SALES OPERATIONS TEAM</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

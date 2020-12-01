@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dashboard xmlns="http://soap.sforce.com/2006/04/metadata">
+    <backgroundEndColor>#FFFFFF</backgroundEndColor>
+    <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
+    <backgroundStartColor>#FFFFFF</backgroundStartColor>
+    <dashboardType>SpecifiedUser</dashboardType>
+    <isGridLayout>false</isGridLayout>
+    <leftSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Manual</chartAxisRange>
+            <chartAxisRangeMax>100.0</chartAxisRangeMax>
+            <chartAxisRangeMin>85.0</chartAxisRangeMin>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Identifies what % of each region has logged in within the last 7 days</footer>
+            <groupingSortProperties/>
+            <header>Actively Logging In- All Users By Region</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>Reporting_Snapshots_Reports/Metric_1_Login_Wall_of_Fame_Snapshot</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>false</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <useReportChart>true</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Manual</chartAxisRange>
+            <chartAxisRangeMax>80.0</chartAxisRangeMax>
+            <chartAxisRangeMin>50.0</chartAxisRangeMin>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Measures what % of reps have closed at least one opportunity</footer>
+            <groupingSortProperties/>
+            <header>Closing an Opportunity - % of Reps (Current Quarter)</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>Reporting_Snapshots_Reports/Metric_1_Closd_Opp_Snapshot</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>false</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <useReportChart>true</useReportChart>
+        </components>
+    </leftSection>
+    <middleSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Manual</chartAxisRange>
+            <chartAxisRangeMax>40.0</chartAxisRangeMax>
+            <chartAxisRangeMin>0.0</chartAxisRangeMin>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Identifies the users who have not logged in within the past 7 days</footer>
+            <groupingSortProperties/>
+            <header>Not Actively Logging In- All Users By Region</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>Reporting_Snapshots_Reports/Metric_1_No_Login_7_Days_Snapshot</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>false</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <useReportChart>true</useReportChart>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Manual</chartAxisRange>
+            <chartAxisRangeMax>60.0</chartAxisRangeMax>
+            <chartAxisRangeMin>0.0</chartAxisRangeMin>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Measures what % of reps have one or more opportunities overdue</footer>
+            <groupingSortProperties/>
+            <header>Opportunities Past Their Close Date - % of Reps</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>Reporting_Snapshots_Reports/Metric_1_Past_Open_Oppt_Snapshot</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>false</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <useReportChart>true</useReportChart>
+        </components>
+    </middleSection>
+    <rightSection>
+        <columnSize>Wide</columnSize>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Manual</chartAxisRange>
+            <chartAxisRangeMax>85.0</chartAxisRangeMax>
+            <chartAxisRangeMin>50.0</chartAxisRangeMin>
+            <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <footer>Measures what % of reps have created at least one opportunity</footer>
+            <groupingSortProperties/>
+            <header>Creating an Opportunity - % of Reps (Current Quarter)</header>
+            <legendPosition>Bottom</legendPosition>
+            <report>Reporting_Snapshots_Reports/Metric_1_Opportunities_Snapshot</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>false</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <useReportChart>true</useReportChart>
+        </components>
+    </rightSection>
+    <runningUser>055053@officedepot.com</runningUser>
+    <textColor>#000000</textColor>
+    <title>Cert Metrics - Basic (1)  Reporting Snapshot</title>
+    <titleColor>#000000</titleColor>
+    <titleSize>12</titleSize>
+</Dashboard>

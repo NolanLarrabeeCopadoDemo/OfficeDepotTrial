@@ -1,0 +1,38 @@
+<!--
+  == Copyright (c) 2019 by PROS, Inc. All Rights Reserved.
+  == This software is the confidential and proprietary information of
+  == PROS, Inc. ("Confidential Information").
+  == You may not disclose such Confidential Information, and may only
+  == use such Confidential Information in accordance with the terms of
+  == the license agreement you entered into with PROS.
+  -->
+
+<!--
+  -  Visualforce page to render the lightning component AgAgreementPanel
+  -
+  -  @author bgupta
+  -->
+<apex:page standardController="CameleonCPQ__QxQuote__c" extensions="PROSAgreement.AgAuraPanelController" standardStylesheets="{!AND(NOT($User.UIThemeDisplayed == 'Theme4d'),NOT($User.UIThemeDisplayed == 'Theme4t'))}" showHeader="false" sidebar="false" docType="html-5.0">
+<apex:outputPanel >
+    <apex:stylesheet value="{!URLFOR($Resource.CameleonCPQ__SF1Resources,'common/css/lightning/app.css')}"/>
+    <apex:includeLightning />    
+    <div id="AgAgreementPanel_LEX_Component" />
+    <script>
+        $Lightning.use("PROSAgreement:LEX_AgAgreementPanelApp", function() {
+          $Lightning.createComponent("PROSAgreement:AgAgreementPanel",
+          {
+              "recordId" : "{!CameleonCPQ__QxQuote__c.Id}"
+          },
+          "AgAgreementPanel_LEX_Component",
+          function(cmp) {
+              $A.eventService.addHandler({
+                  event: 'PROSAgreement:navigateToLink',
+                  handler: function(event) {
+                      if ((typeof sforce == 'undefined') || (sforce == null)) { top.location.href = event.getParam('url'); }
+                  }
+              });
+          }
+        )});
+    </script>
+</apex:outputPanel>
+</apex:page>

@@ -1,0 +1,56 @@
+<apex:page controller="ACE_Export_SKU_Records_Controller" readOnly="true"  contentType="text/csv#SalesForceExport.csv" cache="true">Action,Current Price Method,Contract Id,SKU,SKU Description,List Price,Target QPU,Alt QPU,Change Type,SKU Governed By Active Written Agreement,New WAPO Cost,Old WAPO Cost,Vendor Letter Requirement,Customer SKU Cap %,SKU Last Change Date,Proposed IMU %,Proposed Price With Cap,Estimated Annual Spend,Proposed IMU %,Current Sell Price,Current IMU $,Annual Spend Increase,Pricing Method Percentage,Items 12 Month Quantity,Effective Date,Sold,SVT,UOM,New WA TD Cost,Current Retail Price,Current List Price,Dept ID,Class Id,Private Brand,RMS Procurement Code,Items 12 Month Sales,History Total Cost,Hist IMU Dollars,Hist IMU Percentage,Core ID,Alt SKU,Alt SKU Description,Alt Proposed IMU %,Alt Proposed Price With Cap,Alt Proposed IMU %,Alt Annual Spend Increase,Alt New WA TD Cost,Alt Current Retail Price,Alt Current List Price,Alt UOM,Alt Effective Date,Alt SKU Currently Purchased,Alt Current Price Method,Alt Method ID,Alt Private Brand,Alt RMS Procurement Code<!--ROM Item 32-->
+       <apex:repeat value="{!lSKUClass_wrap}" var="s">
+           ,{!s.sku.Current_Price_Method__c},{!s.sku.SFDC_Contract_Object_ID__c},{!s.sku.SKU__c},{!s.MSKUDESC},{!s.sku.Current_List_Price__c},{!s.sku.QPU__c},{!s.AltQPU},{!s.sku.Price_Changes_Type__c},{!s.sku.SKU_Governed_By_Active_Written_Agreement__c},{!s.sku.New_WAPO_Cost__c},{!s.sku.Old_WAPO__c},{!s.sku.Vendor_OEM_Letters_Required__c},{!s.sku.Cap_Amount__c},{!s.sku.SKU_Last_Update__c},{!s.sku.Proposed_SRM_with_Cap__c},{!s.sku.Approved_Proposed_Price__c},{!s.sku.Annual_SKU_Spend__c},{!s.sku.Proposed_SRM_with_Cap1__c},{!s.sku.Current_Sell_Price__c},{!s.sku.Old_WATD_SRM__c},{!s.sku.Total_Spend_Impact_12_Month__c},{!s.sku.Pricing_Method_Percentage__c},{!s.sku.Annual_Usage__c},{!s.EffDate},,,{!s.sku.UOM__c},{!s.sku.New_WATD_Cost__c},{!s.sku.Retail_Price__c},{!s.sku.Current_List_Price__c},{!s.sku.Dept_Id__c},{!s.sku.Class_Id__c},,,{!s.sku.Annual_SKU_Spend__c},,,,{!s.sku.CoreList_ID__c},{!s.SKUID},{!s.SKUDESC},{!s.PROPIMUPER},{!s.PROPPRICE},{!s.PROPIMU},{!s.ANNSPNDINC},{!s.WATDCOST},{!s.ALTRETAILPRICE},{!s.ALTCURRLISTPRICE},{!s.ALTUOM},{!s.AEffDate},,{!s.ALTPRICEMETHOD},,,,    <!--ROM Item 32-->
+       </apex:repeat>
+        
+       <!--
+       <apex:pageBlockTable value="{!lSKUClass_wrap}" var="s" width="100%">
+                    <apex:column headerValue="Action" value="{!s.actionValue}"/>
+                    <apex:column headerValue="Current Price Method" value="{!s.sku.Current_Price_Method__c}"/>
+                    <apex:column headerValue="Contract Id" value="{!s.sku.SFDC_Contract_Object_ID__c}"/>
+                    <apex:column headerValue="SKU" value="{!s.sku.SKU__c}"/>
+                    <apex:column headerValue="SKU Description" value="{!s.sku.SKU_Description__c}"/>
+                    <apex:column headerValue="Proposed IMU %" value="{!s.sku.Proposed_SRM_with_Cap__c}"/>
+                    <apex:column headerValue="Proposed Price With Cap" value="{!s.sku.Approved_Proposed_Price__c}"/>
+                    <apex:column headerValue="Estimated Annual Spend" value="{!s.sku.Annual_SKU_Spend__c}"/>
+                    <apex:column headerValue="Proposed IMU %" value="{!s.sku.Proposed_SRM_with_Cap1__c}"/>
+                    <apex:column headerValue="Current Sell Price" value="{!s.sku.Current_Sell_Price__c}"/>                    
+                    <apex:column headerValue="Current IMU $" value="{!s.sku.Old_WATD_SRM__c}"/>
+                    <apex:column headerValue="Annual Spend Increase" value="{!s.sku.Total_Spend_Impact_12_Month__c}"/>
+                    <apex:column headerValue="Pricing Method Percentage" value="{!s.sku.Pricing_Method_Percentage__c}"/>
+                    <apex:column headerValue="Items 12 Month Quantity" value="{!s.sku.Annual_Usage__c}"/>
+                    <apex:column headerValue="Sold"/>
+                    <apex:column headerValue="SVT"/>
+                    <apex:column headerValue="UOM" value="{!s.sku.UOM__c}"/>
+                    <apex:column headerValue="SKU QPU"/>
+                    <apex:column headerValue="New WA TD Cost" value="{!s.sku.New_WATD_Cost__c}"/>                    
+                    <apex:column headerValue="Current Retail Price"/>
+                    <apex:column headerValue="Current List Price" value="{!s.sku.Current_List_Price__c}"/>
+                    <apex:column headerValue="Dept ID" value="{!s.sku.Dept_Id__c}"/>
+                    <apex:column headerValue="Class Id" value="{!s.sku.Class_Id__c}"/>
+                    <apex:column headerValue="Private Brand"/>
+                    <apex:column headerValue="RMS Procurement Code"/>                    
+                    <apex:column headerValue="Items 12 Month Sales" value="{!s.sku.Annual_SKU_Spend__c}"/>
+                    
+                    
+                    <apex:column headerValue="Alt SKU" value="{!s.SKUID}"/>
+                    <apex:column headerValue="Alt SKU Description" value="{!s.SKUDESC}"/>
+                    <apex:column headerValue="Alt Proposed IMU %" value="{!s.PROPIMUPER}"/>
+                    <apex:column headerValue="Alt Proposed Price With Cap" value="{!s.PROPPRICE}"/>
+                    <apex:column headerValue="Alt Proposed IMU %" value="{!s.PROPIMU}"/>
+                    <apex:column headerValue="Alt Annual Spend Increase" value="{!s.ANNSPNDINC}"/>
+                    <apex:column headerValue="Alt New WA TD Cost" value="{!s.WATDCOST}"/>
+                    <apex:column headerValue="Alt Current Retail Price"/>
+                    <apex:column headerValue="Alt Current List Price" value="{!s.ALTCURRLISTPRICE}"/>
+                    <apex:column headerValue="Alt UOM" value="{!s.ALTUOM}"/>
+                    <apex:column headerValue="Alt SKU QPU"/>
+                    <apex:column headerValue="Alt SKU Currently Purchased"/>
+                    <apex:column headerValue="Alt Current Price Method" value="{!s.ALTPRICEMETHOD}"/>
+                    <apex:column headerValue="Alt Method ID"/>
+                    <apex:column headerValue="Alt Private Brand"/>
+                    <apex:column headerValue="Alt RMS Procurement Code"/>
+                    <apex:column headerValue="SKU Goverened By Active Written Agreement" value="{!s.sku.SKU_Governed_By_Active_Written_Agreement__c>}"/>  //ROM Item 32
+
+        </apex:pageBlockTable> 
+        -->
+</apex:page>

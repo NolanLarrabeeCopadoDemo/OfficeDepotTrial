@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Template for Deployment SCOE Case Creation</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>SUPPORT: Case Response Deployment</name>
+    <style>freeForm</style>
+    <subject>Case# {!Case.CaseNumber} - {!Case.Account} - Status: {!Case.Status} {!Case.Thread_Id}</subject>
+    <textOnly>Dear {!Case.Support_Requester__c},
+
+We have received your email. The below case has been created for your reference, when logged onto the network and able to access the Salesforce site. Please do not reply to this message, someone will contact you shortly about your request. Thank you.
+
+Support Case: {!Case.CaseNumber}
+
+Subject: {!Case.Subject}
+
+Status: {!Case.Status}
+
+Comments/Resolution: {!Case.IT_Resolution__c}
+
+For more details, please click the link below while logged onto the network:
+https://officedepot.my.salesforce.com/{!Case.Id}
+
+
+Thank you,
+The Deployment Team
+{!Organization.Name}
+
+
+{!Case.Thread_Id}
+
+
+{!Case.Thread_Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

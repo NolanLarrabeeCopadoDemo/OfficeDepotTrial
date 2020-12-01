@@ -1,0 +1,52 @@
+<apex:page standardController="SGCOM3__SalesgenieFieldMapping__c"  extensions="SGCOM3.SalesgenieFieldMappingExtension"  standardStylesheets="true">
+
+  <apex:form >
+        <apex:pageBlock title="Salesgenie Field Mapping Edit" mode="edit">
+        
+           <apex:pageBlockButtons >
+                <apex:commandButton id="saveButton" value="Save" action="{!SaveNew}" ></apex:commandButton>
+                <apex:commandButton action="{!cancel}" value="Cancel"></apex:commandButton>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1">
+                <apex:messages style="color:red" /> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" showHeader="true" >
+           		 <apex:pageBlockSectionItem >
+                    	<apex:panelGrid columns="2" id="visaGrid"  columnClasses="alignRight,alignLeft" >
+   
+                    	   <apex:outputLabel value="Salesgenie Database"  for="databaseType" />
+	                       <apex:selectList id="databaseType"  title="Salesgenie Database" value="{!databaseType}" size="1"   >
+	                               <apex:selectOptions value="{!ListOfDatabaseType}"></apex:selectOptions>
+	                               <apex:actionSupport event="onchange"  action="{!clearSGField}" rerender="sgFieldName"/>
+	                               
+	                       </apex:selectList>
+	                       
+	                       <apex:outputLabel value="Salesgenie Field"  for="sgFieldName" />
+	                       <apex:selectList id="sgFieldName"  title="Salesgenie Field" value="{!sgFieldNameId}" size="1" disabled="{!ISNULL(databaseType)}"  >
+	                        
+	                               <apex:selectOptions value="{!ListOfSalesgenieFields}"></apex:selectOptions>
+	                              
+	                       </apex:selectList>
+	                       
+	                       <apex:outputLabel value="Target Object"  for="targetObject" />
+	                       <apex:selectList id="targetObject"  title="Target Object" value="{!targetObject}" size="1"   >
+	                               <apex:selectOptions value="{!TargetObjectList}"></apex:selectOptions>
+	                               <!--  apex:actionSupport event="onchange"  action="{!clearTargetField}"  rerender="targetFieldName"/-->
+	                       </apex:selectList>
+	                   
+	                      <apex:outputLabel value="Target Field"  for="targetFieldName" />
+	                       <apex:selectList id="targetFieldName"  title="Target Field" value="{!targetField}" size="1"    >
+	                               <apex:selectOptions value="{!StandardObjectFieldsName}"></apex:selectOptions>
+	    
+	                       </apex:selectList>
+	                       
+	                       <apex:outputLabel value="IsActive"  for="isActive" />
+	                       <apex:inputCheckbox id="isActive" value="{!isActive}"  />
+	                       
+	                       
+                    	</apex:panelGrid>
+               </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+        </apex:pageBlock>
+  </apex:form>
+</apex:page>

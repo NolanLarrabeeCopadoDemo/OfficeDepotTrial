@@ -1,0 +1,150 @@
+<apex:page controller="ACE_SKU_Page_Controller" action="{!getURL}" showHeader="true" sidebar="true" title="Impacted SKU List">
+    <Style>
+        // .headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: white;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+    </Style>
+    
+    <script>
+        function Refresh_rec()
+        {
+            Refresh_rec1();
+        }
+    </script>
+    
+    <apex:sectionHeader subtitle="Impacted Customers for SKU: {!SkuID}"/>
+    <apex:form >    
+     <apex:actionFunction name="Refresh_rec1" action="{!Refresh_rec}" reRender="pg" />
+        
+    <apex:pageBlock id="pg">                    
+            <apex:pageMessages ></apex:pageMessages>
+            <apex:panelGrid width="100%" columns="2" columnClasses="col1,col2">
+            <apex:outputPanel >
+                <!--<B><apex:outputLink value="https://www.salesforce.com" id="CRI">My Customers Receiving Increases</apex:outputLink> 
+                &nbsp;&gt;&nbsp;Impacted SKU &nbsp;&gt;&nbsp; {!SkuID} </B>-->
+            </apex:outputPanel>
+            <apex:outputpanel style="text-align: right; align:right;">
+
+                <!--  <apex:selectList id="dropStatus" value="{!status}" size="1" style="width:auto" onchange="Refresh_rec();">      
+                    <apex:selectOption itemValue="None" itemLabel="--None--"/>              
+                    <apex:selectOption itemValue="VendorCost" itemLabel="VendorCost"/>
+                    <apex:selectOption itemValue="Margin" itemLabel="Margin"/>
+                    <apex:selectOption itemValue="List" itemLabel="List"/>
+                </apex:selectList> -->
+            </apex:outputpanel>
+            </apex:panelGrid>             
+            <apex:outputPanel id="table">
+                <apex:panelGrid id="buttons1" width="100%" columns="2" columnClasses="btn1,btn2">
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="table" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="table" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                </apex:panelGrid>
+                
+            
+                
+                <apex:pageBlockTable value="{!SKU_List}" var="sku" width="100%">
+                    <apex:column >
+                        <apex:facet name="header">Customer #</apex:facet>
+                        {!sku.Ace_Customer_Core_Changes__r.Ace_Customer_Price_Changes__r.Owning_Customer_ID__c}
+                    </apex:column>
+                    <apex:column headerValue="Customer">
+                         <a href="/{!sku.id}" target="_blank"> {!sku.Ace_Customer_Core_Changes__r.Ace_Customer_Price_Changes__r.customer__r.name} </a>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Core List ID</apex:facet>
+                        {!sku.CoreList_ID__c}{!sku.Price_Changes_Type__c}
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Owning Customer<br/>Corelist Priority</apex:facet>
+                        {!sku.Owning_Customer_Corelist_Priority__c}
+                    </apex:column>
+                   
+                    <apex:column >
+                        <apex:facet name="header">Change<br/>Type</apex:facet>
+                        <apex:outputText value="Cost" rendered="{!sku.Price_Changes_Type__c == 'C'}"></apex:outputText>
+                        <apex:outputText value="Margin" rendered="{!sku.Price_Changes_Type__c == 'M'}"></apex:outputText>
+                        <apex:outputText value="Alternate" rendered="{!sku.Price_Changes_Type__c == 'A'}"></apex:outputText>
+                        <apex:outputText value="Discontinued" rendered="{!sku.Price_Changes_Type__c == 'D'}"></apex:outputText>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Primary<br/>Vendor</apex:facet>
+                        {!sku.Core_s_SKU_Vendor_Name__c}
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Current<br/>Price</apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                            <apex:param value="{!sku.Current_Sell_Price__c}"/>
+                        </apex:outputText>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">New<br/>Price</apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                            <apex:param value="{!sku.Approved_Proposed_Price__c}"/>
+                        </apex:outputText>
+                    </apex:column>
+                      
+                     <apex:column >
+                        <apex:facet name="header">% Increase</apex:facet>
+                        <apex:outputText value="{0, number, ###,###,###,###}%">
+                            <apex:param value="{!sku.ChangeAmount_per__c}"/>
+                        </apex:outputText>
+                    </apex:column>
+                    
+                     <apex:column >
+                        <apex:facet name="header">Annual<br/>Usage</apex:facet>
+                        <apex:outputText value="{0, number, ###,###,###,###}">
+                            <apex:param value="{!sku.Item_12_Month_Qty__c}"/>
+                        </apex:outputText>
+                    </apex:column>
+                    
+                     <apex:column >
+                        <apex:facet name="header">Estimated<br/>Total Annual<br/>Spend Change</apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,###.00}">
+                            <apex:param value="{!sku.Total_Spend_Impact_12_Month__c}"/>
+                        </apex:outputText>
+                    </apex:column>
+                    
+                     <apex:column >
+                        <apex:facet name="header">Estimated<br/>Average Annual<br/>Spend Impact</apex:facet>
+                              <apex:outputPanel rendered="{!sku.Item_12_Month_Qty__c != null && sku.Item_12_Month_Qty__c != 0}">  
+                                <apex:outputText value="{0, number, ###,###,###,###.00}%">
+                               <apex:param value="{!sku.Total_Spend_Impact_12_Month__c / sku.Item_12_Month_Qty__c}"/>
+                                </apex:outputText>
+                              </apex:outputPanel>
+                              
+                              <apex:outputPanel rendered="{!sku.Item_12_Month_Qty__c == null || sku.Item_12_Month_Qty__c == 0}"> 
+                               <apex:outputText value="{0, number, ###,###,###,###.00}%"> 
+                                <apex:param value="{!0}"/>
+                               </apex:outputText> 
+                              </apex:outputPanel>
+                       
+                    </apex:column>
+                    
+                    
+                </apex:pageBlockTable> 
+                
+                
+                <apex:panelGrid id="buttons2" width="100%" columns="2" columnClasses="btn3,btn4">
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="table" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="table" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                </apex:panelGrid>
+            </apex:outputPanel>
+            <br/>
+            
+                         
+        
+    </apex:pageBlock>
+    </apex:form>    
+</apex:page>

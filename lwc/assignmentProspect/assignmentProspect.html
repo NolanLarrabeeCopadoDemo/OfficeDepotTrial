@@ -1,0 +1,104 @@
+<template>
+    <template if:true={isLoaded} >
+        <lightning-spinner
+            alternative-text="Loading..." size="medium">
+        </lightning-spinner>
+    </template>
+
+   <div class="slds-align_absolute-center">Prospect Search - Assignments</div>
+   <div class="c-container">
+    <lightning-layout title="Prospect Search - Assignments" multiple-rows="true">
+        <lightning-layout-item size="12">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input type="text" label="Prospect Name" value={customerName} onchange={handleCustomerNameChange}></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input type="text" label="Prospect Number" value={customerNumber} onchange={handleCustomerNumberChange}></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+        
+        <lightning-layout-item size="12">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small" size="6">
+                    <label class="slds-form-element__label">Sales Person</label>
+                    <c-lightning-custom-lookup object="User" field="Name" onselect={handleSalesPersonChange}></c-lightning-custom-lookup>
+                 </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input type="text" label="Employee ID" value={odEmpID} onchange={handleODEmpIDChange}></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input type="text" label="Zip Code" value={zipCodes} onchange={handleZipCodesChange}></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6">
+                    <c-reusepicklistinlwc field-a-p-i-name="Industry" obj-a-p-i-name="Account" onprivateitemregister={handleIndustryChange}></c-reusepicklistinlwc>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-combobox
+                        name="progress"
+                        label="WCW"
+                        value={WCWRangeValue}
+                        placeholder="Select Progress"
+                        options={options}
+                        onchange={handleWCWRangeChange} ></lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6">
+                    <label class="slds-form-element__label">Proposed Sales Person</label>
+                    <c-lightning-custom-lookup name="proposedPersonId" object="User" field="Name" onselect={handleProposedPersonChange}></c-lightning-custom-lookup>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small" size="6">
+                    <lightning-input type="text" label="Sales Person ID" value={salesRepName} onchange={handleSalesRepNameChange}></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6">
+                    <c-reusepicklistinlwc field-a-p-i-name="State__c" obj-a-p-i-name="Account"  onprivateitemregister={handleStateChange}></c-reusepicklistinlwc>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12">
+            <div class="slds-align_absolute-center">
+                <lightning-button class="slds-m-bottom_x-small" variant="brand" label="Search" title="Search" onclick={handleSearchClick}></lightning-button>
+            </div>
+        </lightning-layout-item>
+       
+        </lightning-layout>
+    </div>
+    
+    <template if:true={showResult} >
+        <div class="slds-align_absolute-center">Search Results</div>
+        <div class="c-container">
+            <div class="slds-align_absolute-center slds-m-around_small">
+                 <label class="slds-form-element__label slds-m-right_small"><abbr class="slds-required" title="required">*</abbr>New Sales Person</label>
+                 <c-lightning-custom-lookup is-required="true" object="User" field="Name" onselect={handleNewSalesPersonlChange}></c-lightning-custom-lookup>
+                 <lightning-button  class="slds-m-left_small" variant="brand" label="Assign Selected" title="Assign Selected" onclick={handleAssigneSelectedClick}></lightning-button>
+                 <lightning-button class="slds-m-left_small" variant="brand" label="Assign All" title="Assign All" onclick={handleAssigneAllClick}></lightning-button>
+          </div>
+          <div class="slds-m-around_small">
+                <c-pagination currentpage={currentPage} countpage={countPage} onprevious={previousHandler2} onnext={nextHandler2} onselected={changeHandler2} onfirstpage={firstpagehandler} onlastpage={lastpagehandler}></c-pagination>        
+          </div>
+          
+            <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columns}
+                onrowselection={getSelectedName}>
+            </lightning-datatable>
+        </div>
+    </template>
+</template>

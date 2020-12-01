@@ -1,0 +1,152 @@
+<apex:page >
+  
+  <html>
+<head>
+<link class="user" href="/sCSS/23.0/sprites/1317831957000/Theme3/default/forceComHomepage.css" rel="stylesheet" type="text/css" />
+<!-- <link class="user" href="/sCSS/23.0/sprites/1317831979000/Theme3/dStandard.css" rel="stylesheet" type="text/css" />
+<link class="user" href="/sCSS/23.0/sprites/1317831979000/Theme3/00DM00000009WYH/005M0000000EKRs/dCustom0.css" rel="stylesheet" type="text/css" />
+<link class="user" href="/sCSS/23.0/sprites/1317831957000/Theme3/default/extended.css" rel="stylesheet" type="text/css" />
+<link class="user" href="/sCSS/23.0/sprites/1317831957000/Theme3/default/setup.css" rel="stylesheet" type="text/css" />
+<link  href="/sCSS/23.0/sprites/1317831957000/Theme3/default/elements.css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" type="text/css" />
+<link  href="/sCSS/23.0/sprites/1317831957000/Theme3/default/common.css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" type="text/css" />
+<link  href="/sCSS/23.0/sprites/1317831957000/Theme3/default/setup.css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" type="text/css" />
+<link  href="/sCSS/23.0/sprites/1317831957000/Theme3/default/CTI.css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" type="text/css" />
+<link  href="/sCSS/23.0/sprites/1317831979000/Theme3/dStandard.css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" type="text/css" />
+<link  href="/sCSS/23.0/sprites/1317831979000/Theme3/00DM00000009WYH/005M0000000EKRs/dCustom0.css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" type="text/css" />
+<link  href="/sCSS/23.0/sprites/1317831957000/Theme3/default/extended.css" media="handheld,print,projection,screen,tty,tv" rel="stylesheet" type="text/css" /> -->
+
+
+
+<title>Quick Links</title>
+
+</head>
+
+<body>
+
+    <div class="header-right">
+            <div class="bPageTitle">
+            <div class="ptBody secondaryPalette">
+            <div class="content">
+           
+            <div class="header-text"></div>
+
+            </div>
+            <div class="links">
+             
+            </div>
+            </div>
+
+            </div>
+</div>
+        <div class="clear"></div>
+        
+        <table class="two-column">
+        <tr><td width="918">
+        <div class="getting-started-block" id="gettingStarted">
+       
+            <table class="gs-links">
+            <tr>
+               
+              <td class="gs-middle"><div class="steps-header">Administration Tool</div>
+                    <div class="steps-text">Use the links below to help with day to day Admin activities . Please email <a target="_blank" href="{!$Label.Please_Email_On_Adminstration_Page}">salesforce@officedepot.com</a> to notify of broken links. </div><!-- Added Label in Href by Lalit for S-399109 -->
+                </td>
+                <td>
+                <img class="header-img-left" src="/img/gettingstarted/create_app_end.png" />
+
+                </td>
+                
+            </tr>
+
+            </table>
+        </div>
+        
+        
+        
+        
+    
+        <div class="links-block">
+            <h2 id="Dev Corner">&nbsp;&nbsp;&nbsp;&nbsp;Administrator Corner </h2>
+            <table class="linkblock">
+            
+            <tr>
+           
+            <td valign="top" width="150px">
+              <apex:image url="{!URLFOR($Resource.Icons, 'setup.jpg')}" style="vertical-align: middle" width="50" height="53" /> Developer Corner
+             <ul>
+             <!-- Added Label in Href by Lalit for S-399109 START-->
+                <li><a href="{!$Label.SOQL_Tool}" title="SOQL Tool" target="_blank">SOQL Tool</a></li>
+              <li><a href="{!$Label.Account_Team_Assignments}" title="Team Tool" target="_blank">Account Team Assignments </a></li>
+              <li><a href="{!$Label.Prospect_Messages}" title="Prospect Message" target="_blank">Prospect Messages </a></li>
+              <li><a href="{!$Label.Account_Messages}" title="Account Message" target="_blank">Account Messages</a></li>
+              <li><a href="https://officedepot.lightning.force.com/c/AccountDiagnostics.app" title="Account Diagnostics" target="_blank">Account Diagnostics</a></li>
+              
+              <li><a href="../a4d" title="AOPS Sync Data" target="_blank">AOPS Sync Data</a></li>
+                            <li><a href="{!$Label.Contract_Messages}" title="ContractMessage" target="_blank">Contract Messages</a></li>
+              <li><a href="{!$Label.User_Setting}" title="User Setting" target="_blank">User Setting</a></li> 
+              <li><a href="{!$Label.Test_Cases}" title="Test Cases" target="_blank">Test Cases</a></li> 
+              <li><a href="../a5D" title="Job Runbook" target="_blank">Job Runbook</a></li>
+              <li><a href="../a59" title="Job Execution" target="_blank">Job Execution</a></li>
+                            <li><a href="../a20" title="Compucom Staging" target="_blank">Compucom Staging</a></li>  
+              <li><a href="../a1e" title="Lead Staging" target="_blank">Lead Staging</a></li>  
+              <li><a href="https://officedepot.lightning.force.com/c/SearchDMLRelationApp.app" title="DML Setup" target="_blank">DML setup</a> </li>
+
+              <!-- Added Label in Href by Lalit for S-399109 END-->           
+            <!--  <li><a href="../a0K" title="Admin Pricing Segment" target="_blank">Admin Pricing Segment</a></li>-->
+              </ul>
+            </td>
+              
+            
+            
+                <td valign="top" width="150px">
+                <apex:image url="{!URLFOR($Resource.Icons, 'review.jpg')}" style="vertical-align: middle" width="55" height="53" />Business Corner 
+                <ul>
+                 <li><a href="{!$Label.ClickTools}" title="ClickTools" target="_blank">ClickTools</a></li><!-- Added Label in Href by Lalit for S-399109 -->
+                <li><a href="{!$Label.Assignments_Rules}" title="Assignments Rules" target="_blank">Assignments Rules</a></li><!-- Added Label in Href by Lalit for S-399109 -->
+                <apex:outputLink rendered="{!OR($Profile.Name=='System Administrator',$Profile.Name=='System Administrator 2',$Profile.Name=='Support')}">
+                    <!--<li><a href="{!$Label.Resource_Directory}" title="Resource Directory" target="_blank">Resource Directory</a></li>  --><!-- Commented by Lalit for S-407217 --><!-- Added Label in Href by Lalit for S-399109 -->
+                </apex:outputLink> 
+                <!-- Added Label in Href by Lalit for S-399109 START-->
+                <li><a href="{!$Label.Goals}" title="Goals" target="_blank">Goals</a></li>
+              <li><a href="{!$Label.Pricing_Templates}" title="Pricing Templates" target="_blank">Pricing Templates </a></li>
+              <li><a href="{!$Label.Stores_Management}" title="Store Mangment" target="_blank">Store Management</a></li><!-- Updated label by Lalit for S-407217 -->
+             <li><a href="{!$Label.Sales_Person_ID_Management}" title="Sales Person ID Mangment" target="_blank">Sales Person ID Management</a></li>
+             <li><a href="{!$Label.Account_Setup_Request}" title="Account Setup Request" target="_blank">Account Setup Request</a></li>
+             <li><a href="{!$Label.Deviated_Costs}" title="Deviated Costs" target="_blank">Deviated Costs</a></li>
+             <li><a href="{!$Label.Account_Setup_Failures_Log}" title="Account Setup Failures Log" target="_blank">Account Setup Failures Log</a></li>
+             <li><a href="{!$Label.Account_Setup_Failures_Query}" title="Account Setup Failures Query" target="_blank">Account Setup Failures Query</a></li>
+             
+             <!-- added for story #S-399120 #START -->
+             <li><a href="{!$Label.Opportunity_Competitor}" title="Opportunity Competitor" target="_blank">Opportunity Competitor</a></li>
+             <!-- added for story #S-399120 #END-->
+             
+             <!-- Added Label in Href by Lalit for S-399109 END -->
+                     </ul></td>
+                     
+                      <td valign="top" width="300px">
+              <apex:image url="{!URLFOR($Resource.Icons, 'setup.jpg')}" style="vertical-align: middle" width="50" height="53" /> G&amp;T Corner
+             <ul>
+              <li><a href="{!$Label.Opportunity_Assignment}" title="Opportunity Assignment" target="_blank">Opportunity Assignment</a></li><!-- Added Label in Href by Lalit for S-399109 -->
+              <li><a href="{!$Label.G_and_T_Exchange_Rate}" title="G&amp;T Exchange Rate" target="_blank">G&amp;T Exchange Rate</a></li><!-- Added Label in Href by Lalit for S-399109 -->
+                    
+            <!--  <li><a href="../a0K" title="Admin Pricing Segment" target="_blank">Admin Pricing Segment</a></li>-->
+              </ul>
+            </td>
+                
+               
+            </tr>
+            </table>
+        </div>
+        </td>
+    
+</tr>        </table>
+
+
+</body>
+</html>
+  
+  
+  
+  
+  
+  
+</apex:page>

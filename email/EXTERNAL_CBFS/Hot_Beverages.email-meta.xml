@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Hot Beverages</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Hot Beverages</name>
+    <style>none</style>
+    <subject>Hot Beverages</subject>
+    <textOnly>Office Depot Hot Beverages
+
+Hi {!Contact.FirstName},
+Did you know that 79% of employees feel more valued when coffee is provided? That’s why we’re proud to offer you a comprehensive, full-service hot beverage solution to save you time, money and effort.
+Choose from over 80 varieties of coffee and hot beverages from your favorite brands like Green Mountain Coffee®, Starbucks®, Caribou Coffee® and our own exclusive brand, Executive Suite®. We also offer a wide variety of tea and hot chocolate.
+Plus we’ve got a huge selection of brewers, from traditional to single cup. Not only will we get you set up, but we’ll also help you maintain and repair your brewer, so you never have to do without your morning pick-me-up!
+
+Please view the customized digital presentation that I put together for you.
+
+Feel free to contact me any time, and we can discuss how to get your business set up with everything you need in a hurry.
+Sincerely,
+{!User.Name} 
+{!User.TitleTrimmed__c}
+Office Depot
+{!User.Street}|{!User.City}, {!User.State} {!User.PostalCode} 
+Tel:1 (888)-263-3426 | {!if( !ISBLANK( BLANKVALUE(User.Extension, User.Phone)) ,&apos; O: &apos; +BLANKVALUE(User.Extension, User.Phone) ,&apos;&apos;)} Email: {!User.Email} 
+
+Office Depot is a trademark of The Office Club, Inc. OfficeMax is a trademark of OMX, Inc. © 2016 Office Depot, Inc.</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

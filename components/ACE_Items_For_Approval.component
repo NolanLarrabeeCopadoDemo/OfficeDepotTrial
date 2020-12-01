@@ -1,0 +1,885 @@
+<apex:component allowDML="true" controller="itemsToApprove" id="component">
+<apex:form id="form" >
+<Style>         
+    .btn1{width:50%;text-align: left; align:left;}
+    .btn2 {width:50%;text-align: right; align:right;}
+    .btn3{width:50%;text-align: left; align:left;}
+    .btn4 {width:50%;text-align: right; align:right;}
+</Style>
+<apex:outputPanel id="redirectPanel" >
+     <apex:outputText rendered="{!Redirect}">
+          <script type="text/javascript">
+               window.top.location.href = '{!redirecturl}';
+               
+          </script>
+     </apex:outputText>
+</apex:outputPanel>
+    <apex:pageBlock id="custBlock" >
+    <apex:panelGrid id="buttons5" width="100%" columns="2" columnClasses="btn1,btn2">
+        <apex:outputPanel >
+            <apex:outputLabel style="font-weight:Bold; font-size:120%;">Exception Requests Pending Approval</apex:outputLabel>
+        </apex:outputPanel>
+        <apex:outputPanel >
+            <apex:selectList id="custdueFilter" value="{!custdueFilter}" size="1">
+                <apex:actionSupport event="onchange" action="{!custdueFilterLogic}" rerender="form"/>
+                <apex:selectOption itemValue="all" itemLabel="All"/>
+                <apex:selectOption itemValue="PastDue" itemLabel="Past Due"/>            
+            </apex:selectList>
+        </apex:outputPanel>
+    </apex:panelGrid>
+    <br/>
+    
+    <apex:outputPanel id="skuLabel1Panel" >
+    <apex:outputLabel id="skuLabel1" style="font-weight:Bold; font-size:100%;color:black" rendered="{!renderCUST}">(*) Please click on the link for any Customer name to view a list of the corresponding SKUs.</apex:outputLabel>
+    </apex:outputPanel>
+    <apex:outputPanel id="msglabelPanel">
+     <apex:outputLabel style="font-weight:Bold; font-size:100%;color:red" rendered="{!!renderCUST}">There are no date or price change exception requests pending for approval.</apex:outputLabel>
+    </apex:outputPanel>
+    <apex:outputPanel id="custBlockpanel" >
+    <apex:actionFunction name="disablebtn" action="{!disablebtn}" rerender="dateDateButton,datePriceButton,dateCheckbox,priceCheckbox"/>
+    
+    <apex:pageblockTable value="{!UIList1}" var="cust" width="100%" id="custTable" rendered="{!renderCUST}">
+                <apex:column ><apex:inputCheckbox value="{!cust.isSelected}" rendered="{!cust.ENABLEBTN || cust.UNLOCKREQ}" onClick="disablebtn();" id="dateCheckbox" disabled="{!cust.dateCheckboxDisabled}"/></apex:column>
+                <apex:column >
+                      <apex:facet name="header">Exception <br/>Request Date</apex:facet>
+                      <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!cust.RQDate}" /> 
+                      </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Period" value="{!cust.BatchName}"/>
+                <apex:column headerValue="Customer (*)">
+                    <apex:commandLink action="{!clickFunction}" value="{!cust.CUSTNAME}" rerender="custBlock" style="{!IF(cust.CHANGERED,'color:red;font-weight:bold;','')}">
+                        <apex:param name="custId" value="{!cust.CUSTID}" assignTo="{!passthruCustID}"/> 
+                        <apex:param name="custName" value="{!cust.CUSTNAME}" assignTo="{!skuCustName}"/>
+                        <apex:param name="custNumber" value="{!cust.CUSTNUMBER}" assignTo="{!skuCustNumber}"/>                      
+                    </apex:commandLink> 
+                     
+                </apex:column> 
+                <apex:column headerValue="Customer #" value="{!cust.CUSTNUMBER}"/>               
+                <apex:column headerValue="Rep" value="{!cust.REPNAME}"/>
+                    
+                <apex:column headerValue="Request Type" style="text-align:center;align:center;float:center;">
+                     <apex:outputText value="Unlock" style="font-weight:Bold; text-align:center;align:center;float:center;" rendered="{!cust.UNLOCKREQ}"/>
+                     <apex:outputText value="{!IF((!cust.ENABLEBTN),'Price',IF(cust.ENABLEPD && cust.ENABLEBTN,'Price & Date','Date'))}" style="font-weight:Bold; text-align:center;align:center;float:center;" rendered="{!!cust.UNLOCKREQ}"/>
+                </apex:column>
+                
+                <apex:column >
+                    <apex:facet name="header">Current Price Change<br/>Effective Date</apex:facet>
+                   <!-- <apex:outputText value="Unlock Request" rendered="{!cust.UNLOCKREQ}"/>
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" rendered="{!!cust.UNLOCKREQ}">
+                            <apex:param value="{!cust.CURRDATE}" /> 
+                    </apex:outputText> -->
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!cust.CURRDATE}" /> 
+                    </apex:outputText>
+                    
+                </apex:column>
+                
+                <apex:column >
+                      <apex:facet name="header">Requested Price Change<br/>Effective Date</apex:facet>
+                      <apex:outputText value="" rendered="{!cust.UNLOCKREQ}"/>
+                      <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" rendered="{!!cust.UNLOCKREQ}">
+                            <apex:param value="{!cust.PROPDATE}" /> 
+                      </apex:outputText>
+                <apex:facet name="footer">
+                        Total
+                    </apex:facet>
+                </apex:column>
+                
+                <apex:column >
+                   <apex:facet name="header">Revenue Impact of<br/>Requested Exception(s)</apex:facet>
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!cust.REVIMPACT}"/>
+                    </apex:outputText>
+                    <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!TotRevImpact}"/>
+                        </apex:outputText>
+                    </apex:facet>
+                </apex:column>                   
+                <apex:column headerValue="Comments" value="{!cust.DESCR}"/>                 
+                <!-- <apex:column headerValue="Override Date Request" style="align:center; text-align:center; float:center;" width="20px">
+                   <apex:outputPanel >
+                       <apex:outputText rendered="{!!cust.ENABLEBTN && cust.UNLOCKREQ}">Unlock Request</apex:outputText>
+                       <apex:inputText value="{!custDateMap[cust.CUSTID]}" size="20" id="modDate" onfocus="DatePicker.pickDate(true, this , false);" rendered="{!cust.ENABLEBTN}">
+                       </apex:inputText>                       
+                       <br></br>
+                       <center>
+                       <apex:commandLink value="Save" action="{!approveDateWithChange}"  oncomplete="var dt='{!moddate}';if(dt != '') window.location.reload();"  style="align:center; text-align:center; float:center;" rendered="{!cust.ENABLEBTN}" >                          
+                              <apex:param name="custId2" value="{!cust.CUSTID}" assignTo="{!passthruCustID}" id="custId2"/>                             
+                        </apex:commandLink>
+                        </center>
+                    </apex:outputPanel>
+                </apex:column>
+                -->
+                
+                <apex:column headerValue="Approve/Reject" >                    
+                  <!--  <apex:outputLink value="/p/process/ProcessInstanceWorkitemWizardStageManager?id={!IDWorkItemMap[cust.CUSTID]}" target="_Top" rendered="{!cust.ENABLEBTN}">Approve/Reject </apex:outputLink>   -->
+                  <!--   <apex:outputLink value="/apex/ACEApprovalPage?batchname={!cust.ts.name}&custid={!cust.ts.id}" target="_Top" rendered="{!cust.ENABLEBTN || cust.UNLOCKREQ}">Approve/Reject </apex:outputLink>   -->                                     
+                    
+                    <apex:commandLink id="cbtn1" onclick="showOverlayApprove('{!cust.ts.name}','{!cust.ts.id}','Date','{!cust.ENABLEBTN}','{!cust.UNLOCKREQ}',('{!cust.JS_CUSTNAME}'),'{!cust.REPNAME}','{!cust.CURRDATE}','{!cust.PROPDATE}','{!cust.REVIMPACT}' ); return false;" target="_Top" value="Approve/Reject" rendered="{!cust.ENABLEBTN || cust.UNLOCKREQ}">   
+                        <apex:param value="{!cust.ts.name}" name="batchname" assignTo="{!BatchName}"/>
+                        <apex:param value="{!cust.ts.id}" name="custid" assignTo="{!CustID}"/>
+                    </apex:commandLink>
+                      
+                </apex:column>
+                
+            </apex:pageblockTable>
+    <apex:commandButton action="{!approveDateBulk}" id="dateDateButton" title="Press to submit selected Date Exceptions for approval" alt="Press to submit selected Date Exceptions for approval" value="Submit Bulk Date Approval"  disabled="{!disableDateButton}" rendered="{!renderCUST}"/>
+    <apex:outputLabel id="dateButtonTip" style="font-weight:Bold; font-size:100%;color:black" rendered="{!renderCUST}">  Bulk Date Expcetion approval is limited to up to 10 exceptions on one page. Exceptions cannot be selected across mutiple pages.</apex:outputLabel>        
+            
+        
+    <apex:panelGrid id="buttons3" width="100%" columns="2" columnClasses="btn3,btn4">
+        <apex:outputPanel >
+            <apex:commandButton action="{!prevbtn}" value="<< Previous <<" rendered="{!DisablePrevious1}" reRender="custBlockpanel,form" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+        </apex:outputPanel>
+        <apex:outputPanel >
+            <apex:commandButton action="{!nextbtn}" value=">> Next >>" rendered="{!DisableNext1}" reRender="custBlockpanel,form" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+        </apex:outputPanel>
+    </apex:panelGrid>
+    </apex:outputPanel>
+                    
+    <br/>    
+    <br/>
+    
+    
+       <apex:outputLabel id="skuLabel" style="font-weight:Bold; font-size:100%;color:red" rendered="{!(!renderSKU && renderCUST)}">{!outputLabelSKU}</apex:outputLabel>
+   
+    <apex:outputPanel id="skuBlockpanel"> <!-- rendered="{!renderSKU == true || PriceSKURefresh == true}"> -->
+         <apex:panelGrid id="buttons1" width="100%" columns="2" columnClasses="btn1,btn2" rendered="{!renderSKU}">
+        <apex:outputLabel style="font-weight:Bold; font-size:120%;" id="skuTitle">
+            Price Exceptions for Customer: <font style="color:black;">{!skuCustName}</font> - {!skuCustNumber}
+        </apex:outputLabel> 
+        <apex:outputPanel >
+            <apex:selectList id="dueFilter" value="{!dueFilter}" size="1">
+                <apex:actionSupport event="onchange" action="{!dueFilterLogic}" rerender="form,skuBlockpanel"/>
+                <apex:selectOption itemValue="all" itemLabel="All"/>
+                <apex:selectOption itemValue="PastDue" itemLabel="Past Due"/>            
+            </apex:selectList>
+        </apex:outputPanel>
+    </apex:panelGrid>
+            <apex:pageblockTable value="{!clsSKUListTable}" var="sku" width="100%" id="skuTable" rendered="{!renderSKU}">
+                
+                <apex:column ><apex:inputCheckbox id="priceCheckbox" value="{!sku.isSelected}" onClick="disablebtn();" rendered="{!sku.linkvisible}"/></apex:column>
+                <apex:column headerValue="SKU">                      
+                      <apex:outputText value="{!sku.SKU }" style="{!IF(sku.CHANGERED,'color:Red;font-weight:bold;','')}"/>
+                       <!-- style="{!IF((loggedUserId=sku.VP__c && sku.L3_Mgr_AppReject_Time_c__c > ApprovalDays),'color:red;font-weight:bold;',IF((loggedUserId=sku.RSD__c && sku.L2_Mgr_AppReject_Time_c__c > ApprovalDays),'color:red;font-weight:bold;',IF((loggedUserId=sku.DSM__c && sku.L1_Mgr_AppReject_Time_c__c > ApprovalDays),'color:red;font-weight:bold;','')))}"/> -->
+                      <apex:facet name="footer">
+                        Total
+                        </apex:facet>                                        
+                </apex:column>
+                <apex:column value="{!sku.SKUID}" rendered="false"/>                                    
+                <apex:column headerValue="Description" value="{!sku.DESCRP}"/>
+                <apex:column headerValue="Change Type" value="{!sku.CHANGETYP}"/>
+                <apex:column headerValue="Current Price">
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!sku.CURRPRICE}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="New Price">
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!sku.APPPRICE}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Requested Price" id="skudata">
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!sku.PROPPRICE}"/>
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Comments" value="{!sku.COMMENTS}"/>
+                <apex:column >
+                   <apex:facet name="header">Revenue Impact of<br/>Requested Exception</apex:facet>
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!sku.REVIMPACT}"/>
+                    </apex:outputText>
+                    <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!RevImpact}"/>
+                        </apex:outputText>
+                    </apex:facet>
+                </apex:column>       
+                <apex:column >  
+                    <apex:facet name="header">Revenue Impact of<br/>Previous Approvals</apex:facet>
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!sku.PREVIMPACT}"/>
+                    </apex:outputText>
+                    <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!PrevImpact}"/>
+                        </apex:outputText>
+                    </apex:facet>
+                </apex:column> 
+                <apex:column headerValue="Total Revenue Impact">
+                    <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!sku.TOTIMPACT}"/>
+                    </apex:outputText> 
+                    <apex:facet name="footer">
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!TotImpact}"/>
+                        </apex:outputText>
+                    </apex:facet>
+                </apex:column>  
+                
+                <!-- <apex:column headerValue="Override Price Request" style="align:center; text-align:center; float:center;">                   
+                        <apex:outputPanel >
+                            <apex:inputText id="val1" label="Modified Proposed Price" value="{!custPriceMap[sku.SKUID]}" style="width:50px;"/> <br/>
+                             <apex:commandLink value="Save" onclick="showOverlay('{!$Component.val1}');" style="align:center; text-align:center; float:center;" action="{!approvePriceWithChange}" oncomplete="var mt='{!ModPropPrice}';if(mt != '') saveComplete();">
+                                <apex:param value="{!sku.SKUID}" name="passthru" assignTo="{!passThruId}" id="passthru"/>
+                            </apex:commandLink> 
+                        </apex:outputPanel>                    
+                </apex:column>
+                     -->
+                                
+                <apex:column headerValue="Request Status" >
+                <!--    <apex:outputLink value="/p/process/ProcessInstanceWorkitemWizardStageManager?id={!IDWorkItemMap[sku.SKUID]}" target="_Top">Approve/Reject</apex:outputLink>    -->
+               
+                  <!--   <apex:outputLink value="/apex/ACEApprovalPage?batchname={!sku.ts.name}&custid={!sku.ts.id}" target="_Top">Approve/Reject</apex:outputLink>     -->
+                   
+                     <apex:commandlink id="cbtn2" onclick="showOverlayApprovePrice('{!sku.ts.name}','{!sku.ts.id}','Price','{!sku.JS_CUSTNAME}','{!sku.REPNAME}','{!SKU.CURRPRICE}','{!SKU.APPPRICE}','{!SKU.PROPPRICE}','{!sku.REVIMPACT}' ); return false;"  target="_Top" value="Approve/Reject" rendered="{!sku.linkvisible}"/>   
+                     <apex:outputText id="noapproval" escape="false" value="<b>Not Available Until<br/>Date Request Finalized</b>" rendered="{!NOT(sku.linkvisible)}"/>
+                </apex:column>
+
+            </apex:pageblockTable>
+            <apex:actionFunction id="clickFunction1" action="{!clickFunction}" name="clickFunction1" rerender="custBlock"/>
+            <apex:commandButton id="datePriceButton"  value="Submit Bulk Price Approval" title="Press to submit selected Price Exceptions for approval" alt="Press to submit selected Price Exceptions for approval"  disabled="{!disablePriceButton}" rendered="{!renderSKU}" action="{!approvePriceBulk}"/>
+            <apex:outputLabel id="datePriceTip" style="font-weight:Bold; font-size:100%;color:black" rendered="{!renderSKU}">  Bulk Price Expcetion approval is limited to up to 10 exceptions on one page. Exceptions cannot be selected across mutiple pages.</apex:outputLabel> 
+            <br/>
+            
+            <apex:panelGrid id="buttons2" width="100%" columns="2" columnClasses="btn3,btn4" >
+                <apex:outputPanel >
+                    <apex:commandButton action="{!prevPage}" value="<< Previous <<" rendered="{!DisablePrevious}" reRender="skuBlockpanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                    <apex:commandButton action="{!nextPage}" value=">> Next >>" rendered="{!DisableNext}" reRender="skuBlockpanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                </apex:outputPanel>
+            </apex:panelGrid>
+    </apex:outputPanel>         
+    </apex:pageBlock> 
+    
+    <div id="overlayDivApprove" style="display:none;position:fixed; background-color:white; left:20%; top:50px; width:600px;height:350px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+              <apex:outputPanel id="confirmPanelApprove" layout="block" style="">  
+                        <h1><font size="4"> Approve/Reject Date Exception Request</font></h1><br/>
+                        <apex:pageBlock >
+                                        <apex:panelGrid width="100%" columns="1" columnClasses="btn1,btn1">
+                                         <apex:outputPanel id="cust1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Customer:</strong></apex:outputText>
+                                                  <apex:outputText id="custVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="rep1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Sales Rep:</strong></apex:outputText>
+                                                  <apex:outputText id="repVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="current1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Current Price Change Effective Date:</strong></apex:outputText>
+                                                  <apex:outputText id="curVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="req1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Requested Price Change Effective Date:</strong></apex:outputText>
+                                                  <apex:outputText id="reqVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="reqExce"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Revenue Impact of <br/>Requested Exception(s):</strong></apex:outputText>
+                                                  <apex:outputText id="reqExceVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="textDIV1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Override Date Request:</strong></apex:outputText>
+                                                  <apex:outputPanel >
+                                                  <apex:inputText label="Override" value="{!dateVal}" size="20" id="modDate1" onfocus="DatePicker.pickDate(true, this , false);" style="display:block;" />
+                                                  </apex:outputPanel>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                        
+                                         <apex:outputPanel style="display:block;">
+                                           <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                               <apex:outputText ><strong>Comments:</strong></apex:outputText>
+                                               <apex:inputTextarea id="modComment" label="Comments" value="{!Comments}"  rows="3" style="width:250px"/>
+                                           </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         
+                                        
+                                      </apex:panelGrid>  
+                                     
+                                
+                               
+                              
+                              <apex:pageBlockButtons location="bottom">                                 
+                                 <!-- <apex:commandButton value="Approve" action="{!approveFunc}" onclick="hideOverlayApprove();" reRender="custTable,skuTable"/>
+                                  <apex:commandButton value="Reject" action="{!rejectFunc}" onclick="hideOverlayApprove();" reRender="custTable,skuTable"  />
+                                  <apex:commandButton value="Cancel" id="closeOverlay" onclick="hideOverlayApprove(); return false;"/>
+                                  -->
+                                  
+                                  <apex:commandButton value="Approve" onclick="OverlayApprove('Approve','Date',curDate); return false;" />
+                                  <apex:commandButton value="Reject"  onclick="OverlayApprove('Reject','Date'); return false;"  />
+                                  <apex:commandButton value="Cancel"  onclick="OverlayApprove('Cancel','Date'); return false;"  />
+                                  
+                              </apex:pageBlockButtons>
+                              
+                        </apex:pageBlock>
+                               
+                       
+                       
+              </apex:outputPanel>
+         </div> 
+         
+        
+         <div id="overlayDivApprovePrice" style="display:none;position:fixed; background-color:white; left:20%; top:50px; width:600px;height:450px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+              <apex:outputPanel id="confirmPanelApprovePrice" layout="block" style=""> 
+                       <h1><font size="4"> Approve/Reject Price Exception Request</font></h1><br/>
+                        <apex:pageBlock >
+                                      <apex:panelGrid width="100%" columns="1" columnClasses="btn1,btn1">
+                                         <apex:outputPanel id="cust1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Customer:</strong></apex:outputText>
+                                                  <apex:outputText id="custVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="rep1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Sales Rep:</strong></apex:outputText>
+                                                  <apex:outputText id="repVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="current1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Current Price:</strong></apex:outputText>
+                                                  <apex:outputText id="curVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="new1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>New Price:</strong></apex:outputText>
+                                                  <apex:outputText id="newVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="req1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Requested Price:</strong></apex:outputText>
+                                                  <apex:outputText id="reqVal"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="reqExce1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Revenue Impact of <br/>Requested Exception(s):</strong></apex:outputText>
+                                                  <apex:outputText id="reqExceVal1"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="textDIV1"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Override Price Request:</strong></apex:outputText>
+                                                  <apex:outputPanel >
+                                                  <apex:inputText label="Override" value="{!priceVal}" size="20" id="modPrice" />
+                                                  </apex:outputPanel>
+                                                  
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                        
+                                         <apex:outputPanel style="display:block;">
+                                           <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                               <apex:outputText ><strong>Comments:</strong></apex:outputText>
+                                               <apex:inputTextarea id="modPriceComment" label="Comments" value="{!priceComments}"  rows="3" style="width:250px"/>
+                                           </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         
+                                        
+                                      </apex:panelGrid>  
+                                     
+                                <apex:pageBlockButtons location="bottom">                                 
+                               
+                                  <apex:commandButton value="Approve" onclick="OverlayApprove('Approve','Price',curPrice); return false;" />
+                                  <apex:commandButton value="Reject"  onclick="OverlayApprove('Reject','Price'); return false;"  />
+                                  <apex:commandButton value="Cancel"  onclick="OverlayApprove('Cancel','Price'); return false;"  />
+                                  
+                              </apex:pageBlockButtons>
+                              
+                        </apex:pageBlock>
+                               
+                       
+                       
+              </apex:outputPanel>
+         </div>     
+        
+         <div id="overlayDivApproveUnlock" style="display:none;position:fixed; background-color:white; left:20%; top:50px; width:600px;height:250px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+              <apex:outputPanel id="confirmPanelUnlock" layout="block" style="">  
+                        <h1><font size="4"> Approve/Reject Unlock Request</font></h1><br/>
+                        <apex:pageBlock >
+                                      <apex:panelGrid width="100%" columns="1" columnClasses="btn1,btn1">
+                                         <apex:outputPanel id="custUnlock"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Customer:</strong></apex:outputText>
+                                                  <apex:outputText id="custUnlock1"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="repUnlock"  style="display:block;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Sales Rep:</strong></apex:outputText>
+                                                  <apex:outputText id="repUnlock1"/>
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         <apex:outputPanel id="textUnlock"  style="display:none;" >
+                                              <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                                  <apex:outputText ><strong>Override Request:</strong></apex:outputText>
+                                                  <apex:outputPanel >
+                                                      <apex:outputText value="Unlock Request" id="UnlockReq" style="display:none;" />
+                                                  </apex:outputPanel>
+                                                  
+                                              </apex:panelGrid>
+                                         </apex:outputPanel>
+                                        
+                                         <apex:outputPanel style="display:block;">
+                                           <apex:panelGrid width="100%" columns="2" columnClasses="btn1,btn1">
+                                               <apex:outputText ><strong>Comments:</strong></apex:outputText>
+                                               <apex:inputTextarea id="modUnlockComment" label="Comments" value="{!UnlockComments}"  rows="3" style="width:250px"/>
+                                           </apex:panelGrid>
+                                         </apex:outputPanel>
+                                         
+                                        
+                                      </apex:panelGrid>  
+                              
+                              <apex:pageBlockButtons location="bottom">                                 
+                                  <apex:commandButton value="Approve" onclick="OverlayApprove('Approve','Unlock'); return false;" />
+                                  <apex:commandButton value="Reject"  onclick="OverlayApprove('Reject','Unlock'); return false;"  />
+                                  <apex:commandButton value="Cancel"  onclick="OverlayApprove('Cancel','Unlock'); return false;"  />
+                              </apex:pageBlockButtons>
+                              
+                        </apex:pageBlock>
+                               
+                       
+                       
+              </apex:outputPanel>
+         </div>     
+    
+    
+    
+    
+    <div id="overlayDiv" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+          <apex:outputPanel id="confirmPanel" layout="block" style="">  
+                    <left><b>CONFIRMATION:</b></left><br/> 
+                    <hr style="width:100%; color:#0099CC;"/>            
+                    <center><b>Please confirm value for Proposed Price.</b></center><br/><br/>                        
+                    <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                        <apex:commandButton value="Ok" id="submitRequest" onclick="hideOverlay();" action="{!approvePriceWithChange}" rerender="skuBlockpanel" oncomplete="window.location.reload();"/>
+                        <apex:commandButton value="Cancel" id="closeOverlay" onclick="hideOverlay(); return false;"/>
+                    </apex:panelGrid>   
+          </apex:outputPanel>
+    </div>
+    
+    
+    
+    <div id="overlayDiv1" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+          <apex:outputPanel id="confirmPanel1" layout="block" style="">  
+                    <left><b>CONFIRMATION:</b></left><br/> 
+                    <hr style="width:100%; color:#0099CC;"/>            
+                    <center><b>Please enter value for Proposed Price.</b></center><br/><br/>                        
+                    <apex:panelGrid width="100%" columns="1" columnClasses="btn1">
+                        <apex:commandButton value="Ok" id="closeOverlay1" onclick="hideOverlay1(); return false;"/>
+                    </apex:panelGrid>   
+          </apex:outputPanel>
+    </div>
+    
+    <div id="overlayDivApp" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+          <apex:outputPanel id="confirmPanelApp" layout="block" style="">  
+                    <left><b>CONFIRMATION:</b></left><br/> 
+                    <hr style="width:100%; color:#0099CC;"/>            
+                    <center><b>You have selected to approve this request. Please click ok to confirm.</b></center><br/><br/> 
+                                    <apex:inputHidden value="{!BatchName}" id="abatch"/>
+                                    <apex:inputHidden value="{!CustID}" id="acid"/>    
+                                    <apex:inputHidden value="{!type}" id="atype"/>                          
+                    <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                        <apex:commandButton value="Ok" id="submitRequestApp" action="{!approveFunc}" onclick="hideOverlayApp('Approve','Ok');"  reRender="custBlockpanel,custTable,buttons3,skuBlockpanel,skuTable,skuLabel1Panel,msglabelPanel"  > <!-- oncomplete="window.location.reload();"> -->
+                        </apex:commandButton>
+                        <apex:commandButton value="Cancel" id="closeOverlayApp" onclick="hideOverlayApp('Approve','Cancel'); return false;"/>
+                    </apex:panelGrid>   
+          </apex:outputPanel>
+    </div>
+    
+    <div id="overlayDivRej" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+          <apex:outputPanel id="confirmPanelRej" layout="block" style="">  
+                    <left><b>CONFIRMATION:</b></left><br/> 
+                    <hr style="width:100%; color:#0099CC;"/>            
+                    <center><b>You have selected to reject this request. Please click ok to confirm.</b></center><br/><br/> 
+                                    <apex:inputHidden value="{!PriceBatchName}" id="rbatch"/>
+                                    <apex:inputHidden value="{!PriceCustID}" id="rcid"/>    
+                                    <apex:inputHidden value="{!Pricetype}" id="rtype"/>                       
+                    <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                        <apex:commandButton value="Ok" id="submitRequestRej" onclick="hideOverlayApp('Reject','Ok');" action="{!rejectFunc}" reRender="custBlockpanel,custTable,buttons3,skuBlockpanel,skuLabel1Panel,msglabelPanel"/> <!-- oncomplete="window.location.reload();"/> -->
+                        <apex:commandButton value="Cancel" id="closeOverlayRej" onclick="hideOverlayApp('Reject','Cancel'); return false;"/>
+                    </apex:panelGrid>   
+          </apex:outputPanel>
+    </div>
+    
+    <div id="overlayDivCan" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+          <apex:outputPanel id="confirmPanelCan" layout="block" style="">  
+                    <left><b>CONFIRMATION:</b></left><br/> 
+                    <hr style="width:100%; color:#0099CC;"/>            
+                    <center><b>You have selected to cancel. All changes will be lost. Please click ok to confirm.</b></center><br/><br/>                        
+                    <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                        <apex:commandButton value="Ok" id="submitRequestCan" action="{!CancelFunc}" onclick="hideOverlayApp('Cancel','Ok');"/>
+                        <apex:commandButton value="Cancel" id="closeOverlayCan" onclick="hideOverlayApp('Cancel','Cancel'); return false;"/>
+                    </apex:panelGrid>   
+          </apex:outputPanel>
+    </div>
+    
+    <div id="overlayDivCurPrErr" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+          <apex:outputPanel id="confirmPanelCurPrErr" layout="block" style="">  
+                    <left><b>Error:</b></left><br/> 
+                    <hr style="width:100%; color:#0099CC;"/>            
+                    <center><b>The Override Price can not be lower than the Current Price.</b></center><br/><br/>                        
+                    <center>
+                        <apex:commandButton value="OK" id="closeOverlayCurPrErr" onclick="hideOverlayApp('ErrOkbtn','ErrOkbtn'); return false;"/>
+                    </center>
+          </apex:outputPanel>
+    </div>
+    
+    <div id="overlayDivCurDtErr" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+          <apex:outputPanel id="confirmPanelCurDtErr" layout="block" style="">  
+                    <left><b>Error:</b></left><br/> 
+                    <hr style="width:100%; color:#0099CC;"/>            
+                    <center><b>The Override Date can not be prior to the Current Price Change Effective Date.</b></center><br/><br/>                        
+                    <center>
+                        <apex:commandButton value="OK" id="closeOverlayCurDtErr" onclick="hideOverlayApp('DtErrOkbtn','DtErrOkbtn'); return false;"/>
+                    </center>
+          </apex:outputPanel>
+    </div>
+    
+    <script>
+        var curPrice;
+        var curDate;
+        var customerid = '';
+        var batchname = '';
+        var type = '';
+            function saveComplete(){
+                //alert();
+                if(type == "Price")
+                {
+                   // clickFunction1();
+                }
+            }
+            
+             function hideOverlay()
+             {
+                 var e = document.getElementById("overlayDiv");                 
+                    e.style.display = 'none';  
+                                    
+             }
+             
+             function hideOverlay1()
+             {
+                 var e = document.getElementById("overlayDiv1");                 
+                    e.style.display = 'none';  
+                                    
+             }
+             
+             function showOverlay(val1)
+             {
+                 var val2 = document.getElementById(val1).value;
+                 // alert(val2);
+                 
+                 if(val2 != null && val2 != '')
+                 {        
+                        
+                        return false;
+                 }
+                 else
+                 {
+                        var e = document.getElementById("overlayDiv1");                 
+                        e.style.display = 'block';  
+                        return false;
+                        // alert('false');
+                 }
+                 
+                 
+             }
+       </script>      
+       
+        <script>
+             
+             
+             function OverlayApprove(type1, rctype,curPr)
+             {
+                // alert(customerid);
+                 
+                  if(type1 != "Cancel" && rctype == "Date")
+                  {
+                    var dob = document.getElementById('{!$Component.j_id0:j_id1:component:form:j_id107:modDate1}').value;
+                    // alert(dob);   
+                  
+                      if (dob != null && dob != "") 
+                      {
+                        if (dob.charAt(1) == '/') dob= "0" + dob;
+                        if (dob.charAt(4) == '/') dob= dob.substring(0,3) + "0" + dob.substring(3);
+                        // alert(dob);     
+                             var pattern = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
+                            // alert(pattern.test(dob));
+                             if (dob != null && dob != "" && !pattern.test(dob))
+                            {
+                                alert("Invalid date. Please enter a date using the MM/DD/YYYY format."); 
+                                return false;
+                            }
+                            else{
+                                //alert(curPr);
+                                //alert(dob);
+                                if(Date.parse(dob) < Date.parse(curPr)){
+                                    //alert('true')
+                                    var g = document.getElementById("overlayDivCurDtErr");  
+                                    g.style.display = 'block';  
+                                    return false;
+                                }
+                            }
+                      }
+                       
+                  }
+                  if(type1 != "Cancel" && rctype == "Price")
+                  {
+                     
+                     var num = document.getElementById('{!$Component.j_id0:j_id1:component:form:j_id138:modPrice}').value;
+                      //  alert(num);
+                        if (num != null && num != "" && isNaN(parseFloat(num)))
+                        {
+                            alert("Invalid price. Please enter a numeric value."); 
+                            return false;
+                        }
+                        else{
+                            
+                            if(parseFloat(curPr)>parseFloat(num) && parseFloat(num)>=0){
+                                var j = document.getElementById("overlayDivCurPrErr");  
+                                j.style.display = 'block';  
+                                return false;               
+                            }
+                        }
+                       
+                      
+                  }
+                  
+                 if(type1 == "Approve")
+                 {
+                     
+                     var e = document.getElementById("overlayDivApp");    //id="j_id0:j_id1:component:form:confirmPanelApp"             
+                     e.style.display = 'block';  
+                     var e1 = document.getElementById("{!$Component.j_id0:j_id1:component:form:abatch}");                 
+                     e1.value = batchname;
+                     var e2 = document.getElementById("{!$Component.j_id0:j_id1:component:form:acid}");                 
+                     e2.value = customerid;
+                     var e3 = document.getElementById("{!$Component.j_id0:j_id1:component:form:atype}");                 
+                     e3.value = type;
+                 }
+                 if(type1 == "Reject")
+                 {
+                     var e = document.getElementById("overlayDivRej");                 
+                     e.style.display = 'block';  
+                     var e1 = document.getElementById("{!$Component.j_id0:j_id1:component:form:rbatch}");                 
+                     e1.value = batchname;
+                     var e2 = document.getElementById("{!$Component.j_id0:j_id1:component:form:rcid}");                 
+                     e2.value = customerid;
+                     var e3 = document.getElementById("{!$Component.j_id0:j_id1:component:form:rtype}");                 
+                     e3.value = type;
+                 }
+                 if(type1 == "Cancel")
+                 {
+                     var e = document.getElementById("overlayDivCan");                 
+                     e.style.display = 'block';  
+                 }                   
+             }
+             function hideOverlayApp(type1,val)
+             {
+                 if(type1 == "Approve")
+                 {
+                     var e = document.getElementById("overlayDivApp");                 
+                     e.style.display = 'none';  
+                 }
+                 if(type1 == "Reject")
+                 {
+                     var e = document.getElementById("overlayDivRej");                 
+                     e.style.display = 'none';  
+                 }
+                 if(type1 == "Cancel")
+                 {
+                     var e = document.getElementById("overlayDivCan");                 
+                     e.style.display = 'none';  
+                 }
+                 
+                 //Added by guha for UAT defect #82 & 83
+                 if(type1 == "ErrOkbtn")
+                 {
+                     var e = document.getElementById("overlayDivCurPrErr");                 
+                     e.style.display = 'none';  
+                 } 
+                 
+                 if(type1 == "DtErrOkbtn")
+                 {
+                     var e = document.getElementById("overlayDivCurDtErr");                 
+                     e.style.display = 'none';  
+                 } 
+                 
+                 if(val == 'Ok')
+                 {
+                     hideOverlayApprove();
+                     hideOverlayApprovePrice(); 
+                     hideOverlayUnlock();                 
+                 }    
+             }
+             
+             function hideOverlayApprove(){
+                 var e = document.getElementById("overlayDivApprove");                 
+                    e.style.display = 'none';  
+             }
+             function hideOverlayUnlock(){
+                // alert('ok1');
+                 var e = document.getElementById("overlayDivApproveUnlock");                 
+                    e.style.display = 'none'; 
+                //    alert('ok2'); 
+             }
+             
+             function showOverlayApprove(bn,cid,ty,enBt,unlockreq,custname, rep, cur, req,exceVal)
+             {
+               //  alert(custname);
+                 custname = custname.replace('%','\'');
+               //  alert(custname);
+                 customerid = cid;
+                 batchname = bn;
+                 type = ty;
+                 
+                
+                 if(enBt == 'false' && unlockreq == 'true')
+                 {
+                   // var de = document.getElementById('{!$Component.j_id0:j_id1:component:form:j_id167:UnlockReq}');                
+                   // de.style.display = 'block';
+                   // de.innerHTML = 'Unlock Request';
+                   var eUn = document.getElementById("overlayDivApproveUnlock");                 
+                   eUn.style.display = 'block';
+                    
+                    var e41 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id172:custUnlock1}");                 
+                 // alert(e4);
+                 e41.innerHTML = custname;
+                 var e51 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id172:repUnlock1}");                 
+                 // alert(e4);
+                 e51.innerHTML = rep; 
+                 var comUn = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id172:modUnlockComment}");  
+                 comUn.value = "";
+                 }
+                 if(enBt == 'true' && type == 'Date')
+                 {
+                   // var de1 = document.getElementById('{!$Component.j_id0:j_id1:component:form:j_id102:modDate1}');                
+                   // de1.style.display = 'block';
+                    
+                    var e = document.getElementById("overlayDivApprove");                 
+                     e.style.display = 'block';
+                 
+                 var dob21 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id107:modDate1}");
+                 dob21.value = ""; 
+                 var dob22 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id107:modComment}");
+                 dob22.value = ""; 
+                 var e4 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id107:custVal}");                 
+                 // alert(e4);
+                 e4.innerHTML = custname; 
+                 var e5 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id107:repVal}");                 
+                 // alert(e4);
+                 e5.innerHTML = rep; 
+                 var e6 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id107:curVal}");                 
+                 // alert(e4);
+                 e6.innerHTML = cur; 
+                 curDate = cur;
+                 var e7 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id107:reqVal}");                 
+                 // alert(e4);
+                 e7.innerHTML = req; 
+                 var e8 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id107:reqExceVal}");                 
+                 // alert(e4);
+                 e8.innerHTML = '$ ' + exceVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                 
+                 }                
+                          
+             }
+             
+             function hideOverlayApprovePrice(){
+                 var e = document.getElementById("overlayDivApprovePrice");                 
+                    e.style.display = 'none';  
+             }
+             function showOverlayApprovePrice(bn,cid,ty,custname, rep, cur,newp, req,exceVal)
+             {
+                 customerid = cid;
+                 batchname = bn;
+                 type = ty;
+                 //alert(customerid );
+                 // alert(batchname );
+                 //  alert(type );
+                 
+                 var e = document.getElementById("overlayDivApprovePrice");                 
+                 e.style.display = 'block';
+                 var pdob21 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id138:modPrice}");
+                 pdob21.value = ""; 
+                 var pdob22 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id138:modPriceComment}");
+                 pdob22.value = ""; 
+              
+                 var e4 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id138:custVal}");                 
+                 // alert(e4);
+                 e4.innerHTML = custname; 
+                 var e5 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id138:repVal}");                 
+                 // alert(e4);
+                 e5.innerHTML = rep; 
+                 var e6 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id138:curVal}");                 
+                 // alert(e4);
+                 e6.innerHTML = '$ ' + cur; 
+                 curPrice = cur;
+                 var e7 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id138:newVal}");                 
+                 // alert(e4);
+                 e7.innerHTML = '$ ' + newp; 
+                 var e8 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id138:reqVal}");                 
+                 // alert(e4);
+                 e8.innerHTML = '$ ' + req; 
+                 var e9 = document.getElementById("{!$Component.j_id0:j_id1:component:form:j_id138:reqExceVal1}");                 
+                 // alert(e4);
+                 e9.innerHTML = '$ ' + exceVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                 
+                          
+             }
+             
+             function loadingApprove(val) {
+                 if (val) {
+                   document.getElementById('contentLoadingApprove').style.display = 'block';
+                   
+                 }
+                 else {
+                   document.getElementById('contentLoadingApprove').style.display = 'none';
+                  
+                 }
+               }
+               
+             
+               
+    </script>
+       
+     
+</apex:form>  
+<script>
+var paramtr;
+function checkNull(paramtr){
+
+    if(paramtr != null && paramtr != ''){
+        alert('true');
+        window.location.reload();
+    }
+    else{
+        return false;
+        alert('false');
+    }
+}
+
+function refreshBlock(){
+    
+    refreshBlock1();
+}
+
+
+
+</script>    
+</apex:component>

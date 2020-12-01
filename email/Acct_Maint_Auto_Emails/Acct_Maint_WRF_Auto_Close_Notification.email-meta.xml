@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>notification to rep that their request has been closed due to no response for more info</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Acct Maint WRF Auto Close Notification</name>
+    <style>freeForm</style>
+    <subject>Acct Maintenance Request Cancelled - {!Case.ACCT_Name__c} -- {!Case.DUP_Acct_ID__c}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+Unfortunately, the information necessary to complete this request has not been received.  Your request has been automatically cancelled by the system.  If you have the required information available now, please submit a new request through the Account Maintenance Request process and provide all needed information.
+
+For details regarding the required information, please click the below link to see the support comments.
+
+You can click here to view the request in Salesforce.com.
+
+Your Support #: {!Case.CaseNumber}
+Account Name: {!Case.ACCT_Name__c}
+Account #: {!Case.DUP_Acct_ID__c}
+Request Type: {!Case.WRF_Request_Type__c}
+Gen Maint Request Type: {!Case.AM_Gen_Maintenance_Other__c}
+
+Thank you,
+Account Maintenance Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

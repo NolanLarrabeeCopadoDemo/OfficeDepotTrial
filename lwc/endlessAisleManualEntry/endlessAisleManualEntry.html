@@ -1,0 +1,116 @@
+<template>
+	<div class="slds-backdrop slds-backdrop_open slds-transition-hide moe-transition"
+		style="transition: opacity 250ms; z-index: 9001;">
+		<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+			aria-describedby="modal-content-id-1" class="slds-modal slds-grid slds-fade-in-open">
+			<div
+				class="slds-col_bump-top slds-col_bump-bottom slds-col_bump-left slds-col_bump-right slds-size_4-of-12">
+				<header class="slds-modal__header">
+					<h2 class="slds-text-heading_medium">Manual Product Entry</h2>
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+						title="Close"
+						onclick={onClose}>
+						<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+							size="small">
+						</lightning-icon>
+					</button>
+				</header>
+				<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1"
+					style="max-height: 500px;">
+					<div>
+						<div>
+							<h2 class="slds-text-heading_small slds-m-bottom_medium">Required Fields</h2>
+							<lightning-input type="text" label="Item Description" value={input.itemDescription}
+								onchange={onItemDescriptionChange} required></lightning-input>
+							<lightning-input type="number" formatter="currency" label="Adjusted Cost" min="0"
+								step="any"
+								value={input.adjustedCost} onchange={onAdjustedCostChange} required
+								message-when-bad-input=" " message-when-range-underflow=" ">
+							</lightning-input>
+							<lightning-input type="number" formatter="currency" label="Unit Price" min="0" step="any"
+								value={input.unitPrice} onchange={onUnitPriceChange} required message-when-bad-input=" "
+								message-when-range-underflow=" ">
+							</lightning-input>
+
+ 							<!--List price change NAIT-135515-->
+
+							<lightning-input type="number" formatter="currency" label="List Price" min="0" step="any"
+								value={input.maxListPrice} onchange={onListPriceChange} required message-when-bad-input=" "
+								message-when-range-underflow=" ">
+							</lightning-input>
+
+							<!--List price change NAIT-135515-->				
+
+
+
+
+							<lightning-input type="number" label="Quantity" value={input.quantity} min="0" step="any"
+								onchange={onQuantityChange} required message-when-bad-input=" "
+								message-when-range-underflow=" "></lightning-input>
+							<!--supplierName change NAIT-135518-->
+							<template if:true={nameSuppliers.data}>
+							<lightning-combobox
+								name="Supplier Name"
+								label="Supplier Name"
+								placeholder="Select Supplier"
+								value={nameSupplier}
+								onchange={onSupplierNameChange}
+								options={nameSuppliers.data.values} required>
+								
+							</lightning-combobox></template>
+							<!--supplierName change NAIT-135518-->		
+						</div>
+						<hr class="slds-m-vertical_small">
+						<div class="slds-grow">
+							<h2 class="slds-text-heading_small slds-m-bottom_medium">Other Details</h2>
+							<lightning-input type="number" formatter="currency" label="Original cost" min="0"
+								step="any"
+								value={input.originalCost} onchange={onOriginalCostChange} message-when-bad-input=" "
+								message-when-range-underflow=" ">
+							</lightning-input>
+							<lightning-input type="text" label="Manufacturer ID" value={input.vendorManufacturerId}
+								onchange={onManufacturerIdChange}></lightning-input>
+							<lightning-input type="text" label="Manufacturer Name" value={input.vendorManufacturerName}
+								onchange={onManufacturerNameChange}></lightning-input>
+							<!--supplierName change NAIT-135518-->	
+							<!--<lightning-input type="text" label="Supplier Name" value={input.supplierName}
+								onchange={onSupplierNameChange}></lightning-input>-->
+							<!--supplierName change NAIT-135518-->
+							<lightning-input type="text" label="Manufacturer Part Number"
+								value={input.manufacturerPartNumber}
+								onchange={onManufacturerPartNumberChange}>
+							</lightning-input>
+							<lightning-input type="text" label="OD SKU Number" value={input.sku} onchange={onSkuChange}>
+							</lightning-input>
+							<lightning-input type="text" label="UPC Code" value={input.upc} onchange={onUpcChange}>
+							</lightning-input>
+							<lightning-input type="number" formatter="currency" label="Shipping" min="0" step="any"
+								value={input.shipping} onchange={onShippingChange} message-when-bad-input=" "
+								message-when-range-underflow=" "></lightning-input>
+							<!-- <lightning-input type="number" formatter="percent" label="Margin" value={input.margin} onchange={onMarginChange}></lightning-input> -->
+						</div>
+					</div>
+				</div>
+				<footer class="slds-modal__footer slds-grid">
+					<div class="slds-col_bump-right">
+						<lightning-button label="Close" title="Close" onclick={onClose}>
+						</lightning-button>
+					</div>
+					<div class="slds-col_bump-left">
+						<template if:false={isFormValid}>
+							<button class="slds-button slds-button_brand slds-m-right_x-small" title="Add to Scratchpad"
+								disabled>Add to Scratchpad</button>
+							<lightning-helptext
+								content="Unable to add to the Scratchpad: some required fields are missing.">
+							</lightning-helptext>
+						</template>
+						<template if:true={isFormValid}>
+							<button class="slds-button slds-button_brand slds-m-right_x-small"
+								onclick={onAddToScratchpad}>Add to Scratchpad</button>
+						</template>
+					</div>
+				</footer>
+			</div>
+		</section>
+	</div>
+</template>

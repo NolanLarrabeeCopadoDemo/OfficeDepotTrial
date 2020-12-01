@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account.ACE_Customer_Price_Changes__r.Ace_Customer_Core_Changes__r.Ace_Customer_SKU_Changes__r$Name</field>
+    </columns>
+    <columns>
+        <field>Account.ACE_Customer_Price_Changes__r.Ace_Customer_Core_Changes__r.Ace_Customer_SKU_Changes__r$Vendavo_Update_Date__c</field>
+    </columns>
+    <columns>
+        <field>Account.ACE_Customer_Price_Changes__r.Ace_Customer_Core_Changes__r.Ace_Customer_SKU_Changes__r$PRICE_NOT_CALCULATED__c</field>
+    </columns>
+    <columns>
+        <field>Account.ACE_Customer_Price_Changes__r$Sales_Price_Change_Effective_Date_Min__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Account.ACE_Customer_Price_Changes__r.Ace_Customer_Core_Changes__r.Ace_Customer_SKU_Changes__r$Batch_Processed__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>batch job</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Accounts_with_Customer_Core_Price_Changes_with_Customer_Core_Changes_with_Cust__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account.ACE_Customer_Price_Changes__r.Ace_Customer_Core_Changes__r.Ace_Customer_SKU_Changes__r$LastModifiedDate</dateColumn>
+        <endDate>2018-06-21</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2018-06-20</startDate>
+    </timeFrameFilter>
+</Report>

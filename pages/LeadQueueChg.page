@@ -1,0 +1,24 @@
+<apex:page standardController="Lead"  recordSetVar="leads" showHeader="false"  id="mulead"
+>
+    <apex:form id="mulform">
+      
+        <apex:pageBlock title="Lead Mass-Update" mode="edit" id="mub2">
+            <apex:pageMessages />
+            <apex:pageBlockSection columns="1" id="mus2">
+                <apex:inputCheckbox value="{!Lead.ADD_TO_QUEUE__c}" id="stagename">
+                    <apex:actionSupport event="onchange" rerender="muselectedlist"/>
+                </apex:inputCheckbox>
+                  </apex:pageBlockSection>
+                     
+            <apex:pageBlockButtons location="bottom" id="mubut">
+                <apex:commandButton value="Save" action="{!save}" id="butsav"/>
+                <apex:commandButton value="Cancel" action="{!cancel}" id="butcan"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock title="Selected Leads" id="muselectedlist">
+            <apex:pageBlockTable value="{!selected}" var="lead" id="mutab">
+                <apex:column value="{!lead.name}" id="oppname"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

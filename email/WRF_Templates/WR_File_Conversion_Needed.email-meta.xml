@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to notify the field that item list must be in Excel format</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF File Conversion Needed</name>
+    <style>freeForm</style>
+    <subject>WRF Excel File Conversion Needed: {!Case.Subject}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+
+Thank you for your Work Request submission for {!Case.Account}.  Your request does not contain some information in a usable format.
+
+
+In order for us to price a bid or work request, you will need to provide an item list file in an Excel format that contains a column with one of the following:
+
+
+· OD SKU#
+
+· Manufacturer Number
+
+· Major competitor item numbers
+
+
+We have sent your request to Regional Sales Support to have the file converted.  Once that has been completed, we will task the relevant pricing team.
+
+
+Please note that this delays the tasking process and may prevent the relevant support teams with sufficient time to complete your request in a timely manner.
+
+
+Thank you,
+
+
+BSD BIDS</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

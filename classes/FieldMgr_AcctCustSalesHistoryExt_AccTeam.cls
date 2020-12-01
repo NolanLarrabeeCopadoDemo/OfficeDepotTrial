@@ -1,0 +1,272 @@
+/************************************************************
+*Name           : FieldMgr_AcctCustSalesHistoryExt_AccTeam
+*Created By     : Wipro Offshore Team
+*Created Date   : 25 Sep 2012
+*Purpose        : To Show Accont Sales History of Current User(Logged in User)who exists in the account team  
+****************************************************************/
+public with sharing class FieldMgr_AcctCustSalesHistoryExt_AccTeam {
+    
+    public List<AggregateResult> accounts = null;
+      public Account dummyAccount {get;set;}
+      public Id userRoleID {get;set;}
+      public SiteAccounts siteAccountHistory {get;set;}
+      private static Map<String,Schema.RecordTypeInfo> rtMapByName = Schema.SObjectType.Account.getRecordTypeInfosByName();
+      
+      public FieldMgr_AcctCustSalesHistoryExt_AccTeam ()
+      {
+          dummyAccount = new Account();
+          dummyAccount.OwnerId = UserInfo.getUserId();
+          userRoleID = UserInfo.getUserRoleId();      
+          siteAccountHistory = getAllSiteAccountsForCurrentUser();
+      }
+      
+  
+    public List<AggregateResult> getAggregateResult() {
+    
+        //Get Account Team members of an account of the logged in user 
+        List<AccountteamMember> lst_AccountTeam = new List<AccountteamMember>();
+        Set<Id> set_AccountTeam =new Set<Id>();
+        List<Account> lst_GPID = [select ID from account where GP_ID__C!=null];
+        //lst_AccountTeam = [Select id, accountid,userid from AccountteamMember where userid =:userinfo.getuserid()];
+        lst_AccountTeam = [Select id, accountid,userid from AccountteamMember where (user.Manager.ID =:dummyAccount.OwnerId or user.Manager.Manager.ID =:dummyAccount.OwnerId or user.Manager.Manager.Manager.ID =:userinfo.getuserid() or user.Manager.Manager.Manager.Manager.ID =:dummyAccount.OwnerId or userid =:dummyAccount.Owner.Id or userid=:dummyAccount.OwnerId)and Accountid=:lst_GPID  ];
+        system.debug('>>>AccountTeam>>>>'+lst_AccountTeam);
+            for(AccountteamMember lst_Accountteam1:lst_AccountTeam){
+                set_AccountTeam.add(lst_Accountteam1.AccountId);
+            }
+            System.debug('------------ '+ dummyAccount.OwnerId);
+        Set<Id> siteRecordTypeID = new Set<Id>();
+        siteRecordTypeID.add(getRecordTypeId('Customer'));
+        siteRecordTypeID.add(getRecordTypeId('Customer (OfficeMax)'));
+        if(test.isrunningtest())
+        {
+            Set<ID> currentRoleIds = getAllSubOrdinateRoleID(new Set<ID>{userRoleID});
+        }
+    return [SELECT 
+            sum(MTD_Sales_TY__c) MTD_Sales_TY__c,
+            sum(MTD_Sales_TY_IMU__c) MTD_Sales_TY_IMU2__c,
+            sum(MTD_Sales_LY__c) MTD_Sales_LY__c,
+            sum(MTD_Sales_LY_IMU__c) MTD_Sales_LY_IMU2__c,
+            sum(MTD_Sales_Diff__c) MTD_Sales_Diff__c, 
+            sum(Monthly_LY__c) Monthly_LY__c,
+            sum(Monthly_LY_IMU__c) Monthly_LY_IMU_Per__c,
+            //sum(Month_Goal__c) Month_Goal__c,
+            sum(ADS_Current_Month__c) ADS_Current_Month__c,
+            sum(ADS_Last_Month__c) ADS_Last_Month__c,
+            sum(QTD_Sales_TY__c) QTD_Sales_TY__c,
+            sum(QTD_Sales_TY_IMU__c) QTD_Sales_TY_IMU2__c,
+            sum(QTD_Sales_LY__c) QTD_Sales_LY__c,
+            sum(QTD_Sales_LY_IMU__c) QTD_Sales_LY_IMU2__c,
+            sum(QTD_Sales_Diff__c) QTD_Sales_Diff__c,
+            sum(Quarter_LY__c) Quarter_LY__c,
+            sum(Quarter_LY_IMU__c) Quarter_LY_IMU_per__c,
+            //sum(Quarter_Goal__c) Quarter_Goal__c,
+            sum(ADS_Current_Qtr__c) ADS_Current_Qtr__c,
+            sum(ADS_Last_Qtr__c) ADS_Last_Qtr__c,
+            sum(YTD_Sales_TY__c) YTD_Sales_TY__c,
+            sum(YTD_Sales_TY_IMU__c) YTD_Sales_TY_IMU2__c,
+            sum(YTD_Sales_LY__c) YTD_Sales_LY__c,
+            sum(YTD_Sales_LY_IMU__c) YTD_Sales_LY_IMU2__c,
+            sum(YTD_Sales_Diff__c) YTD_Sales_Diff__c,
+            sum(Year_LY__c) Year_LY__c,
+            sum(Year_LY_IMU__c) Year_LY_IMU_per__c,
+            //sum(Year_Goal__c) Year_Goal__c,
+            sum(ADS_Current_Yr__c) ADS_Current_Yr__c,
+            sum(ADS_Last_Yr__c) ADS_Last_Yr__c
+            FROM Account WHERE id in: set_AccountTeam and RecordTypeId IN: siteRecordTypeID AND GP_ID__C!= Null]; 
+            //AND (ownerId=:UserInfo.getUserId() OR owner.UserRoleID In :getAllSubOrdinateRoleID(new Set<ID>{UserInfo.getUserRoleId()})) ];
+            //AND (OwnerID = :dummyAccount.OwnerId OR owner.UserRoleID In :getAllSubOrdinateRoleID(new Set<ID>{userRoleID}))];
+            
+  }
+  
+   
+      //================================================================================//
+      //Get Record Type Id from record Type Name
+      //================================================================================//
+      public static  Id getRecordTypeId(String recordTypeName) 
+      {
+            RecordTypeInfo siteRecordType = rtMapByName.get(recordTypeName); 
+            if(siteRecordType == null) return null;
+            
+            return siteRecordType.getRecordTypeId();
+      }   
+      
+  
+   //------------------------------------------------------------------------------------------//
+   //Recursively iterate through the Role hierarchy, to retrieve all roles reporting this role
+   //------------------------------------------------------------------------------------------//
+   private Set<ID> getAllSubOrdinateRoleID(Set<ID> parentRoleIds) {
+     Set<ID> currentRoleIds = new Set<ID>();
+     for(UserRole userRole :[SELECT Id FROM UserRole WHERE ParentRoleId IN :parentRoleIds AND ParentRoleID != null]) {
+       currentRoleIds.add(userRole.Id);
+     }
+     if(currentRoleIds.size() > 0) {
+       currentRoleIds.addAll(getAllSubOrdinateRoleID(currentRoleIds));
+     }
+     return currentRoleIds;
+   }
+   
+   
+   //------------------------------------------------------------------------------------------//
+   // To get data according to selected user
+   //------------------------------------------------------------------------------------------//  
+  public PageReference Refresh() 
+      {
+            User user = [Select UserRoleId From User Where Id = :dummyAccount.OwnerId];
+            userRoleID = user.UserRoleId;
+            siteAccountHistory =   getAllSiteAccountsForCurrentUser();
+            return null;
+      } 
+      
+       //---------------------------------------------------//
+  //  To calculate the difference
+  //---------------------------------------------------//
+   public Double calculate_imu_per(Double margin, Double sales )
+  { 
+    Double imu =0.0;
+    
+    if (sales > 0 )
+      if(margin != null && sales != null)
+           imu  = margin/sales;
+     return imu;    
+  } 
+   
+   public SiteAccounts getAllSiteAccountsForCurrentUser(){
+    SiteAccounts siteAccount = new SiteAccounts();     
+    Id siteRecordTypeID = getRecordTypeId('customer');
+    List<AggregateResult> accounts = getAggregateResult();
+    
+    for(AggregateResult acct:accounts){
+      
+      siteAccount.MTD_Sales_TY=(Double)acct.get('MTD_Sales_TY__c');
+        siteAccount.MTD_Sales_TY_IMU2=(Double)acct.get('MTD_Sales_TY_IMU2__c');
+        siteAccount.MTD_Sales_LY=(Double)acct.get('MTD_Sales_LY__c');
+        siteAccount.MTD_Sales_LY_IMU2=(Double)acct.get('MTD_Sales_LY_IMU2__c');
+        siteAccount.MTD_Sales_Diff=(Double)acct.get('MTD_Sales_Diff__c');
+        siteAccount.Monthly_LY=(Double)acct.get('Monthly_LY__c');
+        siteAccount.Monthly_LY_IMU_Per=(Double)acct.get('Monthly_LY_IMU_Per__c');
+        //siteAccount.Month_Goal=(Double)acct.get('Month_Goal__c');
+        siteAccount.ADS_Current_Month=(Double)acct.get('ADS_Current_Month__c');
+        siteAccount.ADS_Last_Month=(Double)acct.get('ADS_Last_Month__c');
+        siteAccount.QTD_Sales_TY=(Double)acct.get('QTD_Sales_TY__c');
+        siteAccount.QTD_Sales_TY_IMU2=(Double)acct.get('QTD_Sales_TY_IMU2__c');
+        siteAccount.QTD_Sales_LY=(Double)acct.get('QTD_Sales_LY__c');
+        siteAccount.QTD_Sales_LY_IMU2=(Double)acct.get('QTD_Sales_LY_IMU2__c');
+        siteAccount.QTD_Sales_Diff =(Double)acct.get('QTD_Sales_Diff__c');
+        siteAccount.Quarter_LY =(Double)acct.get('Quarter_LY__c');
+        siteAccount.Quarter_LY_IMU_per =(Double)acct.get('Quarter_LY_IMU_per__c');
+        //siteAccount.Quarter_Goal =(Double)acct.get('Quarter_Goal__c');
+        siteAccount.ADS_Current_Qtr =(Double)acct.get('ADS_Current_Qtr__c');
+        siteAccount.ADS_Last_Qtr =(Double)acct.get('ADS_Last_Qtr__c');
+        siteAccount.YTD_Sales_TY =(Double)acct.get('YTD_Sales_TY__c');
+        siteAccount.YTD_Sales_TY_IMU2 =(Double)acct.get('YTD_Sales_TY_IMU2__c');
+        siteAccount.YTD_Sales_LY =(Double)acct.get('YTD_Sales_LY__c');
+        siteAccount.YTD_Sales_LY_IMU2 =(Double)acct.get('YTD_Sales_LY_IMU2__c');
+        siteAccount.YTD_Sales_Diff =(Double)acct.get('YTD_Sales_Diff__c');
+        siteAccount.Year_LY =(Double)acct.get('Year_LY__c');
+        siteAccount.Year_LY_IMU_per =(Double)acct.get('Year_LY_IMU_per__c');
+        //siteAccount.Year_Goal =(Double)acct.get('Year_Goal__c');
+        siteAccount.ADS_Current_Yr =(Double)acct.get('ADS_Current_Yr__c');
+        siteAccount.ADS_Last_Yr  =(Double)acct.get('ADS_Last_Yr__c');
+    }
+  // calculate MTD TY IMU by dividing with sales.
+     
+         siteAccount.MTD_Sales_TY_IMU2 = calculate_imu_per(siteAccount.MTD_Sales_TY_IMU2,siteAccount.MTD_Sales_TY);
+
+  // calculate MTD LY IMU by dividing with sales.
+   
+         siteAccount.MTD_Sales_LY_IMU2 =  calculate_imu_per(siteAccount.MTD_Sales_LY_IMU2,siteAccount.MTD_Sales_LY);
+         
+  // calculate Monthly LY IMU by dividing with sales.
+         siteAccount.Monthly_LY_IMU_Per =  calculate_imu_per(siteAccount.Monthly_LY_IMU_Per,siteAccount.Monthly_LY);
+              
+  // calculate QTD TY IMU by dividing with sales.
+         siteAccount.QTD_Sales_TY_IMU2 =  calculate_imu_per(siteAccount.QTD_Sales_TY_IMU2,siteAccount.QTD_Sales_TY);
+            
+  // calculate QTD LY IMU by dividing with sales.
+         siteAccount.QTD_Sales_LY_IMU2 =  calculate_imu_per(siteAccount.QTD_Sales_LY_IMU2,siteAccount.QTD_Sales_LY);
+
+ // calculate Quarter LY IMU by dividing with sales.
+         siteAccount.Quarter_LY_IMU_per =  calculate_imu_per(siteAccount.Quarter_LY_IMU_per,siteAccount.Quarter_LY);
+
+ // calculate YTD TY IMU by dividing with sales.
+         siteAccount.YTD_Sales_TY_IMU2 =  calculate_imu_per(siteAccount.YTD_Sales_TY_IMU2,siteAccount.YTD_Sales_TY);
+            
+  // calculate YTD LY IMU by dividing with sales.
+         siteAccount.YTD_Sales_LY_IMU2 =  calculate_imu_per(siteAccount.YTD_Sales_LY_IMU2,siteAccount.YTD_Sales_LY);
+
+ // calculate Year LY IMU by dividing with sales.
+         siteAccount.Year_LY_IMU_per =  calculate_imu_per(siteAccount.Year_LY_IMU_per,siteAccount.Year_LY);
+   
+    return siteAccount;
+  }
+  
+  public class SiteAccounts{
+     public SiteAccounts(){
+      MTD_Sales_TY  = 0.0;
+      MTD_Sales_TY_IMU2  = 0.0;
+      MTD_Sales_LY  = 0.0;
+      MTD_Sales_LY_IMU2  = 0.0;
+      MTD_Sales_Diff  = 0.0;
+      Monthly_LY  = 0.0;
+      Monthly_LY_IMU_Per  = 0.0;
+      Month_Goal  = 0.0;
+      ADS_Current_Month  = 0.0;
+      ADS_Last_Month  = 0.0;
+      QTD_Sales_TY  = 0.0;
+      QTD_Sales_TY_IMU2  = 0.0;
+      QTD_Sales_LY  = 0.0;
+      QTD_Sales_LY_IMU2  = 0.0;
+      QTD_Sales_Diff  = 0.0;
+      Quarter_LY  = 0.0;
+      Quarter_LY_IMU_per  = 0.0;
+      Quarter_Goal  = 0.0;
+      ADS_Current_Qtr  = 0.0;
+      ADS_Last_Qtr  = 0.0;
+      YTD_Sales_TY  = 0.0;
+      YTD_Sales_TY_IMU2  = 0.0;
+      YTD_Sales_LY  = 0.0;
+      YTD_Sales_LY_IMU2  = 0.0;
+      YTD_Sales_Diff  = 0.0;
+      Year_LY  = 0.0;
+      Year_LY_IMU_per  = 0.0;
+      Year_Goal  = 0.0;
+      ADS_Current_Yr  = 0.0;
+      ADS_Last_Yr  = 0.0;
+     }
+     
+     public Double MTD_Sales_TY {get;set;}
+     public Double MTD_Sales_TY_IMU2 {get;set;}
+     public Double MTD_Sales_LY {get;set;}
+     public Double MTD_Sales_LY_IMU2 {get;set;}
+     public Double MTD_Sales_Diff {get;set;}
+     public Double Monthly_LY {get;set;}
+     public Double Monthly_LY_IMU_Per {get;set;}
+     public Double Month_Goal {get;set;}
+     public Double ADS_Current_Month {get;set;}
+     public Double ADS_Last_Month {get;set;}
+     public Double QTD_Sales_TY {get;set;}
+     public Double QTD_Sales_TY_IMU2 {get;set;}
+     public Double QTD_Sales_LY {get;set;}
+     public Double QTD_Sales_LY_IMU2 {get;set;}
+     public Double QTD_Sales_Diff {get;set;}
+     public Double Quarter_LY {get;set;}
+     public Double Quarter_LY_IMU_per {get;set;}
+     public Double Quarter_Goal {get;set;}
+     public Double ADS_Current_Qtr {get;set;}
+     public Double ADS_Last_Qtr {get;set;}
+     public Double YTD_Sales_TY {get;set;}
+     public Double YTD_Sales_TY_IMU2 {get;set;}
+     public Double YTD_Sales_LY {get;set;}
+     public Double YTD_Sales_LY_IMU2 {get;set;}
+     public Double YTD_Sales_Diff {get;set;}
+     public Double Year_LY {get;set;}
+     public Double Year_LY_IMU_per {get;set;}
+     public Double Year_Goal {get;set;}
+     public Double ADS_Current_Yr {get;set;}
+     public Double ADS_Last_Yr {get;set;}
+     
+  }
+  
+   
+
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Account Name --></label>
+        <name>PROSAgreement__AccountName__c</name>
+        <relationshipLabel><!-- PROS Agreements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Config Id --></label>
+        <name>PROSAgreement__AgreementConfigId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement End Date --></label>
+        <name>PROSAgreement__AgreementEndDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Id --></label>
+        <name>PROSAgreement__AgreementId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Quote Id --></label>
+        <name>PROSAgreement__AgreementQuoteId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Start Date --></label>
+        <name>PROSAgreement__AgreementStartDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Action Status --></label>
+        <name>PROSAgreement__Agreement_Action_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Action --></label>
+        <name>PROSAgreement__Agreement_Action__c</name>
+    </fields>
+    <fields>
+        <label><!-- Automatically Publish Mass Price Change --></label>
+        <name>PROSAgreement__AutomaticallyPublishMassPriceChange__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent Agreement Record --></label>
+        <name>PROSAgreement__ParentAgreementRecord_Id__c</name>
+        <relationshipLabel><!-- PROS Agreements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Quote Record Type Id --></label>
+        <name>PROSAgreement__Quote_Record_Type_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrackChanges --></label>
+        <name>PROSAgreement__TrackChanges__c</name>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- Agreement Action Status is not valid.
+Allowed Action Status: Start, Success and Failure. --></errorMessage>
+        <name>PROSAgreement__Validate_Agreement_Action_Status</name>
+    </validationRules>
+</CustomObjectTranslation>

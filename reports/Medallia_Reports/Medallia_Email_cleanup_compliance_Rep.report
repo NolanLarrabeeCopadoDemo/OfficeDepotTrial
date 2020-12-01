@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account$Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account.Medallia_Feedbacks__r$Contact_Id__c</field>
+    </columns>
+    <columns>
+        <field>Account.Medallia_Feedbacks__r$Contact_Email__c</field>
+    </columns>
+    <columns>
+        <field>Account.Medallia_Feedbacks__r$Contact_Id__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>Account.Medallia_Feedbacks__r$Contact_Id__c.Email</field>
+    </columns>
+    <columns>
+        <field>Account.Medallia_Feedbacks__r$Contact_Id__c.LastModifiedDate</field>
+    </columns>
+    <description>This report shows Contact email which have received a Hard Bounce during survey delivery but have not yet been cleaned up. Clean-up involves changing email to the new address -or- deleting the contact or changing its Status</description>
+    <filter>
+        <criteriaItems>
+            <column>Account.Medallia_Feedbacks__r$Record_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Delivery bounced (Hard bounce)</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Medallia_Feedbacks__r$Contact_Id__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Active</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Medallia_Feedbacks__r$Email_Update_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>0</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <name>Medallia: Email cleanup compliance-Rep</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Accounts_and_Medallia_Feedback_with_Contacts__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account$Cadence_Call_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,183 @@
+<apex:page readonly="true" title="Customer {!reportType} Reporting" controller="ACEReporting_RevMarg_WaterFall" action="{!loadNotificationData}">
+  <style>   
+      width:200%;
+        .col1 {width:50%;}
+        P.goright {text-align: right}
+        .col2 {width:50%;text-align: right; align:right;white-space:nowrap;font-weight:bold;}
+    </style>
+   
+   <Style>        
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}        
+        .expandCollapse{
+            -moz-border-radius:5px 5px 5px 5px;
+            -webkit-border-radius:5px 5px 5px 5px;
+            border-radius:5px 5px 5px 5px;
+            padding-top:5px;
+            padding-bottom:5px;
+            align:center; 
+            text-align:center; 
+            font-weight:bold;
+            background-color:#3D8C8C;
+            background-image:none;
+            width:auto;
+            height:auto;
+            color:white;
+        }               
+    </Style>
+    
+    <apex:outputPanel id="bucketPanel">
+        <apex:form > 
+           <!-- <apex:sectionHeader title="Reports" id="reports2" subtitle="Customer Notification Reporting - {!Rptyp}"/> <!--sfdc 00910704 -->     
+            <apex:sectionHeader title="Reports" id="reports2" subtitle="Customer Notification Reporting"/>
+            <apex:panelGrid columns="1" columnClasses="col1,col2" width="100%">    
+                <apex:outputPanel style="text-align: right;float:right;">&nbsp; 
+                                <apex:outputPanel style="text-align: right;float:right;">            
+                                    <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                                        <apex:actionSupport event="onchange" action="{!loadNotificationData}"  status="search_Status_main"/>
+                                        <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+                                    </apex:selectList>
+                                </apex:outputPanel>   
+                </apex:outputPanel>                     
+            </apex:panelGrid>
+            
+         <div id="contentLoadingMain" style="display:none;position:absolute;top:25%;right:50%;">
+             <div style="text-align: center;">
+                 <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/>
+             </div>
+         </div> 
+         <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                                                                          
+               <apex:outputPanel id="componentPanel" >   
+               <apex:pageBlock id="block">              
+                         <apex:pageMessages id="pageMsg"></apex:pageMessages>
+                         
+                         <!--<div class="expandCollapse" width="100%" style="width:100%" >
+                             <apex:outputText value="Customers Receiving {!reportType}" style="color:white;"/>                             
+                         </div> -->
+                        <div class="expandCollapse" width="100%" style="width:100%" >
+                            <apex:outputText value="Customer Receiving Notification" style="color:white;" rendered="{!IF(reportType=='Notification',true,false)}"/>
+                            <apex:outputText value="Customer Approvals" style="color:white;" rendered="{!IF(reportType=='Response',true,false)}"/>                             
+                            <apex:outputText value="Customer Compliance Summary" style="color:white;" rendered="{!IF(reportType=='Compliance',true,false)}"/>                             
+                        </div>
+                        
+                         <br/>                           
+                         <apex:pageBlockTable value="{!lNotificationReportDataCls}" var="a" border="1" rendered="{!IF(reportType=='Notification',true,false)}">                             
+                             <apex:column >
+                                     <apex:facet name="header">Customers With Pushed Approval Request</apex:facet>
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Notification&Column=B3&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Bucket3}"/>
+                                     </apex:outputText> 
+                                     </a>
+                             </apex:column>
+                             <apex:column >
+                                     <apex:facet name="header">Customers With Pushed Notification</apex:facet>
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Notification&Column=B2&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Bucket2}"/>
+                                     </apex:outputText>
+                                     </a> 
+                             </apex:column>
+                             <apex:column >
+                                     <apex:facet name="header">Additional Customers Sent Optional Notification</apex:facet>
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Notification&Column=B1&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Bucket1}"/>
+                                     </apex:outputText>
+                                     </a>
+                             </apex:column>
+                             <apex:column >
+                                     <apex:facet name="header">Total Customers Receiving Notification</apex:facet>
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Notification&Column=BTot&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Total}"/>
+                                     </apex:outputText>
+                                     </a>
+                             </apex:column>                                                                                       
+                         </apex:pageBlockTable>  
+                         
+                         
+                         
+                          <apex:pageBlockTable value="{!lNotificationReportDataCls}" var="a" border="1" rendered="{!IF(reportType=='Response',true,false)}">                             
+                             <apex:column >
+                                     <apex:facet name="header">Customers Sent Approval Requests</apex:facet>
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Response&Column=B3&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.CustRespCount}"/>
+                                     </apex:outputText> 
+                                     </a>
+                             </apex:column>
+                             <apex:column >
+                                     <apex:facet name="header">Customers Requesting Sales Contact</apex:facet>
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Response&Column=callreq&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.CustCallMeReq}"/>
+                                     </apex:outputText> 
+                                     </a>
+                             </apex:column>
+                             <apex:column >
+                                     <apex:facet name="header">Customers Still Awaiting Sales Contact</apex:facet>
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Response&Column=callme&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.CustCallMePend}"/>
+                                     </apex:outputText>
+                                     </a>
+                             </apex:column>
+                             <apex:column >
+                                     <apex:facet name="header">Customer Approvals Received</apex:facet>
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Response&Column=Approved&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.CustAccepted}"/>
+                                     </apex:outputText>
+                                     </a>
+                             </apex:column>
+                             <apex:column >
+                                     <apex:facet name="header">Average Time For Approval</apex:facet>
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Response&Column=B3Tot&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.CustAvgTime}"/>
+                                     </apex:outputText>
+                                     </a>
+                             </apex:column>                                                                                       
+                         </apex:pageBlockTable> 
+                   
+                        <!--- start of sfdc 00910713 --->
+                        <apex:pageBlockTable value="{!lNotificationReportDataCls}" var="a" border="1" rendered="{!IF(reportType=='Compliance',true,false)}">                             
+                            <apex:column >
+                                     <apex:facet name="header">Approval Required Customers</apex:facet>
+                                     <!--<a href= "/apex/CustomerListComplianceReporting?reportType=Compliance&Column=compapprovalcust&quarter={!quarterValue}" target="_blank"> -->
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Compliance&Column=compapprovalcust&quarter={!quarterValue}" target="_blank">                                         
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Bucket3}"/>
+                                     </apex:outputText> 
+                                     </a>
+                             </apex:column>
+                             <apex:column >
+                                     <apex:facet name="header">Notification Required Customers</apex:facet>
+                                    <!-- <a href= "/apex/CustomerListComplianceReporting?reportType=Compliance&Column=compnotifycust&quarter={!quarterValue}" target="_blank"> -->
+                                     <a href= "/apex/CustomerListNotifyOrResponseReporting?reportType=Compliance&Column=compnotifycust&quarter={!quarterValue}" target="_blank">
+                                     <apex:outputText value="{0, number, ###,###,###,###}" style="white-space:nowrap;">
+                                         <apex:param value="{!a.Bucket2}"/>
+                                     </apex:outputText> 
+                                     </a>
+                             </apex:column>                                                                                                                  
+                         </apex:pageBlockTable>   
+                         <!--- end of sfdc 00910713 --->
+                 </apex:pageBlock> 
+                 </apex:outputPanel>          
+            <br/>                     
+      </apex:form>                              
+    </apex:outputPanel>
+    
+    <script>
+        function loading_Main(val) {
+         if (val) {
+           document.getElementById('contentLoadingMain').style.display = 'block';           
+         }
+         else {
+           document.getElementById('contentLoadingMain').style.display = 'none';          
+         }
+       }
+    </script> 
+
+</apex:page>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email notification to Community Admin to let them know a new user request is pending approval (private Community).</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Community Admin Approval Required (Private) - V1.0</name>
+    <style>freeForm</style>
+    <subject>New Community User Request Pending Approval</subject>
+    <textOnly>Dear {!GPO_Lead__c.SU_CommuContact__c},
+
+You have users requesting access to your Office Depot® Community. Please use the link below to login to your Community and authorize or decline access to your Community.
+
+Your Office Depot® Team​
+
+
+https://community.officedepot.com/GPOHome?id={!GPO_Lead__c.AOPS_Cust_ID__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

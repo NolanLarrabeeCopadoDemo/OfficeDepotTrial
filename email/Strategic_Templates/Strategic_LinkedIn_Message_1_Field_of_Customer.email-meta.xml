@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Would love to connect and share.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Strategic: LinkedIn Message #1: Field of Customer</name>
+    <style>freeForm</style>
+    <subject>Would love to connect and share.</subject>
+    <textOnly>Dear {!Contact.Name},
+
+I noticed on your LinkedIn that you have extensive experience in INSERT FIELD OF THE CUSTOMER.
+
+Not sure if you&apos;ve heard of our recent transformation, but Office Depot is a services platform that enables companies to increase productivity though the service that we offer.
+
+
+
+With the recent acquisition of CompuCom, a comprehensive technology services company, we can offer you a rich business platform that includes everything from office supplies and breakroom solutions to furniture and technology services. We actually help your company select the most relevant resources and services that drive revenue.
+
+
+
+What&apos;s the best way to get on your schedule so I can show you how we&apos;re driving revenue through our total business solutions platform?
+
+
+
+Thank you,
+
+
+
+
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

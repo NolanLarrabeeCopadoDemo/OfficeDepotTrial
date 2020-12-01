@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_10640674</developerName>
+        <masterLabel>Disposition</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>User.Activity$CreatedById$Disposition_Code__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>salesPRISM - Interested</sourceValue>
+            </sourceValues>
+            <value>Interested</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>salesPRISM - In Progress</sourceValue>
+            </sourceValues>
+            <value>In Progress</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>salesPRISM - New Opportunity</sourceValue>
+            </sourceValues>
+            <value>New Opportunity</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>salesPRISM - Not Interested</sourceValue>
+            </sourceValues>
+            <value>Not Interested</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>salesPRISM - Unqualified</sourceValue>
+            </sourceValues>
+            <value>Unqualified</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>Donut</chartType>
+        <enableHoverLabels>true</enableHoverLabels>
+        <expandOthers>false</expandOthers>
+        <groupingColumn>User*User$Region__c</groupingColumn>
+        <legendPosition>Bottom</legendPosition>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>true</showPercentage>
+        <showTotal>true</showTotal>
+        <showValues>true</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <field>User*User$Manager__c</field>
+    </columns>
+    <columns>
+        <field>User$Name</field>
+    </columns>
+    <columns>
+        <field>User.Activity$CreatedById$Account</field>
+    </columns>
+    <columns>
+        <field>User.Activity$CreatedById$Subject</field>
+    </columns>
+    <columns>
+        <field>User.Activity$CreatedById$CreatedDate</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>User.Activity$CreatedById$Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>salesPRISM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Activity$CreatedById$Disposition_Code__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>salesPRISM - null,salesPRISM - Unqualified</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>User.Activity$CreatedById$Disposition_Code__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>User*User$Region__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>User*User$Market__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>ODP SalesPRISM Activity by Disposition</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Users_Activities__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>User.Activity$CreatedById$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

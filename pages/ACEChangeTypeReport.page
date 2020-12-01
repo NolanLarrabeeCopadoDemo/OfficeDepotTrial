@@ -1,0 +1,113 @@
+<apex:page readOnly="true" title="Change Type Reporting" controller="ACEReporting_RevMarg_WaterFall" action="{!loadChangeTypeData}">
+<style>
+    .col1 {width:30%;}
+    .col2 {width:10%;}
+    .col3 {width:20%;}
+    .col4 {width:20%;}
+    .col5 {width:10%;}
+    .col6 {width:10%;}
+table.dtb {
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table.dtb th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.dtb td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+}
+</style>
+<apex:form >
+  <apex:sectionHeader title="Reports" id="reports1" subtitle="BSD Price Change Process - Change Type"/>
+  <apex:pageBlock title="Change Type">      
+    <apex:outputPanel style="text-align: right;float:right;">            
+            <apex:selectList id="qtr" value="{!quarterValue}" size="1" title="Quarters" multiselect="false">
+                <apex:actionSupport event="onchange" action="{!loadChangeTypeData}" status="search_Status_main" reRender="table1" />
+                <apex:selectOptions value="{!qtrs}"></apex:selectOptions>
+            </apex:selectList>
+        </apex:outputPanel>  
+      <div id="contentLoadingMain" style="display:none;position:fixed;top:40%;right:50%;">
+         <div style="text-align: center;">
+              <!-- Added apex image tag S-346420 by  Rahul  <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="50" width="50"/> --> 
+               <apex:image id="ajax_loading" value="{!$Resource.Ajax_Loading}" height="50" width="50" alt="Loading graphic" />
+         </div>
+     </div>
+     <apex:actionStatus onstart="loading_Main(true)" onstop="loading_Main(false)" id="search_Status_main" startStyle="color:red;"/>                                 
+      <br/><br/>
+      
+      <apex:pageblocktable value="{!ctd}" var="d" id="table1" rendered="{!renderChangeType}">
+        <apex:column value="{!d.dataType}"> 
+           <apex:facet name="header"></apex:facet>
+        </apex:column>
+        <apex:column > 
+           <apex:facet name="header">Proposed</apex:facet>
+           <a href="/apex/ACEVendavoCustomerList?reportType=ChangeType&listtype={!d.dataType}-Proposed&quarter={!quarterValue}" target="_blank"> 
+               <apex:outputText value="{0, number, ###,###,###,###}">
+                      <apex:param value="{!d.Proposed}"/>
+               </apex:outputText>    
+           </a>
+        </apex:column>
+        <apex:column >            
+           <apex:facet name="header">Margin Proposed</apex:facet>
+           <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                  <apex:param value="{!d.MargProp}"/>
+             </apex:outputText>
+        </apex:column>
+        <apex:column >                
+           <apex:facet name="header">Executed</apex:facet>
+           <a href="/apex/ACEVendavoCustomerList?reportType=ChangeType&listtype={!d.dataType}-Executed&quarter={!quarterValue}" target="_blank"> 
+           <apex:outputText value="{0, number, ###,###,###,###}">
+                  <apex:param value="{!d.Executed}"/>
+             </apex:outputText>
+           </a>
+        </apex:column>
+        <apex:column >           
+           <apex:facet name="header">Margin Executed</apex:facet>           
+            <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                  <apex:param value="{!d.MargExecuted}"/>
+             </apex:outputText>
+        </apex:column>
+        <apex:column >             
+           <apex:facet name="header">Alts Selected</apex:facet>   
+            <a href="/apex/ACEVendavoCustomerList?reportType=ChangeType&listtype={!d.dataType}-AltsSelected&quarter={!quarterValue}" target="_blank">         
+            <apex:outputText value="{0, number, ###,###,###,###}">
+                  <apex:param value="{!d.AltSelected}"/>
+             </apex:outputText>
+            </a>
+        </apex:column>
+        <apex:column >             
+           <apex:facet name="header">Margin Increase from Alt</apex:facet>            
+            <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                  <apex:param value="{!d.MargIncAlt}"/>
+             </apex:outputText>
+        </apex:column>
+        <apex:column >             
+           <apex:facet name="header">Total Margin Increase</apex:facet>            
+            <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                  <apex:param value="{!d.TotMargInc}"/>
+             </apex:outputText>
+        </apex:column>
+      </apex:pageblocktable>    
+          <br/>          
+  </apex:pageBlock>
+  </apex:form>
+  <script>
+    function loading_Main(val) {
+     if (val) {
+       document.getElementById('contentLoadingMain').style.display = 'block';           
+     }
+     else {
+       document.getElementById('contentLoadingMain').style.display = 'none';          
+     }
+   }
+</script>
+</apex:page>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>GPO Soft Header</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>GPO Soft Headers</value>
+    </caseValues>
+    <fields>
+        <label><!-- GPO Group --></label>
+        <name>GPO_Group__c</name>
+        <relationshipLabel><!-- GPO Soft Headers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SoftHeader_Type --></label>
+        <name>SoftHeader_Type__c</name>
+        <picklistValues>
+            <masterLabel>Cost Center</masterLabel>
+            <translation><!-- Cost Center --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Desktop</masterLabel>
+            <translation><!-- Desktop --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PO Number</masterLabel>
+            <translation><!-- PO Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Release</masterLabel>
+            <translation><!-- Release --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The field&apos;s text that will appear on the page. --></help>
+        <label><!-- SoftHeader_Value --></label>
+        <name>SoftHeader_Value__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Desktop Value should not be more than 12 characters.
+Cost Center value shouldn&apos;t be  more than 20 characters.
+Release value shouldn&apos;t be  more than 20 characters. --></errorMessage>
+        <name>SoftHeaderVal_Length_Verification</name>
+    </validationRules>
+</CustomObjectTranslation>

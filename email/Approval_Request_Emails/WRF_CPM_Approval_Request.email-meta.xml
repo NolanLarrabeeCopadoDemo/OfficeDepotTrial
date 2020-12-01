@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email Notification that gets sent out to approvers for review</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>WRF - CPM Approval Request</name>
+    <style>freeForm</style>
+    <subject>CPM Approval - {!Case.Subject} submitted by {!Case.WRF_Requestor__c} from {!Case.Region__c} region</subject>
+    <textOnly>{!Case.Pricing_Analyst__c} has requested your approval on the following CPM.
+
+CPM Support ID:  {!Case.CaseNumber}
+CPM Account:  {!Case.Account}
+Description:  {!Case.Description}
+Subject:  {!Case.Subject}
+__________________________________
+FOR OFFICE DEPOT SOUTH Approvers:
+
+The CPM is located here: CPM. Review as needed prior to approval or rejection.
+
+To approve or reject, REPLY to this email, without changing the To: field, and type Approve or Reject as the first word in the top line of the email.  To add notes/comments simply leave a space (no colons or hyphens or any other punctuation) then type the comments.
+
+Example: Approve Comments will go here.
+
+Or you can click here to Approve or Reject and add comments: Approve/Reject
+
+__________________________________
+FOR OFFICE DEPOT NORTH Approvers:
+
+Please click on this link to navigate to the WRF Support ticket.  The link will take you to a log in screen for Salesforce.com and after logging in, it will automatically redirect to the support ticket.  To access the CPM Snapshot, hover over or click on the &quot;Attachments&quot; link at the top of the support ticket.  Find the file with the words &quot;CPM Snapshot&quot; in the file name.  Click View to open. Review as needed prior to approval or rejection.
+
+To Approve or Reject, while on the Support ticket, hover over or click on the &quot;Approval History&quot; link at the top of the support ticket.  Click Approve/Reject on the approval line with your name.  Add notes as needed, then click Approve or Reject.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

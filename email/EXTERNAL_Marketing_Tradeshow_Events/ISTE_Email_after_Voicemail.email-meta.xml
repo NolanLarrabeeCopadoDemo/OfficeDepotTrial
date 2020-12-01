@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>false</available>
+    <description>Followup Email Template after Voicemail</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>ISTE Email after Voicemail</name>
+    <style>freeForm</style>
+    <subject>Glad you stopped by @ ISTE!</subject>
+    <textOnly>Hello {!Contact.Name},
+
+My name is {!User.Name}. I am your representative and point of contact for the Business Solutions Division at Office Depot. I just left you a voice mail, and I really want to thank you for coming by our booth at ISTE.
+
+
+We displayed our Collaborative Classroom solutions with furniture and technology at the show. You might have seen the flexible seating and our latest technology items like Virtual Reality, Drones, and Displays.
+
+
+When you start to look for classroom solutions including technology or even curriculum and content, please let me know. I can set up an introductory meeting with one of our Educational Consultants who has spent time in the classroom. Our consultants help integrate your needs with Office Depot services. I also invite you to visit our website for education customers at www.ODC2L.com. The site showcases many of our educational solutions. Thanks again for stopping by at ISTE.
+
+
+
+
+Thank you,
+
+{!User.Name}
+
+{!User.Market__c}
+
+{!User.Phone} {!User.Extension}
+
+{!User.Email}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

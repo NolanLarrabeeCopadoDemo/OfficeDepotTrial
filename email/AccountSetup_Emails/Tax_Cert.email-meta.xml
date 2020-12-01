@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Account  Setup - Export Doc Notification</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Tax Cert</name>
+    <style>freeForm</style>
+    <subject>Tax Exempt Request - {!Account_Setup_Request__c.AOPS_ID1__c} - {!Account_Setup_Request__c.Account__c}</subject>
+    <textOnly>Customer Info:
+
+Customer Name: {!Account_Setup_Request__c.Account__c}
+Customer AOPS: {!Account_Setup_Request__c.AOPS_ID1__c}
+Created Date:  {!Account_Setup_Request__c.CreatedDate}
+Account Manager: {!Account_Setup_Request__c.OwnerFullName}
+AP First Name: {!Account_Setup_Request__c.AP_Contact_First_Name__c}
+AP Last Name: {!Account_Setup_Request__c.AP_Contact_Last_Name__c}
+AP Phone: {!Account_Setup_Request__c.AP_Contact_Phone__c}
+AP email Addr: {!Account_Setup_Request__c.AP_Contact_Email__c}
+
+Tax Information:
+
+Tax Exempt: {!Account_Setup_Request__c.Tax_Exempt__c}
+Tax Exempt States:{!Account_Setup_Request__c.Tax_Exempt_States__c}
+Why are you Tax Exempt: {!Account_Setup_Request__c.Why_are_you_tax_exempt__c}
+Government Branch: {!Account_Setup_Request__c.Goverment_Branch__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

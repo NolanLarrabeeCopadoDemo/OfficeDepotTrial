@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CallCenter xmlns="http://soap.sforce.com/2006/04/metadata">
+    <displayName>Transera Call Center Adapter</displayName>
+    <displayNameLabel>Display Name</displayNameLabel>
+    <internalNameLabel>Internal Name</internalNameLabel>
+    <sections>
+        <items>
+            <label>Description</label>
+            <name>reqDescription</name>
+            <value>Transera Call Center Adapter</value>
+        </items>
+        <items>
+            <label>CTI Connector ProgId</label>
+            <name>reqProgId</name>
+            <value>TranseraAdapter.TranseraAdapter.1</value>
+        </items>
+        <items>
+            <label>Version</label>
+            <name>reqVersion</name>
+            <value>3.0</value>
+        </items>
+        <label>General Information</label>
+        <name>reqGeneralInfo</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Tenant Name</label>
+            <name>tenant</name>
+            <value>OfficeDepot</value>
+        </items>
+        <items>
+            <label>Primary URL</label>
+            <name>primaryServerUrl</name>
+            <value>lb01-dmz-net.lax.transerainc.net:80</value>
+        </items>
+        <items>
+            <label>Backup URL</label>
+            <name>backupServerUrl</name>
+            <value>lb02-dmz-net.jfk.transerainc.net:80</value>
+        </items>
+        <items>
+            <label>Use SSL</label>
+            <name>useSsl</name>
+            <value>1</value>
+        </items>
+        <items>
+            <label>Password Change URL</label>
+            <name>passwordChangeUrl</name>
+            <value>https://portal.transerainc.net/passwordChange/index.php</value>
+        </items>
+        <label>Transera CTI Server Information</label>
+        <name>xeraConfig</name>
+    </sections>
+    <version>3</version>
+</CallCenter>

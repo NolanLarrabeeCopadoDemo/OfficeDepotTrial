@@ -1,0 +1,75 @@
+<template>
+	<template if:false={isLoading}>
+		<template if:true={hasCorrectRecordType}>
+			<lightning-tabset variant="scoped">
+				<lightning-tab label="General Information">
+					<div class="slds-scrollable_x">
+						<c-general-information aops-cust-master-details={AOPSCustMasterDetails} aops-cust-preferences={AOPSCustPreferences}>
+						</c-general-information>
+					</div>
+				</lightning-tab>
+				<lightning-tab label="Customer Intelligent Document">
+					<div class="slds-scrollable_x">
+						<c-c360-fact-sheet-tab fact-sheet-data={factSheetData}>
+						</c-c360-fact-sheet-tab>
+					</div>
+				</lightning-tab>
+				<lightning-tab label="Customer Instructions">
+					<div class="slds-scrollable_x">
+						<c-customer-instructions aops-cust-instructions={AOPSCustInstructions}>
+						</c-customer-instructions>
+					</div>
+				</lightning-tab>
+				<lightning-tab label="Pricing">
+					<div class="slds-scrollable_x">
+						<c-pricing-tab aops-cust-master-details={AOPSCustMasterDetails} aops-core-pricing={AOPSCorePricing} aops-universal-pricing={AOPSUniversalPricing} aops-cust-tier-disc={AOPSCustTierDisc}>
+						</c-pricing-tab>
+					</div>
+				</lightning-tab>
+				<lightning-tab label="Billing">
+					<div class="slds-scrollable_x">
+						<c-billing-tab record-id={recordId} aops-cust-id={aopsCustId} ebiz-bill-terms={EbizBillTerms} ebiz-ar-balances={EbizARBalances} ebiz-credit-limits={EbizCreditLimits} ebiz-bill-contacts={EbizBillContacts} ebiz-ar-collector={EbizARCollector} has-ghost-card={hasGhostCard} ebiz-aging-bucket={EbizAgingBucket}>
+						</c-billing-tab>
+					</div>
+				</lightning-tab>
+				<lightning-tab label="Tax Information">
+					<div class="slds-scrollable_x">
+						<c-tax-information aops-cust-master-details={AOPSCustMasterDetails} aops-tax-info={AOPSTaxInfo}>
+						</c-tax-information>
+					</div>
+				</lightning-tab>
+				<lightning-tab label="Web User Info">
+					<div class="slds-scrollable_x">
+						<lightning-formatted-url value="https://cognossq.na.odcorp.net/cognos/bi/?pathRef=.public_folders%2FBSD%2BKnowledge%2FBSD%2BReporting%2FSelf%2BService%2BReports%2FWeb%2BUser%2BInfo&format=spreadsheetML&Download=true&prompt=true" label="Download web users" target="_blank"></lightning-formatted-url>
+					</div>
+				</lightning-tab>
+				<lightning-tab label="SPC Info">
+					<div class="slds-scrollable_x">
+						<c-customerspcinformationtab record-id={recordId} aops-cust-id={aopsCustId}>
+						</c-customerspcinformationtab>
+					</div>
+				</lightning-tab>
+				<lightning-tab label="Marketing 360">
+					<div class="slds-scrollable_x">
+						<c-marketing360gmiltab record-id={recordId} aops-cust-id={aopsCustId}>
+						</c-marketing360gmiltab>
+					</div>
+				</lightning-tab>
+			</lightning-tabset>
+		</template>
+		<template if:false={hasCorrectRecordType}>
+			<div>Customer 360 is only available on Customer and Parent account records.</div>
+		</template>
+	</template>
+	<template if:true={isLoading}>
+		<div class="slds-is-relative od-spinner-container">
+			<div class="slds-spinner_container">
+				<div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+					<span class="slds-assistive-text">Loading</span>
+					<div class="slds-spinner__dot-a"></div>
+					<div class="slds-spinner__dot-b"></div>
+				</div>
+			</div>
+		</div>
+	</template>
+</template>

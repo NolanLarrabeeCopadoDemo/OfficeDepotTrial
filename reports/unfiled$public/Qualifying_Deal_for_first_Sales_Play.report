@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Account$Name</field>
+    </columns>
+    <columns>
+        <field>Account$Account_Owner__c</field>
+    </columns>
+    <columns>
+        <field>Account.Leads__r$Owner_Region__c</field>
+    </columns>
+    <columns>
+        <field>Account$Account_Owner_Manager_Name__c</field>
+    </columns>
+    <columns>
+        <field>Account$Account_Owner_Manager2__c</field>
+    </columns>
+    <columns>
+        <field>Account$Account_Owner_Manager_2__c</field>
+    </columns>
+    <columns>
+        <field>Account.Leads__r$Name</field>
+    </columns>
+    <columns>
+        <field>Account$Cust_ID__c</field>
+    </columns>
+    <columns>
+        <field>Account.Leads__r$Status</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Account.Leads__r$Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Sales Play</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Qualifying Deal for first Sales Play</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Accounts_with_Leads__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account.Leads__r$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

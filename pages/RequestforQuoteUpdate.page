@@ -1,0 +1,19 @@
+<apex:page standardController="CameleonCPQ__QxQuote__c" showHeader="false" sidebar="false">
+<apex:includeLightning />
+
+<div id="lightning" />
+
+<script>
+$Lightning.use("c:RequestforQuoteUpdateApp", function() 
+{
+  $Lightning.createComponent("c:RequestforQuoteUpdate",{recordId:'{!$CurrentPage.parameters.Id}'           
+                },"lightning",
+ function(cmp)
+{
+
+});
+
+});
+
+</script>
+</apex:page>

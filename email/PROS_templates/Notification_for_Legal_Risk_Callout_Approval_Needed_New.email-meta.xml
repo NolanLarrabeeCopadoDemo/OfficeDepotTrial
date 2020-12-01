@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>OfficeDepot_OfficeMax</letterhead>
+    <name>Notification for Legal Risk Callout Approval Needed</name>
+    <style>freeForm</style>
+    <subject>[{!Case.Account},{!Case.CaseNumber}] Terms and Conditions Approval Needed</subject>
+    <textOnly>Hello,
+
+We are working your support request for [{!Case.Account}].
+
+The document associated with this request includes terms and conditions that need your input to either approve or revise. Please see the specific terms and note your response. If you have any questions, please contact me or set-up a call to discuss.
+
+Click here to go to the support case.
+
+Thank you,
+
+[CDM Team]</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

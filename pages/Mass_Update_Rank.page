@@ -1,0 +1,26 @@
+<apex:page standardController="Case"  recordSetVar="Cases" showHeader="false"  id="muCase">
+    <apex:form id="Caseform">
+      
+        <apex:pageBlock title="Support Mass Update" mode="edit">
+            <apex:pageMessages />
+            <apex:pageBlockSection columns="1">
+                <apex:inputField value="{!Case.Rank__c}">
+                <apex:actionSupport event="onchange" rerender="selectedlist"/>
+                </apex:inputField>                   
+            </apex:pageBlockSection>
+           
+           
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!save}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock title="Selected Cases" id="selectedlist">
+            <apex:pageBlockTable value="{!Selected}" var="SelecetedCase">
+                <apex:column value="{!SelecetedCase.CaseNumber}"/>
+                <apex:column value="{!SelecetedCase.Subject}"/>
+                <apex:column value="{!SelecetedCase.Rank__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

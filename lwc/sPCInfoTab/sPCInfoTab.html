@@ -1,0 +1,136 @@
+<template>
+    <div >
+   
+        <div class="slds-box" style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.40);">
+        <div  style="cursor: pointer;" onclick={sectionTwo}>
+        <section class="slds-clearfix" >
+        <div class="slds-float--left ">
+        <lightning-icon if:false={articleTwo} data-id="articleTwo" icon-name="utility:chevronright" size="x-small" style="padding-left:5px;padding-right:10px"></lightning-icon>
+        <lightning-icon if:true={articleTwo} data-id="articleOneShow" icon-name="utility:chevrondown" size="x-small" style="padding-left:5px;padding-right:10px"></lightning-icon>
+        </div>
+        
+        <div class="slds-m-left--small" style="font-size:11px"><b>SPC Information</b></div>
+        </section>
+        </div>
+        <div data-id="articleOneShow" if:true={articleTwo} style="padding-left:10px">
+        <div >
+         <br/>
+         <div if:true={emailsent} > 
+            <lightning-icon class="blue-background"  icon-name="utility:info" size="small"></lightning-icon>
+            <span style="font-family: Tahoma,Verdana,Arial,Helvetica,FreeSans,sans-serif;color:#003D5B;font-weight:bold;font-size:11px"> Confirmation </span><br/>
+         <span class="text1" style="font-size:11px;padding:19px" > Email Sent Sucessfully</span>
+        </div>
+        <span class="text1" style="padding-left:1px"> Please enter your email address and click on 'Email SPC Information' Button for SPC information to be sent to your email </span>
+        <br/>
+        <br/>
+        <div class="slds-grid slds-gutters" style="padding-left:25px">
+          <div style="padding-right:10px;padding-left:1px">
+            <span class="text1">* Email Address</span>
+          </div>
+          <div>
+            <span><lightning-input type="text" name="input1"  value={input1} label="test" class="label-hidden"  onchange={changeHandler} variant="label-hidden" style="width:150px;"></lightning-input></span>
+          </div>
+          <div>
+            <span class="text1">@officedepot.com </span>
+          </div>
+          <div>
+            <span class="text1"><lightning-button onclick={handleEmailCallout} variant="brand" label="Email SPC Information" title="Primary action"  class="slds-m-left_x-small"></lightning-button> </span>
+        </div>
+        </div>
+        </div>
+    
+            </div>
+            <br>
+            <div class="slds-modal__content slds-p-around-x-small"  style="border-top: 1px solid rgb(224, 219, 219);"></div>    
+             <p class="slds-p-horizontal_medium slds-m-top_small"> <span class="text1">Total Number of SPC Cards - 4 (Only first 200 rows are displayed below)</span> </p> 
+<div if:false={errormessage}>
+       <table style= "width:80%; padding-left:20px" border="1"  >
+                <tr>
+                <td style="background:#e5e8ed">
+               SPC#
+            </td>
+            <td style="background:#e5e8ed">
+                Creation Date
+            </td>
+            <td style="background:#e5e8ed">
+                PO#
+            </td>
+            <td style="background:#e5e8ed">
+                Address Sequence
+            </td>
+            <td  style="background:#e5e8ed">
+                Department
+            </td >
+            <td style="background:#e5e8ed">
+                Daily Dollar Limit
+            </td>
+            <td style="background:#e5e8ed">
+                Daily Transaction Limit
+            </td>
+            <td style="background:#e5e8ed">
+                Order Limit
+            </td>
+            <td style="background:#e5e8ed">
+                CardHolder Name
+            </td>
+            <td style="background:#e5e8ed">
+                CardHolder Phone
+            </td>
+            <td style="background:#e5e8ed">
+                Credit Code
+            </td>
+          </tr>
+
+        <template for:each={spccardinfoObj} for:item='item'>
+                  <template for:each={item.CardDetails} for:item='item1'>
+                    <template for:each={item.ContactInfo} for:item='item2'>
+                        <template for:each={item.CardLimitDetails} for:item='item3'>
+
+                    <tr key={item1.id}>
+                        <td>
+                            {item1.CardNumber}
+                        </td>
+                        <td>
+                            {item1.CreateDate}
+                        </td>
+                        <td>
+                            {item2.PONumber}
+                        </td>
+                        <td>
+                            {item2.AddressSequence}
+                        </td>
+                        <td>
+                            {item2.DepartmentDescription}
+                        </td>
+                        <td>
+                            {item3.DailyDollarLimit}
+                        </td>
+                        <td>
+                            {item3.DailyTransactionLimit}
+                        </td>
+                        <td>
+                            {item3.OrderLimit}
+                        </td>
+                        <td>
+                            {item2.SPCCardHolderName}
+                        </td>
+                        <td>
+                            {item2.CardholderPhone}
+                        </td>
+                        <td>
+                            {item2.CreditCode}
+                        </td>
+                       
+                    </tr>
+               </template> 
+               </template>
+               </template> 
+        </template>
+        </table>      
+</div>
+    </div>
+</div>
+<div if:true={errormessage} > <span class="text1"> No data to display </span></div>        
+
+
+</template>

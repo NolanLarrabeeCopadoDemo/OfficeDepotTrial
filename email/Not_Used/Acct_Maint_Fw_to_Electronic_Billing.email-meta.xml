@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email to send to Electronic Billing if that request type comes into Acct Maint</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Basic</letterhead>
+    <name>Acct Maint - Fw to Electronic Billing</name>
+    <style>freeForm</style>
+    <subject>Electronic Billing Setup - {!Case.Account} - {!Case.CaseNumber}</subject>
+    <textOnly>{!Case.WRF_Requestor_Name__c},
+
+For future reference, Electronic Billing cannot be requested through the Account Maintenance process in SFDC.  You must send the requests directly to electronicbilling@officedepot.com.  This request will now be closed, but has NOT been completed, however, via this email, we have forwarded the request on to the appropriate team.  If you have questions or need to follow up, please contact electronicbilling@officedepot.com.
+
+Support #: {!Case.CaseNumber}
+Click here to go to the request
+
+_________________________________________________________
+
+Electronic Billing Setup,
+
+This request was submitted through the Account Maintenance support system in Salesforce.com.  Below is the information from the request, please process.
+
+Account Name:  {!Case.Account}
+Account Number:  {!Case.ACCT_Account_Number__c}
+
+Requester Name:  {!Case.WRF_Requestor_Name__c}
+Requester Mobile:  {!Case.WRF_Requestor_Mobile__c}
+
+Request Type:  {!Case.WRF_Request_Type__c}
+Request Comments:
+{!Case.WRF_Proj_Goal_Cmnt__c}
+
+Thank you,
+Account Maintenance Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,43 @@
+<apex:page standardController="Account" extensions="CreateParentAccount_ctrl">
+  <apex:form >
+      <apex:pageMessages ></apex:pageMessages>
+      <apex:pageBlock title="Parent Account Info">
+      <apex:pageBlockSection title="Account Information">
+           <apex:inputField value="{!Acc.Name}"/>
+          <apex:inputField value="{!Acc.Assign_Specific_Owner__c}"/>
+      </apex:pageBlockSection>
+      <apex:pageBlockSection title="Address Information">      
+           <apex:inputField value="{!Acc.Address1__c}" required="true"/>
+           <apex:inputField value="{!Acc.Address2__c}"/>
+           <apex:inputField value="{!Acc.City__c}" required="true"/>
+           <apex:inputField value="{!Acc.State__c}" required="true"/>
+           <apex:inputField value="{!Acc.Country__c}" required="true"/>
+           <apex:inputField value="{!Acc.Zip__c}" required="true"/>
+      </apex:pageBlockSection>
+           <apex:pageBlockSection title="Contact details" >
+           
+           <apex:inputField value="{!cont.FirstName}" required="true"/>
+           <apex:inputField value="{!cont.LastName}" required="true"/>
+           <apex:inputField value="{!cont.Decision_Maker__c}" required="true"/>
+           <apex:outputLabel ></apex:outputLabel>  
+           <apex:inputField value="{!cont.Phone1_Rep__c}" required="true"/>
+           <apex:inputField value="{!cont.Phone_Type1__c}" required="true"/>
+           <apex:inputField value="{!cont.Phone_Ext__c}"/>
+            <apex:outputLabel ></apex:outputLabel> 
+           <apex:inputField value="{!cont.Phone2_Rep__c}"/>
+           <apex:inputField value="{!cont.Phone_Type2__c}"/>
+           <apex:inputField value="{!cont.Phone3_Rep__c}"/>
+           <apex:inputField value="{!cont.Phone_Type3__c}"/>
+            <!--   <apex:pageBlockSectionItem dataStyle="width:20%" labelStyle="width:40%" > -->
+           <apex:inputField value="{!cont.Role__c}" required="true"/>
+           <apex:outputLabel ></apex:outputLabel>                
+           <apex:inputField value="{!cont.Email}" required="true"/>
+                     
+      </apex:pageBlockSection> 
+      <center>
+        <apex:commandButton value="Submit" action="{!submit}"/>
+        <apex:commandButton value="Cancel" action="/001" immediate="true"/>
+      </center>  
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

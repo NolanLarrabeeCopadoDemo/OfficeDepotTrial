@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>agf__ADM_Task__c.agf__Subject__c</field>
+    </columns>
+    <columns>
+        <field>agf__ADM_Task__c.agf__Status__c</field>
+    </columns>
+    <columns>
+        <field>agf__ADM_Task__c.agf__Assigned_To__c</field>
+    </columns>
+    <description>Agile Accelerator Snapshot</description>
+    <filter>
+        <criteriaItems>
+            <column>agf__ADM_Work__c.agf__Sprint_Name__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>contains</operator>
+            <value>58-Appirio,59-Appirio,60-Appirio,61-Appirio,62-Appirio,63-Appirio,64-Appirio,65-Appirio,66-Appirio,64-Eagles,64-Moose</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>agf__ADM_Work__c.agf__Sprint_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>agf__ADM_Work__c.agf__Subject__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>AA Snapshot</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntityCustomEntity$agf__ADM_Work__c$agf__ADM_Task__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>agf__ADM_Work__c.agf__Assigned_On__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Customer_Transition__c.OMX_Primary_Key__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Account_Name__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Review_Start_Date__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Account_Owner__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.SalesPerson__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.DSM__c</field>
+    </columns>
+    <columns>
+        <field>Customer_Transition__c.Account_Managers_Manager_Name__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Customer_Transition__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Awaiting Disposition</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Awaiting Customer Disposition Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Customer_Transition__c@Customer_Transition__c.Account__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Customer_Transition__c.X14_Days_before_Review_Start_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

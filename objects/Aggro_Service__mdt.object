@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Holds the Connection Details for the Aggro Service</description>
+    <fields>
+        <fullName>Aggro_Access_Token__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <description>The Access Token For Aggro Service</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Aggro Access Token</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Aggro_Refresh_Token__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <description>The refresh token for the aggro service</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Aggro Refresh Token</label>
+        <length>255</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Aggro_Service_URL__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Aggro Service URL</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Aggro Service Setting</label>
+    <pluralLabel>Aggro Service Settings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

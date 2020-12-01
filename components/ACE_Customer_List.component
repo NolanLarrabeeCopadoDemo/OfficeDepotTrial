@@ -1,0 +1,672 @@
+<apex:component controller="ACE_Customer_List" allowDML="true">      
+    <Style>
+        //.headStyle {border-left: 1px solid #FFFFFF; background-color:#333333; color: Black;}
+        .col1 {width:90%;}
+        .col2 {width:10%;text-align: right; align:right;}
+
+        .btn1{width:50%;text-align: left; align:left;}
+        .btn2 {width:50%;text-align: right; align:right;}
+        .btn3{width:50%;text-align: left; align:left;}
+        .btn4 {width:50%;text-align: right; align:right;}
+        .expandCollapse{
+        background-color:#0099CC;
+        width:auto;
+        height:auto;
+        }
+    </Style>    
+    
+<apex:form id="form">      
+    <apex:pageBlock id="block">                    
+          <apex:pageMessages ></apex:pageMessages>             
+            
+            <apex:outputPanel id="search1">  
+                                <apex:outputPanel >
+                                    <B>Search by Customer Number or Name: </B> <apex:inputText id="text1" value="{!searchText}" tabindex="0" onkeypress="if(event.keyCode==13){Refresh_3(this); return false;}"/> &nbsp;&nbsp;&nbsp;
+                                    <apex:commandButton action="{!SearchRecords}" value="Search" reRender="table" status="search_Status3" tabindex="1"/>
+                               
+                                    <div id="contentLoading3" style="display:none;position:fixed;top:50%;right:50%;" >
+                                        <div style="text-align: center;">
+                                          <img src="/resource/1386251299000/Ajax_Loading" alt="Loading graphic"  height="100" width="100"/>
+                                        </div>
+                                    </div> 
+                
+                                    <apex:actionStatus id="search_Status3" onstart="loading3(true)" onstop="loading3(false)" startStyle="color:red;"/>  
+                                    
+                                </apex:outputPanel>   
+                                
+                                <apex:actionFunction name="Refresh_rec3" action="{!SearchRecords}" reRender="table" status="search_Status3"/>
+                                 
+                                <apex:outputPanel style="text-align: right;float:right;" rendered="{!IF(AccessLevel=='GENERAL',true,false)}">
+                                    <apex:selectList value="{!OwnerValue}" multiselect="false" size="1" onchange="Refresh_3();">
+                                        <!--  <apex:actionSupport event="onchange" action="{!SearchRecords}">
+                                        </apex:actionSupport> -->
+                                        <apex:selectOption itemValue="Owned by me" itemLabel="Owned by me"/>
+                                        <apex:selectOption itemValue="Owned by my team" itemLabel="Owned by my team"/>
+                                        <apex:selectOption itemValue="Owned by others" itemLabel="Owned by others"/>
+                                        <apex:selectOption itemValue="All" itemLabel="All"/>
+                                    </apex:selectList> 
+                                </apex:outputPanel>   
+                                <apex:outputPanel style="text-align: right;float:right;" rendered="{!IF(AccessLevel=='REMEDIATION',true,false)}">
+                                    <apex:selectList value="{!OwnerValue}" multiselect="false" size="1" >
+                                        <apex:actionSupport event="onchange" action="{!SearchRecords}">
+                                        </apex:actionSupport>
+                                        <apex:selectOption itemValue="All" itemLabel="All"/>
+                                        <apex:selectOption itemValue="PendingApproval" itemLabel="Pending Approval"/>
+                                        <apex:selectOption itemValue="Unassigned" itemLabel="Unassigned"/>
+                                        <apex:selectOption itemValue="Active" itemLabel="Active"/>
+                                    </apex:selectList> 
+                                </apex:outputPanel>   
+            </apex:outputPanel>                  
+            
+            <apex:outputPanel id="table">                                
+                <apex:pageBlockTable value="{!clsCusListTable}" var="customer" width="100%" id="pbTab">           
+                    
+                    <apex:column rendered="false"> 
+                        <apex:facet name="header">Send <br/>Notification</apex:facet>                       
+                        <apex:inputCheckbox value="{!customer.NOTCHECK}"/>
+                    </apex:column>
+                    
+                      
+                    <apex:column rendered="{!IF(AccessLevel!='GENERAL',true,false)}" headervalue="Actions">   
+                         
+                         <apex:panelGrid columns="3"> 
+                         <!--   <apex:actionRegion >       
+                               <apex:commandbutton value="Details" action="{!findskus}" rerender="skuPanel" onclick="hideDiv();" oncomplete="renderDiv2();">
+                                  <apex:param name="selectedCustomer" value="{!customer.id}"/>
+                                  <apex:param name="selectedCustomerName" value="{!customer.Customer}"/>
+                               </apex:commandbutton>
+                           </apex:actionRegion>                                                                                 
+                                  -->                                                
+                           <apex:outputPanel rendered="{!IF(customer.showUD == 'Gen',true,false)}">
+                             <apex:actionRegion >
+                             <apex:commandLink value="Approve" action="{!ApproveRec}" onclick="return confirm('Please confirm! The selected customer record will be Approved for Remediation.');">
+                                    <apex:param name="RecSel" value="{!customer.id}" assignTo="{!RecSel}"/>
+                             
+                             </apex:commandLink>    
+                             </apex:actionRegion>
+                           </apex:outputPanel>
+                           
+                           <apex:outputPanel rendered="{!IF(customer.showUD == 'Gen',true,false)}">
+                             <apex:actionRegion >
+                             <apex:commandLink value="Reject" action="{!RejectRec}" onclick="return confirm('Please confirm! The selected customer record will be Rejected for Remediation.');">
+                                    <apex:param name="RecSel" value="{!customer.id}" assignTo="{!RecSel}"/>
+                               
+                             </apex:commandLink>    
+                             </apex:actionRegion>
+                           </apex:outputPanel>                                                       
+                           
+                           <apex:outputPanel >
+                             <apex:actionRegion >
+                             <apex:commandlink value="Download" onclick="window.open('/apex/apex/ACE_Export_SKU_Records?id={!customer.id}');"/>
+                             </apex:actionRegion>
+                           </apex:outputPanel>
+                           
+                           <apex:outputPanel >
+                                 <apex:actionregion >
+                                 <apex:commandLink onclick="window.open('/apex/ACEUpload_Page?selectedCustomer={!customer.id}&selectedCustomerName={!customer.Customer}');return false;" value="Upload"  rendered="{!customer.hostedCatalogHold || customer.showUD == 'Approved'}">
+                                     <apex:param name="selectedCustomer" value="{!customer.id}"/>                                     
+                                 </apex:commandLink>
+                                 </apex:actionregion>
+                            </apex:outputPanel>                                                     
+                           
+                         </apex:panelGrid>
+                    </apex:column>
+                    
+                    <apex:column rendered="{!IF(AccessLevel=='GENERAL',true,false)}">
+                        <apex:facet name="header">Release <br/>Early</apex:facet>                    
+                        <apex:inputCheckbox id="chRelease" value="{!customer.RELCHECK}" disabled="{!!customer.ISRELEASEALLOWED}"/>
+                    </apex:column>
+                    
+                    <apex:column value="{!customer.customerNumber}"> <!-- 00826597  -->   
+                      <apex:facet name="header">Customer #
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText >Customer #</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="customerid" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAscCustID" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'customerid'}"/> 
+                          <apex:image id="sortInDescCustID" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'customerid'}"/>
+                      </apex:commandLink>
+                      </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column >
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText >Customer</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="Customer" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAsc" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Customer'}"/> 
+                          <apex:image id="sortInDesc" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Customer'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                      <a href="/{!customer.ID}" id="{!customer.ID}" target="_top">
+                      {!customer.CUSTOMER}
+                      </a>                                          
+                    </apex:column>
+                    
+                    <apex:column rendered="{!IF(AccessLevel=='REMEDIATION',true,false)}" headerValue="Verified">
+                      <center>
+                       <apex:image value="{!$Resource.ACECheckBox}" rendered="{!NOT(customer.remediationHold) && customer.showUD != 'Gen'}" style="height:20px;width:20px;"/>
+                      </center>
+                       <center>
+                       <apex:image value="{!$Resource.AceUncheck}" rendered="{!customer.remediationHold && customer.showUD != 'Gen'}" style="height:20px;width:20px;"/>
+                      </center>
+                    </apex:column>
+                    
+                    <apex:column rendered="{!IF(AccessLevel=='HOSTED',true,false)}" headerValue="Verified">
+                     <center>
+                       <apex:image value="{!$Resource.ACECheckBox}" rendered="{!NOT(customer.hostedCatalogHold)}" style="height:20px;width:20px;"/>
+                     </center>
+                     <center>
+                       <apex:image value="{!$Resource.AceUncheck}" rendered="{!customer.hostedCatalogHold}" style="height:20px;width:20px;"/>
+                     </center>
+                    </apex:column>
+                    
+                    
+                    
+                    <apex:column value="{!customer.OWNERNAME}" rendered="{!RenderRep}">
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText >Rep</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="Reps" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAscRep" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Reps'}"/> 
+                          <apex:image id="sortInDescRep" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Reps'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column value="{!customer.CORES}">
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText ># Impacted<br/>Cores</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="Cores" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAsc1" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'Cores'}"/> 
+                          <apex:image id="sortInDesc1" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'Cores'}"/>
+                      </apex:commandLink>                      
+                      </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column value="{!customer.SKUS}"> <!-- 00826597  -->   
+                      <apex:facet name="header"># Impacted<br/>SKUs
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText ># Impacted<br/>SKUs</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="SKU" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAsc2" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'SKU'}"/> 
+                          <apex:image id="sortInDesc2" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'SKU'}"/>
+                      </apex:commandLink>
+                      </apex:facet>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                            <apex:outputText >Number of SKUs<br/>Governed By Active<br/>Written Agreement</apex:outputText>  &nbsp; 
+                            <apex:param name="fieldName" value="NoOfSKUGovernedByActiveWrittenAgreement" assignTo="{!getFieldName}"/>
+                            <apex:image id="sortInAscWritnAgr" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'NoOfSKUGovernedByActiveWrittenAgreement'}"/> 
+                            <apex:image id="sortInDescWritnAgr" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'NoOfSKUGovernedByActiveWrittenAgreement'}"/>
+                        </apex:commandLink> 
+                        </apex:facet>
+                        <apex:outputText value="{!customer.NoOfSKUGovernedByActiveWrittenAgreement}">
+                        </apex:outputText>
+                    </apex:column>
+                    
+                    <apex:column headerValue="Avg Change">
+                        <apex:facet name="header">Avg Change</apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!customer.AVGCHANGE}"/>
+                        </apex:outputText>
+                    </apex:column> 
+                    
+                    
+                    
+                    <apex:column > <!-- 00826597  -->                       
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText >Annual Spend</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="annualspend" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAsc3" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'annualspend'}"/> 
+                          <apex:image id="sortInDesc3" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'annualspend'}"/>
+                      </apex:commandLink> 
+                      </apex:facet>
+                      <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!customer.ANNUALSPEND}"/>
+                      </apex:outputText>                      
+                    </apex:column>
+                    
+                   <apex:column > <!-- value="{! IF((customer.ANNSPEND_CHNGEAMNT == null), '', '$') }{!customer.ANNSPEND_CHNGEAMNT}">                       -->
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText >Annual Spend <br/>Change</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="annualspndchange" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAsc4" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'annualspndchange'}"/> 
+                          <apex:image id="sortInDesc4" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'annualspndchange'}"/>
+                      </apex:commandLink> 
+                      </apex:facet>
+                      <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!customer.ANNSPEND_CHNGEAMNT}"/>
+                      </apex:outputText>
+                    </apex:column>
+                        
+                                    
+                    <apex:column headerValue="Spend Impact"  >
+                        <apex:facet name="header">Spend Impact</apex:facet>
+                        <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!customer.SPNDIMPACT}"/>
+                      </apex:outputText>
+                    </apex:column>
+                    
+                    <apex:column > <!-- value="{! IF((customer.SRMIMPACT == null), '', '$') }{!customer.SRMIMPACT}">                        -->
+                      <apex:facet name="header">
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText >SRM Impact</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="srmimpact" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAsc5" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'srmimpact'}"/> 
+                          <apex:image id="sortInDesc5" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'srmimpact'}"/>
+                      </apex:commandLink> 
+                      </apex:facet>
+                      <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!customer.SRMIMPACT}"/>
+                      </apex:outputText>
+                    </apex:column> 
+                    
+                    
+                     <apex:column headerValue="IGM Gross ($)" rendered="{!RenderIGM}">
+                         <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!customer.NEWIGMDOLLAR}"/>
+                       </apex:outputText>
+                     </apex:column> 
+                     <apex:column headerValue="IGM Gross (%)" rendered="{!RenderIGM}">
+                         <apex:outputText value="{0, number, ###,###,###,##0.00}%">
+                            <apex:param value="{!customer.NEWIGMPERCENT}"/>
+                       </apex:outputText>
+                     </apex:column>
+                    
+                                   
+                      <apex:column ><!-- 00826597  -->   
+                        
+                      <apex:facet name="header">Notification <br/>Status
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText >Notification <br/>Status</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="notifStatus" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAscNotifStatus" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'notifStatus'}"/> 
+                          <apex:image id="sortInDescNotifStatus" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'notifStatus'}"/>
+                      </apex:commandLink>
+                      </apex:facet>
+                          <center>
+                        <apex:outputField value="{!customer.ts.Notification_Status_Image__c}" rendered="{!customer.ts.Notification_Status_Image__c != '<img src=\" \" alt=\" \" height=\"25\" width=\"25\" border=\"0\"/>'}" /> 
+                        
+                        <br></br>
+                        <apex:outputField value="{!customer.ts.Notification_Status3__c}" style="color:grey"/>                        
+                        </center>
+                    </apex:column>
+                      
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                            <apex:outputText >Notification<br/> Date</apex:outputText>  &nbsp; 
+                            <apex:param name="fieldName" value="notifydate" assignTo="{!getFieldName}"/>
+                            <apex:image id="sortInAsc7" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'notifydate'}"/> 
+                            <apex:image id="sortInDesc7" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'notifydate'}"/>
+                        </apex:commandLink> 
+                        </apex:facet>
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!customer.NOTIFYDATE}" /> 
+                        </apex:outputText>
+                    </apex:column>  
+                    
+                    <apex:column ><!-- 00826597  -->   
+                        
+                      <apex:facet name="header">Price Change Status
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText >Price Change Status</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="pricechangestatus" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAscPrcChgSt" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'pricechangestatus'}"/> 
+                          <apex:image id="sortInDescPrcChgSt" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'pricechangestatus'}"/>
+                      </apex:commandLink>
+                      </apex:facet>
+                          <center>
+                        <apex:outputField value="{!customer.ts.Implementation_Status_Image__c}"/>
+                        <br></br>
+                        <apex:outputField value="{!customer.ts.Implementation_Status3__c}" style="color:grey"/>                        
+                        </center>  
+                    </apex:column>
+                        
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!sortCust}" reRender="table">
+                            <apex:outputText >Price Change<br/>Effective Date</apex:outputText>  &nbsp; 
+                            <apex:param name="fieldName" value="effectiveDate" assignTo="{!getFieldName}"/>
+                            <apex:image id="sortInAsc6" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'effectiveDate'}"/> 
+                            <apex:image id="sortInDesc6" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'effectiveDate'}"/>
+                        </apex:commandLink> 
+                        </apex:facet>
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param value="{!customer.APPROVDDATE}" /> 
+                        </apex:outputText>
+                    </apex:column>
+                    
+                <!-- 00826595  -->    
+                <apex:column rendered="{!IF(AccessLevel=='REMEDIATION',true,false)}" headerValue="Request Type">
+                      <apex:outputText value="{!customer.requestType}" />
+                 </apex:column>
+                
+                <!-- 00826595  -->
+                <apex:column rendered="{!IF(AccessLevel=='REMEDIATION',true,false)}" headerValue="WRF #" >
+                      <a href="/{!customer.wrfID}" id="{!customer.wrfID}" target="_blank">
+                      {!customer.wrfID}
+                      </a>                                          
+                </apex:column>
+                
+                <!-- 00826595  -->
+                 <apex:column rendered="{!IF(AccessLevel=='REMEDIATION',true,false)}" ><!-- 00826597  -->   
+                        <apex:outputText value="{!customer.complianceWrfTaskClosed}">
+                        </apex:outputText>
+                      <apex:facet name="header">
+                      <apex:outputText >Compliance <br/> Task Status</apex:outputText>
+                      </apex:facet>
+                    </apex:column>
+                    
+                <!-- 00826595  -->
+                <apex:column rendered="{!IF(AccessLevel=='REMEDIATION',true,false)}" headerValue="Segment" >
+                      <apex:outputText value="{!customer.segment}" />                                         
+                </apex:column>
+                    
+                <!-- 00826595  -->
+                 <apex:column rendered="{!IF(AccessLevel=='REMEDIATION',true,false)}" ><!-- 00826597  -->   
+                        <apex:outputText value="{!customer.remedationTaskAssignee}">
+                        </apex:outputText>
+                      <apex:facet name="header">
+                      <apex:outputText >Remed. <br/> Task Assignee</apex:outputText>
+                      </apex:facet>
+                    </apex:column>
+        
+        		<apex:column ><!-- 00826597  -->   
+                        <apex:outputText value="{!customer.sfdcBucket}">
+                        </apex:outputText>
+                      <apex:facet name="header">Request
+                      <apex:commandLink action="{!sortCust}" reRender="table">
+                          <apex:outputText >Req. Bucket</apex:outputText>  &nbsp; 
+                          <apex:param name="fieldName" value="sfdcBucket" assignTo="{!getFieldName}"/>
+                          <apex:image id="sortInAscSFDCBucket" value="{!$Resource.ACE_Up_Sort}" rendered="{!tabAsc && getFieldName == 'sfdcBucket'}"/> 
+                          <apex:image id="sortInDescSFDCBucket" value="{!$Resource.ACE_Down_Sort}" rendered="{!!tabAsc && getFieldName == 'sfdcBucket'}"/>
+                      </apex:commandLink>
+                      </apex:facet>
+                    </apex:column>
+                    
+                                                             
+                                                          
+                </apex:pageBlockTable>
+                
+                <apex:panelGrid id="buttons2" width="100%" columns="2" columnClasses="btn3,btn4">
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!prevPage}" value="<< Previous <<" status="search_Status3" rendered="{!DisablePrevious}" reRender="table,out1" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <apex:commandButton action="{!nextPage}" value=">> Next >>" status="search_Status3" rendered="{!DisableNext}" reRender="table,out1" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                    </apex:outputPanel>
+                </apex:panelGrid>
+                
+                <apex:panelGrid width="100%" columns="2" columnClasses="btn3,btn4" rendered="{!IF(AccessLevel=='GENERAL',true,false)}">                 
+                    <apex:outputPanel >
+                        <apex:commandButton onclick="showOverlay3(); return false;" value="Submit" style="font-weight:bold;color:white;background-color:#006600;background-image:none;"/>                    
+                        <apex:actionStatus startText="Submitting...." stopText="" id="doitStatus"/>                         
+                    </apex:outputPanel>                       
+                    <apex:outputPanel ></apex:outputPanel>
+                    <apex:outputPanel id="errPanel" style="color:red;font-weight:italic">
+                        {!IF(renderErr = true,'You must select at least one (1) record to release early.','')}
+                    </apex:outputPanel> 
+                    <apex:outputpanel ></apex:outputpanel>
+                </apex:panelGrid> 
+                
+            </apex:outputPanel>
+            
+            <!-- <apex:outputPanel >            
+                        <left><apex:outputText value="Note: For customers who have pending exceptions or where notification has already been sent, the Release Early functionality will be disabled." style="color:Black; font-weight:bold;"/></left>
+                    </apex:outputPanel> -->
+          
+          <!-- Block for Upload Functionality Starts -->              
+      <!--     <div style="display:none;" id="div1">
+             <apex:pageBlock rendered="{!IsRemedy}" title="Remediation - File Upload">
+                 <center>                 
+                 <apex:inputFile value="{!contentFile}" filename="{!fileNameRem}"  />                  
+                 <apex:commandButton action="{!Remedy_ReadFile}" value="Upload File" id="theButton" style="width:70px;"/>                
+                 </center>
+             </apex:pageBlock> 
+             <apex:pageBlock rendered="{!IsHosted}" title="Hosted Catalog - File Upload"> 
+                 <center>
+                 <apex:inputFile id="host1" value="{!content1}" filename="{!fileNameHost}" /> 
+                 <apex:commandButton action="{!Hosted_ReadFile}" value="Upload File" id="theButton1" style="width:70px;" rerender="form"/>
+                 </center>
+             </apex:pageBlock>
+         </div> -->
+      <!-- Upload Functionality Block Ends Here -->
+      
+          <div id="div2"> <!-- for Hide and show on clicking the upload button in the table -->
+          <apex:outputPanel id="skuPanel">                  
+           <apex:pageblock Title="{!selectedCustomerName}" rendered="{!IF((aceSkus != null && !custUploadRender),true,false)}">    
+                    <apex:outputPanel style="text-align: right;float:right;">
+                          <apex:selectList value="{!skuFilterSelection}" multiselect="false" size="1" >
+                                 <apex:actionSupport event="onchange" action="{!findskus}" rerender="skuPanel">
+                                 </apex:actionSupport>
+                                    <apex:selectOption itemValue="All" itemLabel="All"/>
+                                    <apex:selectOption itemValue="Verified" itemLabel="Verified"/>
+                                    <apex:selectOption itemValue="NotVerified" itemLabel="Not Verified"/>               
+                          </apex:selectList> 
+                    </apex:outputPanel> 
+             <br/>
+             <apex:outputLabel value="No Data Available" rendered="{!IF(aceskus.size > 0,false,true)}" />
+            <apex:pageBlockTable id="skuTab" value="{!aceSkus}" var="sku" width="100%" rendered="{!IF((aceskus.size > 0 && !custUploadRender),true,false)}"> 
+              <apex:column value="{!sku.SKU__c}"/> 
+              <apex:column value="{!sku.SKU_Description__c}"/>
+              <apex:column headerValue="Verified">
+                      <center>
+                       <apex:image value="{!$Resource.ACECheckBox}" rendered="{!NOT(sku.Remediation_Hold__c)}" style="height:20px;width:20px;"/>
+                      </center>
+                       <center>
+                       <apex:image value="{!$Resource.AceUncheck}" rendered="{!sku.Remediation_Hold__c}" style="height:20px;width:20px;"/>
+                      </center>
+                    </apex:column>
+                    
+                    <apex:column rendered="{!IF(AccessLevel=='HOSTED',true,false)}" headerValue="Verified">
+                     <center>
+                       <apex:image value="{!$Resource.ACECheckBox}" rendered="{!NOT(sku.HostedCatalog_Hold__c)}" style="height:20px;width:20px;"/>
+                     </center>
+                     <center>
+                       <apex:image value="{!$Resource.AceUncheck}" rendered="{!sku.HostedCatalog_Hold__c}" style="height:20px;width:20px;"/>
+                     </center>
+              </apex:column>
+              <apex:column value="{!sku.Current_Sell_Price__c}"/>
+              <apex:column value="{!sku.Approved_Proposed_Price__c}"/>
+              <apex:column value="{!sku.Sales_Price_Change_Effective_Date_Approv__c}"/>
+            </apex:pageBlockTable>
+            <apex:panelGrid id="buttons2" width="100%" columns="2" columnClasses="btn3,btn4">
+                <apex:outputPanel >
+                   <apex:commandButton action="{!skuprevPage}" value="<< Previous <<" status="search_Status3" rendered="{!skuDisablePrevious}" reRender="skuPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                   <apex:commandButton action="{!skunextPage}" value=">> Next >>" status="search_Status3" rendered="{!skuDisableNext}" reRender="skuPanel" style="color:white;background-color:#0099CC;background-image:none;-moz-border-radius:10px 10px 10px 10px;-webkit-border-radius:10px 10px 10px 10px; border-radius:10px 10px 10px 10px;"/>
+                </apex:outputPanel>
+            </apex:panelGrid>        
+          </apex:pageblock>        
+         </apex:outputPanel>
+         </div>
+         <apex:outputPanel rendered="{!IsRemedy}"><b>
+             Note: When making changes to the download file, please make sure to keep the template fields in the exact same order. When you are ready to upload the file with your changes, be sure to save the file in a .csv format before loading.
+             </b><br/>
+             <br/>
+             <b>Action Codes for Template (column 1):</b><br/>
+            (blank) = Keep SKU<br/>
+            ALT = Take Alt<br/>
+            DEL = Delete SKU No Alternate<br/>
+            NEW = Add new SKU to core<br/>
+         </apex:outputPanel>                                                         
+    </apex:pageBlock>  
+    <div id="overlayDiv3" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+      <apex:outputPanel id="confirmPanel3" layout="block" style="">  
+                <left><b>CONFIRMATION:</b></left><br/> 
+                <hr style="width:100%; color:#0099CC;"/>            
+                <center><b>Please confirm. The selected Customer(s) will be released early.</b></center><br/><br/>                        
+                <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                    <apex:commandButton value="Ok" id="submitRequest3" onclick="hideOverlay3();" action="{!releaseEarly}" reRender="table,errPanel"/>
+                    <apex:commandButton value="Cancel" id="closeOverlay3" onclick="hideOverlay3(); return false;"/>
+                </apex:panelGrid>   
+      </apex:outputPanel>
+     </div>
+     
+     <div id="overlayDivNO" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+      <apex:outputPanel id="confirmPanelno" layout="block" style="">  
+                <left><b>CONFIRMATION:</b></left><br/> 
+                <hr style="width:100%; color:#0099CC;"/>            
+                <center><b>You must select at least one (1) record to release early.</b></center><br/><br/>                        
+                <center>
+                    <apex:commandButton value="Ok" id="closeOverlayno" onclick="hideOverlayno(); return false;"/>
+                </center>   
+      </apex:outputPanel>
+     </div>
+     
+     <div id="showAppConfirm" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+      <apex:outputPanel id="confirmPanelApp" layout="block" style="">  
+                <left><b>CONFIRMATION:</b></left><br/> 
+                <hr style="width:100%; color:#0099CC;"/>            
+                <center><b>Please confirm. The Selected customer will be approved for Remediation.</b></center><br/><br/>                        
+                <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                    
+                    <apex:commandButton value="Ok" id="submitRequestApp" onclick="hideAppConfirm();return true;"/>
+                    
+                    
+                    <apex:commandButton value="Cancel" id="closeOverlayApp" onclick="hideAppConfirm(); return false;"/>
+                </apex:panelGrid>   
+      </apex:outputPanel>
+     </div>
+     
+     <div id="showRejConfirm" style="display:none;position:fixed; background-color:white; left:35%; top:150px; width:500px; border-style:solid;border-color:#4A9092; border-width:6px; border-radius:10px; padding:16px; z-index:10;">
+      <apex:outputPanel id="confirmPanelRej" layout="block" style="">  
+                <left><b>CONFIRMATION:</b></left><br/> 
+                <hr style="width:100%; color:#0099CC;"/>            
+                <center><b>Please confirm. The customer will be rejected from Remediation queue.</b></center><br/><br/>                        
+                <apex:panelGrid width="100%" columns="2" columnClasses="btn2,btn1">
+                    
+                    <apex:commandButton value="Ok" id="submitRequestRej" onclick="hideRejConfirm();" action="{!RejectRec}" rerender="pbTab"/>
+                    
+                    
+                    <apex:commandButton value="Cancel" id="closeOverlayRej" onclick="hideRejConfirm(); return false;"/>
+                </apex:panelGrid>   
+      </apex:outputPanel>
+     </div>
+     
+     <script>
+         function hideOverlay3(){
+             var e = document.getElementById("overlayDiv3");                 
+                e.style.display = 'none';  
+                                
+         }
+         function hideOverlayno(){
+             var e = document.getElementById("overlayDivNO");                 
+                e.style.display = 'none';  
+                                
+         }
+         
+         function showOverlay3()
+         {
+              var a = document.getElementsByTagName("input");
+                var releaseEarly = 0;
+                 for(i = 0; i < a.length; i++){              
+                    if(a[i].id.indexOf("chRelease")!=-1)
+                    {
+                        if(a[i].checked)
+                        {    
+                            releaseEarly = 1;
+                        }
+                        
+                    }
+                   
+                 }
+             
+             // alert(releaseEarly);
+             
+             if(releaseEarly == 1)
+             {
+                 var e = document.getElementById("overlayDiv3");                 
+                 e.style.display = 'block';                 
+             }
+             else if(releaseEarly == 0)
+             {
+                 var e = document.getElementById("overlayDivNO");                 
+                 e.style.display = 'block';                   
+             }
+                                
+         }    
+    
+        function Refresh_3(val)
+        {
+            Refresh_rec3();
+            //alert('alert in val>' + val.id);
+            var elem = document.getElementById(val.id);
+             //alert('elem:' + elem);
+            elem.focus();
+            
+            
+        }
+        function loading3(val) {
+            if (val) {
+              document.getElementById('contentLoading3').style.display = 'block';
+              
+            }
+            else {
+              document.getElementById('contentLoading3').style.display = 'none';
+             
+            }
+          }
+    </script>  
+    <script type="text/javascript">
+                 //$.noConflict();
+                
+                 function renderDiv(){
+                     var e = document.getElementById("div1");                                                                                    
+                        e.style.display = 'block';                
+                    
+                 }
+                 
+                 function hideDiv(){
+                     var e = document.getElementById("div1");                                                                                    
+                        e.style.display = 'none';                
+                    
+                 }
+                 
+                 function renderDiv2(){
+                     var e = document.getElementById("div2");                                                                                    
+                        e.style.display = 'block';                
+                    
+                 }
+                 function hideDiv2(){
+                     var e = document.getElementById("div2");                                                                                    
+                        e.style.display = 'none';                
+                    
+                 }                                 
+                 
+                 function showAppConfirm(){
+                      var r = confirm("Press a button!");
+                        if (r == true) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                      //var e = document.getElementById("showAppConfirm");                                                                                    
+                        //e.style.display = 'block';
+                 }
+                 function hideAppConfirm(){
+                      var e = document.getElementById("showAppConfirm");                                                                                    
+                        e.style.display = 'none';
+                 }
+                 
+                 function showRejConfirm(){
+                      var e = document.getElementById("showRejConfirm");                                                                                    
+                        e.style.display = 'block';
+                 }
+                 function hideRejConfirm(){
+                      var e = document.getElementById("showRejConfirm");                                                                                    
+                        e.style.display = 'none';
+                 }
+     </script>
+        
+</apex:form>
+     
+</apex:component>

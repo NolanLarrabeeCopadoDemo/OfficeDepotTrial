@@ -1,0 +1,20 @@
+<apex:page controller="AccountRestorectrl" tabStyle="Account_Dormant__c">
+  <apex:pageBlock title="Account Restore">
+   
+    <apex:form >
+      <apex:panelGrid columns="2" width="35%">
+         <apex:outputLabel value="Duplicate Disposition Reason"/>
+         <apex:inputField value="{!actTmp.Duplicate_Disposition__c}" required="true"/>
+         <apex:outputLabel value="Additional Comments"/>
+         <apex:inputTextarea value="{!comments}" style="height:100px;width:200px"/> 
+      </apex:panelGrid>
+
+          <apex:commandButton value="Submit" action="{!restoreAcct}"/>
+          <apex:commandButton value="Cancel" action="/{!acctDormantID }" immediate="true"/>
+
+    </apex:form>
+    
+  
+  </apex:pageBlock>  
+  
+</apex:page>

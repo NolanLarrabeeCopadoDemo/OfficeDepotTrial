@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_7067850</developerName>
+        <masterLabel>Team</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>USERS.NAME</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Eric Warshauer</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Malissa Cubberley</sourceValue>
+            </sourceValues>
+            <value>Guzman</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Piper Carter</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Deseree Boyd</sourceValue>
+            </sourceValues>
+            <value>Good</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Jennifer Korte</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Cruzita Solis</sourceValue>
+            </sourceValues>
+            <value>Clark</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>Owen Gaffey</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Roger Fairbrother</sourceValue>
+            </sourceValues>
+            <value>Arenson</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Account.AOPS_Cust_Id__c</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>Account.First_Order_Date__c</field>
+    </columns>
+    <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <filter>
+        <booleanFilter>(1 or 6) AND 2 AND 3 AND 4 AND 5</booleanFilter>
+        <criteriaItems>
+            <column>ROLLUP_DESCRIPTION</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>BDR Reps</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.Num_of_Orders_Since_Start__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.First_Order_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>lessThan</operator>
+            <value>9/30/2015</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>DUE_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>lessThan</operator>
+            <value>11/1/2015</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>TYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Customer</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>USERS.NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Talitha Searcy,Keith Arenson,Jennifer Korte</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>USERS.NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>First Order History - ACQ Attack</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList@Account.Sales_PersonID__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Account.First_Order_Date__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

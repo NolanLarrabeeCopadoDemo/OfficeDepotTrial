@@ -1,0 +1,78 @@
+<aura:component controller="siteSearchC">
+    
+    <!---init function when the component is first created -->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <!--<aura:handler name="init2" value="{! this }" action="{! c.doinit }"/>--> 
+  
+    <aura:handler event="aura:waiting" action="{!c.waiting}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.doneWaiting}"/> 
+    
+    <aura:attribute name="aopsID" type="String" default=""/>
+    <aura:attribute name="enableInfiniteLoading" type="Boolean" default="true"/>
+    <aura:attribute name="initialRows" type="Integer" default="30"/>
+    <aura:attribute name="rowsToLoad" type="Integer" default="50"/>
+    <aura:attribute name="totalNumberOfRows" type="Integer" default="300"/>
+    <aura:attribute name="loadMoreStatus" type="String" default=""/>    
+    <aura:attribute name="sdata" type="Object"/>
+    <aura:attribute name="selectedSites" type="Object"/>
+    <aura:attribute name="acdata" type="siteSearchC"/>
+    <aura:attribute name="scol" type="List"/>  
+    <aura:attribute name="srows" type="List"/> 
+    
+    <aura:attribute name="acName" type="String"/>
+    <aura:attribute name="adrKey" type="String"/>
+    <aura:attribute name="sseq" type="String"/>
+    <aura:attribute name="sstatus" type="String"/>
+    
+
+    <lightning:layout horizontalAlign="left" class="width:20px" multipleRows="true">
+     	<lightning:layoutItem flexibility="auto" padding="around-small">
+       		<lightning:input type="text" label="Address Name" name="AdrName" value="{!v.acName}"/>
+     	</lightning:layoutItem>
+        
+        <lightning:layoutItem flexibility="auto" padding="around-small">
+            <lightning:input type="text" label="Address Key" name="AdrKey" value="{!v.adrKey}"/>
+        </lightning:layoutItem>
+        
+        <lightning:layoutItem flexibility="auto" padding="around-small">
+       		<lightning:input type="text" label="Site Sequence" name="sseq" value="{!v.sseq}"/>
+     	</lightning:layoutItem>
+        
+     	<lightning:layoutItem flexibility="auto" padding="around-small">
+      		<lightning:select name="selectItem" label="Status" value="{!v.sstatus}">
+         		<option value="">choose one...</option>
+         		<option value="Active">Active</option>
+         		<option value="Inactive">Inactive</option>
+      		</lightning:select>
+     	</lightning:layoutItem>
+    </lightning:layout> 
+    
+  
+    <lightning:button label="Search" variant="brand" onclick="{!c.getSearchResult}"/>
+    <span id="Accspinner" style="display:none"><lightning:spinner variant="brand" size="large"/></span>    
+    <hr></hr>    
+    <lightning:button label="Activate" variant="brand" onclick="{!c.activateSelected}"/>
+    <lightning:button label="Deactivate" variant="brand" onclick="{!c.DeactivateSelected}"/>
+	<br></br>
+        
+    <div style="height: 500px">
+        <!--<lightning:datatable data="{! v.sdata }"
+        columns="{! v.scol }"
+        keyField="id"
+        onrowselection="{! c.getSelectedName }" 
+        enableInfiniteLoading="true"
+        onrowaction="{!c.handleRowAction}"
+        onloadmore="{!c.loadMoreData}"
+        /> -->
+        
+        <lightning:datatable data="{! v.sdata }"
+        columns="{! v.scol }"
+        keyField="id"
+        onrowselection="{! c.getSelectedName }" 
+        onrowaction="{!c.handleRowAction}"
+        aura:id="dataSitestbl"
+        />        
+    </div>
+    
+    {! v.loadMoreStatus }
+</aura:component>
