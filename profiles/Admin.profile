@@ -36420,6 +36420,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Bicycle__c.Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>BizBoxProducts__mdt.SFDC_Name__c</field>
         <readable>false</readable>
@@ -100311,16 +100316,16 @@
         <recordType>Account.Account_Setup_Requested_GT</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Account-Field-Cust</layout>
-        <recordType>Account.System</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Account-Field-Cust %28ADMIN ONLY%29</layout>
         <recordType>Account.Customer</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Field-Cust %28OfficeMax%29</layout>
         <recordType>Account.Customer_OfficeMax</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Field-Cust</layout>
+        <recordType>Account.System</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Field-Prospect</layout>
@@ -100338,12 +100343,12 @@
         <recordType>Account.Account_Setup_Requested</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Account-Field-Site</layout>
-        <recordType>Account.Site</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Account-Field-Site %28OfficeMax%29</layout>
         <recordType>Account.Site_OfficeMax</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Field-Site</layout>
+        <recordType>Account.Site</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-GrandParent</layout>
@@ -100594,6 +100599,9 @@
         <layout>Avention_Connection_Setting__mdt-Avention Connection Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Bicycle__c-Bicycle Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>BizBoxProducts__mdt-BizBox Products Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -100721,16 +100729,16 @@
         <recordType>Case.GT_Bid_Cost</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-GT Case Layout</layout>
-        <recordType>Case.GT_Cases</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Case-GT Case Layout-FEED</layout>
         <recordType>Case.GT_FSA</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-GT Case Layout-FEED</layout>
         <recordType>Case.GT_Rebate_Inquiries</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-GT Case Layout</layout>
+        <recordType>Case.GT_Cases</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-GT Cross Reference Layout-FEED</layout>
@@ -100895,16 +100903,16 @@
         <layout>Contact-Contact Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Contact-Contact Layout %28ADMIN%29</layout>
+        <recordType>Contact.Contact_US</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Contact-Contact Layout</layout>
         <recordType>Contact.GT_Contact</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Contact-Contact Layout</layout>
         <recordType>Contact.MDR_Contact</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Contact-Contact Layout %28ADMIN%29</layout>
-        <recordType>Contact.Contact_US</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Contact-Partner Contact Layout</layout>
@@ -102489,6 +102497,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>AuthorizationFormText</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Bicycle__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
